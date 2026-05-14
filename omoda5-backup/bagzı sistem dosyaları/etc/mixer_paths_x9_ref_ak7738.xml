@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+| Front End PCMs    |  SoC DSP  | Back End DAIs | Audio devices |
+
+                    *************
+I2S PCM <<====>>    *SD2     SD5*  >> DAI0 >> Digtal AMP >> Speakers
+                    *           *
+BT PCM  <<====>>    *SD3        *  >> DAI3 >> Analog AMP >> Speakers
+                    *  AK7738   *
+                    *        SD4*  << DAI1 >> DSP xf6020
+                    *           *
+                    *           *  << Analog MICs
+                    *           *
+                    *           *
+                    *           *
+                    *************
+                                                -->
+<mixer>
+    <!-- These are the initial mixer settings -->
+    <!-- stream out setting -->
+    <ctl name="XTI Frequency" value="12.288MHz" />
+    <ctl name="PLL Input Clock" value="XTI" />
+    <ctl name="CODEC Sampling Frequency" value="48kHz:48kHz" />
+    <ctl name="DSP Master Clock" value="122.88MHz" />
+    <ctl name="BUS Master Clock" value="24.576MHz" />
+    <ctl name="LRCK2/BICK2 Master" value="Master" />
+    <ctl name="LRCK3/BICK3 Master" value="Slave" />
+    <ctl name="LRCK4/BICK4 Master" value="Master" />
+    <ctl name="LRCK5/BICK5 Master" value="Master" />
+    <ctl name="SDOUT5 TDM Selector" value="TDM128_1" />
+    <ctl name="Sync Domain 2 BICK" value="256fs" />
+    <ctl name="Sync Domain 3 BICK" value="32fs" />
+    <ctl name="Sync Domain 4 BICK" value="256fs" />
+    <ctl name="Sync Domain 5 BICK" value="256fs" />
+    <!-- sd slot length setting -->
+    <ctl name="SDIN2 Slot Length" value="32bit" />
+    <ctl name="SDOUT2 Slot Length" value="32bit" />
+    <ctl name="SDIN3 Slot Length" value="16bit" />
+    <ctl name="SDOUT3 Slot Length" value="16bit" />
+    <ctl name="SDIN4 Slot Length" value="32bit" />
+    <ctl name="SDOUT4 Slot Length" value="32bit" />
+    <ctl name="SDOUT5 Slot Length" value="32bit" />
+    <ctl name="SDIN2 TDMI Setting" value="TDMI ON" />
+    <ctl name="SDOUT2 TDM Selector" value="TDM128_1" />
+    <!-- source selection -->
+    <ctl name="SDOUT2 Source Selector" value="DSP1O1" />
+    <ctl name="SDOUT3 Source Selector" value="FSCO1" />
+    <ctl name="SDOUT5 Source Selector" value="DSP1O5" />
+    <ctl name="DAC1 Source Selector" value="DSP1O3" />
+    <ctl name="DAC2 Source Selector" value="DSP1O4" />
+    <ctl name="DSP1 IN1 Source Selector" value="SRCO1" />
+    <ctl name="DSP1 IN2 Source Selector" value="SDIN2" />
+    <ctl name="DSP1 IN3 Source Selector" value="SDIN2B" />
+    <ctl name="DSP1 IN4 Source Selector" value="SDIN2C" />
+    <ctl name="DSP1 IN5 Source Selector" value="SDIN2D" />
+    <ctl name="DSP2 IN1 Source Selector" value="SDIN4" />
+    <ctl name="DSP2 IN2 Source Selector" value="SDIN4B" />
+    <ctl name="DSP2 IN3 Source Selector" value="SDIN4C" />
+    <ctl name="DSP2 IN4 Source Selector" value="SDIN4D" />
+    <ctl name="FSCONV1 Source Selector" value="DSP2O2" />
+    <ctl name="SRC1 Source Selector" value="SDIN3" />
+
+    <!-- Domain Sync -->
+    <ctl name="DSP1 Sync Domain" value="SD2" />
+    <ctl name="DSP1 Out1 Sync Domain" value="SD2" />
+    <ctl name="DSP1 Out3 Sync Domain" value="SD2" />
+    <ctl name="CODEC Sync Domain" value="SD2" />
+    <ctl name="SDIN2 Sync Domain" value="SD2" />
+    <ctl name="SDIN3 Sync Domain" value="SD3" />
+    <ctl name="ADC1 Sync Domain" value="SD2" />
+    <ctl name="SDIN4 Sync Domain" value="SD2" />
+    <ctl name="DSP2 Sync Domain" value="SD2" />
+    <ctl name="LRCK2/BICK2 Sync Domain" value="SD2" />
+    <ctl name="LRCK4/BICK4 Sync Domain" value="SD2" />
+    <ctl name="LRCK5/BICK5 Sync Domain" value="SD2" />
+    <ctl name="FSCONV1 Out Sync Domain" value="SD3" />
+    <ctl name="SRC1 Out Sync Domain" value="SD2" />
+
+    <ctl name="SDIN4 TDMI Setting" value="TDMI ON" />
+    <ctl name="SDOUT4 TDM Selector" value="TDM128_1" />
+    <ctl name="MicBias1 MUX" value="MicBias" />
+    <ctl name="MicBias2 MUX" value="MicBias" />
+    <ctl name="DSP1 OUT2 Mixer DSP2 IN1" value="1" />
+    <ctl name="DSP1 OUT5 Mixer DSP1 IN1" value="1" />
+    <ctl name="DSP1 OUT5 Mixer DSP1 IN2" value="1" />
+    <ctl name="DSP1 OUT6 Mixer DSP1 IN3" value="1" />
+    <ctl name="DSP1 OUT3 Mixer DSP1 IN4" value="1" />
+    <ctl name="DSP1 OUT4 Mixer DSP1 IN5" value="1" />
+    <ctl name="DSP2 OUT2 Mixer DSP2 IN1" value="1" />
+    <ctl name="DSP2 OUT5 Mixer DSP2 IN5" value="1" />
+    <ctl name="DSP2 OUT6 Mixer DSP2 IN6" value="1" />
+    <ctl name="DSP1 OUT1 Mixer DSP2 IN1" value="1" />
+    <ctl name="SDOUT2 Source Selector" value="DSP1O1" />
+    <ctl name="SDOUT4 Pin Output Select" value="SDOUT4" />
+    <ctl name="DSP2 IN5 Source Selector" value="ADC1" />
+    <ctl name="DSP2 IN6 Source Selector" value="ADC2" />
+    <ctl name="DSP2 Connect to DSP1" value="On" />
+    <ctl name="Param" value="Dual MAE"/>
+    <ctl name="MIC Input Volume L" value="15" />
+    <ctl name="MIC Input Volume R" value="15" />
+    <ctl name="Speaker Driver CH1 Playback Volume" value="195" />
+    <ctl name="Speaker Driver CH2 Playback Volume" value="195" />
+    <ctl name="Speaker Driver CH3 Playback Volume" value="195" />
+    <ctl name="Speaker Driver CH4 Playback Volume" value="195" />
+    <ctl name="SPK Analog CH1 Playback Vol"  value="12dB" />
+    <ctl name="SPK Analog CH2 Playback Vol"  value="12dB" />
+    <ctl name="SPK Analog CH3 Playback Vol"  value="12dB" />
+    <ctl name="SPK Analog CH4 Playback Vol"  value="12dB" />
+    <ctl name="DAC1 Digital Volume L"  value="230" />
+    <ctl name="DAC1 Digital Volume R"  value="230" />
+    <ctl name="DAC2 Digital Volume L"  value="230" />
+    <ctl name="DAC2 Digital Volume R"  value="230" />
+    <ctl name="DSP2 Connect to DSP1"  value="On" />
+    <ctl name="DAC Digital Filter Select" value="Short Delay Sharp" />
+    <ctl name="DAC Digital Volume Transition Time" value="4/fs" />
+    <ctl name="ADC1 Mute" value="0" />
+    <ctl name="ADC2 Mute" value="0" />
+    <ctl name="SDOUT4 Fast Mode Setting" value="Fast" />
+    <!-- This is usecase path settings-->
+    <path name="boot-dsp1">
+        <ctl name="DSP Firmware PRAM" value="dsp1_data2" />
+        <ctl name="DSP Firmware CRAM" value="dsp1_data2" />
+    </path>
+
+    <path name="boot-dsp2">
+        <ctl name="DSP Firmware PRAM" value="dsp2_data2" />
+        <ctl name="DSP Firmware CRAM" value="dsp2_data2" />
+    </path>
+
+    <path name="hfp">
+        <ctl name="Param" value="Tel"/>
+    </path>
+
+    <path name="hfp-mic-mute">
+        <ctl name="ADC1 Mute" value="1" />
+        <ctl name="ADC2 Mute" value="1" />
+    </path>
+
+</mixer>

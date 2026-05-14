@@ -1,0 +1,9 @@
+on post-fs
+    export DBUS_SYSTEM_BUS_ADDRESS unix:path=/dev/socket/dbus-daemon
+    start dbus-daemon
+
+service dbus-daemon /vendor/bin/dbus-daemon --system --print-address --nofork
+    class hal
+    user root
+    group root system
+seclabel u:r:dbus-daemon:s0

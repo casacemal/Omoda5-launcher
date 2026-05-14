@@ -1,0 +1,4 @@
+service vendor.broadcastradio-hal2 /vendor/bin/hw/vendor.yfve.hardware.broadcastradio@2.0-service
+    class hal
+    user audioserver
+    group audio

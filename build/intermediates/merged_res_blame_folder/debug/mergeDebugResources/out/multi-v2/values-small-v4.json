@@ -1,0 +1,43 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.omoda5.launcher-mergeDebugResources-34:/values-small-v4/values-small-v4.xml",
+            "map": [
+                {
+                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-small/dimens.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,131",
+                        "endColumns": "75,72",
+                        "endOffsets": "126,199"
+                    },
+                    "to": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,273",
+                        "endColumns": "75,72",
+                        "endOffsets": "126,341"
+                    }
+                },
+                {
+                    "source": "/home/cemal/.gradle/caches/9.0.0/transforms/a07235c87441aeba4ea8063152b5bc16/transformed/material-1.12.0/res/values-small-v4/values-small-v4.xml",
+                    "from": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "128,198",
+                        "endColumns": "69,71",
+                        "endOffsets": "193,265"
+                    },
+                    "to": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "131,201",
+                        "endColumns": "69,71",
+                        "endOffsets": "196,268"
+                    }
+                }
+            ]
+        }
+    ]
+}

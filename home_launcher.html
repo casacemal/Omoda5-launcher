@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Omoda 5 Launcher</title>
+    <style>
+        body { margin: 0; padding: 20px; background: #1a1a2e; font-family: Arial; }
+        .icon-container { text-align: center; cursor: pointer; }
+        img { width: 120px; height: 120px; border-radius: 16px; transition: transform 0.2s; }
+        img:hover { transform: scale(1.1); }
+        .label { color: white; margin-top: 10px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="icon-container" onclick="openLauncher()">
+        <img src="home_button_icon.png" alt="Home Button">
+        <div class="label">Omoda 5 Launcher</div>
+    </div>
+    
+    <script>
+        async function openLauncher() {
+            try {
+                const response = await fetch('/api/launcher', { method: 'POST' });
+                alert('Launcher açılıyor...');
+            } catch (e) {
+                // Fallback: Python script çalıştır
+                window.location.href = 'launcher://open';
+            }
+        }
+    </script>
+</body>
+</html>

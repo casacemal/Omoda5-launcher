@@ -1,0 +1,247 @@
+# Based on P108, 2-antenna front end, one antenna for BT and another antenna to WLAN to enable
+# Parallel mode of coex. BT uses Ant0 and WLAN uses Ant1. 
+NVRAMRev=$Rev: 692244 $
+cckdigfilttype=4
+#valid ofdm filter types are 0 and 1
+ofdmfilttype_2gbe=127
+ofdmfilttype_5gbe=127
+sromrev=11
+boardrev=0x1109
+#boardtype=0x0804
+boardtype=0x07b5
+# JIRA:SW4349-945 MANDATORY! Update makefile in case you touch bfl
+# Two Range TSSI boardflag setting and LTE COEX
+boardflags=0x00480201
+#boardflags=0x00020201
+boardflags2=0x00800000
+#boardflags3=0x48700106
+boardflags3=0x48700186
+wlbga5g80=1
+opt_89359B1=1
+#FIX for 5G P2P connection issue
+papd_p2p_war=1
+#boardnum=57410
+macaddr=00:90:4c:12:d0:e2
+ccode=0
+regrev=0
+antswitch=0
+pdgain5g=0
+pdgain2g=0
+# Two Range TSSI enable
+tworangetssi2g=0
+tworangetssi5g=0
+# Low power range TSSI cal enable
+lowpowerrange2g=0
+lowpowerrange5g=0
+# Low Power Range start value: 0dBm
+#olpc_thresh2g=1
+#olpc_thresh5g=0
+# Power detector parameters
+AvVmid_c0=2,130,2,130,2,130,2,130,2,130
+AvVmid_c1=2,130,2,130,2,130,2,130,2,130
+# JIRA:SW4349-945 MANDATORY! Update makefile in case you touch femctl
+#femctrl=14
+vendid=0x14e4
+# Spectrum mask parameter
+# 0: disabled /  1: mild shaping  /  2: moderate shaping  / 3: strong shaping  /  4: optimized for BCM4359
+#fdss_level_2g=4,4
+fdss_level_2g=5,5
+fdss_level_5g=4,4
+#fdss_level_2g=-1,-1
+#fdss_level_5g=-1,-1
+fdss_interp_en=1
+papd_optf=1
+devid=0x43ef
+manfid=0x2d0
+#prodid=0x052e
+nocrc=1
+sco_rssi_thresh=-75
+otpimagesize=502
+xtalfreq=37400
+rxgains2gelnagaina0=0
+rxgains2gtrisoa0=8
+rxgains2gtrelnabypa0=0
+rxgains5gelnagaina0=0
+rxgains5gtrisoa0=9
+rxgains5gtrelnabypa0=0
+rxgains5gmelnagaina0=0
+rxgains5gmtrisoa0=9
+rxgains5gmtrelnabypa0=0
+rxgains5ghelnagaina0=0
+rxgains5ghtrisoa0=9
+rxgains5ghtrelnabypa0=0
+rxgains2gelnagaina1=0
+rxgains2gtrisoa1=8
+rxgains2gtrelnabypa1=0
+rxgains5gelnagaina1=0
+rxgains5gtrisoa1=9
+rxgains5gtrelnabypa1=0
+rxgains5gmelnagaina1=0
+rxgains5gmtrisoa1=9
+rxgains5gmtrelnabypa1=0
+rxgains5ghelnagaina1=0
+rxgains5ghtrisoa1=9
+rxgains5ghtrelnabypa1=0
+rrcalphasel=1
+rxchain=3
+txchain=3
+aa2g=2
+aa5g=3
+agbg0=2
+agbg1=2
+aga0=2
+aga1=2
+tssipos2g=1
+extpagain2g=2
+tssipos5g=1
+extpagain5g=2
+tempthresh=110
+tempoffset=255
+rawtempsense=0x1ff
+
+#Two Range TSSI (PA Updated 7/25/2016 only high power PA)
+pa2gccka0=-207,7095,-878
+pa2gccka1=-207,7402,-909
+pa2ga0=-202,6449,-776
+pa2ga1=-216,6226,-757
+#low_power
+pa2ga2=-227,4338,-573
+pa2ga3=-219,4426,-576
+
+pa5gbw4080a0=-199, 7267,-898,-160,8392,-1004,-196,7294,-901,-150,8921,-1072
+pa5ga0=-215,6637,-826,-211,6688,-832,-212,6710,-835,-217,6459,-804
+pa5gbw4080a1=-199, 7405,-911,-160,8523,-1015,-196,7473,-919,-150,9172,-1090
+pa5ga1=-221,6519,-811,-210,7071,-872,-201,7290,-893,-214,6768,-836
+#low_power
+pa5ga2=-175,5347,-706,-162,5560,-733,-165,5464,-718,-184,5283,-700
+pa5ga3=-189,4980,-664,-191,4808,-644,-170,5225,-702,-185,4984,-667
+
+
+maxp2ga0=74
+maxp2ga1=74
+maxp5ga0=74,74,74,74
+maxp5ga1=74,74,74,74
+maxulbp2ga0=74
+maxulbp2ga1=74
+maxulbp5ga0=74,74,74,74
+maxulbp5ga1=74,74,74,74
+subband5gver=0x4
+paparambwver=3
+cckpwroffset0=1
+cckpwroffset1=1
+cckulbpwroffset0=-6
+cckulbpwroffset1=-6
+pdoffset40ma0=0x2222
+pdoffset80ma0=0x2222
+pdoffset40ma1=0x1333
+pdoffset80ma1=0x2333
+cckbw52gpo=0
+cckbw102gpo=0
+cckbw202gpo=0
+cckbw20ul2gpo=0
+mcsbw52gpo=0xa9855422
+mcsbw102gpo=0xa9855422
+mcsbw202gpo=0xfe855422
+mcsbw402gpo=0xfe855422
+dot11agofdmhrbw52gpo=0x6622
+dot11agofdmhrbw102gpo=0x6622
+dot11agofdmhrbw202gpo=0x6622
+ofdmlrbw202gpo=0x0000
+mcsbw55glpo=0xa9866663
+mcsbw105glpo=0xa9866663
+mcsbw205glpo=0xfe866663
+mcsbw405glpo=0xfe866663
+mcsbw805glpo=0xfe866666
+mcsbw1605glpo=0
+mcsbw55gmpo=0xd9866663
+mcsbw105gmpo=0xd9866663
+mcsbw205gmpo=0xfe866663
+mcsbw405gmpo=0xfe866663
+mcsbw805gmpo=0xfe866666
+mcsbw1605gmpo=0
+mcsbw55ghpo=0xdc866663
+mcsbw105ghpo=0xdc866663
+mcsbw205ghpo=0xfe866663
+mcsbw405ghpo=0xfe866663
+mcsbw805ghpo=0xfe866666
+mcsbw1605ghpo=0
+mcslr5glpo=0x0000
+mcslr5gmpo=0x0000
+mcslr5ghpo=0x0000
+sb20in40hrpo=0x0
+sb20in80and160hr5glpo=0x0
+sb40and80hr5glpo=0x0
+sb20in80and160hr5gmpo=0x0
+sb40and80hr5gmpo=0x0
+sb20in80and160hr5ghpo=0x0
+sb40and80hr5ghpo=0x0
+sb20in40lrpo=0x0
+sb20in80and160lr5glpo=0x0
+sb40and80lr5glpo=0x0
+sb20in80and160lr5gmpo=0x0
+sb40and80lr5gmpo=0x0
+sb20in80and160lr5ghpo=0x0
+sb40and80lr5ghpo=0x0
+dot11agduphrpo=0x0
+dot11agduplrpo=0x0
+phycal_tempdelta=15
+temps_period=15
+temps_hysteresis=5
+ltecxmux=0
+ltecxpadnum=0x0504
+ltecxfnsel=0x44
+ltecxgcigpio=0x04
+#OOB params
+#device_wake_opt=1
+#host_wake_opt=0
+swctrlmap_2g=0x00001000,0x00000800,0x00001000,0x000000,0x1ff								
+swctrlmapext_2g=0x00000000,0x00000000,0x00000000,0x000000,0x001
+swctrlmap_5g=0x00000080,0x00004040,0x00000080,0x000000,0x1ff								
+swctrlmapext_5g=0x00000100,0x00000000,0x00000100,0x000000,0x001
+fem_table_init_val=0x00001000,0x00000080
+rssi_delta_2g_c0=2,1,2,1
+rssi_delta_2g_c1=-2,0,-2,0
+rssi_delta_5gl_c0=4,3,2,2,5,5
+rssi_delta_5gml_c0=4,2,2,2,5,5
+rssi_delta_5gmu_c0=3,2,1,2,4,5
+rssi_delta_5gh_c0=2,5,1,5,3,8
+rssi_delta_5gl_c1=3,1,3,2,5,3
+rssi_delta_5gml_c1=3,1,3,2,5,3
+rssi_delta_5gmu_c1=2,1,2,2,4,3
+rssi_delta_5gh_c1=2,3,1,5,4,6
+
+muxenab=1
+#avs_enab=1
+
+# 11b CDD mode 
+# 0: enabled  /  1: disabled, Antenna diversity
+cck_onecore_tx=1
+
+# BTC setting
+#btc mode 5, for dynamic desense, could tune later
+btcdyn_flags=0
+btcdyn_default_btc_mode=5
+btc_mode=4
+
+powoffs2gtna0=-2,2,2,2,1,0,1,2,2,2,1,-1,0,0
+powoffs2gtna1=1,1,2,2,1,2,1,2,2,2,1,1,0,0
+
+ed_thresh2g=-63
+ed_thresh5g=-63
+
+##### eps_offset #########
+#eps_shift0=-1,-1,-1,-1
+#eps_shift1=-4,-6,-1,-1
+#eps_shift2=-1,-1,-1,-3,-3,-3
+
+## FCC power limit on ch12/13  FCC power limit in quarter dB
+#fccpwrch12=40
+#fccpwrch13=1
+#fccpwroverride=0
+
+#May 5 2016
+eps_shift0=-1,-1,-3,-1,-1,-1
+eps_shift1=-4,-6,-2,-1,-1,-1
+eps_shift2=-1,-1,-1,-3,-3,-3
+
+adjpaldo=0x4

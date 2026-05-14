@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.omoda5.launcher-mergeReleaseResources-30:/values-ldltr-v21/values-ldltr-v21.xml",
+            "map": [
+                {
+                    "source": "/home/cemal/.gradle/caches/9.0.0/transforms/6434757f633c15d24e7fe4077d4be43b/transformed/appcompat-1.7.0/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "112",
+                        "endOffsets": "163"
+                    }
+                }
+            ]
+        }
+    ]
+}

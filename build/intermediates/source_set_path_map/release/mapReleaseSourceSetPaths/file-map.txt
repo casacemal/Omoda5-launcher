@@ -1,0 +1,36 @@
+com.omoda5.launcher-jetified-annotation-experimental-1.4.0-0 /home/cemal/.gradle/caches/9.0.0/transforms/1e837631fa1d6b75a867a29add10a849/transformed/jetified-annotation-experimental-1.4.0/res
+com.omoda5.launcher-jetified-activity-1.8.0-1 /home/cemal/.gradle/caches/9.0.0/transforms/1fc197454161e4f4f1491cc7cd29e9ef/transformed/jetified-activity-1.8.0/res
+com.omoda5.launcher-jetified-emoji2-1.3.0-2 /home/cemal/.gradle/caches/9.0.0/transforms/26355e9751793087c9407d22ee436141/transformed/jetified-emoji2-1.3.0/res
+com.omoda5.launcher-core-1.13.1-3 /home/cemal/.gradle/caches/9.0.0/transforms/2d5f869b6c10403612ff8e33e01d70b1/transformed/core-1.13.1/res
+com.omoda5.launcher-jetified-emoji2-views-helper-1.3.0-4 /home/cemal/.gradle/caches/9.0.0/transforms/31f16441f186401212d5c928bf101adc/transformed/jetified-emoji2-views-helper-1.3.0/res
+com.omoda5.launcher-recyclerview-1.3.1-5 /home/cemal/.gradle/caches/9.0.0/transforms/3689f60540f55e154a17a72360d25df2/transformed/recyclerview-1.3.1/res
+com.omoda5.launcher-core-runtime-2.2.0-6 /home/cemal/.gradle/caches/9.0.0/transforms/37025eda3fce3e21dc2d6b34941d1ab6/transformed/core-runtime-2.2.0/res
+com.omoda5.launcher-drawerlayout-1.1.1-7 /home/cemal/.gradle/caches/9.0.0/transforms/379ec7b2cc645e9e776f8fc2bd1a2468/transformed/drawerlayout-1.1.1/res
+com.omoda5.launcher-jetified-profileinstaller-1.3.1-8 /home/cemal/.gradle/caches/9.0.0/transforms/37f44864e1c7962ef1565d271443f10c/transformed/jetified-profileinstaller-1.3.1/res
+com.omoda5.launcher-lifecycle-runtime-2.6.2-9 /home/cemal/.gradle/caches/9.0.0/transforms/3892bb74600e9411e12b8cb50444cb64/transformed/lifecycle-runtime-2.6.2/res
+com.omoda5.launcher-constraintlayout-2.1.4-10 /home/cemal/.gradle/caches/9.0.0/transforms/4c63c692d53225707bc910aec5f329e0/transformed/constraintlayout-2.1.4/res
+com.omoda5.launcher-coordinatorlayout-1.1.0-11 /home/cemal/.gradle/caches/9.0.0/transforms/5429a07cc021c18b37006ca99ae0711a/transformed/coordinatorlayout-1.1.0/res
+com.omoda5.launcher-fragment-1.5.4-12 /home/cemal/.gradle/caches/9.0.0/transforms/5e0056abc9a721f8809e13c9dfaac1c9/transformed/fragment-1.5.4/res
+com.omoda5.launcher-jetified-core-ktx-1.13.1-13 /home/cemal/.gradle/caches/9.0.0/transforms/626ccb3ab595f6ad5dee51ccf8421f41/transformed/jetified-core-ktx-1.13.1/res
+com.omoda5.launcher-appcompat-1.7.0-14 /home/cemal/.gradle/caches/9.0.0/transforms/6434757f633c15d24e7fe4077d4be43b/transformed/appcompat-1.7.0/res
+com.omoda5.launcher-jetified-viewpager2-1.1.0-15 /home/cemal/.gradle/caches/9.0.0/transforms/78ae8578cbc5a695c15d705137de6dad/transformed/jetified-viewpager2-1.1.0/res
+com.omoda5.launcher-jetified-startup-runtime-1.1.1-16 /home/cemal/.gradle/caches/9.0.0/transforms/822fc9fcdd1181c9f7901abf3d7f64a9/transformed/jetified-startup-runtime-1.1.1/res
+com.omoda5.launcher-jetified-lifecycle-viewmodel-savedstate-2.6.2-17 /home/cemal/.gradle/caches/9.0.0/transforms/8293014b9c7861d039c151d0d1dbe992/transformed/jetified-lifecycle-viewmodel-savedstate-2.6.2/res
+com.omoda5.launcher-lifecycle-viewmodel-2.6.2-18 /home/cemal/.gradle/caches/9.0.0/transforms/980d63076fe75a17812f7ade16a6adca/transformed/lifecycle-viewmodel-2.6.2/res
+com.omoda5.launcher-jetified-savedstate-1.2.1-19 /home/cemal/.gradle/caches/9.0.0/transforms/9fb2b5e73d63e1b8356df0c69ead34a7/transformed/jetified-savedstate-1.2.1/res
+com.omoda5.launcher-lifecycle-livedata-2.6.2-20 /home/cemal/.gradle/caches/9.0.0/transforms/a912cd347e7b3bcc4593b74e15677977/transformed/lifecycle-livedata-2.6.2/res
+com.omoda5.launcher-cardview-1.0.0-21 /home/cemal/.gradle/caches/9.0.0/transforms/b1812978a655422ce72c7aa7c5a487dc/transformed/cardview-1.0.0/res
+com.omoda5.launcher-material-1.12.0-22 /home/cemal/.gradle/caches/9.0.0/transforms/b5e201ac598cefbc93acc2d34e7c2330/transformed/material-1.12.0/res
+com.omoda5.launcher-jetified-customview-poolingcontainer-1.0.0-23 /home/cemal/.gradle/caches/9.0.0/transforms/c6c82733a20bb557fe798e2f9a9f0233/transformed/jetified-customview-poolingcontainer-1.0.0/res
+com.omoda5.launcher-jetified-lifecycle-process-2.6.2-24 /home/cemal/.gradle/caches/9.0.0/transforms/cc2a53e471ed8e219bfad6acbd4ed995/transformed/jetified-lifecycle-process-2.6.2/res
+com.omoda5.launcher-transition-1.5.0-25 /home/cemal/.gradle/caches/9.0.0/transforms/d1e40d4c23685c07ff160a8bbf46f4d1/transformed/transition-1.5.0/res
+com.omoda5.launcher-jetified-appcompat-resources-1.7.0-26 /home/cemal/.gradle/caches/9.0.0/transforms/e7bb10261fa1d719e0c68663e654737e/transformed/jetified-appcompat-resources-1.7.0/res
+com.omoda5.launcher-lifecycle-livedata-core-2.6.2-27 /home/cemal/.gradle/caches/9.0.0/transforms/f6020d7d73ea1086550fcfac5db423fd/transformed/lifecycle-livedata-core-2.6.2/res
+com.omoda5.launcher-pngs-28 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/generated/res/pngs/release
+com.omoda5.launcher-resValues-29 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/generated/res/resValues/release
+com.omoda5.launcher-packageReleaseResources-30 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/incremental/release/packageReleaseResources/merged.dir
+com.omoda5.launcher-packageReleaseResources-31 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/incremental/release/packageReleaseResources/stripped.dir
+com.omoda5.launcher-merged-not-compiled-resources-32 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/merged-not-compiled-resources/release
+com.omoda5.launcher-release-33 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/merged_res/release/mergeReleaseResources
+com.omoda5.launcher-main-34 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res
+com.omoda5.launcher-release-35 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/release/res

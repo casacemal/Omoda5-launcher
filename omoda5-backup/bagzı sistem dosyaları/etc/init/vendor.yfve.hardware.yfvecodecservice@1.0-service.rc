@@ -1,0 +1,4 @@
+service yfvecodecservice-1-0 /vendor/bin/hw/vendor.yfve.hardware.yfvecodecservice@1.0-service
+    class hal
+    user system
+    group audio media sdcard_r

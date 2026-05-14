@@ -1,0 +1,6 @@
+on post-fs
+    start yfve_diag
+    
+service yfve_diag /vendor/bin/yfve_diag
+    class main
+seclabel u:r:yfve_diag:s0

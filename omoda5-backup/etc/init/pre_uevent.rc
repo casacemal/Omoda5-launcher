@@ -1,0 +1,8 @@
+on early-uevent
+   start ueventd
+
+service ueventd /system/bin/ueventd
+    class core
+    critical
+    seclabel u:r:ueventd:s0
+    shutdown critical

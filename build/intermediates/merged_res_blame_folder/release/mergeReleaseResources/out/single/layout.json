@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.omoda5.launcher-mergeReleaseResources-31:/layout/item_vehicle_property.xml",
+        "source": "com.omoda5.launcher-main-34:/layout/item_vehicle_property.xml"
+    },
+    {
+        "merged": "com.omoda5.launcher-mergeReleaseResources-31:/layout/item_page_grid.xml",
+        "source": "com.omoda5.launcher-main-34:/layout/item_page_grid.xml"
+    },
+    {
+        "merged": "com.omoda5.launcher-mergeReleaseResources-31:/layout/overlay_sidebar.xml",
+        "source": "com.omoda5.launcher-main-34:/layout/overlay_sidebar.xml"
+    },
+    {
+        "merged": "com.omoda5.launcher-mergeReleaseResources-31:/layout/activity_main.xml",
+        "source": "com.omoda5.launcher-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.omoda5.launcher-mergeReleaseResources-31:/layout/fragment_vehicle_data.xml",
+        "source": "com.omoda5.launcher-main-34:/layout/fragment_vehicle_data.xml"
+    },
+    {
+        "merged": "com.omoda5.launcher-mergeReleaseResources-31:/layout/item_launcher_icon.xml",
+        "source": "com.omoda5.launcher-main-34:/layout/item_launcher_icon.xml"
+    }
+]

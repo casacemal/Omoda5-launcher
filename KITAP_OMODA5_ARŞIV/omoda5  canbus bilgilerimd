@@ -1,0 +1,32 @@
+# V2 — Kapı Property’leri (Chery / AAOS)
+
+Bu dosya, log/dumpsys çıktılarından **kapı/kapak/kilit** ile ilgili tespit edilen property’leri tek yerde toplar.
+
+## 1) Kapı konumu (açık/kapalı)
+- **DOOR_POS** (`0x16400b00`)
+  - access: read/write (`0x3`) | changeMode: on-change (`0x1`)
+  - areaId: `1, 4, 0x10, 0x40, 0x20000000`
+  - değer aralığı (log): `i min=0, i max=1` → 0 kapalı / 1 açık (pratikte)
+
+## 2) Kapı kilidi
+- **DOOR_LOCK** (`0x16200b02`)
+  - access: read/write (`0x3`) | changeMode: on-change (`0x1`)
+  - areaId: `1, 4, 0x10, 0x40`
+
+## 3) Yakıt kapağı
+- **FUEL_DOOR_OPEN** (`0x11200308`)
+- **INFO_FUEL_DOOR_LOCATION** (`0x11400108`) *(read-only bilgi)*
+
+## 4) Şarj port kapağı
+- **EV_CHARGE_PORT_OPEN** (`0x11200309`) *(varsa EV/Hibrit konfigürasyonda aktif olur)*
+
+## AreaId hızlı map
+- `1`  → sol ön
+- `4`  → sağ ön
+- `0x10` → sol arka
+- `0x40` → sağ arka
+- `0x20000000` → bagaj kapağı (hatch/trunk)
+
+## Uygulamada okuma önerisi
+- Sürekli polling yerine `registerCallback()` ile **subscribe** et.
+- UI’de kapı bilgisi sürüşte kritik olabileceği için **debounce + rate-limit** uygula.

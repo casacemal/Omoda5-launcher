@@ -1,0 +1,3 @@
+com.omoda5.launcher.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

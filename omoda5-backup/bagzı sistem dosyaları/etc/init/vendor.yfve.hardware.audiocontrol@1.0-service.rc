@@ -1,0 +1,4 @@
+service vendor.audiocontrol-hal-1.0 /vendor/bin/hw/vendor.yfve.hardware.audiocontrol@1.0-service
+    class hal
+    user audioserver
+    group system

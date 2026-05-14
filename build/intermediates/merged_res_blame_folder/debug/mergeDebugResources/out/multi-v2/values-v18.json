@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.omoda5.launcher-mergeDebugResources-34:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "/home/cemal/.gradle/caches/9.0.0/transforms/f4ea65aa642446e5e4907e0957b16308/transformed/appcompat-1.7.0/res/values-v18/values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

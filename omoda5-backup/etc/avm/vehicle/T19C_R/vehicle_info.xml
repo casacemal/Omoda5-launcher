@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vehicle_config>
+	<type>T19C</type>
+	<measure>
+        <!--车长、宽、轴距、轮距、后轮到车尾距离(后悬长)、车轮半径-->
+        <length>4.374</length>
+        <width>1.824</width>
+        <height>1.746</height>
+        <wheel_base>2.61</wheel_base>
+        <tread>1.604</tread>
+        <rear_overhang>0.875</rear_overhang>
+        <wheel_radius>0.314</wheel_radius>
+    </measure>
+    <trajectory_wheel>
+        <!-- 车轮辅助线，前后长度以及前、后、左右安全距离 -->
+        <front_length>3.2</front_length>
+        <back_length>3.65</back_length>
+        <save_distance>0.3,0.15,0.128</save_distance>
+        <!-- 图像区域信息 -->
+        <image_full>0.0238,0.012,0.9524,0.976</image_full>
+        <image_left>0.0238,0.012,0.5,0.976</image_left>
+        <image_right>0.5,0.012,0.4762,0.976</image_right>
+    </trajectory_wheel>
+    <trajectory_width>
+        <!-- 车宽辅助线，前后长度以及前、后、左右安全距离 -->
+        <front_length>3.0</front_length>
+        <back_length>3.2</back_length>
+        <save_distance>0.0,0.3,0.128</save_distance>
+        <!-- 图像区域信息 -->
+        <image_full>0.0238,0.012,0.9524,0.976</image_full>
+        <image_left>0.0238,0.012,0.5,0.976</image_left>
+        <image_right>0.5,0.012,0.4762,0.976</image_right>
+    </trajectory_width>
+    <trajectory_rvc>
+        <!-- 用于RVC后视轨迹线的参数，前后长度以及前、后、左右安全距离(rvc无前视轨迹线) -->
+        <front_length>0.0</front_length>
+        <back_length>3.2</back_length>
+        <save_distance>0.0,0.3,0.128</save_distance>
+        <!-- 图像区域信息,rvc轨迹线素材 -->
+        <image_full>0.022,0.015,0.954,0.969</image_full>
+        <image_left>0.0238,0.012,0.5,0.976</image_left>
+        <image_right>0.5,0.012,0.4762,0.976</image_right>
+    </trajectory_rvc>
+    <radar>
+        <!--雷达告警图标距离-->
+        <warning1>1.5</warning1>
+        <warning2>0.9</warning2>
+        <warning3>0.6</warning3>
+        <!--雷达警告进入和退出放大视角的距离-->
+        <enter_distance>0.4,0.6,0.6,0.4</enter_distance>
+        <exit_distance>0.6,0.9,0.9,0.6</exit_distance>
+    </radar>
+    <regions>
+        <!--亮度平衡ROI-->
+        <regionA>-2000, 2400, 1000, 1000</regionA>
+        <regionB>1000, 2400, 1000, 1000</regionB>
+        <regionC>1000, -3400, 1000, 1000</regionC>
+        <regionD>-2000, -3400, 1000, 1000</regionD>
+        <region0L>-2500, 2400, 2000, 2000</region0L>
+        <region0R>500, 2400, 2000, 2000</region0R>
+        <region1L>1000, 1000, 1000, 2000</region1L>
+        <region1R>1000, -3000, 1000, 2000</region1R>
+        <region2L>500, -4400, 2000, 2000</region2L>
+        <region2R>-2500, -4400, 2000, 2000</region2R>
+        <region3L>-2000, -3000, 1000, 2000</region3L>
+        <region3R>-2000, 1000, 1000, 2000</region3R>
+        <!--AWB平衡ROI为每路中间区域-->
+        <region0M>-1000, 2400, 2000, 1000</region0M>
+        <region1M>1000, -1000, 500, 3000</region1M>
+        <region2M>-1000, -3400, 2000, 1000</region2M>
+        <region3M>-1400, -1000, 500, 3000</region3M>
+    </regions>
+	<plate_position>
+		<fuel_vehicle>
+			<front type_id="transform">
+				<T>0, 0.50, -2.377</T>
+				<R>180.0, 0.0, 0.0</R>
+				<S>1.0, 1.0, 1.0</S>
+			</front>
+			<rear type_id="transform">
+				<T>0, 0.59, 2.23</T>
+				<R>0.0, 0.0, -10.0</R>
+				<S>1.0, 1.0, 1.0</S>
+			</rear>
+		</fuel_vehicle>
+		<new_energy_vehicle>
+				<front type_id="transform">
+				<T>0, 0.50, -2.377</T>
+				<R>180.0, 0.0, 0.0</R>
+				<S>1.0, 1.0, 1.0</S>
+			</front>
+			<rear type_id="transform">
+				<T>0, 0.59, 2.23</T>
+				<R>0.0, 0.0, -10.0</R>
+				<S>1.0, 1.0, 1.0</S>
+			</rear>
+		</new_energy_vehicle>
+	</plate_position>
+</vehicle_config>

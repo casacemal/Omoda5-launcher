@@ -1,0 +1,10 @@
+on post-fs
+    start start_natp
+
+service start_natp /vendor/bin/natp -f /speech/assets/cerence/natp.cfg -s natp_config
+    class main
+    user root
+    group root system shell
+    setenv LD_LIBRARY_PATH /system/apex/com.android.runtime.release/lib64:/vendor/lib64/natp/:/system/lib64/
+    disabled
+    seclabel u:r:start_natp:s0

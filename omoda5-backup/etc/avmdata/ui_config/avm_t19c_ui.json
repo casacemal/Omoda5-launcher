@@ -1,0 +1,847 @@
+{
+	"layout_name": "t19c_main",
+	"layout_wares": [
+		{
+			"ware_name": "close_button",
+			"ware_position": [30.0, 15.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/360_back_btn_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/360_back_btn_pc.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/360_back_btn_pc.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/360_back_btn_d.png"
+			}
+		},
+		{
+			"ware_name": "setting_button",
+			"ware_position": [246.0, 15.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/360_setup_btn_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/360_setup_btn_pc.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/360_setup_btn_pc.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/360_setup_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "birdview_button",
+			"ware_position": [462.0, 15.0],
+			"ware_type": "select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/360_2d_btn_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/360_2d_btn_pc.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/360_2d_btn_pc.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/360_2d_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "3d_button",
+			"ware_position": [678.0, 15.0],
+			"ware_type": "select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/360_3d_btn_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/360_3d_btn_pc.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/360_3d_btn_pc.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/360_3d_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "front_button",
+			"ware_position": [894.0, 15.0],
+			"ware_type": "select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/360_front_btn_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/360_front_btn_pc.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/360_front_btn_pc.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/360_front_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "rear_button",
+			"ware_position": [1110.0, 15.0],
+			"ware_type": "select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/360_rear_btn_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/360_rear_btn_pc.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/360_rear_btn_pc.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/360_rear_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "car_image",
+			"ware_position": [1516.0, 160.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car2_bg.png"
+			}
+		},
+		{
+			"ware_name": "label_image",
+			"ware_position": [1237.0, 258.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_label_btn.png"
+			}
+		},
+		{
+			"ware_name": "camera_dot_image",
+			"ware_position": [1415.0, 81.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_around_camera_dot.png"
+			}
+		},
+		{
+			"ware_name": "warning_image",
+			"ware_position": [1584.0, 626.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_warning_icon.png"
+			}
+		},
+		{
+			"ware_name": "car_enlarge_btn_n_top",
+			"ware_position": [1592.0, 201.0],
+			"ware_type": "car_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_enlarge_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "car_enlarge_btn_n_bottom",
+			"ware_position": [1592.0, 469.0],
+			"ware_type": "car_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_enlarge_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "car_enlarge_btn_p_top",
+			"ware_position": [1592.0, 201.0],
+			"ware_type": "car_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_enlarge_btn_p.png"
+			}
+		},
+		{
+			"ware_name": "car_enlarge_btn_p_bottom",
+			"ware_position": [1592.0, 469.0],
+			"ware_type": "car_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_enlarge_btn_p.png"
+			}
+		},
+		{
+			"ware_name": "car_camera1_image",
+			"ware_position": [1582.0, 68.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera1.png"
+			}
+		},
+		{
+			"ware_name": "car_camera2_image",
+			"ware_position": [1727.0, 171.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera2.png"
+			}
+		},
+		{
+			"ware_name": "car_camera3_image",
+			"ware_position": [1761.0, 320.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera3.png"
+			}
+		},
+		{
+			"ware_name": "car_camera4_image",
+			"ware_position": [1727.0, 470.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera4.png"
+			}
+		},
+		{
+			"ware_name": "car_camera5_image",
+			"ware_position": [1582.0, 569.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera5.png"
+			}
+		},
+		{
+			"ware_name": "car_camera6_image",
+			"ware_position": [1436.0, 470.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera6.png"
+			}
+		},
+		{
+			"ware_name": "car_camera7_image",
+			"ware_position": [1410.0, 320.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera7.png"
+			}
+		},
+		{
+			"ware_name": "car_camera8_image",
+			"ware_position": [1436.0, 171.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_camera8.png"
+			}
+		},
+		{
+			"ware_name": "menu_bg",
+			"ware_position": [0.0, 0.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_setup_list_bg.png"
+			}
+		},
+		{
+			"ware_name": "menu_list_line",
+			"ware_position": [0.0, 100.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_setup_list_line.png"
+			}
+		},
+		{
+			"ware_name": "menu_list_btn_n",
+			"ware_position": [325.0, 0.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_setup_list_more_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "menu_list_btn_p",
+			"ware_position": [325.0, 0.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_setup_list_more_btn_p.png"
+			}
+		},
+		{
+			"ware_name": "menu_list_switch_off",
+			"ware_position": [280.0, 31.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_setup_list_swich_off_bg.png"
+			}
+		},
+		{
+			"ware_name": "menu_list_switch_on",
+			"ware_position": [280.0, 31.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_setup_list_swich_on_bg.png"
+			}
+		},
+		{
+			"ware_name": "menu_list_btn_switch",
+			"ware_position": [280.0, 31.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_setup_list_swich_btn.png"
+			}
+		},
+		{
+			"ware_name": "menu_popup_bg",
+			"ware_position": [606.0, 197.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_popup_bg.png"
+			}
+		},
+		{
+			"ware_name": "menu_popup_bar",
+			"ware_position": [730.0, 328.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_popup_bar.png"
+			}
+		},
+		{
+			"ware_name": "menu_popup_slider",
+			"ware_position": [719.0, 322.0],
+			"ware_type": "menu_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_popup_slider.png"
+			}
+		},
+		{
+			"ware_name": "menu_popup_button",
+			"ware_position": [850.0, 411.0],
+			"ware_type": "menu_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/360_popup_btn_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/360_popup_btn_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/360_popup_btn_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/360_popup_btn_n.png"
+			}
+		},
+		{
+			"ware_name": "radar_left_1",
+			"ware_position": [1535.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_left1_1.png"
+			}
+		},
+		{
+			"ware_name": "radar_left_2",
+			"ware_position": [1535.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_left1_2.png"
+			}
+		},
+		{
+			"ware_name": "radar_left_3",
+			"ware_position": [1535.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_left1_3.png"
+			}
+		},
+		{
+			"ware_name": "radar_left_4",
+			"ware_position": [1535.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_left1_4.png"
+			}
+		},
+		{
+			"ware_name": "radar_mid_1",
+			"ware_position": [1558.0, 577.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_1.png"
+			}
+		},
+		{
+			"ware_name": "radar_mid_2",
+			"ware_position": [1558.0, 577.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_2.png"
+			}
+		},
+		{
+			"ware_name": "radar_mid_3",
+			"ware_position": [1558.0, 577.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_3.png"
+			}
+		},
+		{
+			"ware_name": "radar_mid_4",
+			"ware_position": [1558.0, 577.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_4.png"
+			}
+		},
+		{
+			"ware_name": "radar_right_1",
+			"ware_position": [1653.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_right1_1.png"
+			}
+		},
+		{
+			"ware_name": "radar_right_2",
+			"ware_position": [1653.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_right1_2.png"
+			}
+		},
+		{
+			"ware_name": "radar_right_3",
+			"ware_position": [1653.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_right1_3.png"
+			}
+		},
+		{
+			"ware_name": "radar_right_4",
+			"ware_position": [1653.0, 545.0],
+			"ware_type": "radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car_rear_right1_4.png"
+			}
+		},
+		{
+			"ware_name": "car1_bg",
+			"ware_position": [1571.0, 388.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/360_car1_bg.png"
+			}
+		},
+		{
+			"ware_name": "rvc_left_bg",
+			"ware_position": [0.0, 0.0],
+			"ware_type": "rvc_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_left_bg.png"
+			}
+		},
+		{
+			"ware_name": "rvc_car",
+			"ware_position": [220.0, 136.0],
+			"ware_type": "rvc_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_car.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_left_1",
+			"ware_position": [27.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_left_1.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_left_2",
+			"ware_position": [27.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_left_2.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_left_3",
+			"ware_position": [27.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_left_3.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_left_4",
+			"ware_position": [27.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_left_4.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_mid_1",
+			"ware_position": [96.0, 511.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_mid_1.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_mid_2",
+			"ware_position": [96.0, 511.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_mid_2.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_mid_3",
+			"ware_position": [96.0, 511.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_mid_3.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_mid_4",
+			"ware_position": [96.0, 511.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_mid_4.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_right_1",
+			"ware_position": [386.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_right_1.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_right_2",
+			"ware_position": [386.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_right_2.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_right_3",
+			"ware_position": [386.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_right_3.png"
+			}
+		},
+		{
+			"ware_name": "rvc_radar_right_4",
+			"ware_position": [386.0, 440.0],
+			"ware_type": "rvc_radar_image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/RVC/avm_3_right_4.png"
+			}
+		},
+		{
+			"ware_name": "calib_auto_button",
+			"ware_position": [498.0, 328.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png"
+			}
+		},
+		{
+			"ware_name": "calib_manual_button",
+			"ware_position": [851.0, 328.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png"
+			}
+		},
+		{
+			"ware_name": "calib_exit_button",
+			"ware_position": [1203.0, 328.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png"
+			}
+		},
+		{
+			"ware_name": "auto_calib_pop_bg",
+			"ware_position": [286.0, 224.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/calibration_popup_bg1.png"
+			}
+		},
+		{
+			"ware_name": "auto_calib_success_button",
+			"ware_position": [550.0, 384.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn2_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn2_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn2_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn2_n.png"
+			}
+		},
+		{
+			"ware_name": "auto_calib_failed_retry_button",
+			"ware_position": [424.0, 384.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn2_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn2_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn2_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn2_n.png"
+			}
+		},
+		{
+			"ware_name": "auto_calib_failed_exit_button",
+			"ware_position": [676.0, 384.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png"
+			}
+		},
+		{
+			"ware_name": "calib_door_open_exit_button",
+			"ware_position": [550.0, 384.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_bottom_btn_bg",
+			"ware_position": [0.0, 632.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/calibration_bottom_btn_bg.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_up_button",
+			"ware_position": [225.0, 636.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn1_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_bottom_btn1_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn1_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_bottom_btn1_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_down_button",
+			"ware_position": [375.0, 636.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn2_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_bottom_btn2_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn2_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_bottom_btn2_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_left_button",
+			"ware_position": [525.0, 636.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn3_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_bottom_btn3_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn3_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_bottom_btn3_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_right_button",
+			"ware_position": [675.0, 636.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn4_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_bottom_btn4_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn4_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_bottom_btn4_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_save_button",
+			"ware_position": [825.0, 636.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn5_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_bottom_btn5_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn5_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_bottom_btn5_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_exit_button",
+			"ware_position": [975.0, 636.0],
+			"ware_type": "button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn6_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_bottom_btn6_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_bottom_btn6_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_bottom_btn6_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_front_or_rear_saddle_point_1_button",
+			"ware_position": [250.0, 424.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_front_or_rear_saddle_point_2_button",
+			"ware_position": [300.0, 334.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_front_or_rear_saddle_point_3_button",
+			"ware_position": [800.0, 364.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_front_or_rear_saddle_point_4_button",
+			"ware_position": [950.0, 334.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_front_or_rear_saddle_point_5_button",
+			"ware_position": [1000.0, 424.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_red.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_left_or_right_saddle_point_1_button",
+			"ware_position": [250.0, 424.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_left_or_right_saddle_point_2_button",
+			"ware_position": [300.0, 334.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_left_or_right_saddle_point_3_button",
+			"ware_position": [800.0, 364.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_left_or_right_saddle_point_4_button",
+			"ware_position": [950.0, 334.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_left_or_right_saddle_point_5_button",
+			"ware_position": [1000.0, 424.0],
+			"ware_type": "manual_calib_select_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/saddle_point/mark_point_cyan.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/saddle_point/mark_point_white.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_pop_save_button",
+			"ware_position": [424.0, 384.0],
+			"ware_type": "manual_calib_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn2_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn2_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn2_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn2_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_pop_cancel_button",
+			"ware_position": [676.0, 384.0],
+			"ware_type": "manual_calib_button",
+			"ware_property": {
+				"BUTTON_IMAGE_OUTFOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png",
+				"BUTTON_IMAGE_LEFT_PRESSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_FOCUSED": "/avmdata/ui/calibration/calibration_popup_btn1_p.png",
+				"BUTTON_IMAGE_DISABLED": "/avmdata/ui/calibration/calibration_popup_btn1_n.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_pop_bg",
+			"ware_position": [286.0, 224.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/calibration_popup_bg1.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_point_num1",
+			"ware_position": [0.0, 0.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/mark_numb1.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_point_num2",
+			"ware_position": [0.0, 0.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/mark_numb2.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_point_num3",
+			"ware_position": [0.0, 0.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/mark_numb3.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_point_num4",
+			"ware_position": [0.0, 0.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/mark_numb4.png"
+			}
+		},
+		{
+			"ware_name": "manual_calib_point_num5",
+			"ware_position": [0.0, 0.0],
+			"ware_type": "image",
+			"ware_property": {
+				"IMAGE_FILE_PATH": "/avmdata/ui/calibration/mark_numb5.png"
+			}
+		}
+	]
+
+
+}

@@ -1,0 +1,55 @@
+.class public abstract Landroid/car/CarProjectionManager$ProjectionAccessPointCallback;
+.super Ljava/lang/Object;
+.source "CarProjectionManager.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Landroid/car/CarProjectionManager;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x409
+    name = "ProjectionAccessPointCallback"
+.end annotation
+
+
+# static fields
+.field public static final ERROR_GENERIC:I = 0x2
+
+.field public static final ERROR_INCOMPATIBLE_MODE:I = 0x3
+
+.field public static final ERROR_NO_CHANNEL:I = 0x1
+
+.field public static final ERROR_TETHERING_DISALLOWED:I = 0x4
+
+
+# direct methods
+.method public constructor <init>()V
+    .locals 0
+
+    .line 705
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onFailed(I)V
+    .locals 0
+
+    return-void
+.end method
+
+.method public onStarted(Landroid/net/wifi/WifiConfiguration;)V
+    .locals 0
+
+    return-void
+.end method
+
+.method public onStopped()V
+    .locals 0
+
+    return-void
+.end method

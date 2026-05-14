@@ -1,0 +1,72 @@
+service CarPlayCommService /system/bin/CarPlayCommService
+    class core
+    user root
+    group system graphics audio media root
+
+service carplay_init_sh /system/bin/carplay_init.sh
+    class core
+    user root
+    group root system
+    seclabel u:r:carplay_init:s0
+    oneshot
+    
+service carplay_setParam_sh /system/bin/carplay_setParam.sh
+    class core
+    user root
+    group root system
+    seclabel u:r:carplay_setParam:s0
+    disabled
+    oneshot
+
+service carplay_startdriver_sh /system/bin/carplay_driver.sh
+    class core
+    user root
+    group root system
+    seclabel u:r:carplay_startDriver:s0
+    disabled
+    oneshot
+
+service carplay_stopdriver_sh /system/bin/carplay_stopdriver.sh
+    class core
+    user root
+    group root system
+    seclabel u:r:carplay_stopDriver:s0
+    disabled
+    oneshot
+
+service carplay_enableipod_sh /system/bin/carplay_ipod.sh
+    class core
+    user root
+    group root system
+    seclabel u:r:carplay_ipodout:s0
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1
+    start CarPlayCommService
+
+on property:sys.boot_completed=1
+    start carplay_init_sh
+
+on property:cp.param=1
+    start carplay_setParam_sh
+
+on property:cp.driver=1
+    start carplay_startdriver_sh
+
+on property:cp.stop_driver=1
+    start carplay_stopdriver_sh
+
+on property:cp.ipodout=1
+    start carplay_enableipod_sh
+
+chmod 755 /system/bin/carplay_init.sh
+chown root shell /system/bin/carplay_init.sh
+
+chmod 755 /system/bin/carplay_setParam.sh
+chown root shell /system/bin/carplay_setParam.sh
+
+chmod 755 /system/bin/carplay_driver.sh
+chown root shell /system/bin/carplay_driver.sh
+
+chmod 755 /data/vendor/carplay/KeyChains/

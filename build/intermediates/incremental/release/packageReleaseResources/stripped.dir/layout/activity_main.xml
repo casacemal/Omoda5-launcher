@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_1">
+
+    <!--
+        ViewPager: Uygulamaları listeler.
+        Automotive ekranında sidebar (172dp) için sol boşluk bırakılmıştır.
+    -->
+
+    <!-- Sayfa Göstergesi (Dots) -->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Fragment Container for Vehicle Data and other screens -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/pageIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/viewPager"
+        app:layout_constraintStart_toStartOf="@+id/viewPager">
+
+        <View
+            android:id="@+id/indicatorDot1"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_margin="4dp"
+            android:background="@color/page_indicator_active" />
+
+        <View
+            android:id="@+id/indicatorDot2"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_margin="4dp"
+            android:background="@color/page_indicator_passive" />
+    </LinearLayout>
+
+    <!-- Duvar Kağıdı Değiştirme Butonu (Görünmez Tetikleyici veya İkon) -->
+    <ImageView
+        android:id="@+id/il_wallpaper_change_trigger"
+        android:layout_width="64dp"
+        android:layout_height="82dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0.5"
+        android:importantForAccessibility="no"
+        android:padding="15dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        android:tint="#673AB7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" /> <!-- Arka plan koyuysa açık, açıksa koyu renk seçin -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

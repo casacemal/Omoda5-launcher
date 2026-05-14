@@ -1,0 +1,18 @@
+package com.p003hp.hpl.sparta.xpath;
+
+/* loaded from: classes.dex */
+public class AttrEqualsExpr extends AttrCompareExpr {
+    AttrEqualsExpr(String str, String str2) {
+        super(str, str2);
+    }
+
+    @Override // com.p003hp.hpl.sparta.xpath.BooleanExpr
+    public void accept(BooleanExprVisitor booleanExprVisitor) throws XPathException {
+        booleanExprVisitor.visit(this);
+    }
+
+    @Override // com.p003hp.hpl.sparta.xpath.AttrExpr
+    public String toString() {
+        return toString("=");
+    }
+}

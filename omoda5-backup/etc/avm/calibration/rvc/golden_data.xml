@@ -1,0 +1,30 @@
+<calibration>
+    <back>
+        <cameraMatrix type_id="opencv-matrix">
+            <rows>3</rows>
+            <cols>3</cols>
+            <dt>d</dt>
+            <data>286.963047 0.000000 360.345592 0.000000 256.211345 234.559686 0.000000 0.000000 1.000000 </data>
+        </cameraMatrix>
+        <coeffs type_id="opencv-matrix">
+            <rows>1</rows>
+            <cols>5</cols>
+            <dt>d</dt>
+            <data>-0.088325 0.000508 -0.000195 -0.000084 0.001070 </data>
+        </coeffs>
+        <rotation type_id="opencv-matrix">
+            <rows>3</rows>
+            <cols>1</cols>
+            <dt>d</dt>
+            <data>0.042987 -2.761945 1.439308 </data>
+        </rotation>
+        <translation type_id="opencv-matrix">
+            <rows>3</rows>
+            <cols>1</cols>
+            <dt>d</dt>
+            <data>-50.246341 2163.405242 -1187.729364 </data>
+        </translation>
+        <width>720</width>
+        <height>480</height>
+    </back>
+</calibration>

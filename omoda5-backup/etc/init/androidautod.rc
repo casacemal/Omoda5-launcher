@@ -1,0 +1,8 @@
+service aapreceiver /system/bin/androidautod
+    class main
+    user root
+    group system audio media
+
+on property:sys.boot_completed=1
+    start aapreceiver
+

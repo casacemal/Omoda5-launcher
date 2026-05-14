@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<mixer>
+    <!-- These are the initial mixer settings -->
+
+    <!-- stream in setting -->
+
+    <!-- This is usecase path settings-->
+    <path name="bus100-speaker">
+
+    </path>
+
+</mixer>

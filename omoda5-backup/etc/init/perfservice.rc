@@ -1,0 +1,10 @@
+service perfservice /system/bin/perfservice
+    class main
+    user root
+    group root system
+
+on property:sys.powerhal.start=*
+    chmod 0666 /dev/socket/perfservicesock
+
+on early-init
+    start perfservice

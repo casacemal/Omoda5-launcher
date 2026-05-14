@@ -1,0 +1,9 @@
+service update_service /vendor/bin/update_service
+    class core
+    user root
+    group root system
+    oneshot
+    seclabel u:r:update_service:s0
+
+on property:sys:start_service=1
+    start update_service

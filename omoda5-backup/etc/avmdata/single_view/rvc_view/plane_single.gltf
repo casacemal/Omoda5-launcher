@@ -1,0 +1,133 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 1261,
+      "max": [
+        0.6399999856948853,
+        0.0,
+        0.36000001430511475
+      ],
+      "min": [
+        -0.6399999856948853,
+        0.0,
+        -0.36000001430511475
+      ],
+      "normalized": false,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1261,
+      "normalized": false,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1261,
+      "normalized": false,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 6144,
+      "normalized": false,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "generator": "Khronos glTF Blender I/O v1.3.48",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 15132,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 15132,
+      "byteOffset": 15132,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10088,
+      "byteOffset": 30264,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 12288,
+      "byteOffset": 40352,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 52640,
+      "uri": "plane_single.bin"
+    }
+  ],
+  "images": [
+    {
+      "name": "rear",
+      "uri": "rear.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "rear",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "rear_only",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "rear_only"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "source": 0
+    }
+  ]
+}

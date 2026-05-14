@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.omoda5.launcher-mergeReleaseResources-30:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-watch/styles.xml",
+                    "from": {
+                        "startLines": "2,6,10",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,281,519",
+                        "endLines": "5,9,13",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "276,514,754"
+                    }
+                }
+            ]
+        }
+    ]
+}

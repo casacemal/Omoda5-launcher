@@ -1,0 +1,76 @@
+package com.google.android.material.checkbox;
+
+import android.R;
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.widget.CompoundButtonCompat;
+import com.google.android.material.C1199R;
+import com.google.android.material.color.MaterialColors;
+import com.google.android.material.internal.ThemeEnforcement;
+import com.google.android.material.resources.MaterialResources;
+
+/* loaded from: classes.dex */
+public class MaterialCheckBox extends AppCompatCheckBox {
+    private static final int DEF_STYLE_RES = C1199R.style.Widget_MaterialComponents_CompoundButton_CheckBox;
+    private static final int[][] ENABLED_CHECKED_STATES = {new int[]{R.attr.state_enabled, R.attr.state_checked}, new int[]{R.attr.state_enabled, -16842912}, new int[]{-16842910, R.attr.state_checked}, new int[]{-16842910, -16842912}};
+    private ColorStateList materialThemeColorsTintList;
+    private boolean useMaterialThemeColors;
+
+    public MaterialCheckBox(Context context) {
+        this(context, null);
+    }
+
+    public MaterialCheckBox(Context context, AttributeSet attributeSet) {
+        this(context, attributeSet, C1199R.attr.checkboxStyle);
+    }
+
+    public MaterialCheckBox(Context context, AttributeSet attributeSet, int r10) {
+        super(ThemeEnforcement.createThemedContext(context, attributeSet, r10, DEF_STYLE_RES), attributeSet, r10);
+        Context context2 = getContext();
+        TypedArray typedArrayObtainStyledAttributes = ThemeEnforcement.obtainStyledAttributes(context2, attributeSet, C1199R.styleable.MaterialCheckBox, r10, DEF_STYLE_RES, new int[0]);
+        if (typedArrayObtainStyledAttributes.hasValue(C1199R.styleable.MaterialCheckBox_buttonTint)) {
+            CompoundButtonCompat.setButtonTintList(this, MaterialResources.getColorStateList(context2, typedArrayObtainStyledAttributes, C1199R.styleable.MaterialCheckBox_buttonTint));
+        }
+        this.useMaterialThemeColors = typedArrayObtainStyledAttributes.getBoolean(C1199R.styleable.MaterialCheckBox_useMaterialThemeColors, false);
+        typedArrayObtainStyledAttributes.recycle();
+    }
+
+    @Override // android.widget.TextView, android.view.View
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (this.useMaterialThemeColors && CompoundButtonCompat.getButtonTintList(this) == null) {
+            setUseMaterialThemeColors(true);
+        }
+    }
+
+    public void setUseMaterialThemeColors(boolean z) {
+        this.useMaterialThemeColors = z;
+        if (z) {
+            CompoundButtonCompat.setButtonTintList(this, getMaterialThemeColorsTintList());
+        } else {
+            CompoundButtonCompat.setButtonTintList(this, null);
+        }
+    }
+
+    public boolean isUseMaterialThemeColors() {
+        return this.useMaterialThemeColors;
+    }
+
+    private ColorStateList getMaterialThemeColorsTintList() {
+        if (this.materialThemeColorsTintList == null) {
+            int[] r0 = new int[ENABLED_CHECKED_STATES.length];
+            int color = MaterialColors.getColor(this, C1199R.attr.colorControlActivated);
+            int color2 = MaterialColors.getColor(this, C1199R.attr.colorSurface);
+            int color3 = MaterialColors.getColor(this, C1199R.attr.colorOnSurface);
+            r0[0] = MaterialColors.layer(color2, color, 1.0f);
+            r0[1] = MaterialColors.layer(color2, color3, 0.54f);
+            r0[2] = MaterialColors.layer(color2, color3, 0.38f);
+            r0[3] = MaterialColors.layer(color2, color3, 0.38f);
+            this.materialThemeColorsTintList = new ColorStateList(ENABLED_CHECKED_STATES, r0);
+        }
+        return this.materialThemeColorsTintList;
+    }
+}

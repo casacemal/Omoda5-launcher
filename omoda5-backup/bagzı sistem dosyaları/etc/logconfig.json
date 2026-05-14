@@ -1,0 +1,7 @@
+{
+	"ParseBuffSize": 16384,
+	"FlushBuffSize": 65536,
+	"MaxFileSize": 16777216,
+	"FlushInterval": 30000,
+	"TotalFileSize": 2147483648
+}

@@ -1,0 +1,137 @@
+package androidx.appcompat.widget;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Resources;
+import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.TextView;
+import androidx.appcompat.C0105R;
+import androidx.core.view.PointerIconCompat;
+
+/* loaded from: classes.dex */
+class TooltipPopup {
+    private static final String TAG = "TooltipPopup";
+    private final View mContentView;
+    private final Context mContext;
+    private final TextView mMessageView;
+    private final WindowManager.LayoutParams mLayoutParams = new WindowManager.LayoutParams();
+    private final Rect mTmpDisplayFrame = new Rect();
+    private final int[] mTmpAnchorPos = new int[2];
+    private final int[] mTmpAppPos = new int[2];
+
+    TooltipPopup(Context context) {
+        this.mContext = context;
+        View viewInflate = LayoutInflater.from(context).inflate(C0105R.layout.abc_tooltip, (ViewGroup) null);
+        this.mContentView = viewInflate;
+        this.mMessageView = (TextView) viewInflate.findViewById(C0105R.id.message);
+        this.mLayoutParams.setTitle(getClass().getSimpleName());
+        this.mLayoutParams.packageName = this.mContext.getPackageName();
+        this.mLayoutParams.type = PointerIconCompat.TYPE_HAND;
+        this.mLayoutParams.width = -2;
+        this.mLayoutParams.height = -2;
+        this.mLayoutParams.format = -3;
+        this.mLayoutParams.windowAnimations = C0105R.style.Animation_AppCompat_Tooltip;
+        this.mLayoutParams.flags = 24;
+    }
+
+    void show(View view, int r9, int r10, boolean z, CharSequence charSequence) throws Resources.NotFoundException {
+        if (isShowing()) {
+            hide();
+        }
+        this.mMessageView.setText(charSequence);
+        computePosition(view, r9, r10, z, this.mLayoutParams);
+        ((WindowManager) this.mContext.getSystemService("window")).addView(this.mContentView, this.mLayoutParams);
+    }
+
+    void hide() {
+        if (isShowing()) {
+            ((WindowManager) this.mContext.getSystemService("window")).removeView(this.mContentView);
+        }
+    }
+
+    boolean isShowing() {
+        return this.mContentView.getParent() != null;
+    }
+
+    private void computePosition(View view, int r10, int r11, boolean z, WindowManager.LayoutParams layoutParams) throws Resources.NotFoundException {
+        int height;
+        int r112;
+        layoutParams.token = view.getApplicationWindowToken();
+        int dimensionPixelOffset = this.mContext.getResources().getDimensionPixelOffset(C0105R.dimen.tooltip_precise_anchor_threshold);
+        if (view.getWidth() < dimensionPixelOffset) {
+            r10 = view.getWidth() / 2;
+        }
+        if (view.getHeight() >= dimensionPixelOffset) {
+            int dimensionPixelOffset2 = this.mContext.getResources().getDimensionPixelOffset(C0105R.dimen.tooltip_precise_anchor_extra_offset);
+            height = r11 + dimensionPixelOffset2;
+            r112 = r11 - dimensionPixelOffset2;
+        } else {
+            height = view.getHeight();
+            r112 = 0;
+        }
+        layoutParams.gravity = 49;
+        int dimensionPixelOffset3 = this.mContext.getResources().getDimensionPixelOffset(z ? C0105R.dimen.tooltip_y_offset_touch : C0105R.dimen.tooltip_y_offset_non_touch);
+        View appRootView = getAppRootView(view);
+        if (appRootView == null) {
+            Log.e(TAG, "Cannot find app view");
+            return;
+        }
+        appRootView.getWindowVisibleDisplayFrame(this.mTmpDisplayFrame);
+        if (this.mTmpDisplayFrame.left < 0 && this.mTmpDisplayFrame.top < 0) {
+            Resources resources = this.mContext.getResources();
+            int identifier = resources.getIdentifier("status_bar_height", "dimen", "android");
+            int dimensionPixelSize = identifier != 0 ? resources.getDimensionPixelSize(identifier) : 0;
+            DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+            this.mTmpDisplayFrame.set(0, dimensionPixelSize, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        }
+        appRootView.getLocationOnScreen(this.mTmpAppPos);
+        view.getLocationOnScreen(this.mTmpAnchorPos);
+        int[] r9 = this.mTmpAnchorPos;
+        int r4 = r9[0];
+        int[] r5 = this.mTmpAppPos;
+        r9[0] = r4 - r5[0];
+        r9[1] = r9[1] - r5[1];
+        layoutParams.x = (r9[0] + r10) - (appRootView.getWidth() / 2);
+        int r92 = View.MeasureSpec.makeMeasureSpec(0, 0);
+        this.mContentView.measure(r92, r92);
+        int measuredHeight = this.mContentView.getMeasuredHeight();
+        int[] r102 = this.mTmpAnchorPos;
+        int r2 = ((r102[1] + r112) - dimensionPixelOffset3) - measuredHeight;
+        int r103 = r102[1] + height + dimensionPixelOffset3;
+        if (z) {
+            if (r2 >= 0) {
+                layoutParams.y = r2;
+                return;
+            } else {
+                layoutParams.y = r103;
+                return;
+            }
+        }
+        if (measuredHeight + r103 <= this.mTmpDisplayFrame.height()) {
+            layoutParams.y = r103;
+        } else {
+            layoutParams.y = r2;
+        }
+    }
+
+    private static View getAppRootView(View view) {
+        View rootView = view.getRootView();
+        ViewGroup.LayoutParams layoutParams = rootView.getLayoutParams();
+        if ((layoutParams instanceof WindowManager.LayoutParams) && ((WindowManager.LayoutParams) layoutParams).type == 2) {
+            return rootView;
+        }
+        for (Context context = view.getContext(); context instanceof ContextWrapper; context = ((ContextWrapper) context).getBaseContext()) {
+            if (context instanceof Activity) {
+                return ((Activity) context).getWindow().getDecorView();
+            }
+        }
+        return rootView;
+    }
+}

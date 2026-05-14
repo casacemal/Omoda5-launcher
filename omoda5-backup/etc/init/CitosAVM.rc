@@ -1,0 +1,8 @@
+on post-fs
+    export DBUS_SYSTEM_BUS_ADDRESS unix:path=/dev/socket/dbus-daemon
+    start avm
+
+service avm /system/bin/avm
+    class hal
+    prioriry -20
+    seclabel u:r:su:s0

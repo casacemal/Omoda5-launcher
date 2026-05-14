@@ -1,0 +1,21 @@
+service tbox_config_sh /system/bin/tbox_config.sh
+    class core
+    user root
+    group inet root system
+    seclabel u:r:tbox_config:s0
+    disabled
+    oneshot
+
+service tbox_clean_sh /system/bin/tbox_clean.sh
+    class core
+    user root
+    group inet root system
+    seclabel u:r:tbox_clean:s0
+    disabled
+    oneshot
+
+on property:persist.sys.tbox.connect=1
+    start tbox_config_sh
+
+on property:persist.sys.tbox.connect=0
+    start tbox_clean_sh

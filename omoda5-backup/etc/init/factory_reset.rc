@@ -1,0 +1,10 @@
+service factory_reset /system/bin/factory_reset.sh
+    class core
+    user root
+    group root system wifi bluetooth misc dhcp
+    seclabel u:r:factory_reset:s0
+    disabled
+    oneshot
+
+on property:sys.factory.reset=1
+    start factory_reset

@@ -1,0 +1,2 @@
+on fs
+    restorecon_recursive /map /fota /online /configure

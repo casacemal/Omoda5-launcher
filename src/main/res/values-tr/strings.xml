@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App General -->
+    <string name="app_name">Omoda 5</string>
+
+    <!-- Navigation and UI -->
+    <string name="navigation">Navigasyon</string>
+    <string name="media">Medya</string>
+    <string name="phone">Telefon</string>
+    <string name="vehicle">Araç</string>
+    <string name="settings">Ayarlar</string>
+    <string name="settings_title">Launcher Ayarları</string>
+    <string name="split_settings_header">Split Uygulama Eşleştirmeleri</string>
+
+    <!-- ADB Settings -->
+    <string name="adb_settings">ADB Bağlantı Ayarları</string>
+    <string name="adb_enabled">ADB Etkin</string>
+    <string name="adb_port">Port</string>
+    <string name="adb_mode">ADB Modu</string>
+    <string name="usb_mode">USB</string>
+    <string name="tcp_mode">TCP/IP</string>
+    <string name="status">Durum</string>
+    <string name="status_checking">Kontrol ediliyor...</string>
+    <string name="connected">Bağlandı</string>
+    <string name="disconnected">Bağlantı Kesildi</string>
+
+    <!-- Action Bar and Navigation -->
+    <string name="abc_action_bar_home_description">Ana sayfaya git</string>
+    <string name="abc_action_bar_up_description">Yukarı git</string>
+    <string name="abc_action_menu_overflow_description">Daha fazla seçenek</string>
+    <string name="abc_action_mode_done">Tamam</string>
+    <string name="abc_activity_chooser_view_see_all">Tümünü gör</string>
+    <string name="abc_activitychooserview_choose_application">Bir uygulama seç</string>
+    <string name="abc_capital_off">KAPALI</string>
+    <string name="abc_capital_on">AÇIK</string>
+
+    <!-- Shortcuts -->
+    <string name="abc_menu_alt_shortcut_label">Alt+</string>
+    <string name="abc_menu_ctrl_shortcut_label">Ctrl+</string>
+    <string name="abc_menu_delete_shortcut_label">sil</string>
+    <string name="abc_menu_enter_shortcut_label">enter</string>
+    <string name="abc_menu_function_shortcut_label">Fonksiyon+</string>
+    <string name="abc_menu_meta_shortcut_label">Meta+</string>
+    <string name="abc_menu_shift_shortcut_label">Shift+</string>
+    <string name="abc_menu_space_shortcut_label">boşluk</string>
+    <string name="abc_menu_sym_shortcut_label">Sym+</string>
+    <string name="abc_prepend_shortcut_label">Menü+</string>
+
+    <!-- Search -->
+    <string name="abc_search_hint">Ara...</string>
+    <string name="abc_searchview_description_clear">Sorguyu temizle</string>
+    <string name="abc_searchview_description_query">Arama sorgusu</string>
+    <string name="abc_searchview_description_search">Ara</string>
+    <string name="abc_searchview_description_submit">Sorguyu gönder</string>
+    <string name="abc_searchview_description_voice">Sesli arama</string>
+    <string name="search_menu_title">Ara</string>
+
+    <!-- Sharing -->
+    <string name="abc_shareactionprovider_share_with">Şununla paylaş</string>
+    <string name="abc_shareactionprovider_share_with_application">%s ile paylaş</string>
+
+    <!-- Toolbar -->
+    <string name="abc_toolbar_collapse_description">Daralt</string>
+
+    <!-- Material Design Components -->
+    <string name="character_counter_content_description">%2$d karakterden %1$d girildi</string>
+    <string name="character_counter_overflowed_content_description">Karakter limiti aşıldı %2$d/%1$d</string>
+    <string name="character_counter_pattern">%1$d / %2$d</string>
+    <string name="chip_text">Çip metni</string>
+    <string name="clear_text_end_icon_content_description">Metni temizle</string>
+    <string name="error_icon_content_description">Hata</string>
+    <string name="exposed_dropdown_menu_content_description">Açılır menüyü göster</string>
+    <string name="password_toggle_content_description">Şifreyi göster</string>
+
+    <!-- Dialog and Notifications -->
+    <string name="icon_content_description">İletişim Kutusu İkonu</string>
+    <string name="mtrl_badge_numberless_content_description">Yeni bildirim</string>
+    <string name="mtrl_chip_close_icon_content_description">%1$s öğesini kaldır</string>
+    <string name="mtrl_exceed_max_badge_number_suffix">%1$d%2$s</string>
+
+    <!-- Date Picker -->
+    <string name="mtrl_picker_a11y_next_month">Sonraki aya geç</string>
+    <string name="mtrl_picker_a11y_prev_month">Önceki aya geç</string>
+    <string name="mtrl_picker_announce_current_selection">Mevcut seçim: %1$s</string>
+    <string name="mtrl_picker_cancel">İptal</string>
+    <string name="mtrl_picker_confirm">Tamam</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Tarih Seç</string>
+    <string name="mtrl_picker_date_header_unselected">Seçilen tarih</string>
+    <string name="mtrl_picker_day_of_week_column_header">Gün sütunu: %1$s</string>
+    <string name="mtrl_picker_invalid_format">Geçersiz format.</string>
+    <string name="mtrl_picker_invalid_format_example">Örnek: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Kullan: %1$s</string>
+    <string name="mtrl_picker_invalid_range">Geçersiz aralık.</string>
+    <string name="mtrl_picker_navigate_to_year_description">%1$s yılına git</string>
+    <string name="mtrl_picker_out_of_range">Aralık dışı: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Başlangıç tarihi – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Bitiş tarihi</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Tarih Aralığı Seç</string>
+    <string name="mtrl_picker_range_header_unselected">Başlangıç tarihi – Bitiş tarihi</string>
+    <string name="mtrl_picker_save">Kaydet</string>
+    <string name="mtrl_picker_text_input_date_hint">Tarih</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Bitiş tarihi</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Başlangıç tarihi</string>
+    <string name="mtrl_picker_text_input_day_abbr">g</string>
+    <string name="mtrl_picker_text_input_month_abbr">a</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Takvim giriş moduna geç</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Gün seçmek için dokun</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Metin giriş moduna geç</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Yıl seçmek için dokun</string>
+
+    <!-- Status and Notifications -->
+    <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="sidebar_toggle">Kenar çubuğunu aç/kapat</string>
+
+    <!-- Vehicle Data -->
+    <string name="vehicle_data_title">ARAÇ BİLGİLERİ</string>
+    <string name="vehicle_speed">Hız</string>
+    <string name="vehicle_gear">Vites</string>
+    <string name="vehicle_fuel">Yakıt Seviyesi</string>
+    <string name="vehicle_parking_brake">Park Freni</string>
+    <string name="vehicle_doors">Kapı Durumu</string>
+    <string name="vehicle_permission_warning_title">Erişim İzni Gerekli</string>
+    <string name="vehicle_permission_warning_text">Araç verilerini okumak için gerekli sistem izinleri tanımlanmamış. Lütfen sistem yöneticisi ile iletişime geçin.</string>
+    <string name="status_active">AKTİF</string>
+    <string name="status_released">BIRAKILDI</string>
+    <string name="status_open">AÇIK</string>
+    <string name="status_closed">KAPALI</string>
+
+    <!-- Android Auto and CarPlay -->
+    <string name="aa_no_connected">Android Auto\'yu başlatmak için Android cihazınızı USB ile bağlayın veya Bluetooth ile eşleştirin</string>
+    <string name="cancel">İptal</string>
+    <string name="carnet_disconnect_hint">Lütfen mobil telefonu ve araç sistemini bağlayın</string>
+    <string name="carplay_reconnect_pop">%1$s\'un iPhone CarPlay\'i yeniden bağlandı</string>
+    <string name="device_connect">Bağlanabilir cihazlar</string>
+    <string name="device_longpress_voice_connect">1. Telefonu açın\n2. Ayarlar\'ı açın, Bluetooth\'u seçin\n3. Bluetooth\'u AÇIK yapın\n4. %1$s öğesini seçin</string>
+    <string name="device_longpress_voice_title">Bluetooth Eşleştirme</string>
+
+    <!-- Icons and Functions -->
+    <string name="icon_360">360 Panorama</string>
+    <string name="icon_android_auto">Android Auto</string>
+    <string name="icon_carplay">Apple CarPlay</string>
+    <string name="icon_manual">E-Kılavuz</string>
+    <string name="icon_media">Multimedya</string>
+    <string name="icon_navi">Navigasyon</string>
+    <string name="icon_phone">Telefon</string>
+    <string name="icon_picture">Resim</string>
+    <string name="icon_qdlink">QDLink</string>
+    <string name="icon_system_setting">Sistem Ayarları</string>
+    <string name="icon_update">Sistem Güncelleme</string>
+    <string name="icon_vehicle_setting">Araç Ayarları</string>
+    <string name="icon_video">Video</string>
+
+    <!-- Messages and Hints -->
+    <string name="no_igon">Lütfen anahtarı AÇIK konuma getirin ve tekrar deneyin!</string>
+    <string name="second">sn</string>
+    <string name="unsupport_func">Bu işlev şu anda desteklenmiyor</string>
+    <string name="voice_aa_hint">Lütfen Android Auto\'nun bağlı olduğunu onaylayın ve ses tuşuna uzun basarak kullanın</string>
+    <string name="voice_carpaly_aa_hint">Lütfen CarPlay/Android Auto\'nun bağlı olduğunu onaylayın ve ses tuşuna uzun basarak kullanın</string>
+    <string name="voice_carpaly_qdlink_hint">Lütfen CarPlay\'in bağlı olduğunu onaylayın ve ses tuşuna uzun basarak kullanın, QDLink mobil telefonun uyanmasını gerektirir</string>
+    <string name="voice_carplay_hint">Lütfen CarPlay\'in bağlı olduğunu onaylayın ve ses tuşuna uzun basarak kullanın</string>
+    <string name="voice_hint">Lütfen mobil bağlantının bağlı olduğunu onaylayın ve ses tuşuna uzun basarak kullanın</string>
+    <string name="voice_qdlink_hint">QDLink mobil telefonun ses işlevi için uyanmasını gerektirir</string>
+
+    <!-- Service Description -->
+    <string name="service_description">Chery Star Key Handler</string>
+</resources>

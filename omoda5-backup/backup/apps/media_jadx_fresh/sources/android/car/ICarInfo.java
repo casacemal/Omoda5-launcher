@@ -1,0 +1,152 @@
+package android.car;
+
+import android.os.Binder;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.IInterface;
+import android.os.Parcel;
+import android.os.RemoteException;
+
+/* loaded from: classes.dex */
+public interface ICarInfo extends IInterface {
+
+    public static class Default implements ICarInfo {
+        @Override // android.os.IInterface
+        public IBinder asBinder() {
+            return null;
+        }
+
+        @Override // android.car.ICarInfo
+        public Bundle getBasicInfo() throws RemoteException {
+            return null;
+        }
+
+        @Override // android.car.ICarInfo
+        public String getStringInfo(String str) throws RemoteException {
+            return null;
+        }
+    }
+
+    Bundle getBasicInfo() throws RemoteException;
+
+    String getStringInfo(String str) throws RemoteException;
+
+    public static abstract class Stub extends Binder implements ICarInfo {
+        private static final String DESCRIPTOR = "android.car.ICarInfo";
+        static final int TRANSACTION_getBasicInfo = 1;
+        static final int TRANSACTION_getStringInfo = 2;
+
+        @Override // android.os.IInterface
+        public IBinder asBinder() {
+            return this;
+        }
+
+        public Stub() {
+            attachInterface(this, DESCRIPTOR);
+        }
+
+        public static ICarInfo asInterface(IBinder iBinder) {
+            if (iBinder == null) {
+                return null;
+            }
+            IInterface iInterfaceQueryLocalInterface = iBinder.queryLocalInterface(DESCRIPTOR);
+            if (iInterfaceQueryLocalInterface != null && (iInterfaceQueryLocalInterface instanceof ICarInfo)) {
+                return (ICarInfo) iInterfaceQueryLocalInterface;
+            }
+            return new Proxy(iBinder);
+        }
+
+        @Override // android.os.Binder
+        public boolean onTransact(int r4, Parcel parcel, Parcel parcel2, int r7) throws RemoteException {
+            if (r4 == 1) {
+                parcel.enforceInterface(DESCRIPTOR);
+                Bundle basicInfo = getBasicInfo();
+                parcel2.writeNoException();
+                if (basicInfo != null) {
+                    parcel2.writeInt(1);
+                    basicInfo.writeToParcel(parcel2, 1);
+                } else {
+                    parcel2.writeInt(0);
+                }
+                return true;
+            }
+            if (r4 != 2) {
+                if (r4 == 1598968902) {
+                    parcel2.writeString(DESCRIPTOR);
+                    return true;
+                }
+                return super.onTransact(r4, parcel, parcel2, r7);
+            }
+            parcel.enforceInterface(DESCRIPTOR);
+            String stringInfo = getStringInfo(parcel.readString());
+            parcel2.writeNoException();
+            parcel2.writeString(stringInfo);
+            return true;
+        }
+
+        private static class Proxy implements ICarInfo {
+            public static ICarInfo sDefaultImpl;
+            private IBinder mRemote;
+
+            public String getInterfaceDescriptor() {
+                return Stub.DESCRIPTOR;
+            }
+
+            Proxy(IBinder iBinder) {
+                this.mRemote = iBinder;
+            }
+
+            @Override // android.os.IInterface
+            public IBinder asBinder() {
+                return this.mRemote;
+            }
+
+            @Override // android.car.ICarInfo
+            public Bundle getBasicInfo() throws RemoteException {
+                Parcel parcelObtain = Parcel.obtain();
+                Parcel parcelObtain2 = Parcel.obtain();
+                try {
+                    parcelObtain.writeInterfaceToken(Stub.DESCRIPTOR);
+                    if (!this.mRemote.transact(1, parcelObtain, parcelObtain2, 0) && Stub.getDefaultImpl() != null) {
+                        return Stub.getDefaultImpl().getBasicInfo();
+                    }
+                    parcelObtain2.readException();
+                    return parcelObtain2.readInt() != 0 ? (Bundle) Bundle.CREATOR.createFromParcel(parcelObtain2) : null;
+                } finally {
+                    parcelObtain2.recycle();
+                    parcelObtain.recycle();
+                }
+            }
+
+            @Override // android.car.ICarInfo
+            public String getStringInfo(String str) throws RemoteException {
+                Parcel parcelObtain = Parcel.obtain();
+                Parcel parcelObtain2 = Parcel.obtain();
+                try {
+                    parcelObtain.writeInterfaceToken(Stub.DESCRIPTOR);
+                    parcelObtain.writeString(str);
+                    if (!this.mRemote.transact(2, parcelObtain, parcelObtain2, 0) && Stub.getDefaultImpl() != null) {
+                        return Stub.getDefaultImpl().getStringInfo(str);
+                    }
+                    parcelObtain2.readException();
+                    return parcelObtain2.readString();
+                } finally {
+                    parcelObtain2.recycle();
+                    parcelObtain.recycle();
+                }
+            }
+        }
+
+        public static boolean setDefaultImpl(ICarInfo iCarInfo) {
+            if (Proxy.sDefaultImpl != null || iCarInfo == null) {
+                return false;
+            }
+            Proxy.sDefaultImpl = iCarInfo;
+            return true;
+        }
+
+        public static ICarInfo getDefaultImpl() {
+            return Proxy.sDefaultImpl;
+        }
+    }
+}

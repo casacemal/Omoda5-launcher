@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
+    <item android:drawable="@drawable/dormant_000" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_004" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_008" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_012" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_016" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_020" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_024" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_028" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_032" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_036" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_040" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_044" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_048" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_052" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_056" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_060" android:duration="60"/>
+    <item android:drawable="@drawable/dormant_064" android:duration="60"/>
+</animation-list>

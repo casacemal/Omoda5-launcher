@@ -1,0 +1,41 @@
+.class public interface abstract Landroid/car/media/ICarVolumeCallback;
+.super Ljava/lang/Object;
+.source "ICarVolumeCallback.java"
+
+# interfaces
+.implements Landroid/os/IInterface;
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Landroid/car/media/ICarVolumeCallback$Stub;,
+        Landroid/car/media/ICarVolumeCallback$Default;
+    }
+.end annotation
+
+
+# virtual methods
+.method public abstract onGroupMuteChanged(III)V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
+.method public abstract onGroupVolumeChanged(III)V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
+.method public abstract onMasterMuteChanged(II)V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method

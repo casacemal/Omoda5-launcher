@@ -1,0 +1,9 @@
+/vendor/lib/modules/g_iap_ncm.ko:
+/vendor/lib/modules/kunlun-drm-crtc.ko:
+/vendor/lib/modules/kunlun-drm.ko:
+/vendor/lib/modules/pvrsrvkm.ko:
+/vendor/lib/modules/xrp_hw_semidrive.ko:
+/vendor/lib/modules/kunlun_drm_lvds.ko:
+/vendor/lib/modules/sdrv-g2d.ko:
+/vendor/lib/modules/bcmdhd.ko:
+/vendor/lib/modules/kunlun_drm_parallel.ko:

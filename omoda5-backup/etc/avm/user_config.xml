@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<user_config version="1.1">
+    <enable_state>
+        <!--使能雷达警告-->
+        <auto_nearby_view>true</auto_nearby_view>
+        <!--使能转角启动-->
+        <steering_angle_activation>false</steering_angle_activation>
+        <!--使能转向启动-->
+        <turn_light_activation>true</turn_light_activation>
+        <!--使能启动动画-->
+        <start_animation>false</start_animation>
+        <!--使能开门提示-->
+        <door_opening_indication>true</door_opening_indication>
+        <!--使能车辆轨迹-->
+        <vehicle_trajectory>true</vehicle_trajectory>
+        <!--使能泊车雷达-->
+        <parking_radar>true</parking_radar>
+        <!--使能车牌号显示-->
+        <license_plate_display>false</license_plate_display>
+        <!--设置透明度-->
+        <opacity>1</opacity>
+    </enable_state>
+    <!--车牌号-->
+    <license_plate>0,0,0,0,0,0,0</license_plate>
+    <!--系统语言：用于保存系统设置的语言，并变更相应的ui语言（CN：中文,EN：英文）-->
+    <language>EN</language>
+</user_config>

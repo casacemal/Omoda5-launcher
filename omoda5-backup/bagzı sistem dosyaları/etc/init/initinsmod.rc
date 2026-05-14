@@ -1,0 +1,10 @@
+on early-init
+    start early_init_sh
+
+service early_init_sh /vendor/bin/init.insmod.sh sys.early.insmod
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+

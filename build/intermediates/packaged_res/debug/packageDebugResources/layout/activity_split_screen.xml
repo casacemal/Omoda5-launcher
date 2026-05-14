@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_1">
+
+    <!-- Status Bar -->
+    <FrameLayout
+        android:id="@+id/statusBarContainer"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="#44000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!-- Left Panel -->
+    <FrameLayout
+        android:id="@+id/leftPanelContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/status_bar_height"
+        android:layout_marginBottom="@dimen/bottom_nav_height"
+        android:background="#22000000"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/panelsDivider"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <!-- Right Panel -->
+    <FrameLayout
+        android:id="@+id/rightPanelContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/status_bar_height"
+        android:layout_marginBottom="@dimen/bottom_nav_height"
+        android:background="#22000000"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintLeft_toRightOf="@id/panelsDivider"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <!-- Panels Divider -->
+    <View
+        android:id="@+id/panelsDivider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#44FFFFFF"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@id/statusBarContainer"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavContainer"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!-- Bottom Navigation Bar -->
+    <FrameLayout
+        android:id="@+id/bottomNavContainer"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_nav_height"
+        android:background="#33000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!-- Exit Button -->
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Çıkış"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekSplitRatio"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:max="40"
+        android:progress="20"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSplitRatio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oran: %50"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/seekSplitRatio"
+        app:layout_constraintStart_toStartOf="@id/seekSplitRatio"
+        app:layout_constraintEnd_toEndOf="@id/seekSplitRatio" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

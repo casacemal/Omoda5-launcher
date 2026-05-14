@@ -1,0 +1,9 @@
+service broadcastdabdrm-hal /vendor/bin/hw/android.hardware.broadcastdabdrm@1.0-service
+    class hal
+    user root
+    group root system
+
+on boot
+    write /sys/class/gpio/export 499
+    write /sys/class/gpio/gpio499/direction in
+

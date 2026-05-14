@@ -1,0 +1,22 @@
+service logcollector /system/bin/logcollector
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+service devinfocollector /vendor/bin/deviceinfo.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+on property:sys.dev.collect=*
+    start devinfocollector
+
+on property:persist.log.start=1
+    start logcollector
+	
+on property:persist.log.start=0
+    stop logcollector	

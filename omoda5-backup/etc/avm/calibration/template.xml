@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--外参匹配模板，单位：mm，摄像头的坐标系统原点都是环视模型中心-->
+<!--注意：模板在图像中顺序是按照各自摄像头画面中从左到右排列的-->
+<template>
+  <front type="chery">
+    <group cnt="2" width="2" height="2">
+      <rotation>0,0,0</rotation>
+      <translation>-2800,4200,0</translation>
+      <position row="0" col="1">1000,-300,0</position>
+      <position row="2" col="2">1600,-1500,0</position>
+    </group>
+    <group cnt="1" width="1" height="1">
+      <rotation>0,0,0</rotation>
+      <translation>-2800,4200,0</translation>
+      <position row="0" col="1">3100,-900,0</position>
+    </group>
+    <group cnt="2" width="2" height="2">
+      <rotation>0,0,0</rotation>
+      <translation>-2800,4200,0</translation>
+      <position row="0" col="1">4600,-300,0</position>
+      <position row="2" col="0">4000,-1500,0</position>
+    </group>
+  </front>
+  <back type="chery">
+    <group cnt="2" width="2" height="2">
+      <rotation>0,0,180</rotation>
+      <translation>2800,-4200,0</translation>
+      <position row="0" col="1">1000,-300,0</position>
+      <position row="2" col="2">1600,-1500,0</position>
+    </group>
+    <group cnt="1" width="1" height="1">
+      <rotation>0,0,180</rotation>
+      <translation>2800,-4200,0</translation>
+      <position row="0" col="1">3100,-900,0</position>
+    </group>
+    <group cnt="2" width="2" height="2">
+      <rotation>0,0,180</rotation>
+      <translation>2800,-4200,0</translation>
+      <position row="0" col="1">4600,-300,0</position>
+      <position row="2" col="0">4000,-1500,0</position>
+    </group>
+  </back>
+  <left type="chery">
+    <group cnt="5" width="13" height="2">
+      <rotation>0,0,90</rotation>
+      <translation>-2800,-4200,0</translation>
+      <position row="0" col="2">1500,-400,0</position>
+      <position row="2" col="3">2100,-1600,0</position>
+      <position row="1" col="7">4500,-1000,0</position>
+      <position row="0" col="12">7500,-400,0</position>
+      <position row="2" col="11">6900,-1600,0</position>
+    </group>
+  </left>
+  <right type="chery">
+    <group cnt="5" width="13" height="2">
+      <rotation>0,0,-90</rotation>
+      <translation>2800,4200,0</translation>
+      <position row="0" col="1">900,-400,0</position>
+      <position row="2" col="2">1500,-1600,0</position>
+      <position row="1" col="6">3900,-1000,0</position>
+      <position row="0" col="11">6900,-400,0</position>
+      <position row="2" col="10">6300,-1600,0</position>
+    </group>
+  </right>
+</template>

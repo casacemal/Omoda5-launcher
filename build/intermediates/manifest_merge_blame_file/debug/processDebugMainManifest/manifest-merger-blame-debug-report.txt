@@ -1,0 +1,276 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.omoda5.launcher"
+4    android:versionCode="5"
+5    android:versionName="5" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <queries>
+11-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:5:5-10:15
+12        <intent>
+12-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:6:9-9:18
+13            <action android:name="android.intent.action.MAIN" />
+13-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:7:13-64
+13-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:7:21-62
+14
+15            <category android:name="android.intent.category.LAUNCHER" />
+15-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:8:13-72
+15-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:8:23-70
+16        </intent>
+17    </queries>
+18
+19    <!-- AAOS donanım zorunluluğu -->
+20    <uses-feature
+20-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:13:5-93
+21        android:name="android.hardware.type.automotive"
+21-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:13:19-66
+22        android:required="false" />
+22-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:13:67-91
+23
+24    <!-- Araç Verileri İzinleri -->
+25    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+25-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:16:5-72
+25-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:16:22-69
+26    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+26-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:17:5-77
+26-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:17:22-74
+27    <uses-permission android:name="android.car.permission.CAR_ENERGY" />
+27-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:18:5-73
+27-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:18:22-70
+28    <uses-permission android:name="android.car.permission.CONTROL_CAR_DOORS" />
+28-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:19:5-80
+28-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:19:22-77
+29    <uses-permission android:name="android.car.permission.CAR_INFO" />
+29-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:20:5-71
+29-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:20:22-68
+30
+31    <!-- Uygulama listeleme -->
+32    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+32-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:23:5-24:53
+32-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:23:22-74
+33
+34    <!-- Duvar kağıdı -->
+35    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+35-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:27:5-71
+35-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:27:22-69
+36
+37    <!-- Depolama — API 32 ve altı -->
+38    <uses-permission
+38-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:30:5-32:38
+39        android:name="android.permission.READ_EXTERNAL_STORAGE"
+39-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:31:9-64
+40        android:maxSdkVersion="32" />
+40-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:32:9-35
+41
+42    <!-- Depolama — API 33 ve üstü -->
+43    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+43-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:35:5-36:40
+43-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:35:22-73
+44
+45    <!-- Overlay (Sidebar penceresi için) -->
+46    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+46-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:39:5-77
+46-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:39:22-75
+47
+48    <!-- Hangi uygulama açık (AppWatcher için) -->
+49    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+49-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:42:5-43:47
+49-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:42:22-75
+50
+51    <!-- Boot'ta otomatik başlat -->
+52    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+52-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:46:5-80
+52-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:46:22-78
+53
+54    <!-- Foreground Service — tüm API seviyeleri -->
+55    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+55-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:49:5-77
+55-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:49:22-74
+56
+57    <!-- foregroundServiceType="specialUse" için API 34+ zorunlu izin -->
+58    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+58-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:52:5-53:46
+58-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:52:22-86
+59
+60    <!-- ADB Connectivity Permissions -->
+61    <uses-permission android:name="android.permission.INTERNET" />
+61-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:56:5-67
+61-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:56:22-64
+62    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+62-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:57:5-79
+62-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:57:22-76
+63    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+63-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:58:5-79
+63-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:58:22-76
+64
+65    <permission
+65-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/9.0.0/transforms/37790f8eecdaf4fae00f03891dbc6500/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+66        android:name="com.omoda5.launcher.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+66-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/9.0.0/transforms/37790f8eecdaf4fae00f03891dbc6500/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+67        android:protectionLevel="signature" />
+67-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/9.0.0/transforms/37790f8eecdaf4fae00f03891dbc6500/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+68
+69    <uses-permission android:name="com.omoda5.launcher.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+69-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/9.0.0/transforms/37790f8eecdaf4fae00f03891dbc6500/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+69-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/9.0.0/transforms/37790f8eecdaf4fae00f03891dbc6500/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+70
+71    <application
+71-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:60:5-104:19
+72        android:allowBackup="false"
+72-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:64:9-36
+73        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+73-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/9.0.0/transforms/37790f8eecdaf4fae00f03891dbc6500/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+74        android:debuggable="true"
+75        android:extractNativeLibs="false"
+76        android:icon="@mipmap/ic_launcher"
+76-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:62:9-43
+77        android:label="Omoda 5"
+77-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:61:9-32
+78        android:persistent="true"
+78-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:65:9-34
+79        android:roundIcon="@mipmap/ic_launcher_round"
+79-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:63:9-54
+80        android:testOnly="true"
+81        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+81-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:66:9-65
+82        <uses-library
+82-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:68:9-77
+83            android:name="android.car"
+83-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:68:23-49
+84            android:required="false" />
+84-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:68:50-74
+85
+86        <!-- ADB Bridge Service -->
+87        <service
+87-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:71:9-74:39
+88            android:name="com.omoda5.launcher.service.AdbBridgeService"
+88-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:72:13-53
+89            android:enabled="true"
+89-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:73:13-35
+90            android:exported="true" />
+90-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:74:13-36
+91
+92        <!-- Ana Launcher Activity -->
+93        <activity
+93-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:77:9-90:20
+94            android:name="com.omoda5.launcher.ui.MainActivity"
+94-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:78:13-44
+95            android:clearTaskOnLaunch="true"
+95-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:81:13-45
+96            android:exported="true"
+96-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:79:13-36
+97            android:launchMode="singleTask"
+97-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:80:13-44
+98            android:resumeWhilePausing="true"
+98-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:83:13-46
+99            android:stateNotNeeded="true" >
+99-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:82:13-42
+100            <intent-filter>
+100-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:84:13-89:29
+101                <action android:name="android.intent.action.MAIN" />
+101-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:7:13-64
+101-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:7:21-62
+102
+103                <category android:name="android.intent.category.LAUNCHER" />
+103-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:8:13-72
+103-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:8:23-70
+104                <category android:name="android.intent.category.HOME" />
+104-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:87:17-72
+104-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:87:27-70
+105                <category android:name="android.intent.category.DEFAULT" />
+105-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:88:17-75
+105-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:88:27-73
+106            </intent-filter>
+107        </activity>
+108
+109        <!-- Split-Screen Activity -->
+110        <activity
+110-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:93:9-97:53
+111            android:name="com.omoda5.launcher.ui.SplitScreenActivity"
+111-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:94:13-51
+112            android:exported="true"
+112-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:95:13-36
+113            android:launchMode="singleTask"
+113-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:96:13-44
+114            android:screenOrientation="landscape" />
+114-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:97:13-50
+115        <activity
+115-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:99:9-102:53
+116            android:name="com.omoda5.launcher.ui.LauncherSettingsActivity"
+116-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:100:13-56
+117            android:exported="false"
+117-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:101:13-37
+118            android:screenOrientation="landscape" />
+118-->/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/AndroidManifest.xml:102:13-50
+119
+120        <provider
+120-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+121            android:name="androidx.startup.InitializationProvider"
+121-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+122            android:authorities="com.omoda5.launcher.androidx-startup"
+122-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+123            android:exported="false" >
+123-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+124            <meta-data
+124-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+125                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+125-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+126                android:value="androidx.startup" />
+126-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+127            <meta-data
+127-->[androidx.lifecycle:lifecycle-process:2.8.2] /home/cemal/.gradle/caches/9.0.0/transforms/39e2012f462bcc130c2d87e11695cdb8/transformed/jetified-lifecycle-process-2.8.2/AndroidManifest.xml:29:13-31:52
+128                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+128-->[androidx.lifecycle:lifecycle-process:2.8.2] /home/cemal/.gradle/caches/9.0.0/transforms/39e2012f462bcc130c2d87e11695cdb8/transformed/jetified-lifecycle-process-2.8.2/AndroidManifest.xml:30:17-78
+129                android:value="androidx.startup" />
+129-->[androidx.lifecycle:lifecycle-process:2.8.2] /home/cemal/.gradle/caches/9.0.0/transforms/39e2012f462bcc130c2d87e11695cdb8/transformed/jetified-lifecycle-process-2.8.2/AndroidManifest.xml:31:17-49
+130            <meta-data
+130-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+131                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+131-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+132                android:value="androidx.startup" />
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+133        </provider>
+134
+135        <receiver
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+136            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+137            android:directBootAware="false"
+137-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+138            android:enabled="true"
+138-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+139            android:exported="true"
+139-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+140            android:permission="android.permission.DUMP" >
+140-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+141            <intent-filter>
+141-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+142                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+142-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+142-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+143            </intent-filter>
+144            <intent-filter>
+144-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+145                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+145-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+145-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+146            </intent-filter>
+147            <intent-filter>
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+148                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+148-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+148-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+149            </intent-filter>
+150            <intent-filter>
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+151                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+151-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+151-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/9.0.0/transforms/8cb592d485b3d55c7a32820bd498c822/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+152            </intent-filter>
+153        </receiver>
+154    </application>
+155
+156</manifest>

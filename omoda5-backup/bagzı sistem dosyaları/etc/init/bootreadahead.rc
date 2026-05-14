@@ -1,0 +1,26 @@
+service injectahead /system/bin/bootreadahead inject
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+service collectahead /system/bin/bootreadahead collect
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+#on early-init
+#    start injectahead
+
+on property:init.svc.zygote=running
+    write /dev/.boot_zygote 1
+
+#on property:sys.boot.collectahead=0
+#    write /dev/.boot_zygote 1
+
+on property:sys.boot.collectahead=1
+    start collectahead
+

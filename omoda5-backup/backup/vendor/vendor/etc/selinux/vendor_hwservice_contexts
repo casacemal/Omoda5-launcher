@@ -1,0 +1,9 @@
+vendor.yfve.hardware.yfvecodecservice::IYfveCodecService u:object_r:hal_yfvecodecservice_hwservice:s0
+vendor.yfve.hardware.audiocontrol::IAudioControl         u:object_r:hal_audiocontrol_yfve_hwservice:s0
+vendor.yfve.hardware.broadcastradio::IBroadcastRadio         u:object_r:hal_broadcastradio_yfve_hwservice:s0
+vendor.yfve.hardware.logcollector::ILogCollector        u:object_r:hal_logcollector_yfve_hwservice:s0
+vendor.yfve.hardware.tbox::ITbox            u:object_r:hal_tbox_yfve_hwservice:s0
+android.hardware.broadcastdabdrm::IBroadcastDabDrm             u:object_r:hal_broadcastdabdrm_hwservice:s0
+android.hardware.broadcastdabdrm::IBroadcastDabDrmFactory      u:object_r:hal_broadcastdabdrm_hwservice:s0
+android.hardware.broadcastdabdrm::IDabDrm                      u:object_r:hal_broadcastdabdrm_hwservice:s0
+android.hardware.broadcastdabdrm::IDabDrmCallback              u:object_r:hal_broadcastdabdrm_hwservice:s0

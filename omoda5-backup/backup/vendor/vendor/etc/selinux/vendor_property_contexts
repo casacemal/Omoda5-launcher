@@ -1,0 +1,25 @@
+#line 1 "vendor/semidrive/tools/InitInsmod/sepolicy/property_contexts"
+semidrive.early.insmod u:object_r:insmod_prop:s0
+#line 1 "vendor/yfve/private/common/system/projection/CarPlayService/CarPlayCommService/sepolicy//property_contexts"
+cp.param u:object_r:carplay_prop:s0
+cp.driver u:object_r:carplay_driver:s0
+cp.stop_driver u:object_r:carplay_stopdriver:s0
+cp.ipodout u:object_r:carplay_ipod:s0
+
+#line 1 "device/semidrive/common/sepolicy/property_contexts"
+persist.log.start                   u:object_r:persist_log_start_prop:s0
+persist.vdsp.forbid                 u:object_r:persist_vdsp_forbid_prop:s0
+persist.force.landscape             u:object_r:persist_force_landscape_prop:s0
+persist.multitask.display           u:object_r:persist_multitask_display_prop:s0
+ro.boot.vdsp                        u:object_r:ro_boot_vdsp_prop:s0
+avm.running                         u:object_r:native_avm_prop:s0
+avm.stop                            u:object_r:native_avm_prop:s0
+evs.running                         u:object_r:evs_prop:s0
+evs.stop                            u:object_r:evs_prop:s0
+wifi.active.interface               u:object_r:exported_wifi_prop:s0
+#line 1 "device/yfve/sepolicy/vendor/common/property_contexts"
+persist.evs.            u:object_r:vendor_default_prop:s0
+#line 1 "system/sepolicy/reqd_mask/property_contexts"
+# empty property_contexts file - this file is used to generate an empty
+# non-platform property context for devices without any property_contexts
+# customizations.

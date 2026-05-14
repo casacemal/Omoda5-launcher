@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_settings.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_phone.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_phone.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_command_page.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_command_page.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/item_vehicle_property.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/item_vehicle_property.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_bottom_navigation.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_bottom_navigation.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/activity_split_screen.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/activity_split_screen.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_right_panel.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_right_panel.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/activity_main.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/item_split_setting_app.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/item_split_setting_app.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_left_panel.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_left_panel.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/activity_launcher_settings.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/activity_launcher_settings.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_vehicle_data.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_vehicle_data.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/item_launcher_icon.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/item_launcher_icon.xml"
+    },
+    {
+        "merged": "com.omoda5.launcher-mergeDebugResources-35:/layout/activity_main.xml",
+        "source": "com.omoda5.launcher-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_status_bar.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_status_bar.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/activity_overlay_launcher.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/activity_overlay_launcher.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/dialog_app_selection.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/dialog_app_selection.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_split_panel.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_split_panel.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/item_page_grid.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/item_page_grid.xml"
+    }
+]

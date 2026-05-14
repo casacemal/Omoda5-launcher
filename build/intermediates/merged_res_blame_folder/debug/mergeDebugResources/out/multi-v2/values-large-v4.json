@@ -1,0 +1,53 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.omoda5.launcher-mergeDebugResources-34:/values-large-v4/values-large-v4.xml",
+            "map": [
+                {
+                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-large/styles.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,167,291,421",
+                        "endColumns": "111,123,129,141",
+                        "endOffsets": "162,286,416,558"
+                    },
+                    "to": {
+                        "startLines": "9,10,13,14",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "566,677,1030,1159",
+                        "endColumns": "110,122,128,140",
+                        "endOffsets": "672,795,1154,1295"
+                    }
+                },
+                {
+                    "source": "/home/cemal/.gradle/caches/9.0.0/transforms/a07235c87441aeba4ea8063152b5bc16/transformed/material-1.12.0/res/values-large-v4/values-large-v4.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,169",
+                        "endColumns": "113,115",
+                        "endOffsets": "164,280"
+                    },
+                    "to": {
+                        "startLines": "11,12",
+                        "startColumns": "4,4",
+                        "startOffsets": "800,914",
+                        "endColumns": "113,115",
+                        "endOffsets": "909,1025"
+                    }
+                },
+                {
+                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-large/dimens.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "55,117,195,268,345,417,492",
+                        "endColumns": "61,77,72,76,71,74,73",
+                        "endOffsets": "112,190,263,340,412,487,561"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Omoda 5 Launcher
+Comment=Open Omoda 5 Launcher Home Screen
+Exec=python3 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/open_launcher.py
+Icon=/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/home_button_icon.png
+Terminal=false
+Type=Application
+Categories=Utility;

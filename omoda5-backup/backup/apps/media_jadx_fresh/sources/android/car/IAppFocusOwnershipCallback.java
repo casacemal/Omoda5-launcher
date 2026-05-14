@@ -1,0 +1,135 @@
+package android.car;
+
+import android.os.Binder;
+import android.os.IBinder;
+import android.os.IInterface;
+import android.os.Parcel;
+import android.os.RemoteException;
+
+/* loaded from: classes.dex */
+public interface IAppFocusOwnershipCallback extends IInterface {
+
+    public static class Default implements IAppFocusOwnershipCallback {
+        @Override // android.os.IInterface
+        public IBinder asBinder() {
+            return null;
+        }
+
+        @Override // android.car.IAppFocusOwnershipCallback
+        public void onAppFocusOwnershipGranted(int r1) throws RemoteException {
+        }
+
+        @Override // android.car.IAppFocusOwnershipCallback
+        public void onAppFocusOwnershipLost(int r1) throws RemoteException {
+        }
+    }
+
+    void onAppFocusOwnershipGranted(int r1) throws RemoteException;
+
+    void onAppFocusOwnershipLost(int r1) throws RemoteException;
+
+    public static abstract class Stub extends Binder implements IAppFocusOwnershipCallback {
+        private static final String DESCRIPTOR = "android.car.IAppFocusOwnershipCallback";
+        static final int TRANSACTION_onAppFocusOwnershipGranted = 2;
+        static final int TRANSACTION_onAppFocusOwnershipLost = 1;
+
+        @Override // android.os.IInterface
+        public IBinder asBinder() {
+            return this;
+        }
+
+        public Stub() {
+            attachInterface(this, DESCRIPTOR);
+        }
+
+        public static IAppFocusOwnershipCallback asInterface(IBinder iBinder) {
+            if (iBinder == null) {
+                return null;
+            }
+            IInterface iInterfaceQueryLocalInterface = iBinder.queryLocalInterface(DESCRIPTOR);
+            if (iInterfaceQueryLocalInterface != null && (iInterfaceQueryLocalInterface instanceof IAppFocusOwnershipCallback)) {
+                return (IAppFocusOwnershipCallback) iInterfaceQueryLocalInterface;
+            }
+            return new Proxy(iBinder);
+        }
+
+        @Override // android.os.Binder
+        public boolean onTransact(int r4, Parcel parcel, Parcel parcel2, int r7) throws RemoteException {
+            if (r4 == 1) {
+                parcel.enforceInterface(DESCRIPTOR);
+                onAppFocusOwnershipLost(parcel.readInt());
+                return true;
+            }
+            if (r4 == 2) {
+                parcel.enforceInterface(DESCRIPTOR);
+                onAppFocusOwnershipGranted(parcel.readInt());
+                return true;
+            }
+            if (r4 == 1598968902) {
+                parcel2.writeString(DESCRIPTOR);
+                return true;
+            }
+            return super.onTransact(r4, parcel, parcel2, r7);
+        }
+
+        private static class Proxy implements IAppFocusOwnershipCallback {
+            public static IAppFocusOwnershipCallback sDefaultImpl;
+            private IBinder mRemote;
+
+            public String getInterfaceDescriptor() {
+                return Stub.DESCRIPTOR;
+            }
+
+            Proxy(IBinder iBinder) {
+                this.mRemote = iBinder;
+            }
+
+            @Override // android.os.IInterface
+            public IBinder asBinder() {
+                return this.mRemote;
+            }
+
+            @Override // android.car.IAppFocusOwnershipCallback
+            public void onAppFocusOwnershipLost(int r4) throws RemoteException {
+                Parcel parcelObtain = Parcel.obtain();
+                try {
+                    parcelObtain.writeInterfaceToken(Stub.DESCRIPTOR);
+                    parcelObtain.writeInt(r4);
+                    if (this.mRemote.transact(1, parcelObtain, null, 1) || Stub.getDefaultImpl() == null) {
+                        return;
+                    }
+                    Stub.getDefaultImpl().onAppFocusOwnershipLost(r4);
+                } finally {
+                    parcelObtain.recycle();
+                }
+            }
+
+            @Override // android.car.IAppFocusOwnershipCallback
+            public void onAppFocusOwnershipGranted(int r5) throws RemoteException {
+                Parcel parcelObtain = Parcel.obtain();
+                try {
+                    parcelObtain.writeInterfaceToken(Stub.DESCRIPTOR);
+                    parcelObtain.writeInt(r5);
+                    if (this.mRemote.transact(2, parcelObtain, null, 1) || Stub.getDefaultImpl() == null) {
+                        return;
+                    }
+                    Stub.getDefaultImpl().onAppFocusOwnershipGranted(r5);
+                } finally {
+                    parcelObtain.recycle();
+                }
+            }
+        }
+
+        public static boolean setDefaultImpl(IAppFocusOwnershipCallback iAppFocusOwnershipCallback) {
+            if (Proxy.sDefaultImpl != null || iAppFocusOwnershipCallback == null) {
+                return false;
+            }
+            Proxy.sDefaultImpl = iAppFocusOwnershipCallback;
+            return true;
+        }
+
+        public static IAppFocusOwnershipCallback getDefaultImpl() {
+            return Proxy.sDefaultImpl;
+        }
+    }
+}

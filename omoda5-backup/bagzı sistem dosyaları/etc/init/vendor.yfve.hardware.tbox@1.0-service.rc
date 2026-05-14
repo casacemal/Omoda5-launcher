@@ -1,0 +1,25 @@
+service vendor.tbox-hal-1.0 /vendor/bin/hw/vendor.yfve.hardware.tbox@1.0-service
+    class hal
+    user root
+    group root system
+
+service tbox_config_sh  /system/bin/tbox_config.sh
+    class core
+    user root
+    group root system
+    disabled
+    oneshot
+
+service tbox_clean_sh  /system/bin/tbox_clean.sh
+    class core
+    user root
+    group root system
+    disabled
+    oneshot
+
+
+on property:persist.vendor.tbox.connect=1
+    start tbox_config_sh
+
+on property:persist.vendor.tbox.connect=0
+    start tbox_clean_sh

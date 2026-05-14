@@ -1,0 +1,7 @@
+service IAP2CommService /system/bin/IAP2CommService
+    class core
+    user root
+    group system root
+
+on property:sys.boot_completed=1
+    start IAP2CommService

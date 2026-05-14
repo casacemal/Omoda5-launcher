@@ -1,0 +1,17 @@
+# Aliases extracted from modules themselves.
+alias of:N*T*Csemdrive,display-subsystemC* kunlun_drm
+alias of:N*T*Csemdrive,display-subsystem kunlun_drm
+alias of:N*T*Cimagination,pvr-rogue pvrsrvkm
+alias of:N*T*Cimagination,pvr-rogueC* pvrsrvkm
+alias platform:rgxkunlun pvrsrvkm
+alias of:N*T*Ccdns,xrp-hw-semidrive xrp_hw_semidrive
+alias of:N*T*Ccdns,xrp-hw-semidriveC* xrp_hw_semidrive
+alias of:N*T*Ccdns,xrp-hw-semidrive,v1 xrp_hw_semidrive
+alias of:N*T*Ccdns,xrp-hw-semidrive,v1C* xrp_hw_semidrive
+alias of:N*T*Ccdns,xrp-hw-semidrive,cma xrp_hw_semidrive
+alias of:N*T*Ccdns,xrp-hw-semidrive,cmaC* xrp_hw_semidrive
+alias of:N*T*Csemidrive,_kunlun-display-lvdsC* kunlun_drm_lvds
+alias of:N*T*Csemidrive,_kunlun-display-lvds kunlun_drm_lvds
+alias pci:v000014E4d*sv*sd*bc02sc80i* bcmdhd
+alias of:N*T*Csemidrive,_kunlun-display-parallelC* kunlun_drm_parallel
+alias of:N*T*Csemidrive,_kunlun-display-parallel kunlun_drm_parallel
