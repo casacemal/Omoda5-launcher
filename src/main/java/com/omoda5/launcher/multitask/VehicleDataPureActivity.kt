@@ -6,14 +6,19 @@ import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.omoda5.launcher.multitask.PureKotlinUI.createDataCard
 import com.omoda5.launcher.multitask.PureKotlinUI.createRootContainer
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * ARAÇ VERİLERİ SAYFASI (SAF KOTLIN)
  * Sürüş güvenliğine uygun, yüksek FPS ve modern UI.
  */
 class VehicleDataPureActivity : AppCompatActivity() {
+
+    private var isRunning = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,5 +57,21 @@ class VehicleDataPureActivity : AppCompatActivity() {
         root.addView(contentLayout)
 
         setContentView(root)
+        
+        startDataSimulation() // Şimdilik simülasyon, VHAL entegrasyonu v6.4.7'de
+    }
+
+    private fun startDataSimulation() {
+        lifecycleScope.launch {
+            while (isRunning) {
+                // Burada VHAL'den gelen veriler PureKotlinUI'daki 'tag' üzerinden güncellenebilir
+                delay(4000)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        isRunning = false
     }
 }

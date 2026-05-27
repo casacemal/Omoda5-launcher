@@ -1,0 +1,23 @@
+{
+  "message": "Validation Failed",
+  "errors": [
+    {
+      "resource": "Release",
+      "code": "custom",
+      "field": "tag_name",
+      "message": "tag_name is not a valid tag"
+    },
+    {
+      "resource": "Release",
+      "code": "custom",
+      "message": "Published releases must have a valid tag"
+    },
+    {
+      "resource": "Release",
+      "code": "invalid",
+      "field": "target_commitish"
+    }
+  ],
+  "documentation_url": "https://docs.github.com/rest/releases/releases#create-a-release",
+  "status": "422"
+}

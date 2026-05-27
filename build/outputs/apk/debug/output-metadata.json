@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 33,
-      "versionName": "6.4.6",
-      "outputFile": "app-debugV6.4.6.apk"
+      "versionCode": 40,
+      "versionName": "6.5.3",
+      "outputFile": "app-debugV6.5.3.apk"
     }
   ],
   "elementType": "File",

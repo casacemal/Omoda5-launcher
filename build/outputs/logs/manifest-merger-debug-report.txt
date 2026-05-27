@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:121:9-129:20
+INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:144:9-152:20
 	android:grantUriPermissions
-		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:125:13-47
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:148:13-47
 	android:authorities
 		INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml
-		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:123:13-64
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:146:13-64
 	android:exported
-		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:124:13-37
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:147:13-37
 	android:name
-		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:122:13-62
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:145:13-62
 manifest
-ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-133:12
-INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-133:12
-INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-133:12
-INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-133:12
+ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-156:12
+INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-156:12
+INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-156:12
+INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:2:1-156:12
 MERGED from [androidx.databinding:viewbinding:8.5.2] /home/cemal/.gradle/caches/9.0.0/transforms/8d469020ee7c1db50f009096cc988b38/transformed/jetified-viewbinding-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.12.0] /home/cemal/.gradle/caches/9.0.0/transforms/a07235c87441aeba4ea8063152b5bc16/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/cemal/.gradle/caches/9.0.0/transforms/2b66ba3a2a1af3ec528a9d6846a24f13/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
@@ -170,8 +170,8 @@ ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:54:5
 	android:name
 		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:54:22-80
 application
-ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:56:5-131:19
-INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:56:5-131:19
+ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:56:5-154:19
+INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:56:5-154:19
 MERGED from [com.google.android.material:material:1.12.0] /home/cemal/.gradle/caches/9.0.0/transforms/a07235c87441aeba4ea8063152b5bc16/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /home/cemal/.gradle/caches/9.0.0/transforms/a07235c87441aeba4ea8063152b5bc16/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/cemal/.gradle/caches/9.0.0/transforms/2b66ba3a2a1af3ec528a9d6846a24f13/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -294,12 +294,50 @@ ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:115:
 		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:119:13-72
 	android:name
 		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:116:13-56
-meta-data#android.support.FILE_PATHS
-ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:126:13-128:54
-	android:resource
-		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:128:17-51
+activity#com.omoda5.launcher.multitask.VehicleDataPureActivity
+ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:121:9-125:66
+	android:screenOrientation
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:124:13-50
+	android:exported
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:123:13-36
+	android:theme
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:125:13-63
 	android:name
-		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:127:17-58
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:122:13-62
+activity#com.omoda5.launcher.multitask.KeypadPureActivity
+ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:127:9-131:66
+	android:screenOrientation
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:130:13-50
+	android:exported
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:129:13-36
+	android:theme
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:131:13-63
+	android:name
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:128:13-57
+activity#com.omoda5.launcher.multitask.MultiTaskActivity
+ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:133:9-137:66
+	android:screenOrientation
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:136:13-50
+	android:exported
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:135:13-36
+	android:theme
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:137:13-63
+	android:name
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:134:13-56
+service#com.omoda5.launcher.multitask.MultiTaskOverlayService
+ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:139:9-142:39
+	android:enabled
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:141:13-35
+	android:exported
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:142:13-36
+	android:name
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:140:13-62
+meta-data#android.support.FILE_PATHS
+ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:149:13-151:54
+	android:resource
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:151:17-51
+	android:name
+		ADDED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml:150:17-58
 uses-sdk
 INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /media/cemal/depo/lancher proje/app/src/main/AndroidManifest.xml

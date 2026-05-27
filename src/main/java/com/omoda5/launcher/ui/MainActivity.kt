@@ -142,9 +142,11 @@ class MainActivity : AppCompatActivity() {
                 "pm grant $packageName android.permission.READ_EXTERNAL_STORAGE",
                 "pm grant $packageName android.permission.WRITE_EXTERNAL_STORAGE",
                 "pm grant $packageName android.permission.SYSTEM_ALERT_WINDOW",
+                "appops set $packageName SYSTEM_ALERT_WINDOW allow",
                 "appops set $packageName GET_USAGE_STATS allow",
                 "settings put secure enabled_accessibility_services $packageName/com.omoda5.launcher.services.CheryAccessibilityService",
                 "settings put secure accessibility_enabled 1",
+                "settings put secure enabled_notification_listeners $packageName/com.omoda5.launcher.services.CheryAccessibilityService:$packageName/com.omoda5.launcher.multitask.MultiTaskOverlayService",
                 "setprop service.adb.tcp.port 5555",
                 "stop adbd",
                 "start adbd",
@@ -253,7 +255,7 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, VehicleDataFragment()).addToBackStack(null).commit()
             }
             "launcher_settings" -> startActivity(Intent(this, LauncherSettingsActivity::class.java))
-            "maps_split" -> startActivity(Intent(this, com.omoda5.launcher.multitask.MultiTaskActivity::class.java))
+            "maps_split" -> com.omoda5.launcher.multitask.MultiTaskEngine.launchMapsMultiTask(this)
             "vehicle_data" -> startActivity(Intent(this, com.omoda5.launcher.multitask.VehicleDataPureActivity::class.java))
             else -> {
                 if (intent != null) startActivity(intent)

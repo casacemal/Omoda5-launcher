@@ -14,21 +14,20 @@ object MultiTaskEngine {
     private const val MAPS_PACKAGE = "com.google.android.apps.maps"
 
     /**
-     * Google Maps Multi-Task tetikleyici.
+     * Google Maps Multi-Task tetikleyici (Overlay Yöntemi).
      */
-    fun launchMapsSplit(context: Context) {
-        Log.d(TAG, "Multi-task Maps tetiklendi.")
+    fun launchMapsMultiTask(context: Context) {
+        Log.d(TAG, "Multi-task Overlay tetiklendi.")
         
-        // 1. Google Maps'i başlat (Zorlamalı Sınırlar)
+        // 1. Google Maps'i tam ekran başlat
         val mapsIntent = context.packageManager.getLaunchIntentForPackage(MAPS_PACKAGE)
         if (mapsIntent != null) {
-            mapsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT)
-            
-            // AAOS 10 Özel: Split stack (3/4) yerine bu sürümde 'Freeform' mantığı denenecek.
+            mapsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(mapsIntent)
             
-            // 2. Yanına Medya Paneli veya Ayarları aç (Mevcut split mekanizması arka planda)
-            // Bu kısım SplitScreenManager ile entegre çalışacak.
+            // 2. Sol paneli Overlay (Üst Katman) olarak başlat
+            val overlayIntent = Intent(context, MultiTaskOverlayService::class.java)
+            context.startService(overlayIntent)
         } else {
             Log.e(TAG, "Maps paketi bulunamadı!")
         }
