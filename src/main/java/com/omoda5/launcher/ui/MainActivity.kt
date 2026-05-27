@@ -1,4 +1,4 @@
-@file:Suppress("SpellCheckingInspection")
+@file:Suppress("SpellCheckingInspection", "DEPRECATION")
 
 package com.omoda5.launcher.ui
 
@@ -7,59 +7,70 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import androidx.fragment.app.FragmentManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import com.omoda5.launcher.R
-import com.omoda5.launcher.common.AppSelectionRepository
-import com.omoda5.launcher.common.PreferencesManager
-import com.omoda5.launcher.common.SplitScreenManager
+import com.omoda5.launcher.common.*
 import com.omoda5.launcher.databinding.ActivityMainBinding
 import com.omoda5.launcher.model.LauncherItem
 import com.omoda5.launcher.ui.adapters.LauncherAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.util.ArrayDeque
 
-@Suppress("SpellCheckingInspection")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefs: PreferencesManager
     private lateinit var splitScreenManager: SplitScreenManager
     private lateinit var appSelectionRepository: AppSelectionRepository
-    private lateinit var splitScreenViewModel: SplitScreenViewModel
-    private lateinit var overlayPermissionLauncher: ActivityResultLauncher<Intent>
-    private lateinit var gestureDetector: GestureDetector
+    private lateinit var updateManager: UpdateManager
     private val mainHandler = Handler(Looper.getMainLooper())
+    private var currentStatusView: View? = null
+    private val statusQueue = ArrayDeque<String>()
+    private var isStatusShowing = false
+    private var currentStatusMessage: String? = null
 
     private var wallpaperFiles: List<String> = emptyList()
     private var cachedInstalledApps: List<LauncherItem>? = null
+    private var isTailscaleStarted = false
+    private var pendingPinnedResizeBounds: String? = null
+
+    private val adbStatusReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val message = intent?.getStringExtra("message") ?: return
+            handlePinnedStackInfo(message)
+            val overlayMessage = formatStatusMessage(message) ?: return
+            showLargeStatus(overlayMessage)
+        }
+    }
 
     private val packageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            Log.d(TAG, "Package change detected: ${intent?.action}")
-            cachedInstalledApps = null // Force reload
+            cachedInstalledApps = null
             loadAppsAndSetupViewPager()
         }
     }
@@ -67,10 +78,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"
         private const val WALLPAPER_ASSET_DIR = "wallpapers"
-        private const val SIDEBAR_WIDTH_DP = 172f
     }
-
-    // ── Lifecycle ──────────────────────────────────────────────────────────────
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,201 +88,145 @@ class MainActivity : AppCompatActivity() {
         prefs = PreferencesManager(this)
         splitScreenManager = SplitScreenManager(prefs)
         appSelectionRepository = AppSelectionRepository()
-        splitScreenViewModel = SplitScreenViewModel(splitScreenManager, appSelectionRepository)
+        updateManager = UpdateManager(this, prefs)
 
-        // Start ADB service if enabled
-        startAdbServiceIfEnabled()
-
-        // gestureDetector = GestureDetector(this, SplitScreenGestureListener()) // Disabled
-        binding.root.setOnTouchListener { _, _ -> false } // No gesture handling
+        startAdbServiceAndAutoSetup()
+        startHvacIfEnabled()
+        autoCheckForUpdates()
+        ensureWallpaperDirectory()
 
         bindListeners()
         loadWallpaperFileList()
         setDefaultWallpaper()
-        checkOverlayPermission()
         loadAppsAndSetupViewPager()
-        updateSplitScreenToggleIcon()
         registerPackageReceiver()
+        registerAdbStatusReceiver()
+        setupNetworkMonitoring()
     }
 
-    private fun registerPackageReceiver() {
-        val filter = IntentFilter().apply {
-            addAction(Intent.ACTION_PACKAGE_ADDED)
-            addAction(Intent.ACTION_PACKAGE_REMOVED)
-            addAction(Intent.ACTION_PACKAGE_REPLACED)
-            addDataScheme("package")
+    private fun setupNetworkMonitoring() {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkRequest = NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+
+        connectivityManager.registerNetworkCallback(networkRequest, object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                if (!isTailscaleStarted) {
+                    Log.d(TAG, "Internet baglantisi algilandi. Tailscale baslatiliyor...")
+                    // Tailscale'i arka planda baslatmaya calis (Monkey ile)
+                    val intent = Intent(this@MainActivity, com.omoda5.launcher.service.AdbBridgeService::class.java).apply {
+                        action = com.omoda5.launcher.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+                        putExtra("command", "monkey -p com.tailscale.ipn 1")
+                    }
+                    startService(intent)
+                    isTailscaleStarted = true
+                }
+            }
+            
+            override fun onLost(network: Network) {
+                isTailscaleStarted = false
+            }
+        })
+    }
+
+    private fun startAdbServiceAndAutoSetup() {
+        val intent = Intent(this, com.omoda5.launcher.service.AdbBridgeService::class.java)
+        ContextCompat.startForegroundService(this, intent)
+        
+        mainHandler.postDelayed({
+            val leftO = if (prefs.isLeftBarHidden) -235 else 0
+            val rightO = if (prefs.isRightBarHidden) -70 else 0
+            
+            val commands = arrayOf(
+                "pm grant $packageName android.permission.READ_EXTERNAL_STORAGE",
+                "pm grant $packageName android.permission.WRITE_EXTERNAL_STORAGE",
+                "pm grant $packageName android.permission.SYSTEM_ALERT_WINDOW",
+                "appops set $packageName GET_USAGE_STATS allow",
+                "settings put secure enabled_accessibility_services $packageName/com.omoda5.launcher.services.CheryAccessibilityService",
+                "settings put secure accessibility_enabled 1",
+                "setprop service.adb.tcp.port 5555",
+                "stop adbd",
+                "start adbd",
+                "wm overscan $leftO,0,$rightO,0",
+                "cmd package set-home-activity $packageName/.ui.MainActivity"
+            )
+            commands.forEach { cmd ->
+                val cmdIntent = Intent(this, com.omoda5.launcher.service.AdbBridgeService::class.java).apply {
+                    action = com.omoda5.launcher.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+                    putExtra("command", cmd)
+                }
+                startService(cmdIntent)
+            }
+        }, 3000)
+    }
+
+    private fun ensureWallpaperDirectory() {
+        // Chrome ve sistemin kullandığı gerçek Download yolu
+        val downloadPath = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "wallpapers")
+        if (!downloadPath.exists()) {
+            downloadPath.mkdirs()
+            Log.d(TAG, "Duvar kağıdı klasörü oluşturuldu: ${downloadPath.absolutePath}")
         }
-        registerReceiver(packageReceiver, filter)
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(packageReceiver)
-    }
-
-    private fun checkOverlayPermission() {
-        // Sidebar kaldırıldığı için overlay iznine gerek kalmadı.
-    }
-
-    private fun startSidebarService() {
-        // Sidebar kaldırıldı.
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        // Reset to home state when activity is re-launched from Sidebar
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            binding.fragmentContainer.visibility = View.GONE
-        }
-    }
-
-    // ── Dinleyiciler ───────────────────────────────────────────────────────────
 
     private fun bindListeners() {
         binding.ilWallpaperChangeTrigger.setOnClickListener { cycleWallpaper() }
-
-        binding.ivSplitScreenToggle.setOnClickListener { toggleSplitScreen() }
+        binding.btnGoHome.setOnClickListener { returnToHome() }
+        binding.btnSplitTrigger.setOnClickListener { toggleSplitScreen() }
+        
+        binding.ilWallpaperChangeTrigger.setOnLongClickListener {
+            toggleSplitScreen()
+            true
+        }
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                updatePageIndicator(position)
+                binding.indicatorDot1.alpha = if (position == 0) 1.0f else 0.3f
+                binding.indicatorDot2.alpha = if (position == 1) 1.0f else 0.3f
             }
         })
-
-        // Add click listeners to page indicators for navigation
-        binding.indicatorDot1.setOnClickListener {
-            binding.viewPager.setCurrentItem(0, true)
-        }
-
-        binding.indicatorDot2.setOnClickListener {
-            binding.viewPager.setCurrentItem(1, true)
-        }
     }
-
-    // ── ViewPager kurulumu ─────────────────────────────────────────────────────
 
     private fun loadAppsAndSetupViewPager() {
         lifecycleScope.launch(Dispatchers.Default) {
             val apps = cachedInstalledApps ?: getInstalledApps().also { cachedInstalledApps = it }
             val pages = buildPages(apps)
             withContext(Dispatchers.Main) {
-                applyPagesToViewPager(pages)
+                binding.viewPager.adapter = LauncherAdapter(
+                    pages,
+                    onItemClick = { launchItem(it) },
+                    onItemLongClick = { item ->
+                        val pkg = item.packageName ?: item.id
+                        if (pkg.contains(".")) startSplitWithPrimary(pkg, "left")
+                    },
+                    getBadgeForItem = { null }
+                )
             }
         }
     }
 
     private fun buildPages(installedApps: List<LauncherItem>): List<List<LauncherItem>> {
         val page1Items = listOf(
-            LauncherItem(
-                id = "media", title = "Medya",
-                iconResId = R.drawable.launcher_media_icon_bg,
-                packageName = "com.chery.media",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.media")
-            ),
-            LauncherItem(
-                id = "phone", title = "Telefon",
-                iconResId = R.drawable.launcher_phone_icon_bg,
-                packageName = "com.chery.dialer",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.dialer")
-            ),
-            LauncherItem(
-                id = "settings", title = "Yerel Ayarlar",
-                iconResId = R.drawable.launcher_system_setting_icon_bg,
-                packageName = "com.chery.settings",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.settings")
-            ),
-            LauncherItem(
-                id = "vehicle", title = "Araba Ayarlari",
-                iconResId = R.drawable.launcher_vehicle_icon_bg,
-                packageName = "com.chery.hvac",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.hvac")
-            ),
-            LauncherItem(
-                id = "pictures", title = "Gorseller",
-                iconResId = R.drawable.launcher_picture_icon_bg,
-                packageName = "com.chery.media",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.media")
-            ),
-            LauncherItem(
-                id = "video", title = "Video",
-                iconResId = R.drawable.launcher_video_icon_bg,
-                packageName = "com.chery.media",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.media")
-            ),
-            LauncherItem(
-                id = "manual", title = "Elektronik Kullanım Kılavuzu",
-                iconResId = R.drawable.launcher_manual_icon_bg,
-                packageName = "com.chery.help",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.help")
-            ),
-            LauncherItem(
-                id = "aa", title = "Android Auto",
-                iconResId = R.drawable.launcher_android_auto_icon_bg,
-                packageName = "com.chery.androidauto",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.androidauto")
-            ),
-            LauncherItem(
-                id = "carplay", title = "Apple CarPlay",
-                iconResId = R.drawable.launcher_carplay_icon_bg,
-                isDisabled = true
-            ),
-            LauncherItem(
-                id = "update", title = "Sistem güncellemesi",
-                iconResId = R.drawable.launcher_update_icon_bg,
-                packageName = "com.chery.upgrade",
-                launchIntent = packageManager.getLaunchIntentForPackage("com.chery.upgrade")
-            )
+            LauncherItem("media", "Medya", R.drawable.launcher_media_icon_bg, packageName = "com.chery.media"),
+            LauncherItem("phone", "Telefon", R.drawable.launcher_phone_icon_bg, packageName = "com.chery.dialer"),
+            LauncherItem("settings", "Sistem", R.drawable.launcher_system_setting_icon_bg, packageName = "com.chery.settings"),
+            LauncherItem("vehicle", "Klima", R.drawable.launcher_vehicle_icon_bg, packageName = "com.chery.hvac"),
+            LauncherItem("pictures", "Resimler", R.drawable.launcher_picture_icon_bg, packageName = "com.chery.media"),
+            LauncherItem("video", "Video", R.drawable.launcher_video_icon_bg, packageName = "com.chery.media"),
+            LauncherItem("manual", "Kılavuz", R.drawable.launcher_manual_icon_bg, packageName = "com.chery.help"),
+            LauncherItem("maps_split", "Harita Split", R.drawable.launcher_media_icon_bg, packageName = "com.google.android.apps.maps"),
+            LauncherItem("aa", "Android Auto", R.drawable.launcher_android_auto_icon_bg, packageName = "com.yfve.car.androidauto"),
+            LauncherItem("carplay", "CarPlay", R.drawable.launcher_carplay_icon_bg, packageName = "com.yfve.car.carplay"),
+            LauncherItem("update", "Güncelleme", R.drawable.launcher_update_icon_bg, packageName = "com.chery.upgrade")
         )
-
-        val favoriteIds = prefs.favoriteApps
-        val appsWithFavoriteStatus = installedApps
-            .map { app -> app.copy(isFavorite = favoriteIds.contains(app.id)) }
-
-        val favoriteApps = appsWithFavoriteStatus.filter { it.isFavorite }.sortedBy { it.title.lowercase() }
-        val normalApps   = appsWithFavoriteStatus.filterNot { it.isFavorite }.sortedBy { it.title.lowercase() }
-
-        // Second page custom items
-        val secondPageItems = mutableListOf(
-            LauncherItem(id = "vehicle_data", title = "Arac Verileri", iconResId = R.drawable.launcher_vehicle_icon_bg),
-            LauncherItem(id = "launcher_settings", title = "Launcher Ayarları", iconResId = R.drawable.launcher_system_setting_icon_bg)
-        )
-
-        val pages = mutableListOf(page1Items)
-        val allOtherApps = secondPageItems + favoriteApps + normalApps
-        pages.addAll(allOtherApps.chunked(10))
-        return pages
+        val allOther = (mutableListOf(
+            LauncherItem("vehicle_data", "Araç Verileri", R.drawable.launcher_vehicle_icon_bg),
+            LauncherItem("launcher_settings", "Ayarlar", R.drawable.launcher_system_setting_icon_bg)
+        ) + installedApps).sortedByDescending { prefs.getClickCount(it.packageName ?: it.id) }
+        
+        return listOf(page1Items) + allOther.chunked(10)
     }
-
-    private fun applyPagesToViewPager(pages: List<List<LauncherItem>>) {
-        binding.viewPager.adapter = LauncherAdapter(
-            pages,
-            onItemClick     = { item: LauncherItem -> launchItem(item) },
-            onItemLongClick = { item: LauncherItem -> showAppSelectionDialog(item) },
-            getBadgeForItem = { item ->
-                val (left, right) = splitScreenViewModel.getTempSelectedApps()
-                when {
-                    left?.id == item.id -> "L"
-                    right?.id == item.id -> "R"
-                    else -> null
-                }
-            }
-        )
-        updatePageIndicator(0)
-    }
-
-    // ── Favori yönetimi ────────────────────────────────────────────────────────
-
-    private fun toggleFavorite(item: LauncherItem) {
-        if (!item.id.contains(".")) return
-        val favorites = prefs.favoriteApps.toMutableSet()
-        if (favorites.remove(item.id)) showToast("${item.title} favorilerden cikariildi.")
-        else { favorites.add(item.id); showToast("${item.title} favorilere eklendi.") }
-        prefs.favoriteApps = favorites
-        loadAppsAndSetupViewPager()
-    }
-
-    // ── Uygulama listesi ───────────────────────────────────────────────────────
 
     private fun getInstalledApps(): List<LauncherItem> {
         val pm = packageManager
@@ -283,421 +235,380 @@ class MainActivity : AppCompatActivity() {
             .filterNot { it.activityInfo.packageName == packageName }
             .map { info ->
                 LauncherItem(
-                    id           = info.activityInfo.packageName,
-                    title        = info.loadLabel(pm).toString(),
+                    id = info.activityInfo.packageName,
+                    title = info.loadLabel(pm).toString(),
                     iconDrawable = info.loadIcon(pm),
-                    launchIntent = pm.getLaunchIntentForPackage(info.activityInfo.packageName)
+                    packageName = info.activityInfo.packageName
                 )
-            }
-            .sortedBy { it.title.lowercase() }
+            }.sortedBy { it.title.lowercase() }
     }
-
-    // ── Öğe açma ──────────────────────────────────────────────────────────────
 
     private fun launchItem(item: LauncherItem) {
-        when {
-            item.id == "vehicle_data" -> {
-                showVehicleDataFragment()
+        val pkg = item.packageName ?: item.id
+        prefs.incrementClickCount(pkg)
+
+        when (item.id) {
+            "vehicle_data" -> {
+                binding.fragmentContainer.visibility = View.VISIBLE
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, VehicleDataFragment()).addToBackStack(null).commit()
             }
-            item.id == "launcher_settings" -> {
-                startActivity(Intent(this, LauncherSettingsActivity::class.java))
-            }
-            item.launchIntent != null -> {
-                try { launchIntoWorkArea(item.launchIntent) }
-                catch (e: Exception) {
-                    Log.e(TAG, "launchIntent basarisiz: ${item.id}", e)
-                    showToast("Uygulama baslatilamamdi.")
-                }
-            }
-            item.intentAction != null -> {
-                try {
-                    val i = Intent(item.intentAction).also { intent ->
-                        item.category?.let { intent.addCategory(it) }
-                    }
-                    if (i.resolveActivity(packageManager) != null) launchIntoWorkArea(i)
-                    else showToast("${item.title} bulunamadi.")
-                } catch (e: Exception) {
-                    Log.e(TAG, "intentAction basarisiz: ${item.intentAction}", e)
-                    showToast("Hata: ${e.message}")
-                }
-            }
-            else -> showToast("${item.title} simule edildi.")
-        }
-    }
-
-    // ── launchIntoWorkArea — Fixed for stability in v5 ───────────────────────────
-
-    private fun launchIntoWorkArea(intent: Intent) {
-        // v5 Update: Multi-window constraints are removed to ensure system apps open correctly.
-        // Some car units reject bounds/multi-window modes, causing the app to not open at all.
-        launchFullscreen(intent)
-    }
-
-    /** Sidebar genişliği her zaman sabit dp değerinden hesaplanır. */
-    private fun getWorkAreaRect(): Rect {
-        val dm = resources.displayMetrics
-        val screenW = dm.widthPixels
-        val screenH = dm.heightPixels
-        val sidebarPx = (SIDEBAR_WIDTH_DP * dm.density).toInt()
-        return Rect(sidebarPx, 0, screenW, screenH)
-    }
-
-    private fun tryLaunchWithWindowingMode(intent: Intent, bounds: Rect): Boolean {
-        return try {
-            val options = ActivityOptions.makeBasic()
-            ActivityOptions::class.java
-                .getMethod("setLaunchWindowingMode", Int::class.java)
-                .invoke(options, 3) // WINDOWING_MODE_MULTI_WINDOW = 3
-            options.setLaunchBounds(bounds)
-            startActivity(intent, options.toBundle())
-            Log.d(TAG, "Yontem 1 basarili: Windowing mode")
-            true
-        } catch (e: Exception) {
-            Log.w(TAG, "Yontem 1 basarisiz: ${e.message}")
-            false
-        }
-    }
-
-    private fun tryLaunchWithBounds(intent: Intent, bounds: Rect): Boolean {
-        return try {
-            startActivity(intent, ActivityOptions.makeBasic().setLaunchBounds(bounds).toBundle())
-            Log.d(TAG, "Yontem 2 basarili: Bounds")
-            true
-        } catch (e: Exception) {
-            Log.w(TAG, "Yontem 2 basarisiz: ${e.message}")
-            false
-        }
-    }
-
-    private fun launchFullscreen(intent: Intent) {
-        try {
-            startActivity(intent)
-            Log.d(TAG, "Yontem 3: Tam ekran (fallback)")
-        } catch (e: Exception) {
-            Log.e(TAG, "Uygulama acilamadi: ${e.message}")
-            showToast("Uygulama baslatilamamdi.")
-        }
-    }
-
-    // ── Sayfa göstergesi ───────────────────────────────────────────────────────
-
-    private fun updatePageIndicator(position: Int) {
-        binding.indicatorDot1.alpha = if (position == 0) 1.0f else 0.3f
-        binding.indicatorDot2.alpha = if (position == 1) 1.0f else 0.3f
-    }
-
-    // ── Duvar kağıdı ───────────────────────────────────────────────────────────
-
-    private fun loadWallpaperFileList() {
-        wallpaperFiles = try {
-            assets.list(WALLPAPER_ASSET_DIR)
-                ?.filter { it.endsWith(".jpeg") || it.endsWith(".jpg") || it.endsWith(".png") }
-                ?.sorted()
-                ?: emptyList()
-        } catch (e: Exception) {
-            Log.e(TAG, "Duvar kagidi listesi okunamadi", e)
-            emptyList()
-        }
-    }
-
-    private fun setDefaultWallpaper() {
-        if (!prefs.isFirstRun) return
-        Thread {
-            try {
-                binding.root.setBackgroundResource(R.mipmap.bg_1)
-                prefs.isFirstRun = false
-            } catch (e: Exception) {
-                Log.e(TAG, "Varsayilan duvar kagidi atanamadi", e)
-            }
-        }.start()
-    }
-
-    private fun cycleWallpaper() {
-        if (wallpaperFiles.isEmpty()) {
-            showToast("Duvar kagidi bulunamadi.")
-            return
-        }
-        
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val nextIndex = (prefs.wallpaperIndex + 1) % wallpaperFiles.size
-                val fileName = wallpaperFiles[nextIndex]
-                
-                val dm = resources.displayMetrics
-                val bitmap = assets.open("$WALLPAPER_ASSET_DIR/$fileName").use { stream ->
-                    decodeSampledBitmap(stream, dm.widthPixels / 2, dm.heightPixels / 2)
-                }
-
-                withContext(Dispatchers.Main) {
-                    binding.root.background = BitmapDrawable(resources, bitmap)
-                    showToast("Duvar kagidi: ${nextIndex + 1} / ${wallpaperFiles.size}")
-                }
-                prefs.wallpaperIndex = nextIndex
-            } catch (e: Exception) {
-                Log.e(TAG, "Duvar kagidi degistirilemedi", e)
-                withContext(Dispatchers.Main) {
-                    showToast("Hata: ${e.message}")
-                }
+            "launcher_settings" -> startActivity(Intent(this, LauncherSettingsActivity::class.java))
+            "maps_split" -> startActivity(Intent(this, com.omoda5.launcher.multitask.MultiTaskActivity::class.java))
+            "vehicle_data" -> startActivity(Intent(this, com.omoda5.launcher.multitask.VehicleDataPureActivity::class.java))
+            else -> {
+                if (intent != null) startActivity(intent)
+                else showToast("Açılamadı.")
             }
         }
     }
 
-    private fun decodeSampledBitmap(stream: java.io.InputStream, reqW: Int, reqH: Int): Bitmap {
-        val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        stream.mark(stream.available().coerceAtLeast(1))
-        BitmapFactory.decodeStream(stream, null, opts)
-        stream.reset()
-        var sample = 1
-        val h = opts.outHeight
-        val w = opts.outWidth
-        if (h > reqH || w > reqW) {
-            val halfH = h / 2; val halfW = w / 2
-            while (halfH / sample >= reqH && halfW / sample >= reqW) sample *= 2
+    private fun returnToHome() {
+        binding.viewPager.setCurrentItem(0, true)
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            binding.fragmentContainer.visibility = View.GONE
         }
-        opts.inSampleSize = sample
-        opts.inJustDecodeBounds = false
-        return BitmapFactory.decodeStream(stream, null, opts)
-            ?: throw IllegalStateException("Bitmap decode basarisiz")
-    }
-
-    // ── Yardımcı ───────────────────────────────────────────────────────────────
-
-    private fun showToast(message: String) =
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-
-    private fun isKnownIncompatibleForSplit(packageName: String): Boolean {
-        return prefs.splitIncompatibleApps.contains(packageName)
     }
 
     private fun toggleSplitScreen() {
-        val (tempLeft, tempRight) = splitScreenViewModel.getTempSelectedApps()
-        if (tempLeft != null || tempRight != null) {
-            splitScreenViewModel.confirmSelections()
-        }
-
-        val (leftPkg, rightPkg) = splitScreenManager.getSelectedApps()
-        if (leftPkg.isNullOrBlank() || rightPkg.isNullOrBlank()) {
-            showToast("Split-screen için sol ve sağ uygulamayı seçin.")
+        val (left, right) = splitScreenManager.getSelectedApps()
+        if (left.isNullOrBlank() || right.isNullOrBlank()) {
+            showToast("Ayarlardan uygulamaları seçin.")
+            startActivity(Intent(this, LauncherSettingsActivity::class.java))
             return
         }
-        if (leftPkg == rightPkg) {
-            showToast("Aynı uygulama iki panelde açılamaz.")
+        if (shouldUsePinnedFallback()) {
+            launchPinnedFallback(left, right)
             return
         }
-        
-        // SplitScreenActivity yerine doğrudan buradan başlatıyoruz
-        launchDirectSplitScreen(leftPkg, rightPkg)
-    }
-
-    private fun launchDirectSplitScreen(leftPkg: String, rightPkg: String) {
-        try {
-            Log.d(TAG, "Split screen başlatılıyor: $leftPkg | $rightPkg")
-            
-            // Sol uygulama
-            launchToSide(leftPkg, true)
-            
-            // Sağ uygulama
-            launchToSide(rightPkg, false)
-            
-            showToast("Split ekran başlatıldı.")
-        } catch (e: Exception) {
-            Log.e(TAG, "Split screen başlatılamadı", e)
-            showToast("Split ekran hatası.")
-        }
+        launchToSide(left, true)
+        launchToSide(right, false)
     }
 
     private fun launchToSide(packageName: String, left: Boolean) {
-        val launchIntent = packageManager.getLaunchIntentForPackage(packageName) ?: return
-        val options = ActivityOptions.makeBasic()
-        val dm = resources.displayMetrics
-        val w = dm.widthPixels
-        val h = dm.heightPixels
-        val splitX = (w * prefs.splitRatio.coerceIn(0.3f, 0.7f)).toInt()
+        val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+        if (launchIntent == null) {
+            showToast("Uygulama bulunamadı.")
+            return
+        }
+
+        // AAOS Katman Fix: Split acilirken Launcher'i seffaflastir ve arkaya it.
+        binding.root.alpha = 0.5f // Uygulama arkada görünebilsin
         
-        // Bounds ayarı
+        val options = android.app.ActivityOptions.makeBasic()
+        val dm = resources.displayMetrics
+        val screenW = dm.widthPixels
+        val screenH = dm.heightPixels
+        
+        // AAOS 10 (API 29) icin kesin koordinat zorlaması.
         val bounds = if (left) {
-            Rect(0, 0, splitX, h)
+            android.graphics.Rect(235, 0, 1077, screenH)
         } else {
-            Rect(splitX, 0, w, h)
+            android.graphics.Rect(1077, 0, screenW, screenH)
         }
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            options.launchBounds = bounds
-        }
-
-        try {
-            // WINDOWING_MODE_MULTI_WINDOW = 3
-            val setLaunchWindowingModeMethod = ActivityOptions::class.java
-                .getMethod("setLaunchWindowingMode", Int::class.javaPrimitiveType)
-            setLaunchWindowingModeMethod.invoke(options, 3)
-        } catch (e: Exception) {
-            Log.w(TAG, "setLaunchWindowingMode failed: ${e.message}")
+            options.setLaunchBounds(bounds)
+            try {
+                // Windowing mode 3: SPLIT_SCREEN_PRIMARY, 4: SPLIT_SCREEN_SECONDARY
+                val setWindowingMode = options.javaClass.getMethod("setLaunchWindowingMode", Int::class.javaPrimitiveType)
+                setWindowingMode.invoke(options, if (left) 3 else 4)
+            } catch (e: Exception) {
+                Log.w(TAG, "AAOS Windowing mode ayarlanamadı: ${e.message}")
+            }
         }
 
         launchIntent.addFlags(
             Intent.FLAG_ACTIVITY_NEW_TASK or
             Intent.FLAG_ACTIVITY_MULTIPLE_TASK or
-            Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT
+            Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT or
+            Intent.FLAG_ACTIVITY_CLEAR_TOP
         )
-        
-        startActivity(launchIntent, options.toBundle())
-    }
 
-    private fun updateSplitScreenToggleIcon() {
-        val isActive = splitScreenManager.isActive
-        binding.ivSplitScreenToggle.alpha = if (isActive) 1.0f else 0.8f
-        // Change icon or tint to show active state
-    }
-
-    private fun launchSplitScreen() {
-        // Bu metod artık kullanılmıyor, toggleSplitScreen doğrudan launchDirectSplitScreen çağırıyor
-    }
-
-    private fun startSplitWithPrimary(primaryPackage: String, primarySide: String) {
-        val current = splitScreenManager.getSelectedApps()
-        val defaultLeft = splitScreenManager.defaultLeftAppPackage
-        val defaultRight = splitScreenManager.defaultRightAppPackage
-
-        val (left, right) = if (primarySide == "left") {
-            val companion = defaultRight ?: current.second
-            Pair(primaryPackage, companion)
-        } else {
-            val companion = defaultLeft ?: current.first
-            Pair(companion, primaryPackage)
-        }
-
-        if (left.isNullOrBlank() || right.isNullOrBlank()) {
-            showToast("Diğer panel için varsayılan uygulama atanmadı.")
-            return
-        }
-        if (left == right) {
-            showToast("Aynı uygulama iki panelde açılamaz.")
-            return
-        }
-
-        splitScreenManager.setSelectedApps(left, right)
-        updateSplitScreenToggleIcon()
-        launchDirectSplitScreen(left ?: "", right ?: "")
-    }
-
-    private fun showAppSelectionDialog(item: LauncherItem) {
-        val targetPackage = item.packageName ?: item.id.takeIf { it.contains(".") } ?: return
-        val dialog = AppSelectionDialog(
-            app = item,
-            onLeftSelected = {
-                if (isKnownIncompatibleForSplit(targetPackage)) {
-                    showToast("Bu uygulama split ekranı desteklemiyor.")
-                    return@AppSelectionDialog
-                }
-                val (_, right) = splitScreenViewModel.getSelectedApps()
-                if (right == targetPackage) {
-                    showToast("Aynı uygulama sol ve sağ için seçilemez.")
-                    return@AppSelectionDialog
-                }
-                splitScreenViewModel.setTempLeftApp(item)
-                splitScreenViewModel.setSelectedApps(targetPackage, right)
-                showToast("${item.title} sol taraf için seçildi")
-                loadAppsAndSetupViewPager()
-            },
-            onRightSelected = {
-                if (isKnownIncompatibleForSplit(targetPackage)) {
-                    showToast("Bu uygulama split ekranı desteklemiyor.")
-                    return@AppSelectionDialog
-                }
-                val (left, _) = splitScreenViewModel.getSelectedApps()
-                if (left == targetPackage) {
-                    showToast("Aynı uygulama sol ve sağ için seçilemez.")
-                    return@AppSelectionDialog
-                }
-                splitScreenViewModel.setTempRightApp(item)
-                splitScreenViewModel.setSelectedApps(left, targetPackage)
-                showToast("${item.title} sağ taraf için seçildi")
-                loadAppsAndSetupViewPager()
-            },
-            onSetDefaultLeft = {
-                splitScreenManager.defaultLeftAppPackage = targetPackage
-                splitScreenManager.setSelectedApps(targetPackage, splitScreenManager.getSelectedApps().second)
-                showToast("${item.title} sol varsayılan olarak kaydedildi")
-            },
-            onSetDefaultRight = {
-                splitScreenManager.defaultRightAppPackage = targetPackage
-                splitScreenManager.setSelectedApps(splitScreenManager.getSelectedApps().first, targetPackage)
-                showToast("${item.title} sağ varsayılan olarak kaydedildi")
-            },
-            onStartSplitLeft = {
-                if (isKnownIncompatibleForSplit(targetPackage)) {
-                    showToast("Bu uygulama split ekranı desteklemiyor.")
-                    return@AppSelectionDialog
-                }
-                startSplitWithPrimary(targetPackage, "left")
-            },
-            onStartSplitRight = {
-                if (isKnownIncompatibleForSplit(targetPackage)) {
-                    showToast("Bu uygulama split ekranı desteklemiyor.")
-                    return@AppSelectionDialog
-                }
-                startSplitWithPrimary(targetPackage, "right")
-            },
-        )
-        dialog.show(supportFragmentManager, "AppSelectionDialog")
-    }
-
-    private fun showVehicleDataFragment() {
-        binding.fragmentContainer.visibility = View.VISIBLE
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, VehicleDataFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack()
-            mainHandler.postDelayed({
-                if (supportFragmentManager.backStackEntryCount == 0) {
-                    binding.fragmentContainer.visibility = View.GONE
-                }
-            }, 100)
-        }
-    }
-
-    // Gesture detection disabled to simplify build
-    // private inner class SplitScreenGestureListener : GestureDetector.OnGestureListener {
-    //     override fun onDown(e: MotionEvent): Boolean = false
-    //     override fun onShowPress(e: MotionEvent) {}
-    //     override fun onSingleTapUp(e: MotionEvent): Boolean = false
-    //     override fun onScroll(
-    //         e1: MotionEvent, e2: MotionEvent,
-    //         distanceX: Float, distanceY: Float
-    //     ): Boolean = false
-    //
-    //     override fun onLongPress(e: MotionEvent) {}
-    //     override fun onFling(
-    //         e1: MotionEvent, e2: MotionEvent,
-    //         velocityX: Float, velocityY: Float
-    //     ): Boolean {
-    //         val deltaX = e2.x - e1.x
-    //         val deltaY = e2.y - e1.y
-    //         if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 100 && Math.abs(velocityX) > 100) {
-    //             if (deltaX < 0) {
-    //                 if (!splitScreenManager.isActive) {
-    //                     toggleSplitScreen()
-    //                 }
-    //             }
-    //         }
-    //         return true
-    //     }
-    // }
-
-    private fun startAdbServiceIfEnabled() {
-        if (prefs.isAdbEnabled) {
+        try {
+            startActivity(launchIntent, options.toBundle())
+            Log.d(TAG, "AAOS Split Katmanı Tetiklendi: $packageName")
+            
+            // Komuttan sonra sistemi sars (Resize zorlaması)
+            val stackId = if (left) 3 else 4
+            val shellBounds = if (left) "235 0 1077 720" else "1077 0 1920 720"
             val intent = Intent(this, com.omoda5.launcher.service.AdbBridgeService::class.java).apply {
-                action = com.omoda5.launcher.service.AdbBridgeService.ACTION_START_ADB
+                action = com.omoda5.launcher.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+                putExtra("command", "sleep 1 && am stack resize $stackId $shellBounds")
             }
-            ContextCompat.startForegroundService(this, intent)
-            Log.d(TAG, "ADB service started on app launch")
+            startService(intent)
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Split baslatma hatası: ${e.message}")
         }
     }
 
+    private fun startSplitWithPrimary(pkg: String, side: String) {
+        val right = splitScreenManager.defaultRightAppPackage ?: "com.chery.media"
+        if (shouldUsePinnedFallback()) {
+            launchPinnedFallback(pkg, right)
+            return
+        }
+        launchToSide(pkg, true)
+        mainHandler.postDelayed({ launchToSide(right, false) }, 1000)
+    }
+
+    private fun shouldUsePinnedFallback(): Boolean {
+        // Semidrive Android 10 ünitesinde split-screen capability kapalı olduğunda
+        // küçük ekran profili (sw < 440dp) için PiP katman fallback uygulanır.
+        return resources.configuration.smallestScreenWidthDp < 440
+    }
+
+    private fun launchPinnedFallback(leftPackage: String, rightPackage: String) {
+        val leftLaunched = launchPackageFullscreen(leftPackage)
+        if (!leftLaunched) {
+            showToast("Sol uygulama başlatılamadı.")
+            return
+        }
+
+        showToast("Split kapalı: PiP fallback uygulanıyor.")
+
+        mainHandler.postDelayed({
+            executeAdbShellCommand("cmd activity stack move-top-activity-to-pinned-stack -1 235 0 1077 720")
+        }, 700)
+
+        mainHandler.postDelayed({
+            pendingPinnedResizeBounds = "235 0 1077 720"
+            executeAdbShellCommand("cmd activity stack info 2 1")
+        }, 1200)
+
+        mainHandler.postDelayed({
+            if (!launchPackageFullscreen(rightPackage)) {
+                showToast("Sağ uygulama başlatılamadı.")
+            }
+        }, 1600)
+    }
+
+    private fun launchPackageFullscreen(packageName: String): Boolean {
+        val launchIntent = packageManager.getLaunchIntentForPackage(packageName) ?: return false
+        launchIntent.addFlags(
+            Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TOP
+        )
+        return try {
+            startActivity(launchIntent)
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "Uygulama başlatma hatası ($packageName): ${e.message}")
+            false
+        }
+    }
+
+    private fun handlePinnedStackInfo(message: String) {
+        val bounds = pendingPinnedResizeBounds ?: return
+        if (!message.startsWith("CMD_OUT: ")) return
+
+        val match = Regex("Stack id=(\\d+)").find(message) ?: return
+        val stackId = match.groupValues[1]
+        pendingPinnedResizeBounds = null
+        executeAdbShellCommand("cmd activity stack resize $stackId $bounds")
+    }
+
+    private fun formatStatusMessage(message: String): String? {
+        val text = when {
+            message.startsWith("CMD_OUT: ") -> null
+            message.startsWith("CMD_RUN: ") -> message.removePrefix("CMD_RUN: ").trim()
+            message.startsWith("CMD_STR: ") -> message.removePrefix("CMD_STR: ").trim()
+            message.startsWith("CMD_FIN: ") -> message.removePrefix("CMD_FIN: ").trim()
+            message.startsWith("CMD_ERR: ") -> "Hata: ${message.removePrefix("CMD_ERR: ").trim()}"
+            else -> message.trim()
+        } ?: return null
+
+        if (text.isBlank()) return null
+        return if (text.length > 140) text.take(137) + "..." else text
+    }
+
+    private fun executeAdbShellCommand(command: String) {
+        val cmdIntent = Intent(this, com.omoda5.launcher.service.AdbBridgeService::class.java).apply {
+            action = com.omoda5.launcher.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+            putExtra("command", command)
+        }
+        startService(cmdIntent)
+    }
+
+    private fun loadWallpaperFileList() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val list = mutableListOf<String>()
+            try { assets.list(WALLPAPER_ASSET_DIR)?.forEach { list.add("asset:$it") } } catch (e: Exception) {}
+            val wallDir = File("/storage/emulated/0/Download/wallpapers")
+            if (wallDir.exists()) wallDir.listFiles()?.forEach { list.add(it.absolutePath) }
+            wallpaperFiles = list.sorted()
+        }
+    }
+
+    private fun setDefaultWallpaper() {
+        if (prefs.isFirstRun) binding.root.setBackgroundResource(R.mipmap.bg_1)
+    }
+
+    private fun cycleWallpaper() {
+        if (wallpaperFiles.isEmpty()) return
+        lifecycleScope.launch(Dispatchers.IO) {
+            val idx = (prefs.wallpaperIndex + 1) % wallpaperFiles.size
+            val path = wallpaperFiles[idx]
+            val bitmap = if (path.startsWith("asset:")) {
+                assets.open("wallpapers/${path.substring(6)}").use { BitmapFactory.decodeStream(it) }
+            } else {
+                BitmapFactory.decodeFile(path, BitmapFactory.Options().apply { inPreferredConfig = Bitmap.Config.ARGB_8888 })
+            }
+            withContext(Dispatchers.Main) {
+                if (bitmap != null) {
+                    binding.root.background = BitmapDrawable(resources, bitmap)
+                    prefs.wallpaperIndex = idx
+                }
+            }
+        }
+    }
+
+    private fun startHvacIfEnabled() {
+        if (prefs.isAutoStartHvacEnabled) {
+            mainHandler.postDelayed({
+                val intent = Intent(this, com.omoda5.launcher.service.AdbBridgeService::class.java).apply {
+                    action = com.omoda5.launcher.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+                    putExtra("command", "am start -n com.chery.hvac/.view.activity.MainActivity")
+                }
+                startService(intent)
+            }, 3000)
+        }
+    }
+
+    private fun autoCheckForUpdates() {
+        val now = System.currentTimeMillis()
+        if (now - prefs.lastUpdateCheck < 86400000) return
+        updateManager.checkForUpdates(object : UpdateManager.UpdateCheckCallback {
+            override fun onUpdateAvailable(name: String, code: Int, url: String) {
+                updateManager.downloadUpdate(url, "update.apk", object : UpdateManager.DownloadCallback {
+                    override fun onProgress(percentage: Int, speedMbps: Double, remainingSeconds: Long) {
+                        runOnUiThread {
+                            val speedStr = String.format("%.1f", speedMbps)
+                            showLargeStatus("İndiriliyor: %$percentage ($speedStr Mbps) - $remainingSeconds sn kaldı")
+                        }
+                    }
+
+                    override fun onComplete(file: java.io.File?) {
+                        if (file != null) {
+                            prefs.downloadedUpdatePath = file.absolutePath
+                            runOnUiThread { 
+                                showLargeStatus("Güncelleme Hazır. Yükleniyor...")
+                                installPackage(file)
+                            }
+                        }
+                    }
+
+                    override fun onError(error: String) {
+                        Log.e(TAG, "Güncelleme indirilemedi: $error")
+                    }
+                })
+            }
+            override fun onNoUpdate() {}
+            override fun onError(e: String) {}
+        })
+    }
+
+    private fun installPackage(file: java.io.File) {
+        try {
+            val uri = androidx.core.content.FileProvider.getUriForFile(this, "${packageName}.fileprovider", file)
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/vnd.android.package-archive")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            Log.e(TAG, "Paket yükleyici hatası: ${e.message}")
+            // Fallback to ADB if possible
+            val cmdIntent = Intent(this, com.omoda5.launcher.service.AdbBridgeService::class.java).apply {
+                action = com.omoda5.launcher.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+                putExtra("command", "pm install -r -d ${file.absolutePath}")
+            }
+            startService(cmdIntent)
+        }
+    }
+
+    private fun showLargeStatus(msg: String) {
+        val text = msg.trim()
+        if (text.isEmpty()) return
+
+        mainHandler.post {
+            if (text == currentStatusMessage || statusQueue.contains(text)) return@post
+            if (statusQueue.size >= 8) statusQueue.removeFirst()
+            statusQueue.addLast(text)
+            if (!isStatusShowing) showNextStatusFromQueue()
+        }
+    }
+
+    private fun showNextStatusFromQueue() {
+        if (statusQueue.isEmpty()) {
+            isStatusShowing = false
+            currentStatusMessage = null
+            return
+        }
+
+        isStatusShowing = true
+        val nextMessage = statusQueue.removeFirst()
+        currentStatusMessage = nextMessage
+
+        try {
+            val wm = getSystemService(Context.WINDOW_SERVICE) as android.view.WindowManager
+            currentStatusView?.let {
+                try { wm.removeView(it) } catch (_: Exception) {}
+                currentStatusView = null
+            }
+
+            val statusBinding = com.omoda5.launcher.databinding.LayoutLargeStatusBinding.inflate(layoutInflater)
+            statusBinding.tvStatusMessage.text = nextMessage
+
+            val params = android.view.WindowManager.LayoutParams(
+                android.view.WindowManager.LayoutParams.MATCH_PARENT,
+                android.view.WindowManager.LayoutParams.WRAP_CONTENT,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) 2038 else 2003,
+                android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                    android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+                    android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                android.graphics.PixelFormat.TRANSLUCENT
+            ).apply {
+                gravity = Gravity.TOP
+                y = 50
+            }
+
+            wm.addView(statusBinding.root, params)
+            currentStatusView = statusBinding.root
+
+            mainHandler.postDelayed({
+                try {
+                    if (currentStatusView == statusBinding.root) {
+                        wm.removeView(statusBinding.root)
+                        currentStatusView = null
+                    }
+                } catch (_: Exception) {
+                } finally {
+                    isStatusShowing = false
+                    currentStatusMessage = null
+                    showNextStatusFromQueue()
+                }
+            }, 4000)
+        } catch (e: Exception) {
+            Log.e(TAG, "Bildirim gosterilemedi: ${e.message}")
+            isStatusShowing = false
+            currentStatusMessage = null
+            showNextStatusFromQueue()
+        }
+    }
+
+    private fun showToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+
+    private fun registerAdbStatusReceiver() {
+        registerReceiver(adbStatusReceiver, IntentFilter(com.omoda5.launcher.service.AdbBridgeService.ACTION_ADB_STATUS_UPDATE))
+    }
+
+    private fun registerPackageReceiver() {
+        val f = IntentFilter().apply { addAction(Intent.ACTION_PACKAGE_ADDED); addAction(Intent.ACTION_PACKAGE_REMOVED); addDataScheme("package") }
+        registerReceiver(packageReceiver, f)
+    }
+
+    override fun onDestroy() { super.onDestroy() ; unregisterReceiver(packageReceiver); unregisterReceiver(adbStatusReceiver) }
 }

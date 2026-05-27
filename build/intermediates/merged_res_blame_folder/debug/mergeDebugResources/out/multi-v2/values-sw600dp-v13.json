@@ -4,7 +4,7 @@
             "outputFile": "com.omoda5.launcher-mergeDebugResources-34:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-sw600dp/integers.xml",
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-sw600dp/integers.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-sw600dp/styles.xml",
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-sw600dp/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -40,7 +40,7 @@
                     }
                 },
                 {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-sw600dp/dimens.xml",
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-sw600dp/dimens.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

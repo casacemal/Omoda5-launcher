@@ -20,8 +20,16 @@
         "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_bottom_navigation.xml"
     },
     {
+        "merged": "com.omoda5.launcher-mergeDebugResources-35:/layout/activity_launcher_settings.xml",
+        "source": "com.omoda5.launcher-main-38:/layout/activity_launcher_settings.xml"
+    },
+    {
         "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/activity_split_screen.xml",
         "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/activity_split_screen.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_vehicle_diagnostics.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/fragment_vehicle_diagnostics.xml"
     },
     {
         "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_right_panel.xml",
@@ -30,6 +38,10 @@
     {
         "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/activity_main.xml",
         "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/layout_large_status.xml",
+        "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/layout_large_status.xml"
     },
     {
         "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/item_split_setting_app.xml",
@@ -50,10 +62,6 @@
     {
         "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/item_launcher_icon.xml",
         "source": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-main-38:/layout/item_launcher_icon.xml"
-    },
-    {
-        "merged": "com.omoda5.launcher-mergeDebugResources-35:/layout/activity_main.xml",
-        "source": "com.omoda5.launcher-main-38:/layout/activity_main.xml"
     },
     {
         "merged": "/home/cemal/.gradle/daemon/9.0.0/com.omoda5.launcher-mergeDebugResources-35:/layout/fragment_status_bar.xml",

@@ -60,16 +60,16 @@ F-Launcher kullanımı sonrası kaybolan Klima ve Bildirim Paneli için:
 
 *   **Sorun:** Orijinal launcher devre dışı kaldığında sistem servisleri (HVAC, Status Bar) tetiklenmiyor.
 *   **Çözüm (Geri Yükleme):**
-    1.  Orijinal Launcher'ı Etkinleştir: `adb shell pm enable com.yfve.launcher`
-    2.  Varsayılanı Geri Al: `adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity`
+    1.  Orijinal Launcher'ı Etkinleştir: `adb shell pm enable com.chery.launcher`
+    2.  Varsayılanı Geri Al: `adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity`
     3.  Klima Manuel Başlatma: `adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity`
     4.  Cihazı Yeniden Başlat: `adb reboot`
 
 # 1. Orijinal Launcher'ı tekrar etkinleştirin (Klima ve Panel buna bağlıdır)
-adb shell pm enable com.yfve.launcher
+adb shell pm enable com.chery.launcher
 
 # 2. Orijinal Launcher'ı varsayılan olarak geri tanımlayın
-adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity
+adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity
 
 # 3. Eğer Klima hala açılmıyorsa manuel tetikleyin
 adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity

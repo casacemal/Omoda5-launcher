@@ -1,4 +1,0 @@
-#Wed May 13 00:16:39 TRT 2026
-base.0=/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

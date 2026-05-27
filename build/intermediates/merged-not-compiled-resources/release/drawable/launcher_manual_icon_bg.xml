@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/home_app_manual_d" android:state_activated="true" />
-    <item android:state_pressed="true" android:drawable="@mipmap/home_app_manual_p" />
-    <item android:drawable="@mipmap/home_app_manual_n" />
-</selector>

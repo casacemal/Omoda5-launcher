@@ -26,14 +26,9 @@
     <!-- Duvar kağıdı -->
     <uses-permission android:name="android.permission.SET_WALLPAPER"/>
 
-    <!-- Depolama — API 32 ve altı -->
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-
-    <!-- Depolama — API 33 ve üstü -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
-        tools:ignore="ScopedStorage" />
+    <!-- Depolama — Fix for Android 10 and Above -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Overlay (Sidebar penceresi için) -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -56,6 +51,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:label="Omoda 5"
@@ -63,6 +59,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:allowBackup="false"
         android:persistent="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <uses-library android:name="android.car" android:required="false" />
@@ -72,6 +69,19 @@
             android:name=".service.AdbBridgeService"
             android:enabled="true"
             android:exported="true" />
+
+        <!-- Chery Accessibility Service -->
+        <service
+            android:name=".services.CheryAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
 
         <!-- Ana Launcher Activity -->
         <activity
@@ -97,9 +107,26 @@
             android:screenOrientation="landscape" />
 
         <activity
+            android:name=".ui.activities.OverlayLauncherActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".ui.LauncherSettingsActivity"
             android:exported="false"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 

@@ -1,3 +1,22 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def releaseSigningReady = false
+
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    def requiredKeys = ["storeFile", "storePassword", "keyAlias", "keyPassword"]
+    releaseSigningReady = requiredKeys.every { key ->
+        def value = keystoreProperties.getProperty(key)
+        value != null && !value.trim().isEmpty()
+    }
+    if (releaseSigningReady) {
+        releaseSigningReady = file(keystoreProperties.getProperty("storeFile")).exists()
+    }
+}
+
 buildscript {
     repositories {
         google()
@@ -17,12 +36,23 @@ android {
     namespace = 'com.omoda5.launcher'
     compileSdk = 34
 
+    signingConfigs {
+        release {
+            if (releaseSigningReady) {
+                storeFile file(keystoreProperties.getProperty("storeFile"))
+                storePassword keystoreProperties.getProperty("storePassword")
+                keyAlias keystoreProperties.getProperty("keyAlias")
+                keyPassword keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "com.omoda5.launcher"
         minSdk = 24
         targetSdk = 34
-        versionCode 5
-        versionName '5'
+        versionCode 33
+        versionName '6.4.6'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,7 +62,7 @@ android {
             minifyEnabled true
             shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig = signingConfigs.debug
+            signingConfig = releaseSigningReady ? signingConfigs.release : signingConfigs.debug
         }
     }
 
@@ -46,12 +76,20 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
     lint {
         checkReleaseBuilds = false
         abortOnError = false
     }
+    
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "app-${variant.name}V${variant.versionName}.apk"
+        }
+    }
+
     dependenciesInfo {
         includeInApk = true
         includeInBundle = true

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Guideline;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,7 +24,16 @@ public final class ActivityMainBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final ImageView btnGoHome;
+
+  @NonNull
+  public final ImageView btnSplitTrigger;
+
+  @NonNull
   public final FrameLayout fragmentContainer;
+
+  @NonNull
+  public final Guideline guidelineCenter;
 
   @NonNull
   public final ImageView ilWallpaperChangeTrigger;
@@ -35,25 +45,24 @@ public final class ActivityMainBinding implements ViewBinding {
   public final View indicatorDot2;
 
   @NonNull
-  public final ImageView ivSplitScreenToggle;
-
-  @NonNull
   public final LinearLayout pageIndicator;
 
   @NonNull
   public final ViewPager2 viewPager;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView,
-      @NonNull FrameLayout fragmentContainer, @NonNull ImageView ilWallpaperChangeTrigger,
-      @NonNull View indicatorDot1, @NonNull View indicatorDot2,
-      @NonNull ImageView ivSplitScreenToggle, @NonNull LinearLayout pageIndicator,
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView btnGoHome,
+      @NonNull ImageView btnSplitTrigger, @NonNull FrameLayout fragmentContainer,
+      @NonNull Guideline guidelineCenter, @NonNull ImageView ilWallpaperChangeTrigger,
+      @NonNull View indicatorDot1, @NonNull View indicatorDot2, @NonNull LinearLayout pageIndicator,
       @NonNull ViewPager2 viewPager) {
     this.rootView = rootView;
+    this.btnGoHome = btnGoHome;
+    this.btnSplitTrigger = btnSplitTrigger;
     this.fragmentContainer = fragmentContainer;
+    this.guidelineCenter = guidelineCenter;
     this.ilWallpaperChangeTrigger = ilWallpaperChangeTrigger;
     this.indicatorDot1 = indicatorDot1;
     this.indicatorDot2 = indicatorDot2;
-    this.ivSplitScreenToggle = ivSplitScreenToggle;
     this.pageIndicator = pageIndicator;
     this.viewPager = viewPager;
   }
@@ -85,9 +94,27 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btn_go_home;
+      ImageView btnGoHome = ViewBindings.findChildViewById(rootView, id);
+      if (btnGoHome == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_split_trigger;
+      ImageView btnSplitTrigger = ViewBindings.findChildViewById(rootView, id);
+      if (btnSplitTrigger == null) {
+        break missingId;
+      }
+
       id = R.id.fragment_container;
       FrameLayout fragmentContainer = ViewBindings.findChildViewById(rootView, id);
       if (fragmentContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.guideline_center;
+      Guideline guidelineCenter = ViewBindings.findChildViewById(rootView, id);
+      if (guidelineCenter == null) {
         break missingId;
       }
 
@@ -109,12 +136,6 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.iv_split_screen_toggle;
-      ImageView ivSplitScreenToggle = ViewBindings.findChildViewById(rootView, id);
-      if (ivSplitScreenToggle == null) {
-        break missingId;
-      }
-
       id = R.id.pageIndicator;
       LinearLayout pageIndicator = ViewBindings.findChildViewById(rootView, id);
       if (pageIndicator == null) {
@@ -127,9 +148,9 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, fragmentContainer,
-          ilWallpaperChangeTrigger, indicatorDot1, indicatorDot2, ivSplitScreenToggle,
-          pageIndicator, viewPager);
+      return new ActivityMainBinding((ConstraintLayout) rootView, btnGoHome, btnSplitTrigger,
+          fragmentContainer, guidelineCenter, ilWallpaperChangeTrigger, indicatorDot1,
+          indicatorDot2, pageIndicator, viewPager);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

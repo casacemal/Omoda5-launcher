@@ -1,0 +1,20 @@
+=== SPLIT RETEST @ 2026-05-27 00:27:38 ===
+--- STOP APPS ---
+force-stop com.google.android.apps.maps
+force-stop com.chery.settings
+force-stop com.chery.media
+force-stop com.omoda5.launcher
+force-stop com.chery.launcher
+force-stop com.android.documentsui
+force-stop com.tailscale.ipn
+--- HOME START ---
+--- SUPPORT FLAGS ---
+--- WINDOWING RETEST ---
+[WM:3]
+[WM:4]
+[WM:5]
+--- MAP STACK DETECT ---
+MAP_STACK_ID=
+--- PINNED RETEST ---
+PINNED_STACK_ID=
+--- FINAL STACK SNAPSHOT ---

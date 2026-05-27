@@ -21,6 +21,9 @@ public final class ItemVehiclePropertyBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
+  public final LinearLayout itemRoot;
+
+  @NonNull
   public final ImageView ivIcon;
 
   @NonNull
@@ -32,9 +35,11 @@ public final class ItemVehiclePropertyBinding implements ViewBinding {
   @NonNull
   public final TextView tvValue;
 
-  private ItemVehiclePropertyBinding(@NonNull LinearLayout rootView, @NonNull ImageView ivIcon,
-      @NonNull TextView tvLabel, @NonNull TextView tvUnit, @NonNull TextView tvValue) {
+  private ItemVehiclePropertyBinding(@NonNull LinearLayout rootView, @NonNull LinearLayout itemRoot,
+      @NonNull ImageView ivIcon, @NonNull TextView tvLabel, @NonNull TextView tvUnit,
+      @NonNull TextView tvValue) {
     this.rootView = rootView;
+    this.itemRoot = itemRoot;
     this.ivIcon = ivIcon;
     this.tvLabel = tvLabel;
     this.tvUnit = tvUnit;
@@ -68,6 +73,8 @@ public final class ItemVehiclePropertyBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      LinearLayout itemRoot = (LinearLayout) rootView;
+
       id = R.id.ivIcon;
       ImageView ivIcon = ViewBindings.findChildViewById(rootView, id);
       if (ivIcon == null) {
@@ -92,8 +99,8 @@ public final class ItemVehiclePropertyBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemVehiclePropertyBinding((LinearLayout) rootView, ivIcon, tvLabel, tvUnit,
-          tvValue);
+      return new ItemVehiclePropertyBinding((LinearLayout) rootView, itemRoot, ivIcon, tvLabel,
+          tvUnit, tvValue);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -5,16 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
-import android.widget.Switch;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Guideline;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.omoda5.launcher.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -22,73 +25,193 @@ import java.lang.String;
 
 public final class ActivityLauncherSettingsBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final ConstraintLayout rootView;
 
   @NonNull
-  public final Switch adbAuthSwitch;
+  public final MaterialButton btnAdbTcpMode;
 
   @NonNull
-  public final Switch adbEnabledSwitch;
+  public final MaterialButton btnAnalyzeHome;
 
   @NonNull
-  public final RadioGroup adbModeGroup;
+  public final MaterialButton btnCheckUpdateManual;
 
   @NonNull
-  public final RadioButton adbModeTcp;
+  public final MaterialButton btnClearLogs;
 
   @NonNull
-  public final RadioButton adbModeUsb;
+  public final MaterialButton btnEnableSystemAdb;
 
   @NonNull
-  public final EditText adbPortEdit;
+  public final MaterialButton btnFetchAppLogs;
 
   @NonNull
-  public final TextView adbSettingsHeader;
+  public final MaterialButton btnInstallUpdate;
 
   @NonNull
-  public final TextView adbStatusText;
+  public final MaterialButton btnOverscanHideLeft;
 
   @NonNull
-  public final EditText adbTimeoutEdit;
+  public final MaterialButton btnOverscanHideRight;
+
+  @NonNull
+  public final MaterialButton btnOverscanReset;
+
+  @NonNull
+  public final MaterialButton btnPauseLogs;
+
+  @NonNull
+  public final MaterialButton btnReboot;
+
+  @NonNull
+  public final MaterialButton btnSendCommand;
+
+  @NonNull
+  public final MaterialButton btnSetDefaultLauncher;
+
+  @NonNull
+  public final MaterialButton btnStopCommand;
+
+  @NonNull
+  public final LinearLayout controlPanel;
+
+  @NonNull
+  public final ItemVehiclePropertyBinding diagDoorFl;
+
+  @NonNull
+  public final ItemVehiclePropertyBinding diagDoorFr;
+
+  @NonNull
+  public final ItemVehiclePropertyBinding diagFanSpeed;
+
+  @NonNull
+  public final LinearLayout diagRowsContainer;
+
+  @NonNull
+  public final ItemVehiclePropertyBinding diagTempLeft;
+
+  @NonNull
+  public final ItemVehiclePropertyBinding diagTempRight;
+
+  @NonNull
+  public final ItemVehiclePropertyBinding diagTrunk;
+
+  @NonNull
+  public final EditText etShellCommand;
+
+  @NonNull
+  public final Guideline guideline;
+
+  @NonNull
+  public final MaterialCardView logContainer;
+
+  @NonNull
+  public final NestedScrollView logScroll;
 
   @NonNull
   public final RecyclerView rvApps;
 
   @NonNull
-  public final TextView tvExpandHeader;
+  public final NestedScrollView settingsScroll;
 
   @NonNull
-  public final TextView tvHint;
+  public final SwitchCompat swDiagButtons;
 
   @NonNull
-  public final TextView tvTitle;
+  public final SwitchCompat swDiagDoors;
 
-  private ActivityLauncherSettingsBinding(@NonNull ScrollView rootView,
-      @NonNull Switch adbAuthSwitch, @NonNull Switch adbEnabledSwitch,
-      @NonNull RadioGroup adbModeGroup, @NonNull RadioButton adbModeTcp,
-      @NonNull RadioButton adbModeUsb, @NonNull EditText adbPortEdit,
-      @NonNull TextView adbSettingsHeader, @NonNull TextView adbStatusText,
-      @NonNull EditText adbTimeoutEdit, @NonNull RecyclerView rvApps,
-      @NonNull TextView tvExpandHeader, @NonNull TextView tvHint, @NonNull TextView tvTitle) {
+  @NonNull
+  public final SwitchCompat swDiagHvac;
+
+  @NonNull
+  public final SwitchCompat switchAutoStartHvac;
+
+  @NonNull
+  public final SwitchCompat switchDisableStockLauncher;
+
+  @NonNull
+  public final SwitchCompat switchForceGestures;
+
+  @NonNull
+  public final SwitchCompat switchImmersiveMode;
+
+  @NonNull
+  public final TextView tvAppVersion;
+
+  @NonNull
+  public final TextView tvLogContent;
+
+  @NonNull
+  public final TextView tvLogTitle;
+
+  private ActivityLauncherSettingsBinding(@NonNull ConstraintLayout rootView,
+      @NonNull MaterialButton btnAdbTcpMode, @NonNull MaterialButton btnAnalyzeHome,
+      @NonNull MaterialButton btnCheckUpdateManual, @NonNull MaterialButton btnClearLogs,
+      @NonNull MaterialButton btnEnableSystemAdb, @NonNull MaterialButton btnFetchAppLogs,
+      @NonNull MaterialButton btnInstallUpdate, @NonNull MaterialButton btnOverscanHideLeft,
+      @NonNull MaterialButton btnOverscanHideRight, @NonNull MaterialButton btnOverscanReset,
+      @NonNull MaterialButton btnPauseLogs, @NonNull MaterialButton btnReboot,
+      @NonNull MaterialButton btnSendCommand, @NonNull MaterialButton btnSetDefaultLauncher,
+      @NonNull MaterialButton btnStopCommand, @NonNull LinearLayout controlPanel,
+      @NonNull ItemVehiclePropertyBinding diagDoorFl,
+      @NonNull ItemVehiclePropertyBinding diagDoorFr,
+      @NonNull ItemVehiclePropertyBinding diagFanSpeed, @NonNull LinearLayout diagRowsContainer,
+      @NonNull ItemVehiclePropertyBinding diagTempLeft,
+      @NonNull ItemVehiclePropertyBinding diagTempRight,
+      @NonNull ItemVehiclePropertyBinding diagTrunk, @NonNull EditText etShellCommand,
+      @NonNull Guideline guideline, @NonNull MaterialCardView logContainer,
+      @NonNull NestedScrollView logScroll, @NonNull RecyclerView rvApps,
+      @NonNull NestedScrollView settingsScroll, @NonNull SwitchCompat swDiagButtons,
+      @NonNull SwitchCompat swDiagDoors, @NonNull SwitchCompat swDiagHvac,
+      @NonNull SwitchCompat switchAutoStartHvac, @NonNull SwitchCompat switchDisableStockLauncher,
+      @NonNull SwitchCompat switchForceGestures, @NonNull SwitchCompat switchImmersiveMode,
+      @NonNull TextView tvAppVersion, @NonNull TextView tvLogContent,
+      @NonNull TextView tvLogTitle) {
     this.rootView = rootView;
-    this.adbAuthSwitch = adbAuthSwitch;
-    this.adbEnabledSwitch = adbEnabledSwitch;
-    this.adbModeGroup = adbModeGroup;
-    this.adbModeTcp = adbModeTcp;
-    this.adbModeUsb = adbModeUsb;
-    this.adbPortEdit = adbPortEdit;
-    this.adbSettingsHeader = adbSettingsHeader;
-    this.adbStatusText = adbStatusText;
-    this.adbTimeoutEdit = adbTimeoutEdit;
+    this.btnAdbTcpMode = btnAdbTcpMode;
+    this.btnAnalyzeHome = btnAnalyzeHome;
+    this.btnCheckUpdateManual = btnCheckUpdateManual;
+    this.btnClearLogs = btnClearLogs;
+    this.btnEnableSystemAdb = btnEnableSystemAdb;
+    this.btnFetchAppLogs = btnFetchAppLogs;
+    this.btnInstallUpdate = btnInstallUpdate;
+    this.btnOverscanHideLeft = btnOverscanHideLeft;
+    this.btnOverscanHideRight = btnOverscanHideRight;
+    this.btnOverscanReset = btnOverscanReset;
+    this.btnPauseLogs = btnPauseLogs;
+    this.btnReboot = btnReboot;
+    this.btnSendCommand = btnSendCommand;
+    this.btnSetDefaultLauncher = btnSetDefaultLauncher;
+    this.btnStopCommand = btnStopCommand;
+    this.controlPanel = controlPanel;
+    this.diagDoorFl = diagDoorFl;
+    this.diagDoorFr = diagDoorFr;
+    this.diagFanSpeed = diagFanSpeed;
+    this.diagRowsContainer = diagRowsContainer;
+    this.diagTempLeft = diagTempLeft;
+    this.diagTempRight = diagTempRight;
+    this.diagTrunk = diagTrunk;
+    this.etShellCommand = etShellCommand;
+    this.guideline = guideline;
+    this.logContainer = logContainer;
+    this.logScroll = logScroll;
     this.rvApps = rvApps;
-    this.tvExpandHeader = tvExpandHeader;
-    this.tvHint = tvHint;
-    this.tvTitle = tvTitle;
+    this.settingsScroll = settingsScroll;
+    this.swDiagButtons = swDiagButtons;
+    this.swDiagDoors = swDiagDoors;
+    this.swDiagHvac = swDiagHvac;
+    this.switchAutoStartHvac = switchAutoStartHvac;
+    this.switchDisableStockLauncher = switchDisableStockLauncher;
+    this.switchForceGestures = switchForceGestures;
+    this.switchImmersiveMode = switchImmersiveMode;
+    this.tvAppVersion = tvAppVersion;
+    this.tvLogContent = tvLogContent;
+    this.tvLogTitle = tvLogTitle;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -113,57 +236,171 @@ public final class ActivityLauncherSettingsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.adb_auth_switch;
-      Switch adbAuthSwitch = ViewBindings.findChildViewById(rootView, id);
-      if (adbAuthSwitch == null) {
+      id = R.id.btn_adb_tcp_mode;
+      MaterialButton btnAdbTcpMode = ViewBindings.findChildViewById(rootView, id);
+      if (btnAdbTcpMode == null) {
         break missingId;
       }
 
-      id = R.id.adb_enabled_switch;
-      Switch adbEnabledSwitch = ViewBindings.findChildViewById(rootView, id);
-      if (adbEnabledSwitch == null) {
+      id = R.id.btn_analyze_home;
+      MaterialButton btnAnalyzeHome = ViewBindings.findChildViewById(rootView, id);
+      if (btnAnalyzeHome == null) {
         break missingId;
       }
 
-      id = R.id.adb_mode_group;
-      RadioGroup adbModeGroup = ViewBindings.findChildViewById(rootView, id);
-      if (adbModeGroup == null) {
+      id = R.id.btn_check_update_manual;
+      MaterialButton btnCheckUpdateManual = ViewBindings.findChildViewById(rootView, id);
+      if (btnCheckUpdateManual == null) {
         break missingId;
       }
 
-      id = R.id.adb_mode_tcp;
-      RadioButton adbModeTcp = ViewBindings.findChildViewById(rootView, id);
-      if (adbModeTcp == null) {
+      id = R.id.btn_clear_logs;
+      MaterialButton btnClearLogs = ViewBindings.findChildViewById(rootView, id);
+      if (btnClearLogs == null) {
         break missingId;
       }
 
-      id = R.id.adb_mode_usb;
-      RadioButton adbModeUsb = ViewBindings.findChildViewById(rootView, id);
-      if (adbModeUsb == null) {
+      id = R.id.btn_enable_system_adb;
+      MaterialButton btnEnableSystemAdb = ViewBindings.findChildViewById(rootView, id);
+      if (btnEnableSystemAdb == null) {
         break missingId;
       }
 
-      id = R.id.adb_port_edit;
-      EditText adbPortEdit = ViewBindings.findChildViewById(rootView, id);
-      if (adbPortEdit == null) {
+      id = R.id.btn_fetch_app_logs;
+      MaterialButton btnFetchAppLogs = ViewBindings.findChildViewById(rootView, id);
+      if (btnFetchAppLogs == null) {
         break missingId;
       }
 
-      id = R.id.adb_settings_header;
-      TextView adbSettingsHeader = ViewBindings.findChildViewById(rootView, id);
-      if (adbSettingsHeader == null) {
+      id = R.id.btn_install_update;
+      MaterialButton btnInstallUpdate = ViewBindings.findChildViewById(rootView, id);
+      if (btnInstallUpdate == null) {
         break missingId;
       }
 
-      id = R.id.adb_status_text;
-      TextView adbStatusText = ViewBindings.findChildViewById(rootView, id);
-      if (adbStatusText == null) {
+      id = R.id.btn_overscan_hide_left;
+      MaterialButton btnOverscanHideLeft = ViewBindings.findChildViewById(rootView, id);
+      if (btnOverscanHideLeft == null) {
         break missingId;
       }
 
-      id = R.id.adb_timeout_edit;
-      EditText adbTimeoutEdit = ViewBindings.findChildViewById(rootView, id);
-      if (adbTimeoutEdit == null) {
+      id = R.id.btn_overscan_hide_right;
+      MaterialButton btnOverscanHideRight = ViewBindings.findChildViewById(rootView, id);
+      if (btnOverscanHideRight == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_overscan_reset;
+      MaterialButton btnOverscanReset = ViewBindings.findChildViewById(rootView, id);
+      if (btnOverscanReset == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_pause_logs;
+      MaterialButton btnPauseLogs = ViewBindings.findChildViewById(rootView, id);
+      if (btnPauseLogs == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_reboot;
+      MaterialButton btnReboot = ViewBindings.findChildViewById(rootView, id);
+      if (btnReboot == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_send_command;
+      MaterialButton btnSendCommand = ViewBindings.findChildViewById(rootView, id);
+      if (btnSendCommand == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_set_default_launcher;
+      MaterialButton btnSetDefaultLauncher = ViewBindings.findChildViewById(rootView, id);
+      if (btnSetDefaultLauncher == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_stop_command;
+      MaterialButton btnStopCommand = ViewBindings.findChildViewById(rootView, id);
+      if (btnStopCommand == null) {
+        break missingId;
+      }
+
+      id = R.id.controlPanel;
+      LinearLayout controlPanel = ViewBindings.findChildViewById(rootView, id);
+      if (controlPanel == null) {
+        break missingId;
+      }
+
+      id = R.id.diag_door_fl;
+      View diagDoorFl = ViewBindings.findChildViewById(rootView, id);
+      if (diagDoorFl == null) {
+        break missingId;
+      }
+      ItemVehiclePropertyBinding binding_diagDoorFl = ItemVehiclePropertyBinding.bind(diagDoorFl);
+
+      id = R.id.diag_door_fr;
+      View diagDoorFr = ViewBindings.findChildViewById(rootView, id);
+      if (diagDoorFr == null) {
+        break missingId;
+      }
+      ItemVehiclePropertyBinding binding_diagDoorFr = ItemVehiclePropertyBinding.bind(diagDoorFr);
+
+      id = R.id.diag_fan_speed;
+      View diagFanSpeed = ViewBindings.findChildViewById(rootView, id);
+      if (diagFanSpeed == null) {
+        break missingId;
+      }
+      ItemVehiclePropertyBinding binding_diagFanSpeed = ItemVehiclePropertyBinding.bind(diagFanSpeed);
+
+      id = R.id.diagRowsContainer;
+      LinearLayout diagRowsContainer = ViewBindings.findChildViewById(rootView, id);
+      if (diagRowsContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.diag_temp_left;
+      View diagTempLeft = ViewBindings.findChildViewById(rootView, id);
+      if (diagTempLeft == null) {
+        break missingId;
+      }
+      ItemVehiclePropertyBinding binding_diagTempLeft = ItemVehiclePropertyBinding.bind(diagTempLeft);
+
+      id = R.id.diag_temp_right;
+      View diagTempRight = ViewBindings.findChildViewById(rootView, id);
+      if (diagTempRight == null) {
+        break missingId;
+      }
+      ItemVehiclePropertyBinding binding_diagTempRight = ItemVehiclePropertyBinding.bind(diagTempRight);
+
+      id = R.id.diag_trunk;
+      View diagTrunk = ViewBindings.findChildViewById(rootView, id);
+      if (diagTrunk == null) {
+        break missingId;
+      }
+      ItemVehiclePropertyBinding binding_diagTrunk = ItemVehiclePropertyBinding.bind(diagTrunk);
+
+      id = R.id.et_shell_command;
+      EditText etShellCommand = ViewBindings.findChildViewById(rootView, id);
+      if (etShellCommand == null) {
+        break missingId;
+      }
+
+      id = R.id.guideline;
+      Guideline guideline = ViewBindings.findChildViewById(rootView, id);
+      if (guideline == null) {
+        break missingId;
+      }
+
+      id = R.id.logContainer;
+      MaterialCardView logContainer = ViewBindings.findChildViewById(rootView, id);
+      if (logContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.logScroll;
+      NestedScrollView logScroll = ViewBindings.findChildViewById(rootView, id);
+      if (logScroll == null) {
         break missingId;
       }
 
@@ -173,27 +410,81 @@ public final class ActivityLauncherSettingsBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvExpandHeader;
-      TextView tvExpandHeader = ViewBindings.findChildViewById(rootView, id);
-      if (tvExpandHeader == null) {
+      id = R.id.settingsScroll;
+      NestedScrollView settingsScroll = ViewBindings.findChildViewById(rootView, id);
+      if (settingsScroll == null) {
         break missingId;
       }
 
-      id = R.id.tvHint;
-      TextView tvHint = ViewBindings.findChildViewById(rootView, id);
-      if (tvHint == null) {
+      id = R.id.sw_diag_buttons;
+      SwitchCompat swDiagButtons = ViewBindings.findChildViewById(rootView, id);
+      if (swDiagButtons == null) {
         break missingId;
       }
 
-      id = R.id.tvTitle;
-      TextView tvTitle = ViewBindings.findChildViewById(rootView, id);
-      if (tvTitle == null) {
+      id = R.id.sw_diag_doors;
+      SwitchCompat swDiagDoors = ViewBindings.findChildViewById(rootView, id);
+      if (swDiagDoors == null) {
         break missingId;
       }
 
-      return new ActivityLauncherSettingsBinding((ScrollView) rootView, adbAuthSwitch,
-          adbEnabledSwitch, adbModeGroup, adbModeTcp, adbModeUsb, adbPortEdit, adbSettingsHeader,
-          adbStatusText, adbTimeoutEdit, rvApps, tvExpandHeader, tvHint, tvTitle);
+      id = R.id.sw_diag_hvac;
+      SwitchCompat swDiagHvac = ViewBindings.findChildViewById(rootView, id);
+      if (swDiagHvac == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_auto_start_hvac;
+      SwitchCompat switchAutoStartHvac = ViewBindings.findChildViewById(rootView, id);
+      if (switchAutoStartHvac == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_disable_stock_launcher;
+      SwitchCompat switchDisableStockLauncher = ViewBindings.findChildViewById(rootView, id);
+      if (switchDisableStockLauncher == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_force_gestures;
+      SwitchCompat switchForceGestures = ViewBindings.findChildViewById(rootView, id);
+      if (switchForceGestures == null) {
+        break missingId;
+      }
+
+      id = R.id.switch_immersive_mode;
+      SwitchCompat switchImmersiveMode = ViewBindings.findChildViewById(rootView, id);
+      if (switchImmersiveMode == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_app_version;
+      TextView tvAppVersion = ViewBindings.findChildViewById(rootView, id);
+      if (tvAppVersion == null) {
+        break missingId;
+      }
+
+      id = R.id.tvLogContent;
+      TextView tvLogContent = ViewBindings.findChildViewById(rootView, id);
+      if (tvLogContent == null) {
+        break missingId;
+      }
+
+      id = R.id.tvLogTitle;
+      TextView tvLogTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvLogTitle == null) {
+        break missingId;
+      }
+
+      return new ActivityLauncherSettingsBinding((ConstraintLayout) rootView, btnAdbTcpMode,
+          btnAnalyzeHome, btnCheckUpdateManual, btnClearLogs, btnEnableSystemAdb, btnFetchAppLogs,
+          btnInstallUpdate, btnOverscanHideLeft, btnOverscanHideRight, btnOverscanReset,
+          btnPauseLogs, btnReboot, btnSendCommand, btnSetDefaultLauncher, btnStopCommand,
+          controlPanel, binding_diagDoorFl, binding_diagDoorFr, binding_diagFanSpeed,
+          diagRowsContainer, binding_diagTempLeft, binding_diagTempRight, binding_diagTrunk,
+          etShellCommand, guideline, logContainer, logScroll, rvApps, settingsScroll, swDiagButtons,
+          swDiagDoors, swDiagHvac, switchAutoStartHvac, switchDisableStockLauncher,
+          switchForceGestures, switchImmersiveMode, tvAppVersion, tvLogContent, tvLogTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

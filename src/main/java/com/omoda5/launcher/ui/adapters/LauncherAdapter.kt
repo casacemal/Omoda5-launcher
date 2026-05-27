@@ -87,7 +87,7 @@ class LauncherAdapter(
 
             val badge = getBadgeForItem(item)
             if (badge != null) {
-                badgeView.text = badge
+                badgeView.text = badge.toString()
                 badgeView.visibility = View.VISIBLE
             } else {
                 badgeView.visibility = View.GONE
@@ -96,7 +96,7 @@ class LauncherAdapter(
             // Stil ve Tıklama ayarları
             iconView.alpha = if (item.isDisabled) 0.45f else 1.0f
             titleView.setTextColor(
-                ContextCompat.getColor(itemView.context, 
+                ContextCompat.getColor(iconView.context,
                     if (item.isDisabled) android.R.color.darker_gray else R.color.icon_title_text)
             )
 
@@ -114,7 +114,7 @@ class LauncherAdapter(
                     MotionEvent.ACTION_DOWN -> {
                         longPressTriggered = false
                         v.isPressed = true
-                        longPressHandler.postDelayed(longPressRunnable, 600L) // 600ms daha doğal bir süre
+                        longPressHandler.postDelayed(longPressRunnable, 1000L) // Kullanıcının isteği üzerine 1 saniye
                         true
                     }
                     MotionEvent.ACTION_UP -> {

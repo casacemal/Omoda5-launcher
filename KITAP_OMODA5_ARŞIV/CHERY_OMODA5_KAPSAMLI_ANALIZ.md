@@ -35,8 +35,8 @@
 
 ### 1.5 Sistemde Bulunan Kritik APK Uygulamaları
 1. **launcher.apk** (priv-app) - Chery Ana Ekran / Home Launcher
-   - Paket Adı: com.yfve.launcher
-   - Activity: com.yfve.launcher.LauncherActivity
+   - Paket Adı: com.chery.launcher
+   - Activity: com.chery.launcher.LauncherActivity
    
 2. **hvac.apk** (priv-app) - Klima & Havalandırma Kontrolü
    - Paket Adı: com.yfve.hvac
@@ -388,11 +388,11 @@ adb shell settings put secure enabled_accessibility_services \
 **Kurtarma Komutları:**
 ```bash
 # Orijinal launcher'ı tekrar etkinleştir
-adb shell pm enable com.yfve.launcher
+adb shell pm enable com.chery.launcher
 
 # Varsayılan olarak geri ayarla
 adb shell cmd package set-home-activity \
-    com.yfve.launcher/.LauncherActivity
+    com.chery.launcher/.LauncherActivity
 
 # Klima manuel başlat (test için)
 adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity

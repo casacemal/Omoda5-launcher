@@ -25,7 +25,7 @@
 - `activity_overlay_panel.xml` icindeki iki hatali renk referansi duzeltildi:
   - `@color.outline` -> `@color/outline`
 - OEM launcher package degeri cihaz gercegine gore duzeltildi:
-  - eski beklenti: `com.yfve.launcher`
+  - eski beklenti: `com.chery.launcher`
   - gercek cihaz: `com.dofun.variety`
 - Overlay izin kontrolu yalniz `Settings.canDrawOverlays()` ile kalmadi:
   - `AppOpsManager OPSTR_SYSTEM_ALERT_WINDOW` sonucu da hesaba katildi

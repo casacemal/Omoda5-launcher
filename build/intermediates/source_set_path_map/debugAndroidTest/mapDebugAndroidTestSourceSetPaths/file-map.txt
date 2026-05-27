@@ -1,5 +1,5 @@
 com.omoda5.launcher.test-jetified-core-1.6.1-0 /home/cemal/.gradle/caches/9.0.0/transforms/ef358e521dd066b1ebe7aa39010c3b8b/transformed/jetified-core-1.6.1/res
-com.omoda5.launcher.test-androidTest-1 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/generated/res/resValues/androidTest/debug
-com.omoda5.launcher.test-mergeDebugAndroidTestResources-2 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-com.omoda5.launcher.test-mergeDebugAndroidTestResources-3 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-com.omoda5.launcher.test-debugAndroidTest-4 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
+com.omoda5.launcher.test-androidTest-1 /media/cemal/depo/lancher proje/app/build/generated/res/resValues/androidTest/debug
+com.omoda5.launcher.test-mergeDebugAndroidTestResources-2 /media/cemal/depo/lancher proje/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.omoda5.launcher.test-mergeDebugAndroidTestResources-3 /media/cemal/depo/lancher proje/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.omoda5.launcher.test-debugAndroidTest-4 /media/cemal/depo/lancher proje/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

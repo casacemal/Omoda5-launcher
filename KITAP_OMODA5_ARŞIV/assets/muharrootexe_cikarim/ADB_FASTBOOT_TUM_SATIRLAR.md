@@ -38,7 +38,7 @@ Bu dosya bilgi kaybi olmamasi icin deduplikasyon yapmadan satirlari oldugu gibi 
 ./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:275:adb shell am start -n com.android.systemui/.demo.DemoModeActivity
 ./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:336:adb shell settings put secure enabled_notification_listeners \
 ./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:364:adb shell settings put secure enabled_accessibility_services \
-./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:391:adb shell pm enable com.yfve.launcher
+./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:391:adb shell pm enable com.chery.launcher
 ./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:394:adb shell cmd package set-home-activity \
 ./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:398:adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity
 ./CHERY_OMODA5_KAPSAMLI_ANALIZ.md:401:adb reboot
@@ -116,40 +116,40 @@ Bu dosya bilgi kaybi olmamasi icin deduplikasyon yapmadan satirlari oldugu gibi 
 ./Chery ADB   loglarv2.txt:720:1|chery_t19c:/ $ su adb shell start
 ./cihaz_analizi_sorunlar ve çözüm önerileri.md:41:*   **Komut:** `adb shell settings put secure enabled_notification_listeners <uygulama_adı>/<servis_adı>`
 ./cihaz_analizi_sorunlar ve çözüm önerileri.md:51:*   **Komut:** `adb shell settings put secure enabled_accessibility_services <paket_adi>`
-./cihaz_analizi_sorunlar ve çözüm önerileri.md:63:    1.  Orijinal Launcher'ı Etkinleştir: `adb shell pm enable com.yfve.launcher`
-./cihaz_analizi_sorunlar ve çözüm önerileri.md:64:    2.  Varsayılanı Geri Al: `adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity`
+./cihaz_analizi_sorunlar ve çözüm önerileri.md:63:    1.  Orijinal Launcher'ı Etkinleştir: `adb shell pm enable com.chery.launcher`
+./cihaz_analizi_sorunlar ve çözüm önerileri.md:64:    2.  Varsayılanı Geri Al: `adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity`
 ./cihaz_analizi_sorunlar ve çözüm önerileri.md:65:    3.  Klima Manuel Başlatma: `adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity`
 ./cihaz_analizi_sorunlar ve çözüm önerileri.md:66:    4.  Cihazı Yeniden Başlat: `adb reboot`
-./cihaz_analizi_sorunlar ve çözüm önerileri.md:69:adb shell pm enable com.yfve.launcher
-./cihaz_analizi_sorunlar ve çözüm önerileri.md:72:adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity
+./cihaz_analizi_sorunlar ve çözüm önerileri.md:69:adb shell pm enable com.chery.launcher
+./cihaz_analizi_sorunlar ve çözüm önerileri.md:72:adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity
 ./cihaz_analizi_sorunlar ve çözüm önerileri.md:75:adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity
 ./cihaz_analizi_sorunlar ve çözüm önerileri.md:78:adb reboot
 ./adb_launcher_rehberi.md:10:adb install flauncher.apk
 ./adb_launcher_rehberi.md:14:adb shell am start -n it.flauncher/.LauncherActivity
-./adb_launcher_rehberi.md:18:adb shell pm disable-user --user 0 com.yfve.launcher
-./adb_launcher_rehberi.md:33:adb shell pm enable com.yfve.launcher
-./adb_launcher_rehberi.md:36:adb shell cmd package set-home-activity com.yfve.launcher/com.yfve.launcher.LauncherActivity
+./adb_launcher_rehberi.md:18:adb shell pm disable-user --user 0 com.chery.launcher
+./adb_launcher_rehberi.md:33:adb shell pm enable com.chery.launcher
+./adb_launcher_rehberi.md:36:adb shell cmd package set-home-activity com.chery.launcher/com.chery.launcher.LauncherActivity
 ./adb_launcher_rehberi.md:44:adb shell am start -n it.flauncher/.LauncherActivity
 ./adb_launcher_rehberi.md:50:adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity
-./adb_launcher_rehberi.md:56:adb shell pm enable com.yfve.launcher
+./adb_launcher_rehberi.md:56:adb shell pm enable com.chery.launcher
 ./adb_launcher_rehberi.md:57:adb shell pm enable com.yfve.hvac
 ./adb_launcher_rehberi.md:58:adb reboot
-./adb_launcher_rehberi.md:61:> **Not:** Paket adları (`com.yfve.launcher` vb.) cihaz modeline göre küçük farklılıklar gösterebilir. `adb shell pm list packages | grep yfve` komutu ile tam isimleri kontrol edebilirsiniz.
+./adb_launcher_rehberi.md:61:> **Not:** Paket adları (`com.chery.launcher` vb.) cihaz modeline göre küçük farklılıklar gösterebilir. `adb shell pm list packages | grep yfve` komutu ile tam isimleri kontrol edebilirsiniz.
 ./duck_panel_v2_guvenli_prompt.md:236:                adb shell appops set ${activity.packageName} SYSTEM_ALERT_WINDOW allow
-./duck_panel_v2_guvenli_prompt.md:721:                adb shell pm enable com.yfve.launcher
-./duck_panel_v2_guvenli_prompt.md:722:                adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity
+./duck_panel_v2_guvenli_prompt.md:721:                adb shell pm enable com.chery.launcher
+./duck_panel_v2_guvenli_prompt.md:722:                adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity
 ./duck_panel_v2_guvenli_prompt.md:723:                adb reboot
 ./duck_panel_v2_guvenli_prompt.md:833:adb shell appops set com.duckpanel SYSTEM_ALERT_WINDOW allow
 ./duck_panel_v2_guvenli_prompt.md:838:adb shell pm grant com.duckpanel android.permission.WRITE_SECURE_SETTINGS
 ./duck_panel_v2_guvenli_prompt.md:842:adb shell settings put secure enabled_accessibility_services com.duckpanel/.NavAccessibilityService
-./duck_panel_v2_guvenli_prompt.md:845:# adb shell pm disable com.yfve.launcher  # HVAC bozar!
+./duck_panel_v2_guvenli_prompt.md:845:# adb shell pm disable com.chery.launcher  # HVAC bozar!
 ./duck_panel_v2_guvenli_prompt.md:848:# adb shell cmd package set-home-activity com.duckpanel/.LauncherActivity  # Sistem bozulur!
 ./duck_panel_v2_guvenli_prompt.md:875:            adb shell appops set ${context.packageName} SYSTEM_ALERT_WINDOW allow
 ./duck_panel_v2_guvenli_prompt.md:878:            adb shell settings put secure enabled_accessibility_services ${context.packageName}/.NavAccessibilityService
 ./duck_panel_v2_guvenli_prompt.md:1297:        adb shell appops set com.duckpanel SYSTEM_ALERT_WINDOW allow
 ./duck_panel_v2_guvenli_prompt.md:1306:        adb shell settings put secure enabled_accessibility_services com.duckpanel/.NavAccessibilityService
-./duck_panel_v2_guvenli_prompt.md:1329:        adb shell pm enable com.yfve.launcher
-./duck_panel_v2_guvenli_prompt.md:1330:        adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity
+./duck_panel_v2_guvenli_prompt.md:1329:        adb shell pm enable com.chery.launcher
+./duck_panel_v2_guvenli_prompt.md:1330:        adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity
 ./duck_panel_v2_guvenli_prompt.md:1331:        adb reboot
 ./duck_panel_v2_guvenli_prompt.md:1540:adb install app/build/outputs/apk/debug/app-debug.apk
 ./duck_panel_v2_guvenli_prompt.md:1543:adb shell appops set com.duckpanel SYSTEM_ALERT_WINDOW allow
@@ -327,12 +327,12 @@ Bu dosya bilgi kaybi olmamasi icin deduplikasyon yapmadan satirlari oldugu gibi 
 ./GOOGLE_SERVICES_MINIMAL_CONFIG.md:579:├─ Monitor: adb logcat | grep -i crash
 ./cihaz_cozum_onerileri.md:7:*   **Komut:** `adb shell settings put secure enabled_notification_listeners <uygulama_adı>/<servis_adı>`
 ./cihaz_cozum_onerileri.md:17:*   **Komut:** `adb shell settings put secure enabled_accessibility_services <paket_adi>`
-./cihaz_cozum_onerileri.md:33:    1.  Orijinal Launcher'ı Etkinleştir: `adb shell pm enable com.yfve.launcher`
-./cihaz_cozum_onerileri.md:34:    2.  Varsayılanı Geri Al: `adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity`
+./cihaz_cozum_onerileri.md:33:    1.  Orijinal Launcher'ı Etkinleştir: `adb shell pm enable com.chery.launcher`
+./cihaz_cozum_onerileri.md:34:    2.  Varsayılanı Geri Al: `adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity`
 ./cihaz_cozum_onerileri.md:35:    3.  Klima Manuel Başlatma: `adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity`
 ./cihaz_cozum_onerileri.md:36:    4.  Cihazı Yeniden Başlat: `adb reboot`
-./cihaz_cozum_onerileri.md:39:adb shell pm enable com.yfve.launcher
-./cihaz_cozum_onerileri.md:42:adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity
+./cihaz_cozum_onerileri.md:39:adb shell pm enable com.chery.launcher
+./cihaz_cozum_onerileri.md:42:adb shell cmd package set-home-activity com.chery.launcher/.LauncherActivity
 ./cihaz_cozum_onerileri.md:45:adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity
 ./cihaz_cozum_onerileri.md:48:adb reboot
 ./chery_master_controller_ultimate_prompt.md:66:│   ├── adb/                       # ADB iletişim modülü

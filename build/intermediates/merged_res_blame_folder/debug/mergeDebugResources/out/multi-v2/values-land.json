@@ -4,7 +4,7 @@
             "outputFile": "com.omoda5.launcher-mergeDebugResources-34:/values-land/values-land.xml",
             "map": [
                 {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-land/integers.xml",
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-land/integers.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -40,7 +40,24 @@
                     }
                 },
                 {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-land/styles.xml",
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-land/dimens.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,128,202,273,349,422,490,560,633,708,780,852,937,1030,1109,1180,1250",
+                        "endColumns": "72,73,70,75,72,67,69,72,74,71,71,84,92,78,70,69,80",
+                        "endOffsets": "123,197,268,344,417,485,555,628,703,775,847,932,1025,1104,1175,1245,1326"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,7,10,11,12,13,14,15,16,17,18,19,20,21,22",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,128,202,422,640,713,781,851,924,999,1071,1143,1228,1321,1400,1471,1541",
+                        "endColumns": "72,73,70,75,72,67,69,72,74,71,71,84,92,78,70,69,80",
+                        "endOffsets": "123,197,268,493,708,776,846,919,994,1066,1138,1223,1316,1395,1466,1536,1617"
+                    }
+                },
+                {
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-land/styles.xml",
                     "from": {
                         "startLines": "2,6",
                         "startColumns": "4,4",
@@ -56,23 +73,6 @@
                         "endLines": "28,34",
                         "endColumns": "12,12",
                         "endOffsets": "1938,2348"
-                    }
-                },
-                {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-land/dimens.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,128,202,273,349,422,490,560,633,708,780,852,937,1030,1109,1180,1250",
-                        "endColumns": "72,73,70,75,72,67,69,72,74,71,71,84,92,78,70,69,80",
-                        "endOffsets": "123,197,268,344,417,485,555,628,703,775,847,932,1025,1104,1175,1245,1326"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,7,10,11,12,13,14,15,16,17,18,19,20,21,22",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,128,202,422,640,713,781,851,924,999,1071,1143,1228,1321,1400,1471,1541",
-                        "endColumns": "72,73,70,75,72,67,69,72,74,71,71,84,92,78,70,69,80",
-                        "endOffsets": "123,197,268,493,708,776,846,919,994,1066,1138,1223,1316,1395,1466,1536,1617"
                     }
                 }
             ]

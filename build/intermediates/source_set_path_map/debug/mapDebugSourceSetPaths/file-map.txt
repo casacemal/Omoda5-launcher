@@ -30,10 +30,10 @@ com.omoda5.launcher-recyclerview-1.3.1-28 /home/cemal/.gradle/caches/9.0.0/trans
 com.omoda5.launcher-jetified-emoji2-1.3.0-29 /home/cemal/.gradle/caches/9.0.0/transforms/f1027c0d4972024351fc90f4fa3ac5d9/transformed/jetified-emoji2-1.3.0/res
 com.omoda5.launcher-appcompat-1.7.0-30 /home/cemal/.gradle/caches/9.0.0/transforms/f4ea65aa642446e5e4907e0957b16308/transformed/appcompat-1.7.0/res
 com.omoda5.launcher-jetified-security-crypto-1.1.0-alpha06-31 /home/cemal/.gradle/caches/9.0.0/transforms/fd82314dbe0b4f34c7473f051cb807dd/transformed/jetified-security-crypto-1.1.0-alpha06/res
-com.omoda5.launcher-pngs-32 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/generated/res/pngs/debug
-com.omoda5.launcher-resValues-33 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/generated/res/resValues/debug
-com.omoda5.launcher-packageDebugResources-34 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.omoda5.launcher-packageDebugResources-35 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.omoda5.launcher-debug-36 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/build/intermediates/merged_res/debug/mergeDebugResources
-com.omoda5.launcher-debug-37 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/debug/res
-com.omoda5.launcher-main-38 /media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res
+com.omoda5.launcher-pngs-32 /media/cemal/depo/lancher proje/app/build/generated/res/pngs/debug
+com.omoda5.launcher-resValues-33 /media/cemal/depo/lancher proje/app/build/generated/res/resValues/debug
+com.omoda5.launcher-packageDebugResources-34 /media/cemal/depo/lancher proje/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.omoda5.launcher-packageDebugResources-35 /media/cemal/depo/lancher proje/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.omoda5.launcher-debug-36 /media/cemal/depo/lancher proje/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.omoda5.launcher-debug-37 /media/cemal/depo/lancher proje/app/src/debug/res
+com.omoda5.launcher-main-38 /media/cemal/depo/lancher proje/app/src/main/res

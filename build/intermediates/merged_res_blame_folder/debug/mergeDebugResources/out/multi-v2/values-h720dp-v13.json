@@ -4,7 +4,7 @@
             "outputFile": "com.omoda5.launcher-mergeDebugResources-34:/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-h720dp/dimens.xml",
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-h720dp/dimens.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

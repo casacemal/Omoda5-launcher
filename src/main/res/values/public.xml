@@ -1766,9 +1766,7 @@
     <public type="drawable" name="vr_popup_1_right" id="0x7f070241" />
     <public type="drawable" name="vr_popup_bg" id="0x7f070242" />
     <public type="drawable" name="vr_popup_bg_right" id="0x7f070243" />
-    <public type="drawable" name="vr_xiaoqi_listen_l" id="0x7f070244" />
-    <public type="drawable" name="vr_xiaoqi_listen_q" id="0x7f070245" />
-    <public type="drawable" name="vr_xiaoqi_listen_r" id="0x7f070246" />
+
     <public type="id" name="ALT" id="0x7f080000" />
     <public type="id" name="BOTTOM_END" id="0x7f080001" />
     <public type="id" name="BOTTOM_START" id="0x7f080002" />

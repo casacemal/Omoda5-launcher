@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/home_app_mengjia_d" android:state_activated="true" />
-    <item android:state_pressed="true" android:drawable="@mipmap/home_app_mengjia_p" />
-    <item android:drawable="@mipmap/home_app_mengjia_n" />
-</selector>

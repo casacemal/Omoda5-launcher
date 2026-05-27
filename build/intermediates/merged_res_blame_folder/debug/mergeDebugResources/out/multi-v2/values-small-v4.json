@@ -4,7 +4,7 @@
             "outputFile": "com.omoda5.launcher-mergeDebugResources-34:/values-small-v4/values-small-v4.xml",
             "map": [
                 {
-                    "source": "/media/cemal/depo/apps/30.4.26- yeni yazım-v4/30.4.26- yeni yazım/app/src/main/res/values-small/dimens.xml",
+                    "source": "/media/cemal/depo/lancher proje/app/src/main/res/values-small/dimens.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

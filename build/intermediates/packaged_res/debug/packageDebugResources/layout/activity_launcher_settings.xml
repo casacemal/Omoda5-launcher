@@ -1,230 +1,574 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_1"
-    android:fillViewport="true">
+    android:background="#0A0A0A"
+    android:paddingStart="250dp"
+    android:paddingEnd="100dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- SOL SÜTUN: AYARLAR PANELİ (%45 genişlik) -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        app:layout_constraintGuide_percent="0.56" />
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Launcher Ayarları"
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/settingsScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvExpandHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="#33000000"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="12dp"
-            android:text="Split Uygulama Eşleştirmeleri ▸"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvApps"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="8dp"
-            android:background="#22000000"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tvHint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Canlı renk: split uyumlu | Soluk: uyumsuz"
-            android:textColor="#CCFFFFFF"
-            android:textSize="14sp" />
-
-        <!-- ADB Settings Section -->
-        <TextView
-            android:id="@+id/adb_settings_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#33000000"
-            android:padding="12dp"
-            android:text="ADB Bağlantı Ayarları"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <!-- ADB Enable/Disable -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#22000000"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ADB Etkinleştir"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <Switch
-                android:id="@+id/adb_enabled_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="false" />
-
-        </LinearLayout>
-
-        <!-- ADB Mode Selection -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#22000000"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:paddingEnd="16dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ADB Modu"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <RadioGroup
-                android:id="@+id/adb_mode_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/adb_mode_usb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="USB"
-                    android:textColor="@android:color/white" />
-
-                <RadioButton
-                    android:id="@+id/adb_mode_tcp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="TCP/IP"
-                    android:textColor="@android:color/white" />
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <!-- ADB Port Configuration -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#22000000"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Port"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/adb_port_edit"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:background="#33000000"
-                android:inputType="number"
-                android:padding="8dp"
-                android:text="5555"
-                android:textColor="@android:color/white" />
-
-        </LinearLayout>
-
-        <!-- ADB Authentication -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#22000000"
-            android:orientation="horizontal"
-            android:padding="12dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Kimlik Doğrulama"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <Switch
-                android:id="@+id/adb_auth_switch"
+                android:id="@+id/tv_app_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true" />
-
-        </LinearLayout>
-
-        <!-- ADB Timeout -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#22000000"
-            android:orientation="horizontal"
-            android:padding="12dp">
+                android:text="Sürüm: --"
+                android:textColor="#88FFFFFF"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Zaman Aşımı (sn)"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:text="SİSTEM AYARLARI"
+                android:textColor="#29D9F8"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginBottom="16dp"/>
 
-            <EditText
-                android:id="@+id/adb_timeout_edit"
-                android:layout_width="100dp"
+            <!-- Stok Launcher Butonu -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#33000000"
-                android:inputType="number"
-                android:padding="8dp"
-                android:text="300"
-                android:textColor="@android:color/white" />
+                app:cardBackgroundColor="#15FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Stok Launcher'ı Devre Dışı Bırak"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_disable_stock_launcher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX="1.6"
+                        android:scaleY="1.6" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- SPLIT SCREEN AYARLARI -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BÖLÜNMÜŞ EKRAN (SPLIT) AYARLARI"
+                android:textColor="#29D9F8"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#15FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvApps"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:padding="8dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#15FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tam Ekran (Immersive)"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_immersive_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX="1.6"
+                        android:scaleY="1.6" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#15FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Gestro (Geri/Home) Zorla Aç"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_force_gestures"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX="1.6"
+                        android:scaleY="1.6" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#15FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Açılışta Klima (HVAC) Başlat"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_auto_start_hvac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX="1.6"
+                        android:scaleY="1.6" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- GÜNCELLEME BÖLÜMÜ -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SİSTEM VE GÜNCELLEME"
+                android:textColor="#29D9F8"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_install_update"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:text="ŞİMDİ GÜNCELLE (YENİ SÜRÜM HAZIR)"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#FF9800" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_check_update_manual"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:text="GÜNCELLEME DENETLE (GITHUB)"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#333333" />
+
+            <!-- ADB ve Overscan -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADB VE EKRAN KONTROLÜ"
+                android:textColor="#29D9F8"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_enable_system_adb"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:text="SİSTEM ADB AKTİF ET (5555)"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#4CAF50" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_adb_tcp_mode"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="8dp"
+                android:text="ADB TCP MODUNA GEÇ (5555)"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#2196F3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_overscan_hide_left"
+                    android:layout_width="0dp"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    android:text="SOL BAR GİZLE"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp"
+                    android:layout_marginEnd="4dp"
+                    app:backgroundTint="#333333" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_overscan_hide_right"
+                    android:layout_width="0dp"
+                    android:layout_height="72dp"
+                    android:layout_weight="1"
+                    android:text="SAĞ BAR GİZLE"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp"
+                    app:backgroundTint="#333333" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_overscan_reset"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="8dp"
+                android:text="EKRAN SINIRLARINI SIFIRLA"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#F44336" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_set_default_launcher"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="8dp"
+                android:text="LAUNCHER'I VARSAYILAN YAP (ZORLA)"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#FF5722" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_reboot"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="24dp"
+                android:text="CİHAZI YENİDEN BAŞLAT"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#88FF0000" />
+
+            <!-- ARAÇ VERİLERİ VE DİAGNOSTİK -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ARAÇ VERİLERİ (CANLI)"
+                android:textColor="#29D9F8"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#15FFFFFF"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sw_diag_hvac"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="Klima ve Sıcaklık"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sw_diag_doors"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="Kapı ve Kilit Durumları"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/sw_diag_buttons"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="Direksiyon ve Fiziksel Tuşlar"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Dinamik Veri Satırları (Onarıldı) -->
+            <LinearLayout
+                android:id="@+id/diagRowsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include android:id="@+id/diag_temp_left" layout="@layout/item_vehicle_property" />
+                <include android:id="@+id/diag_temp_right" layout="@layout/item_vehicle_property" />
+                <include android:id="@+id/diag_fan_speed" layout="@layout/item_vehicle_property" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#22FFFFFF" android:layout_marginVertical="8dp"/>
+
+                <include android:id="@+id/diag_door_fl" layout="@layout/item_vehicle_property" />
+                <include android:id="@+id/diag_door_fr" layout="@layout/item_vehicle_property" />
+                <include android:id="@+id/diag_trunk" layout="@layout/item_vehicle_property" />
+            </LinearLayout>
+
+            <!-- ANALİZ VE LOG ARAÇLARI -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ANALİZ VE HATA AYIKLAMA"
+                android:textColor="#FFEB3B"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_analyze_home"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:text="HOME TUŞU DERİN ANALİZ"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#673AB7" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_fetch_app_logs"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginTop="8dp"
+                android:text="HATA VE İZİN LOGLARINI ÇEK"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#E91E63" />
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <!-- ADB Status -->
-        <TextView
-            android:id="@+id/adb_status_text"
+    <!-- SAĞ SÜTUN: LOG VE VERİ EKRANI -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/logContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        app:cardBackgroundColor="#111111"
+        app:cardCornerRadius="16dp"
+        app:strokeColor="#33FFFFFF"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="#22000000"
-            android:padding="12dp"
-            android:text="ADB Durumu: Devre Dışı"
-            android:textColor="#FFFF00"
-            android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/tvLogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SİSTEM LOGLARI VE VERİLER"
+                android:textColor="#29D9F8"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_clear_logs"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TEMİZLE"
+                android:textColor="#FF9800"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/logScroll"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/controlPanel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLogTitle">
+
+                <TextView
+                    android:id="@+id/tvLogContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="#00FF41"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:lineSpacingExtra="4dp" />
+            </androidx.core.widget.NestedScrollView>
+
+            <LinearLayout
+                android:id="@+id/controlPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <!-- Terminal Giriş Kutusu -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#22FFFFFF"
+                    android:padding="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/et_shell_command"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:hint="Shell komutu..."
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#88FFFFFF"
+                        android:fontFamily="monospace"
+                        android:paddingStart="12dp"
+                        android:background="@null"
+                        android:inputType="textNoSuggestions"
+                        android:textSize="18sp"
+                        android:imeOptions="actionSend" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_send_command"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="GÖNDER"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#29D9F8" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_stop_command"
+                        android:layout_width="0dp"
+                        android:layout_height="64dp"
+                        android:layout_weight="1"
+                        android:text="DURDUR"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="8dp"
+                        app:backgroundTint="#D32F2F" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_pause_logs"
+                        android:layout_width="0dp"
+                        android:layout_height="64dp"
+                        android:layout_weight="1"
+                        android:text="DONDUR"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="#555555" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

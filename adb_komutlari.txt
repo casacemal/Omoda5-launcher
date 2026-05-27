@@ -1,0 +1,70 @@
+# ==============================================================================
+# ANDROID SİSTEM YÖNETİMİ VE ADB KOMUTLARI REHBERİ
+# ==============================================================================
+
+# 1. BİLDİRİM VE ERİŞİLEBİLİRLİK İZİNLERİ
+# ------------------------------------------------------------------------------
+# Geliştirilen uygulamaya zorla Bildirim Erişimi (Notification Listener) izni verir
+adb shell settings put secure enabled_notification_listeners <uygulama_adı>/<servis_adı>
+
+# İlgili uygulamanın Erişilebilirlik (Accessibility) iznini SQL veritabanına doğrudan yazar
+adb shell settings put secure enabled_accessibility_services <paket_adi>
+
+
+# 2. EKRAN VE GÖRÜNÜM AYARLARI
+# ------------------------------------------------------------------------------
+# Yazılımsal navigasyon barını tetiklemek veya ekran sınırlarını kontrol etmek için (Tam Ekran Modu)
+adb shell settings put global policy_control immersive.full=*
+
+# Ekran Kenar Boşluklarını (Overscan) Ayarlama (Bar Gizleme/Sıfırlama)
+# Sol barı kapatmak için:
+adb shell wm overscan -235,0,0,0
+# Sağ barı kapatmak için:
+adb shell wm overscan 0,0,-20,0
+# Ekran sınırlarını sıfırlamak (reset) için:
+adb shell wm overscan 0,0,0,0
+
+
+# 3. PAKET VE İZİN YÖNETİMİ
+# ------------------------------------------------------------------------------
+# Sistemdeki tüm yüklü paket adlarını listeler (Chery/YFVE servislerini bulmak için)
+adb shell pm list packages | grep yfve
+
+# Geliştirilen yönetim aracına kritik sistem izinlerini otomatik atar
+adb shell pm grant <paket_adi> android.permission.WRITE_SECURE_SETTINGS
+adb shell pm grant <paket_adi> android.permission.SYSTEM_ALERT_WINDOW
+adb shell pm grant <paket_adi> android.permission.BIND_ACCESSIBILITY_SERVICE
+adb shell pm grant <paket_adi> android.permission.QUERY_ALL_PACKAGES
+adb shell pm grant <paket_adi> android.permission.MANAGE_EXTERNAL_STORAGE
+
+
+# 4. ORIJINAL LAUNCHER VE HVAC (KLİMA) YÖNETİMİ
+# ------------------------------------------------------------------------------
+# Orijinal Chery Launcher'ı sistemde tekrar etkinleştirir
+adb shell pm enable com.yfve.launcher
+
+# Orijinal Launcher'ı varsayılan ana ekran olarak geri tanımlar
+adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity
+# Alternatif tam yol tanımı:
+adb shell cmd package set-home-activity com.yfve.launcher/com.yfve.launcher.LauncherActivity
+
+# Orijinal launcher'ı devre dışı bırakma komutu (Klima güvenliği için ÖNERİLMEZ!)
+adb shell pm disable-user --user 0 com.yfve.launcher
+
+# Klima (HVAC) uygulamasını manuel olarak tetikler/başlatır
+adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity
+
+# Klima uygulamasını sistemde tekrar etkinleştirir
+adb shell pm enable com.yfve.hvac
+
+
+# 5. SİSTEM VE ADB SERVİS KOMUTLARI
+# ------------------------------------------------------------------------------
+# Sistemi güvenli bir şekilde yeniden başlatır
+adb reboot
+
+# ADB bağlantı portunu 5555 olarak ayarlar ve servisi yeniden başlatır
+# (Cihaz üzerindeki terminalden çalıştırılmalıdır)
+setprop service.adb.tcp.port 5555
+stop adbd
+start adbd

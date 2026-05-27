@@ -1,0 +1,80 @@
+
+# 📑 ÖNEMLİ BİLGİLER VE ADB KOMUT DEPOSU
+
+## 🤖 1. Cihaz Profili ve Kısıtlamalar
+- **İşletim Sistemi:** Android 10 (API Level 29) - Android Automotive OS (AAOS)[cite: 4, 5].
+- **Mimari:** ARM64 (64-bit)[cite: 4].
+- **Ekran Çözünürlüğü:** 1920x720 (Sol bar payı: 235px)[cite: 4].
+- **Kritik Kısıtlamalar:** GMS (Google Services) yok[cite: 5], agresif bir stok launcher dayatması var[cite: 5], fiziksel navigasyon tuşları yok[cite: 3, 5], erişilebilirlik ve overlay izinleri arayüzden kilitli[cite: 3].
+
+---
+
+## 🛠️ 2. Stratejik Çözüm Mimarisi
+- **Yöntem:** Hibrit Yapı. Orijinal ADAS ve Klima (HVAC) servislerine dokunulmadan, arka planda çalıştırılarak ön plana özel Launcher/Overlay giydirilecektir[cite: 2, 3, 6].
+- **Güvenlik Politikası:** Sistem kararlılığı için kritik paketler (`com.yfve.launcher` vb.) tamamen silinmeyecek, askıya alma veya üstte gösterme (Overlay) yöntemleri kullanılacaktır[cite: 1, 2].
+
+---
+
+## 💻 3. ADB Komut Arşivi
+
+### A. Launcher Değişimi ve Geri Yükleme Komutları
+```bash
+# F-Launcher (veya özel launcher) APK'sını sisteme yükleme
+adb install flauncher.apk
+
+# Özel launcher'ı varsayılan ev etkinliği olarak tetikleme
+adb shell am start -n it.flauncher/.LauncherActivity
+
+# Orijinal Chery Launcher'ı devre dışı bırakma (ÖNERİLMEZ - Klima panelini bozabilir)
+adb shell pm disable-user --user 0 com.yfve.launcher
+
+# Orijinal Chery Launcher'ı TEKRAR AKTİF ETME (Kurtarma)
+adb shell pm enable com.yfve.launcher
+
+# Orijinal Launcher'ı yeniden varsayılan (Home) yapmak
+adb shell cmd package set-home-activity com.yfve.launcher/.LauncherActivity
+B. Klima (HVAC) ve Sistem Servis Komutları
+Bash
+# Eğer klima ekranı gelmiyorsa manuel olarak tetikleme komutu
+adb shell am start -n com.yfve.hvac/com.yfve.hvac.MainActivity
+
+# Klima servisini tamamen aktif etme
+adb shell pm enable com.yfve.hvac
+
+# Paket adlarını Chery'e özel filtreleyerek listeleme
+adb shell pm list packages | grep yfve
+
+# Değişikliklerin senkronize olması için cihazı yeniden başlatma
+adb reboot
+C. Gelişmiş İzin Kilitlerini Açma (Root/ADB Yetkilendirmeleri)
+Bash
+# Menüde gizlenmiş olan "Bildirim Erişimini" (Notification Listener) özel launcher'a zorla atama
+adb shell settings put secure enabled_notification_listeners <uygulama_adı>/<servis_adı>
+
+# Yazılımsal Navigasyon Barını (Geri-Home-Recents) alt alanda tetikleme
+adb shell settings put global policy_control immersive.full=*
+
+# Kilitli Erişilebilirlik Servislerini manuel olarak veritabanına yazıp aktif etme
+adb shell settings put secure enabled_accessibility_services <paket_adi>
+D. Sistem Yedekleme ve Emülatör İçin Dosya Çekme Komutları
+Bash
+# Sistem kütüphanelerini bilgisayara yedekleme (Emülatör bağımlılıkları için)
+adb pull /system/lib/ ./lib_backup
+adb pull /system/lib64/ ./lib64_backup
+
+# Donanım sürücüleri ve HAL katmanını çekme
+adb pull /vendor/ ./vendor_backup
+
+# Sistem yapılandırma dosyasını çekme
+adb pull /system/build.prop .
+
+# [ROOT GEREKİR] Disk bölümlerinin gerçek blok isimlerini listeleme
+adb shell "ls -l /dev/block/by-name"
+
+# [ROOT GEREKİR] Kernel (Boot) ve Vendor imajlarını doğrudan diskten kopyalama
+adb shell "su -c 'dd if=/dev/block/by-name/boot of=/data/local/tmp/boot.img'"
+adb shell "su -c 'dd if=/dev/block/by-name/vendor of=/data/local/tmp/vendor.img'"
+adb pull /data/local/tmp/boot.img .
+adb pull /data/local/tmp/vendor.img .
+
+Aklınıza takılan spesifik bir ADB hatası veya VS Code bağlantı adımında aldığınız bir uyarı var mı?

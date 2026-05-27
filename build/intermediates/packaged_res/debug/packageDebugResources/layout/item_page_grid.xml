@@ -6,8 +6,6 @@
     android:alignmentMode="alignMargins"
     android:columnCount="5"
     android:rowCount="2"
-    android:paddingStart="40dp"
-    android:paddingEnd="20dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:useDefaultMargins="true" />

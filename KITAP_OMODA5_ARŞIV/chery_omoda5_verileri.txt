@@ -2172,7 +2172,7 @@ Modern otomotiv endüstrisi, mekanik mühendisliğinden yazılım tabanlı bir d
 Chery Multimedya Sistemlerinin Donanım ve İşletim Sistemi Mimarisi
 Chery'nin T1X platformu üzerine inşa edilen yeni nesil araçları, dijital kokpit deneyimini çift 10.25 inçlik ekran yapısıyla standart hale getirmiştir. Bu ünitelerin kalbinde, Android 10 (API 29) işletim sistemi varyantı çalışmaktadır. Android 10, Google'ın gizlilik ve güvenlik politikalarında önemli değişiklikler yaptığı bir sürüm olması sebebiyle, araç içi modifikasyonlar için hem fırsatlar hem de zorluklar barındırmaktadır. Cihazın donanım özellikleri, akıcı bir kullanıcı arayüzü sağlamak üzere optimize edilmiş olsa da, Google Mobil Servisleri'nin (GMS) eksikliği ve kısıtlı bir uygulama ekosistemi, yerel çözümler geliştirilmesini zorunlu kılmaktadır.
 Donanım Spesifikasyonları ve Ekran Yapısı
-Omoda 5 ve Tiggo 8 Pro modellerinde kullanılan ekranlar, sadece eğlence amaçlı değil, aynı zamanda aracın klima kontrolü (HVAC), sürüş destek sistemleri (ADAS) ve araç ayarlarıyla entegre bir biçimde çalışmaktadır. Bu entegrasyon, yazılım geliştirme sürecinde en büyük riski oluşturan unsurdur; zira orijinal launcher uygulamasının (com.yfve.launcher) devre dışı bırakılması, bu kritik sistemlerin kontrol kaybına yol açabilmektedir.
+Omoda 5 ve Tiggo 8 Pro modellerinde kullanılan ekranlar, sadece eğlence amaçlı değil, aynı zamanda aracın klima kontrolü (HVAC), sürüş destek sistemleri (ADAS) ve araç ayarlarıyla entegre bir biçimde çalışmaktadır. Bu entegrasyon, yazılım geliştirme sürecinde en büyük riski oluşturan unsurdur; zira orijinal launcher uygulamasının (com.chery.launcher) devre dışı bırakılması, bu kritik sistemlerin kontrol kaybına yol açabilmektedir.
 | Parametre | Teknik Detay | Kaynak |
 |---|---|---|
 | İşletim Sistemi | Android 10 (API 29) |  |
@@ -2607,17 +2607,17 @@ sol barın çizim bilgileri
     - **İçerik Alanı:** Uygulamalar için başlangıç noktası X=235'tir.
     - **Buton Dizilimi (Görsel Analiz):** 235px genişliğin ortasında dikey olarak dizilmiş Home, HVAC, Medya ve Uygulamalar ikonları.
     - **Kritik Flag:** `fl=NOT_FOCUSABLE` (Bar odaklanmıyor, sadece dokunmatik input alıyor).
-Master Architect, com.yfve.launcher paketini masaya yatırıyoruz. Bu paket, Chery'nin sadece "ana ekranı" değil, aynı zamanda aracın donanım kontrol arayüzüdür. Loglardan ve sistem dökümlerinden (dumpsys) elde ettiğimiz verilerle bu paketin tüm sırlarını aşağıda analiz ettim.
+Master Architect, com.chery.launcher paketini masaya yatırıyoruz. Bu paket, Chery'nin sadece "ana ekranı" değil, aynı zamanda aracın donanım kontrol arayüzüdür. Loglardan ve sistem dökümlerinden (dumpsys) elde ettiğimiz verilerle bu paketin tüm sırlarını aşağıda analiz ettim.
 
 Klon barı yapabilmemiz için bu paketin içindeki "NavigationBar" mantığını taklit etmemiz gerekiyor.
 
-🛠️ com.yfve.launcher: Teknik Otopsi
+🛠️ com.chery.launcher: Teknik Otopsi
 Bu uygulama, standart bir Android uygulamasından farklı olarak Sistem Uygulaması (Privileged App) yetkileriyle çalışır. İşte barın bu paket içindeki izleri:
 
 1. Pencere Sahipliği:
 Daha önce yaptığımız dumpsys window analizinde gördüğümüz üzere, LeftNavigationBar penceresinin sahibi bu pakettir. Ancak ilginç olan, bu pencerenin package=com.android.systemui olarak görünmesiydi.
 
-Teşhis: com.yfve.launcher, SystemUI ile ortak bir "Shared User ID" kullanıyor olabilir veya SystemUI içindeki bir kütüphaneyi tetikliyor.
+Teşhis: com.chery.launcher, SystemUI ile ortak bir "Shared User ID" kullanıyor olabilir veya SystemUI içindeki bir kütüphaneyi tetikliyor.
 
 2. Kritik Servisler:
 Bu paket muhtaman şu servisleri arka planda koşturuyor (Klon barın tetikleyeceği servisler):
@@ -2626,7 +2626,7 @@ LeftNavigationBarService: Barın çizilmesi ve dokunmatik alan yönetimi.
 
 HvacControllerService: Klima butonuna basıldığında D-Bus üzerinden sinyal gönderen servis.
 
-🎨 Tasarım ve Klonlama Verileri (com.yfve.launcher İçeriği)
+🎨 Tasarım ve Klonlama Verileri (com.chery.launcher İçeriği)
 Klon barı tasarlarken kullanacağımız "Tasarım Kimliği"ni bu paketten çekmeliyiz.
 
 A. İkonların Çıkartılması:
@@ -2643,11 +2643,11 @@ Arka Plan: #CC000000 (Yaklaşık %80 şeffaf siyah)
 
 Vurgu Rengi (Basıldığında): Genellikle Chery kırmızısı veya mavi tonları.
 
-📂 onemli_bilgiler.md (com.yfve.launcher Bölümü)
+📂 onemli_bilgiler.md (com.chery.launcher Bölümü)
 Raporumuza bu pakete dair kritik notları ekliyorum:
 
 Markdown
-## com.yfve.launcher Analiz Notları
+## com.chery.launcher Analiz Notları
 - **Rol:** OEM Control Hub (Ana Kontrol Merkezi).
 - **Bar Genişliği:** 235px (Dumpsys onayı).
 - **İşlev:** Klima, Medya, Araç Ayarları ve Home Intent yönetimi.
@@ -2658,7 +2658,7 @@ Bu paketin içini görmemiz şart. Şu komutu kullanarak paketi bilgisayarına �
 
 Bash
 # 1. APK'nın tam yolunu bul
-pm path com.yfve.launcher
+pm path com.chery.launcher
 
 # 2. APK'yı bilgisayarına kopyala (Yolu bulduktan sonra [YOL] yerine yaz)
 adb pull [YOL] ./chery_original_launcher.apk
@@ -3074,14 +3074,14 @@ CHERY MASTER CONTROLLER & INSTALLER
 Özel Gem
 Selamlar! CHERY MASTER CONTROLLER & INSTALLER olarak görev başındayım. Paylaştığın cihaz_cozum_onerileri.md, adb_launcher_rehberi.md, cihaz_analizi_sorunlar.md, emulator_guide-2.md ve PROMPT_GELISMIS_OTOMOBIL_MOD.md dosyalarını derinlemesine analiz ettim.
 
-Chery Omoda 5 ve benzeri ünitelerdeki en büyük sancımız, sistemin agresif bir şekilde kendi launcher'ına (com.yfve.launcher) dönmesi ve klima (HVAC) gibi kritik servislerin bu launcher'a göbekten bağlı olması. Bu kısıtlamaları aşmak için "Hibrit ve Akıllı ADB" yaklaşımını kullanacağız.
+Chery Omoda 5 ve benzeri ünitelerdeki en büyük sancımız, sistemin agresif bir şekilde kendi launcher'ına (com.chery.launcher) dönmesi ve klima (HVAC) gibi kritik servislerin bu launcher'a göbekten bağlı olması. Bu kısıtlamaları aşmak için "Hibrit ve Akıllı ADB" yaklaşımını kullanacağız.
 
 İşe başlamadan önce, projemizin temelini oluşturacak olan ve tüm teknik çıkarımlarımı içeren o kritik dosyayı oluşturuyorum:
 
 önemli_bilgiler.md
 Cihaz Kimliği: Android 10 (API 29), ARM64 Mimari, Android Automotive OS tabanlı.
 
-Kritik Paketler: * com.yfve.launcher (Orijinal Launcher - Kapatılırsa HVAC ve Bildirim Paneli gidiyor!)
+Kritik Paketler: * com.chery.launcher (Orijinal Launcher - Kapatılırsa HVAC ve Bildirim Paneli gidiyor!)
 
 com.yfve.hvac (Klima Kontrol Ünitesi)
 
@@ -3251,7 +3251,7 @@ Sistem Mimarisi: Android 10 (API 29), ARM64.
 
 Bağlantı Stratejisi: Shizuku yerine doğrudan 127.0.0.1:5555 TCP protokolü tercih edilecek.
 
-Kritik Servis Bağımlılığı: com.yfve.launcher paketi klima (HVAC) ve bildirim paneli tetikleyicilerini barındırır; tamamen devre dışı bırakılmamalıdır.
+Kritik Servis Bağımlılığı: com.chery.launcher paketi klima (HVAC) ve bildirim paneli tetikleyicilerini barındırır; tamamen devre dışı bırakılmamalıdır.
 
 İzin Mekanizması: Erişilebilirlik (Accessibility) servisleri "Enabled" görünse bile sistem tarafından "Bound" (Bağlı) duruma getirilmesi için pil optimizasyonu beyaz listesine alınmalıdır.
 
@@ -4230,7 +4230,7 @@ Cihazı sadece ana ekrana (Home) döndürmek için:
 Bash
 input keyevent 3
 2. "Home Fix" (Chery Özel Düzeltme) Komutu
-Eğer cihazda bir Launcher yüklüyse ve ana ekran donuyorsa veya orijinal launcher'a (com.yfve.launcher) dönmekte direniyorsa, senin için hazırladığım şu profesyonel tetikleyiciyi kullan:
+Eğer cihazda bir Launcher yüklüyse ve ana ekran donuyorsa veya orijinal launcher'a (com.chery.launcher) dönmekte direniyorsa, senin için hazırladığım şu profesyonel tetikleyiciyi kullan:
 
 Bash
 am start -n com.softartstudio.carwebguru/.MainActivity -a android.intent.action.MAIN -c android.intent.category.HOME -f 0x10000100
@@ -4240,7 +4240,7 @@ am start -n com.softartstudio.carwebguru/.MainActivity -a android.intent.action.
 Eğer her şeyi sıfırlayıp aracın kendi orijinal arayüzüne dönmek istersen:
 
 Bash
-am start -n com.yfve.launcher/com.yfve.launcher.LauncherActivity
+am start -n com.chery.launcher/com.chery.launcher.LauncherActivity
 önemli_bilgiler.md Güncellemesi
 Tespit: input keyevent 3 komutu stabil çalışıyor ancak Chery'nin agresif sistemi bazen bu sinyali görmezden gelebiliyor.
 

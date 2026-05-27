@@ -40,7 +40,63 @@ class PreferencesManager(context: Context) {
         const val KEY_ADB_AUTHENTICATION = "adb_authentication"
         const val KEY_ADB_ALLOWED_IPS = "adb_allowed_ips"
         const val KEY_ADB_TIMEOUT = "adb_timeout"
+
+        // System Control (Advanced)
+        const val KEY_DISABLE_STOCK_LAUNCHER = "sys_disable_stock_launcher"
+        const val KEY_IMMERSIVE_MODE = "sys_immersive_mode"
+        const val KEY_FORCE_A11Y = "sys_force_a11y"
+        const val KEY_AUTO_START_HVAC = "sys_auto_start_hvac"
+        
+        // OTA Update
+        const val KEY_LAST_UPDATE_CHECK = "last_update_check"
+        const val KEY_DOWNLOADED_UPDATE_VERSION = "downloaded_update_version"
+        const val KEY_DOWNLOADED_UPDATE_PATH = "downloaded_update_path"
+
+        // Bar States (Overscan)
+        const val KEY_LEFT_BAR_HIDDEN = "left_bar_hidden"
+        const val KEY_RIGHT_BAR_HIDDEN = "right_bar_hidden"
+
+        // App Usage
+        const val PREFIX_CLICK_COUNT = "click_count_"
     }
+
+    // ── System Control ──────────────────────────────────────────
+
+    var isStockLauncherDisabled: Boolean
+        get() = prefs.getBoolean(KEY_DISABLE_STOCK_LAUNCHER, false)
+        set(value) = prefs.edit().putBoolean(KEY_DISABLE_STOCK_LAUNCHER, value).apply()
+
+    var isImmersiveModeEnabled: Boolean
+        get() = prefs.getBoolean(KEY_IMMERSIVE_MODE, false)
+        set(value) = prefs.edit().putBoolean(KEY_IMMERSIVE_MODE, value).apply()
+
+    var isA11yForced: Boolean
+        get() = prefs.getBoolean(KEY_FORCE_A11Y, false)
+        set(value) = prefs.edit().putBoolean(KEY_FORCE_A11Y, value).apply()
+
+    var isAutoStartHvacEnabled: Boolean
+        get() = prefs.getBoolean(KEY_AUTO_START_HVAC, false)
+        set(value) = prefs.edit().putBoolean(KEY_AUTO_START_HVAC, value).apply()
+
+    var lastUpdateCheck: Long
+        get() = prefs.getLong(KEY_LAST_UPDATE_CHECK, 0L)
+        set(value) = prefs.edit().putLong(KEY_LAST_UPDATE_CHECK, value).apply()
+
+    var downloadedUpdateVersion: Int
+        get() = prefs.getInt(KEY_DOWNLOADED_UPDATE_VERSION, -1)
+        set(value) = prefs.edit().putInt(KEY_DOWNLOADED_UPDATE_VERSION, value).apply()
+
+    var downloadedUpdatePath: String?
+        get() = prefs.getString(KEY_DOWNLOADED_UPDATE_PATH, null)
+        set(value) = prefs.edit().putString(KEY_DOWNLOADED_UPDATE_PATH, value).apply()
+
+    var isLeftBarHidden: Boolean
+        get() = prefs.getBoolean(KEY_LEFT_BAR_HIDDEN, false)
+        set(value) = prefs.edit().putBoolean(KEY_LEFT_BAR_HIDDEN, value).apply()
+
+    var isRightBarHidden: Boolean
+        get() = prefs.getBoolean(KEY_RIGHT_BAR_HIDDEN, false)
+        set(value) = prefs.edit().putBoolean(KEY_RIGHT_BAR_HIDDEN, value).apply()
 
     // ── Sidebar görünürlüğü ──────────────────────────────────────
 
@@ -155,6 +211,17 @@ class PreferencesManager(context: Context) {
     var adbTimeout: Int
         get() = prefs.getInt(KEY_ADB_TIMEOUT, 300000) // 5 minutes in milliseconds
         set(value) = prefs.edit().putInt(KEY_ADB_TIMEOUT, value).apply()
+
+    // ── App Usage Tracking ──────────────────────────────────────
+
+    fun incrementClickCount(packageName: String) {
+        val current = getClickCount(packageName)
+        prefs.edit().putInt(PREFIX_CLICK_COUNT + packageName, current + 1).apply()
+    }
+
+    fun getClickCount(packageName: String): Int {
+        return prefs.getInt(PREFIX_CLICK_COUNT + packageName, 0)
+    }
 
     // ── Değişiklik dinleyicisi ────────────────────────────────────
 
