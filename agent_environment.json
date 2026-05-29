@@ -1,0 +1,80 @@
+{
+  "_comment": "Proje ortam bilgileri ve uygulama şartları — agent'lar tarafından okunmak üzere. GÜNCEL SÜRÜM v1.2.0",
+  "meta": {
+    "version": "1.2.0",
+    "generated_at": "2026-05-22T22:30:00+03:00",
+    "generated_by": "assistant-agent"
+  },
+
+  "device": {
+    "type": "automotive",
+    "platform": "AAOS",
+    "description": "Android Automotive OS (AAOS) — araç içi infotainment ünitesi (Omoda 5)",
+    "api_level": 29,
+    "api_codename": "Android 10 (Q)",
+    "density_dpi": 160,
+    "density": 1.0,
+    "display_orientation": "landscape",
+    "sidebar_safe_area_dp": 250,
+    "native_split_screen": true
+  },
+
+  "application": {
+    "package_name": "com.omoda5.launcher",
+    "application_id": "com.omoda5.launcher",
+    "persistent": true,
+    "launch_mode": "singleTask",
+    "accessibility_service": "com.omoda5.launcher.services.CheryAccessibilityService"
+  },
+
+  "source_tree": {
+    "java_com_omoda5_launcher": {
+      "ui": {
+        "MainActivity.kt": "Ana launcher ekranı — 5x2 uygulama grid, long press wallpaper (1sn) → split, simetrik alt butonlar.",
+        "LauncherSettingsActivity.kt": "Launcher ayarları — Split yönetimi, Terminal, Sistem Kontrolü ve Diagnostik tek sayfada.",
+        "fragments": {
+          "VehicleDiagnosticsFragment.kt": "Gelişmiş araç verileri gösterimi"
+        }
+      },
+      "services": {
+        "CheryAccessibilityService.kt": "Kritik Servis — Global Geri (Sağ Swipe) ve Home (Alt Up Swipe) hareketleri.",
+        "AdbBridgeService.kt": "ADB Köprüsü — Yerel soket üzerinden kesintisiz komut akışı ve durdurma desteği."
+      }
+    },
+    "res_layouts": {
+      "activity_main.xml": "Ana layout — ViewPager2, 250dp sol / 100dp sağ padding, simetrik Home/Wallpaper butonları.",
+      "activity_launcher_settings.xml": "Ayarlar layout — 250dp/100dp padding, terminal ve diagnostik entegreli.",
+      "item_launcher_icon.xml": "İkonlar (180dp), 24sp kalın gölgeli başlık."
+    }
+  },
+
+  "feature_configs": {
+    "split_screen": {
+      "trigger": "wallpaper_button_long_press_1000ms",
+      "management": "via_settings_recyclerview"
+    },
+    "back_gesture": {
+      "type": "right_to_left_swipe",
+      "action": "GLOBAL_ACTION_BACK"
+    },
+    "system_integration": {
+      "home_override": "intercept_keycode_3_and_accessibility_home",
+      "stock_launcher_package": "com.chery.launcher",
+      "hvac_package": "com.yfve.hvac",
+      "hvac_auto_start_delay_ms": 2000
+    },
+    "layout_offsets": {
+      "padding_start_dp": 250,
+      "padding_end_dp": 100
+    },
+    "grid_structure": {
+      "columns": 5,
+      "rows": 2
+    }
+  },
+
+  "cleanup_status": {
+    "yfve_package_references": "CLEANED (All com.yfve.* replaced with com.chery.*)",
+    "overscan_management": "SMART (Cumulative logic, remembers states)"
+  }
+}
