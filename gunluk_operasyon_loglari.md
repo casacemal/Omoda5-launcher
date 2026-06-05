@@ -26,7 +26,7 @@
 ### Sesli Asistan ve Tuş Analizi
 > **İşlem:** 293 (Mic) tuşuna basıldı.
 > **Log:** `VOICE: Ses Tanıma Motoru Bulunamadı!`.
-> **Tespit:** Cihazda yerleşik GMS veya offline STT motoru yok. Bu tuş artık direkt `VoiceEducationActivity` rehberini açacak şekilde revize edilmeli.
+> **Tespit:** [GEÇERSİZ - v11.3.0 ile ÇÖZÜLDÜ] Cihazda yerleşik GMS veya offline STT motoru yok. Bu tuş artık direkt `VoiceEducationActivity` rehberini açacak şekilde revize edilmeli denmişti. ANCAK VOSK entegrasyonu ve Main Thread düzeltmesiyle bu tuş başarılı şekilde asistanı ("Dinliyorum") tetiklemektedir.
 
 ## 2. Sistem Hataları ve Teşhis: Home ve Gestures Sorunu
 - **Belirti:** Home tuşu (3/294) ve kenar kaydırma (Gestures) tepki vermiyor.

@@ -1,5 +1,5 @@
 # KESIN_COZUMLER_VE_TEKNIK_NOTLAR.md — Kronik Sorun Arşivi
-**Versiyon:** 9.0.0 | **Son Güncelleme:** 2026-05-22
+**Versiyon:** 11.3.0 | **Son Güncelleme:** 2026-06-05
 
 Semidrive ünitesinde karşılaşılan kronik sorunların kesin çözümleri.
 Yeni bir sorun çözülünce buraya eklenir. Aynı sorun iki kez yaşanmaz.

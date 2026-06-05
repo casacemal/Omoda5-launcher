@@ -30,4 +30,6 @@
 ---
 
 ## 🏁 Sonuç
-Aracın tüm fiziksel tuşlarını artık dijital olarak kontrol edebiliyoruz. Sesli asistanın (Mic tuşu) neden çalışmadığı (AudioRecord hatası) ve Home tuşunun neden bazen yutulduğu teknik olarak ispatlanmıştır.
+Aracın tüm fiziksel tuşlarını artık dijital olarak kontrol edebiliyoruz. 
+~~Sesli asistanın (Mic tuşu) neden çalışmadığı (AudioRecord hatası) teknik olarak ispatlanmıştır.~~ 
+**[GEÇERSİZ - v11.3.0 ile ÇÖZÜLDÜ]** Yukarıdaki AudioRecord/SIGSEGV çökme hatası `v11.3.0` sürümünde Main Thread (Ana İş Parçacığı) yönlendirmesi ve Vosk Offline STT motoru entegrasyonu ile tamamen çözülmüş olup, MIC tuşu artık asistanı ("Dinliyorum") stabil bir şekilde tetiklemektedir. Home tuşunun yutulma sorunu da Balyoz Metodu ile giderilmiştir.
