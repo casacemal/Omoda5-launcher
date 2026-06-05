@@ -48,11 +48,29 @@ resolved_data = {
     "VEHICLE": {"VITES": "P", "MOD": "NORMAL", "EL_FRENI": "ON"}
 }
 
-def parse_line(line):
+line_buffer = ""
+
+def parse_line(incoming_line):
+    global line_buffer
+    
     # Support for JSON logcat format
-    if '"message":' in line:
-        msg_match = re.search(r'"message":\s*"(.*)"', line)
-        if msg_match: line = msg_match.group(1)
+    if '"message":' in incoming_line:
+        msg_match = re.search(r'"message":\s*"(.*)"', incoming_line)
+        if msg_match: incoming_line = msg_match.group(1)
+
+    lTrim = incoming_line.strip()
+    if not lTrim: return
+
+    if lTrim.startswith("Property:"):
+        line_buffer = ""
+    
+    line_buffer += lTrim + " "
+    
+    if "string:" not in line_buffer:
+        return # Devam ediyor
+        
+    line = line_buffer
+    line_buffer = ""
 
     # Extract AreaID if present (Format: Property: 0x..., area: 1, ...)
     area_match = re.search(r"area:\s*(\d+)", line)

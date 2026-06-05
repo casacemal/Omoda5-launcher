@@ -147,3 +147,15 @@ Ayrıca Vivaldi tarayıcısından dinlenen müziklerin de yakalanması için `Me
 **Kök Neden:** Araçtaki fiziksel direksiyon tuşlarını (CANBUS üzerinden `com.saic.keyevent.hardkey.report` ile) dinleyen `SystemBridgeManager` arka plan Binder iş parçacığında çalışıyordu. Bu alt iş parçacığından doğrudan Ana UI'a (Toast/HUD) veya Ses Motoruna (SpeechRecognizer) müdahale edilmeye çalışıldığı için Android güvenlik protokolü uygulamayı çökertiyordu.
 **Kesin Çözüm:** Direksiyon tuşu kodları (örn. 293 MIC, 85 Play/Pause vb.) değiştirilmeden korundu. Tuş olayı yakalandıktan sonra asistan veya bildirim tetiklemeleri `Handler(Looper.getMainLooper()).post { }` kullanılarak Ana İş Parçacığına (Main Thread) yönlendirildi. Bu sayede "Dinliyorum" ibaresi sorunsuz çalıştı ve kapanma hatası engellendi.
 **Etkilenen Dosya:** `SystemBridgeManager.kt`
+
+---
+
+## ÇÖZÜM 11 — VHAL Dumpsys Line-Split (Satır Bölünme) Hatası ve HVAC Sensörleri
+
+**Sorun:** Android 10 (Semidrive) cihazında `dumpsys car_service get-property-value` komutu çalıştırıldığında, çıktıda yer alan `int32Values:` veya `floatValues:` gibi etiketlerden hemen sonra otomatik olarak alt satıra geçiliyor (newline `\n`). Bu durum, logcat üzerinden VHAL verilerini okuyan Regex filtresinin verileri (özellikle boş dizileri `[]` veya tek elemanlı dizileri `[1]`) yakalayamamasına ve parse edememesine neden oluyordu.
+**Kök Neden:** OEM sisteminin `dumpsys` aracı değerleri formatlarken `\n` ekliyor. Standart tek satırlık Regex işlemleri bu noktada kırılıyor. Ayrıca Klima (HVAC) sisteminin değerleri Android standart PID'lerinden ziyade `0x21401008` gibi üreticiye özel (OEM custom) ID'lerden dönüyordu.
+**Kesin Çözüm:** 
+1. `VhalManager.kt` içerisindeki okuma mekanizmasına bir **Line Buffer (Satır Tamponu)** eklendi. Gelen satırlar `string:` kelimesi görülene kadar bir tamponda birleştiriliyor. Böylece çok satırlı `dumpsys` çıktısı tek satıra indirgeniyor.
+2. Regex, yeni satır hatalarını yok edecek şekilde güçlendirildi: `(?i)(?:value|floatValues|int32Values)[s]?[:=]\s*\[([^\]]*)\]`
+3. Klima verileri için decompile edilmiş `CarHvacClient.smali` dosyasından okunan OEM özel Property ID'leri (`0x21401002`, `0x21401005`, `0x21401008`, `0x21401009`, `0x2140100a`, `0x21401007`) izleme listesine dahil edildi.
+**Etkilenen Dosya:** `VhalManager.kt`, `DiagnosticLabActivity.kt`, `tools/vhal_debugger/*`

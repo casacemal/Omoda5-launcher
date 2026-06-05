@@ -15,21 +15,18 @@ print(f"VHAL Emulator Dinlemede: {UDP_IP}:{UDP_PORT}")
 print("VhalManager.kt Regex mantığı uygulanıyor...")
 
 # Regex patterns from VhalManager.kt (as seen in RESOULTION_REPORT_v11_6_3.md)
-FLOAT_REGEX = r"floatValues: \[([\d.,\s-]+)\]"
-INT32_REGEX = r"int32Values: \[([\d.,\s-]+)\]"
+REGEX = r"(?i)(?:value|floatValues|int32Values)[s]?[:=]\s*\[([^\]]*)\]"
 
 def parse_vhal_data(line):
     # 1. Regex Match
-    float_match = re.search(FLOAT_REGEX, line)
-    int32_match = re.search(INT32_REGEX, line)
+    matches = re.findall(REGEX, line)
     
     value_to_parse = ""
-    
-    if float_match and float_match.group(1).strip():
-        value_to_parse = float_match.group(1).strip()
-    elif int32_match and int32_match.group(1).strip():
-        value_to_parse = int32_match.group(1).strip()
-        
+    for match in matches:
+        m_str = match.strip()
+        if m_str:
+            value_to_parse = m_str
+            
     if not value_to_parse:
         return None, None
 

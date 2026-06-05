@@ -51,7 +51,10 @@ object VhalManager {
         "0x15200505",  // Ana far
         "0x21401002",  // AC power (OEM smali)
         "0x21401005",  // Fan hızı (OEM smali)
-        "0x21401008"   // Sol klima ısısı (OEM smali)
+        "0x21401008",  // Sol klima ısısı (OEM smali)
+        "0x21401009",  // Sağ klima ısısı
+        "0x21401007",  // Auto mode
+        "0x2140100a"   // Dual mode
     )
 
     private val logReceiver = object : BroadcastReceiver() {
@@ -137,8 +140,15 @@ object VhalManager {
         // Property ID'yi çıkar (Örn: 0x11600207)
         val idStr = Regex("0x[0-9a-fA-F]+").find(l)?.value ?: "Unknown"
 
-        // Değer bloğunu bul: "floatValues: [0.0]" veya "int32Values: [1]" formatı (Esnek Yakalayıcı)
-        val valStr = Regex("(?i)(?:value|floatValues|int32Values)[s]?[:=]\\s*\\[?([\\d.,\\s\\-]+)\\]?").find(l)?.groupValues?.get(1)?.trim() ?: ""
+        // Değer bloğunu bul: "floatValues: [0.0]" veya "int32Values: [1]" formatı
+        // floatValues boş ise int32Values içindekini al
+        val matches = Regex("(?i)(?:value|floatValues|int32Values)[s]?[:=]\\s*\\[([^\\]]*)\\]")
+            .findAll(l)
+            .map { it.groupValues[1].trim() }
+            .filter { it.isNotEmpty() }
+            .toList()
+        
+        val valStr = matches.lastOrNull() ?: ""
 
         // Kapı satırları için zone varsa boş değer olabilir
         val isDoorLine = l.contains("0x16400b00")
@@ -232,7 +242,19 @@ object VhalManager {
             }
             l.contains("0x21401008") -> {
                 val temp = numericVal.toFloatOrNull() ?: 0f
-                set("KLİMA", "${temp.toInt()} °C", "KLİMA", temp)
+                set("SOL ISI", "${temp.toInt()} °C", "SOL ISI", temp)
+            }
+            l.contains("0x21401009") -> {
+                val temp = numericVal.toFloatOrNull() ?: 0f
+                set("SAĞ ISI", "${temp.toInt()} °C", "SAĞ ISI", temp)
+            }
+            l.contains("0x21401007") -> {
+                val on = numericVal.startsWith("1")
+                set("AUTO", if (on) "AÇIK" else "KAPALI", "AUTO", on)
+            }
+            l.contains("0x2140100a") -> {
+                val on = numericVal.startsWith("1")
+                set("DUAL", if (on) "AÇIK" else "KAPALI", "DUAL", on)
             }
             // KAPI DURUMU — zone formatı
             isDoorLine -> {

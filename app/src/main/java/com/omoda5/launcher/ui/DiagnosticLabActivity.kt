@@ -306,7 +306,7 @@ class DiagnosticLabActivity : ComponentActivity() {
             Column(Modifier.padding(12.dp)) {
                 SectionTitle("❄ KLİMA (HVAC)")
                 Spacer(Modifier.height(8.dp))
-                val hvacKeys = listOf("KLİMA", "AC GÜÇ", "FAN", "CAM")
+                val hvacKeys = listOf("SOL ISI", "AC GÜÇ", "FAN", "CAM", "SAĞ ISI", "AUTO", "DUAL")
                 hvacKeys.forEach { key ->
                     val value = vhal[key] ?: "—"
                     Row(

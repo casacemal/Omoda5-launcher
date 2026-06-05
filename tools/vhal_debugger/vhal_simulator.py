@@ -39,10 +39,11 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 print(f"VHAL Simulator v2.0 Başlatıldı. Hedef: {UDP_IP}:{UDP_PORT}")
 
 def create_vhal_string(prop_id, value, is_float=True):
+    # Dumpsys Android 10 line split simulation
     if is_float:
-        return f"Property: {prop_id}, floatValues: [{float(value)}], int32Values: [], status: 0"
+        return f"Property:{prop_id},status: 0,timestamp:0,zone:0x0,floatValues: [{float(value)}],int32Values:\n[],int64Values: [],bytes: [],string:"
     else:
-        return f"Property: {prop_id}, floatValues: [], int32Values: [{int(value)}], status: 0"
+        return f"Property:{prop_id},status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values:\n[{int(value)}],int64Values: [],bytes: [],string:"
 
 try:
     while True:
@@ -63,7 +64,15 @@ try:
         # 4. TPMS (Sabit Basınç)
         sock.sendto(create_vhal_string(PROPERTIES["TPMS_FL"], 2.3, True).encode(), (UDP_IP, UDP_PORT))
 
-        print(f"[SIMULATING] Speed: {speed} km/h, RPM: {rpm}, Ambient Color: {color_idx}, Radar: {dist}")
+        # 5. HVAC Simülasyonu
+        ac_power = random.choice([0, 1])
+        fan_speed = random.randint(1, 7)
+        temp_out = random.randint(15, 30)
+        sock.sendto(create_vhal_string(PROPERTIES["FAN_SPEED"], ac_power, False).encode(), (UDP_IP, UDP_PORT)) # AC Power
+        sock.sendto(create_vhal_string("0x21401005", fan_speed, False).encode(), (UDP_IP, UDP_PORT)) # Fan Level
+        sock.sendto(create_vhal_string(PROPERTIES["TEMP_OUT"], temp_out, True).encode(), (UDP_IP, UDP_PORT))
+
+        print(f"[SIMULATING] Speed: {speed} km/h, AC: {ac_power}, Fan: {fan_speed}, Temp: {temp_out}")
         
         time.sleep(1) # Daha hızlı akış
 
