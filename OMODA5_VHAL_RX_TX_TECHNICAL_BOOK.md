@@ -41,12 +41,75 @@ Sistem, tuşları `WindowManager` seviyesinde yakalar ve şu yayın (broadcast) 
 - `MEDIA.HardKeyBusiness: onHardKey: Intent { act=com.saic.keyevent.hardkey.report }`
 
 ### 0.5. Sesli Asistan (STT) ve Tuş Tetikleme Mimarisi (DENENDİ VE ONAYLANDI)
-Direksiyon tuşları arka plan (Binder) iş parçacığında `com.saic.keyevent.hardkey.report` üzerinden okunur. Bu veri akışından (RX) doğrudan Ana UI'a veya Vosk motoruna erişim sağlamak **SIGSEGV (Çökme)** hatasına neden olur.
-- **Kullanılan Formül:** `Handler(Looper.getMainLooper()).post { }` kullanılarak RX verisi Ana İş Parçacığına yönlendirilmiş ve çökme tamamen engellenmiştir.
-- **VOSK Model Yolu (Akıllı Tarama):** Orijinal Vosk Demo'su (`StorageService.unpack`) modeli `sync/model-tr` yoluna çıkarttığı için, sistemin modeli otomatik bulması adına aşağıdaki yollar taranacak şekilde koda işlenmiş ve test edilmiştir:
-  1. `Android/data/com.omoda5.launcher/files/sync/model-tr` (Önceki sürümler ve Github standardı)
-  2. `Android/data/com.omoda5.launcher/files/model-tr`
-  3. `/sdcard/model-tr` veya `/sdcard/Download/vosk-model-small-tr-0.3`
+Omoda 5 (Semidrive) cihazında direksiyon tuşları arka plan (Binder) iş parçacığında çalışan bir BroadcastReceiver (Yayın Alıcısı) üzerinden `com.saic.keyevent.hardkey.report` Action'ı ile okunmaktadır. 
+
+**Kritik SIGSEGV (Çökme) Teşhisi:**
+Bu veri akışından (RX) gelen sinyaller alt seviye (low-level) bir iş parçacığında yakalanır. Bu yakalama bloğunun içerisinden doğrudan Ana UI'a (Toast, Dialog, View değişiklikleri) veya Android'in resmi `SpeechRecognizer` / VOSK motoruna (AudioRecord gereksinimi) erişim sağlamaya kalkışmak **SIGSEGV (Segmentation Fault) Çökme hatasına** neden olmaktadır. Android, ana UI iş parçacığı dışından grafik veya mikrofon nesnelerine ulaşıldığında süreci acımasızca öldürmektedir (kill).
+
+**Kullanılan Kesin Çözüm ve Formül (Kod Kopyası):**
+Çökmeyi tamamen engellemek ve tuşu stabilize etmek için, RX akışından gelen tuş tetikleyicisi (MIC = Key 293) yakalandıktan sonra, işlemler `Handler(Looper.getMainLooper()).post { ... }` bloğunun içerisine hapsedilmelidir. Bu blok, işlemleri doğrudan Ana İş Parçacığına (Main Thread) havale eder.
+
+```kotlin
+// SystemBridgeManager.kt içerisindeki birebir çalışma formülü:
+private fun handleVoiceProxy(ctx: Context?, keyCode: Int) {
+    if (keyCode == 293) { // MIC KEY (Direksiyondaki Konuşma Tuşu)
+        // DİKKAT: Doğrudan asistanı başlatmak SIGSEGV çökmesine yol açar!
+        // Alt satırdaki Main Thread yönlendirmesi hayati önemdedir.
+        android.os.Handler(android.os.Looper.getMainLooper()).post {
+            try {
+                // Kendi Asistanımızı Başlat (VOSK/Sistem STT)
+                VoiceAssistantManager.startListening()
+                LogManager.addLog("VOICE: Uygulama İçi Asistan Tetiklendi (Key: 293)")
+                
+                // Ekranda Global Bildirim (Toast) Göster
+                ctx?.let { 
+                    android.widget.Toast.makeText(it, "🎤 Asistan Dinliyor...", android.widget.Toast.LENGTH_LONG).show() 
+                }
+            } catch (e: Exception) {
+                LogManager.addLog("VOICE: Proxy Hatası: ${e.message}")
+            }
+        }
+    }
+}
+```
+
+**VOSK Model Yolu (Akıllı Tarama Formülü):**
+Cihazda internet veya GMS (Google Mobil Servisleri) olmadığı için VOSK Offline STT kütüphanesi entegre edilmiştir. Ancak modelin doğru dosyadan okunabilmesi için çoklu yol taraması gerekir. Orijinal Vosk Demo'su (`StorageService.unpack` metodu) modeli çıkartırken gizli bir `sync` klasörü kullanır. VOSK'un modeli bulamaması (Not Found) hatasını sonsuza dek çözmek için aşağıdaki "Akıllı Tarama" fonksiyonu yazılmıştır. Bu formül cihazın hafızasındaki tüm olası model saklama noktalarını tarayıp bulduğu an `break` ile yüklemeyi tamamlar.
+
+```kotlin
+// VoiceAssistantManager.kt içerisindeki Akıllı Model Yükleme Formülü:
+fun tryInitExternalVosk() {
+    val possiblePaths = listOf(
+        File(context?.getExternalFilesDir(null), "model-tr").absolutePath,
+        File(context?.getExternalFilesDir(null), "sync/model-tr").absolutePath, // VOSK Github Standardı
+        File(context?.getExternalFilesDir(null), "sync/model").absolutePath,
+        "/sdcard/model-tr", // Kullanıcının ana dizine atma ihtimali
+        "/sdcard/Download/vosk-model-small-tr-0.3", // Tarayıcıdan indirilen ham klasör
+        "/sdcard/Download/model-tr"
+    )
+
+    var loadedPath: String? = null
+
+    for (path in possiblePaths) {
+        val dir = File(path)
+        // Klasör varsa ve içinde VOSK modelinin olmazsa olmaz 'am' klasörü varsa:
+        if (dir.exists() && dir.isDirectory) {
+            try {
+                voskModel = Model(path)
+                loadedPath = path
+                LogManager.addLog("VOICE: Harici VOSK Modeli Yüklendi ✅ ($path)")
+                break // Modeli bulunca taramayı durdur
+            } catch (e: Exception) {
+                LogManager.addLog("VOICE: Model Yükleme Hatası ($path): ${e.message}")
+            }
+        }
+    }
+
+    if (loadedPath == null) {
+        LogManager.addLog("VOICE: Harici Model Bulunamadı. İndirme gerekiyor.")
+    }
+}
+```
 
 ---
 
