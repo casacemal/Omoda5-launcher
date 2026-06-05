@@ -1,0 +1,5 @@
+# 📘 OMODA 5 VHAL TECHNICAL MASTER GUIDE (v17.0.0)
+## 0. SAHA NOTLARI VE KRİTİK UYARILAR (CEMAL'İN NOTLARI)
+- KRİTİK: Cihaz shell içinde adb logcat ÇALIŞMAZ.
+- 289: SRC / RADIO, 290: CP CONNECT, 293: VOICE / SIRI
+... (v17 içeriği) ...

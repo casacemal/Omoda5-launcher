@@ -1,0 +1,51 @@
+# Gradle files
+.gradle/
+build/
+
+# Android Studio files
+.idea/
+*.iml
+*.iws
+*.ipr
+.cxx/
+capture.png
+captures/
+output.json
+
+# Log files
+*.log
+omoda5_history.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*_backup.json
+*_backup.kt
+
+# Keystore files
+*.jks
+*.keystore
+*.jceks
+*.p12
+
+# Local properties
+local.properties
+
+# Google Services
+google-services.json
+
+# Firebase
+.firebase/
+
+# Misc
+.autoclaw/
+.claude/
+.roo/
+.kilo/
+.kilocodemodes
+adb lerr
+/launcher/
+omoda5 kitap/KITAP_OMODA5_ARŞIV/

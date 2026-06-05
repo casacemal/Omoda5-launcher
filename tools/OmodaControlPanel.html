@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Omoda 5 - VHAL Kontrol Paneli</title>
+    <style>
+        body { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; padding: 20px; }
+        .card { border: 1px solid #00ff41; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+        button { background: #00ff41; color: black; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; margin: 5px; }
+        button:hover { background: #008f11; }
+        .log { background: black; height: 150px; overflow-y: scroll; border: 1px solid #333; padding: 10px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>📟 OMODA 5 SİMÜLATÖRÜ v1.0</h1>
+
+    <div class="card">
+        <h3>🚗 ARAÇ DURUMU</h3>
+        <button onclick="sendVhal('0x11400400', '4')">VİTES: P</button>
+        <button onclick="sendVhal('0x11400400', '8')">VİTES: D</button>
+        <button onclick="sendVhal('0x16400b00', '1', 'areaId: 1')">SOL ÖN AÇ</button>
+        <button onclick="sendVhal('0x16400b00', '0', 'areaId: 1')">SOL ÖN KAPAT</button>
+    </div>
+
+    <div class="card">
+        <h3>🌡️ SENSÖRLER</h3>
+        Hız: <input type="number" id="speed" value="60"> <button onclick="sendVhal('0x11600207', document.getElementById('speed').value)">GÖNDER</button><br>
+        Isı: <input type="number" id="temp" value="24"> <button onclick="sendVhal('0x11600703', document.getElementById('temp').value)">GÖNDER</button>
+    </div>
+
+    <div class="card">
+        <h3>📜 LOG EKRANI</h3>
+        <div id="logs" class="log">Simülatör hazır...</div>
+    </div>
+
+    <script>
+        // NOT: Bu panel yerel ADB komutlarını tetiklemek için bir köprü bekler.
+        // Şimdilik sadece komutları loglar.
+        function sendVhal(id, val, extra = "") {
+            const logEntry = `adb shell log -p d -t OMODA_SIM '[${val}.0] Property:${id} ${extra}'`;
+            const logDiv = document.getElementById('logs');
+            logDiv.innerHTML += `<div>> ${logEntry}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+
+            // Buraya gerçek bir Backend (Node.js/Python) bağlanırsa komut cihaza gider.
+            console.log("EXEC:", logEntry);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+
+rus birinin yaptığı uygulama izinleri .. 
+https://4pda.to/forum/index.php?showtopic=1117181
+
+## Pencereli mod (serbest biçim) 
+Pencereli modu etkinleştirmek için komutlar: 
+``` 
+adb shell settings put global enable_freeform_support 1 
+adb shell settings put global force_resizable_activities 1 
+``` 
+Test: 
+``` 
+adb shell settings get global enable_freeform_support 
+adb shell settings get global force_resizable_activities 
+adb shell pm list features | findstr freeform 
+adb shell pm list features | `` ` findstr multiwindow 
+``` 
+Yer paylaşımı izni (pencereler/panel için gerekli): 
+``` 
+adb shell pm grant com.omoda.launcher android.permission.SYSTEM_ALERT_WINDOW 
+``` 
+
+## Gizli API'ler (resizeTaskBounds) 
+``` 
+adb shell settings put global hidden_api_policy 1 
+adb shell settings put global hidden_api_policy_pre_p_apps 1 
+adb shell settings put global hidden_api_policy_p_apps 1 
+``` 
+Varsayılan ayarlara geri dön: 
+``` 
+adb shell settings delete global hidden_api_policy 
+adb shell settings delete global hidden_api_policy_pre_p_apps 
+adb shell settings delete global hidden_api_policy_p_apps 
+``` 
+
+## Erişilebilirlik Hizmeti 
+Bu hizmet şunlar için kullanılır: 
+- Geri modu (düğmeye çift dokunma) 
+- Ön ayarlar arasında geçiş yaparken pencereleri kapatma 
+
+### ADB aracılığıyla etkinleştirme 
+``` 
+adb shell settings put secure enabled_accessibility_services "com.omoda.launcher/com.omoda.launcher.BackActionService" 
+adb shell settings put secure accessibility_enabled 1 
+``` 
+
+Eğer zaten servisler varsa, `:` ile ekleyin: 
+``` 
+adb shell settings get secure enabled_accessibility_services 
+adb shell settings put secure enabled_accessibility_services "EXISTING:com.omoda.launcher/com.omoda.launcher.BackActionService" 
+adb shell settings put secure accessibility_enabled 1 
+```
