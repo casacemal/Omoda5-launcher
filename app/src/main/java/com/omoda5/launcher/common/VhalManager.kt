@@ -78,9 +78,9 @@ object VhalManager {
                 val speedKmH = (rawMap["HIZ_RAW"] as? Float ?: 0f) * 3.6f
                 val gear = displayMap["VİTES"] ?: "P"
 
-                // SAHA KURALI: 3s hareket, 10s rölanti (registerCallback donma riski)
+                // SAHA KURALI: 2s hareket, 4s rölanti (Daha hızlı test için)
                 val isIdle = speedKmH < 1f && (gear == "P" || gear == "N")
-                val interval = if (isIdle) 10000L else 3000L
+                val interval = if (isIdle) 4000L else 2000L
 
                 // Kapı için ayrı zone sorgulama (area ID gerektirir)
                 val doorAreas = listOf("1", "4", "16", "64", "536870912") // 0x20000000
@@ -110,12 +110,30 @@ object VhalManager {
         }
     }
 
+    private var lineBuffer = StringBuilder()
+
     /**
      * ADB log satırını parse eder.
-     * dumpsys car_service çıktısı: "mPropertyId:0x11600207 mValue:[12.5] ..."
-     * veya: "PropertyId:0x11600207 areaId:0 value:[12.5]"
+     * dumpsys car_service çıktısı Android 10'da genellikle 2-3 satıra bölünür.
+     * Bu yüzden string: kelimesini görene kadar satırları birleştirir.
      */
-    private fun parseLine(context: Context?, l: String) {
+    private fun parseLine(context: Context?, incomingLine: String) {
+        val lTrim = incomingLine.trim()
+        if (lTrim.isEmpty()) return
+
+        if (lTrim.startsWith("Property:")) {
+            lineBuffer.clear()
+        }
+        
+        lineBuffer.append(lTrim).append(" ")
+        
+        if (!lineBuffer.toString().contains("string:")) {
+            return // Hala devam ediyor, bekle
+        }
+        
+        val l = lineBuffer.toString()
+        lineBuffer.clear()
+
         // Property ID'yi çıkar (Örn: 0x11600207)
         val idStr = Regex("0x[0-9a-fA-F]+").find(l)?.value ?: "Unknown"
 

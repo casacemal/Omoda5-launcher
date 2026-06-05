@@ -90,18 +90,8 @@ class DiagnosticLabActivity : ComponentActivity() {
         registerReceiver(logReceiver,
             IntentFilter("com.omoda5.launcher.LOG_BROADCAST"))
 
-        // Anlık VHAL tetikle (ilk veriyi hemen çek)
-        val ids = listOf(
-            "0x11600207", "0x11600305", "0x11400400", "0x16400b00",
-            "0x11600703", "0x11200402", "0x11600307", "0x11600308", "0x11400401",
-            "0x15600503", "0x15200505", "0x15400500", "0x13400bc0",
-            "0x11400405", "0x11400406" // Sinyal kolları
-        )
-        val cmd = "dumpsys car_service get-property-value | grep -E '${ids.joinToString("|")}'"
-        startService(Intent(this, com.omoda5.launcher.service.AdbBridgeService::class.java).apply {
-            action = "ACTION_EXECUTE_SHELL"
-            putExtra("command", cmd)
-        })
+        // VhalManager zaten MainActivity'den global olarak çalışıyor, 
+        // manuel tetikleyiciyi sildik çünkü AdbBridgeService'in soketini kesip Android 10'da hataya yol açıyordu.
 
         setContent {
             Omoda5NextGenTheme {

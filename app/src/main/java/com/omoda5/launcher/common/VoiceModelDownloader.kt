@@ -16,7 +16,8 @@ import java.util.zip.ZipInputStream
 object VoiceModelDownloader {
     
     private val client = OkHttpClient()
-    private const val MODEL_URL = "https://alphacephei.com/vosk/models/vosk-model-small-tr-0.3.zip"
+    // Github Store (apps/) klasöründeki yedeği kullanıyoruz (Alphacephei bazen yavaş/engelli)
+    private const val MODEL_URL = "https://raw.githubusercontent.com/casacemal/Omoda5-launcher/jetpack_componse/apps/vosk-model-small-tr-0.3.zip"
 
     fun downloadModel(context: Context, onProgress: (String) -> Unit) {
         onProgress("Model İndiriliyor...")

@@ -11,7 +11,7 @@ git reset --mixed origin/jetpack_componse
 
 echo ">>> Yeni kodlar pakete ekleniyor..."
 git add .
-git commit -m "v11.2.0: Temiz git altyapısı, VHAL akışı, MultiTask ve Store onarımları"
+git commit -m "v11.5.0: Klima verisi parse hatası düzeltildi (split lines), Vosk Modeli eklendi"
 
 echo ">>> GitHub'a yükleniyor..."
 git push -u origin jetpack_componse
