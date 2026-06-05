@@ -109,7 +109,7 @@ class MainActivity : ComponentActivity() {
                     Column(
                         Modifier
                             .align(Alignment.CenterEnd)
-                            .padding(end = 10.dp)
+                            .padding(end = 120.dp)
                             .width(60.dp),
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -196,7 +196,9 @@ class MainActivity : ComponentActivity() {
             "settings put global hidden_api_policy_pre_p_apps 1",
             "settings put global hidden_api_policy_p_apps 1",
             "pm grant $packageName android.permission.READ_EXTERNAL_STORAGE",
-            "pm grant $packageName android.permission.WRITE_EXTERNAL_STORAGE"
+            "pm grant $packageName android.permission.WRITE_EXTERNAL_STORAGE",
+            "pm grant $packageName android.permission.RECORD_AUDIO",
+            "pm grant $packageName android.permission.READ_LOGS"
         )
         baseCmds.forEach { exec(it) }
 

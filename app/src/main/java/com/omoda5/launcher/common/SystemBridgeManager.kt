@@ -73,6 +73,9 @@ object SystemBridgeManager {
 
                     // OEM fiziksel tuş — 'keyCode' veya 'key_code' extra (Semidrive variant)
                     "com.saic.keyevent.hardkey.report" -> {
+                        val extrasStr = intent.extras?.keySet()?.joinToString { key -> "$key=${intent.extras?.get(key)}" } ?: "no_extras"
+                        LogManager.addLog("[OEM_INTENT] Extras: $extrasStr")
+                        
                         val kc = intent.getIntExtra("keyCode", -1)
                             .takeIf { it != -1 } ?: intent.getIntExtra("key_code", -1)
                         if (kc != -1) {
@@ -88,7 +91,27 @@ object SystemBridgeManager {
                         if (kc != -1) {
                             _lastHardKey.value = kc
                             LogManager.addLog("[TUŞ_APP] KeyCode: $kc")
-                            handleVoiceProxy(ctx, kc)
+                            ctx?.let { nonNullCtx ->
+                                handleVoiceProxy(nonNullCtx, kc)
+                                
+                                // Medya ve Ses Kontrolü
+                                val audioManager = nonNullCtx.getSystemService(Context.AUDIO_SERVICE) as? android.media.AudioManager
+                                when (kc) {
+                                    24 -> audioManager?.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_RAISE, android.media.AudioManager.FLAG_SHOW_UI) // Ses Aç
+                                    25 -> audioManager?.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_LOWER, android.media.AudioManager.FLAG_SHOW_UI) // Ses Kıs
+                                    164 -> audioManager?.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.ADJUST_MUTE, android.media.AudioManager.FLAG_SHOW_UI) // Sessiz
+                                    87 -> {
+                                        val mediaIntent = Intent(Intent.ACTION_MEDIA_BUTTON)
+                                        mediaIntent.putExtra(Intent.EXTRA_KEY_EVENT, android.view.KeyEvent(android.view.KeyEvent.ACTION_DOWN, android.view.KeyEvent.KEYCODE_MEDIA_NEXT))
+                                        nonNullCtx.sendOrderedBroadcast(mediaIntent, null)
+                                    }
+                                    88 -> {
+                                        val mediaIntent = Intent(Intent.ACTION_MEDIA_BUTTON)
+                                        mediaIntent.putExtra(Intent.EXTRA_KEY_EVENT, android.view.KeyEvent(android.view.KeyEvent.ACTION_DOWN, android.view.KeyEvent.KEYCODE_MEDIA_PREVIOUS))
+                                        nonNullCtx.sendOrderedBroadcast(mediaIntent, null)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -115,19 +138,22 @@ object SystemBridgeManager {
 
     private fun handleVoiceProxy(ctx: Context?, keyCode: Int) {
         if (keyCode == 293) { // MIC KEY
-            try {
-                // Try to start Cerence Voice Activity via ADB Bridge
-                ctx?.startService(
-                    Intent(
-                        ctx,
-                        com.omoda5.launcher.service.AdbBridgeService::class.java
-                    ).apply {
-                        action = "ACTION_EXECUTE_SHELL"
-                        putExtra("command", "am start -n com.nuance.voiceserver/.VoiceActivity")
-                    })
-                LogManager.addLog("VOICE: Cerence Proxy Tetiklendi (Key: 293)")
-            } catch (e: Exception) {
-                LogManager.addLog("VOICE_ERR: Proxy Başarısız")
+            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                try {
+                    // Kendi Asistanımızı Başlat (VOSK/Sistem STT)
+                    VoiceAssistantManager.startListening()
+                    LogManager.addLog("VOICE: Uygulama İçi Asistan Tetiklendi (Key: 293)")
+                    
+                    // Ekranda Global Bildirim (Toast) Göster
+                    ctx?.let { 
+                        android.widget.Toast.makeText(it, "🎤 Asistan Dinliyor...", android.widget.Toast.LENGTH_LONG).show() 
+                    }
+                } catch (e: Exception) {
+                    LogManager.addLog("VOICE_ERR: Asistan Başlatılamadı")
+                    ctx?.let { 
+                        android.widget.Toast.makeText(it, "❌ Asistan Hatası", android.widget.Toast.LENGTH_SHORT).show() 
+                    }
+                }
             }
         }
     }
