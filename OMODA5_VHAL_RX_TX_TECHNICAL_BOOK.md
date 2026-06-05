@@ -43,6 +43,22 @@ Sistem, tuşları `WindowManager` seviyesinde yakalar ve şu yayın (broadcast) 
 ### 0.5. Sesli Asistan (STT) ve Tuş Tetikleme Mimarisi (DENENDİ VE ONAYLANDI)
 Omoda 5 (Semidrive) cihazında direksiyon tuşları arka plan (Binder) iş parçacığında çalışan bir BroadcastReceiver (Yayın Alıcısı) üzerinden `com.saic.keyevent.hardkey.report` Action'ı ile okunmaktadır. 
 
+**Tuş Kodlarının (KeyCodes) Ekrana Yansıtılması (HUD / Log Analizi):**
+Hangi donanım tuşuna (Direksiyon, Konsol vb.) basıldığında sistemin hangi ham (raw) KeyCode değerini fırlattığını görebilmek adına, `SystemBridgeManager` içerisine tüm niyet (intent) verilerini ayıklayan ve ekrana yansıtan bir HUD Log sistemi kurulmuştur.
+```kotlin
+// Gelen Intent'in tüm gizli parametrelerini (Extras) ayıkla ve ekrana yaz:
+val extrasStr = intent.extras?.keySet()?.joinToString { key -> "$key=${intent.extras?.get(key)}" } ?: "no_extras"
+LogManager.addLog("[OEM_INTENT] Extras: $extrasStr")
+
+// Sadece KeyCode değerini çek ve Ekrana / Loga yansıt:
+val kc = intent.getIntExtra("keyCode", -1).takeIf { it != -1 } ?: intent.getIntExtra("key_code", -1)
+if (kc != -1) {
+    _lastHardKey.value = kc
+    LogManager.addLog("[TUŞ_OEM] KeyCode: $kc") // Bu log ekranda canlı görünür
+}
+```
+Bu sistem sayesinde aracın daha önce keşfedilmemiş tüm donanım tuşlarının (Klima paneli, Konsol tekerleği vb.) ürettiği şifreli kodlar canlı olarak araç ekranında okunabilmektedir.
+
 **Kritik SIGSEGV (Çökme) Teşhisi:**
 Bu veri akışından (RX) gelen sinyaller alt seviye (low-level) bir iş parçacığında yakalanır. Bu yakalama bloğunun içerisinden doğrudan Ana UI'a (Toast, Dialog, View değişiklikleri) veya Android'in resmi `SpeechRecognizer` / VOSK motoruna (AudioRecord gereksinimi) erişim sağlamaya kalkışmak **SIGSEGV (Segmentation Fault) Çökme hatasına** neden olmaktadır. Android, ana UI iş parçacığı dışından grafik veya mikrofon nesnelerine ulaşıldığında süreci acımasızca öldürmektedir (kill).
 
