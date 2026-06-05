@@ -105,6 +105,31 @@ class MainActivity : ComponentActivity() {
                         onBar = { toggleBars() }
                     )
                     
+                    // v11.4.0 Canlı Sensör Paneli (Sol Taraf)
+                    val vhalState by VhalManager.vhalData.collectAsState()
+                    if (vhalState.isNotEmpty()) {
+                        Column(
+                            Modifier
+                                .align(Alignment.CenterStart)
+                                .padding(start = 250.dp) // Left safe area
+                                .background(Color.Black.copy(0.7f), RoundedCornerShape(8.dp))
+                                .padding(10.dp)
+                                .width(140.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text("SENSÖRLER", color = Color.Gray, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            Divider(color = Color.DarkGray, modifier = Modifier.padding(bottom = 4.dp))
+                            vhalState.entries.take(12).forEach { entry ->
+                                val v = entry.value
+                                val color = if (v.contains("AÇIK") || v.contains("ÇEKİLİ") || v == "ON") Color.Red else OmodaCyan
+                                Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                                    Text(entry.key, color = Color.LightGray, fontSize = 9.sp)
+                                    Text(v, color = color, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                        }
+                    }
+                    
                     // v10.1.0 Alpha: Voice Trigger Panel (Right Side)
                     Column(
                         Modifier

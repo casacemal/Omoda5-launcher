@@ -42,23 +42,21 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
     // v22.0.0: Bu broadcast receiver Legacy olarak işaretlendi.
     // Yeni sistem SystemBridgeManager.mediaState akışını kullanır.
     // GERİ DÖNÜŞ İÇİN: Bu bloktaki yorumu kaldır, aşağıdaki broadcast register kodunu da aktif et.
-    /*
     private val mediaUpdateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val title = intent?.getStringExtra("title") ?: return
             val artist = intent?.getStringExtra("artist") ?: ""
             val pkg = intent?.getStringExtra("package") ?: ""
-            if (activeController == null || _mediaState.value.isPlaying.not()) {
-                _mediaState.value = _mediaState.value.copy(
-                    title = title,
-                    artist = artist,
-                    source = "Notif: $pkg"
-                )
-                LogManager.addLog("MEDIA_UI: Notification verisi uygulandı ($title)")
-            }
+            
+            // v11.4.0 Fix: Oynatılıyor olsa bile başlık bilgisini güncelle (Şarkı değişimi takibi)
+            _mediaState.value = _mediaState.value.copy(
+                title = title,
+                artist = artist,
+                source = "Notif: $pkg"
+            )
+            LogManager.addLog("MEDIA_UI: Notification verisi uygulandı ($title)")
         }
     }
-    */
 
     private val sessionListener = MediaSessionManager.OnActiveSessionsChangedListener { controllers ->
         LogManager.addLog("SYSTEM: Aktif Medya Oturumları Değişti (${controllers?.size ?: 0})")
@@ -104,7 +102,7 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
             // v10.0.0 Bridge: Observe Data Manager Flow
             viewModelScope.launch {
                 SystemBridgeManager.mediaState.collect { info ->
-                    if (info.pkg.isNotEmpty() && (activeController == null || _mediaState.value.isPlaying.not())) {
+                    if (info.pkg.isNotEmpty()) {
                         _mediaState.value = _mediaState.value.copy(
                             title = info.title,
                             artist = info.artist,
@@ -114,16 +112,13 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
                 }
             }
 
-            // v22.0.0: Legacy broadcast receiver devre dışı. SystemBridgeManager.mediaState akışı kullanılır.
-            // GERİ DÖNÜŞ İÇİN: Alttaki yorumu kaldır.
-            /*
+            // v22.0.0 Legacy Recovery: SystemBridgeManager yanına yedek amaçlı Intent de eklendi
             val filter = IntentFilter("com.omoda5.launcher.MEDIA_UPDATE")
             if (android.os.Build.VERSION.SDK_INT >= 33) {
                 application.registerReceiver(mediaUpdateReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
             } else {
                 application.registerReceiver(mediaUpdateReceiver, filter)
             }
-            */
             
             refreshSession()
             handler.post(progressUpdater)

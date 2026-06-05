@@ -97,7 +97,7 @@ class CheryAccessibilityService : AccessibilityService() {
     private fun startLogcatWatchdog() {
         Thread {
             try {
-                val process = Runtime.getRuntime().exec("logcat -v raw")
+                val process = Runtime.getRuntime().exec(arrayOf("logcat", "-v", "raw", "-T", "1"))
                 val reader = BufferedReader(InputStreamReader(process.inputStream))
                 var line: String?
                 while (reader.readLine().also { line = it } != null) {
@@ -109,11 +109,12 @@ class CheryAccessibilityService : AccessibilityService() {
                     }
 
                     // Genel Tuş (HardKey) Taraması (Çok agresif)
-                    if (l.contains("KeyEvent") || l.contains("keyCode=")) {
-                        val kcMatch = Regex("keyCode=([0-9]+)").find(l) ?: Regex("KeyEvent.*?([0-9]+)").find(l)
+                    val lowerL = l.lowercase()
+                    if (lowerL.contains("keyevent") || lowerL.contains("keycode")) {
+                        val kcMatch = Regex("keycode[:=]\\s*([0-9]+)", RegexOption.IGNORE_CASE).find(l)
                         val kc = kcMatch?.groupValues?.getOrNull(1)?.toIntOrNull()
                         if (kc != null) {
-                            val isUp = l.contains("ACTION_UP") || l.contains("up") || !l.contains("ACTION_DOWN")
+                            val isUp = lowerL.contains("action_up") || lowerL.contains("up") || !lowerL.contains("down")
                             if (isUp) {
                                 val keyIntent = Intent("com.omoda5.launcher.HARDKEY_EVENT")
                                 keyIntent.putExtra("keyCode", kc)

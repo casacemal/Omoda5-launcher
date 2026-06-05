@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:background="@color/activity_blocking_activity_background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@id/blocked_app_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <TextView android:textAppearance="@style/ActivityBlockingActivityText" android:textColor="@color/blocking_text" android:id="@id/blocked_app_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/common_margin" />
+    </LinearLayout>
+    <TextView android:textAppearance="@style/ActivityBlockingActivityText" android:gravity="center" android:id="@id/blocking_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/common_margin" />
+    <TextView android:textAppearance="@style/ActivityBlockingActivityText" android:id="@id/exit_button_message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/common_margin" />
+    <Button android:id="@id/exit_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/common_margin" android:text="@string/exit_button" style="@style/ButtonStyle" />
+    <Button android:id="@id/toggle_debug_info" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/common_margin" android:text="@string/debug_button_text" style="@style/ButtonStyle" />
+    <TextView android:textAppearance="@style/ActivityBlockingActivityText" android:id="@id/debug_info" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/common_margin" />
+</LinearLayout>

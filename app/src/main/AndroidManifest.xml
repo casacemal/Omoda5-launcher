@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 🎙️ Sesli Asistan İçin -->
+    <uses-permission android:name="android.permission.READ_LOGS" /> <!-- 🛠️ Direksiyon Tuşlarını logcat üzerinden okumak için -->
 
     <!-- v9.3.7: Automotive & Location Permissions -->
     <uses-permission android:name="android.car.permission.CAR_INFO" />

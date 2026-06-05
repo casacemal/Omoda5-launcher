@@ -140,8 +140,8 @@ object VoiceAssistantManager : RecognitionListener {
                     override fun onFinalResult(hypothesis: String) {
                         val cmd = hypothesis.substringAfter("\"text\" : \"").substringBefore("\"").trim()
                         if (cmd.isNotEmpty()) processCommand(cmd)
-                        voskService?.stop()
-                        voskService = null
+                        // VOSK otomatik durdurulmaz, sürekli dinlemeye devam etmesi için stop kaldırıldı.
+                        // Manuel durdurmak isterseniz butona tekrar basabilirsiniz.
                     }
                     override fun onError(e: Exception) { HudManager.show("SES", "VOSK Hatası") }
                     override fun onTimeout() { voskService?.stop(); voskService = null }

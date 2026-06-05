@@ -78,16 +78,19 @@ object VhalManager {
                 val speedKmH = (rawMap["HIZ_RAW"] as? Float ?: 0f) * 3.6f
                 val gear = displayMap["VİTES"] ?: "P"
 
-                // SAHA KURALI: 4s hareket, 8s rölanti (registerCallback donma riski)
+                // SAHA KURALI: 3s hareket, 10s rölanti (registerCallback donma riski)
                 val isIdle = speedKmH < 1f && (gear == "P" || gear == "N")
-                val interval = if (isIdle) 8000L else 4000L
+                val interval = if (isIdle) 10000L else 3000L
 
                 // Kapı için ayrı zone sorgulama (area ID gerektirir)
                 val doorAreas = listOf("1", "4", "16", "64", "536870912") // 0x20000000
-                val doorQueries = doorAreas.joinToString("|") { "0x16400b00.*zone.*$it" }
 
-                val idPattern = POLL_IDS.filter { it != "0x16400b00" }.joinToString("|")
-                val cmd = "dumpsys car_service get-property-value | grep -E '$idPattern|$doorQueries'"
+                // ZORLA OKUMA KOMUTLARI (Force Read Cache Bypass)
+                val standardCmds = POLL_IDS.filter { it != "0x16400b00" }
+                    .joinToString(" ; ") { "dumpsys car_service get-property-value $it 0" }
+                val doorCmds = doorAreas.joinToString(" ; ") { "dumpsys car_service get-property-value 0x16400b00 $it" }
+
+                val cmd = "$standardCmds ; $doorCmds"
 
                 try {
                     context.startService(
@@ -114,10 +117,8 @@ object VhalManager {
         // Property ID'yi çıkar (Örn: 0x11600207)
         val idStr = Regex("0x[0-9a-fA-F]+").find(l)?.value ?: "Unknown"
 
-        // Değer bloğunu bul: [<sayı>] formatı
-        val valStr = Regex("\\[([\\d.,\\s\\-]+)\\]").findAll(l)
-            .map { it.groupValues[1].trim() }
-            .firstOrNull { it.isNotEmpty() } ?: ""
+        // Değer bloğunu bul: "value=X" veya "mValue:[X]" formatı (Esnek Yakalayıcı)
+        val valStr = Regex("(?i)value[:=]\\s*\\[?([\\d.,\\s\\-]+)\\]?").find(l)?.groupValues?.get(1)?.trim() ?: ""
 
         // Kapı satırları için zone varsa boş değer olabilir
         val isDoorLine = l.contains("0x16400b00")
@@ -187,7 +188,7 @@ object VhalManager {
             }
             l.contains("0x15600503") -> {
                 val temp = numericVal.toFloatOrNull() ?: 0f
-                set("KLİMA", "${temp.toInt()} °C", "KLİMA", temp)
+                set("İÇ ISI SAĞ", "${temp.toInt()} °C", "İÇ ISI SAĞ", temp)
             }
             // SÜRÜŞ MODU (OEM smali CarDriveClient)
             l.contains("0x2140303a") -> {
@@ -211,21 +212,25 @@ object VhalManager {
             }
             l.contains("0x21401008") -> {
                 val temp = numericVal.toFloatOrNull() ?: 0f
-                set("AC SOL ISI", "${temp.toInt()} °C", "AC SOL ISI", temp)
+                set("KLİMA", "${temp.toInt()} °C", "KLİMA", temp)
             }
             // KAPI DURUMU — zone formatı
             isDoorLine -> {
-                val zoneMatch = Regex("zone:(0x[0-9a-fA-F]+|\\d+)").find(l)
-                val areaRaw = zoneMatch?.groupValues?.get(1) ?: ""
-                val areaId = if (areaRaw.startsWith("0x"))
-                    areaRaw.removePrefix("0x").toLongOrNull(16)?.toInt() ?: -1
-                else areaRaw.toIntOrNull() ?: -1
-                val label = when (areaId) {
-                    1 -> "SOL ÖN"; 4 -> "SAĞ ÖN"; 16 -> "SOL ARKA"; 64 -> "SAĞ ARKA"
-                    0x20000000 -> "BAGAJ"; else -> return
-                }
+                // Hem zone:1 hem de areaId=1 formatını destekle
+                val zoneMatch = Regex("(?i)(zone|areaId)[:=]\\s*(0x[0-9a-fA-F]+|\\d+)").find(l)
+                val zoneStr = zoneMatch?.groupValues?.get(2) ?: "0"
+                val zone = if (zoneStr.startsWith("0x")) zoneStr.removePrefix("0x").toIntOrNull(16) ?: 0 else zoneStr.toIntOrNull() ?: 0
+                
                 val open = (numericVal.toFloatOrNull() ?: 0f) > 0f
-                set(label, if (open) "AÇIK" else "KAPALI", label, open)
+                val zoneName = when (zone) {
+                    1 -> "SOL ÖN KAPI"
+                    4 -> "SAĞ ÖN KAPI"
+                    16 -> "SOL ARKA KAPI"
+                    64 -> "SAĞ ARKA KAPI"
+                    0x20000000 -> "BAGAJ"
+                    else -> "KAPI ($zone)"
+                }
+                set(zoneName, if (open) "AÇIK" else "KAPALI", zoneName, if (open) 1f else 0f)
             }
         }
 

@@ -1,5 +1,6 @@
 package com.omoda5.launcher.ui
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -11,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,6 +23,7 @@ import com.omoda5.launcher.ui.theme.MatrixGreen
 
 @Composable
 fun DashboardScreen(metrics: VehicleMetrics) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +41,7 @@ fun DashboardScreen(metrics: VehicleMetrics) {
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(5),
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(15.dp),
                 horizontalArrangement = Arrangement.spacedBy(15.dp),
                 userScrollEnabled = false
@@ -54,6 +57,15 @@ fun DashboardScreen(metrics: VehicleMetrics) {
                 item { DashCard("MOD", when(metrics.driveMode) { 1->"ECO"; 3->"SPORT"; else->"NORMAL" }, "", OmodaCyan) }
                 item { DashCard("KONTAK", metrics.ignitionStatus, "", if(metrics.ignitionStatus == "ON") MatrixGreen else Color.Gray) }
                 item { DashCard("KAPILAR", if(metrics.doorFrontLeftOpen || metrics.doorFrontRightOpen || metrics.doorRearLeftOpen || metrics.doorRearRightOpen) "AÇIK" else "KAPALI", "", if(metrics.doorFrontLeftOpen) Color.Red else MatrixGreen) }
+            }
+
+            Button(
+                onClick = { context.startActivity(Intent(context, DiagnosticLabActivity::class.java)) },
+                modifier = Modifier.fillMaxWidth().height(70.dp).padding(top = 10.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text("TEST EKRANINI (TUŞ/VHAL) AÇ", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
