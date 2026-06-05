@@ -86,9 +86,11 @@ object VhalManager {
                 val doorAreas = listOf("1", "4", "16", "64", "536870912") // 0x20000000
 
                 // ZORLA OKUMA KOMUTLARI (Force Read Cache Bypass)
+                // dumpsys car_service expects hex WITHOUT '0x'
                 val standardCmds = POLL_IDS.filter { it != "0x16400b00" }
-                    .joinToString(" ; ") { "dumpsys car_service get-property-value $it 0" }
-                val doorCmds = doorAreas.joinToString(" ; ") { "dumpsys car_service get-property-value 0x16400b00 $it" }
+                    .joinToString(" ; ") { "dumpsys car_service get-property-value ${it.removePrefix("0x")} 0" }
+                
+                val doorCmds = doorAreas.joinToString(" ; ") { "dumpsys car_service get-property-value 16400b00 $it" }
 
                 val cmd = "$standardCmds ; $doorCmds"
 
@@ -117,8 +119,8 @@ object VhalManager {
         // Property ID'yi çıkar (Örn: 0x11600207)
         val idStr = Regex("0x[0-9a-fA-F]+").find(l)?.value ?: "Unknown"
 
-        // Değer bloğunu bul: "value=X" veya "mValue:[X]" formatı (Esnek Yakalayıcı)
-        val valStr = Regex("(?i)value[:=]\\s*\\[?([\\d.,\\s\\-]+)\\]?").find(l)?.groupValues?.get(1)?.trim() ?: ""
+        // Değer bloğunu bul: "floatValues: [0.0]" veya "int32Values: [1]" formatı (Esnek Yakalayıcı)
+        val valStr = Regex("(?i)(?:value|floatValues|int32Values)[s]?[:=]\\s*\\[?([\\d.,\\s\\-]+)\\]?").find(l)?.groupValues?.get(1)?.trim() ?: ""
 
         // Kapı satırları için zone varsa boş değer olabilir
         val isDoorLine = l.contains("0x16400b00")

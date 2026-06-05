@@ -1,3 +1,1021 @@
 --------- beginning of main
---------- beginning of crash
---------- beginning of system
+06-05 21:16:05.032  3409  3409 V CarServicePropertyManager: VEHICLE_SPEED call back:VEHICLE_SPEED___87.0
+06-05 21:16:05.032  3409  3409 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_16777216_87.0
+06-05 21:16:05.032  3369  3369 D CarInfo : update speed 23.283112499999998
+06-05 21:16:05.032  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_83.8125
+06-05 21:16:05.033  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.044  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0x47 
+06-05 21:16:05.044  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0x3B 
+06-05 21:16:05.044  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0x31 
+06-05 21:16:05.045  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1C 0xD3 
+06-05 21:16:05.045  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x56 
+06-05 21:16:05.045  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.045  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.046  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.068  7340  7364 D bse_stack:  ---->[Timer_Exp][e09d9420][Num:1][(null)-][ms:46]
+06-05 21:16:05.068  7340  7385 D bse_avrcp:  get id3 timer 
+06-05 21:16:05.068  7340  7385 D bse_avrcp:  hlp_avrcp_get_element_attr_req, intentional? 0
+06-05 21:16:05.068  7340  7385 D bse_stack:  [HCI][*Send]: 47
+06-05 21:16:05.068  7340  7385 D bse_stack:  0000: 02 0B 00 2A 00 26 00 62 00 30 11 0E 01 48 00 00   ...*.&.b.0...H..
+06-05 21:16:05.068  7340  7385 D bse_stack:  0010: 19 58 20 00 00 19 00 00 00 00 00 00 00 00 04 00   .X .............
+06-05 21:16:05.068  7340  7385 D bse_stack:  0020: 00 00 07 00 00 00 01 00 00 00 02 00 00 00 03      ............... 
+06-05 21:16:05.069  7340  7385 D bse_stack:  [HCI][*Send]: 22
+06-05 21:16:05.069  7340  7385 D bse_stack:  0000: 02 0B 00 11 00 0D 00 62 00 60 11 0E 01 48 00 00   .......b.`...H..
+06-05 21:16:05.069  7340  7385 D bse_stack:  0010: 19 58 30 00 00 00                                 .X0...          
+06-05 21:16:05.074  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0x5D 
+06-05 21:16:05.074  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0x50 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0x46 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1C 0xE8 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x5A 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0x72 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0x66 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0x5B 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1C 0xFD 
+06-05 21:16:05.075  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x5B 
+06-05 21:16:05.076  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.076  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 6 lines
+06-05 21:16:05.078  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.088  7340  7386 D bse_stack:  [HCI][*Recv]: 8
+06-05 21:16:05.088  7340  7386 D bse_stack:  0000: 04 13 05 01 0B 00 02 00                           ........        
+06-05 21:16:05.102  7340  7386 D bse_stack:  [HCI][*Recv]: 52
+06-05 21:16:05.102  7340  7386 D bse_stack:  0000: 02 0B 20 2F 00 2B 00 44 00 32 11 0E 0C 48 00 00   .. /.+.D.2...H..
+06-05 21:16:05.102  7340  7386 D bse_stack:  0010: 19 58 20 00 00 1E 02 00 00 00 01 00 6A 00 0C 4E   .X .........j..N
+06-05 21:16:05.102  7340  7386 D bse_stack:  0020: 6F 74 20 50 72 6F 76 69 64 65 64 00 00 00 07 00   ot Provided.....
+06-05 21:16:05.102  7340  7386 D bse_stack:  0030: 6A 00 01 30                                       j..0            
+06-05 21:16:05.103  7340  7385 D bse_avrcp:  hlp_avrcp_cbk 1,20
+06-05 21:16:05.103  7340  7385 D bse_avrcp:  hlp_avrcp_group_response, rsp_type=c, pduid=0x20
+06-05 21:16:05.103  7340  7385 D bse_avrcp:  hlp_avrcp_get_element_attr_cfm, rsp_type: 0x0C
+06-05 21:16:05.103  7340  7385 D bse_avrcp:  hlp_avrcp_parse_media_info, playing time is zero set to 0
+06-05 21:16:05.103  7340  7385 D bse_avrcp:  AVRCP_MA_PLAYING_TIME: 0, play_time=0
+06-05 21:16:05.103  7340  7385 D bse_avrcp:  HAL s_avrcp_user_data->avrcp_cbks->track_changed_cb
+06-05 21:16:05.103  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED dataLen is 20
+06-05 21:16:05.103  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED data is [B@4b38f2
+06-05 21:16:05.103  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED numAttributes 2
+06-05 21:16:05.103  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED numAttribute[0] is 1
+06-05 21:16:05.103  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED numAttribute[1] is 7
+06-05 21:16:05.103  7340  7366 D AvrcpControllerService: onTrackChanged
+06-05 21:16:05.104  7340  7366 D BluetoothDevice: mAddress: DC:6A:E7:1D:D9:B4
+06-05 21:16:05.104  7340  7555 D AvrcpControllerStateMachine: Avrcp.ConnectedAvrcpController processMessage 205
+06-05 21:16:05.106  3680  3680 I BA.Mgr  : onMetadataChanged
+06-05 21:16:05.106  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0x87 
+06-05 21:16:05.107  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0x7B 
+06-05 21:16:05.107  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0x71 
+06-05 21:16:05.107  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0x12 
+06-05 21:16:05.107  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x5C 
+06-05 21:16:05.107  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.108  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.108  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.134  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x29 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x44 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0x9D 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0x90 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0x86 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0x27 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x5E 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0xB2 
+06-05 21:16:05.135  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0xA5 
+06-05 21:16:05.136  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0x9B 
+06-05 21:16:05.136  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0x3C 
+06-05 21:16:05.136  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x61 
+06-05 21:16:05.136  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.137  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 7 lines
+06-05 21:16:05.137  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.149  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 84,250000
+06-05 21:16:05.149  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_84.25
+06-05 21:16:05.149  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.150  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.150  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 84,250000
+06-05 21:16:05.150  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 84,250000
+06-05 21:16:05.150  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_84.25
+06-05 21:16:05.150  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_84.25
+06-05 21:16:05.150  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 84,250000
+06-05 21:16:05.150  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_84.25
+06-05 21:16:05.150  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:84.25
+06-05 21:16:05.150  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 84.25
+06-05 21:16:05.150  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 84.25
+06-05 21:16:05.151  3369  3369 D CarInfo : update speed 23.40465
+06-05 21:16:05.151  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_84.25
+06-05 21:16:05.151  7340  7386 D bse_stack:  [HCI][*Recv]: 31
+06-05 21:16:05.151  7340  7386 D bse_stack:  0000: 02 0B 20 1A 00 16 00 44 00 62 11 0E 0C 48 00 00   .. ....D.b...H..
+06-05 21:16:05.151  7340  7386 D bse_stack:  0010: 19 58 30 00 00 09 00 00 00 00 00 00 00 00 01      .X0............ 
+06-05 21:16:05.151  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.151  7340  7385 D bse_avrcp:  hlp_avrcp_cbk 1,30
+06-05 21:16:05.152  7340  7385 D bse_avrcp:  hlp_avrcp_group_response, rsp_type=c, pduid=0x30
+06-05 21:16:05.152  7340  7385 D bse_avrcp:  hlp_avrcp_set_status(5)
+06-05 21:16:05.152  7340  7385 D bse_avrcp:  HAL s_avrcp_user_data->avrcp_cbks->play_position_changed_cb
+06-05 21:16:05.152  7340  7366 D EventParser: processavrcpHandlePlayPositionChangedEvent([B@88d2b43,0,0)
+06-05 21:16:05.152  7340  7366 D AvrcpControllerService: onPlayPositionChanged pos 0
+06-05 21:16:05.152  7340  7366 D BluetoothDevice: mAddress: DC:6A:E7:1D:D9:B4
+06-05 21:16:05.152  7340  7555 D AvrcpControllerStateMachine: Avrcp.ConnectedAvrcpController processMessage 206
+06-05 21:16:05.152  7340  7555 D BluetoothMediaBrowserService: notifyChanged PlaybackStatePlaybackState {state=3, position=0, buffered position=0, speed=1.0, updated=999786, actions=55, custom actions=[], active item id=-1, error=null}
+06-05 21:16:05.153  3680  3680 I BA.Mgr  : onPlaybackStateChanged
+06-05 21:16:05.154  3680  3680 I MEDIA.BtMusicBusiness: updatePlaybackState: PlaybackState {state=3, position=0, buffered position=0, speed=1.0, updated=999786, actions=55, custom actions=[], active item id=-1, error=null}
+06-05 21:16:05.164  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0xC7 
+06-05 21:16:05.164  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0xBA 
+06-05 21:16:05.164  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0xB1 
+06-05 21:16:05.164  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0x51 
+06-05 21:16:05.164  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x66 
+06-05 21:16:05.165  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.165  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.165  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.194  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0xDD 
+06-05 21:16:05.194  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0xD0 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0xC6 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0x67 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x69 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x46 0x05 0x80 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x02 0xF2 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0xE5 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0xDC 
+06-05 21:16:05.195  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0x7C 
+06-05 21:16:05.196  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x6C 
+06-05 21:16:05.196  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.198  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 6 lines
+06-05 21:16:05.198  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.208  3409  3409 V CarServicePropertyManager: onChangeEvent:app service call back:VEHICLE_SPEED
+06-05 21:16:05.210  3409  3409 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG_VALIDATION, areaId: 0x0, class: class java.lang.Integer
+06-05 21:16:05.213  3409  3409 V CarServicePropertyManager: speed is valid
+06-05 21:16:05.213  3409  3409 V CarServicePropertyManager: VEHICLE_SPEED call back:VEHICLE_SPEED___88.0
+06-05 21:16:05.213  3409  3409 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_16777216_88.0
+06-05 21:16:05.224  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x2A 
+06-05 21:16:05.225  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x50 
+06-05 21:16:05.225  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x08 
+06-05 21:16:05.225  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1E 0xFA 
+06-05 21:16:05.225  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x01 0xF1 
+06-05 21:16:05.225  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0x91 
+06-05 21:16:05.225  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x71 
+06-05 21:16:05.234  2264  2264 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@3.0::IMapper/default in either framework or device manifest.
+06-05 21:16:05.235 14622 14665 W Gralloc3: mapper 3.x is not supported
+06-05 21:16:05.236  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.238  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 3 lines
+06-05 21:16:05.238  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.248  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,000000
+06-05 21:16:05.248  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.0
+06-05 21:16:05.248  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,000000
+06-05 21:16:05.248  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.0
+06-05 21:16:05.248  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,000000
+06-05 21:16:05.248  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.0
+06-05 21:16:05.248  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.248  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.249  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,000000
+06-05 21:16:05.249  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.0
+06-05 21:16:05.249  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:85.0
+06-05 21:16:05.249  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 85.0
+06-05 21:16:05.249  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 85.0
+06-05 21:16:05.250  3369  3369 D CarInfo : update speed 23.613
+06-05 21:16:05.250  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.0
+06-05 21:16:05.250  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.254  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x1D 
+06-05 21:16:05.255  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0x0F 
+06-05 21:16:05.255  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x06 
+06-05 21:16:05.255  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0xA6 
+06-05 21:16:05.255  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x76 
+06-05 21:16:05.255  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.256  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.257  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.257  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x33 
+06-05 21:16:05.257  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0x25 
+06-05 21:16:05.257  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x1C 
+06-05 21:16:05.257  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0xBB 
+06-05 21:16:05.257  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x7B 
+06-05 21:16:05.259  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.259  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.259  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.284  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x48 
+06-05 21:16:05.284  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0x3A 
+06-05 21:16:05.284  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x31 
+06-05 21:16:05.284  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0xD1 
+06-05 21:16:05.284  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x83 
+06-05 21:16:05.285  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.286  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.286  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.315  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x46 0x05 0x90 
+06-05 21:16:05.315  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x5E 
+06-05 21:16:05.315  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0x50 
+06-05 21:16:05.315  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x47 
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0xE6 
+06-05 21:16:05.316  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x88 
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x22 
+06-05 21:16:05.316  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x58 
+06-05 21:16:05.316  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x73 
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0x65 
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x5D 
+06-05 21:16:05.316  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.316  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1D 0xFB 
+06-05 21:16:05.317  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x8E 
+06-05 21:16:05.317  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.318  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 3 lines
+06-05 21:16:05.318  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.325  2544  2544 I lowmemorykiller: Reclaimed 0kB, cache(433512kB) and free(650308kB)-reserved(49796kB) below min(642560kB) for oom_adj 950
+06-05 21:16:05.335  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,500000
+06-05 21:16:05.335  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.5
+06-05 21:16:05.335  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.335  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.335  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,500000
+06-05 21:16:05.335  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.5
+06-05 21:16:05.335  3409  3409 V CarServicePropertyManager: onChangeEvent:app service call back:VEHICLE_SPEED
+06-05 21:16:05.335  3409  3409 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG_VALIDATION, areaId: 0x0, class: class java.lang.Integer
+06-05 21:16:05.335  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:85.5
+06-05 21:16:05.336  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 85.5
+06-05 21:16:05.336  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 85.5
+06-05 21:16:05.336  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,500000
+06-05 21:16:05.336  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.5
+06-05 21:16:05.337  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 85,500000
+06-05 21:16:05.337  3409  3409 V CarServicePropertyManager: speed is valid
+06-05 21:16:05.337  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.5
+06-05 21:16:05.337  3409  3409 V CarServicePropertyManager: VEHICLE_SPEED call back:VEHICLE_SPEED___89.0
+06-05 21:16:05.337  3409  3409 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_16777216_89.0
+06-05 21:16:05.338  3369  3369 D CarInfo : update speed 23.7519
+06-05 21:16:05.338  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_85.5
+06-05 21:16:05.338  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.344  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x89 
+06-05 21:16:05.344  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0x7B 
+06-05 21:16:05.344  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x72 
+06-05 21:16:05.345  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0x11 
+06-05 21:16:05.345  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x95 
+06-05 21:16:05.345  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.349  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.349  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.374  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0x9F 
+06-05 21:16:05.375  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0x90 
+06-05 21:16:05.375  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x88 
+06-05 21:16:05.375  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0x26 
+06-05 21:16:05.375  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0x9B 
+06-05 21:16:05.375  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0xB4 
+06-05 21:16:05.376  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0xA6 
+06-05 21:16:05.376  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0x9E 
+06-05 21:16:05.376  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0x3B 
+06-05 21:16:05.376  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xA1 
+06-05 21:16:05.377  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.380  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 6 lines
+06-05 21:16:05.380  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.404  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0xCA 
+06-05 21:16:05.405  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.405  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0xBB 
+06-05 21:16:05.405  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0xB3 
+06-05 21:16:05.405  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0x51 
+06-05 21:16:05.406  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.406  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.406  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xA8 
+06-05 21:16:05.407  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.419  2509  3865 I YFVehicle_Power: RecMsgFromService,289435663
+06-05 21:16:05.420  2509  3865 I YFVehicle_v2_0:  SendMessageToPowerVehicle,1,3
+06-05 21:16:05.421  2456  2464 I IPCLSERVICE: dbus msg com.yfve.ivi.power.request: 0x01 0x03 0x02 0x01 
+06-05 21:16:05.434  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x29 
+06-05 21:16:05.435  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x60 
+06-05 21:16:05.435  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.436  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0xE0 
+06-05 21:16:05.436  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0xD1 
+06-05 21:16:05.436  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0xC9 
+06-05 21:16:05.437  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.437  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0x66 
+06-05 21:16:05.437  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xAB 
+06-05 21:16:05.437  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.438  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x03 0xF6 
+06-05 21:16:05.438  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.439  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.439  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0xE6 
+06-05 21:16:05.439  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0xDF 
+06-05 21:16:05.439  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0x7C 
+06-05 21:16:05.439  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xAE 
+06-05 21:16:05.440  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.441  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 1 line
+06-05 21:16:05.442  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.445  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.450  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.450  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.450  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,000000
+06-05 21:16:05.450  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.0
+06-05 21:16:05.450  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:86.0
+06-05 21:16:05.450  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 86.0
+06-05 21:16:05.450  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 86.0
+06-05 21:16:05.451  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,000000
+06-05 21:16:05.451  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.0
+06-05 21:16:05.452  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,000000
+06-05 21:16:05.452  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.0
+06-05 21:16:05.452  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,000000
+06-05 21:16:05.452  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.0
+06-05 21:16:05.454  3369  3369 D CarInfo : update speed 23.8908
+06-05 21:16:05.454  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.0
+06-05 21:16:05.454  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.464  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0x0B 
+06-05 21:16:05.465  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x1F 0xFC 
+06-05 21:16:05.465  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.465  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x02 0xF5 
+06-05 21:16:05.466  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0x91 
+06-05 21:16:05.466  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xB1 
+06-05 21:16:05.466  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0x21 
+06-05 21:16:05.466  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.467  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0x11 
+06-05 21:16:05.467  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0x0A 
+06-05 21:16:05.467  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0xA7 
+06-05 21:16:05.467  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.467  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.468  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xB4 
+06-05 21:16:05.469  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.469  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.470  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.483 14622 14665 I OpenGLRenderer: Davey! duration=4126ms; Flags=1, IntendedVsync=995960286016, Vsync=996651678326, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=996665374112, AnimationStart=996665480779, PerformTraversalsStart=996665912779, DrawStart=999759945446, SyncQueued=999841987446, SyncStart=999872086446, IssueDrawCommandsStart=999877143112, SwapBuffers=1000100381446, FrameCompleted=1000117226446, DequeueBufferDuration=0, QueueBufferDuration=832000, 
+06-05 21:16:05.484  2617  2657 E statsd  : Found dropped events: 1 error -19 last atom tag 83 from uid 10051
+06-05 21:16:05.494  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x46 0x05 0xA0 
+06-05 21:16:05.494  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0x37 
+06-05 21:16:05.494  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0x27 
+06-05 21:16:05.496  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0x20 
+06-05 21:16:05.498  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0xBC 
+06-05 21:16:05.498  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xB8 
+06-05 21:16:05.503  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.505  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.505  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.511  3409  3409 V CarServicePropertyManager: onChangeEvent:app service call back:VEHICLE_SPEED
+06-05 21:16:05.512  3409  3409 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG_VALIDATION, areaId: 0x0, class: class java.lang.Integer
+06-05 21:16:05.515  3409  3409 V CarServicePropertyManager: speed is valid
+06-05 21:16:05.515  3409  3409 V CarServicePropertyManager: VEHICLE_SPEED call back:VEHICLE_SPEED___90.0
+06-05 21:16:05.515  3409  3409 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_16777216_90.0
+06-05 21:16:05.525  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x2A 
+06-05 21:16:05.525  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x67 
+06-05 21:16:05.525  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0x4D 
+06-05 21:16:05.525  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0x3D 
+06-05 21:16:05.525  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0x36 
+06-05 21:16:05.526  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.526  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.526  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.527  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0xD2 
+06-05 21:16:05.527  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xBD 
+06-05 21:16:05.528  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0x63 
+06-05 21:16:05.528  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0x53 
+06-05 21:16:05.528  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.533  2565 14696 W adbd    : timed out while waiting for FUNCTIONFS_BIND, trying again
+06-05 21:16:05.533  2565 14696 I adbd    : UsbFfs: connection terminated: monitor thread finished
+06-05 21:16:05.534  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.535  2565  2565 I adbd    : UsbFfs: already offline
+06-05 21:16:05.535  2565  2565 I adbd    : destroying transport UsbFfs
+06-05 21:16:05.536  2565  2565 I adbd    : UsbFfsConnection being destroyed
+06-05 21:16:05.538  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,437500
+06-05 21:16:05.538  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,437500
+06-05 21:16:05.538  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.4375
+06-05 21:16:05.538  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.4375
+06-05 21:16:05.538  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:86.4375
+06-05 21:16:05.538  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 86.4375
+06-05 21:16:05.538  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 86.4375
+06-05 21:16:05.539  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.539  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,437500
+06-05 21:16:05.539  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.4375
+06-05 21:16:05.540  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,437500
+06-05 21:16:05.540  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.4375
+06-05 21:16:05.539  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.542  3369  3369 D CarInfo : update speed 24.0123375
+06-05 21:16:05.542  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.4375
+06-05 21:16:05.543  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.543  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0x4C 
+06-05 21:16:05.543  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0xE8 
+06-05 21:16:05.543  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xC0 
+06-05 21:16:05.544  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.544  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 1 line
+06-05 21:16:05.545  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.547  2732  2807 I ActivityTaskManager: Displayed com.omoda5.launcher/.ui.MainActivity: +6s779ms
+06-05 21:16:05.547 14622 14703 V OMODA_LOG: ADB_REQ: dumpsys car_service get-property-value 11600207 0 ; dumpsys car_service get-property-value 11600305 0 ; dumpsys car_service get-property-value 11400400 0 ; dumpsys car_service get-property-value 11400401 0 ; dumpsys car_service get-property-value 11200402 0 ; dumpsys car_service get-property-value 11600307 0 ; dumpsys car_service get-property-value 11600308 0 ; dumpsys car_service get-property-value 11600703 0 ; dumpsys car_service get-property-value 15600502 0 ; dumpsys car_service get-property-value 15600503 0 ; dumpsys car_service get-property-value 2140303a 0 ; dumpsys car_service get-property-value 15200505 0 ; dumpsys car_service get-property-value 21401002 0 ; dumpsys car_service get-property-value 21401005 0 ; dumpsys car_service get-property-value 21401008 0 ; dumpsys car_service get-property-value 16400b00 1 ; dumpsys car_service get-property-value 16400b00 4 ; dumpsys car_service get-property-value 16400b00 16 ; dumpsys car_service get-property-value 16400b00 64 ; dumpsys car_service get-property-value 16400b00 536870912
+06-05 21:16:05.555  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0x79 
+06-05 21:16:05.555  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0x68 
+06-05 21:16:05.555  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0x62 
+06-05 21:16:05.555  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1E 0xFD 
+06-05 21:16:05.555  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xC1 
+06-05 21:16:05.556  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.557  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.557  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.570  2565  2596 I adbd    : opening control endpoint /dev/usb-ffs/adb/ep0
+06-05 21:16:05.571  2565  2596 I adbd    : UsbFfsConnection constructed
+06-05 21:16:05.574  2565 14704 I adbd    : host-36: read thread spawning
+06-05 21:16:05.574  2565  2565 I adbd    : host-36: already offline
+06-05 21:16:05.578 14622 14622 V OMODA_LOG: SYSTEM: v9.3.0 Engine Ready
+06-05 21:16:05.579  2565 14705 I adbd    : host-36: write thread spawning
+06-05 21:16:05.585  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0x8F 
+06-05 21:16:05.587  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0x7E 
+06-05 21:16:05.588  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0x78 
+06-05 21:16:05.589  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.589  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 1 line
+06-05 21:16:05.589  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.591  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0x13 
+06-05 21:16:05.591  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0xA5 
+06-05 21:16:05.592  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0x94 
+06-05 21:16:05.592  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0x8E 
+06-05 21:16:05.593  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0x29 
+06-05 21:16:05.597  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.599  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 3 lines
+06-05 21:16:05.599  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.614  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x06 0x05 0x18 0x16 0x03 
+06-05 21:16:05.614  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x31 
+06-05 21:16:05.615  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.615  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x71 0x09 
+06-05 21:16:05.617  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x6E 
+06-05 21:16:05.620  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0xBB 
+06-05 21:16:05.620  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0xAA 
+06-05 21:16:05.620  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0xA4 
+06-05 21:16:05.620  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0x3E 
+06-05 21:16:05.624  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.624  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.624  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.627  3409  3409 V CarServicePropertyManager: onChangeEvent:app service call back:GEAR_POSITION
+06-05 21:16:05.627  3409  3409 V CarServicePropertyManager: GEAR_POSITION call back:GEAR_POSITION___9
+06-05 21:16:05.627  3409  3409 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_9
+06-05 21:16:05.628  3369  3369 D CarInfo : onChangeEvent:app service call back:GEAR_POSITION
+06-05 21:16:05.628  3369  3369 D CarInfo : GEAR_POSITION :9
+06-05 21:16:05.628  3369  3369 D CarInfo : gear convert to -1 -> not care
+06-05 21:16:05.628  3369  3369 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_9
+06-05 21:16:05.628  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.628  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.628  3680  3680 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260605181603
+06-05 21:16:05.628  3655  3655 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260605181603
+06-05 21:16:05.628  3655  3655 I CAR.CarAvmClient: onChangeEvent: app receive call back:GEAR_POSITION
+06-05 21:16:05.628  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,875000
+06-05 21:16:05.628  3655  3655 I CAR.CarAvmClient: onChangeEvent: app receive call back: GEAR_POSITION : 9
+06-05 21:16:05.628  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.875
+06-05 21:16:05.628  3655  3655 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_9
+06-05 21:16:05.628  5811  5811 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260605181603
+06-05 21:16:05.628  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:86.875
+06-05 21:16:05.628  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 86.875
+06-05 21:16:05.628  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,875000
+06-05 21:16:05.628  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.875
+06-05 21:16:05.628  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 86.875
+06-05 21:16:05.628  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,875000
+06-05 21:16:05.628  3655  3868 D SET.GPSTimeUtilscitosTime: icmTime  20260605181603
+06-05 21:16:05.628  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.875
+06-05 21:16:05.629  3655  3916 I SET.DriverRepository: onGearPosition state = 9
+06-05 21:16:05.629  3655  3916 I SET.PersonalRepository: gearStateChange state = 9
+06-05 21:16:05.629  3655  3916 I SET.PersonalRepository: setMusicShowSwitch mMusicShowSelected = false,mPowerState = 2,mGearState = 9
+06-05 21:16:05.630  3090  3090 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260605181603
+06-05 21:16:05.630  3090  3090 I CAR.CarAvmClient: onChangeEvent: app receive call back:GEAR_POSITION
+06-05 21:16:05.630  3090  3090 I CAR.CarAvmClient: onChangeEvent: app receive call back: GEAR_POSITION : 9
+06-05 21:16:05.630  3090  3090 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_9
+06-05 21:16:05.631  3090  3874 I SYSUI.CanControllerImpl: onIcmTimeChanged: 20260605181603
+06-05 21:16:05.631  3090  3818 D SYSUI.CanControllerImpl: onGearPosition(2:R): 9
+06-05 21:16:05.631  3090  3818 D SYSUI.CanControllerImpl: updateAvmFocus onGearPosition(2:R): 9
+06-05 21:16:05.631  3090  3818 I SYSUI.CanControllerImpl: onAvm? false
+06-05 21:16:05.631  3090  3818 I SYSUI.CanControllerImpl: abandonAudioFocusRequest: [REVERSE]
+06-05 21:16:05.631  2732  2943 I MediaFocusControl: abandonAudioFocus() from uid/pid 10042/3090 clientId=android.media.AudioManager@84a94d2com.android.systemui.statusbar.policy.-$$Lambda$CanControllerImpl$QnMfSkUySUhAP8ZvlCHUOG14Yo4@d8589a3
+06-05 21:16:05.634  3062  3062 I CarAudioFocus: onAudioFocusAbandon android.media.AudioManager@84a94d2com.android.systemui.statusbar.policy.-$$Lambda$CanControllerImpl$QnMfSkUySUhAP8ZvlCHUOG14Yo4@d8589a3
+06-05 21:16:05.634  3062  3062 D CAR.AUDIO: releaseAudioDSPSource : afi: android.media.AudioManager@84a94d2com.android.systemui.statusbar.policy.-$$Lambda$CanControllerImpl$QnMfSkUySUhAP8ZvlCHUOG14Yo4@d8589a3@USAGE_REVERSE gain: NONE loss: NONE
+06-05 21:16:05.634  3062  3062 I CAR.AUDIO: onSetReverseAttenuationLock: state = false
+06-05 21:16:05.635  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 86,875000
+06-05 21:16:05.635  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.875
+06-05 21:16:05.634  3369  3369 D CarInfo : update speed 24.133875
+06-05 21:16:05.635  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_86.875
+06-05 21:16:05.635  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.642 14622 14703 V OMODA_LOG: ADB_STR: Akış Başladı.
+06-05 21:16:05.644  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0xD1 
+06-05 21:16:05.645  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0xBF 
+06-05 21:16:05.645  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.646  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0xBA 
+06-05 21:16:05.646  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0x54 
+06-05 21:16:05.646  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.646  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.647  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0xE7 
+06-05 21:16:05.648  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.648  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0xD5 
+06-05 21:16:05.648  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0xD0 
+06-05 21:16:05.649  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.649  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.649  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0x6A 
+06-05 21:16:05.649  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xC2 
+06-05 21:16:05.650  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.650  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.674  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x04 0xFD 
+06-05 21:16:05.676  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x00 0xEB 
+06-05 21:16:05.677  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.677  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0xE6 
+06-05 21:16:05.677  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0x80 
+06-05 21:16:05.679  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xC3 
+06-05 21:16:05.680  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.680  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 1 line
+06-05 21:16:05.682  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.705  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0x13 
+06-05 21:16:05.705  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x01 
+06-05 21:16:05.706  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.706  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x03 0xFC 
+06-05 21:16:05.706  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0x96 
+06-05 21:16:05.707  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.707  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.707  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xC4 
+06-05 21:16:05.708  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x33 
+06-05 21:16:05.708  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x75 
+06-05 21:16:05.708  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0x29 
+06-05 21:16:05.708  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x17 
+06-05 21:16:05.708  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.710 14622 14637 I omoda5.launche: NativeAlloc concurrent copying GC freed 41230(3371KB) AllocSpace objects, 8(224KB) LOS objects, 49% free, 4719KB/9439KB, paused 762us total 167.742ms
+06-05 21:16:05.710  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0x12 
+06-05 21:16:05.710  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0xAB 
+06-05 21:16:05.710  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xC5 
+06-05 21:16:05.711  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.713  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 3 lines
+06-05 21:16:05.713  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.716 14622 14703 V OMODA_LOG: Property:0x11600207,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string:
+06-05 21:16:05.724  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,312500
+06-05 21:16:05.724  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,312500
+06-05 21:16:05.724  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.3125
+06-05 21:16:05.724  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.3125
+06-05 21:16:05.724  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.724  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.724  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,312500
+06-05 21:16:05.724  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.3125
+06-05 21:16:05.725  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,312500
+06-05 21:16:05.725  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.3125
+06-05 21:16:05.726  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:87.3125
+06-05 21:16:05.726  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 87.3125
+06-05 21:16:05.726  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 87.3125
+06-05 21:16:05.727  3369  3369 D CarInfo : update speed 24.2554125
+06-05 21:16:05.727  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.3125
+06-05 21:16:05.728  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.734  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0x3F 
+06-05 21:16:05.735  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.734  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x2D 
+06-05 21:16:05.735  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0x28 
+06-05 21:16:05.736  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.736  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0xC1 
+06-05 21:16:05.736  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xC7 
+06-05 21:16:05.737  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.737  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.765  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0x55 
+06-05 21:16:05.765  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x43 
+06-05 21:16:05.766  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0x3E 
+06-05 21:16:05.767 14622 14703 V OMODA_LOG: Property:0x11600305,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string:
+06-05 21:16:05.767  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.767  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 1 line
+06-05 21:16:05.767  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.766  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0xD7 
+06-05 21:16:05.768  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xCA 
+06-05 21:16:05.768  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0x6B 
+06-05 21:16:05.769  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x59 
+06-05 21:16:05.770  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0x54 
+06-05 21:16:05.770  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x1F 0xED 
+06-05 21:16:05.771  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.772  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 3 lines
+06-05 21:16:05.772  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.772  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xCD 
+06-05 21:16:05.795  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x46 0x05 0xB0 
+06-05 21:16:05.795  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0x81 
+06-05 21:16:05.795  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x6F 
+06-05 21:16:05.797  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0x6A 
+06-05 21:16:05.797  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x03 
+06-05 21:16:05.798  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.798  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.798  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xD0 
+06-05 21:16:05.802  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.802  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.806 14622 14703 V OMODA_LOG: Property:0x11400400,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [4],int64Values: [],bytes: [],string:
+06-05 21:16:05.809  3409  3409 V CarServicePropertyManager: onChangeEvent:app service call back:VEHICLE_SPEED
+06-05 21:16:05.809  3409  3409 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG_VALIDATION, areaId: 0x0, class: class java.lang.Integer
+06-05 21:16:05.810  3409  3409 V CarServicePropertyManager: speed is valid
+06-05 21:16:05.810  3409  3409 V CarServicePropertyManager: VEHICLE_SPEED call back:VEHICLE_SPEED___91.0
+06-05 21:16:05.810  3409  3409 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_16777216_91.0
+06-05 21:16:05.825  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x39 
+06-05 21:16:05.825  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x7E 
+06-05 21:16:05.825  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0x98 
+06-05 21:16:05.825  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x85 
+06-05 21:16:05.825  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0x81 
+06-05 21:16:05.825  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x19 
+06-05 21:16:05.826  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xD4 
+06-05 21:16:05.826  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0xAE 
+06-05 21:16:05.826  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0x9B 
+06-05 21:16:05.826  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0x97 
+06-05 21:16:05.826  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x2F 
+06-05 21:16:05.826  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xD7 
+06-05 21:16:05.826  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.827  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 7 lines
+06-05 21:16:05.827  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.839  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.839  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.839  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,875000
+06-05 21:16:05.839  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,875000
+06-05 21:16:05.839  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.875
+06-05 21:16:05.840  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:87.875
+06-05 21:16:05.840  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,875000
+06-05 21:16:05.840  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.875
+06-05 21:16:05.840  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 87.875
+06-05 21:16:05.840  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 87.875
+06-05 21:16:05.840  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 87,875000
+06-05 21:16:05.840  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.875
+06-05 21:16:05.839  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.875
+06-05 21:16:05.841  3369  3369 D CarInfo : update speed 24.411675
+06-05 21:16:05.841  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_87.875
+06-05 21:16:05.841  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.842 14622 14622 I Choreographer: Skipped 185 frames!  The application may be doing too much work on its main thread.
+06-05 21:16:05.854  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0xC4 
+06-05 21:16:05.855  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.856  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0xB1 
+06-05 21:16:05.856  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0xAD 
+06-05 21:16:05.860  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.863 14622 14703 V OMODA_LOG: Property:0x11400401,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [4],int64Values: [],bytes: [],string:
+06-05 21:16:05.868  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x45 
+06-05 21:16:05.868  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xDB 
+06-05 21:16:05.878  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.878  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.885  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0xDA 
+06-05 21:16:05.886  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.886  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0xC7 
+06-05 21:16:05.886  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0xC3 
+06-05 21:16:05.886  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x5B 
+06-05 21:16:05.887  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.887  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xDD 
+06-05 21:16:05.887  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x46 0x05 0xC0 
+06-05 21:16:05.888  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.888  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.889  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x05 0xF1 
+06-05 21:16:05.889  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0xDD 
+06-05 21:16:05.889  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0xDA 
+06-05 21:16:05.889  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x71 
+06-05 21:16:05.890  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xDF 
+06-05 21:16:05.890  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.891  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.891  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.901  3409  3409 V CarServicePropertyManager: onChangeEvent:app service call back:VEHICLE_SPEED
+06-05 21:16:05.901  3409  3409 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG_VALIDATION, areaId: 0x0, class: class java.lang.Integer
+06-05 21:16:05.904  3409  3409 V CarServicePropertyManager: speed is valid
+06-05 21:16:05.904  3409  3409 V CarServicePropertyManager: VEHICLE_SPEED call back:VEHICLE_SPEED___92.0
+06-05 21:16:05.904  3409  3409 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_16777216_92.0
+06-05 21:16:05.905  2533  3555 I tbox_service_socketclient: sendData:: aa 55 00 00 00 00 00 00 
+06-05 21:16:05.905  2533  3555 E tbox_service_socketclient: sendMsg,send Tbox success!len=0
+06-05 21:16:05.914  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x3B 
+06-05 21:16:05.914  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x86 
+06-05 21:16:05.914  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0x07 
+06-05 21:16:05.915  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x01 0xF4 
+06-05 21:16:05.916  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.916  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.916  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x04 0xF0 
+06-05 21:16:05.916  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x87 
+06-05 21:16:05.917  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xE2 
+06-05 21:16:05.918 14622 14703 V OMODA_LOG: Property:0x11200402,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string:
+06-05 21:16:05.919  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.919  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 1 line
+06-05 21:16:05.920  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.930  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:05.930  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:05.931  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,375000
+06-05 21:16:05.931  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.375
+06-05 21:16:05.931  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,375000
+06-05 21:16:05.931  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,375000
+06-05 21:16:05.931  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.375
+06-05 21:16:05.931  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.375
+06-05 21:16:05.931  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:88.375
+06-05 21:16:05.931  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 88.375
+06-05 21:16:05.931  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 88.375
+06-05 21:16:05.931  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,375000
+06-05 21:16:05.931  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.375
+06-05 21:16:05.932  3369  3369 D CarInfo : update speed 24.550575
+06-05 21:16:05.932  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.375
+06-05 21:16:05.932  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:05.944  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0x1D 
+06-05 21:16:05.944  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0x0A 
+06-05 21:16:05.944  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0x06 
+06-05 21:16:05.944  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0x9E 
+06-05 21:16:05.946  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xE6 
+06-05 21:16:05.949  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.949  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.949  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.975  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0x34 
+06-05 21:16:05.975  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0x20 
+06-05 21:16:05.975  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0x1D 
+06-05 21:16:05.976 14622 14703 V OMODA_LOG: Property:0x11600307,status: 0,timestamp:0,zone:0x0,floatValues: [15000.0],int32Values: [],int64Values: [],bytes: [],string:
+06-05 21:16:05.976  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.977  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0xB4 
+06-05 21:16:05.977  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xEA 
+06-05 21:16:05.977  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.977  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0x4A 
+06-05 21:16:05.978  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0x36 
+06-05 21:16:05.979  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0x33 
+06-05 21:16:05.980  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.980  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.981  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0xCA 
+06-05 21:16:05.981  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xF2 
+06-05 21:16:05.982  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.982  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:05.983  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:05.985  2533  3561 I tbox_service_socketclient: recTCPMsg  readlen=664
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: tboxDataResp,str={
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: 	"NMEA":	"$GPGSV,5,1,17,01,30,175,50,02,05,168,32,03,66,084,51,04,71,307,49,1*6B\r\n$GPGSV,5,2,17,06,27,312,47,07,13,201,43,09,40,267,50,16,08,112,42,1*64\r\n$GPGSV,5,3,17,17,,,36,19,08,279,42,26,17,082,43,31,30,049,50,1*5B\r\n$GPGSV,5,4,17,28,05,037,,40,,,42,41,,,42,42,,,43,1*58\r\n$GPGSV,5,5,17,49,,,47,1*6C\r\n$GPGGA,151606.00,3951.866783,N,03327.659306,E,1,12,0.4,762.6,M,37.0,M,,*6F\r\n$GPVTG,288.6,T,284.4,M,47.7,N,88.4,K,A*2D\r\n$GPRMC,151606.00,A,3951.866783,N,03327.659306,E,47.7,288.6,050626,4.1,E,A,V*78\r\n$GPGSA,A,2,01,02,03,04,06,07,09,16,19,26,28,31,0.7,0.4,0.6,1*24\r\n"
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: }
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: gpsNotification nmea=$GPGSV,5,1,17,01,30,175,50,02,05,168,32,03,66,084,51,04,71,307,49,1*6B
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPGSV,5,2,17,06,27,312,47,07,13,201,43,09,40,267,50,16,08,112,42,1*64
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPGSV,5,3,17,17,,,36,19,08,279,42,26,17,082,43,31,30,049,50,1*5B
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPGSV,5,4,17,28,05,037,,40,,,42,41,,,42,42,,,43,1*58
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPGSV,5,5,17,49,,,47,1*6C
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPGGA,151606.00,3951.866783,N,03327.659306,E,1,12,0.4,762.6,M,37.0,M,,*6F
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPVTG,288.6,T,284.4,M,47.7,N,88.4,K,A*2D
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPRMC,151606.00,A,3951.866783,N,03327.659306,E,47.7,288.6,050626,4.1,E,A,V*78
+06-05 21:16:05.985  2533  3561 I tbox_service_parsejson: $GPGSA,A,2,01,02,03,04,06,07,09,16,19,26,28,31,0.7,0.4,0.6,1*24
+06-05 21:16:05.985  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData
+06-05 21:16:05.985  2533  3561 I tbox_service_nmeaanalysisutils: initData
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,altitude=799.600000,latitude=39.864446,longtitude=33.460988
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,pdop=0.700000,hdop=0.400000,vdop=0.600000
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=175;filed_1=30
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=168;filed_1=05
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=84;filed_1=66
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=307;filed_1=71
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=4
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=312;filed_1=27
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=201;filed_1=13
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=267;filed_1=40
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=112;filed_1=08
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=8
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=279;filed_1=08
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=82;filed_1=17
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=49;filed_1=30
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=11
+06-05 21:16:05.986  2533  3561 I chatty  : uid=0(root) tbox@1.0-servic identical 1 line
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=11
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,gpsSpeed=24.517800,heading=288.600000
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,gpsInfo.year=2026,gpsInfo.month=6,nSec=5,gpsInfo.hour=15,gpsInfo.minute=16,gpsInfo.second=6,gpsInfo.gpsTime=2026-6-5 15:16:6
+06-05 21:16:05.986  2533  3561 I tbox_service_nmeaanalysisutils: processNmeaData,222 gpsSpeed=24.517800,heading=288.600000
+06-05 21:16:05.987  2732  7239 I GnssLocationProvider: onGPSInfoChanged gpsSpeed=24.5178;heading=288.6
+06-05 21:16:05.986  2533  3561 I tbox_service_socketclient: recTCPMsg,waiting for recv tcp data.
+06-05 21:16:05.987  2732  7239 I GnssLocationProvider: onGPSInfoChanged reportLocation
+06-05 21:16:05.988  2732  7239 I GnssLocationProvider: onSatellitesChanged onSvStatusChanged
+06-05 21:16:06.005  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0x61 
+06-05 21:16:06.005  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0x4C 
+06-05 21:16:06.006  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0x4A 
+06-05 21:16:06.006  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.006  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0xE0 
+06-05 21:16:06.010  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.010  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.011  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xF7 
+06-05 21:16:06.011  2533  3561 I tbox_service_socketclient: recTCPMsg  readlen=269
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: tboxDataResp,str={
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"URI":	"content://tbox.automotive.neusoft.com/NetworkStatusNotification",
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"DataConnection":	false,
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"SimCardRegistraionStatus":	false,
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"MobileNetworkType":	"NoNetwork",
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"Roaming":	false,
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"SignalStrength":	-1,
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"RouterIPAddress":	"",
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: 	"VPNIPAddress":	""
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: }
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: tboxDataResp,uri=content://tbox.automotive.neusoft.com/NetworkStatusNotification
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: networkStatusNotification,dataConnection=0
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: networkStatusNotification,simCardRegistraionStatus=0
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: networkStatusNotification,mobileNetworkType=NoNetwork
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: networkStatusNotification,roaming=0
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: networkStatusNotification,signalStrength=-1
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: networkStatusNotification,routerIPAddress=
+06-05 21:16:06.011  2533  3561 I tbox_service_parsejson: networkStatusNotification,vpnIPAddress=
+06-05 21:16:06.012  2533  3561 I tbox_service_socketclient: recTCPMsg,waiting for recv tcp data.
+06-05 21:16:06.014  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.031 14622 14703 V OMODA_LOG: Property:0x11600308,status: 0,timestamp:0,zone:0x0,floatValues: [100.0],int32Values: [],int64Values: [],bytes: [],string:
+06-05 21:16:06.035  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x41 
+06-05 21:16:06.035  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x71 0x0A 
+06-05 21:16:06.035  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x8F 
+06-05 21:16:06.035  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0x77 
+06-05 21:16:06.036  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.037  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0x63 
+06-05 21:16:06.037  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0x60 
+06-05 21:16:06.037  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x00 0xF6 
+06-05 21:16:06.037  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x7F 0xFD 
+06-05 21:16:06.039  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.039  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:06.039  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.038  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0x8E 
+06-05 21:16:06.040  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0x79 
+06-05 21:16:06.040  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0x77 
+06-05 21:16:06.040  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0x0D 
+06-05 21:16:06.040  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x80 0x00 
+06-05 21:16:06.041  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.041  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:06.042  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.049  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,937500
+06-05 21:16:06.050  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.9375
+06-05 21:16:06.050  3655  3655 I CAR.CarAvmClient: onChangeEvent: app receive call back:GEAR_POSITION
+06-05 21:16:06.050  3655  3655 I CAR.CarAvmClient: onChangeEvent: app receive call back: GEAR_POSITION : 10
+06-05 21:16:06.050  3655  3655 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_10
+06-05 21:16:06.050  3090  3090 I CAR.CarAvmClient: onChangeEvent: app receive call back:GEAR_POSITION
+06-05 21:16:06.050  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,937500
+06-05 21:16:06.050  3090  3090 I CAR.CarAvmClient: onChangeEvent: app receive call back: GEAR_POSITION : 10
+06-05 21:16:06.050  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.9375
+06-05 21:16:06.050  3090  3090 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_10
+06-05 21:16:06.050  3090  3818 D SYSUI.CanControllerImpl: onGearPosition(2:R): 10
+06-05 21:16:06.050  3090  3818 D SYSUI.CanControllerImpl: updateAvmFocus onGearPosition(2:R): 10
+06-05 21:16:06.050  3090  3818 I SYSUI.CanControllerImpl: onAvm? false
+06-05 21:16:06.050  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:88.9375
+06-05 21:16:06.050  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,937500
+06-05 21:16:06.050  3090  3818 I SYSUI.CanControllerImpl: abandonAudioFocusRequest: [REVERSE]
+06-05 21:16:06.050  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.9375
+06-05 21:16:06.050  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 88.9375
+06-05 21:16:06.050  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 88.9375
+06-05 21:16:06.051  3409  3409 V CarServicePropertyManager: onChangeEvent:app service call back:GEAR_POSITION
+06-05 21:16:06.051  3409  3409 V CarServicePropertyManager: GEAR_POSITION call back:GEAR_POSITION___10
+06-05 21:16:06.051  3409  3409 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_10
+06-05 21:16:06.051  2732  3183 I MediaFocusControl: abandonAudioFocus() from uid/pid 10042/3090 clientId=android.media.AudioManager@84a94d2com.android.systemui.statusbar.policy.-$$Lambda$CanControllerImpl$QnMfSkUySUhAP8ZvlCHUOG14Yo4@d8589a3
+06-05 21:16:06.051  3655  3916 I SET.DriverRepository: onGearPosition state = 10
+06-05 21:16:06.051  3655  3916 I SET.PersonalRepository: gearStateChange state = 10
+06-05 21:16:06.051  3655  3916 I SET.PersonalRepository: setMusicShowSwitch mMusicShowSelected = false,mPowerState = 2,mGearState = 10
+06-05 21:16:06.050  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 88,937500
+06-05 21:16:06.051  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.9375
+06-05 21:16:06.051  3369  3369 D CarInfo : onChangeEvent:app service call back:GEAR_POSITION
+06-05 21:16:06.051  3369  3369 D CarInfo : GEAR_POSITION :10
+06-05 21:16:06.051  3369  3369 D CarInfo : gear convert to -1 -> not care
+06-05 21:16:06.052  3369  3369 I CarPropertyManager: PropID,area,value:GEAR_POSITION_16777216_10
+06-05 21:16:06.052  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:06.052  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:06.052  3062  3062 I CarAudioFocus: onAudioFocusAbandon android.media.AudioManager@84a94d2com.android.systemui.statusbar.policy.-$$Lambda$CanControllerImpl$QnMfSkUySUhAP8ZvlCHUOG14Yo4@d8589a3
+06-05 21:16:06.052  3062  3062 D CAR.AUDIO: releaseAudioDSPSource : afi: android.media.AudioManager@84a94d2com.android.systemui.statusbar.policy.-$$Lambda$CanControllerImpl$QnMfSkUySUhAP8ZvlCHUOG14Yo4@d8589a3@USAGE_REVERSE gain: NONE loss: NONE
+06-05 21:16:06.053  3062  3062 I CAR.AUDIO: onSetReverseAttenuationLock: state = false
+06-05 21:16:06.054  3369  3369 D CarInfo : update speed 24.7068375
+06-05 21:16:06.054  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_88.9375
+06-05 21:16:06.054  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:06.065  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0xA4 
+06-05 21:16:06.065  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0x8F 
+06-05 21:16:06.066  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.066  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.065  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0x8D 
+06-05 21:16:06.066  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0x23 
+06-05 21:16:06.066  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x80 0x01 
+06-05 21:16:06.068  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.068  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.074 14622 14665 I OpenGLRenderer: Davey! duration=3897ms; Flags=0, IntendedVsync=996810711374, Vsync=1000465213584, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=1000476354446, AnimationStart=1000476445446, PerformTraversalsStart=1000518085446, DrawStart=1000551530779, SyncQueued=1000566239779, SyncStart=1000566588446, IssueDrawCommandsStart=1000566877113, SwapBuffers=1000707604113, FrameCompleted=1000708560446, DequeueBufferDuration=48378000, QueueBufferDuration=634000, 
+06-05 21:16:06.077  7340  7364 D bse_stack:  ---->[Timer_Exp][e091dbb0][Num:1][(null)-][ms:41]
+06-05 21:16:06.078  7340  7385 D bse_avrcp:  get id3 timer 
+06-05 21:16:06.078  7340  7385 D bse_avrcp:  hlp_avrcp_get_element_attr_req, intentional? 0
+06-05 21:16:06.078  7340  7385 D bse_stack:  [HCI][*Send]: 47
+06-05 21:16:06.078  7340  7385 D bse_stack:  0000: 02 0B 00 2A 00 26 00 62 00 30 11 0E 01 48 00 00   ...*.&.b.0...H..
+06-05 21:16:06.078  7340  7385 D bse_stack:  0010: 19 58 20 00 00 19 00 00 00 00 00 00 00 00 04 00   .X .............
+06-05 21:16:06.078  7340  7385 D bse_stack:  0020: 00 00 07 00 00 00 01 00 00 00 02 00 00 00 03      ............... 
+06-05 21:16:06.078  7340  7385 D bse_stack:  [HCI][*Send]: 22
+06-05 21:16:06.078  7340  7385 D bse_stack:  0000: 02 0B 00 11 00 0D 00 62 00 60 11 0E 01 48 00 00   .......b.`...H..
+06-05 21:16:06.078  7340  7385 D bse_stack:  0010: 19 58 30 00 00 00                                 .X0...          
+06-05 21:16:06.090  7340  7386 D bse_stack:  [HCI][*Recv]: 8
+06-05 21:16:06.090  7340  7386 D bse_stack:  0000: 04 13 05 01 0B 00 02 00                           ........        
+06-05 21:16:06.094  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0xBA 
+06-05 21:16:06.094  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0xA6 
+06-05 21:16:06.094  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0xA3 
+06-05 21:16:06.095  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0x39 
+06-05 21:16:06.095  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0xD1 
+06-05 21:16:06.095  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0xBC 
+06-05 21:16:06.095  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0xBA 
+06-05 21:16:06.096  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0x50 
+06-05 21:16:06.100  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.100  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 5 lines
+06-05 21:16:06.100  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.103 14622 14665 I OpenGLRenderer: Davey! duration=3916ms; Flags=1, IntendedVsync=996810711374, Vsync=1000465213584, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=1000476354446, AnimationStart=1000476445446, PerformTraversalsStart=1000518085446, DrawStart=1000720835446, SyncQueued=1000721360446, SyncStart=1000731161113, IssueDrawCommandsStart=1000731221446, SwapBuffers=1000735935446, FrameCompleted=1000737055779, DequeueBufferDuration=0, QueueBufferDuration=729000, 
+06-05 21:16:06.104  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.124  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x40 
+06-05 21:16:06.125  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x92 
+06-05 21:16:06.125  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0xE7 
+06-05 21:16:06.125  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0xD2 
+06-05 21:16:06.126  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0xD0 
+06-05 21:16:06.126  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0x66 
+06-05 21:16:06.131  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.131  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 3 lines
+06-05 21:16:06.134  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.137 14622 14703 V OMODA_LOG: Property:0x11600703,status: 0,timestamp:0,zone:0x0,floatValues: [25.0],int32Values: [],int64Values: [],bytes: [],string:
+06-05 21:16:06.145  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,125000
+06-05 21:16:06.145  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.125
+06-05 21:16:06.146  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,125000
+06-05 21:16:06.146  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.125
+06-05 21:16:06.146  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:89.125
+06-05 21:16:06.146  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 89.125
+06-05 21:16:06.146  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 89.125
+06-05 21:16:06.148  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,125000
+06-05 21:16:06.150  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:06.150  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:06.150  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.125
+06-05 21:16:06.149  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,125000
+06-05 21:16:06.151  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.125
+06-05 21:16:06.152  7340  7386 D bse_stack:  [HCI][*Recv]: 52
+06-05 21:16:06.152  7340  7386 D bse_stack:  0000: 02 0B 20 2F 00 2B 00 44 00 32 11 0E 0C 48 00 00   .. /.+.D.2...H..
+06-05 21:16:06.152  7340  7386 D bse_stack:  0010: 19 58 20 00 00 1E 02 00 00 00 01 00 6A 00 0C 4E   .X .........j..N
+06-05 21:16:06.152  7340  7386 D bse_stack:  0020: 6F 74 20 50 72 6F 76 69 64 65 64 00 00 00 07 00   ot Provided.....
+06-05 21:16:06.152  7340  7386 D bse_stack:  0030: 6A 00 01 30                                       j..0            
+06-05 21:16:06.152  7340  7385 D bse_avrcp:  hlp_avrcp_cbk 1,20
+06-05 21:16:06.152  7340  7385 D bse_avrcp:  hlp_avrcp_group_response, rsp_type=c, pduid=0x20
+06-05 21:16:06.152  7340  7385 D bse_avrcp:  hlp_avrcp_get_element_attr_cfm, rsp_type: 0x0C
+06-05 21:16:06.152  7340  7385 D bse_avrcp:  hlp_avrcp_parse_media_info, playing time is zero set to 0
+06-05 21:16:06.152  7340  7385 D bse_avrcp:  AVRCP_MA_PLAYING_TIME: 0, play_time=0
+06-05 21:16:06.152  7340  7385 D bse_avrcp:  HAL s_avrcp_user_data->avrcp_cbks->track_changed_cb
+06-05 21:16:06.153  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED dataLen is 20
+06-05 21:16:06.153  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED data is [B@1c05c0
+06-05 21:16:06.153  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED numAttributes 2
+06-05 21:16:06.153  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED numAttribute[0] is 1
+06-05 21:16:06.153  7340  7366 D EventParser: Constants.EVT_TAG_AVRCP_HANDLE_TRACK_CHANGED numAttribute[1] is 7
+06-05 21:16:06.153  7340  7366 D AvrcpControllerService: onTrackChanged
+06-05 21:16:06.153  7340  7366 D BluetoothDevice: mAddress: DC:6A:E7:1D:D9:B4
+06-05 21:16:06.153  3369  3369 D CarInfo : update speed 24.758924999999998
+06-05 21:16:06.153  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.125
+06-05 21:16:06.153  7340  7555 D AvrcpControllerStateMachine: Avrcp.ConnectedAvrcpController processMessage 205
+06-05 21:16:06.154  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:06.155  3680  3680 I BA.Mgr  : onMetadataChanged
+06-05 21:16:06.159  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x06 0xFE 
+06-05 21:16:06.159  7340  7386 D bse_stack:  [HCI][*Recv]: 31
+06-05 21:16:06.160  7340  7386 D bse_stack:  0000: 02 0B 20 1A 00 16 00 44 00 62 11 0E 0C 48 00 00   .. ....D.b...H..
+06-05 21:16:06.160  7340  7386 D bse_stack:  0010: 19 58 30 00 00 09 00 00 00 00 00 00 00 00 01      .X0............ 
+06-05 21:16:06.160  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0xE9 
+06-05 21:16:06.160  7340  7385 D bse_avrcp:  hlp_avrcp_cbk 1,30
+06-05 21:16:06.160  7340  7385 D bse_avrcp:  hlp_avrcp_group_response, rsp_type=c, pduid=0x30
+06-05 21:16:06.160  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0xE7 
+06-05 21:16:06.160  7340  7385 D bse_avrcp:  hlp_avrcp_set_status(5)
+06-05 21:16:06.160  7340  7385 D bse_avrcp:  HAL s_avrcp_user_data->avrcp_cbks->play_position_changed_cb
+06-05 21:16:06.160  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0x7C 
+06-05 21:16:06.160  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0x14 
+06-05 21:16:06.160  7340  7366 D EventParser: processavrcpHandlePlayPositionChangedEvent([B@82f22f9,0,0)
+06-05 21:16:06.160  7340  7366 D AvrcpControllerService: onPlayPositionChanged pos 0
+06-05 21:16:06.160  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x02 0xFF 
+06-05 21:16:06.160  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x05 0xFD 
+06-05 21:16:06.160  7340  7366 D BluetoothDevice: mAddress: DC:6A:E7:1D:D9:B4
+06-05 21:16:06.160  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0x93 
+06-05 21:16:06.161  7340  7555 D AvrcpControllerStateMachine: Avrcp.ConnectedAvrcpController processMessage 206
+06-05 21:16:06.161  7340  7555 D BluetoothMediaBrowserService: notifyChanged PlaybackStatePlaybackState {state=3, position=0, buffered position=0, speed=1.0, updated=1000794, actions=55, custom actions=[], active item id=-1, error=null}
+06-05 21:16:06.161  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.162  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:06.162  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.163  3680  3680 I BA.Mgr  : onPlaybackStateChanged
+06-05 21:16:06.163  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.163  3680  3680 I MEDIA.BtMusicBusiness: updatePlaybackState: PlaybackState {state=3, position=0, buffered position=0, speed=1.0, updated=1000794, actions=55, custom actions=[], active item id=-1, error=null}
+06-05 21:16:06.163  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.163  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 1 line
+06-05 21:16:06.163  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.189  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0x2B 
+06-05 21:16:06.190  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0x16 
+06-05 21:16:06.190  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.190  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0x14 
+06-05 21:16:06.190  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0xA9 
+06-05 21:16:06.190  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0x41 
+06-05 21:16:06.191  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0x2C 
+06-05 21:16:06.191  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0x2A 
+06-05 21:16:06.191  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0xBF 
+06-05 21:16:06.191  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x80 0x03 
+06-05 21:16:06.194  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.194  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 5 lines
+06-05 21:16:06.194  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.200  2509  3865 E automotive.vehicle@2.0-impl: Failed to get value: config not found, property: 0x15600502
+06-05 21:16:06.209 14622 14703 V OMODA_LOG: Can not get property value for propertyId: 0x15600502, areaId: 0
+06-05 21:16:06.219  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x3A 
+06-05 21:16:06.220  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x90 
+06-05 21:16:06.220  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0x58 
+06-05 21:16:06.220  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0x42 
+06-05 21:16:06.220  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0x40 
+06-05 21:16:06.220  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0xD6 
+06-05 21:16:06.221  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.222  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 3 lines
+06-05 21:16:06.222  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.234  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,000000
+06-05 21:16:06.234  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0
+06-05 21:16:06.234  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:06.234  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,000000
+06-05 21:16:06.235  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:89.0
+06-05 21:16:06.235  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0
+06-05 21:16:06.235  3680  3870 D MEDIA.VideoBusiness: onVehicleSpeedChanged,speed is: 89.0
+06-05 21:16:06.235  3680  3870 D MEDIA.PictureBusiness: onVehicleSpeedChanged,speed is: 89.0
+06-05 21:16:06.235  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,000000
+06-05 21:16:06.235  5811  5811 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,000000
+06-05 21:16:06.235  5811  5811 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0
+06-05 21:16:06.235  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:06.236  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0
+06-05 21:16:06.237  3369  3369 D CarInfo : update speed 24.7242
+06-05 21:16:06.237  2593  2751 D GalReceiver: reportSpeedData session is not alive.
+06-05 21:16:06.237  3369  3369 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0
+06-05 21:16:06.249  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0x6E 
+06-05 21:16:06.249  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0x59 
+06-05 21:16:06.250  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0x57 
+06-05 21:16:06.250  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x01 0xEC 
+06-05 21:16:06.250  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0x84 
+06-05 21:16:06.250  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0x6F 
+06-05 21:16:06.250  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0x6D 
+06-05 21:16:06.250  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x02 0x02 
+06-05 21:16:06.251  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.251  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 6 lines
+06-05 21:16:06.251  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.254 14622 14703 V OMODA_LOG: Can not get property value for propertyId: 0x15600503, areaId: 0
+06-05 21:16:06.279  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0x9B 
+06-05 21:16:06.280  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0x86 
+06-05 21:16:06.280  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0x84 
+06-05 21:16:06.280  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x02 0x19 
+06-05 21:16:06.280  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x80 0x04 
+06-05 21:16:06.281  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.283  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 2 lines
+06-05 21:16:06.283  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.295  2509  3865 W automotive.vehicle@2.0-impl: Property 02140303a has no read access
+06-05 21:16:06.298 14622 14703 V OMODA_LOG: Can not get property value for propertyId: 0x2140303a, areaId: 0
+06-05 21:16:06.310  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0xB1 
+06-05 21:16:06.310  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0x9C 
+06-05 21:16:06.310  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0x9A 
+06-05 21:16:06.311  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x02 0x2F 
+06-05 21:16:06.311  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x80 0x06 
+06-05 21:16:06.311  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x4D 0x03 0x32 
+06-05 21:16:06.311  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x2E 0x05 0x91 
+06-05 21:16:06.311  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x8C 0x07 0xC8 
+06-05 21:16:06.311  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x97 0x03 0xB2 
+06-05 21:16:06.311  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xC2 0x06 0xB1 
+06-05 21:16:06.312  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0xCD 0x02 0x45 
+06-05 21:16:06.312  2456  2465 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x01 0x1B 0x80 0x09 
+06-05 21:16:06.315  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.316  2509  2548 I chatty  : uid=1054(vehicle_network) vehicle@2.0-ser identical 7 lines
+06-05 21:16:06.316  2509  2548 I         : CAR MODE IS chery_t19c
+06-05 21:16:06.327  3655  3655 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,062500
+06-05 21:16:06.327  3369  3369 D CarInfo : onChangeEvent:app service call back:VEHICLE_SPEED_VSOSIG
+06-05 21:16:06.327  3655  3655 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0625
+06-05 21:16:06.327  3369  3369 D CarPropertyManager: getProperty, propId: VEHICLE_SPEED_VSOSIG, areaId: 0x1000000, class: class java.lang.Float
+06-05 21:16:06.328  3090  3090 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,062500
+06-05 21:16:06.328  3090  3090 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0625
+06-05 21:16:06.328  3680  3680 I CAR.CarBasicClient: onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 89,062500
+06-05 21:16:06.328  3680  3680 I CarPropertyManager: PropID,area,value:VEHICLE_SPEED_VSOSIG_16777216_89.0625
+06-05 21:16:06.328  3680  3870 D MEDIA.CarAdapterUse: CarBasicClient onVehicleSpeed var1:89.0625

@@ -91,9 +91,13 @@ class UpdateManager(private val ctx: Context, private val prefs: PreferencesMana
                     }
                     val json = JSONObject(body)
                     val remoteTag = json.getString("tag_name")
-                    val currentTag = BuildConfig.VERSION_NAME
                     
-                    if (remoteTag != currentTag) {
+                    // v11.4.2 Fix: Sonsuz döngü ve eski sürüm kısıtlaması (Sayısal kıyas)
+                    // Örn: "v8.1" -> 81, "11.4.1" -> 1141
+                    val remoteVersionCode = remoteTag.replace(Regex("[^0-9]"), "").toIntOrNull() ?: 0
+                    val localVersionCode = BuildConfig.VERSION_CODE
+                    
+                    if (remoteVersionCode > localVersionCode) {
                         val assets = json.getJSONArray("assets")
                         var downloadUrl = ""
                         for (i in 0 until assets.length()) {
@@ -104,7 +108,7 @@ class UpdateManager(private val ctx: Context, private val prefs: PreferencesMana
                             }
                         }
                         if (downloadUrl.isNotEmpty()) {
-                            Handler(Looper.getMainLooper()).post { cb.onUpdateAvailable(currentTag, remoteTag, downloadUrl) }
+                            Handler(Looper.getMainLooper()).post { cb.onUpdateAvailable(BuildConfig.VERSION_NAME, remoteTag, downloadUrl) }
                         } else Handler(Looper.getMainLooper()).post { cb.onNoUpdate() }
                     } else Handler(Looper.getMainLooper()).post { cb.onNoUpdate() }
                 } catch (e: Exception) { Handler(Looper.getMainLooper()).post { cb.onError("Veri İşleme Hatası: ${e.message}") } }

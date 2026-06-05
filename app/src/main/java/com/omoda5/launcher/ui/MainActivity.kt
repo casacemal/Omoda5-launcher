@@ -348,22 +348,16 @@ class MainActivity : ComponentActivity() {
             // Ana İçerik
             Box(Modifier.fillMaxSize()) {
                 HorizontalPager(state, Modifier.fillMaxSize()) { pIdx ->
-                    if (pIdx == 0) {
-                        val metrics by vehicleVM.metrics.collectAsState()
-                        DashboardScreen(metrics)
-                    } else {
-                        val adjustedIdx = pIdx - 1
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(5), 
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(start = 240.dp, end = 80.dp, top = 60.dp, bottom = 80.dp),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
-                            userScrollEnabled = false
-                        ) {
-                            items(pages[adjustedIdx]) { i -> GlassIcon(i, { onClk(i) }, { onMtTrigger(i) }, { onMenuTrigger(i) }) }
-                        }
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(5), 
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(start = 240.dp, end = 80.dp, top = 60.dp, bottom = 80.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        userScrollEnabled = false
+                    ) {
+                        items(pages[pIdx]) { i -> GlassIcon(i, { onClk(i) }, { onMtTrigger(i) }, { onMenuTrigger(i) }) }
                     }
                 }
 
