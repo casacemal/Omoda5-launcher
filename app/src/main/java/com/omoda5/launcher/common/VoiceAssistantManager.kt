@@ -55,16 +55,33 @@ object VoiceAssistantManager : RecognitionListener {
      * Tries to load VOSK model from external storage
      */
     fun tryInitExternalVosk() {
-        val dir = File(modelPath)
-        if (dir.exists() && dir.isDirectory) {
-            try {
-                voskModel = Model(modelPath)
-                LogManager.addLog("VOICE: Harici VOSK Modeli Yüklendi ✅")
-            } catch (e: Exception) {
-                LogManager.addLog("VOICE: Harici Model Hatası: ${e.message}")
+        val possiblePaths = listOf(
+            File(context?.getExternalFilesDir(null), "model-tr").absolutePath,
+            File(context?.getExternalFilesDir(null), "sync/model-tr").absolutePath,
+            File(context?.getExternalFilesDir(null), "sync/model").absolutePath,
+            "/sdcard/model-tr",
+            "/sdcard/Download/vosk-model-small-tr-0.3",
+            "/sdcard/Download/model-tr"
+        )
+
+        var loadedPath: String? = null
+
+        for (path in possiblePaths) {
+            val dir = File(path)
+            if (dir.exists() && dir.isDirectory) {
+                try {
+                    voskModel = Model(path)
+                    loadedPath = path
+                    LogManager.addLog("VOICE: Harici VOSK Modeli Yüklendi ✅ ($path)")
+                    break
+                } catch (e: Exception) {
+                    LogManager.addLog("VOICE: Model Yükleme Hatası ($path): ${e.message}")
+                }
             }
-        } else {
-            LogManager.addLog("VOICE: Harici Model Bulunamadı ($modelPath)")
+        }
+
+        if (loadedPath == null) {
+            LogManager.addLog("VOICE: Harici Model Bulunamadı. İndirme gerekiyor.")
         }
     }
 
