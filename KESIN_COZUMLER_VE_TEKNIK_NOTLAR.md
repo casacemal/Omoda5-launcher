@@ -138,3 +138,12 @@ val sessions = sessionManager.getActiveSessions(component)
 ```
 Ayrıca Vivaldi tarayıcısından dinlenen müziklerin de yakalanması için `MediaNotificationListener.kt` filtrelerine `"vivaldi"` eklendi.
 **Etkilenen Dosya:** `MediaControllerViewModel.kt` & `MediaNotificationListener.kt`
+
+---
+
+## ÇÖZÜM 10 — Direksiyon Tuşlarının Kaybolması ve Asistan (STT) Başlatılırken Çökme (SIGSEGV)
+
+**Sorun:** Direksiyondaki tuşlar algılanmıyor veya MIC (Sesli Asistan) tuşuna basılıp "Dinliyorum" arayüzü ekrana çağrılırken sistem "SIGSEGV (Segmentation Fault)" verip kilitleniyordu.
+**Kök Neden:** Araçtaki fiziksel direksiyon tuşlarını (CANBUS üzerinden `com.saic.keyevent.hardkey.report` ile) dinleyen `SystemBridgeManager` arka plan Binder iş parçacığında çalışıyordu. Bu alt iş parçacığından doğrudan Ana UI'a (Toast/HUD) veya Ses Motoruna (SpeechRecognizer) müdahale edilmeye çalışıldığı için Android güvenlik protokolü uygulamayı çökertiyordu.
+**Kesin Çözüm:** Direksiyon tuşu kodları (örn. 293 MIC, 85 Play/Pause vb.) değiştirilmeden korundu. Tuş olayı yakalandıktan sonra asistan veya bildirim tetiklemeleri `Handler(Looper.getMainLooper()).post { }` kullanılarak Ana İş Parçacığına (Main Thread) yönlendirildi. Bu sayede "Dinliyorum" ibaresi sorunsuz çalıştı ve kapanma hatası engellendi.
+**Etkilenen Dosya:** `SystemBridgeManager.kt`
