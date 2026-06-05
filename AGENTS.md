@@ -300,11 +300,13 @@ HorizontalPager(state = rememberPagerState { count }) { } // ✅
 
 ## 11. HATA ÇÖZME PROTOKOLÜ
 
-1. `KESIN_COZUMLER_VE_TEKNIK_NOTLAR.md`'ye bak — daha önce çözülmüş olabilir
-2. Hatayı tek cümleyle tanımla
-3. Sadece hatalı satırı/bloğu düzelt — çevresine dokunma
-4. ÖNCE/SONRA formatında sun
-5. Kullanıcı onayını bekle
+1. `KESIN_COZUMLER_VE_TEKNIK_NOTLAR.md`'ye bak — daha önce çözülmüş olabilir.
+2. **Log Taraması (KURAL):** Cihaz loglarında (`logcat`) veya dosyalarda arama yaparken daima önce **İngilizce terimlerle** (Örn: `HardKey`, `Exception`, `KeyCode`) arama yap.
+3. **Veri Kaynağı Referansı (KURAL):** Fiziksel tuşlar, araç VHAL verileri veya CANBUS (RX/TX) iletişimini ilgilendiren herhangi bir konuyu araştırırken referans veri kaynağı olarak kesinlikle `OMODA5_VHAL_RX_TX_TECHNICAL_BOOK.md` dosyasını kullan.
+4. Hatayı tek cümleyle tanımla.
+5. Sadece hatalı satırı/bloğu düzelt — çevresine dokunma.
+6. ÖNCE/SONRA formatında sun.
+7. Kullanıcı onayını bekle.
 
 ---
 
