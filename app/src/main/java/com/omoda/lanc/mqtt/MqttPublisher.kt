@@ -8,7 +8,7 @@ import org.json.JSONObject
 import org.json.JSONArray
 
 class MqttPublisher(
-    private var brokerUrl: String = "tcp://100.95.239.119:1883",
+    private var brokerUrl: String = "tcp://100.121.172.79:1883",
     private val clientId: String = "omoda5-assistant",
     private val mqttUser: String = "mqtthome",
     private val mqttPass: String = "4078"

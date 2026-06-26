@@ -39,6 +39,7 @@ class VoiceAssistantService : Service() {
     private lateinit var assistantController: AssistantController
     private lateinit var vehicleLayer: VehicleLayer
     private lateinit var modelManager: SherpaOfflineModelManager
+    private var wakeWordManager: com.omoda.lanc.stt.WakeWordManager? = null
 
     private var locationManager: LocationManager? = null
 
@@ -129,6 +130,18 @@ class VoiceAssistantService : Service() {
 
         serviceScope.launch(Dispatchers.IO) {
             autoGrantPermissions()
+        }
+
+        // WakeWord Entegrasyonu (Kaynak: omodaassist_v2)
+        wakeWordManager = com.omoda.lanc.stt.WakeWordManager(this) {
+            assistantController.startListening()
+        }
+
+        serviceScope.launch {
+            AssistantApplication.isWakeWordEnabled.collect { enabled ->
+                if (enabled) wakeWordManager?.startListening()
+                else wakeWordManager?.stopListening()
+            }
         }
     }
 

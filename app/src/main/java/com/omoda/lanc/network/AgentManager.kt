@@ -113,6 +113,29 @@ class AgentManager(
                 Log.d("Omoda-Workflow", ">>> [6] STT BAŞARILI: '$text'")
                 onFeedback("Anladım: $text")
 
+                // Mod Geçiş Kontrolleri (Kaynak: omodaassist_v2)
+                val lowerText = text.lowercase()
+                when {
+                    lowerText.contains("sohbet moduna geç") || lowerText.contains("sohbet modu") -> {
+                        AssistantApplication.currentMode.value = "CHAT"
+                        AssistantApplication.saveCurrentConfig()
+                        onSystemResponse("Sohbet moduna geçtim, dinliyorum.", true)
+                        return@transcribe
+                    }
+                    lowerText.contains("asistan moduna dön") || lowerText.contains("asistan modu") -> {
+                        AssistantApplication.currentMode.value = "ASISTANT"
+                        AssistantApplication.saveCurrentConfig()
+                        onSystemResponse("Asistan moduna geçtim.", true)
+                        return@transcribe
+                    }
+                    lowerText.contains("arkaplanı izle") || lowerText.contains("izleme modu") || lowerText.contains("monitör modu") -> {
+                        AssistantApplication.currentMode.value = "MONITOR"
+                        AssistantApplication.saveCurrentConfig()
+                        onSystemResponse("İzleme modundayım, arkaplanda verileri takip edeceğim.", true)
+                        return@transcribe
+                    }
+                }
+
                 // Yerel Komut Kontrolü (CommandRouter)
                 when (val result = commandRouter.analyzeAndExecute(text)) {
                     is CommandResult.Success -> {

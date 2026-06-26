@@ -41,3 +41,8 @@
 - [x] Sürüş sonrası özet ve verimlilik analizi
 - [x] Sert fren ve sürüş skoru hesaplama
 - [x] Trip summary anons entegrasyonu
+
+## Faz 10: Tailscale & UI Polishing (Tamamlandı)
+- [x] Tailscale (TSNet) Entegrasyonu & TLS
+- [x] Saat ve Tarih gösterimi (Launcher)
+- [x] Ayarlar Sayfası (SettingsScreen) Sidebars ve Görsel Güncelleme

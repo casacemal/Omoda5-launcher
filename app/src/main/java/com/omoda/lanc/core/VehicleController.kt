@@ -92,7 +92,6 @@ class VehicleController(private val context: Context) {
             "16200b02" to PropertyDef("Kapı Kilitleri", 5),
             "11400e03" to PropertyDef("Dörtlü Flaşör", 5),
             "11400e00" to PropertyDef("Farlar", 5),
-            "11600305" to PropertyDef("Motor Devri", 2),
             "11600304" to PropertyDef("Motor Yağ Sıc.", 10),
             "1540050b" to PropertyDef("Koltuk Isıtma", 5),
             "15400513" to PropertyDef("Koltuk Soğutma", 5),
@@ -215,7 +214,6 @@ class VehicleController(private val context: Context) {
 
         try {
             val command = carProps.joinToString(" ; ") {
-
                 val zone = when(it) {
                     "15200505", "15400500" -> "117"
                     "13400bc0" -> "65536"
@@ -224,26 +222,14 @@ class VehicleController(private val context: Context) {
                 }
                 "dumpsys car_service get-property-value $it $zone"
             }
-            val proc = Runtime.getRuntime().exec(arrayOf("sh", "-c", command))
             
-            // Standart çıktıyı satır satır oku (en kararlı ve performanslı yöntem)
-            val reader = BufferedReader(InputStreamReader(proc.inputStream))
-            reader.forEachLine { line ->
+            // AdbClient kullanarak yetkili shell üzerinden okuma yap (Kaynak: omodaassist_v2 prensibi)
+            com.omoda.lanc.network.AdbClient.executeCommand(command) { line ->
                 if (AssistantApplication.isBridgeMode.value) {
                     AssistantApplication.mqttPublisher.publishRawVhal(line)
                 }
                 parseAndApplyLine(line)
             }
-
-            // Hata çıktısını oku (yetkilendirme veya kabuk hataları için)
-            val errorReader = BufferedReader(InputStreamReader(proc.errorStream))
-            val errorOutput = errorReader.readText()
-            if (errorOutput.isNotBlank()) {
-                Log.e(TAG, "VHAL stderr output: $errorOutput")
-                AssistantApplication.addLog("VHAL Kabuk Hatası: $errorOutput")
-            }
-
-            proc.waitFor()
         } catch (e: Exception) {
             Log.e(TAG, "readBatch hatası: ${e.message}")
         }

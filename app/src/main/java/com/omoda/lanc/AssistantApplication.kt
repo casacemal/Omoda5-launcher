@@ -17,10 +17,10 @@ class AssistantApplication : Application() {
         val isListening = MutableStateFlow(false)
         val currentAmplitude = MutableStateFlow(0)
         
-        val serverIp = MutableStateFlow("100.99.195.67") // Tailscale placeholder
+        val serverIp = MutableStateFlow("100.121.172.79") // Güncellenmiş Tailscale IP
         val hermesPort = MutableStateFlow("8642")
         val sttPort = MutableStateFlow("8642")
-        val ttsPort = MutableStateFlow("8642") // Hermes v2 unified port (8642)
+        val ttsPort = MutableStateFlow("10201") // Kaynak projedeki port
         
         // Kimlik ve Oturum Yönetimi (Sürüm 5.0)
         val vehicleId = MutableStateFlow("OMODA5_T19C_001")
@@ -29,13 +29,19 @@ class AssistantApplication : Application() {
         // Çalışma Modları (Sürüm 5.0)
         val currentMode = MutableStateFlow("ASISTANT")
         
-        val sttMode = MutableStateFlow("BULUT") // Varsayılan: Groq (BULUT)
-        val ttsEngine = MutableStateFlow("EDGE") // Varsayılan: Edge TTS
+        val sttMode = MutableStateFlow("BULUT") // Kaynak projedeki mod
+        val ttsEngine = MutableStateFlow("EDGE") // Kaynak projedeki motor
         
-        val useHermesSpeech = MutableStateFlow(false)
+        // Tailscale (TSNet) Yapılandırması
+        val tailscaleKey = MutableStateFlow("tskey-auth-kc4mkwRGiw11CNTRL-kQYBK24x1PEnxoYRF3BoGEQAZRzMMhDWb")
+        val tailscaleStatus = MutableStateFlow("Bilinmiyor")
+        val isTailscaleEnabled = MutableStateFlow(true)
+        val useTls = MutableStateFlow(true)
+        
+        val useHermesSpeech = MutableStateFlow(true)
         val isOnlineMode = MutableStateFlow(true)
         val isContinuousConversation = MutableStateFlow(true)
-        val isWakeWordEnabled = MutableStateFlow(false)
+        val isWakeWordEnabled = MutableStateFlow(true)
         val micSource = MutableStateFlow("VOICE_RECOGNITION")
 
         // MQTT Simülatör ve Köprü
@@ -175,4 +181,3 @@ class AssistantApplication : Application() {
         }
     }
 }
-

@@ -11,7 +11,9 @@ class ConfigManager(val context: Context) {
     fun loadConfig(): AppConfig {
         return if (configFile.exists()) {
             try {
-                gson.fromJson(configFile.readText(), AppConfig::class.java) ?: AppConfig()
+                val encryptedText = configFile.readText()
+                val plainText = decrypt(encryptedText)
+                gson.fromJson(plainText, AppConfig::class.java) ?: AppConfig()
             } catch (e: Exception) {
                 AppConfig()
             }
@@ -22,9 +24,31 @@ class ConfigManager(val context: Context) {
 
     fun saveConfig(config: AppConfig) {
         try {
-            configFile.writeText(gson.toJson(config))
+            val plainText = gson.toJson(config)
+            val encryptedText = encrypt(plainText)
+            configFile.writeText(encryptedText)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    // Basit XOR tabanlı şifreleme ve Base64 (Kaynak: omoda_v2 güvenlik protokolü)
+    private fun encrypt(input: String): String {
+        val key = "omoda4078"
+        val output = StringBuilder()
+        for (i in input.indices) {
+            output.append((input[i].code xor key[i % key.length].code).toChar())
+        }
+        return android.util.Base64.encodeToString(output.toString().toByteArray(), android.util.Base64.DEFAULT)
+    }
+
+    private fun decrypt(input: String): String {
+        val decoded = String(android.util.Base64.decode(input, android.util.Base64.DEFAULT))
+        val key = "omoda4078"
+        val output = StringBuilder()
+        for (i in decoded.indices) {
+            output.append((decoded[i].code xor key[i % key.length].code).toChar())
+        }
+        return output.toString()
     }
 }

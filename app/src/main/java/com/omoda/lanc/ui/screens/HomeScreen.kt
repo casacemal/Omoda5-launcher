@@ -145,6 +145,9 @@ fun HomeScreenContent(
 ) {
     val context = androidx.compose.ui.platform.LocalContext.current
     var showSafetyDialog by remember { mutableStateOf(false) }
+    var showDecisionLockDialog by remember { mutableStateOf(false) }
+    var pendingDecisionToggle by remember { mutableStateOf(false) }
+    
     val backgroundBrush = Brush.verticalGradient(
         colors = if (isListening) {
             listOf(Color(0xFF0F201D), Color(0xFF0D0F10)) // Hint of teal when listening
@@ -204,7 +207,10 @@ fun HomeScreenContent(
                 onTtsEngineChange = onTtsEngineChange,
                 onUseHermesSpeechChange = onUseHermesSpeechChange,
                 onToggleContinuous = onToggleContinuous,
-                onToggleHermesDecision = onToggleHermesDecision,
+                onToggleHermesDecision = {
+                    pendingDecisionToggle = it
+                    showDecisionLockDialog = true
+                },
                 onMicSourceChange = onMicSourceChange,
                 onModeChange = onModeChange,
                 onCheckModels = {
@@ -228,7 +234,68 @@ fun HomeScreenContent(
                 }
             )
         }
+
+        if (showDecisionLockDialog) {
+            DecisionEngineLockDialog(
+                onDismiss = { showDecisionLockDialog = false },
+                onSuccess = {
+                    onToggleHermesDecision(pendingDecisionToggle)
+                }
+            )
+        }
     }
+}
+
+@Composable
+fun DecisionEngineLockDialog(onDismiss: () -> Unit, onSuccess: () -> Unit) {
+    var password by remember { mutableStateOf("") }
+    var errorText by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Karar Motoru Kilidi", color = Color(0xFF69E2D3)) },
+        text = {
+            Column {
+                Text("Akıllı Karar Motoru (Hermes) ayarlarını değiştirmek için yetkilendirme gereklidir.", color = Color.LightGray)
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { 
+                        password = it
+                        errorText = ""
+                    },
+                    label = { Text("Yönetici Şifresi") },
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color(0xFF69E2D3),
+                        focusedLabelColor = Color(0xFF69E2D3)
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                )
+                if (errorText.isNotEmpty()) {
+                    Text(errorText, color = Color.Red, fontSize = 12.sp, modifier = Modifier.padding(top = 4.dp))
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = {
+                if (password == "4078") {
+                    onSuccess()
+                    onDismiss()
+                } else {
+                    errorText = "Hatalı şifre!"
+                }
+            }) {
+                Text("KİLİDİ AÇ", color = Color(0xFF69E2D3))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("İPTAL", color = Color.Gray)
+            }
+        },
+        containerColor = Color(0xFF111315)
+    )
 }
 
 @Composable
