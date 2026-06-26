@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main" ignore_pattern="sherpa_stt:sherpa_tts:models"><source path="/mnt/depo/launcher_v2/app/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="sherpa_stt:sherpa_tts:models"><source path="/mnt/depo/launcher_v2/app/src/debug/assets"/></dataSet><dataSet config="generated" ignore_pattern="sherpa_stt:sherpa_tts:models"><source path="/mnt/depo/launcher_v2/app/build/intermediates/shader_assets/debug/out"/></dataSet></merger>
