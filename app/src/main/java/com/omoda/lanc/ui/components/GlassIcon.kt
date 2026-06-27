@@ -32,17 +32,45 @@ fun GlassIcon(
     onLongClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
+    val isMobile = screenWidth < 600
+    val isSmallTablet = screenWidth < 1100 && screenWidth >= 600
     
+    val iconSize = when {
+        isMobile -> 56.dp
+        isSmallTablet -> 100.dp
+        else -> 143.dp
+    }
+    val containerWidth = when {
+        isMobile -> 72.dp
+        isSmallTablet -> 140.dp
+        else -> 208.dp
+    }
+    val fontSize = when {
+        isMobile -> 11.sp
+        isSmallTablet -> 14.sp
+        else -> 18.sp
+    }
+
     Column(
         modifier = Modifier
-            .width(208.dp) // 160 * 1.3 = 208
-            .padding(vertical = 12.dp),
+            .width(containerWidth)
+            .padding(vertical = when {
+                isMobile -> 4.dp
+                isSmallTablet -> 6.dp
+                else -> 12.dp
+            }),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
-                .size(143.dp) // 110 * 1.3 = 143
-                .clip(RoundedCornerShape(28.dp)) // Corner radius da orantılı büyütüldü
+                .size(iconSize)
+                .clip(RoundedCornerShape(when {
+                    isMobile -> 12.dp
+                    isSmallTablet -> 20.dp
+                    else -> 28.dp
+                }))
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = { onClick() },
@@ -69,11 +97,11 @@ fun GlassIcon(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = item.title,
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = fontSize,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center,
             maxLines = 1,

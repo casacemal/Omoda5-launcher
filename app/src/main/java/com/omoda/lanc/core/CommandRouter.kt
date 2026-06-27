@@ -38,7 +38,7 @@ class CommandRouter(
             val derece = match.groups["derece"]?.value?.toIntOrNull()
             if (derece != null) {
                 if (!ruleEngine.isCommandAllowed("set_hvac_temp")) return CommandResult.Blocked("Sürüş güvenliği nedeniyle şu an yapılamaz.")
-                val res = actionExecutor.execute("set_hvac_temp", "{\"temperature\": $derece}")
+                actionExecutor.execute("set_hvac_temp", "{\"temperature\": $derece}")
                 return CommandResult.Success("Klimayı $derece dereceye ayarlıyorum.")
             }
         }

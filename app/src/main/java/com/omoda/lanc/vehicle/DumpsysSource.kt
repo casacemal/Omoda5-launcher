@@ -9,35 +9,38 @@ class DumpsysSource : VehicleSource {
 
     override fun getSpeed(): Float? {
         val dump = getOrRefreshDump()
-        return extractValue(dump, "speed")?.filter { it.isDigit() || it == '.' }?.toFloatOrNull()
+        // 0x11600207 (VEHICLE_SPEED) ara
+        return extractById(dump, "0x11600207")?.toFloatOrNull()
     }
 
     override fun getGear(): Int? {
         val dump = getOrRefreshDump()
-        return extractValue(dump, "gear_selection")?.toIntOrNull()
+        // 0x21402006 (GEAR_SELECTION) ara
+        return extractById(dump, "0x21402006")?.toIntOrNull()
     }
 
     fun getEngineRunning(): Boolean {
         val dump = getOrRefreshDump()
-        val valStr = extractValue(dump, "engine_running") ?: extractValue(dump, "ignition_state")
-        return valStr?.contains("true", ignoreCase = true) == true || valStr == "1" || valStr?.contains("ON", ignoreCase = true) == true
+        // 0x11400301 (IGNITION_STATE)
+        val valStr = extractById(dump, "0x11400301")
+        return valStr == "1" || valStr?.contains("true", ignoreCase = true) == true
     }
 
     override fun getFuelLevel(): Float? {
         val dump = getOrRefreshDump()
-        return extractValue(dump, "fuel_level")?.filter { it.isDigit() || it == '.' }?.toFloatOrNull()
+        // 0x11600307 (FUEL_LEVEL)
+        return extractById(dump, "0x11600307")?.toFloatOrNull()
     }
 
     override fun isAnyDoorOpen(): Boolean? {
         val dump = getOrRefreshDump()
-        // Check for any door open property
-        val doorLines = dump.lines().filter { it.contains("door", ignoreCase = true) && it.contains("open", ignoreCase = true) }
-        return if (doorLines.isEmpty()) null else doorLines.any { it.contains("true", ignoreCase = true) || it.contains(" 1") }
+        // Herhangi bir kapı açık mı kontrol et (basit check)
+        return dump.contains("DOOR_OPEN=true", ignoreCase = true) || dump.contains("21402000): 1")
     }
 
     private fun getOrRefreshDump(): String {
         val now = System.currentTimeMillis()
-        if (now - lastTime < 1000 && lastDump.isNotEmpty()) {
+        if (now - lastTime < 2000 && lastDump.isNotEmpty()) {
             return lastDump
         }
 
@@ -57,21 +60,22 @@ class DumpsysSource : VehicleSource {
         }
     }
 
-    private fun extractValue(dump: String, property: String): String? {
+    private fun extractById(dump: String, propId: String): String? {
         if (dump.isEmpty()) return null
         val lines = dump.lines()
         for (line in lines) {
-            if (line.contains(property, ignoreCase = true)) {
-                val parts = if (line.contains(":")) line.split(":") else line.split("=")
-                if (parts.size > 1) {
-                    return parts[1].trim().split(" ")[0].trim(',')
+            if (line.contains(propId, ignoreCase = true)) {
+                // AAOS dump formatı: "[ID]: VALUE (TYPE) at ..." veya "ID=VALUE"
+                val regex = Regex("$propId[):]\\s*([^\\s(]+)")
+                val match = regex.find(line)
+                if (match != null) return match.groupValues[1].trim()
+                
+                // Fallback: value=X formatı
+                if (line.contains("=")) {
+                    return line.substringAfter("=").trim().split(" ")[0].trim(',')
                 }
             }
         }
         return null
-    }
-
-    private fun extractSpeed(dump: String): Float? {
-        return extractValue(dump, "speed")?.filter { it.isDigit() || it == '.' }?.toFloatOrNull()
     }
 }

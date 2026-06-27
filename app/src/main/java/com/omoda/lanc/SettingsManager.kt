@@ -54,4 +54,8 @@ class SettingsManager(context: Context) {
     var isAutoTasksEnabled: Boolean
         get() = prefs.getBoolean("auto_tasks_enabled", true)
         set(value) = prefs.edit().putBoolean("auto_tasks_enabled", value).apply()
+
+    var wallpaperIdx: Int
+        get() = prefs.getInt("wallpaper_idx", 0)
+        set(value) = prefs.edit().putInt("wallpaper_idx", value).apply()
 }

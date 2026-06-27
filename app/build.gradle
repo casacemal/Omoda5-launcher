@@ -3,6 +3,20 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def versionPropsFile = file('version.properties')
+def versionProps = new Properties()
+if (versionPropsFile.exists()) {
+    versionProps.load(new FileInputStream(versionPropsFile))
+} else {
+    versionProps['VERSION_CODE'] = '1'
+    versionProps['VERSION_NAME'] = '1.0.0'
+    versionProps['BUILD_DATE'] = '-'
+    versionProps.store(new FileOutputStream(versionPropsFile), null)
+}
+
+def vCode = versionProps['VERSION_CODE'].toInteger()
+def vName = versionProps['VERSION_NAME']
+
 android {
     namespace 'com.omoda.lanc'
     compileSdk 34
@@ -11,8 +25,8 @@ android {
         applicationId "com.omoda.lanc"
         minSdk 29
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode vCode
+        versionName vName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,12 +36,18 @@ android {
         ndk {
             abiFilters 'arm64-v8a'
         }
+
+        buildConfigField "String", "BUILD_DATE", "\"${versionProps['BUILD_DATE']}\""
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BUILD_DATE", "\"${versionProps['BUILD_DATE']}\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BUILD_DATE", "\"${versionProps['BUILD_DATE']}\""
         }
     }
     compileOptions {
@@ -39,6 +59,7 @@ android {
     }
     buildFeatures {
         compose true
+        buildConfig true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.3'
@@ -50,6 +71,43 @@ android {
     }
     aaptOptions {
         ignoreAssetsPattern "sherpa_stt:sherpa_tts:models"
+    }
+}
+
+// Her başarılı build işleminden sonra versiyon kodunu otomatik artır ve APK kopyala
+tasks.register('incrementVersionCodeAndCopyApk') {
+    doLast {
+        def versionPropsFileInner = file('version.properties')
+        def versionPropsInner = new Properties()
+        versionPropsInner.load(new FileInputStream(versionPropsFileInner))
+
+        def currentCode = versionPropsInner['VERSION_CODE'].toInteger()
+        def newCode = currentCode + 1
+
+        versionPropsInner['VERSION_CODE'] = newCode.toString()
+        versionPropsInner['BUILD_DATE'] = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm").format(new Date())
+        versionPropsInner.store(new FileOutputStream(versionPropsFileInner), null)
+
+        println "Versiyon Kodu Artırıldı: $newCode"
+
+        // APK Kopyalama İşlemi
+        def apkFile = file("build/outputs/apk/debug/app-debug.apk")
+        if (apkFile.exists()) {
+            def destinationDir = file("build/outputs/apk/debug/history")
+            if (!destinationDir.exists()) destinationDir.mkdirs()
+
+            def newApkName = "app-debugV${currentCode}.apk"
+            def destinationFile = new File(destinationDir, newApkName)
+            java.nio.file.Files.copy(apkFile.toPath(), destinationFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+            println "APK Kopyalandı: ${destinationFile.absolutePath}"
+        }
+    }
+}
+
+// Build tamamlandığında otomatik çalıştır
+afterEvaluate {
+    tasks.named("assembleDebug").configure {
+        finalizedBy incrementVersionCodeAndCopyApk
     }
 }
 
@@ -74,6 +132,11 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
     implementation 'com.squareup.okhttp3:okhttp-sse:4.12.0'
     implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5"
+
+    // Tailscale TSNet (Go-based SDK via JNA/AAR)
+    // Note: In a real project, we'd use a specific AAR or library.
+    // For now, I'll assume we are using the official tailscale-android approach or a placeholder if not directly available.
+    // implementation 'com.tailscale:tailscale-android:1.56.1'
 
     implementation 'net.java.dev.jna:jna:5.13.0@aar'
     implementation 'ai.picovoice:porcupine-android:3.0.1'

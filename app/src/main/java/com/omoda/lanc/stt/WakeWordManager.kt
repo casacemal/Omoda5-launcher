@@ -75,13 +75,26 @@ class WakeWordManager(
                     val text = transcribeWithGroq(audioData)
                     if (text != null) {
                         val lowerText = text.lowercase().trim()
-                        Log.d(TAG, "STT: \"$lowerText\"")
+                        
+                        // Sürüm 7.0: Ultra-Gelişmiş Halüsinasyon Filtresi (Omoda Özel)
+                        val hallucinationPatterns = listOf(
+                            "altyazı", "abone", "teşekkür", "viewing", "morris", 
+                            "jeong", "yönetmen", "m.k.", "m k", "evet.", "hadi."
+                        )
+                        
+                        val isHallucination = lowerText.isBlank() || 
+                                              lowerText.length < 3 ||
+                                              hallucinationPatterns.any { lowerText.contains(it) }
 
-                        if (lowerText.contains(WAKE_WORD)) {
-                            // Wake word bulundu, komutu çıkar
-                            val command = extractCommand(lowerText)
-                            Log.i(TAG, "Wake Word algılandı! Komut: \"$command\"")
-                            onWakeWordDetected(command)
+                        if (!isHallucination) {
+                            Log.d(TAG, "STT: \"$lowerText\"")
+
+                            if (lowerText.contains(WAKE_WORD)) {
+                                // Wake word bulundu, komutu çıkar
+                                val command = extractCommand(lowerText)
+                                Log.i(TAG, "Wake Word algılandı! Komut: \"$command\"")
+                                onWakeWordDetected(command)
+                            }
                         }
                     }
                 }
@@ -122,9 +135,9 @@ class WakeWordManager(
                 .addFormDataPart("language", "tr")
                 .build()
 
-            val apiKey = AssistantApplication.groqApiKey
+            val apiKey = AssistantApplication.groqApiKey.value
             val request = Request.Builder()
-                .url("https://api.groq.com/openai/v1/audio/transcriptions")
+                .url("${AssistantApplication.GROQ_BASE_URL}/audio/transcriptions")
                 .addHeader("Authorization", "Bearer $apiKey")
                 .post(requestBody)
                 .build()

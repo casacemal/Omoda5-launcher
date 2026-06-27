@@ -27,7 +27,7 @@
             android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🎙️ Dinleniyor..."
+            android:text="@string/listening"
             android:textColor="#69E2D3"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -38,6 +38,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonBarStyle"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="16dp">
@@ -47,7 +48,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="DURDUR"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/stop"
             android:backgroundTint="#FF4444"
             android:textColor="#FFFFFF"
             android:layout_marginEnd="8dp"
@@ -57,7 +59,8 @@
             android:id="@+id/btnCloseOverlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="KAPAT"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/close"
             android:textSize="12sp"
             android:backgroundTint="#555555"
             android:textColor="#FFFFFF" />

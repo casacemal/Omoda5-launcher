@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.os.Build
 import android.util.Log
 import com.omoda.lanc.AssistantApplication
 import java.io.File
@@ -15,7 +16,7 @@ import kotlin.concurrent.thread
  * Online modda AAC/M4A, Lokal modda (Sherpa) RAW PCM kaydeder.
  */
 class SttManager(private val context: Context, private val onRecordingFinished: (String) -> Unit) {
-    private val TAG = "Hermes-SttManager"
+    private val tag = "Hermes-SttManager"
     private var mediaRecorder: MediaRecorder? = null
     private var audioRecord: AudioRecord? = null
     private var isRecordingRaw = false
@@ -33,7 +34,12 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
     private fun startMediaRecording() {
         try {
             val source = getAudioSource()
-            mediaRecorder = MediaRecorder().apply {
+            mediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                MediaRecorder(context)
+            } else {
+                @Suppress("DEPRECATION")
+                MediaRecorder()
+            }.apply {
                 setAudioSource(source)
                 setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                 setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
@@ -43,9 +49,9 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
                 prepare()
                 start()
             }
-            Log.i(TAG, "Media recording started (16kHz AAC): ${audioFile.absolutePath}")
+            Log.i(tag, "Media recording started (16kHz AAC): ${audioFile.absolutePath}")
         } catch (e: Exception) {
-            Log.e(TAG, "Media Recording Error: ${e.message}")
+            Log.e(tag, "Media Recording Error: ${e.message}")
             AssistantApplication.addLog("Kayıt Hatası: ${e.message}")
         }
     }
@@ -62,7 +68,7 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
                 sampleRate,
                 channelConfig,
                 audioFormat,
-                bufferSize
+                bufferSize,
             )
 
             isRecordingRaw = true
@@ -79,9 +85,9 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
                     }
                 }
             }
-            Log.i(TAG, "Raw recording started: ${rawFile.absolutePath}")
+            Log.i(tag, "Raw recording started: ${rawFile.absolutePath}")
         } catch (e: Exception) {
-            Log.e(TAG, "Raw Recording Error: ${e.message}")
+            Log.e(tag, "Raw Recording Error: ${e.message}")
         }
     }
 
@@ -109,7 +115,7 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
                     release()
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Stop Error: ${e.message}")
+                Log.e(tag, "Stop Error: ${e.message}")
             } finally {
                 mediaRecorder = null
                 onRecordingFinished(audioFile.absolutePath)

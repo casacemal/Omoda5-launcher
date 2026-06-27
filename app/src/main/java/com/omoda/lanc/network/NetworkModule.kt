@@ -17,21 +17,14 @@ object NetworkModule {
     }
 
     val robustClient = OkHttpClient.Builder()
-        .readTimeout(0, TimeUnit.MILLISECONDS) 
+        .readTimeout(30, TimeUnit.SECONDS) 
         .connectTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
         .retryOnConnectionFailure(true)
         .addInterceptor(loggingInterceptor)
         .addInterceptor(object : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
-                val originalRequest = chain.request()
-                
-                // Idempotency-Key eklenmiş builder
-                val builder = originalRequest.newBuilder()
-                if (originalRequest.method == "POST" || originalRequest.method == "PUT") {
-                    builder.addHeader("Idempotency-Key", "req-${System.currentTimeMillis()}")
-                }
-                val request = builder.build()
-
+                val request = chain.request()
                 var response: Response? = null
                 var lastException: Exception? = null
                 var tryCount = 0
@@ -42,7 +35,7 @@ object NetworkModule {
                         response?.close()
                         if (tryCount > 0) {
                             Log.w(TAG, "Bağlantı hatası, tekrar deneniyor... Deneme: $tryCount")
-                            Thread.sleep(2000)
+                            Thread.sleep(1000)
                         }
                         response = chain.proceed(request)
                     } catch (e: Exception) {
@@ -51,7 +44,7 @@ object NetworkModule {
                     tryCount++
                 }
 
-                return response ?: throw lastException ?: Exception("Ağ hatası: Tailscale veya Hermes Gateway bağlantısı kurulamadı.")
+                return response ?: throw lastException ?: Exception("Ağ hatası: Sunucuya bağlanılamadı.")
             }
         })
         .build()

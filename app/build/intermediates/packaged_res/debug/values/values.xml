@@ -123,4 +123,7 @@
     <color name="tooltip_background_light">#e6ffffff</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">Universal AAOS Assistant</string>
+    <string name="close">KAPAT</string>
+    <string name="listening">🎙️ Dinleniyor…</string>
+    <string name="stop">DURDUR</string>
 </resources>

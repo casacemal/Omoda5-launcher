@@ -46,3 +46,8 @@
 - [x] Tailscale (TSNet) Entegrasyonu & TLS
 - [x] Saat ve Tarih gösterimi (Launcher)
 - [x] Ayarlar Sayfası (SettingsScreen) Sidebars ve Görsel Güncelleme
+
+## Faz 11: Wallpaper & Personalization (Tamamlandı)
+- [x] Yerel duvar kağıdı kütüphanesi oluşturuldu
+- [x] Anasayfa üzerinden hızlı değişim butonu entegrasyonu
+- [x] Duvar kağıdı tercihinin SharedPreferences ile kalıcı hale getirilmesi

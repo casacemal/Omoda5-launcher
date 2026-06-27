@@ -1,12 +1,12 @@
 package com.omoda.lanc.config
 
 data class AppConfig(
-    val serverIp: String = "100.121.172.79",
+    val serverIp: String = "100.95.239.119",
     val hermesPort: String = "8642",
     val sttPort: String = "8642",
-    val ttsPort: String = "8642",
-    val sttMode: String = "HERMES",
-    val ttsEngine: String = "HERMES",
+    val ttsPort: String = "10201",
+    val sttMode: String = "BULUT",
+    val ttsEngine: String = "EDGE",
     val useHermesSpeech: Boolean = true,
     val isContinuousConversation: Boolean = true,
     val isWakeWordEnabled: Boolean = true,

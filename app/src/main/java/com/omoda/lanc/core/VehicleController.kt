@@ -220,7 +220,9 @@ class VehicleController(private val context: Context) {
                     "16200b02", "1540050b", "15400513" -> "1"
                     else -> "0"
                 }
-                "dumpsys car_service get-property-value $it $zone"
+                // ID'leri 0x önekiyle gönder (AAOS standartı)
+                val cleanId = it.replace("0x", "")
+                "dumpsys car_service get-property-value 0x$cleanId $zone"
             }
             
             // AdbClient kullanarak yetkili shell üzerinden okuma yap (Kaynak: omodaassist_v2 prensibi)

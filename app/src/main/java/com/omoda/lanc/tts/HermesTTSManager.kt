@@ -79,12 +79,13 @@ class HermesTTSManager(private val context: Context) : TTSManager {
                 
                 // Sürüm 6.1: Edge TTS için evrensel token ve URL yapısı (Guide v2 uyumlu)
                 // Edge için de Hermes Gateway (baseUrl) kullanılır, çünkü Gateway proxy görevi görür.
-                val finalBaseUrl = baseUrl.removeSuffix("/")
-
+                // Not: /v2 gateway tarafından yönetilir, bu yüzden base URL içindeki /v2 veya /v1 eklerini temizleyip
+                // asıl endpoint'i manuel ekliyoruz.
+                val base = baseUrl.removeSuffix("/").replace("/v2", "").replace("/v1", "")
                 val voice = if (isEdge) "edge" else "alloy"
                 
                 // URL Oluşturma: Edge için query param + token yapısı
-                val urlBuilder = StringBuilder("$finalBaseUrl/audio/speech")
+                val urlBuilder = StringBuilder("$base/v2/audio/speech")
                 if (isEdge) {
                     urlBuilder.append("?input=").append(URLEncoder.encode(sanitizedText, "UTF-8"))
                     urlBuilder.append("&model=tts-1")

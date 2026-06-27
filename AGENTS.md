@@ -12,6 +12,11 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
 ## Teknik Kısıtlar (Kesin Kurallar)
 
 *   **API Seviyesi:** Sadece API 29 (Android 10 - AAOS) uyumlu kod yazılacak.
+*   **Ağ Yapılandırması (DONDURULDU):** Aşağıdaki IP ve Port bilgileri KESİNLİKLE değiştirilemez (Kullanıcı onayı olmadan):
+    *   `Server IP`: `100.95.239.119` (Hermes Gateway)
+    *   `Hermes/STT Port`: `8642`
+    *   `TTS Port`: `10201`
+    *   `Protokol`: HTTP (Tailscale üzerinden proxy yapıldığı için)
 *   **Disk Önceliği:** Kodlar önce fiziksel dosyaya yazılacak.
 *   **Onay Mekanizması:** Gradle/ADB işlemleri için kullanıcıdan "EVET" beklenecek.
 *   **Hızlı Yükleme:** Sürekli tam build yapmak yerine, sadece kod değişikliklerini uygulamak için (mümkünse) "Apply Changes" (CTRL+F10) tercih edilecek.

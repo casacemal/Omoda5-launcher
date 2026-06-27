@@ -22,7 +22,8 @@ Aşağıdaki tablo, projedeki dosyaların sorumluluklarını ve veri akışını
 
 
 ## Kritik Dosyalar
-*   `MainActivity.kt`: Ana giriş noktası, UI yönetimi ve ADB görevleri. (GÜNCELLENDİ: Saat/Tarih gösterimi ve dinamik ekran uyumluluğu eklendi.)
+*   `MainActivity.kt`: Ana giriş noktası, UI yönetimi ve ADB görevleri. (GÜNCELLENDİ: Duvar kağıdı hızlı değişim butonu ve kalıcı tema desteği eklendi.)
+*   `SettingsManager.kt`: Uygulama ayarlarını ve duvar kağıdı tercihini SharedPreferences üzerinde tutar.
 *   `SettingsScreen.kt`: Gelişmiş ayarlar ekranı. (GÜNCELLENDİ: Sidebars ve Tailscale/TSNet ayarları eklendi.)
 *   `AssistantApplication.kt`: Global state yönetimi. (GÜNCELLENDİ: Tailscale/TSNet altyapı verileri eklendi.)
 *   `AgentManager.kt`: AI bağlam yönetimi ve LLM iletişimi. (GÜNCELLENDİ: GPS, Uygulamalar ve Cihaz bilgileri eklendi.)

@@ -11,18 +11,35 @@ import java.io.InputStreamReader
 class CarSource(private val context: Context) : VehicleSource {
 
     override fun getSpeed(): Float? {
-        // Property ID 291504647 (VEHICLE_SPEED)
+        // Property ID 0x11600207 (VEHICLE_SPEED)
         return try {
-            val output = executeDumpsys("291504647")
-            // Output format: "Property: 291504647, status: 0, timestamp: ..., value: 0.0"
-            output?.substringAfter("value:")?.trim()?.toFloatOrNull()
+            val output = executeDumpsys("0x11600207")
+            extractValue(output ?: "")?.toFloatOrNull()
         } catch (e: Exception) {
             null
         }
     }
 
-    override fun getGear(): Int? = null
-    override fun getFuelLevel(): Float? = null
+    override fun getGear(): Int? {
+        // Property ID 0x21402006 (GEAR_SELECTION)
+        return try {
+            val output = executeDumpsys("0x21402006")
+            extractValue(output ?: "")?.toIntOrNull()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    override fun getFuelLevel(): Float? {
+        // Property ID 0x11600307 (FUEL_LEVEL)
+        return try {
+            val output = executeDumpsys("0x11600307")
+            extractValue(output ?: "")?.toFloatOrNull()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     override fun isAnyDoorOpen(): Boolean? = null
 
     private fun executeDumpsys(propId: String): String? {
@@ -33,5 +50,11 @@ class CarSource(private val context: Context) : VehicleSource {
         } catch (e: Exception) {
             null
         }
+    }
+
+    private fun extractValue(line: String): String? {
+        // AAOS dumpsys formatını destekleyen regex: value:[...] veya floatValues:[...] veya int32Values:[...]
+        val regex = Regex("(?i)(?:value|floatValues|int32Values)[s]?[:=]\\s*\\[([^]]*)]")
+        return regex.find(line)?.groupValues?.get(1)?.trim()
     }
 }

@@ -13,8 +13,31 @@
 *   **Faz 9: Driving Analysis Engine:** Sürüş verilerini takip eden ve sürüş sonunda özet (süre, mesafe, skor) sunan analiz motoru entegre edildi. Sert fren tespiti ve sürüş puanlama mantığı eklendi. Sürüş bitiminde asistan artık otomatik olarak sürüş özetini anons ediyor.
 *   **Kod Temizliği ve Optimizasyon:** `Problems` sekmesindeki tüm kritik uyarılar (deprecated API kullanımı, gereksiz constructor parametreleri, hardcoded stringler) giderildi. AndroidManifest dosyasında API 29 uyumluluğu için düzenlemeler yapıldı.
 *   **Ekran Uyumluluğu:** Xiaomi Mi 13 ve dar ekranlı cihazlar için dinamik grid ve ölçeklendirme mantığı eklendi.
+*   **Duvar Kağıdı Yönetimi:** Wallpaper klasöründeki resimler projeye dahil edildi, anasayfaya hızlı değişim butonu eklendi ve seçimler kalıcı hale getirildi.
+*   **Asistan STT Yapılandırması:** Varsayılan STT modu "BULUT" (Groq) olarak ayarlandı ve 401 hataları için log iyileştirmesi yapıldı.
+*   **Ağ Yapılandırması (REVERT & FIX):** Yanlışlıkla yerel IP'ye yönlendirilen Groq ve Cloud TTS URL'leri orijinal internet adreslerine (`api.groq.com`, `api.openai.com`) geri döndürüldü.
+*   **Bağlantı Sorunu Çözüldü:** Yerel sunucu (119) üzerindeki `8642` portu için yanlış eklenen `/v2/` path'i temizlendi, orijinal Hermes API standartlarına dönüldü.
+*   **WakeWord & STT İyileştirmesi:** "altyazı m.k." gibi fısıltı/gürültü kaynaklı halüsinasyonlar için filtre eklendi.
+*   **ADB Bridge Fix:** ADB handshake başarısız olduğunda sistem izinleri için otomatik fallback mekanizması düzeltildi.
+*   **Jest Yönetimi İyileştirmesi:** AAOS standartlarına uygun geri (kenardan sağa çekme) ve ana sayfa (alttan yukarı çekme) jestleri `MainActivity` düzeyinde optimize edildi.
+*   **VHAL Hata Giderimi:** `dumpsys` üzerinden okunan araç verilerinin (hız, vites vb.) 0'da takılı kalma sorunu giderildi. Property ID'lerine `0x` öneki eklendi ve Semidrive T9 formatına uygun regex tabanlı yeni parserlar (`CarSource`, `DumpsysSource`) devreye alındı.
+*   **Kod Standartları:** `ActionExecutor` içindeki lint uyarıları giderildi.
+*   **Mobil Uyumluluk:** Uygulama arayüzü 6 inç cep telefonlarına ve küçük ekranlı cihazlara uyumlu hale getirildi. Dinamik grid, ölçeklenebilir ikonlar ve adaptif padding mantığı eklendi.
 
 ## Tamamlananlar
+*   [x] `MainActivity` ve `HomeScreen` mobil cihazlar için dinamik layout desteğine kavuşturuldu.
+*   [x] `GlassIcon` bileşeni küçük ekranlarda okunabilirliği koruyacak şekilde ölçeklendirildi.
+*   [x] `MediaControlWidget` mobil ekran genişliklerine göre yeniden yapılandırıldı.
+*   [x] `ActionExecutor` TAG değişkeni isimlendirme hatası düzeltildi.
+*   [x] `VehicleController` toplu okuma komutları `0x` hex formatına dönüştürüldü.
+*   [x] `CarSource` ve `DumpsysSource` sınıfları Semidrive T9 / AAOS 10 dump formatına göre modernize edildi.
+*   [x] Wallpaper klasöründeki 4 adet resim (`wp_purple`, `wp_flare`, `wp_red`, `wp_nature`) `res/drawable` altına taşındı.
+*   [x] `SettingsManager`'a `wallpaperIdx` özelliği eklenerek seçilen duvar kağıdının kalıcı olması sağlandı.
+*   [x] `MainActivity` Launcher grid'ine "Duvar Kağıdı" ikonu eklendi.
+*   [x] Tıklama ile dinamik duvar kağıdı değişimi (dahili + harici /sdcard/Omoda/Wallpapers) optimize edildi.
+*   [x] Proje temizliği yapıldı: Gereksiz dosyalar (loglar, scriptler, Claude yedekleri) ARCHIVE klasörüne taşındı.
+*   [x] Kullanılmayan kaynak kodları (Stub/Test sınıfları) temizlendi.
+*   [x] Derleme testi yapıldı (app:assembleDebug) - Başarılı.
 *   [x] Karar Motoru (Hermes) ayarları şifreli kilit altına alındı (Şifre: 4078).
 *   [x] Uygulama konfigürasyon dosyası (app_config.json) XOR+Base64 ile şifrelendi.
 *   [x] MQTT Sunucu IP'si 100.121.172.79 olarak güncellendi.

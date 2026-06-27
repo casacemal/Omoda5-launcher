@@ -67,6 +67,7 @@ class AudioEngine(private val context: Context) {
             val request = AudioFocusRequest.Builder(gainType)
                 .setAudioAttributes(attributes)
                 .setAcceptsDelayedFocusGain(true)
+                .setWillPauseWhenDucked(false) // Ducking sırasında komple susturma
                 .setOnAudioFocusChangeListener { focusChange ->
                     handleFocusChange(priority, focusChange)
                 }

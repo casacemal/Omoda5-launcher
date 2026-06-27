@@ -27,6 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.omoda.lanc.AssistantApplication
 import com.omoda.lanc.core.VehicleController
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,6 +46,12 @@ fun SettingsScreen(onBack: () -> Unit) {
     val vehicleId by AssistantApplication.vehicleId.collectAsState()
     val sessionKey by AssistantApplication.sessionKey.collectAsState()
     val pollingConfig by AssistantApplication.vehiclePollingConfig.collectAsState()
+    
+    // Tailscale States
+    val tailscaleKey by AssistantApplication.tailscaleKey.collectAsState()
+    val tailscaleStatus by AssistantApplication.tailscaleStatus.collectAsState()
+    val isTailscaleEnabled by AssistantApplication.isTailscaleEnabled.collectAsState()
+    val useTls by AssistantApplication.useTls.collectAsState()
 
     var ipInput by remember { mutableStateOf(serverIp) }
     var hermesPortInput by remember { mutableStateOf(hermesPort) }
@@ -52,6 +61,14 @@ fun SettingsScreen(onBack: () -> Unit) {
     var vehicleIdInput by remember { mutableStateOf(vehicleId) }
     var sessionKeyInput by remember { mutableStateOf(sessionKey) }
     var showSensorDialog by remember { mutableStateOf(false) }
+
+    var currentTime by remember { mutableStateOf("") }
+    LaunchedEffect(Unit) {
+        while (true) {
+            currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+            delay(1000)
+        }
+    }
 
     val tiers = listOf(2, 5, 10, 0) // 0 = kapalı
     val tierLabels = mapOf(2 to "2sn", 5 to "5sn", 10 to "10sn", 0 to "KAPALI")
@@ -66,10 +83,22 @@ fun SettingsScreen(onBack: () -> Unit) {
         colors = listOf(Color(0xFF1A1C1E), Color(0xFF0D0F10))
     )
 
+    val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
+    val isMobile = screenWidth < 600
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("GELİŞMİŞ AYARLAR", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold) },
+                title = { 
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("GELİŞMİŞ AYARLAR", color = Color.White, fontSize = if(isMobile) 14.sp else 18.sp, fontWeight = FontWeight.Bold)
+                        if (!isMobile) {
+                            Spacer(Modifier.width(16.dp))
+                            Text(currentTime, color = Color(0xFF69E2D3), fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                        }
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = { 
                         AssistantApplication.saveCurrentConfig()
@@ -83,14 +112,42 @@ fun SettingsScreen(onBack: () -> Unit) {
         },
         containerColor = Color.Transparent
     ) { padding ->
-        Box(modifier = Modifier.fillMaxSize().background(backgroundBrush).padding(padding)) {
+        Row(modifier = Modifier.fillMaxSize().background(backgroundBrush).padding(padding)) {
+            // Sol Yan Bar (Side Bar) - Mobilde Gizle
+            if (!isMobile) {
+                Column(
+                    modifier = Modifier
+                        .width(80.dp)
+                        .fillMaxHeight()
+                        .background(Color.Black.copy(alpha = 0.3f))
+                        .padding(vertical = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(24.dp)
+                ) {
+                    listOf(
+                        Icons.Default.Settings to "Genel",
+                        Icons.Default.Settings to "Ağ",
+                        Icons.Default.Settings to "Asistan",
+                        Icons.Default.Settings to "Araç"
+                    ).forEach { (icon, label) ->
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(icon, contentDescription = label, tint = Color.White.copy(alpha = 0.7f), modifier = Modifier.size(28.dp))
+                            Text(label, color = Color.White.copy(alpha = 0.5f), fontSize = 10.sp)
+                        }
+                    }
+                }
+            }
+
+            // Ana İçerik
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp)
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .padding(horizontal = if(isMobile) 12.dp else 24.dp)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(24.dp)
+                verticalArrangement = Arrangement.spacedBy(if(isMobile) 16.dp else 24.dp)
             ) {
+                Spacer(modifier = Modifier.height(if(isMobile) 8.dp else 24.dp))
                 // Network Settings
                 SettingCard(title = "AĞ YAPILANDIRMASI") {
                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -117,7 +174,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                                     hermesPortInput = it
                                     AssistantApplication.hermesPort.value = it
                                 },
-                                label = { Text("Hermes Port", color = Color.Gray) },
+                                label = { Text("Hermes", color = Color.Gray) },
                                 modifier = Modifier.weight(1f),
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 colors = OutlinedTextFieldDefaults.colors(
@@ -133,7 +190,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                                     sttPortInput = it
                                     AssistantApplication.sttPort.value = it
                                 },
-                                label = { Text("STT Port", color = Color.Gray) },
+                                label = { Text("STT", color = Color.Gray) },
                                 modifier = Modifier.weight(1f),
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 colors = OutlinedTextFieldDefaults.colors(
@@ -380,6 +437,52 @@ fun SettingsScreen(onBack: () -> Unit) {
                     }
                 }
 
+                // Tailscale (TSNet) Settings
+                SettingCard(title = "TAILSCALE (TSNET) YAPILANDIRMASI") {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("Tailscale Aktif", color = Color.White, modifier = Modifier.weight(1f))
+                            Switch(
+                                checked = isTailscaleEnabled,
+                                onCheckedChange = { AssistantApplication.isTailscaleEnabled.value = it },
+                                colors = SwitchDefaults.colors(checkedThumbColor = Color(0xFF69E2D3))
+                            )
+                        }
+
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("TLS Doğrulama (tsnet)", color = Color.White, modifier = Modifier.weight(1f))
+                            Switch(
+                                checked = useTls,
+                                onCheckedChange = { AssistantApplication.useTls.value = it },
+                                colors = SwitchDefaults.colors(checkedThumbColor = Color(0xFF69E2D3))
+                            )
+                        }
+
+                        OutlinedTextField(
+                            value = tailscaleKey,
+                            onValueChange = { AssistantApplication.tailscaleKey.value = it },
+                            label = { Text("Auth Key", color = Color.Gray) },
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedTextColor = Color.White,
+                                unfocusedTextColor = Color.White,
+                                focusedBorderColor = Color(0xFF69E2D3),
+                                unfocusedBorderColor = Color.Gray
+                            )
+                        )
+
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("Durum:", color = Color.Gray, fontSize = 12.sp, modifier = Modifier.weight(1f))
+                            Text(
+                                tailscaleStatus,
+                                color = if (tailscaleStatus == "Bağlı") Color.Green else Color.Yellow,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+
                 // Vehicle Data Policy
                 SettingCard(title = "ARAÇ VERİ POLİTİKASI (POLLING)") {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -445,6 +548,15 @@ fun SettingsScreen(onBack: () -> Unit) {
                 }
 
                 // Engine Info
+                val context = androidx.compose.ui.platform.LocalContext.current
+                val packageInfo = remember {
+                    try {
+                        context.packageManager.getPackageInfo(context.packageName, 0)
+                    } catch (e: Exception) { null }
+                }
+                val versionDisplay = packageInfo?.let { "v${it.versionName} (${it.versionCode})" } ?: "v1.0.0"
+                val buildDate = com.omoda.lanc.BuildConfig.BUILD_DATE
+
                 SettingCard(title = "SİSTEM BİLGİSİ") {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         InfoRow("Araç Kimliği", vehicleId)
@@ -452,7 +564,8 @@ fun SettingsScreen(onBack: () -> Unit) {
                         InfoRow("TTS Motoru", ttsEngine)
                         InfoRow("Chat Motoru", "Hermes → Kilo-AI")
                         InfoRow("Hermes Sunucu", "${serverIp}:${hermesPort}")
-                        InfoRow("Versiyon", "v2.3.2 (STT Stabilization)")
+                        InfoRow("Uygulama Sürümü", versionDisplay)
+                        InfoRow("Derleme Tarihi", buildDate)
                     }
                 }
                 
@@ -465,7 +578,29 @@ fun SettingsScreen(onBack: () -> Unit) {
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
                     shape = RoundedCornerShape(8.dp)
                 ) {
-                    Text("AYARLARI KAYDET VE DÖN", color = Color.Black, fontWeight = FontWeight.Bold)
+                    Text("AYARLARI KAYDET VE DÖN", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = if(isMobile) 14.sp else 16.sp)
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+            }
+            
+            // Sağ Yan Bar (Side Bar) - Mobilde Gizle
+            if (!isMobile) {
+                Column(
+                    modifier = Modifier
+                        .width(80.dp)
+                        .fillMaxHeight()
+                        .background(Color.Black.copy(alpha = 0.3f))
+                        .padding(vertical = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(24.dp)
+                ) {
+                    // Hızlı Aksiyon Tuşları
+                    IconButton(onClick = { /* Refresh */ }) {
+                        Icon(Icons.Default.Settings, contentDescription = "Yenile", tint = Color(0xFF69E2D3))
+                    }
+                    IconButton(onClick = { /* Help */ }) {
+                        Icon(Icons.Default.Settings, contentDescription = "Yardım", tint = Color.White)
+                    }
                 }
             }
         }
@@ -487,6 +622,25 @@ fun SettingCard(title: String, content: @Composable () -> Unit) {
         ) {
             Box(modifier = Modifier.padding(16.dp)) {
                 content()
+            }
+            
+            // Sağ Yan Bar (Side Bar)
+            Column(
+                modifier = Modifier
+                    .width(80.dp)
+                    .fillMaxHeight()
+                    .background(Color.Black.copy(alpha = 0.3f))
+                    .padding(vertical = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
+                // Hızlı Aksiyon Tuşları
+                IconButton(onClick = { /* Refresh */ }) {
+                    Icon(Icons.Default.Settings, contentDescription = "Yenile", tint = Color(0xFF69E2D3))
+                }
+                IconButton(onClick = { /* Help */ }) {
+                    Icon(Icons.Default.Settings, contentDescription = "Yardım", tint = Color.White)
+                }
             }
         }
     }

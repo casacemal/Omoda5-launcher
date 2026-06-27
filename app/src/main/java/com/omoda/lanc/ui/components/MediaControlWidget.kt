@@ -24,10 +24,42 @@ fun MediaControlWidget(viewModel: MediaControllerViewModel) {
     val uiState by viewModel.mediaState.collectAsState()
     var isExpanded by remember { mutableStateOf(false) }
 
+    // Ekran boyutuna göre padding ayarı
+    val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
+    val isMobile = screenWidth < 600
+    val isSmallTablet = screenWidth < 1100 && screenWidth >= 600
+    
+    val leftPadding = when {
+        isMobile -> 20.dp
+        isSmallTablet -> 120.dp
+        else -> 240.dp
+    }
+    val buttonSize = when {
+        isMobile -> 40.dp
+        isSmallTablet -> 48.dp
+        else -> 80.dp
+    }
+    val playButtonSize = when {
+        isMobile -> 48.dp
+        isSmallTablet -> 64.dp
+        else -> 100.dp
+    }
+    val playIconSize = when {
+        isMobile -> 40.dp
+        isSmallTablet -> 54.dp
+        else -> 90.dp
+    }
+    val fontSize = when {
+        isMobile -> 14.sp
+        isSmallTablet -> 16.sp
+        else -> 20.sp
+    }
+
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 240.dp, end = 20.dp, top = 8.dp, bottom = 8.dp)
+            .padding(start = leftPadding, end = if(isMobile) 20.dp else 20.dp, top = 8.dp, bottom = 4.dp)
             .animateContentSize()
             .clip(RoundedCornerShape(16.dp))
             .background(
@@ -43,13 +75,13 @@ fun MediaControlWidget(viewModel: MediaControllerViewModel) {
         val isNarrow = maxWidth < 400.dp
         val showFullControls = isExpanded && !isNarrow
 
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(if(isMobile) 6.dp else if(isSmallTablet) 8.dp else 16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = uiState.title,
                         color = Color.White,
-                        fontSize = 20.sp,
+                        fontSize = fontSize,
                         fontWeight = FontWeight.ExtraBold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
@@ -57,46 +89,40 @@ fun MediaControlWidget(viewModel: MediaControllerViewModel) {
                     Text(
                         text = uiState.artist,
                         color = OmodaCyan.copy(alpha = 0.8f),
-                        fontSize = 14.sp,
+                        fontSize = if(isMobile) 10.sp else if(isSmallTablet) 12.sp else 14.sp,
                         fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = uiState.source,
-                        color = Color.Gray.copy(alpha = 0.5f),
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Light
                     )
                 }
 
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(24.dp),
+                    horizontalArrangement = Arrangement.spacedBy(if(isMobile) 8.dp else if(isSmallTablet) 12.dp else 24.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(onClick = { viewModel.skipToPrevious() }, modifier = Modifier.size(80.dp)) {
-                        Text("⏮", color = Color.White, fontSize = 48.sp)
+                    IconButton(onClick = { viewModel.skipToPrevious() }, modifier = Modifier.size(buttonSize)) {
+                        Text("⏮", color = Color.White, fontSize = if(isMobile) 18.sp else if(isSmallTablet) 24.sp else 48.sp)
                     }
                     
                     IconButton(
                         onClick = { viewModel.togglePlayback() },
-                        modifier = Modifier.size(100.dp)
+                        modifier = Modifier.size(playButtonSize)
                     ) {
                         Surface(
                             shape = androidx.compose.foundation.shape.CircleShape,
                             color = OmodaCyan,
-                            modifier = Modifier.size(90.dp)
+                            modifier = Modifier.size(playIconSize)
                         ) {
                             Box(contentAlignment = Alignment.Center) {
                                 Text(
                                     if (uiState.isPlaying) "⏸" else "▶",
                                     color = Color.Black,
-                                    fontSize = 40.sp
+                                    fontSize = if(isMobile) 24.sp else if(isSmallTablet) 30.sp else 40.sp
                                 )
                             }
                         }
                     }
                     
-                    IconButton(onClick = { viewModel.skipToNext() }, modifier = Modifier.size(80.dp)) {
-                        Text("⏭", color = Color.White, fontSize = 48.sp)
+                    IconButton(onClick = { viewModel.skipToNext() }, modifier = Modifier.size(buttonSize)) {
+                        Text("⏭", color = Color.White, fontSize = if(isMobile) 18.sp else if(isSmallTablet) 24.sp else 48.sp)
                     }
                 }
             }

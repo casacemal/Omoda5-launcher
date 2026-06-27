@@ -97,7 +97,8 @@ class AdbBridgeService : Service() {
             sendAdbPacket(out, A_CNXN, 0x01000000, 4096, "host::\u0000")
             val resp = readAdbPacket(ins)
             if (resp.cmd == A_AUTH || resp.cmd != A_CNXN) {
-                Log.e("AdbBridge", "ADB Handshake failed or Auth required")
+                Log.e("AdbBridge", "ADB Handshake failed or Auth required, trying fallback...")
+                Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd)).waitFor()
                 return
             }
 

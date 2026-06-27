@@ -202,6 +202,12 @@ class HermesClient(private val baseUrl: String, private val apiKey: String) {
                         } else {
                             Log.e(TAG, "STT HTTP Hatası ($mode) ${resp.code}: ${body ?: "null"}")
                             AssistantApplication.addLog("STT Başarısız ($mode): ${resp.code}")
+                            
+                            // 401 Unauthorized durumunda API Key kontrolü uyarısı ekle
+                            if (resp.code == 401) {
+                                AssistantApplication.addLog("HATA: API Anahtarı geçersiz veya süresi dolmuş (401)")
+                            }
+
                             onResult(null)
                         }
                     }

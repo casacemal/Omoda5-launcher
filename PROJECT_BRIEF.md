@@ -29,6 +29,11 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 
 ## Kısıtlar ve Kurallar
 *   API 29 (AAOS 10) uyumluluğu kesin kuraldır.
+*   **Bağlantı Ayarları (SABİT):**
+    *   **Gateway IP:** `100.95.239.119`
+    *   **Hermes/STT Port:** `8642`
+    *   **TTS Port:** `10201`
+    *   **Proxy:** Groq ve Edge istekleri her zaman bu Gateway üzerinden proxy edilir.
 *   **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
 *   Araç kontrolü asla doğrudan LLM'e (Yapay Zeka) bırakılmayacak; Command Router tarafından yakalanacak.
 *   Hareket halindeyken (Speed > 0) riskli ayarların değiştirilmesi engellenecek.

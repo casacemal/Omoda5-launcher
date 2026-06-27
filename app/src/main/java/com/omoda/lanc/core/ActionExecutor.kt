@@ -13,7 +13,10 @@ import java.io.InputStreamReader
  * İmzasız uygulama kısıtlamalarını aşmak için ADB izinleri şarttır.
  */
 class ActionExecutor(private val context: Context) {
-    private val TAG = "ActionExecutor"
+
+    companion object {
+        private const val TAG = "ActionExecutor"
+    }
 
     private fun executeShellCommand(command: String): String {
         Log.d(TAG, "Shell komutu: $command")
@@ -89,8 +92,11 @@ class ActionExecutor(private val context: Context) {
 
                 // ARAÇ VERİSİ OKUMA (Dumpsys)
                 "get_vehicle_property" -> {
-                    val propertyId = args.optString("property_id")
+                    var propertyId = args.optString("property_id")
                     if (propertyId.isNotEmpty()) {
+                        if (!propertyId.startsWith("0x") && propertyId.length >= 8) {
+                            propertyId = "0x$propertyId"
+                        }
                         val result = executeShellCommand("dumpsys car_service get-property-value $propertyId 0")
                         "Success: $propertyId = $result"
                     } else {
@@ -130,6 +136,15 @@ class ActionExecutor(private val context: Context) {
                     } else {
                         "Error: Missing command parameter"
                     }
+                }
+
+                // TARİH SAAT FİKSLEME
+                "fix_system_time" -> {
+                    executeShellCommand("settings put global auto_time 1")
+                    executeShellCommand("settings put global auto_time_zone 1")
+                    executeShellCommand("settings put global ntp_server pool.ntp.org")
+                    executeShellCommand("cmd network_time_update_service update_time")
+                    "Success: System time sync triggered"
                 }
 
                 else -> {

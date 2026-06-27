@@ -325,3 +325,6 @@ mipmap switch_btn_on_bg
 mipmap tab_mask
 mipmap tab_mask_r
 string app_name
+string close
+string listening
+string stop

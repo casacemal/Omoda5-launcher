@@ -7,7 +7,7 @@ import android.util.Log
  * VehicleProvider - PDF Plan v2.0
  * CarPropertyManager (Primary) + Dumpsys (Fallback) hibrik telemetri yönetimi.
  */
-class VehicleProvider(private val context: Context) {
+class VehicleProvider(context: Context) {
     private val carSource = CarSource(context)
     private val dumpsysSource = DumpsysSource()
     
@@ -44,9 +44,5 @@ class VehicleProvider(private val context: Context) {
         val doorOpen = carSource.isAnyDoorOpen() ?: dumpsysSource.isAnyDoorOpen() ?: false
         Log.d("VehicleProvider", "Any door open: $doorOpen")
         return doorOpen
-    }
-
-    fun setSimulatedSpeed(speed: Float?) {
-        simulatedSpeed = speed
     }
 }

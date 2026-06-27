@@ -17,7 +17,7 @@ class AssistantApplication : Application() {
         val isListening = MutableStateFlow(false)
         val currentAmplitude = MutableStateFlow(0)
         
-        val serverIp = MutableStateFlow("100.121.172.79") // Güncellenmiş Tailscale IP
+        val serverIp = MutableStateFlow("100.95.239.119") // Hermes Gateway IP
         val hermesPort = MutableStateFlow("8642")
         val sttPort = MutableStateFlow("8642")
         val ttsPort = MutableStateFlow("10201") // Kaynak projedeki port
@@ -29,7 +29,7 @@ class AssistantApplication : Application() {
         // Çalışma Modları (Sürüm 5.0)
         val currentMode = MutableStateFlow("ASISTANT")
         
-        val sttMode = MutableStateFlow("BULUT") // Kaynak projedeki mod
+        val sttMode = MutableStateFlow("BULUT") // Varsayılan olarak BULUT (Groq) seçildi
         val ttsEngine = MutableStateFlow("EDGE") // Kaynak projedeki motor
         
         // Tailscale (TSNet) Yapılandırması
@@ -53,8 +53,8 @@ class AssistantApplication : Application() {
         val STT_BASE_URL: String get() = "http://${serverIp.value}:${sttPort.value}/v1"
         val TTS_BASE_URL: String get() = "http://${serverIp.value}:${ttsPort.value}/v1"
         
-        // Cloud Fallbacks
-        const val CLOUD_TTS_URL = "https://api.openai.com/v1" // OpenAI compatible fallback for EDGE
+        // Cloud Fallbacks (KESİN VE DEĞİŞMEZ AYARLAR)
+        const val CLOUD_TTS_URL = "https://api.openai.com/v1" 
         const val GROQ_BASE_URL = "https://api.groq.com/openai/v1"
         const val HERMES_API_KEY = "cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34"
         const val EDGE_TTS_TOKEN = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
@@ -158,12 +158,23 @@ class AssistantApplication : Application() {
 
     private fun loadConfig() {
         val config = configManager.loadConfig()
-        serverIp.value = config.serverIp
-        hermesPort.value = config.hermesPort
-        sttPort.value = config.sttPort
-        ttsPort.value = config.ttsPort
-        sttMode.value = config.sttMode
-        ttsEngine.value = config.ttsEngine
+        
+        // Sürüm 6.3: Kritik ağ ayarları migrasyonu (DONDURULMUŞ AYARLAR)
+        if (config.serverIp == "100.121.172.79" || config.serverIp == "127.0.0.1") {
+            serverIp.value = "100.95.239.119"
+            ttsPort.value = "10201"
+            sttMode.value = "BULUT"
+            ttsEngine.value = "EDGE"
+            saveCurrentConfig() // Yeni ayarları kalıcı yap
+        } else {
+            serverIp.value = config.serverIp
+            hermesPort.value = config.hermesPort
+            sttPort.value = config.sttPort
+            ttsPort.value = config.ttsPort
+            sttMode.value = config.sttMode
+            ttsEngine.value = config.ttsEngine
+        }
+
         useHermesSpeech.value = config.useHermesSpeech
         isContinuousConversation.value = config.isContinuousConversation
         useHermesDecision.value = config.useHermesDecision

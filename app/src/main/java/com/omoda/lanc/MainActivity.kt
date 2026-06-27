@@ -18,6 +18,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -55,6 +56,10 @@ import android.graphics.Shader
 import android.graphics.Bitmap
 import java.io.FileOutputStream
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -96,9 +101,17 @@ class MainActivity : ComponentActivity() {
                 .pointerInput(Unit) {
                     detectDragGestures { change, dragAmount ->
                         change.consume()
-                        // Sağdan sola veya soldan sağa büyük kaydırmalarla hızlı geçiş (isteğe bağlı)
-                        if (dragAmount.x > 50 && currentScreen == "settings") {
-                            currentScreen = "home"
+                        // AAOS Geri Jesti: En sol kenardan sağa doğru çekme
+                        if (change.position.x < 150 && dragAmount.x > 30) {
+                            if (currentScreen != "home") {
+                                currentScreen = "home"
+                            }
+                        }
+                        // AAOS Ana Sayfa Jesti: Alt kenardan yukarı çekme
+                        if (change.position.y > (size.height - 150) && dragAmount.y < -30) {
+                            if (currentScreen != "home") {
+                                currentScreen = "home"
+                            }
                         }
                     }
                 }
@@ -119,14 +132,25 @@ class MainActivity : ComponentActivity() {
         val scope = rememberCoroutineScope()
         
         // Uygulamalar değiştikçe veya tıklandıkça listeyi yenile
-        LaunchedEffect(Unit) {
-            launcherPages = buildLauncherPages()
+        LaunchedEffect(itemsPerPage) {
+            launcherPages = buildLauncherPages(itemsPerPage)
         }
 
         // Duvar Kağıdı Yönetimi (Manifesto v9.3.0)
-        val internalWallpapers = listOf(R.mipmap.bg_1, R.mipmap.bg_2) 
+        val internalWallpapers = listOf(
+            R.mipmap.bg_1, 
+            R.mipmap.bg_2,
+            R.drawable.wp_purple,
+            R.drawable.wp_flare,
+            R.drawable.wp_red,
+            R.drawable.wp_nature
+        ) 
         var externalWallpapers by remember { mutableStateOf(emptyList<File>()) }
-        var wallpaperIdx by remember { mutableStateOf(0) }
+        var wallpaperIdx by remember { mutableStateOf(settingsManager.wallpaperIdx) }
+
+        LaunchedEffect(wallpaperIdx) {
+            settingsManager.wallpaperIdx = wallpaperIdx
+        }
 
         LaunchedEffect(Unit) {
             val dir = File("/sdcard/Omoda/Wallpapers")
@@ -140,6 +164,30 @@ class MainActivity : ComponentActivity() {
         val totalCount = internalWallpapers.size + externalWallpapers.size
         val currentIdx = wallpaperIdx % if (totalCount > 0) totalCount else 1
         
+        val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+        val screenWidth = configuration.screenWidthDp
+        val isMobile = screenWidth < 600
+        val isSmallTablet = screenWidth < 1100 && screenWidth >= 600
+        
+        val leftPadding = when {
+            isMobile -> 20.dp
+            isSmallTablet -> 120.dp
+            else -> 235.dp
+        }
+        val topPadding = when {
+            isMobile -> 60.dp
+            isSmallTablet -> 100.dp
+            else -> 120.dp
+        }
+        val gridColumns = when {
+            isMobile -> 4
+            isSmallTablet -> 4
+            else -> 5
+        }
+        
+        // Mobil için sayfa başına öğe sayısını ayarla
+        val itemsPerPage = if (isMobile) 8 else 10
+
         val painter: Painter = if (currentIdx < internalWallpapers.size) {
             painterResource(internalWallpapers[currentIdx])
         } else {
@@ -173,11 +221,11 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize()
                     ) { pIdx ->
                         LazyVerticalGrid(
-                            columns = GridCells.Fixed(5), // Manifesto v9.3.0: 5 Sütun
+                            columns = GridCells.Fixed(gridColumns), 
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(start = 235.dp, end = 80.dp, top = 80.dp, bottom = 80.dp),
-                            verticalArrangement = Arrangement.Center,
+                                .padding(start = leftPadding, end = if(isMobile) 20.dp else 80.dp, top = topPadding, bottom = 60.dp),
+                            verticalArrangement = Arrangement.Top,
                             horizontalArrangement = Arrangement.spacedBy(10.dp),
                             userScrollEnabled = false
                         ) {
@@ -185,11 +233,15 @@ class MainActivity : ComponentActivity() {
                                 GlassIcon(
                                     item = item,
                                     onClick = { 
-                                        launchApp(item)
-                                        // Tıklama oranını artır ve sayfaları yeniden oluştur
-                                        item.packageName?.let { pkg ->
-                                            settingsManager.incrementAppClickCount(pkg)
-                                            launcherPages = buildLauncherPages()
+                                        if (item.packageName == "internal.wallpaper") {
+                                            wallpaperIdx++
+                                        } else {
+                                            launchApp(item)
+                                            // Tıklama oranını artır ve sayfaları yeniden oluştur
+                                            item.packageName?.let { pkg ->
+                                                settingsManager.incrementAppClickCount(pkg)
+                                                launcherPages = buildLauncherPages(itemsPerPage)
+                                            }
                                         }
                                     }
                                 )
@@ -248,11 +300,16 @@ class MainActivity : ComponentActivity() {
             }
 
             // SMART HUD (v9.2.0) - Sağ Alt AI Feedback (Ana Box içinde)
+            val hudWidth = when {
+                isMobile -> 200.dp
+                isSmallTablet -> 260.dp
+                else -> 320.dp
+            }
             Box(
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(end = 20.dp, bottom = 100.dp)
-                    .width(320.dp)
+                    .padding(end = 20.dp, bottom = if(isMobile) 20.dp else if(isSmallTablet) 40.dp else 100.dp)
+                    .width(hudWidth)
                     .clip(RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp))
                     .background(Color.Black.copy(0.7f))
                     .border(1.dp, OmodaCyan.copy(0.3f), RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp))
@@ -296,6 +353,15 @@ class MainActivity : ComponentActivity() {
                 }
 
                 FloatingActionButton(
+                    onClick = { wallpaperIdx++ },
+                    containerColor = Color.DarkGray.copy(alpha = 0.8f),
+                    contentColor = OmodaCyan,
+                    shape = CircleShape
+                ) {
+                    Icon(Icons.Default.Image, contentDescription = "Duvar Kağıdı Değiştir")
+                }
+
+                FloatingActionButton(
                     onClick = onOpenSettings,
                     containerColor = Color.DarkGray,
                     contentColor = Color.White,
@@ -319,18 +385,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun buildLauncherPages(): List<List<LauncherItem>> {
+    private fun buildLauncherPages(itemsPerPage: Int = 10): List<List<LauncherItem>> {
         val fixedApps = listOf(
             LauncherItem("m","Medya",R.mipmap.home_app_media_n,"com.chery.media"), 
             LauncherItem("p","Telefon",R.mipmap.home_app_phone_n,"com.chery.dialer"), 
             LauncherItem("s","Ayarlar",R.mipmap.home_app_setup_n,"com.chery.settings"), 
+            LauncherItem("wp", "Duvar Kağıdı", R.mipmap.home_app_pic_n, "internal.wallpaper"),
             LauncherItem("cs","Araç",R.mipmap.home_app_carinfo_n,"com.chery.carsettings"), 
             LauncherItem("hvac","Klima",R.mipmap.home_app_carinfo_n,"com.chery.hvac"),
             LauncherItem("v","Video",R.mipmap.home_app_video_n,"com.chery.video"), 
             LauncherItem("gd","Kılavuz",R.mipmap.home_app_manual_n,"com.chery.help"), 
             LauncherItem("aa","Auto",R.mipmap.home_app_android_auto_n,"com.yfve.car.androidauto"), 
-            LauncherItem("cp","CarPlay",R.mipmap.home_app_apple_carplay_n,"com.yfve.car.carplay"), 
-            LauncherItem("u","Sistem",R.mipmap.home_app_update_n,"com.omoda5.launcher")
+            LauncherItem("cp","CarPlay",R.mipmap.home_app_apple_carplay_n,"com.yfve.car.carplay")
         )
         
         // Tüm yüklü uygulamaları getir (Sistem uygulamaları dahil)
@@ -354,10 +420,15 @@ class MainActivity : ComponentActivity() {
         }.sortedByDescending { it.clickCount }
 
         val pages = mutableListOf<List<LauncherItem>>()
-        pages.add(fixedApps) // 1. Sayfa kilitli
         
-        // 2. sayfadan itibaren tüm diğer uygulamalar (10'arlı gruplar halinde)
-        allApps.chunked(10).forEach { chunk ->
+        // Sayfalara böl
+        val firstPageLimit = if (itemsPerPage < fixedApps.size) itemsPerPage else fixedApps.size
+        pages.add(fixedApps.take(itemsPerPage)) 
+        
+        val remainingFixed = if (fixedApps.size > itemsPerPage) fixedApps.drop(itemsPerPage) else emptyList()
+        val otherAppsCombined = remainingFixed + allApps
+        
+        otherAppsCombined.chunked(itemsPerPage).forEach { chunk ->
             pages.add(chunk)
         }
 
