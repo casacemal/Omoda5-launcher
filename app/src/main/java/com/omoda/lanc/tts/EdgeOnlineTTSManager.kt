@@ -23,7 +23,7 @@ class EdgeOnlineTTSManager(
     private val rate: String = "+0%",
     private val volume: String = "+0%",
     private val pitch: String = "+0Hz"
-) {
+) : TTSManager {
     companion object {
         private const val TAG = "EdgeOnlineTTS"
         private const val TRUSTED_CLIENT_TOKEN="6A5AA1D4EAFF4E9FB37E23D68491D6F4"
@@ -43,13 +43,15 @@ class EdgeOnlineTTSManager(
     private var mediaPlayer: android.media.MediaPlayer? = null
     private var tempFile: java.io.File? = null
     private var fileOutputStream: java.io.FileOutputStream? = null
-    private val isSpeaking = AtomicBoolean(false)
+    private val isSpeakingFlag = AtomicBoolean(false)
     private var lastResponseCode: Int = 0
     private var lastResponseDate: String? = null
     
     private val TRUSTED_CLIENT_TOKEN = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
     private val SEC_MS_GEC_VERSION = "1-143.0.3650.75"
     private var clockSkewSeconds: Long = 0L
+
+    override fun isSpeaking(): Boolean = isSpeakingFlag.get()
 
     private fun generateSecMsGec(): String {
         val winEpoch = 11644473600L
@@ -64,14 +66,14 @@ class EdgeOnlineTTSManager(
         return bytes.joinToString("") { "%02X".format(it) }
     }
 
-    fun speak(text: String, onComplete: (() -> Unit)? = null) {
-        speakInternal(text, isRetry = false, onComplete = onComplete)
+    override fun speak(text: String, onComplete: (() -> Unit)?, onError: (() -> Unit)?) {
+        speakInternal(text, isRetry = false, onComplete = onComplete, onError = onError)
     }
 
-    private fun speakInternal(text: String, isRetry: Boolean = false, onComplete: (() -> Unit)? = null) {
+    private fun speakInternal(text: String, isRetry: Boolean = false, onComplete: (() -> Unit)? = null, onError: (() -> Unit)? = null) {
         if (text.isBlank()) { onComplete?.invoke(); return }
-        if (isSpeaking.get()) return
-        isSpeaking.set(true)
+        if (isSpeakingFlag.get()) return
+        isSpeakingFlag.set(true)
         Log.d(TAG, "TTS: ${text.take(50)}...")
 
         try {
@@ -138,18 +140,18 @@ class EdgeOnlineTTSManager(
                                 }
                             }
                         } catch (e: Exception) { Log.e(TAG, "Time sync error: ${e.message}") }
-                        isSpeaking.set(false)
-                        speakInternal(text, isRetry = true, onComplete = onComplete)
+                        isSpeakingFlag.set(false)
+                        speakInternal(text, isRetry = true, onComplete = onComplete, onError = onError)
                         return
                     }
                     finishPlayback()
-                    onComplete?.invoke()
+                    onError?.invoke() ?: onComplete?.invoke()
                 }
             })
         } catch (e: Exception) {
             Log.e(TAG, "Hata: ${e.message}")
-            isSpeaking.set(false)
-            onComplete?.invoke()
+            isSpeakingFlag.set(false)
+            onError?.invoke() ?: onComplete?.invoke()
         }
     }
 
@@ -174,9 +176,13 @@ class EdgeOnlineTTSManager(
     }
 
     private fun sendSynthesize(ws: WebSocket, text: String) {
+        val currentVoice = AssistantApplication.edgeVoiceName.value
+        val currentPitch = AssistantApplication.edgePitch.value
+        val currentRate = AssistantApplication.edgeRate.value
+        
         val ssml = "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='tr-TR'>" +
-                "<voice name='$voiceName'>" +
-                "<prosody pitch='$pitch' rate='$rate' volume='$volume'>" +
+                "<voice name='$currentVoice'>" +
+                "<prosody pitch='$currentPitch' rate='$currentRate' volume='$volume'>" +
                 escapeXml(text) +
                 "</prosody></voice></speak>"
 
@@ -217,9 +223,14 @@ class EdgeOnlineTTSManager(
                 // Müzik çalarken asistanın sesinin ezilmemesi ve navigasyon hoparlöründen 
                 // net bir şekilde gelebilmesi için bu ses kanalının kullanılması zorunludur.
                 mediaPlayer = android.media.MediaPlayer().apply {
+                    val usage = if (AssistantApplication.isCarHardware) {
+                        AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE
+                    } else {
+                        AudioAttributes.USAGE_MEDIA
+                    }
                     setAudioAttributes(
                         AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
+                            .setUsage(usage)
                             .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                             .build()
                     )
@@ -228,23 +239,27 @@ class EdgeOnlineTTSManager(
                     start()
                     setOnCompletionListener {
                         it.release()
-                        isSpeaking.set(false)
+                        isSpeakingFlag.set(false)
                         onComplete?.invoke()
                     }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "MediaPlayer hatası: ${e.message}")
-                isSpeaking.set(false)
+                isSpeakingFlag.set(false)
                 onComplete?.invoke()
             }
         }
     }
 
-    fun stop() { 
+    override fun stop() { 
         try { fileOutputStream?.close() } catch (_: Exception) {}
         try { audioTrack?.stop(); audioTrack?.release() } catch (_: Exception) {}
         try { mediaPlayer?.stop(); mediaPlayer?.release() } catch (_: Exception) {}
-        isSpeaking.set(false)
+        isSpeakingFlag.set(false)
+    }
+
+    override fun shutdown() {
+        stop()
     }
 
     private fun escapeXml(s: String): String {

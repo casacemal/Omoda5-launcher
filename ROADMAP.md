@@ -42,8 +42,9 @@
 - [x] Sert fren ve sürüş skoru hesaplama
 - [x] Trip summary anons entegrasyonu
 
-## Faz 10: Tailscale & UI Polishing (Tamamlandı)
+## Faz 10: Tailscale, Zaman ve UI Geliştirmeleri (Tamamlandı)
 - [x] Tailscale (TSNet) Entegrasyonu & TLS
+- [x] VPN'i ve Sistemi AI LLM Karar Motoru araçlarına (tools) bağlama
 - [x] Saat ve Tarih gösterimi (Launcher)
 - [x] Ayarlar Sayfası (SettingsScreen) Sidebars ve Görsel Güncelleme
 
@@ -51,3 +52,15 @@
 - [x] Yerel duvar kağıdı kütüphanesi oluşturuldu
 - [x] Anasayfa üzerinden hızlı değişim butonu entegrasyonu
 - [x] Duvar kağıdı tercihinin SharedPreferences ile kalıcı hale getirilmesi
+
+## Faz 12: OTA Güncelleme ve Stabilizasyon (Tamamlandı)
+- [x] Github Releases API kullanılarak OTA güncelleme (`OtaUpdateManager`) altyapısı
+- [x] Ayarlar içerisine `AppStoreSection` eklentisi
+- [x] Ses donanımına göre (`isCarHardware`) dinamik Audio kanal yönlendirmesi
+- [x] Omoda UI Overlay hatasının giderilerek metinlerin stabil gösterimi
+
+## Faz 13: Offline STT & Optimizasyon (Devam Ediyor)
+- [ ] Piper STT motorunun lokal olarak sisteme entegrasyonu ve testleri
+- [ ] Sherpa TTS performans sorunlarının giderilmesi ve CPU kilitlenmesinin çözülmesi
+- [x] Hermes Gateway STT stabilizasyonu ve Groq fallback iyileştirmesi
+- [ ] Ayarlar sayfasına Edge/Sherpa, Local/Online TTS seçimleri için ince ayarlar

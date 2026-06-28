@@ -14,10 +14,11 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 3.  **Event Bus:** Sistem çapında tek SharedFlow iletişim noktası.
 4.  **Intent Engine / Command Router:** Ses niyetlerinin (Araç, HA, AI) kural tabanlı ayrıştırılması.
 5.  **Policy Engine:** Güvenlik ve izin kontrolü (hız > X ise kısıtlamalar).
-6.  **Audio Engine:** Öncelikli lane yönetimi (ALERT > AI > NAV > MUSIC).
+6.  **Audio Engine & Hardware Awareness:** Donanım tipine göre (Araç vs Mobil) dinamik AudioAttributes seçimi ve öncelikli lane yönetimi (ALERT > AI > NAV > MUSIC).
 7.  **Alert & Event Engine:** TPMS, yakıt, kapı gibi kritik olay uyarıları.
 8.  **Driving Analysis Engine:** Sürüş sonrası özet ve verimlilik analizi.
 9.  **AI Client (Hermes):** STT, LLM ve TTS pipeline yönetimi.
+10. **OTA & App Store:** Github üzerinden otomatik sürüm kontrolü ve in-app güncelleme altyapısı.
 
 ## Kaynak Referanslar
 *   **Asistan Referansı:** `/mnt/depo/omodaassist_v2` (Sesli asistan için test edilmiş, doğrulanmış kaynak klasör.)
@@ -37,3 +38,4 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 *   **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
 *   Araç kontrolü asla doğrudan LLM'e (Yapay Zeka) bırakılmayacak; Command Router tarafından yakalanacak.
 *   Hareket halindeyken (Speed > 0) riskli ayarların değiştirilmesi engellenecek.
+*   **TTS / STT Politikası:** Piper STT yerel olarak test edilmiş olup ilerleyen fazlarda entegre edilecektir. Sherpa TTS ise işlemci darboğazı (CPU lock) yarattığı için şu an baypas edilmiş / beklemeye alınmıştır; sorun çözülmeden bu yapıya dokunulmayacaktır. Local/Online TTS (Edge) ve Local STT yetenekleri Ayarlar üzerinden kontrol edilecektir.

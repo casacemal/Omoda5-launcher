@@ -1,6 +1,7 @@
 package com.omoda.lanc
 
 import android.app.Application
+import android.os.Build
 import com.omoda.lanc.config.AppConfig
 import com.omoda.lanc.config.ConfigManager
 import com.omoda.lanc.core.VehicleController
@@ -10,6 +11,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class AssistantApplication : Application() {
     companion object {
         lateinit var configManager: ConfigManager
+
+        val isCarHardware: Boolean
+            get() = Build.MODEL.contains("omoda", ignoreCase = true) || 
+                    Build.MANUFACTURER.contains("semidrive", ignoreCase = true) ||
+                    Build.MANUFACTURER.contains("rockchip", ignoreCase = true)
         
         val recognizedText = MutableStateFlow("")
         val assistantResponse = MutableStateFlow("")
@@ -32,6 +38,11 @@ class AssistantApplication : Application() {
         val sttMode = MutableStateFlow("BULUT") // Varsayılan olarak BULUT (Groq) seçildi
         val ttsEngine = MutableStateFlow("EDGE") // Kaynak projedeki motor
         
+        // Edge TTS Ayarları
+        val edgeVoiceName = MutableStateFlow("tr-TR-EmelNeural")
+        val edgePitch = MutableStateFlow("+0Hz")
+        val edgeRate = MutableStateFlow("+0%")
+        
         // Tailscale (TSNet) Yapılandırması
         val tailscaleKey = MutableStateFlow("tskey-auth-kc4mkwRGiw11CNTRL-kQYBK24x1PEnxoYRF3BoGEQAZRzMMhDWb")
         val tailscaleStatus = MutableStateFlow("Bilinmiyor")
@@ -42,7 +53,7 @@ class AssistantApplication : Application() {
         val isOnlineMode = MutableStateFlow(true)
         val isContinuousConversation = MutableStateFlow(true)
         val isWakeWordEnabled = MutableStateFlow(true)
-        val micSource = MutableStateFlow("VOICE_RECOGNITION")
+        val micSource = MutableStateFlow("MIC")
 
         // MQTT Simülatör ve Köprü
         val isSimulationMode = MutableStateFlow(false)
@@ -56,7 +67,7 @@ class AssistantApplication : Application() {
         // Cloud Fallbacks (KESİN VE DEĞİŞMEZ AYARLAR)
         const val CLOUD_TTS_URL = "https://api.openai.com/v1" 
         const val GROQ_BASE_URL = "https://api.groq.com/openai/v1"
-        const val HERMES_API_KEY = "cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34"
+        const val HERMES_API_KEY="cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34"
         const val EDGE_TTS_TOKEN = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
         val groqApiKey = MutableStateFlow("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")
         const val GROQ_STT_MODEL = "whisper-large-v3"
@@ -133,7 +144,10 @@ class AssistantApplication : Application() {
                 isAutoTasksEnabled = isAutoTasksEnabled.value,
                 vehiclePollingConfig = vehiclePollingConfig.value,
                 vehicleId = vehicleId.value,
-                sessionKey = sessionKey.value
+                sessionKey = sessionKey.value,
+                edgeVoiceName = edgeVoiceName.value,
+                edgePitch = edgePitch.value,
+                edgeRate = edgeRate.value
             )
             configManager.saveConfig(config)
         }
@@ -159,22 +173,22 @@ class AssistantApplication : Application() {
     private fun loadConfig() {
         val config = configManager.loadConfig()
         
-        // Sürüm 6.3: Kritik ağ ayarları migrasyonu (DONDURULMUŞ AYARLAR)
-        if (config.serverIp == "100.121.172.79" || config.serverIp == "127.0.0.1") {
+        // Sürüm 6.4: Kesin Hermes Adresi Ataması (Kullanıcı Talebi: 100.95.239.119:8642)
+        if (config.serverIp != "100.95.239.119" || config.hermesPort != "8642") {
             serverIp.value = "100.95.239.119"
+            hermesPort.value = "8642"
+            sttPort.value = "8642"
             ttsPort.value = "10201"
-            sttMode.value = "BULUT"
-            ttsEngine.value = "EDGE"
-            saveCurrentConfig() // Yeni ayarları kalıcı yap
+            saveCurrentConfig()
         } else {
             serverIp.value = config.serverIp
             hermesPort.value = config.hermesPort
             sttPort.value = config.sttPort
             ttsPort.value = config.ttsPort
-            sttMode.value = config.sttMode
-            ttsEngine.value = config.ttsEngine
         }
 
+        sttMode.value = "BULUT" // KESİN KURAL: Groq STT direkt, VPN dışı
+        ttsEngine.value = config.ttsEngine
         useHermesSpeech.value = config.useHermesSpeech
         isContinuousConversation.value = config.isContinuousConversation
         useHermesDecision.value = config.useHermesDecision
@@ -184,6 +198,9 @@ class AssistantApplication : Application() {
         isAutoTasksEnabled.value = config.isAutoTasksEnabled
         vehicleId.value = config.vehicleId
         sessionKey.value = config.sessionKey
+        edgeVoiceName.value = config.edgeVoiceName
+        edgePitch.value = config.edgePitch
+        edgeRate.value = config.edgeRate
         if (config.vehiclePollingConfig.isNotEmpty()) {
             // Mevcut default'ları koru, kaydedilmiş değerleri üstüne yaz
             val merged = VehicleController.PROPERTY_DEFINITIONS.mapValues { it.value.defaultTier }.toMutableMap()

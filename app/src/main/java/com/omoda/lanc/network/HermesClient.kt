@@ -94,8 +94,7 @@ class HermesClient(private val baseUrl: String, private val apiKey: String) {
     // STT - Groq Whisper API
     // ──────────────────────────────────────────────────────────────
     suspend fun sendAudio(audioFile: File): String? = suspendCancellableCoroutine { continuation ->
-        val groqKey = AssistantApplication.groqApiKey.value
-        val groqUrl = "${AssistantApplication.GROQ_BASE_URL}/audio/transcriptions"
+        val targetUrl = "${baseUrl.removeSuffix("/")}/audio/transcriptions"
 
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -109,12 +108,13 @@ class HermesClient(private val baseUrl: String, private val apiKey: String) {
             .build()
 
         val request = Request.Builder()
-            .url(groqUrl)
-            .addHeader("Authorization", "Bearer $groqKey")
+            .url(targetUrl)
+            .addHeader("Authorization", "Bearer $apiKey")
+            .addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
             .post(requestBody)
             .build()
 
-        Log.d(TAG, "Groq STT isteği gönderiliyor → $groqUrl (${audioFile.length()} bytes)")
+        Log.d(TAG, "Groq STT isteği (Gateway üzerinden) gönderiliyor → $targetUrl (${audioFile.length()} bytes)")
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -147,7 +147,6 @@ class HermesClient(private val baseUrl: String, private val apiKey: String) {
 
     fun transcribe(audioFile: File, onResult: (String?) -> Unit) {
         val mode = AssistantApplication.sttMode.value
-        // Zorunlu Bulut (Groq) kullanımı veya kullanıcı seçimi
         val useCloud = mode == "BULUT" || mode == "GROQ"
         val groqKey = AssistantApplication.groqApiKey.value
         
@@ -175,15 +174,14 @@ class HermesClient(private val baseUrl: String, private val apiKey: String) {
             .url(targetUrl)
             .addHeader("Authorization", authHeader)
             
-        if (!useCloud) {
-            requestBuilder.addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
-        }
+        // NOT: X-Hermes-Session-Key başlığı ses yüklemelerinde sunucu tarafından reddedilebildiği 
+        // için (kaynak projede olduğu gibi) kaldırıldı.
             
         val request = requestBuilder
             .post(requestBody)
             .build()
 
-        Log.d(TAG, "STT isteği gönderiliyor (Hedef: ${if(useCloud) "GROQ" else "HERMES"}) → $targetUrl")
+        Log.d(TAG, "STT isteği gönderiliyor (Mod: $mode, Hedef: ${if(useCloud) "DOĞRUDAN BULUT" else "GATEWAY"}) → $targetUrl")
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {

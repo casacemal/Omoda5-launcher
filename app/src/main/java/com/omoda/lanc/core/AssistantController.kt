@@ -57,6 +57,31 @@ class AssistantController(
                 handleEvent(event)
             }
         }
+        
+        scope.launch {
+            var consecutiveFailures = 0
+            while (true) {
+                val previousStatus = AssistantApplication.hermesConnectionStatus.value
+                hermesClient.checkConnection()
+                kotlinx.coroutines.delay(500) // Async cevabi bekle
+
+                val currentStatus = AssistantApplication.hermesConnectionStatus.value
+                if (currentStatus != "DISCONNECTED") {
+                    // Baglanti yeniden kurulduysa bildirim
+                    if (previousStatus == "DISCONNECTED" && consecutiveFailures > 0) {
+                        consecutiveFailures = 0
+                        EventBus.tryEmit(Event.UIEvent.Toast("Hermes baglantisi yeniden kuruldu"))
+                    }
+                    kotlinx.coroutines.delay(30000) // Normal heartbeat
+                } else if (consecutiveFailures < 5) {
+                    // Ilk 5 deneme hemen (retry mantigi)
+                    consecutiveFailures++
+                } else {
+                    consecutiveFailures++
+                    kotlinx.coroutines.delay(10000) // 10sn ara
+                }
+            }
+        }
     }
 
     private fun createAgentManager() = AgentManager(
@@ -165,7 +190,6 @@ class AssistantController(
             AssistantApplication.isListening.value = false
             amplitudeJob?.cancel()
             timeoutJob?.cancel()
-            EventBus.emit(Event.UIEvent.HideOverlay)
             AssistantApplication.status.value = "İşleniyor..."
             
             EventBus.emit(Event.VoiceEvent.RecordingStopped)
@@ -247,12 +271,14 @@ class AssistantController(
             onComplete?.invoke()
         }
 
-        when (engine) {
-            "EDGE" -> edgeTtsManager.speak(text, onComplete = wrappedOnComplete)
-            "HERMES" -> hermesTtsManager.speak(text, onComplete = wrappedOnComplete, onError = { wrappedOnComplete() })
-            "SHERPA" -> if (!sherpaTtsManager.speak(text, wrappedOnComplete)) wrappedOnComplete()
-            else -> hermesTtsManager.speak(text, onComplete = wrappedOnComplete)
+        val ttsProvider: com.omoda.lanc.tts.TTSManager = when (engine) {
+            "EDGE" -> edgeTtsManager
+            "SHERPA" -> sherpaTtsManager
+            "HERMES" -> hermesTtsManager
+            else -> hermesTtsManager
         }
+
+        ttsProvider.speak(text, onComplete = wrappedOnComplete, onError = { wrappedOnComplete() })
     }
 
     private fun stopTts() {

@@ -39,15 +39,24 @@ class HermesTTSManager(private val context: Context) : TTSManager {
     private var tempAudioFile: File? = null
 
     private val audioAttributes = AudioAttributes.Builder()
-        .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
+        .setUsage(
+            if (AssistantApplication.isCarHardware) 
+                AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE 
+            else 
+                AudioAttributes.USAGE_MEDIA
+        )
         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
         .build()
 
-    override fun speak(text: String) {
-        speak(text, onComplete = null)
+    override fun speak(text: String, onComplete: (() -> Unit)?, onError: (() -> Unit)?) {
+        speakInternal(text, AssistantApplication.TTS_BASE_URL, AssistantApplication.HERMES_API_KEY, onComplete, onError)
     }
 
-    fun speak(
+    override fun isSpeaking(): Boolean {
+        return mediaPlayer?.isPlaying == true || currentJob?.isActive == true
+    }
+
+    private fun speakInternal(
         text: String,
         baseUrl: String = AssistantApplication.TTS_BASE_URL,
         apiKey: String = AssistantApplication.HERMES_API_KEY,

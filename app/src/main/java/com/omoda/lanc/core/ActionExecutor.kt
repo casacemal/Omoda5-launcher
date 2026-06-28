@@ -147,6 +147,17 @@ class ActionExecutor(private val context: Context) {
                     "Success: System time sync triggered"
                 }
 
+                // TAILSCALE VPN KONTROLÜ
+                "connect_vpn" -> {
+                    executeShellCommand("am broadcast -n com.tailscale.ipn/.IPNReceiver -a com.tailscale.ipn.CONNECT_VPN")
+                    "Success: Tailscale VPN connection requested"
+                }
+
+                "disconnect_vpn" -> {
+                    executeShellCommand("am broadcast -n com.tailscale.ipn/.IPNReceiver -a com.tailscale.ipn.DISCONNECT_VPN")
+                    "Success: Tailscale VPN disconnection requested"
+                }
+
                 else -> {
                     Log.w(TAG, "Bilinmeyen komut: $functionName")
                     "Error: Unknown command $functionName"

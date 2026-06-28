@@ -32,14 +32,16 @@ class WakeWordManager(
     private val SAMPLE_RATE = 16000
     private val CHUNK_DURATION_MS = 3000 // 3 saniye chunks
     private val httpClient = OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(15, TimeUnit.SECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
     fun startListening() {
         if (isListening) return
         isListening = true
         thread {
+            Log.i(TAG, "Wake Word Döngüsü Başlatılıyor... (Mod: ${AssistantApplication.sttMode.value})")
             listenLoop()
         }
         Log.i(TAG, "Wake Word dinlemesi başladı: \"$WAKE_WORD\"")
@@ -70,11 +72,30 @@ class WakeWordManager(
             while (isListening) {
                 // 3 saniyelik ses kaydet
                 val audioData = recordChunk(bufferSize)
+            while (isListening) {
+                // 3 saniyelik ses kaydet
+                val audioData = recordChunk(bufferSize)
                 if (audioData != null && audioData.size > 1000) {
                     // STT ile kontrol et
-                    val text = transcribeWithGroq(audioData)
+                    val text = transcribe(audioData)
                     if (text != null) {
-                        val lowerText = text.lowercase().trim()
+                        val lowerText = text.toLowerCase(java.util.Locale.ROOT).trim()
+                        val currentMode = AssistantApplication.sttMode.value
+                        Log.d(TAG, "STT ($currentMode): \"$lowerText\"")
+
+                        if (lowerText.contains(WAKE_WORD)) {
+                            // Wake word bulundu, komutu çıkar
+                            val command = extractCommand(lowerText)
+                            Log.i(TAG, "Wake Word algılandı! Komut: \"$command\"")
+                            onWakeWordDetected(command)
+                        }
+                    } else {
+                        // Eğer STT başarısızsa (null döndüyse), 429 veya başka bir hata olabilir.
+                        // Sürekli istek atıp sistemi kilitlememek için biraz bekle.
+                        Thread.sleep(2000)
+                    }
+                }
+            }
                         
                         // Sürüm 7.0: Ultra-Gelişmiş Halüsinasyon Filtresi (Omoda Özel)
                         val hallucinationPatterns = listOf(
@@ -120,10 +141,21 @@ class WakeWordManager(
         }
     }
 
-    private fun transcribeWithGroq(audioData: ByteArray): String? {
+    private fun transcribe(audioData: ByteArray): String? {
+        val mode = AssistantApplication.sttMode.value
+        val useCloud = mode == "BULUT" || mode == "GROQ"
+        
         return try {
-            // WAV header ekle
             val wavData = addWavHeader(audioData)
+
+            val targetUrl = if (useCloud) {
+                "${AssistantApplication.GROQ_BASE_URL}/audio/transcriptions"
+            } else {
+                "${AssistantApplication.STT_BASE_URL}/audio/transcriptions"
+            }
+
+            val apiKey = if (useCloud) AssistantApplication.groqApiKey.value else AssistantApplication.HERMES_API_KEY
+            val modelName = if (useCloud) "whisper-large-v3" else "whisper-1"
 
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -131,16 +163,19 @@ class WakeWordManager(
                     "file", "audio.wav",
                     wavData.toRequestBody("audio/wav".toMediaType())
                 )
-                .addFormDataPart("model", "whisper-large-v3")
+                .addFormDataPart("model", modelName)
                 .addFormDataPart("language", "tr")
                 .build()
 
-            val apiKey = AssistantApplication.groqApiKey.value
-            val request = Request.Builder()
-                .url("${AssistantApplication.GROQ_BASE_URL}/audio/transcriptions")
+            val requestBuilder = Request.Builder()
+                .url(targetUrl)
                 .addHeader("Authorization", "Bearer $apiKey")
-                .post(requestBody)
-                .build()
+            
+            if (!useCloud) {
+                requestBuilder.addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
+            }
+
+            val request = requestBuilder.post(requestBody).build()
 
             val response = httpClient.newCall(request).execute()
             if (response.isSuccessful) {
@@ -148,7 +183,12 @@ class WakeWordManager(
                 val json = JSONObject(body ?: return null)
                 json.optString("text", "")
             } else {
-                Log.w(TAG, "STT hatası: ${response.code}")
+                Log.w(TAG, "STT hatası ($mode): ${response.code}")
+                // 429 alırsak ve buluttaysak, bir sonraki sefer için HERMES moduna geçmeyi dene
+                if (response.code == 429 && useCloud) {
+                    AssistantApplication.sttMode.value = "HERMES"
+                    Log.i(TAG, "Rate limit nedeniyle HERMES moduna geçiliyor.")
+                }
                 null
             }
         } catch (e: Exception) {

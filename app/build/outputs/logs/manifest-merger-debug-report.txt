@@ -1,9 +1,20 @@
 -- Merging decision tree log ---
+provider#androidx.core.content.FileProvider
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:97:9-105:20
+	android:grantUriPermissions
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:101:13-47
+	android:authorities
+		INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:99:13-64
+	android:exported
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:100:13-37
+	android:name
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:98:13-62
 manifest
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-109:12
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-109:12
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-109:12
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-109:12
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
 MERGED from [sherpa-onnx-1.13.2.aar] /home/cemal/.gradle/caches/transforms-4/a74e105e4b702752a89169b47d769475/transformed/sherpa-onnx-1.13.2/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.navigation:navigation-common:2.7.6] /home/cemal/.gradle/caches/transforms-4/c11d0ab05ae2fad46ab4fcc9b9d542b3/transformed/navigation-common-2.7.6/AndroidManifest.xml:17:1-22:12
@@ -221,8 +232,8 @@ ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:42:5-77
 	android:name
 		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:42:22-74
 application
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:5-97:19
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:5-97:19
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:5-107:19
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:5-107:19
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/cemal/.gradle/caches/transforms-4/cf067714c92fca073ae3b288b21a3023/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
@@ -342,35 +353,41 @@ ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:17-99
 	android:name
 		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:25-96
 queries
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:99:5-107:15
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:109:5-117:15
 package#com.google.android.apps.maps
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:100:9-64
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:110:9-64
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:100:18-61
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:110:18-61
 package#com.chery.media
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:101:9-51
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:111:9-51
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:101:18-48
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:111:18-48
 package#com.chery.hvac
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:102:9-50
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:112:9-50
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:102:18-47
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:112:18-47
 package#com.yfve.hvac
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:9-49
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:113:9-49
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:18-46
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:113:18-46
 package#in.krosbits.musicolet
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:9-57
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:114:9-57
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:18-54
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:114:18-54
 package#com.spotify.music
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:105:9-53
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:115:9-53
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:105:18-50
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:115:18-50
 package#com.vivaldi.browser
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:106:9-55
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:116:9-55
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:106:18-52
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:116:18-52
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:102:13-104:54
+	android:resource
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:17-51
+	android:name
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:17-67
 uses-sdk
 INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml

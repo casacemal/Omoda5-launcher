@@ -33,23 +33,26 @@ fun GlassIcon(
 ) {
     val context = LocalContext.current
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
-    val screenWidth = configuration.screenWidthDp
-    val isMobile = screenWidth < 600
-    val isSmallTablet = screenWidth < 1100 && screenWidth >= 600
-    
+    val smallestWidth = configuration.smallestScreenWidthDp
+    val isCar = com.omoda.lanc.AssistantApplication.isCarHardware
+    val isHandheld = !isCar && smallestWidth < 600
+
     val iconSize = when {
-        isMobile -> 56.dp
-        isSmallTablet -> 100.dp
+        isCar -> 143.dp
+        isHandheld -> 56.dp
+        smallestWidth < 800 -> 90.dp
         else -> 143.dp
     }
     val containerWidth = when {
-        isMobile -> 72.dp
-        isSmallTablet -> 140.dp
+        isCar -> 208.dp
+        isHandheld -> 80.dp
+        smallestWidth < 800 -> 120.dp
         else -> 208.dp
     }
     val fontSize = when {
-        isMobile -> 11.sp
-        isSmallTablet -> 14.sp
+        isCar -> 18.sp
+        isHandheld -> 12.sp
+        smallestWidth < 800 -> 13.sp
         else -> 18.sp
     }
 
@@ -57,8 +60,8 @@ fun GlassIcon(
         modifier = Modifier
             .width(containerWidth)
             .padding(vertical = when {
-                isMobile -> 4.dp
-                isSmallTablet -> 6.dp
+                isHandheld -> 4.dp
+                smallestWidth < 800 -> 6.dp
                 else -> 12.dp
             }),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -67,8 +70,8 @@ fun GlassIcon(
             modifier = Modifier
                 .size(iconSize)
                 .clip(RoundedCornerShape(when {
-                    isMobile -> 12.dp
-                    isSmallTablet -> 20.dp
+                    isHandheld -> 10.dp
+                    smallestWidth < 800 -> 18.dp
                     else -> 28.dp
                 }))
                 .pointerInput(Unit) {

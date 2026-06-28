@@ -65,7 +65,7 @@ class AgentManager(
             val systemMessage = messageHistory.getJSONObject(0)
             systemMessage.put("content", "Sen Chery Omoda 5 için geliştirilmiş akıllı bir HMI asistansın. Yanıtlarını kısa ve konuşma diline uygun tut. Mevcut Araç Verisi: $statusText")
 
-            // Monitor modundaysa anomali analizini tetikle
+            // Monitor modu: surekli telemetri akisi, sadece kritik durumlarda uyari
             if (AssistantApplication.currentMode.value == "MONITOR") {
                 val now = System.currentTimeMillis()
                 // Veri akışını canlı tutmak için her 5 saniyede bir gönder (değişim olmasa bile)
@@ -264,6 +264,39 @@ class AgentManager(
                             })
                         })
                         put("required", JSONArray().apply { put("temperature") })
+                    })
+                })
+            })
+            put(JSONObject().apply {
+                put("type", "function")
+                put("function", JSONObject().apply {
+                    put("name", "fix_system_time")
+                    put("description", "Sistem saatini ağ üzerinden otomatik senkronize eder (NTP). Saat yanlış olduğunda veya API hataları alındığında kullanılır.")
+                    put("parameters", JSONObject().apply {
+                        put("type", "object")
+                        put("properties", JSONObject())
+                    })
+                })
+            })
+            put(JSONObject().apply {
+                put("type", "function")
+                put("function", JSONObject().apply {
+                    put("name", "connect_vpn")
+                    put("description", "Tailscale VPN ağ bağlantısını başlatır. Cihazı güvenli ağa dahil etmek için kullanılır.")
+                    put("parameters", JSONObject().apply {
+                        put("type", "object")
+                        put("properties", JSONObject())
+                    })
+                })
+            })
+            put(JSONObject().apply {
+                put("type", "function")
+                put("function", JSONObject().apply {
+                    put("name", "disconnect_vpn")
+                    put("description", "Tailscale VPN ağ bağlantısını keser.")
+                    put("parameters", JSONObject().apply {
+                        put("type", "object")
+                        put("properties", JSONObject())
                     })
                 })
             })

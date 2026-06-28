@@ -33,6 +33,9 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
 
     private fun startMediaRecording() {
         try {
+            if (!audioFile.parentFile.exists()) audioFile.parentFile.mkdirs()
+            if (audioFile.exists()) audioFile.delete()
+
             val source = getAudioSource()
             mediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 MediaRecorder(context)
@@ -53,6 +56,11 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
         } catch (e: Exception) {
             Log.e(tag, "Media Recording Error: ${e.message}")
             AssistantApplication.addLog("Kayıt Hatası: ${e.message}")
+            // Fallback to MIC if other source fails
+            if (AssistantApplication.micSource.value != "MIC") {
+                AssistantApplication.micSource.value = "MIC"
+                startMediaRecording()
+            }
         }
     }
 
@@ -92,10 +100,11 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
     }
 
     private fun getAudioSource(): Int {
-        return if (AssistantApplication.micSource.value == "VOICE_COMMUNICATION") {
-            MediaRecorder.AudioSource.VOICE_COMMUNICATION
-        } else {
-            MediaRecorder.AudioSource.VOICE_RECOGNITION
+        return when (AssistantApplication.micSource.value) {
+            "VOICE_COMMUNICATION" -> MediaRecorder.AudioSource.VOICE_COMMUNICATION
+            "VOICE_RECOGNITION" -> MediaRecorder.AudioSource.VOICE_RECOGNITION
+            "MIC" -> MediaRecorder.AudioSource.MIC
+            else -> MediaRecorder.AudioSource.MIC
         }
     }
 

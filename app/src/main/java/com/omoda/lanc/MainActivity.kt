@@ -71,7 +71,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         settingsManager = SettingsManager(this)
         
-        injectPermissions()
+        Handler(Looper.getMainLooper()).postDelayed({
+            injectPermissions()
+        }, 2000)
+
         startPeriodicPermissionCheck()
         generateDefaultWallpapers()
 
@@ -127,7 +130,14 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun HomeScreen(onOpenSettings: () -> Unit) {
         val context = androidx.compose.ui.platform.LocalContext.current
-        var launcherPages by remember { mutableStateOf(buildLauncherPages()) }
+        val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+        val smallestWidth = configuration.smallestScreenWidthDp
+        val isHandheld = !com.omoda.lanc.AssistantApplication.isCarHardware && smallestWidth < 600
+        
+        // Mobil için sayfa başına öğe sayısını ayarla
+        val itemsPerPage = if (isHandheld) 8 else 10
+
+        var launcherPages by remember { mutableStateOf(buildLauncherPages(itemsPerPage)) }
         val pagerState = rememberPagerState { launcherPages.size }
         val scope = rememberCoroutineScope()
         
@@ -164,30 +174,22 @@ class MainActivity : ComponentActivity() {
         val totalCount = internalWallpapers.size + externalWallpapers.size
         val currentIdx = wallpaperIdx % if (totalCount > 0) totalCount else 1
         
-        val configuration = androidx.compose.ui.platform.LocalConfiguration.current
-        val screenWidth = configuration.screenWidthDp
-        val isMobile = screenWidth < 600
-        val isSmallTablet = screenWidth < 1100 && screenWidth >= 600
-        
-        val leftPadding = when {
-            isMobile -> 20.dp
-            isSmallTablet -> 120.dp
+        val leftPaddingVal = when {
+            isHandheld -> 12.dp
+            smallestWidth < 800 -> 60.dp
             else -> 235.dp
         }
-        val topPadding = when {
-            isMobile -> 60.dp
-            isSmallTablet -> 100.dp
+        val topPaddingVal = when {
+            isHandheld -> 12.dp
+            smallestWidth < 800 -> 40.dp
             else -> 120.dp
         }
-        val gridColumns = when {
-            isMobile -> 4
-            isSmallTablet -> 4
+        val gridColumnsVal = when {
+            isHandheld -> 4
+            smallestWidth < 800 -> 4
             else -> 5
         }
         
-        // Mobil için sayfa başına öğe sayısını ayarla
-        val itemsPerPage = if (isMobile) 8 else 10
-
         val painter: Painter = if (currentIdx < internalWallpapers.size) {
             painterResource(internalWallpapers[currentIdx])
         } else {
@@ -215,100 +217,104 @@ class MainActivity : ComponentActivity() {
 
             // Ana İçerik (Launcher Bölümü - Sol Taraf)
             Row(Modifier.fillMaxSize()) {
-                Box(Modifier.weight(1f).fillMaxHeight()) {
-                    HorizontalPager(
-                        state = pagerState,
-                        modifier = Modifier.fillMaxSize()
-                    ) { pIdx ->
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(gridColumns), 
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(start = leftPadding, end = if(isMobile) 20.dp else 80.dp, top = topPadding, bottom = 60.dp),
-                            verticalArrangement = Arrangement.Top,
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
-                            userScrollEnabled = false
-                        ) {
-                            items(launcherPages[pIdx]) { item ->
-                                GlassIcon(
-                                    item = item,
-                                    onClick = { 
-                                        if (item.packageName == "internal.wallpaper") {
-                                            wallpaperIdx++
-                                        } else {
-                                            launchApp(item)
-                                            // Tıklama oranını artır ve sayfaları yeniden oluştur
-                                            item.packageName?.let { pkg ->
-                                                settingsManager.incrementAppClickCount(pkg)
-                                                launcherPages = buildLauncherPages(itemsPerPage)
+                Column(Modifier.weight(1f).fillMaxHeight()) {
+                    // Medya Widget (Üstte)
+                    com.omoda.lanc.ui.components.MediaControlWidget(mediaVM)
+                    
+                    Box(Modifier.weight(1f)) {
+                        HorizontalPager(
+                            state = pagerState,
+                            modifier = Modifier.fillMaxSize()
+                        ) { pIdx ->
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(gridColumnsVal), 
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(
+                                        start = leftPaddingVal, 
+                                        end = if(isHandheld) 60.dp else 80.dp, 
+                                        top = if(isHandheld) 0.dp else topPaddingVal, 
+                                        bottom = 40.dp
+                                    ),
+                                verticalArrangement = Arrangement.Top,
+                                horizontalArrangement = Arrangement.spacedBy(if(isHandheld) 4.dp else 10.dp),
+                                userScrollEnabled = false
+                            ) {
+                                items(launcherPages[pIdx]) { item ->
+                                    GlassIcon(
+                                        item = item,
+                                        onClick = { 
+                                            if (item.packageName == "internal.wallpaper") {
+                                                wallpaperIdx++
+                                            } else {
+                                                launchApp(item)
+                                                // Tıklama oranını artır ve sayfaları yeniden oluştur
+                                                item.packageName?.let { pkg ->
+                                                    settingsManager.incrementAppClickCount(pkg)
+                                                    launcherPages = buildLauncherPages(itemsPerPage)
+                                                }
                                             }
                                         }
-                                    }
-                                )
+                                    )
+                                }
                             }
                         }
-                    }
 
-                    // Medya Widget (Üstte ince bir çubuk olarak)
-                    Box(Modifier.fillMaxWidth().padding(top = 10.dp)) {
-                        com.omoda.lanc.ui.components.MediaControlWidget(mediaVM)
-                    }
-
-                    // Navigasyon Bar (v9.0.0): Alt ortada iki adet yatay ince çizgi
-                    Row(
-                        Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(bottom = 30.dp)
-                            .width(200.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        // Sol Çizgi: 1. Sayfa (Home)
-                        Box(
+                        // Navigasyon Bar (v9.0.0): Alt ortada iki adet yatay ince çizgi
+                        Row(
                             Modifier
-                                .weight(1f)
-                                .height(6.dp)
-                                .clip(RoundedCornerShape(3.dp))
-                                .background(if(pagerState.currentPage == 0) OmodaCyan else Color.White.copy(0.3f))
-                                .clickable { scope.launch { pagerState.animateScrollToPage(0) } }
-                        )
-                        // Sağ Çizgi: 2. Sayfa ve sonrası
-                        Box(
-                            Modifier
-                                .weight(1f)
-                                .height(6.dp)
-                                .clip(RoundedCornerShape(3.dp))
-                                .background(if(pagerState.currentPage > 0) OmodaCyan else Color.White.copy(0.3f))
-                                .clickable { scope.launch { if(launcherPages.size > 1) pagerState.animateScrollToPage(1) } }
-                        )
-                    }
-
-                    // Görünmez alt tetikleyici (Manifesto v9.3.0)
-                    // Çift tıklama duvar kağıdını değiştirir, uzun basış ayarları tetikler.
-                    Box(
-                        Modifier
-                            .align(Alignment.BottomCenter)
-                            .size(300.dp, 60.dp)
-                            .zIndex(1f)
-                            .combinedClickable(
-                                onClick = { }, 
-                                onDoubleClick = { wallpaperIdx++ },
-                                onLongClick = onOpenSettings
+                                .align(Alignment.BottomCenter)
+                                .padding(bottom = 10.dp)
+                                .width(if(isHandheld) 120.dp else 200.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            // Sol Çizgi: 1. Sayfa (Home)
+                            Box(
+                                Modifier
+                                    .weight(1f)
+                                    .height(4.dp)
+                                    .clip(RoundedCornerShape(2.dp))
+                                    .background(if(pagerState.currentPage == 0) OmodaCyan else Color.White.copy(0.3f))
+                                    .clickable { scope.launch { pagerState.animateScrollToPage(0) } }
                             )
-                    )
+                            // Sağ Çizgi: 2. Sayfa ve sonrası
+                            Box(
+                                Modifier
+                                    .weight(1f)
+                                    .height(4.dp)
+                                    .clip(RoundedCornerShape(2.dp))
+                                    .background(if(pagerState.currentPage > 0) OmodaCyan else Color.White.copy(0.3f))
+                                    .clickable { scope.launch { if(launcherPages.size > 1) pagerState.animateScrollToPage(1) } }
+                            )
+                        }
+
+                        // Görünmez alt tetikleyici (Manifesto v9.3.0)
+                        Box(
+                            Modifier
+                                .align(Alignment.BottomCenter)
+                                .size(300.dp, 60.dp)
+                                .zIndex(1f)
+                                .combinedClickable(
+                                    onClick = { }, 
+                                    onDoubleClick = { wallpaperIdx++ },
+                                    onLongClick = onOpenSettings
+                                )
+                        )
+                    }
                 }
             }
 
             // SMART HUD (v9.2.0) - Sağ Alt AI Feedback (Ana Box içinde)
             val hudWidth = when {
-                isMobile -> 200.dp
-                isSmallTablet -> 260.dp
+                isHandheld -> 180.dp
+                smallestWidth < 800 -> 240.dp
                 else -> 320.dp
             }
             Box(
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(end = 20.dp, bottom = if(isMobile) 20.dp else if(isSmallTablet) 40.dp else 100.dp)
+                    .padding(end = 8.dp, bottom = if(isHandheld) 8.dp else if(smallestWidth < 800) 20.dp else 100.dp)
                     .width(hudWidth)
                     .clip(RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp))
                     .background(Color.Black.copy(0.7f))
@@ -422,7 +428,6 @@ class MainActivity : ComponentActivity() {
         val pages = mutableListOf<List<LauncherItem>>()
         
         // Sayfalara böl
-        val firstPageLimit = if (itemsPerPage < fixedApps.size) itemsPerPage else fixedApps.size
         pages.add(fixedApps.take(itemsPerPage)) 
         
         val remainingFixed = if (fixedApps.size > itemsPerPage) fixedApps.drop(itemsPerPage) else emptyList()
@@ -450,7 +455,7 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        val baseCmds = listOf(
+        val baseCmds = mutableListOf(
             // Varsayılan Launcher Yap (Home)
             "cmd package set-home-activity $packageName/.MainActivity",
             
@@ -475,6 +480,11 @@ class MainActivity : ComponentActivity() {
             "pm grant $packageName android.permission.ACCESS_COARSE_LOCATION",
             "pm grant $packageName android.permission.PACKAGE_USAGE_STATS"
         )
+        
+        if (com.omoda.lanc.AssistantApplication.isTailscaleEnabled.value) {
+            baseCmds.add("am broadcast -n com.tailscale.ipn/.IPNReceiver -a com.tailscale.ipn.CONNECT_VPN")
+        }
+        
         baseCmds.forEach { exec(it) }
 
         // Notification Listener (Media Monitoring) - Sürüm 10+ için tam yetki
@@ -550,9 +560,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun exec(c: String) {
-        startService(Intent(this, com.omoda.lanc.service.AdbBridgeService::class.java).apply {
+        val intent = Intent(this, com.omoda.lanc.service.AdbBridgeService::class.java).apply {
             action = com.omoda.lanc.service.AdbBridgeService.ACTION_EXECUTE_SHELL
             putExtra("command", c)
-        })
+        }
+        ContextCompat.startForegroundService(this, intent)
     }
 }

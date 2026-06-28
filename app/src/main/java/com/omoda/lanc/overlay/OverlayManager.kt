@@ -120,8 +120,9 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
     }
 
     fun updateState(text: String, isListening: Boolean, textColor: Int = Color.GREEN) {
-        // Compose handles state via flows, so we don't need manual UI updates here
-        // AssistantApplication.recognizedText etc. are already observed in AssistantOverlayUI
+        show()
+        AssistantApplication.assistantResponse.value = text
+        AssistantApplication.isListening.value = isListening
     }
 
     fun updateAmplitude(amp: Int) {

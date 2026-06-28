@@ -1,7 +1,7 @@
 package com.omoda.lanc.config
 
 data class AppConfig(
-    val serverIp: String = "100.95.239.119",
+    val serverIp: String = "192.168.1.14",
     val hermesPort: String = "8642",
     val sttPort: String = "8642",
     val ttsPort: String = "10201",
@@ -10,7 +10,7 @@ data class AppConfig(
     val useHermesSpeech: Boolean = true,
     val isContinuousConversation: Boolean = true,
     val isWakeWordEnabled: Boolean = true,
-    val micSource: String = "VOICE_RECOGNITION",
+    val micSource: String = "MIC",
     val useHermesDecision: Boolean = false,
     val isAutoTasksEnabled: Boolean = true,
     val groqApiKey: String = "",
@@ -18,5 +18,10 @@ data class AppConfig(
     val vehiclePollingConfig: Map<String, Int> = emptyMap(),
     // Kimlik bilgileri
     val vehicleId: String = "OMODA5_T19C_001",
-    val sessionKey: String = "user:ahmet:master_profile"
+    val sessionKey: String = "user:ahmet:master_profile",
+    
+    // Edge TTS Ayarları
+    val edgeVoiceName: String = "tr-TR-EmelNeural",
+    val edgePitch: String = "+0Hz",
+    val edgeRate: String = "+0%"
 )

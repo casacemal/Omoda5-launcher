@@ -749,15 +749,21 @@ fun DeckControlsSection(
                 Text("Mikrofon Kaynağı", color = Color.Gray, fontSize = 15.sp)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     DeckButton(
-                        label = "STANDART", 
+                        label = "STT", 
                         active = micSource == "VOICE_RECOGNITION", 
                         onClick = { onMicSourceChange("VOICE_RECOGNITION") },
                         modifier = Modifier.weight(1f)
                     )
                     DeckButton(
-                        label = "DSP / VOIP", 
+                        label = "VOIP", 
                         active = micSource == "VOICE_COMMUNICATION", 
                         onClick = { onMicSourceChange("VOICE_COMMUNICATION") },
+                        modifier = Modifier.weight(1f)
+                    )
+                    DeckButton(
+                        label = "MIC", 
+                        active = micSource == "MIC", 
+                        onClick = { onMicSourceChange("MIC") },
                         modifier = Modifier.weight(1f)
                     )
                 }

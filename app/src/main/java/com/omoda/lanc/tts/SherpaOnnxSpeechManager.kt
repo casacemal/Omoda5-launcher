@@ -52,19 +52,20 @@ class SherpaOnnxSpeechManager(private val context: Context) : TTSManager {
         return sharedTts != null
     }
 
-    override fun speak(text: String) {
-        speak(text, null)
+    override fun isSpeaking(): Boolean {
+        return mediaPlayer?.isPlaying == true || currentJob?.isActive == true
     }
 
-    fun speak(text: String, onComplete: (() -> Unit)? = null): Boolean {
+    override fun speak(text: String, onComplete: (() -> Unit)?, onError: (() -> Unit)?) {
         if (text.isBlank()) {
             onComplete?.invoke()
-            return true
+            return
         }
 
         if (!isReady()) {
             Log.w(TAG, "Speak çağrıldı ama Sherpa henüz hazır değil.")
-            return false
+            onError?.invoke() ?: onComplete?.invoke()
+            return
         }
 
         stop()
@@ -93,8 +94,6 @@ class SherpaOnnxSpeechManager(private val context: Context) : TTSManager {
                 }
             }
         }
-
-        return true
     }
 
     @Synchronized

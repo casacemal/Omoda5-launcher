@@ -41,6 +41,10 @@ fun SettingsScreen(onBack: () -> Unit) {
     
     val sttMode by AssistantApplication.sttMode.collectAsState()
     val ttsEngine by AssistantApplication.ttsEngine.collectAsState()
+    val edgeVoiceName by AssistantApplication.edgeVoiceName.collectAsState()
+    val edgePitch by AssistantApplication.edgePitch.collectAsState()
+    val edgeRate by AssistantApplication.edgeRate.collectAsState()
+    
     val groqApiKey by AssistantApplication.groqApiKey.collectAsState()
     val isAutoTasksEnabled by AssistantApplication.isAutoTasksEnabled.collectAsState()
     val vehicleId by AssistantApplication.vehicleId.collectAsState()
@@ -53,10 +57,17 @@ fun SettingsScreen(onBack: () -> Unit) {
     val isTailscaleEnabled by AssistantApplication.isTailscaleEnabled.collectAsState()
     val useTls by AssistantApplication.useTls.collectAsState()
 
+    val isMqttConnected by AssistantApplication.isMqttConnected.collectAsState()
+    val hasInternet by AssistantApplication.hasInternetConnection.collectAsState()
+    val hermesStatus by AssistantApplication.hermesConnectionStatus.collectAsState()
+    val isHermesConnected = hermesStatus == "CONNECTED"
+
     var ipInput by remember { mutableStateOf(serverIp) }
     var hermesPortInput by remember { mutableStateOf(hermesPort) }
     var sttPortInput by remember { mutableStateOf(sttPort) }
     var ttsPortInput by remember { mutableStateOf(ttsPort) }
+    var edgePitchInput by remember { mutableStateOf(edgePitch) }
+    var edgeRateInput by remember { mutableStateOf(edgeRate) }
     var groqKeyInput by remember { mutableStateOf(groqApiKey) }
     var vehicleIdInput by remember { mutableStateOf(vehicleId) }
     var sessionKeyInput by remember { mutableStateOf(sessionKey) }
@@ -85,7 +96,8 @@ fun SettingsScreen(onBack: () -> Unit) {
 
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
-    val isMobile = screenWidth < 600
+    val isCar = com.omoda.lanc.AssistantApplication.isCarHardware
+    val isMobile = !isCar && screenWidth < 600
 
     Scaffold(
         topBar = {
@@ -96,6 +108,19 @@ fun SettingsScreen(onBack: () -> Unit) {
                         if (!isMobile) {
                             Spacer(Modifier.width(16.dp))
                             Text(currentTime, color = Color(0xFF69E2D3), fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                            Spacer(Modifier.width(24.dp))
+                            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                                StatusLed("İnternet", hasInternet)
+                                StatusLed("MQTT", isMqttConnected)
+                                StatusLed("Hermes", isHermesConnected)
+                            }
+                        } else {
+                            Spacer(Modifier.width(8.dp))
+                            Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                                StatusLed("Web", hasInternet)
+                                StatusLed("MQTT", isMqttConnected)
+                                StatusLed("AI", isHermesConnected)
+                            }
                         }
                     }
                 },
@@ -105,6 +130,19 @@ fun SettingsScreen(onBack: () -> Unit) {
                         onBack() 
                     }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Geri", tint = Color.White)
+                    }
+                },
+                actions = {
+                    Button(
+                        onClick = { 
+                            AssistantApplication.saveCurrentConfig()
+                            onBack()
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.padding(end = 8.dp)
+                    ) {
+                        Text("KAYDET", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF111315))
@@ -270,6 +308,80 @@ fun SettingsScreen(onBack: () -> Unit) {
                     }
                 }
 
+                // Edge TTS Settings
+                SettingCard(title = "EDGE TTS AYARLARI") {
+                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                        // Voice Selection
+                        Column {
+                            Text("Ses Seçimi", color = Color.Gray, fontSize = 12.sp)
+                            Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                listOf(
+                                    "tr-TR-EmelNeural" to "Kadın (Emel)",
+                                    "tr-TR-AhmetNeural" to "Erkek (Ahmet)"
+                                ).forEach { (voiceId, label) ->
+                                    val isSelected = edgeVoiceName == voiceId
+                                    Box(
+                                        modifier = Modifier
+                                            .weight(1f)
+                                            .height(40.dp)
+                                            .clip(RoundedCornerShape(8.dp))
+                                            .background(if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) else Color.DarkGray.copy(alpha = 0.3f))
+                                            .border(1.dp, if (isSelected) Color(0xFF69E2D3) else Color.Transparent, RoundedCornerShape(8.dp))
+                                            .clickable { AssistantApplication.edgeVoiceName.value = voiceId },
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Text(label, color = if (isSelected) Color(0xFF69E2D3) else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
+                                    }
+                                }
+                            }
+                        }
+
+                        // Pitch & Rate
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            OutlinedTextField(
+                                value = edgePitchInput,
+                                onValueChange = { 
+                                    edgePitchInput = it
+                                    AssistantApplication.edgePitch.value = it
+                                },
+                                label = { Text("Ses Tonu (Pitch)", color = Color.Gray) },
+                                modifier = Modifier.weight(1f),
+                                placeholder = { Text("+0Hz", color = Color.DarkGray) },
+                                singleLine = true,
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color.White,
+                                    unfocusedTextColor = Color.White,
+                                    focusedBorderColor = Color(0xFF69E2D3),
+                                    unfocusedBorderColor = Color.Gray
+                                )
+                            )
+                            
+                            OutlinedTextField(
+                                value = edgeRateInput,
+                                onValueChange = { 
+                                    edgeRateInput = it
+                                    AssistantApplication.edgeRate.value = it
+                                },
+                                label = { Text("Hız (Rate)", color = Color.Gray) },
+                                modifier = Modifier.weight(1f),
+                                placeholder = { Text("+0%", color = Color.DarkGray) },
+                                singleLine = true,
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color.White,
+                                    unfocusedTextColor = Color.White,
+                                    focusedBorderColor = Color(0xFF69E2D3),
+                                    unfocusedBorderColor = Color.Gray
+                                )
+                            )
+                        }
+                        Text(
+                            "Örn: Hız için '+10%' veya '-5%', Ton için '+5Hz' veya '-5Hz'.",
+                            color = Color(0xFFFFD700),
+                            fontSize = 11.sp
+                        )
+                    }
+                }
+
                 // MQTT & Bridge Settings
                 val mqttEnabled by AssistantApplication.mqttEnabled.collectAsState()
                 val bridgeMode by AssistantApplication.isBridgeMode.collectAsState()
@@ -369,7 +481,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                         
                         Text("Gelişmiş ADB Araçları:", color = Color.Gray, fontSize = 11.sp)
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Button(
+                            OutlinedButton(
                                 onClick = { 
                                     val intent = Intent(AssistantApplication.configManager.context, com.omoda.lanc.service.AdbBridgeService::class.java).apply {
                                         action = com.omoda.lanc.service.AdbBridgeService.ACTION_EXECUTE_SHELL
@@ -378,12 +490,13 @@ fun SettingsScreen(onBack: () -> Unit) {
                                     AssistantApplication.configManager.context.startService(intent)
                                 },
                                 modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE65100))
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF69E2D3)),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF69E2D3))
                             ) {
-                                Text("ADB TCP 5555", fontSize = 10.sp)
+                                Text("ADB TCP AÇ", fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
                             }
                             
-                            Button(
+                            OutlinedButton(
                                 onClick = { 
                                     val intent = Intent(AssistantApplication.configManager.context, com.omoda.lanc.service.AdbBridgeService::class.java).apply {
                                         action = com.omoda.lanc.service.AdbBridgeService.ACTION_EXECUTE_SHELL
@@ -392,9 +505,10 @@ fun SettingsScreen(onBack: () -> Unit) {
                                     AssistantApplication.configManager.context.startService(intent)
                                 },
                                 modifier = Modifier.weight(1f),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF311B92))
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)
                             ) {
-                                Text("ROOT TEST", fontSize = 10.sp)
+                                Text("ROOT TEST", fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
                             }
                         }
                     }
@@ -483,6 +597,9 @@ fun SettingsScreen(onBack: () -> Unit) {
                     }
                 }
 
+                // App Store & OTA
+                AppStoreSection()
+
                 // Vehicle Data Policy
                 SettingCard(title = "ARAÇ VERİ POLİTİKASI (POLLING)") {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -568,18 +685,6 @@ fun SettingsScreen(onBack: () -> Unit) {
                         InfoRow("Derleme Tarihi", buildDate)
                     }
                 }
-                
-                Button(
-                    onClick = { 
-                        AssistantApplication.saveCurrentConfig()
-                        onBack()
-                    },
-                    modifier = Modifier.fillMaxWidth().height(56.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
-                    shape = RoundedCornerShape(8.dp)
-                ) {
-                    Text("AYARLARI KAYDET VE DÖN", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = if(isMobile) 14.sp else 16.sp)
-                }
                 Spacer(modifier = Modifier.height(24.dp))
             }
             
@@ -623,25 +728,6 @@ fun SettingCard(title: String, content: @Composable () -> Unit) {
             Box(modifier = Modifier.padding(16.dp)) {
                 content()
             }
-            
-            // Sağ Yan Bar (Side Bar)
-            Column(
-                modifier = Modifier
-                    .width(80.dp)
-                    .fillMaxHeight()
-                    .background(Color.Black.copy(alpha = 0.3f))
-                    .padding(vertical = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-                // Hızlı Aksiyon Tuşları
-                IconButton(onClick = { /* Refresh */ }) {
-                    Icon(Icons.Default.Settings, contentDescription = "Yenile", tint = Color(0xFF69E2D3))
-                }
-                IconButton(onClick = { /* Help */ }) {
-                    Icon(Icons.Default.Settings, contentDescription = "Yardım", tint = Color.White)
-                }
-            }
         }
     }
 }
@@ -651,5 +737,19 @@ fun InfoRow(label: String, value: String) {
     Row {
         Text(label, color = Color.Gray, modifier = Modifier.weight(1f))
         Text(value, color = Color.White, fontWeight = FontWeight.Medium)
+    }
+}
+
+@Composable
+fun StatusLed(label: String, isConnected: Boolean) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            modifier = Modifier
+                .size(8.dp)
+                .clip(CircleShape)
+                .background(if (isConnected) Color.Green else Color.Red)
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(label, color = Color.White, fontSize = 10.sp)
     }
 }
