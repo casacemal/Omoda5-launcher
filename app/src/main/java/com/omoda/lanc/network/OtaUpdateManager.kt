@@ -67,21 +67,45 @@ class OtaUpdateManager(private val context: Context) {
                         val assets = json.getJSONArray("assets")
                         val updates = mutableListOf<AppUpdate>()
 
-                        for (i in 0 until assets.length()) {
-                            val asset = assets.getJSONObject(i)
-                            val fileName = asset.getString("name")
-                            val downloadUrl = asset.getString("browser_download_url")
-                            val size = asset.getLong("size")
-                            
-                            if (fileName.endsWith(".apk")) {
-                                val isSystemUpdate = fileName.contains("app-debug") || fileName.contains("app-release")
-                                updates.add(AppUpdate(
-                                    name = fileName,
-                                    downloadUrl = downloadUrl,
-                                    sizeBytes = size,
-                                    version = latestVersion,
-                                    isSystemUpdate = isSystemUpdate
-                                ))
+                        // Yerel versiyon bilgilerini al
+                        val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+                        @Suppress("DEPRECATION")
+                        val localVersionCode = pInfo.versionCode
+                        val localVersionName = pInfo.versionName ?: "1.0.0"
+
+                        // GitHub versiyon kodunu ayıkla (örn: v1.0.0.107 -> 107)
+                        val githubVersionCode = try {
+                            latestVersion.substringAfterLast('.').toInt()
+                        } catch (e: Exception) {
+                            -1
+                        }
+
+                        // Güncelleme kontrolü: 
+                        // Eğer tag'den sürüm kodu alabildiysek ve bu kod yerelden büyükse VEYA
+                        // Sürüm kodu alamadıysak ama versiyon adı farklıysa güncelleme var kabul et.
+                        val isNewer = if (githubVersionCode > 0) {
+                            githubVersionCode > localVersionCode
+                        } else {
+                            latestVersion != localVersionName
+                        }
+
+                        if (isNewer) {
+                            for (i in 0 until assets.length()) {
+                                val asset = assets.getJSONObject(i)
+                                val fileName = asset.getString("name")
+                                val downloadUrl = asset.getString("browser_download_url")
+                                val size = asset.getLong("size")
+                                
+                                if (fileName.endsWith(".apk")) {
+                                    val isSystemUpdate = fileName.contains("app-debug") || fileName.contains("app-release")
+                                    updates.add(AppUpdate(
+                                        name = fileName,
+                                        downloadUrl = downloadUrl,
+                                        sizeBytes = size,
+                                        version = latestVersion,
+                                        isSystemUpdate = isSystemUpdate
+                                    ))
+                                }
                             }
                         }
                         callback.onUpdatesFound(updates)
