@@ -48,14 +48,23 @@ class MqttPublisher(
                         com.omoda.lanc.AssistantApplication.isMqttConnected.value = true
                         client?.subscribe(TOPIC_COMMAND, QOS)
                         client?.subscribe("omoda/simulate", QOS)
+                        
+                        val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
+                        com.omoda.lanc.AssistantApplication.addMqttLog("[$time] MQTT BAĞLANDI: $serverURI")
                     }
                     override fun connectionLost(cause: Throwable?) {
                         Log.w(TAG, "MQTT koptu: ${cause?.message}")
                         isConnected = false
                         com.omoda.lanc.AssistantApplication.isMqttConnected.value = false
+                        
+                        val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
+                        com.omoda.lanc.AssistantApplication.addMqttLog("[$time] MQTT KOPTU: ${cause?.message}")
                     }
                     override fun messageArrived(topic: String?, message: MqttMessage?) {
                         val payloadStr = message?.payload?.toString(Charsets.UTF_8) ?: return
+                        val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
+                        com.omoda.lanc.AssistantApplication.addMqttLog("[$time] Gelen ($topic): $payloadStr")
+                        
                         if (topic == TOPIC_COMMAND) {
                             Log.d(TAG, "Komut: $payloadStr")
                         } else if (topic == "omoda/simulate") {
@@ -72,6 +81,8 @@ class MqttPublisher(
                 client?.connect(options)
             } catch (e: Exception) {
                 Log.e(TAG, "MQTT bağlantı hatası: ${e.message}")
+                val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
+                com.omoda.lanc.AssistantApplication.addMqttLog("[$time] BAĞLANTI HATASI: ${e.message}")
             }
         }.start()
     }
@@ -150,10 +161,17 @@ class MqttPublisher(
                 }
                 put("active_sensors", activeSensorsObj)
             }
-            client?.publish(TOPIC_TELEMETRY, MqttMessage(json.toString().toByteArray()).apply { qos = QOS })
+            val payloadBytes = json.toString().toByteArray()
+            client?.publish(TOPIC_TELEMETRY, MqttMessage(payloadBytes).apply { qos = QOS })
             Log.d(TAG, "Publish: speed=${state.speed}")
+            
+            // Canlı MQTT log ekranına ekle
+            val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
+            com.omoda.lanc.AssistantApplication.addMqttLog("[$time] Gönderildi: Hız=${state.speed}, Aktif Sensör Sayısı=${activeSensorsObj.length()}")
         } catch (e: MqttException) {
             Log.e(TAG, "Publish hatası: ${e.message}")
+            val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
+            com.omoda.lanc.AssistantApplication.addMqttLog("[$time] GÖNDERİM HATASI: ${e.message}")
         }
     }
 

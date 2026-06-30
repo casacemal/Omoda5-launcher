@@ -50,6 +50,18 @@ class AssistantApplication : Application() {
         // OTA İndirme Durumu (Ekranda sabit kalması için)
         val downloadProgressText = MutableStateFlow<String?>(null)
         
+        // MQTT Log Listesi (Canlı Log Ekranı için)
+        val mqttLogList = MutableStateFlow<List<String>>(emptyList())
+        
+        fun addMqttLog(log: String) {
+            val current = mqttLogList.value.toMutableList()
+            current.add(0, log) // En yeni log en üstte
+            if (current.size > 50) {
+                current.removeAt(current.size - 1)
+            }
+            mqttLogList.value = current
+        }
+        
         // Edge TTS Ayarları
         val edgeVoiceName = MutableStateFlow("tr-TR-EmelNeural")
         val edgePitch = MutableStateFlow("+0Hz")
