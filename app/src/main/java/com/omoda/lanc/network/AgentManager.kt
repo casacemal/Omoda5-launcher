@@ -38,7 +38,10 @@ class AgentManager(
     private val onFeedback: (String) -> Unit,
     private val onSystemResponse: (String, Boolean) -> Unit // text, isFinal
 ) {
-    private val TAG = "Hermes-AgentManager"
+    private val TAG = "AgentManager"
+    
+    // Rate limiter: Hızlı ardışık VHAL komutlarını sınırlamak için
+    private val lastCommandTimes = java.util.concurrent.ConcurrentHashMap<String, Long>()
     private var currentEventSource: EventSource? = null
     private var currentVehicleContextText: String = "Veri bekleniyor..."
 
