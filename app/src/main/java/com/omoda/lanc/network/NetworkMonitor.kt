@@ -1,12 +1,18 @@
 package com.omoda.lanc.network
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.omoda.lanc.AssistantApplication
+import com.omoda.lanc.MainActivity
 import com.omoda.lanc.core.ActionExecutor
 import kotlinx.coroutines.*
 import java.net.InetAddress
@@ -18,8 +24,10 @@ class NetworkMonitor(private val context: Context) {
     private var healthCheckJob: Job? = null
 
     private var hasCheckedUpdatesOnConnect = false
+    private val CHANNEL_ID = "omoda_updates"
 
     init {
+        createNotificationChannel()
         val networkRequest = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
@@ -41,7 +49,14 @@ class NetworkMonitor(private val context: Context) {
                                 val newerUpdates = updates.filter { !it.isDowngrade }
                                 if (newerUpdates.isNotEmpty()) {
                                     val latest = newerUpdates.first()
-                                    AssistantApplication.addLog("GÜNCELLEME: Yeni Omoda Sürümü Mevcut: v${latest.version}! Ayarlar -> App Store sayfasından yükleyebilirsiniz.")
+                                    val msg = "Yeni Omoda Sürümü Mevcut: v${latest.version}! Ayarlar -> App Store sayfasından yükleyebilirsiniz."
+                                    AssistantApplication.addLog("GÜNCELLEME: $msg")
+                                    
+                                    // Android Bildirimi Gönder
+                                    showUpdateNotification(
+                                        title = "Yeni Sistem Güncellemesi",
+                                        message = "Omoda Asistan v${latest.version} indirilebilir."
+                                    )
                                 } else {
                                     AssistantApplication.addLog("Güncelleme Kontrolü: Uygulamanız en güncel sürümde.")
                                 }
@@ -125,5 +140,41 @@ class NetworkMonitor(private val context: Context) {
         } catch (e: Exception) {
             Log.e("NetworkMonitor", "Heal hatası: ${e.message}")
         }
+    }
+
+    private fun createNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES,O) {
+            val name = "Sistem Güncellemeleri"
+            val descriptionText = "Omoda Asistan güncelleme bildirimleri"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun showUpdateNotification(title: String, message: String) {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context, 
+            0, 
+            intent, 
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(android.R.drawable.stat_sys_download_done) // Standart sistem ikonu
+            .setContentTitle(title)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(1001, builder.build())
     }
 }
