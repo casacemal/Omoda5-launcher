@@ -78,9 +78,24 @@ class OtaUpdateManager(private val context: Context) {
                             val latestVersion = json.getString("tag_name").replace("v", "").trim()
                             val assets = json.getJSONArray("assets")
 
-                            // GitHub versiyon kodunu ayıkla (örn: v1.0.0.107 -> 107)
+                            // GitHub versiyon kodunu akıllıca ayıkla (örn: 1.0.0.107 -> 107, 8.1.0 -> 810, 6.5.7 -> 657)
                             val githubVersionCode = try {
-                                latestVersion.substringAfterLast('.').toInt()
+                                val cleanTag = latestVersion.replace("v", "").trim()
+                                val parts = cleanTag.split(".")
+                                when {
+                                    parts.size >= 4 -> parts.last().toInt() // 1.0.0.107 -> 107
+                                    parts.size == 3 -> {
+                                        val major = parts[0].toInt()
+                                        val minor = parts[1].toInt()
+                                        val patch = parts[2].toInt()
+                                        if (major >= 6) {
+                                            (major * 100) + (minor * 10) + patch // 8.1.0 -> 810, 6.5.7 -> 657
+                                        } else {
+                                            patch
+                                        }
+                                    }
+                                    else -> cleanTag.replace("[^0-9]".toRegex(), "").toInt()
+                                }
                             } catch (e: Exception) {
                                 -1
                             }
