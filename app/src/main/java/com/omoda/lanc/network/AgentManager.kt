@@ -2,12 +2,11 @@ package com.omoda.lanc.network
 
 import android.util.Log
 import com.omoda.lanc.AssistantApplication
-import com.omoda.lanc.core.ActionExecutor
+import com.omoda.lanc.core.CommandFirewall
 import com.omoda.lanc.core.CommandResult
 import com.omoda.lanc.core.CommandRouter
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
-import okhttp3.Response
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.sse.EventSource
 import okhttp3.sse.EventSourceListener
@@ -16,8 +15,23 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
+/**
+ * AgentManager v3.0 — SSE Streaming + 2 Mod Sistemi
+ *
+ * Akış:
+ *   Ses/Metin → STT → CommandRouter (yerel) → CommandFirewall → LLM SSE
+ *
+ * SSE chunk stratejisi:
+ *   - reasoning_content → atla (TTS'e gönderme)
+ *   - content → cümle tamponuna ekle → cümle sonu veya 40 char → TTS'e gönder
+ *   - tool_calls delta → birleştir → finish_reason="tool_calls" → CommandFirewall
+ *
+ * Mod sistemi:
+ *   ASISTANT = kısa, araç bağlamlı, wake word ile tetiklenir
+ *   CHAT     = sohbet odaklı, daha uzun yanıtlar, sürekli dinleme
+ */
 class AgentManager(
-    private val actionExecutor: ActionExecutor,
+    private val commandFirewall: CommandFirewall,
     private val commandRouter: CommandRouter,
     private val hermesClient: HermesClient,
     private val sttClient: HermesClient,
@@ -27,25 +41,19 @@ class AgentManager(
     private val TAG = "Hermes-AgentManager"
     private var currentEventSource: EventSource? = null
     private var currentVehicleContextText: String = "Veri bekleniyor..."
-    private var lastMonitorStateText: String = ""
-    private var lastAnomalyCheckTime: Long = 0
 
-    private val messageHistory = JSONArray().apply {
-        put(JSONObject().apply {
-            put("role", "system")
-            put("content", "Sen Chery Omoda 5 için geliştirilmiş akıllı bir HMI asistansın. Yanıtlarını kısa ve konuşma diline uygun tut.")
-        })
-    }
-
+    // ─────────────────────────────────────────────────
+    // Araç Bağlamı
+    // ─────────────────────────────────────────────────
     fun updateVehicleContext(state: com.omoda.lanc.model.VehicleState) {
         try {
             val internetStatus = if (AssistantApplication.hasInternetConnection.value) "Aktif" else "Yok"
             val mediaState = com.omoda.lanc.media.MediaBridge.mediaState.value
-            val statusText = buildString {
+            currentVehicleContextText = buildString {
                 append("Hız: ${state.speed.toInt()} km/h")
                 append(", Vites: ${state.gearString}")
                 append(", Motor: ${if (state.isEngineRunning) "Açık" else "Kapalı"}")
-                append(", Motor Devri: ${state.engineRpm.toInt()} RPM")
+                append(", RPM: ${state.engineRpm.toInt()}")
                 append(", Sürüş Modu: ${state.drivingModeString}")
                 append(", Klima: ${if (state.isHvacOn) "Açık (Sürücü:${state.acTemperatureDriver}°C / Yolcu:${state.acTemperaturePassenger}°C)" else "Kapalı"}")
                 append(", Dış Sıcaklık: ${state.outsideTemperature}°C")
@@ -53,432 +61,304 @@ class AgentManager(
                 append(", Far: ${if (state.headlights > 0) "Açık" else "Kapalı"}")
                 append(", Kapılar: ${state.doorOpenString}")
                 append(", Sinyal: ${state.turnSignalString}")
-                append(", Yakıt: ${String.format("%.1f", state.fuelLevel)} L (Tahmini Menzil: ${state.rangeKm.toInt()} km)")
+                append(", Yakıt: ${String.format("%.1f", state.fuelLevel)} L (Menzil: ${state.rangeKm.toInt()} km)")
                 append(", Toplam KM: ${state.odometer.toInt()} km")
                 append(", İnternet: $internetStatus")
-                append(", GPS Konum: Lat: ${state.latitude}, Lng: ${state.longitude}")
-                append(", Medya: ${mediaState.title} - ${mediaState.artist} (${mediaState.pkg})")
-                append(", Cihaz: ${android.os.Build.MODEL} (Android ${android.os.Build.VERSION.RELEASE})")
-                append(" | YÜKLÜ UYGULAMALAR: Haritalar(com.google.android.apps.maps), Tarayıcı(com.vivaldi.browser), Müzik(in.krosbits.musicolet), Radyo(idu.com.radio.radyoturk), YouTube(by.green.tuber), Ayarlar(com.android.settings)")
-            }
-            currentVehicleContextText = statusText
-            val systemMessage = messageHistory.getJSONObject(0)
-            systemMessage.put("content", "Sen Chery Omoda 5 için geliştirilmiş akıllı bir HMI asistansın. Yanıtlarını kısa ve konuşma diline uygun tut. Mevcut Araç Verisi: $statusText")
-
-            // Monitor modu: surekli telemetri akisi, sadece kritik durumlarda uyari
-            if (AssistantApplication.currentMode.value == "MONITOR") {
-                val now = System.currentTimeMillis()
-                // Veri akışını canlı tutmak için her 5 saniyede bir gönder (değişim olmasa bile)
-                if ((now - lastAnomalyCheckTime) > 5000) {
-                    lastMonitorStateText = statusText
-                    lastAnomalyCheckTime = now
-                    analyzeTelemetryForAnomaly(statusText)
-                }
+                append(", Medya: ${mediaState.title} - ${mediaState.artist}")
+                append(", Cihaz: ${android.os.Build.MODEL}")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Context Güncelleme Hatası: ${e.message}")
+            Log.e(TAG, "Context güncelleme hatası: ${e.message}")
         }
     }
 
+    // ─────────────────────────────────────────────────
+    // Halüsinasyon Filtresi
+    // ─────────────────────────────────────────────────
+    private fun isHallucination(text: String): Boolean {
+        val cleaned = text.trim().lowercase()
+        return cleaned.isBlank() ||
+               cleaned.length < 2 ||
+               cleaned.contains("altyazı") ||
+               cleaned.contains("abone") ||
+               cleaned.contains("izlediğiniz") ||
+               cleaned.contains("teşekkürler") ||
+               cleaned.contains("thank you") ||
+               cleaned.contains("thanks for") ||
+               cleaned.contains("viewing") ||
+               cleaned.contains("türkiye'nin") ||
+               cleaned.contains("izlediğiniz için")
+    }
+
+    // ─────────────────────────────────────────────────
+    // Metin Girişi İşleme
+    // ─────────────────────────────────────────────────
+    fun processTextInput(text: String) {
+        if (isHallucination(text)) {
+            Log.w(TAG, "Halüsinasyon filtrelendi: '$text'")
+            onFeedback("Anlaşılamadı")
+            onSystemResponse("", true)
+            return
+        }
+
+        Log.d("Omoda-Workflow", ">>> [6] STT BAŞARILI: '$text'")
+        onFeedback("Anladım: $text")
+
+        // Mod geçiş komutları
+        val lower = text.lowercase()
+        when {
+            lower.contains("sohbet moduna geç") || lower.contains("sohbet modu") -> {
+                AssistantApplication.currentMode.value = "CHAT"
+                AssistantApplication.saveCurrentConfig()
+                onSystemResponse("Sohbet moduna geçtim, dinliyorum.", true)
+                return
+            }
+            lower.contains("asistan moduna dön") || lower.contains("asistan modu") -> {
+                AssistantApplication.currentMode.value = "ASISTANT"
+                AssistantApplication.saveCurrentConfig()
+                onSystemResponse("Asistan moduna geçtim.", true)
+                return
+            }
+        }
+
+        // Yerel komut eşleştirme (CommandRouter)
+        when (val result = commandRouter.analyzeAndExecute(text)) {
+            is CommandResult.Success -> { onSystemResponse(result.message, true); return }
+            is CommandResult.Blocked -> { onSystemResponse(result.reason, true); return }
+            is CommandResult.NotMatched -> { /* LLM'e gönder */ }
+        }
+
+        sendChatSse(text)
+    }
+
+    // ─────────────────────────────────────────────────
+    // Ses Girişi İşleme (Kaskad: Proxy → Android STT)
+    // ─────────────────────────────────────────────────
     fun processVoiceInput(audioFile: File) {
-        val mode = AssistantApplication.sttMode.value
         onFeedback("Ses çözümleniyor...")
-        Log.d("Omoda-Workflow", ">>> [5] STT BAŞLADI (Mod: $mode, Dosya: ${audioFile.length()} bytes)")
-        AssistantApplication.addLog("STT Başlatıldı ($mode)")
-        
-        sttClient.transcribe(audioFile) { text ->
-            if (text == null) {
-                Log.e("Omoda-Workflow", ">>> [!] STT YANIT VERMEDİ (NULL)")
-                AssistantApplication.addLog("HATA: STT Yanıt Vermedi")
-                onFeedback("Bağlantı hatası")
-                onSystemResponse("", true)
-                return@transcribe
-            }
-            
-            val cleaned = text.trim().lowercase()
-            // Genişletilmiş Halüsinasyon ve Çöp Metin Filtresi
-            val isHallucination = cleaned.isBlank() || 
-                                  cleaned.length < 2 ||
-                                  cleaned.contains("altyazı") || 
-                                  cleaned.contains("abone") || 
-                                  cleaned.contains("izlediğiniz") || 
-                                  cleaned.contains("teşekkürler") ||
-                                  cleaned.contains("thank you") || 
-                                  cleaned.contains("thanks for") || 
-                                  cleaned.contains("viewing") ||
-                                  cleaned.contains("türkiye'nin") ||
-                                  cleaned.contains("izlediğiniz için")
+        Log.d("Omoda-Workflow", ">>> [5] STT başladı (${audioFile.length()} bytes)")
 
-            if (!isHallucination) {
-                Log.d("Omoda-Workflow", ">>> [6] STT BAŞARILI: '$text'")
-                onFeedback("Anladım: $text")
-
-                // Mod Geçiş Kontrolleri (Kaynak: omodaassist_v2)
-                val lowerText = text.lowercase()
-                when {
-                    lowerText.contains("sohbet moduna geç") || lowerText.contains("sohbet modu") -> {
-                        AssistantApplication.currentMode.value = "CHAT"
-                        AssistantApplication.saveCurrentConfig()
-                        onSystemResponse("Sohbet moduna geçtim, dinliyorum.", true)
-                        return@transcribe
-                    }
-                    lowerText.contains("asistan moduna dön") || lowerText.contains("asistan modu") -> {
-                        AssistantApplication.currentMode.value = "ASISTANT"
-                        AssistantApplication.saveCurrentConfig()
-                        onSystemResponse("Asistan moduna geçtim.", true)
-                        return@transcribe
-                    }
-                    lowerText.contains("arkaplanı izle") || lowerText.contains("izleme modu") || lowerText.contains("monitör modu") -> {
-                        AssistantApplication.currentMode.value = "MONITOR"
-                        AssistantApplication.saveCurrentConfig()
-                        onSystemResponse("İzleme modundayım, arkaplanda verileri takip edeceğim.", true)
-                        return@transcribe
-                    }
-                }
-
-                // Yerel Komut Kontrolü (CommandRouter)
-                when (val result = commandRouter.analyzeAndExecute(text)) {
-                    is CommandResult.Success -> {
-                        Log.d("Omoda-Workflow", ">>> [6.1] YEREL KOMUT YÜRÜTÜLDÜ: ${result.message}")
-                        onSystemResponse(result.message, true)
-                        return@transcribe
-                    }
-                    is CommandResult.Blocked -> {
-                        Log.w("Omoda-Workflow", ">>> [6.2] YEREL KOMUT ENGELLENDİ: ${result.reason}")
-                        onSystemResponse(result.reason, true)
-                        return@transcribe
-                    }
-                    is CommandResult.NotMatched -> {
-                        // Devam et (AI'ye gönder)
-                    }
-                }
-
-                if (AssistantApplication.useHermesDecision.value) {
-                    sendHermesKararPrompt(text)
+        if (AssistantApplication.hasInternetConnection.value) {
+            // Proxy üzerinden Whisper
+            sttClient.transcribeOnline(audioFile) { text ->
+                if (text != null) {
+                    processTextInput(text)
                 } else {
-                    sendChatPrompt(text)
+                    Log.w(TAG, "Proxy STT başarısız")
+                    AssistantApplication.addLog("STT Hatası: Proxy başarısız")
+                    onFeedback("Bağlantı hatası")
+                    onSystemResponse("Ses anlaşılamadı, tekrar dener misiniz?", true)
                 }
-            } else {
-                Log.w("Omoda-Workflow", ">>> [!] STT GEÇERSİZ/HALÜSİNASYON: '$text'")
-                onFeedback("Anlaşılamadı")
-                AssistantApplication.addLog("STT Geçersiz: '$text'")
-                onSystemResponse("", true)
             }
+        } else {
+            // İnternet yok → lokal komut modu
+            Log.w(TAG, "İnternet yok — lokal mod aktif")
+            onFeedback("İnternet yok")
+            onSystemResponse("İnternet bağlantısı yok. Sadece araç komutları çalışıyor.", true)
         }
     }
 
-    private fun sendChatPrompt(prompt: String) {
+    // ─────────────────────────────────────────────────
+    // Araç Tool Tanımları
+    // ─────────────────────────────────────────────────
+    private fun buildToolsArray(): JSONArray = JSONArray().apply {
+        fun addTool(name: String, description: String, params: JSONObject) {
+            put(JSONObject().apply {
+                put("type", "function")
+                put("function", JSONObject().apply {
+                    put("name", name)
+                    put("description", description)
+                    put("parameters", params)
+                })
+            })
+        }
+        fun noParams() = JSONObject().apply { put("type", "object"); put("properties", JSONObject()) }
+        fun intParam(paramName: String, desc: String) = JSONObject().apply {
+            put("type", "object")
+            put("properties", JSONObject().apply {
+                put(paramName, JSONObject().apply { put("type", "integer"); put("description", desc) })
+            })
+            put("required", JSONArray().apply { put(paramName) })
+        }
+        fun numParam(paramName: String, desc: String) = JSONObject().apply {
+            put("type", "object")
+            put("properties", JSONObject().apply {
+                put(paramName, JSONObject().apply { put("type", "number"); put("description", desc) })
+            })
+            put("required", JSONArray().apply { put(paramName) })
+        }
+        fun strParam(paramName: String, desc: String, enumVals: List<String>? = null) = JSONObject().apply {
+            put("type", "object")
+            put("properties", JSONObject().apply {
+                put(paramName, JSONObject().apply {
+                    put("type", "string"); put("description", desc)
+                    enumVals?.let { put("enum", JSONArray(it)) }
+                })
+            })
+            put("required", JSONArray().apply { put(paramName) })
+        }
+
+        addTool("open_app", "Bir uygulamayı başlatır.",
+            strParam("package_name", "Açılacak uygulamanın paket adı (örn: com.google.android.apps.maps)"))
+        addTool("set_volume", "Sistem ses seviyesini ayarlar (0-15).",
+            intParam("volume_level", "Ses seviyesi (0-15 arası)"))
+        addTool("media_control", "Medyayı kontrol eder.",
+            strParam("action", "Eylem", listOf("play_pause", "next", "prev")))
+        addTool("hvac_on",  "Klimayı açar.", noParams())
+        addTool("hvac_off", "Klimayı kapatır.", noParams())
+        addTool("set_hvac_temp", "Klima sıcaklığını ayarlar.",
+            numParam("temperature", "Hedef sıcaklık (örn: 22.5)"))
+        addTool("fix_system_time", "Sistem saatini senkronize eder.", noParams())
+        addTool("connect_vpn",    "Tailscale VPN bağlar.", noParams())
+        addTool("disconnect_vpn", "Tailscale VPN keser.", noParams())
+    }
+
+    // ─────────────────────────────────────────────────
+    // Ana SSE Chat Fonksiyonu
+    // ─────────────────────────────────────────────────
+    private fun sendChatSse(prompt: String) {
         currentEventSource?.cancel()
-        Log.d("Omoda-Workflow", ">>> [7] LLM (CHAT) SORGUSU GONDERILIYOR (Chat Completions)...")
-        
-        val contextPrefix = when (AssistantApplication.currentMode.value) {
-            "CHAT" -> "[BAĞLAM -> Mod: CHAT | Kimlik: ${AssistantApplication.vehicleId.value} | $currentVehicleContextText | Sohbet Geçmişi İçerilir] "
-            else -> "[BAĞLAM -> Mod: ASISTANT | Kimlik: ${AssistantApplication.vehicleId.value} | $currentVehicleContextText | Komut Bekliyor] "
-        }
-        val fullPrompt = contextPrefix + prompt
-        
-        val instructions = when (AssistantApplication.currentMode.value) {
-            "ASISTANT" -> "Sen Chery Omoda 5 için tasarlanmış bir HMI sesli asistansın. " +
-                    "Sana her zaman güncel araç verileri (hız, klima, vites vb.) sistem mesajı içinde bağlam olarak verilir. " +
-                    "Yanıtlarını çok kısa, net ve konuşma diline uygun tut. " +
-                    "Kullanıcı bir araç ayarı (sıcaklık artır, sesi kıs, camı aç vb.) istediğinde ilgili aracı (function) çağır ve 'Hemen ayarlıyorum' gibi kısa bir onay ver. " +
-                    "Araç verisindeki bir durumu (örn: yakıt az) fark edersen kullanıcıyı nazikçe uyarabilirsin."
-            "CHAT" -> "Sen eğlenceli ve yardımsever bir yol arkadaşısın. Kullanıcıyla normal bir sohbet et, detaylı bilgiler ver. Araç verilerini de sohbete dahil edebilirsin."
-            else -> "Sen sessiz bir araç analizörüsün. Sadece kritik durumlarda konuş."
+        Log.d("Omoda-Workflow", ">>> [7] SSE CHAT başlıyor...")
+
+        val mode = AssistantApplication.currentMode.value
+
+        val systemPrompt = when (mode) {
+            "CHAT" -> "Sen eğlenceli ve yardımsever bir yol arkadaşısın. Kullanıcıyla doğal sohbet et. " +
+                      "Araç verilerini sohbete doğal biçimde katabilirsin. Detaylı, akıcı yanıtlar ver. " +
+                      "Araç komutları için ilgili fonksiyonu çağır ve kısa onay ver. " +
+                      "Mevcut Araç Verisi: $currentVehicleContextText"
+            else   -> "Sen Chery Omoda 5 için tasarlanmış HMI sesli asistanısın. " +
+                      "'araba', 'arabam', 'arac', 'araç', 'omoda' veya 'omoda5' olarak çağrılabilirsin. " +
+                      "Yanıtlarını çok kısa ve net tut. Araç komutu için fonksiyon çağır ve kısa onay ver. " +
+                      "Mevcut Araç Verisi: $currentVehicleContextText"
         }
 
-        val messagesArray = JSONArray().apply {
-            put(JSONObject().apply {
-                put("role", "system")
-                put("content", instructions)
-            })
-            put(JSONObject().apply {
-                put("role", "user")
-                put("content", fullPrompt)
-            })
+        val messages = JSONArray().apply {
+            put(JSONObject().apply { put("role", "system"); put("content", systemPrompt) })
+            put(JSONObject().apply { put("role", "user"); put("content", prompt) })
         }
 
-        val toolsArray = JSONArray().apply {
-            put(JSONObject().apply {
-                put("type", "function")
-                put("function", JSONObject().apply {
-                    put("name", "open_app")
-                    put("description", "Bir uygulamayı başlatır.")
-                    put("parameters", JSONObject().apply {
-                        put("type", "object")
-                        put("properties", JSONObject().apply {
-                            put("package_name", JSONObject().apply {
-                                put("type", "string")
-                                put("description", "Açılacak uygulamanın paket adı (örn: com.google.android.apps.maps)")
-                            })
-                        })
-                        put("required", JSONArray().apply { put("package_name") })
-                    })
-                })
-            })
-            put(JSONObject().apply {
-                put("type", "function")
-                put("function", JSONObject().apply {
-                    put("name", "set_volume")
-                    put("description", "Sistem ses seviyesini ayarlar.")
-                    put("parameters", JSONObject().apply {
-                        put("type", "object")
-                        put("properties", JSONObject().apply {
-                            put("volume_level", JSONObject().apply {
-                                put("type", "integer")
-                                put("description", "Ses seviyesi (0-15 arası)")
-                            })
-                        })
-                        put("required", JSONArray().apply { put("volume_level") })
-                    })
-                })
-            })
-            put(JSONObject().apply {
-                put("type", "function")
-                put("function", JSONObject().apply {
-                    put("name", "media_control")
-                    put("description", "Medyayı kontrol eder (oynat, durdur, ileri, geri).")
-                    put("parameters", JSONObject().apply {
-                        put("type", "object")
-                        put("properties", JSONObject().apply {
-                            put("action", JSONObject().apply {
-                                put("type", "string")
-                                put("enum", JSONArray().apply { put("play_pause"); put("next"); put("prev") })
-                            })
-                        })
-                        put("required", JSONArray().apply { put("action") })
-                    })
-                })
-            })
-            put(JSONObject().apply {
-                put("type", "function")
-                put("function", JSONObject().apply {
-                    put("name", "set_hvac_temp")
-                    put("description", "Klima sıcaklığını ayarlar.")
-                    put("parameters", JSONObject().apply {
-                        put("type", "object")
-                        put("properties", JSONObject().apply {
-                            put("temperature", JSONObject().apply {
-                                put("type", "number")
-                                put("description", "Hedef sıcaklık (örn: 22.5)")
-                            })
-                        })
-                        put("required", JSONArray().apply { put("temperature") })
-                    })
-                })
-            })
-            put(JSONObject().apply {
-                put("type", "function")
-                put("function", JSONObject().apply {
-                    put("name", "fix_system_time")
-                    put("description", "Sistem saatini ağ üzerinden otomatik senkronize eder (NTP). Saat yanlış olduğunda veya API hataları alındığında kullanılır.")
-                    put("parameters", JSONObject().apply {
-                        put("type", "object")
-                        put("properties", JSONObject())
-                    })
-                })
-            })
-            put(JSONObject().apply {
-                put("type", "function")
-                put("function", JSONObject().apply {
-                    put("name", "connect_vpn")
-                    put("description", "Tailscale VPN ağ bağlantısını başlatır. Cihazı güvenli ağa dahil etmek için kullanılır.")
-                    put("parameters", JSONObject().apply {
-                        put("type", "object")
-                        put("properties", JSONObject())
-                    })
-                })
-            })
-            put(JSONObject().apply {
-                put("type", "function")
-                put("function", JSONObject().apply {
-                    put("name", "disconnect_vpn")
-                    put("description", "Tailscale VPN ağ bağlantısını keser.")
-                    put("parameters", JSONObject().apply {
-                        put("type", "object")
-                        put("properties", JSONObject())
-                    })
-                })
-            })
-        }
-
-        val requestBodyJson = JSONObject().apply {
+        val body = JSONObject().apply {
             put("model", AssistantApplication.HERMES_CHAT_MODEL)
-            put("messages", messagesArray)
-            put("temperature", 0.7)
-            put("tools", toolsArray)
+            put("messages", messages)
+            put("stream", true)
+            put("temperature", if (mode == "CHAT") 0.8 else 0.5)
+            put("tools", buildToolsArray())
         }
 
         val request = Request.Builder()
             .url("${AssistantApplication.HERMES_BASE_URL}/chat/completions")
-            .addHeader("Authorization", "Bearer ${AssistantApplication.HERMES_API_KEY}")
-            .addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
-            .post(requestBodyJson.toString().toRequestBody("application/json".toMediaType()))
+            .addHeader("Authorization", "Bearer ${AssistantApplication.NINEROUTER_API_KEY}")
+            .addHeader("Accept", "text/event-stream")
+            .post(body.toString().toRequestBody("application/json".toMediaType()))
             .build()
 
-        NetworkModule.robustClient.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
-                Log.e("Omoda-Workflow", ">>> [!] HERMES CHAT HATASI: ${e.message}")
-                onSystemResponse("Üzgünüm, şu an bağlantı kuramıyorum.", true)
-            }
+        // SSE durum takibi
+        val sentenceBuffer = StringBuilder()
+        val toolCallAccumulator = mutableMapOf<Int, ToolCallAccum>()
 
-            override fun onResponse(call: okhttp3.Call, response: Response) {
-                val body = response.body?.string()
-                if (response.isSuccessful && body != null) {
+        currentEventSource = EventSources.createFactory(NetworkModule.sseClient)
+            .newEventSource(request, object : EventSourceListener() {
+
+                override fun onEvent(source: EventSource, id: String?, type: String?, data: String) {
+                    if (data == "[DONE]") {
+                        // Tampondaki kalan metni gönder
+                        val remaining = sentenceBuffer.toString().trim()
+                        if (remaining.isNotBlank()) {
+                            Log.d("Omoda-Workflow", ">>> [8-SSE] Son parça TTS: $remaining")
+                            onSystemResponse(remaining, true)
+                            sentenceBuffer.clear()
+                        } else {
+                            onSystemResponse("", true)
+                        }
+
+                        // Tool calls birleştir ve CommandFirewall'a gönder
+                        toolCallAccumulator.values.forEach { accum ->
+                            if (accum.name.isNotBlank()) {
+                                Log.d("Omoda-Workflow", ">>> [8-SSE] TOOL CALL: ${accum.name}(${accum.arguments})")
+                                AssistantApplication.addLog("Aksiyon: ${accum.name}")
+                                commandFirewall.validateAndExecute(accum.name, accum.arguments.ifBlank { "{}" })
+                            }
+                        }
+                        return
+                    }
+
                     try {
-                        val jsonResponse = JSONObject(body)
-                        val choices = jsonResponse.optJSONArray("choices")
-                        if (choices != null && choices.length() > 0) {
-                            val message = choices.getJSONObject(0).optJSONObject("message")
-                            val content = message?.optString("content") ?: "Cevap alınamadı."
-                            
-                            val toolCalls = message?.optJSONArray("tool_calls")
-                            if (toolCalls != null && toolCalls.length() > 0) {
-                                for (i in 0 until toolCalls.length()) {
-                                    val toolCall = toolCalls.getJSONObject(i)
-                                    val function = toolCall.optJSONObject("function")
-                                    val name = function?.optString("name")
-                                    val args = function?.optString("arguments")
-                                    if (!name.isNullOrEmpty()) {
-                                        Log.d("Omoda-Workflow", ">>> [!] TOOL CALL: $name($args)")
-                                        AssistantApplication.addLog("Aksiyon: $name")
-                                        actionExecutor.execute(name, args ?: "{}")
-                                    }
+                        val json = JSONObject(data)
+                        val choices = json.optJSONArray("choices") ?: return
+                        if (choices.length() == 0) return
+                        val choice = choices.getJSONObject(0)
+                        val delta = choice.optJSONObject("delta") ?: return
+                        val finishReason = choice.optString("finish_reason")
+
+                        // ── Content (metin) ──────────────────────────
+                        val contentChunk = delta.optString("content").takeIf { it.isNotEmpty() && it != "null" }
+                        if (contentChunk != null) {
+                            sentenceBuffer.append(contentChunk)
+                            val buf = sentenceBuffer.toString()
+                            val sentenceEnd = buf.lastIndexOfAny(charArrayOf('.', '?', '!', '\n'))
+                            if (sentenceEnd >= 0 && buf.length >= 15) {
+                                val toSpeak = buf.substring(0, sentenceEnd + 1).trim()
+                                if (toSpeak.isNotBlank()) {
+                                    Log.d("Omoda-Workflow", ">>> [8-SSE] TTS parça: $toSpeak")
+                                    onSystemResponse(toSpeak, false)
                                 }
-                            }
-                            
-                            Log.d("Omoda-Workflow", ">>> [8] HERMES CHAT TAMAMLANDI: $content")
-                            AssistantApplication.addLog("✅ Hermes yanıtı başarıyla tamamlandı")
-                            onSystemResponse(content, true)
-                        } else {
-                            onSystemResponse("Sizi anlayamadım, tekrar eder misiniz?", true)
-                        }
-                    } catch (e: Exception) {
-                        Log.e("Omoda-Workflow", "Hermes Parse Hatası: ${e.message}")
-                        onSystemResponse("Sistem bir hata oluşturdu.", true)
-                    }
-                } else {
-                    val errorBody = response.body?.string()
-                    Log.e("Omoda-Workflow", ">>> [!] HERMES HTTP HATASI: ${response.code} - Body: $errorBody")
-                    onSystemResponse("Sunucuya ulaşılamıyor.", true)
-                }
-                response.close()
-            }
-        })
-    }
-
-    private fun sendHermesKararPrompt(prompt: String) {
-        currentEventSource?.cancel()
-        Log.d("Omoda-Workflow", ">>> [7] HERMES KARAR (v1/responses) SORGUSU GONDERILIYOR...")
-        
-        val contextPrefix = "[BAĞLAM -> Mod: PRODUCTION_LIVE | Kimlik: Omoda 5 | $currentVehicleContextText] "
-        AssistantApplication.addLog("Araç Verisi (Hermese Giden): $currentVehicleContextText")
-        val fullPrompt = contextPrefix + prompt
-        
-        val instructions = "Sen Chery Omoda 5 için tasarlanmış bir HMI sesli asistansın. Yanıtlarını çok kısa, net ve konuşma diline uygun tut."
-
-        val requestBodyJson = JSONObject().apply {
-            put("model", AssistantApplication.HERMES_CHAT_MODEL)
-            put("input", fullPrompt)
-            put("instructions", instructions)
-            put("conversation", "bugunku_surus_gecmisi")
-            put("store", true)
-        }
-
-        val request = Request.Builder()
-            .url("${AssistantApplication.HERMES_BASE_URL}/responses")
-            .addHeader("Authorization", "Bearer ${AssistantApplication.HERMES_API_KEY}")
-            .addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
-            .addHeader("X-Hermes-Session-Id", "anlik_surus_oturumu_001")
-            .post(requestBodyJson.toString().toRequestBody("application/json".toMediaType()))
-            .build()
-
-        NetworkModule.robustClient.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
-                Log.e("Omoda-Workflow", ">>> [!] HERMES KARAR HATASI: ${e.message}")
-                onSystemResponse("Karar motoruna ulaşılamıyor.", true)
-            }
-
-            override fun onResponse(call: okhttp3.Call, response: Response) {
-                val body = response.body?.string()
-                if (response.isSuccessful && body != null) {
-                    try {
-                        val jsonResponse = JSONObject(body)
-                        val outputArray = jsonResponse.optJSONArray("output")
-                        if (outputArray != null && outputArray.length() > 0) {
-                            val message = outputArray.getJSONObject(0)
-                            val content = message.optString("content", "Cevap alınamadı.")
-                            Log.d("Omoda-Workflow", ">>> [8] HERMES KARAR TAMAMLANDI: $content")
-                            onSystemResponse(content, true)
-                        } else {
-                            onSystemResponse("Sizi anlayamadım.", true)
-                        }
-                    } catch (e: Exception) {
-                        Log.e("Omoda-Workflow", "Hermes Karar Parse Hatası: ${e.message}")
-                        onSystemResponse("Sistem hatası oluştu.", true)
-                    }
-                } else {
-                    Log.e("Omoda-Workflow", ">>> [!] HERMES KARAR HTTP HATASI: ${response.code}")
-                    onSystemResponse("Sunucu cevap vermedi.", true)
-                }
-                response.close()
-            }
-        })
-    }
-
-    fun analyzeTelemetryForAnomaly(vehicleStateJson: String) {
-        val instructions = "Sen bir araç anomali analizörüsün. Sana JSON formatında araç verisi gelecek. " +
-            "Sadece bir anomali (örn: kapı açıkken hareket ediliyor) veya eşik aşımı (örn: yakıt çok az) varsa kullanıcıyı uyarmak için çok kısa bir anons metni (Örn: 'Sağ arka kapı açık') yaz. " +
-            "Her şey normalse veya önemsiz bir değişimse KESİNLİKLE hiçbir şey yazma, tamamen BOŞ yanıt ver."
-            
-        val messagesArray = JSONArray().apply {
-            put(JSONObject().apply {
-                put("role", "system")
-                put("content", instructions)
-            })
-            put(JSONObject().apply {
-                put("role", "user")
-                put("content", vehicleStateJson)
-            })
-        }
-
-        val requestBodyJson = JSONObject().apply {
-            put("model", AssistantApplication.HERMES_CHAT_MODEL)
-            put("messages", messagesArray)
-            put("temperature", 0.0)
-        }
-
-        val request = Request.Builder()
-            .url("${AssistantApplication.HERMES_BASE_URL}/chat/completions")
-            .addHeader("Authorization", "Bearer ${AssistantApplication.HERMES_API_KEY}")
-            .post(requestBodyJson.toString().toRequestBody("application/json".toMediaType()))
-            .build()
-
-        NetworkModule.robustClient.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
-                Log.e("Omoda-Workflow", ">>> [!] ANOMALİ KONTROL HATASI: ${e.message}")
-            }
-
-            override fun onResponse(call: okhttp3.Call, response: Response) {
-                val body = response.body?.string()
-                if (response.isSuccessful && body != null) {
-                    try {
-                        val jsonResponse = JSONObject(body)
-                        val choices = jsonResponse.optJSONArray("choices")
-                        if (choices != null && choices.length() > 0) {
-                            val content = choices.getJSONObject(0).optJSONObject("message")?.optString("content") ?: ""
-                            val trimmed = content.trim()
-                            if (trimmed.isNotBlank() && trimmed.lowercase() != "boş" && trimmed.lowercase() != "normal") {
-                                Log.d("Omoda-Workflow", ">>> [!] ANOMALİ TESPİT EDİLDİ: $trimmed")
-                                onSystemResponse(trimmed, true) // EdgeTTS anons etsin
+                                sentenceBuffer.clear()
+                                if (sentenceEnd + 1 < buf.length) {
+                                    sentenceBuffer.append(buf.substring(sentenceEnd + 1))
+                                }
+                            } else if (buf.length >= 40) {
+                                onSystemResponse(buf.trim(), false)
+                                sentenceBuffer.clear()
                             }
                         }
+
+                        // ── Tool Call Chunks ─────────────────────────
+                        val toolChunks = delta.optJSONArray("tool_calls")
+                        if (toolChunks != null) {
+                            for (i in 0 until toolChunks.length()) {
+                                val tc = toolChunks.getJSONObject(i)
+                                val idx = tc.optInt("index", 0)
+                                val accum = toolCallAccumulator.getOrPut(idx) { ToolCallAccum() }
+
+                                val fnChunk = tc.optJSONObject("function")
+                                if (fnChunk != null) {
+                                    val namePart = fnChunk.optString("name")
+                                    val argsPart = fnChunk.optString("arguments")
+                                    if (namePart.isNotBlank()) accum.name += namePart
+                                    if (argsPart.isNotBlank() && argsPart != "null") accum.arguments += argsPart
+                                }
+                                val tcId = tc.optString("id")
+                                if (tcId.isNotBlank() && tcId != "null") accum.id = tcId
+                            }
+                        }
+
+                        if (finishReason == "stop" || finishReason == "tool_calls") {
+                            Log.d(TAG, "SSE finish: $finishReason")
+                        }
+
                     } catch (e: Exception) {
-                        Log.e("Omoda-Workflow", "Anomali Parse Hatası: ${e.message}")
+                        Log.e(TAG, "SSE chunk parse hatası: ${e.message} | data=$data")
                     }
                 }
-                response.close()
-            }
-        })
+
+                override fun onFailure(source: EventSource, t: Throwable?, response: okhttp3.Response?) {
+                    val code = response?.code ?: -1
+                    Log.e("Omoda-Workflow", ">>> [!] SSE HATASI: ${t?.message} (HTTP $code)")
+                    AssistantApplication.addLog("SSE Hatası: ${t?.message}")
+                    onFeedback("Bağlantı hatası")
+                    onSystemResponse("Sunucuya bağlanılamadı.", true)
+                }
+
+                override fun onClosed(source: EventSource) {
+                    Log.d(TAG, "SSE bağlantısı kapatıldı")
+                }
+            })
     }
+
+    private data class ToolCallAccum(
+        var id: String = "",
+        var name: String = "",
+        var arguments: String = ""
+    )
 }

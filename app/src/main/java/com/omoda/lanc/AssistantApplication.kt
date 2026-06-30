@@ -23,10 +23,13 @@ class AssistantApplication : Application() {
         val isListening = MutableStateFlow(false)
         val currentAmplitude = MutableStateFlow(0)
         
-        val serverIp = MutableStateFlow("100.95.239.119") // Hermes Gateway IP
-        val hermesPort = MutableStateFlow("8642")
-        val sttPort = MutableStateFlow("8642")
-        val ttsPort = MutableStateFlow("10201") // Kaynak projedeki port
+        val serverIp = MutableStateFlow("homeassistant.tailnet-4f03.ts.net") // Yeni varsayılan
+        val hermesPort = MutableStateFlow("20128")
+        val sttPort = MutableStateFlow("20128")
+        val ttsPort = MutableStateFlow("20128")
+        
+        val safeServerIp: String get() = serverIp.value.trim()
+        val safeSttPort: String get() = sttPort.value.trim()
         
         // Kimlik ve Oturum Yönetimi (Sürüm 5.0)
         val vehicleId = MutableStateFlow("OMODA5_T19C_001")
@@ -68,6 +71,7 @@ class AssistantApplication : Application() {
         const val CLOUD_TTS_URL = "https://api.openai.com/v1" 
         const val GROQ_BASE_URL = "https://api.groq.com/openai/v1"
         const val HERMES_API_KEY="cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34"
+        const val NINEROUTER_API_KEY = "sk-b6f4d3879cc4a442-vwd4xl-8ad79a58"
         const val EDGE_TTS_TOKEN = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
         val groqApiKey = MutableStateFlow("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")
         const val GROQ_STT_MODEL = "whisper-large-v3"
@@ -83,7 +87,7 @@ class AssistantApplication : Application() {
         val mqttPublisher = MqttPublisher()
         val mqttEnabled = MutableStateFlow(true)
 
-        const val HERMES_CHAT_MODEL = "kilo-auto/free" // AAOS Specific Model
+        const val HERMES_CHAT_MODEL = "asist_genel"
         const val STT_MODEL = "whisper-1"
         const val PICOVOICE_ACCESS_KEY = ""
         
@@ -115,7 +119,7 @@ class AssistantApplication : Application() {
             android.util.Log.e("OmodaLog", message)
             val currentList = systemLogs.value.toMutableList()
             currentList.add(0, "> $message")
-            if (currentList.size > 10) currentList.removeLast()
+            if (currentList.size > 15) currentList.removeAt(currentList.size - 1)
             systemLogs.value = currentList
         }
         
@@ -166,28 +170,17 @@ class AssistantApplication : Application() {
         if (mqttEnabled.value) {
             mqttPublisher.updateBrokerUrl(serverIp.value)
             mqttPublisher.connect()
-            // Tier yapısı VehicleController tarafından yönetilir
         }
     }
 
     private fun loadConfig() {
         val config = configManager.loadConfig()
-        
-        // Sürüm 6.4: Kesin Hermes Adresi Ataması (Kullanıcı Talebi: 100.95.239.119:8642)
-        if (config.serverIp != "100.95.239.119" || config.hermesPort != "8642") {
-            serverIp.value = "100.95.239.119"
-            hermesPort.value = "8642"
-            sttPort.value = "8642"
-            ttsPort.value = "10201"
-            saveCurrentConfig()
-        } else {
-            serverIp.value = config.serverIp
-            hermesPort.value = config.hermesPort
-            sttPort.value = config.sttPort
-            ttsPort.value = config.ttsPort
-        }
+        serverIp.value = config.serverIp.ifBlank { "homeassistant.tailnet-4f03.ts.net" }
+        hermesPort.value = config.hermesPort.ifBlank { "20128" }
+        sttPort.value = config.sttPort.ifBlank { "20128" }
+        ttsPort.value = config.ttsPort.ifBlank { "20128" }
 
-        sttMode.value = "BULUT" // KESİN KURAL: Groq STT direkt, VPN dışı
+        sttMode.value = "BULUT"
         ttsEngine.value = config.ttsEngine
         useHermesSpeech.value = config.useHermesSpeech
         isContinuousConversation.value = config.isContinuousConversation
@@ -202,7 +195,6 @@ class AssistantApplication : Application() {
         edgePitch.value = config.edgePitch
         edgeRate.value = config.edgeRate
         if (config.vehiclePollingConfig.isNotEmpty()) {
-            // Mevcut default'ları koru, kaydedilmiş değerleri üstüne yaz
             val merged = VehicleController.PROPERTY_DEFINITIONS.mapValues { it.value.defaultTier }.toMutableMap()
             merged.putAll(config.vehiclePollingConfig)
             vehiclePollingConfig.value = merged

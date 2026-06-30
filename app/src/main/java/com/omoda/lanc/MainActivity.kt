@@ -493,7 +493,13 @@ class MainActivity : ComponentActivity() {
             "pm grant $packageName android.permission.READ_LOGS",
             "pm grant $packageName android.permission.ACCESS_FINE_LOCATION",
             "pm grant $packageName android.permission.ACCESS_COARSE_LOCATION",
-            "pm grant $packageName android.permission.PACKAGE_USAGE_STATS"
+            "pm grant $packageName android.permission.PACKAGE_USAGE_STATS",
+            "pm grant $packageName android.permission.DUMP",
+            "pm grant $packageName android.car.permission.CAR_SPEED",
+            "pm grant $packageName android.car.permission.CAR_INFO",
+            "pm grant $packageName android.car.permission.CAR_ENERGY",
+            "pm grant $packageName android.car.permission.CAR_EXTERIOR_ENVIRONMENT",
+            "pm grant $packageName android.car.permission.CAR_POWERTRAIN"
         )
         
         if (com.omoda.lanc.AssistantApplication.isTailscaleEnabled.value) {
@@ -513,16 +519,29 @@ class MainActivity : ComponentActivity() {
 
     private fun startPeriodicPermissionCheck() {
         val h = Handler(Looper.getMainLooper())
-        val checkInterval = 5 * 60 * 1000L
+        val checkInterval = 10 * 1000L // 10 saniyede bir kontrol et
         val checker = object : Runnable {
             override fun run() {
                 if (settingsManager.isAutoTasksEnabled) {
+                    // İzin durumunu kontrol edip log paneline yazalım
+                    val recordGranted = ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+                    val dumpGranted = ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.DUMP) == PackageManager.PERMISSION_GRANTED
+                    
+                    if (!recordGranted || !dumpGranted) {
+                        AssistantApplication.addLog("Eksik İzinler Var! Mikrofon: $recordGranted, DUMP: $dumpGranted")
+                        AssistantApplication.addLog("ADB üzerinden izinler otomatik enjekte ediliyor...")
+                    } else {
+                        // Her 10sn'de bir log kalabalığı yapmamak için sadece değişiklik durumunda yazabiliriz,
+                        // ama kullanıcının isteği üzerine onay logu bırakıyoruz.
+                        AssistantApplication.addLog("Sistem İzinleri: TAMAM")
+                    }
+                    
                     injectPermissions()
                 }
                 h.postDelayed(this, checkInterval)
             }
         }
-        h.postDelayed(checker, checkInterval)
+        h.postDelayed(checker, 2000) // İlk çalıştırma 2sn sonra
     }
 
     private fun generateDefaultWallpapers() {
