@@ -30,12 +30,23 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 
 ## Kısıtlar ve Kurallar
 *   API 29 (AAOS 10) uyumluluğu kesin kuraldır.
-*   **Bağlantı Ayarları (SABİT):**
-    *   **Gateway IP:** `100.95.239.119`
-    *   **Hermes/STT Port:** `8642`
-    *   **TTS Port:** `10201`
-    *   **Proxy:** Groq ve Edge istekleri her zaman bu Gateway üzerinden proxy edilir.
+*   **Bağlantı Ayarları (SABİT / TEK ENDPOINT MİMARİSİ):**
+    *   **Device IP (Omoda/Arac):** `homeassistant.tailnet-4f03.ts.net` (Tek yetkili Tailscale IP)
+    *   **Gateway / Proxy IP:** `homeassistant.tailnet-4f03.ts.net`
+    *   **9Router API Port:** `20128` (Tüm Chat Completions, STT ve model sorgulamaları bu porttaki `/v1` adresinden tek nokta üzerinden yönetilir. 8642 portu iptal edilmiştir.)
+    *   **9Router API Key:** `sk-b6f4d3879cc4a442-vwd4xl-8ad79a58`
+    *   **Proxy:** Tüm LLM ve STT işlemleri 20128 proxy üzerinden yürütülür. Edge TTS için online websocket bağlantısı kullanılır.
 *   **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
-*   Araç kontrolü asla doğrudan LLM'e (Yapay Zeka) bırakılmayacak; Command Router tarafından yakalanacak.
+*   **Command Firewall (Merkezi Karar Birimi) & Tasarım İlkesi:** 
+    *   Araç kontrolü asla doğrudan LLM'e bırakılmaz. AI'dan gelen tüm araç fonksiyon istekleri (`tool_calls`) `CommandFirewall.kt` üzerinden geçer, Whitelist ve parametre sınır kontrolüne tabi tutulur.
+    *   **Geri Bildirim ve Şeffaflık İlkesi:** Firewall bir komutu engellediğinde veya izin verdiğinde, bu durum anında Logcat'e (Log.e / Log.i) yazılmalı ve `EventBus` üzerinden `UIEvent.UpdateOverlayState` ile ekrandaki AI bildirim (Overlay) kısmına yansıtılmalıdır. Kullanıcı (ve AI), engellenme ve izin durumlarını anlık görebilmelidir.
+*   **Genel Hata Ayıklama Tasarım Kuralı:** Ana kodları (mevcut veya yeni eklenecek olanlar) bozarak deneme-yanılma yapmak kesinlikle yasaktır. Herhangi bir şüpheli durumda (API hatası vb.), `aes_app/` (eski adıyla scripts) klasöründeki Python araçları/test script'leri kullanılmalı ve gerektiğinde bu test süiti genişletilmelidir.
 *   Hareket halindeyken (Speed > 0) riskli ayarların değiştirilmesi engellenecek.
-*   **TTS / STT Politikası:** Piper STT yerel olarak test edilmiş olup ilerleyen fazlarda entegre edilecektir. Sherpa TTS ise işlemci darboğazı (CPU lock) yarattığı için şu an baypas edilmiş / beklemeye alınmıştır; sorun çözülmeden bu yapıya dokunulmayacaktır. Local/Online TTS (Edge) ve Local STT yetenekleri Ayarlar üzerinden kontrol edilecektir.
+*   **TTS / STT Fallback Politikası:** Ses tanıma ve okuma işlemleri kaskad zincire sahiptir: **Online (9Router/Edge) -> Local (Sherpa/Piper)**. Local sistemler şu an beklemeye alınmış olsa da kod mimarisi buna uygun dizayn edilmiştir. Ses odağı (Audio Ducking) bu zincir bitene kadar korunur.
+*   **SSE Streaming & 2-Mod Yapısı:** Sistem SSE (Server-Sent Events) ile stream edilerek çalışır. Kullanıcı arayüzünde `ASISTANT` (kısa, araç bağlamlı) ve `CHAT` (kesintisiz derin diyalog) modları bulunur. Anomali takip ve izleme işini arka planda MQTT telemetri üstlendiği için `MONITOR` modu ve LLM telemetri analizi kaldırılmıştır.
+*   **MQTT Telemetri:** Araç verileri `homeassistant.tailnet-4f03.ts.net:1883` broker'ına `omoda/telemetri` konusuyla periyodik olarak aktarılır. Bu sayede Home Assistant paneli güncel tutulur.
+*   **OTA Güncelleme & Sürüm Düşürme:**
+    *   Derlenen her yeni asistan sürümü kesinlikle GitHub releases (`casacemal/Omoda5-launcher`) alanına yüklenecektir, atlanmayacaktır.
+    *   Uygulama içi App Store ekranında en güncel **4 sürüm** her zaman listelenecektir.
+    *   Kullanıcının eski sürümlere geri dönebilmesi (Downgrade) için sürüm düşürme desteği korunacaktır. Eski sürümlerin yanındaki buton turuncu renkte **"DÜŞÜR"** olarak gösterilecek ve `pm install -r -d` komutuyla downgrade sağlanacaktır.
+    *   İnternet bağlantısı koptuktan sonra ilk kez sağlandığında (NetworkMonitor üzerinden) sistem **1 defa** otomatik olarak güncelleme kontrolü yapacak ve ekrandaki Canlı İş Akışı (deploy) paneline bilgi yazacaktır.

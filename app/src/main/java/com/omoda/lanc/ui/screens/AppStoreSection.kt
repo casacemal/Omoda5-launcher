@@ -177,7 +177,8 @@ fun AppUpdateItem(app: AppUpdate, isDownloadingAny: Boolean, onDownloadClick: ()
             Column(modifier = Modifier.weight(1f)) {
                 Text(app.name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp)
                 val sizeMb = String.format("%.1f MB", app.sizeBytes / (1024.0 * 1024.0))
-                Text("v${app.version} • $sizeMb", color = Color.Gray, fontSize = 11.sp)
+                val typeLabel = if (app.isDowngrade) "Eski Sürüm (Geri Yüklenebilir)" else "Yeni Sürüm"
+                Text("v${app.version} • $sizeMb • $typeLabel", color = if(app.isDowngrade) Color(0xFFF3B14B) else Color.Gray, fontSize = 11.sp)
                 if (app.isSystemUpdate) {
                     Text("Sistem Güncellemesi", color = Color(0xFF69E2D3), fontSize = 10.sp)
                 }
@@ -185,9 +186,12 @@ fun AppUpdateItem(app: AppUpdate, isDownloadingAny: Boolean, onDownloadClick: ()
             Button(
                 onClick = onDownloadClick,
                 enabled = !isDownloadingAny,
-                colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray, contentColor = Color.White)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (app.isDowngrade) Color(0xFFF3B14B) else Color.DarkGray,
+                    contentColor = if (app.isDowngrade) Color.Black else Color.White
+                )
             ) {
-                Text("İNDİR", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                Text(if (app.isDowngrade) "DÜŞÜR" else "İNDİR", fontSize = 10.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
