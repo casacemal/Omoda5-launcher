@@ -16,6 +16,14 @@ object NetworkModule {
         level = HttpLoggingInterceptor.Level.HEADERS
     }
 
+    val sseClient = OkHttpClient.Builder()
+        .readTimeout(0, TimeUnit.MILLISECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(false)
+        .addInterceptor(loggingInterceptor)
+        .build()
+
     val robustClient = OkHttpClient.Builder()
         .readTimeout(30, TimeUnit.SECONDS) 
         .connectTimeout(30, TimeUnit.SECONDS)
