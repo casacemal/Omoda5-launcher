@@ -40,12 +40,26 @@ class ActionExecutor(private val context: Context) {
             val args = if (argumentsJson.isBlank()) JSONObject() else JSONObject(argumentsJson)
 
             when (functionName) {
-                // KLİMA KONTROLÜ (ADB TAP)
+                // KLİMA KONTROLÜ (ADB TAP & VHAL)
                 "hvac_on", "hvac_off", "simulate_hvac_touch" -> {
                     val x = args.optInt("x", 500)
                     val y = args.optInt("y", 900)
                     executeShellCommand("input tap $x $y")
                     "Success: HVAC command executed via ADB Tap ($x, $y)"
+                }
+
+                // KLİMA AC GÜCÜ (VHAL)
+                "set_hvac_ac" -> {
+                    val value = args.optInt("value", 1) // 1 = Açık, 0 = Kapalı
+                    executeShellCommand("dumpsys car_service set-property-value 0x15200505 117 $value")
+                    "Success: HVAC AC set to $value"
+                }
+
+                // KLİMA FAN HIZI (VHAL)
+                "set_hvac_fan" -> {
+                    val value = args.optInt("value", 3) // 1-7 arası
+                    executeShellCommand("dumpsys car_service set-property-value 0x15400500 117 $value")
+                    "Success: HVAC Fan Speed set to $value"
                 }
 
                 // SES KONTROLÜ (Android Standart API)
@@ -104,7 +118,7 @@ class ActionExecutor(private val context: Context) {
                     }
                 }
 
-                // HASSAS KLİMA KONTROLÜ
+                // HASSAS KLİMA SICAKLIK KONTROLÜ
                 "set_hvac_temp" -> {
                     val temp = args.optDouble("temperature", 22.0)
                     // Omoda 5 HMI koordinat simülasyonu
@@ -114,6 +128,21 @@ class ActionExecutor(private val context: Context) {
                         executeShellCommand("input tap 200 900") // Sıcaklık azalt butonu
                     }
                     "Success: HVAC Temperature adjusted towards $temp"
+                }
+
+                // CAM / SUNROOF POZİSYON KONTROLÜ (VHAL)
+                "set_window_position" -> {
+                    val target = args.optString("target", "window") // "window" veya "sunroof"
+                    val position = args.optInt("position", 0) // 0 = Kapalı, 100 = Tam Açık
+                    
+                    if (target == "sunroof") {
+                        // Sunroof Zone Genelde 65536 veya 16'dır
+                        executeShellCommand("dumpsys car_service set-property-value 0x13400bc0 65536 $position")
+                    } else {
+                        // Tüm camları aynı seviyeye getir (Zone: 15)
+                        executeShellCommand("dumpsys car_service set-property-value 0x13400bc0 15 $position")
+                    }
+                    "Success: $target position set to $position"
                 }
 
                 // UYGULAMA BAŞLATMA
@@ -127,9 +156,26 @@ class ActionExecutor(private val context: Context) {
                     }
                 }
 
-                // HERMES DOĞRUDAN ADB KOMUT ERİŞİMİ - İPTAL EDİLDİ (Güvenlik)
-                "execute_adb" -> {
-                    "Error: execute_adb is completely disabled due to security policies."
+                // APK YÜKLEME (ADB)
+                "install_app" -> {
+                    val apkPath = args.optString("apk_path")
+                    if (apkPath.isNotEmpty()) {
+                        val result = executeShellCommand("pm install -r -d -g $apkPath")
+                        "Success: App installation result: $result"
+                    } else {
+                        "Error: Missing apk_path"
+                    }
+                }
+
+                // APK KALDIRMA (ADB)
+                "uninstall_app" -> {
+                    val pkg = args.optString("package_name")
+                    if (pkg.isNotEmpty()) {
+                        val result = executeShellCommand("pm uninstall $pkg")
+                        "Success: App uninstallation result: $result"
+                    } else {
+                        "Error: Missing package_name"
+                    }
                 }
 
                 // TARİH SAAT FİKSLEME

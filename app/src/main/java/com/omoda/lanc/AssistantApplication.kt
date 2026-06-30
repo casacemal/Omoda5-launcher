@@ -41,6 +41,12 @@ class AssistantApplication : Application() {
         val sttMode = MutableStateFlow("BULUT") // Varsayılan olarak BULUT (Groq) seçildi
         val ttsEngine = MutableStateFlow("EDGE") // Kaynak projedeki motor
         
+        // Proaktif Sesli/Görsel Uyarı Durumu (Kırmızı Alert Kartı)
+        val proactiveWarning = MutableStateFlow<String?>(null)
+        
+        // Harici Uzak ADB Bağlantı Durumu
+        val isRemoteAdbConnected = MutableStateFlow(false)
+        
         // Edge TTS Ayarları
         val edgeVoiceName = MutableStateFlow("tr-TR-EmelNeural")
         val edgePitch = MutableStateFlow("+0Hz")

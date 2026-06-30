@@ -208,6 +208,30 @@ class AgentManager(
         addTool("hvac_off", "Klimayı kapatır.", noParams())
         addTool("set_hvac_temp", "Klima sıcaklığını ayarlar.",
             numParam("temperature", "Hedef sıcaklık (örn: 22.5)"))
+        addTool("set_hvac_ac", "Klima AC kompresör gücünü açar veya kapatır.",
+            intParam("value", "1 = AC Açık, 0 = AC Kapalı"))
+        addTool("set_hvac_fan", "Klima fan hızını ayarlar (1-7).",
+            intParam("value", "Fan hızı seviyesi (1 ile 7 arası)"))
+        addTool("set_window_position", "Camları veya sunroof'u açar/kapatır.",
+            JSONObject().apply {
+                put("type", "object")
+                put("properties", JSONObject().apply {
+                    put("target", JSONObject().apply { 
+                        put("type", "string")
+                        put("description", "Hedef")
+                        put("enum", JSONArray(listOf("window", "sunroof")))
+                    })
+                    put("position", JSONObject().apply { 
+                        put("type", "integer")
+                        put("description", "Açıklık oranı (0 = Tam Kapalı, 100 = Tam Açık)")
+                    })
+                })
+                put("required", JSONArray(listOf("target", "position")))
+            })
+        addTool("install_app", "Cihaza belirtilen APK yolundan uygulama yükler.",
+            strParam("apk_path", "APK dosyasının cihazdaki tam yolu (örn: /data/local/tmp/app.apk)"))
+        addTool("uninstall_app", "Cihazdan belirtilen paket adına sahip uygulamayı kaldırır.",
+            strParam("package_name", "Kaldırılacak uygulamanın paket adı (örn: com.example.app)"))
         addTool("fix_system_time", "Sistem saatini senkronize eder.", noParams())
         addTool("connect_vpn",    "Tailscale VPN bağlar.", noParams())
         addTool("disconnect_vpn", "Tailscale VPN keser.", noParams())
@@ -239,7 +263,7 @@ class AgentManager(
         }
 
         val body = JSONObject().apply {
-            put("model", AssistantApplication.HERMES_CHAT_MODEL)
+            put("model", "asist_genel")
             put("messages", messages)
             put("stream", true)
             put("temperature", if (mode == "CHAT") 0.8 else 0.5)
@@ -276,6 +300,16 @@ class AgentManager(
                         toolCallAccumulator.values.forEach { accum ->
                             if (accum.name.isNotBlank()) {
                                 Log.d("Omoda-Workflow", ">>> [8-SSE] TOOL CALL: ${accum.name}(${accum.arguments})")
+                                
+                                // RATE LIMITER: Özellikle veri okuma (get_property) isteklerini sınırlayalım (2 saniyede bir)
+                                val now = System.currentTimeMillis()
+                                val lastTime = lastCommandTimes[accum.name] ?: 0L
+                                if (accum.name.startsWith("get_") && (now - lastTime) < 2000) {
+                                    Log.w(TAG, "Rate-Limit Engeli: ${accum.name} son 2 saniyede zaten çağrıldı. Sistem yükünü korumak için es geçiliyor.")
+                                    return@forEach
+                                }
+                                lastCommandTimes[accum.name] = now
+
                                 AssistantApplication.addLog("Aksiyon: ${accum.name}")
                                 commandFirewall.validateAndExecute(accum.name, accum.arguments.ifBlank { "{}" })
                             }

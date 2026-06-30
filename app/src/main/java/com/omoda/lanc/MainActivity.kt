@@ -69,6 +69,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     private lateinit var settingsManager: SettingsManager
     private val mediaVM: com.omoda.lanc.media.MediaControllerViewModel by viewModels()
+    private lateinit var adbMonitor: com.omoda.lanc.network.AdbConnectionMonitor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +83,8 @@ class MainActivity : ComponentActivity() {
         generateDefaultWallpapers()
         checkAndRequestPermissions()
 
-        // Varsayılan Home rolü kontrolü (AAOS'de çalışmadığı için kaldırıldı, ADB üzerinden yapılacak)
-        // checkAndRequestHomeRole()
+        // Adb Connection Monitor başlat
+        adbMonitor = com.omoda.lanc.network.AdbConnectionMonitor(this).apply { start() }
 
         // Arka plan servisini başlat (Yeni asistan servisi)
         val serviceIntent = Intent(this, com.omoda.lanc.service.VoiceAssistantService::class.java)
@@ -94,6 +95,11 @@ class MainActivity : ComponentActivity() {
                 MainNavigation()
             }
         }
+    }
+
+    override fun onDestroy() {
+        adbMonitor.stop()
+        super.onDestroy()
     }
 
     @Composable
@@ -212,6 +218,7 @@ class MainActivity : ComponentActivity() {
         val status by AssistantApplication.status.collectAsState()
         val isListening by AssistantApplication.isListening.collectAsState()
         val proactiveWarning by AssistantApplication.proactiveWarning.collectAsState()
+        val isRemoteAdbConnected by AssistantApplication.isRemoteAdbConnected.collectAsState()
 
         // Proaktif Sesli Uyarı Tetikleyici
         LaunchedEffect(proactiveWarning) {
@@ -233,6 +240,48 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
+
+            // UZAK ADB BAĞLANTI UYARISI (Sağ Üst Köşede Yanıp Sönen Turuncu Sembol)
+            if (isRemoteAdbConnected) {
+                val infiniteTransition = rememberInfiniteTransition()
+                val alpha by infiniteTransition.animateFloat(
+                    initialValue = 0.4f,
+                    targetValue = 1.0f,
+                    animationSpec = infiniteRepeatable(
+                        animation = tween(1000, easing = LinearEasing),
+                        repeatMode = RepeatMode.Reverse
+                    )
+                )
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(top = 20.dp, end = 20.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color(0xFFF3B14B).copy(alpha = alpha))
+                        .border(1.dp, Color.White.copy(alpha = alpha), RoundedCornerShape(8.dp))
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                        .zIndex(99f)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(Color.Red)
+                        )
+                        Text(
+                            text = "UZAK ADB",
+                            color = Color.Black,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            }
             Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.5f)))
 
             // Ana İçerik (Launcher Bölümü - Sol Taraf)

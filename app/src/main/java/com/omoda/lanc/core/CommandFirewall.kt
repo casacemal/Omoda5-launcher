@@ -25,8 +25,12 @@ class CommandFirewall(private val context: Context, private val actionExecutor: 
         "hvac_on",
         "hvac_off",
         "simulate_hvac_touch",
-        "set_hvac_temp"
-        // NOT: "execute_adb", "connect_vpn", "disconnect_vpn", "fix_system_time" bilerek whitelist dışı bırakılmıştır.
+        "set_hvac_temp",
+        "set_hvac_ac",
+        "set_hvac_fan",
+        "set_window_position",
+        "install_app",
+        "uninstall_app"
     )
 
 
@@ -56,10 +60,43 @@ class CommandFirewall(private val context: Context, private val actionExecutor: 
                         return "Error: Invalid temperature. Must be between 16.0 and 28.0."
                     }
                 }
+                "set_hvac_fan" -> {
+                    val value = args.optInt("value", -1)
+                    if (value !in 1..7) {
+                        return "Error: Invalid fan speed. Must be between 1 and 7."
+                    }
+                }
+                "set_hvac_ac" -> {
+                    val value = args.optInt("value", -1)
+                    if (value != 0 && value != 1) {
+                        return "Error: Invalid AC value. Must be 0 or 1."
+                    }
+                }
                 "set_brightness" -> {
                     val level = args.optInt("level", -1)
                     if (level !in 0..255) {
                         return "Error: Invalid brightness level. Must be between 0 and 255."
+                    }
+                }
+                "set_window_position" -> {
+                    val position = args.optInt("position", -1)
+                    if (position !in 0..100) {
+                        return "Error: Invalid position. Must be between 0 and 100."
+                    }
+                    
+                    // SÜRÜŞ GÜVENLİĞİ: Araç hareket halindeyken cam veya sunroof kontrolünü engelle
+                    val currentSpeed = VehicleController.getInstance(context).getVehicleState().speed
+                    if (currentSpeed > 5f) {
+                        Log.e(TAG, "SÜRÜŞ ENGELLİ: Hız ${currentSpeed} km/h iken camlar kontrol edilemez!")
+                        EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("Sürüşte Cam/Sunroof Engelli!", android.graphics.Color.RED))
+                        return "Error: Windows and sunroof cannot be operated while driving for safety reasons."
+                    }
+                }
+                "install_app" -> {
+                    val apkPath = args.optString("apk_path")
+                    // Güvenli klasör kontrolü: Sadece /data/local/tmp veya external files dizininden kuruluma izin ver
+                    if (!apkPath.startsWith("/data/local/tmp") && !apkPath.contains("/files/")) {
+                        return "Error: App installation is only allowed from secure directories."
                     }
                 }
             }
