@@ -34,7 +34,7 @@ class ActionExecutor(private val context: Context) {
         }
     }
 
-    fun execute(functionName: String, argumentsJson: String): String {
+    internal fun execute(functionName: String, argumentsJson: String): String {
         Log.i(TAG, "Aksiyon: $functionName | Args: $argumentsJson")
         return try {
             val args = if (argumentsJson.isBlank()) JSONObject() else JSONObject(argumentsJson)
@@ -127,15 +127,9 @@ class ActionExecutor(private val context: Context) {
                     }
                 }
 
-                // HERMES DOĞRUDAN ADB KOMUT ERİŞİMİ
+                // HERMES DOĞRUDAN ADB KOMUT ERİŞİMİ - İPTAL EDİLDİ (Güvenlik)
                 "execute_adb" -> {
-                    val command = args.optString("command")
-                    if (command.isNotEmpty()) {
-                        val result = executeShellCommand(command)
-                        "Success: Executed ($command) -> $result"
-                    } else {
-                        "Error: Missing command parameter"
-                    }
+                    "Error: execute_adb is completely disabled due to security policies."
                 }
 
                 // TARİH SAAT FİKSLEME

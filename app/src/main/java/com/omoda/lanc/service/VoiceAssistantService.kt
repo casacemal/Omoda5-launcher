@@ -19,7 +19,6 @@ import com.omoda.lanc.AssistantApplication
 import com.omoda.lanc.core.AssistantController
 import com.omoda.lanc.core.Event
 import com.omoda.lanc.core.EventBus
-import com.omoda.lanc.core.SherpaOfflineModelManager
 import com.omoda.lanc.network.AdbClient
 import com.omoda.lanc.vehicle.VehicleLayer
 import kotlinx.coroutines.*
@@ -36,12 +35,11 @@ class VoiceAssistantService : Service() {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private val CHANNEL_ID = "VoiceAssistantChannel"
     
-    private lateinit var assistantController: AssistantController
-    private lateinit var vehicleLayer: VehicleLayer
-    private lateinit var modelManager: SherpaOfflineModelManager
-    private var wakeWordManager: com.omoda.lanc.stt.WakeWordManager? = null
+    internal lateinit var assistantController: AssistantController
+    internal lateinit var vehicleLayer: VehicleLayer
+    internal var wakeWordManager: com.omoda.lanc.stt.WakeWordManager? = null
 
-    private var locationManager: LocationManager? = null
+    internal var locationManager: LocationManager? = null
 
     private val locationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
@@ -50,6 +48,7 @@ class VoiceAssistantService : Service() {
                 EventBus.emit(Event.VehicleEvent.SpeedChanged(gpsSpeedKmh))
             }
         }
+        @Deprecated("Deprecated in Java")
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
@@ -73,7 +72,6 @@ class VoiceAssistantService : Service() {
                 }
                 "com.omoda.assistant.START_LISTENING" -> assistantController.startListening()
                 "com.omoda.assistant.STOP_LISTENING" -> assistantController.stopListening()
-                "com.omoda.assistant.SHERPA_INSTALL" -> installSherpaModel()
             }
         }
     }
@@ -87,61 +85,63 @@ class VoiceAssistantService : Service() {
         }
         super.onCreate()
 
-        assistantController = AssistantController(this, serviceScope)
-        vehicleLayer = VehicleLayer(this, serviceScope)
-        modelManager = SherpaOfflineModelManager(this)
-
-        try {
-            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000L, 10f, locationListener)
-        } catch (e: SecurityException) {
-            Log.e("Omoda-Service", "Konum izni yok")
-        }
-
-        val filter = IntentFilter().apply {
-            addAction("com.saic.keyevent.hardkey.report")
-            addAction("com.omoda.assistant.SPEAK")
-            addAction("com.omoda.assistant.START_LISTENING")
-            addAction("com.omoda.assistant.STOP_LISTENING")
-            addAction("com.omoda.assistant.SHERPA_INSTALL")
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(voiceCommandReceiver, filter, Context.RECEIVER_EXPORTED)
-        } else {
-            registerReceiver(voiceCommandReceiver, filter)
-        }
-
         serviceScope.launch {
-            combine(
-                AssistantApplication.serverIp,
-                AssistantApplication.hermesPort,
-                AssistantApplication.sttPort,
-                AssistantApplication.ttsPort
-            ) { _, _, _, _ -> Unit }
-                .distinctUntilChanged()
-                .collect { assistantController.updateConfig() }
+            assistantController = AssistantController(this@VoiceAssistantService, serviceScope)
+            vehicleLayer = VehicleLayer(this@VoiceAssistantService, serviceScope)
+
+            try {
+                locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000L, 10f, locationListener)
+            } catch (e: SecurityException) {
+                Log.e("Omoda-Service", "Konum izni yok")
+            }
+
+            val filter = IntentFilter().apply {
+                addAction("com.saic.keyevent.hardkey.report")
+                addAction("com.omoda.assistant.SPEAK")
+                addAction("com.omoda.assistant.START_LISTENING")
+                addAction("com.omoda.assistant.STOP_LISTENING")
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(voiceCommandReceiver, filter, Context.RECEIVER_EXPORTED)
+            } else {
+                registerReceiver(voiceCommandReceiver, filter)
+            }
+
+            // WakeWord Entegrasyonu
+            wakeWordManager = com.omoda.lanc.stt.WakeWordManager(this@VoiceAssistantService) { command ->
+                if (command.isNotBlank()) {
+                    assistantController.processText(command)
+                } else {
+                    assistantController.startListening()
+                }
+            }
+
+            launch {
+                AssistantApplication.isWakeWordEnabled.collect { enabled ->
+                    if (enabled) wakeWordManager?.startListening()
+                    else wakeWordManager?.stopListening()
+                }
+            }
+
+            launch {
+                combine(
+                    AssistantApplication.serverIp,
+                    AssistantApplication.hermesPort,
+                    AssistantApplication.sttPort,
+                    AssistantApplication.ttsPort
+                ) { _, _, _, _ -> Unit }
+                    .distinctUntilChanged()
+                    .collect { assistantController.updateConfig() }
+            }
+
+            autoGrantPermissions()
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(Intent(this, HermesForegroundService::class.java))
         } else {
             startService(Intent(this, HermesForegroundService::class.java))
-        }
-
-        serviceScope.launch(Dispatchers.IO) {
-            autoGrantPermissions()
-        }
-
-        // WakeWord Entegrasyonu (Kaynak: omodaassist_v2)
-        wakeWordManager = com.omoda.lanc.stt.WakeWordManager(this) {
-            assistantController.startListening()
-        }
-
-        serviceScope.launch {
-            AssistantApplication.isWakeWordEnabled.collect { enabled ->
-                if (enabled) wakeWordManager?.startListening()
-                else wakeWordManager?.stopListening()
-            }
         }
     }
 
@@ -154,11 +154,7 @@ class VoiceAssistantService : Service() {
         return START_STICKY
     }
 
-    private fun installSherpaModel() {
-        serviceScope.launch(Dispatchers.IO) {
-            modelManager.installAllModels()
-        }
-    }
+
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -175,11 +171,13 @@ class VoiceAssistantService : Service() {
     override fun onBind(intent: Intent?) = null
     
     override fun onDestroy() {
-        super.onDestroy()
         locationManager?.removeUpdates(locationListener)
         stopService(Intent(this, HermesForegroundService::class.java))
         unregisterReceiver(voiceCommandReceiver)
+        assistantController.destroy()
+        vehicleLayer.destroy()
         serviceScope.cancel()
+        super.onDestroy()
     }
 
     private fun autoGrantPermissions() {

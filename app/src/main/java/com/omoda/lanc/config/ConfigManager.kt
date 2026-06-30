@@ -13,7 +13,7 @@ class ConfigManager(val context: Context) {
             try {
                 val encryptedText = configFile.readText()
                 val plainText = decrypt(encryptedText)
-                gson.fromJson(plainText, AppConfig::class.java) ?: AppConfig()
+                gson.fromJson(plainText, AppConfig::class.java)?.sanitized() ?: AppConfig()
             } catch (e: Exception) {
                 AppConfig()
             }
@@ -24,7 +24,7 @@ class ConfigManager(val context: Context) {
 
     fun saveConfig(config: AppConfig) {
         try {
-            val plainText = gson.toJson(config)
+            val plainText = gson.toJson(config.sanitized())
             val encryptedText = encrypt(plainText)
             configFile.writeText(encryptedText)
         } catch (e: Exception) {
@@ -50,5 +50,26 @@ class ConfigManager(val context: Context) {
             output.append((decoded[i].code xor key[i % key.length].code).toChar())
         }
         return output.toString()
+    }
+
+    private fun AppConfig.sanitized(): AppConfig {
+        fun String.clean(): String = trim().replace("\r", "").replace("\n", "")
+        fun String.cleanOr(defaultValue: String): String = clean().ifBlank { defaultValue }
+        val defaults = AppConfig()
+
+        return copy(
+            serverIp = serverIp.cleanOr(defaults.serverIp),
+            hermesPort = hermesPort.cleanOr(defaults.hermesPort),
+            sttPort = sttPort.cleanOr(defaults.sttPort),
+            ttsPort = ttsPort.cleanOr(defaults.ttsPort),
+            sttMode = sttMode.cleanOr(defaults.sttMode),
+            ttsEngine = ttsEngine.cleanOr(defaults.ttsEngine),
+            groqApiKey = groqApiKey.clean(),
+            vehicleId = vehicleId.cleanOr(defaults.vehicleId),
+            sessionKey = sessionKey.cleanOr(defaults.sessionKey),
+            edgeVoiceName = edgeVoiceName.cleanOr(defaults.edgeVoiceName),
+            edgePitch = edgePitch.cleanOr(defaults.edgePitch),
+            edgeRate = edgeRate.cleanOr(defaults.edgeRate),
+        )
     }
 }

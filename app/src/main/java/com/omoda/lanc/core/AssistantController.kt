@@ -8,11 +8,11 @@ import com.omoda.lanc.audio.AudioEngine
 import com.omoda.lanc.network.AgentManager
 import com.omoda.lanc.network.HermesClient
 import com.omoda.lanc.overlay.OverlayManager
-import com.omoda.lanc.stt.SherpaOnnxSttManager
+import com.omoda.lanc.stt.AndroidSystemSttManager
 import com.omoda.lanc.stt.SttManager
+import com.omoda.lanc.tts.AndroidSystemTtsManager
 import com.omoda.lanc.tts.EdgeOnlineTTSManager
 import com.omoda.lanc.tts.HermesTTSManager
-import com.omoda.lanc.tts.SherpaOnnxSpeechManager
 import kotlinx.coroutines.*
 import java.io.File
 
@@ -28,6 +28,7 @@ class AssistantController(
     private val audioEngine = AudioEngine(context)
     private val overlayManager = OverlayManager(context)
     private val actionExecutor = ActionExecutor(context)
+    private val commandFirewall = CommandFirewall(context, actionExecutor)
     private val vehicleController = VehicleController(context)
     private val policyEngine = PolicyEngine()
     private val ruleEngine = RuleEngine { vehicleController.getVehicleState() }
@@ -36,14 +37,15 @@ class AssistantController(
     private val drivingAnalysisEngine = DrivingAnalysisEngine(scope)
     
     private val sttManager = SttManager(context) { audioPath -> handleRecordingFinished(audioPath) }
-    private val sherpaSttManager = SherpaOnnxSttManager(context, scope)
+    private val androidSttManager by lazy { AndroidSystemSttManager(context) { text -> handleAndroidSttResult(text) } }
     
     private val hermesTtsManager = HermesTTSManager(context)
     private val edgeTtsManager = EdgeOnlineTTSManager(context)
-    private val sherpaTtsManager = SherpaOnnxSpeechManager(context)
+    private val androidTtsManager by lazy { AndroidSystemTtsManager(context) }
 
+    // Dinamik Hermes ve STT İstemcileri
     private var hermesClient = HermesClient(AssistantApplication.HERMES_BASE_URL, AssistantApplication.HERMES_API_KEY)
-    private var sttClient = HermesClient(AssistantApplication.STT_BASE_URL, AssistantApplication.HERMES_API_KEY)
+    private var sttClient = HermesClient(AssistantApplication.STT_BASE_URL, AssistantApplication.NINEROUTER_API_KEY)
 
     private var agentManager: AgentManager = createAgentManager()
 
@@ -70,7 +72,7 @@ class AssistantController(
                     // Baglanti yeniden kurulduysa bildirim
                     if (previousStatus == "DISCONNECTED" && consecutiveFailures > 0) {
                         consecutiveFailures = 0
-                        EventBus.tryEmit(Event.UIEvent.Toast("Hermes baglantisi yeniden kuruldu"))
+                        EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("Hermes baglantisi yeniden kuruldu"))
                     }
                     kotlinx.coroutines.delay(30000) // Normal heartbeat
                 } else if (consecutiveFailures < 5) {
@@ -85,7 +87,7 @@ class AssistantController(
     }
 
     private fun createAgentManager() = AgentManager(
-        actionExecutor = actionExecutor,
+        commandFirewall = commandFirewall,
         commandRouter = commandRouter,
         hermesClient = hermesClient,
         sttClient = sttClient,
@@ -122,6 +124,9 @@ class AssistantController(
         when (event) {
             is Event.SystemEvent.HardKeyPressed -> {
                 if (event.keyCode == 290) toggleListening()
+            }
+            is Event.SystemEvent.ConfigUpdated -> {
+                updateConfig()
             }
             is Event.VehicleEvent.StateUpdated -> {
                 policyEngine.updateState(event.state)
@@ -169,8 +174,14 @@ class AssistantController(
                 AssistantApplication.isListening.value = true
                 AssistantApplication.status.value = "Dinliyor..."
                 
-                withContext(Dispatchers.IO) {
-                    sttManager.startRecording()
+                if (AssistantApplication.sttMode.value == "LOCAL") {
+                    withContext(Dispatchers.Main) {
+                        androidSttManager.startListening()
+                    }
+                } else {
+                    withContext(Dispatchers.IO) {
+                        sttManager.startRecording()
+                    }
                 }
                 
                 EventBus.emit(Event.UIEvent.ShowOverlay)
@@ -194,97 +205,95 @@ class AssistantController(
             
             EventBus.emit(Event.VoiceEvent.RecordingStopped)
 
-            withContext(Dispatchers.IO) {
-                sttManager.stopRecording()
+            if (AssistantApplication.sttMode.value == "LOCAL") {
+                withContext(Dispatchers.Main) {
+                    androidSttManager.stopListening()
+                }
+            } else {
+                withContext(Dispatchers.IO) {
+                    sttManager.stopRecording()
+                }
             }
             audioEngine.releaseFocus()
         }
     }
 
     private fun handleRecordingFinished(audioPath: String) {
-        val audioFile = File(audioPath)
-        when (AssistantApplication.sttMode.value) {
-            "SHERPA" -> performLocalStt(audioFile)
-            else -> agentManager.processVoiceInput(audioFile)
-        }
-    }
-
-    private fun performLocalStt(audioFile: File) {
-        if (!audioFile.exists() || audioFile.length() == 0L) {
+        if (audioPath.isBlank()) {
+            AssistantApplication.status.value = "Ses anlaşılamadı"
             resetState()
             return
         }
+        val audioFile = File(audioPath)
+        agentManager.processVoiceInput(audioFile)
+    }
 
-        AssistantApplication.recognizedText.value = "Lokal işleniyor..."
-        scope.launch(Dispatchers.IO) {
-            try {
-                val bytes = audioFile.readBytes()
-                val floats = FloatArray(bytes.size / 2)
-                for (i in floats.indices) {
-                    val b1 = bytes[i * 2].toInt() and 0xFF
-                    val b2 = bytes[i * 2 + 1].toInt() shl 8
-                    floats[i] = (b1 or b2).toShort().toFloat() / 32768.0f
+    private fun handleAndroidSttResult(text: String) {
+        if (text.isNotBlank() && text != "[STT Hazır Değil]") {
+            AssistantApplication.recognizedText.value = text
+            // Yerel Komut Kontrolü
+            when (val result = commandRouter.analyzeAndExecute(text)) {
+                is CommandResult.Success -> {
+                    speak(result.message) { resetState() }
                 }
-
-                val text = sherpaSttManager.transcribe(floats)
-                
-                withContext(Dispatchers.Main) {
-                    if (!text.isNullOrBlank() && text != "[STT Hazır Değil]") {
-                        AssistantApplication.recognizedText.value = text
-                        
-                        // Yerel Komut Kontrolü
-                        when (val result = commandRouter.analyzeAndExecute(text)) {
-                            is CommandResult.Success -> {
-                                speak(result.message) { resetState() }
-                            }
-                            is CommandResult.Blocked -> {
-                                speak(result.reason) { resetState() }
-                            }
-                            is CommandResult.NotMatched -> {
-                                val response = "Anladım: $text"
-                                AssistantApplication.assistantResponse.value = response
-                                speak(response) { resetState() }
-                            }
-                        }
-                        EventBus.emit(Event.VoiceEvent.SttResult(text))
-                    } else {
-                        resetState()
-                    }
+                is CommandResult.Blocked -> {
+                    speak(result.reason) { resetState() }
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) { resetState() }
+                is CommandResult.NotMatched -> {
+                    val response = "Anladım: $text"
+                    AssistantApplication.assistantResponse.value = response
+                    speak(response) { resetState() }
+                }
             }
+            EventBus.tryEmit(Event.VoiceEvent.SttResult(text))
+        } else {
+            resetState()
         }
     }
 
+    fun processText(text: String) {
+        agentManager.processTextInput(text)
+    }
+
     fun speak(text: String, onComplete: (() -> Unit)? = null) {
-        val engine = AssistantApplication.ttsEngine.value
+        if (text.isBlank()) return
+
         EventBus.tryEmit(Event.AIEvent.TTSStarted)
+        Log.d("Omoda-Workflow", ">>> [7] TTS KASKAD BAŞLIYOR: '${text.take(50)}'")
+        AssistantApplication.addLog("TTS Başlatılıyor (Kaskad)")
         
-        // Ses odağı iste (Ducking aktifleşir)
         audioEngine.requestAssistantFocus()
 
         val wrappedOnComplete: () -> Unit = {
-            // Konuşma bitince odağı bırak
             audioEngine.releaseFocus()
             EventBus.tryEmit(Event.AIEvent.TTSCompleted)
             onComplete?.invoke()
         }
 
-        val ttsProvider: com.omoda.lanc.tts.TTSManager = when (engine) {
-            "EDGE" -> edgeTtsManager
-            "SHERPA" -> sherpaTtsManager
-            "HERMES" -> hermesTtsManager
-            else -> hermesTtsManager
-        }
-
-        ttsProvider.speak(text, onComplete = wrappedOnComplete, onError = { wrappedOnComplete() })
+        // 1. ONLINE DENEME (Edge)
+        edgeTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
+            Log.w("Omoda-Workflow", "Edge TTS Hatası, Hermes TTS'e geçiliyor...")
+            AssistantApplication.addLog("Edge Hatası, Hermes'e Geçiliyor")
+            
+            // 2. HERMES DENEME
+            hermesTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
+                Log.w("Omoda-Workflow", "Hermes TTS Hatası, Local TTS'e geçiliyor...")
+                AssistantApplication.addLog("Hermes Hatası, Local'e Geçiliyor")
+                
+                // 3. LOCAL DENEME (Android Native TTS)
+                androidTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
+                    Log.e("Omoda-Workflow", "Tüm TTS Sistemleri Çöktü!")
+                    AssistantApplication.addLog("HATA: TTS Çöktü")
+                    wrappedOnComplete()
+                })
+            })
+        })
     }
 
     private fun stopTts() {
         hermesTtsManager.stop()
         edgeTtsManager.stop()
-        sherpaTtsManager.stop()
+        androidTtsManager.stop()
     }
 
     private fun startAmplitudePolling() {
@@ -315,9 +324,19 @@ class AssistantController(
         audioEngine.releaseFocus()
     }
 
+    fun destroy() {
+        vehicleController.destroy()
+        vehicleController.unregisterMediaReceiver()
+        audioEngine.releaseFocus()
+        amplitudeJob?.cancel()
+        timeoutJob?.cancel()
+        androidSttManager.destroy()
+        androidTtsManager.shutdown()
+    }
+
     fun updateConfig() {
         hermesClient = HermesClient(AssistantApplication.HERMES_BASE_URL, AssistantApplication.HERMES_API_KEY)
-        sttClient = HermesClient(AssistantApplication.STT_BASE_URL, AssistantApplication.HERMES_API_KEY)
+        sttClient = HermesClient(AssistantApplication.STT_BASE_URL, AssistantApplication.NINEROUTER_API_KEY)
         agentManager = createAgentManager()
     }
 }

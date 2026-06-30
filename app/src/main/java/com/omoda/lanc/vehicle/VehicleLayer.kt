@@ -52,4 +52,8 @@ class VehicleLayer(
         trackingJob?.cancel()
         trackingJob = null
     }
+
+    fun destroy() {
+        stopTracking()
+    }
 }

@@ -28,11 +28,12 @@ data class AppUpdate(
 class OtaUpdateManager(private val context: Context) {
 
     private val TAG = "OtaUpdateManager"
-    private val client: OkHttpClient by lazy { getUnsafeOkHttpClient() }
+    private val client: OkHttpClient by lazy { NetworkModule.robustClient }
     
     private val GITHUB_OWNER = "casacemal" 
-    private val GITHUB_REPO = "UniversalAAOSAssistant"
+    private val GITHUB_REPO = "Omoda5-launcher"
     private val API_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases/latest"
+    private val STORE_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/contents/apps?ref=jetpack_componse"
 
     interface UpdateCheckCallback {
         fun onUpdatesFound(updates: List<AppUpdate>)
@@ -46,7 +47,11 @@ class OtaUpdateManager(private val context: Context) {
     }
 
     fun checkForUpdates(callback: UpdateCheckCallback) {
-        val request = Request.Builder().url(API_URL).header("User-Agent", "Omoda5-Updater").build()
+        val request = Request.Builder()
+            .url(API_URL)
+            .header("User-Agent", "Omoda5-Updater")
+            .header("Authorization", "Bearer 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")
+            .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) { 
@@ -91,7 +96,10 @@ class OtaUpdateManager(private val context: Context) {
     }
 
     fun downloadUpdate(update: AppUpdate, callback: DownloadCallback) {
-        val request = Request.Builder().url(update.downloadUrl).build()
+        val request = Request.Builder()
+            .url(update.downloadUrl)
+            .header("Authorization", "Bearer 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")
+            .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) { callback.onError(e.message ?: "Ağ hatası") }
             override fun onResponse(call: Call, response: Response) {
@@ -149,13 +157,63 @@ class OtaUpdateManager(private val context: Context) {
             context.startActivity(intent)
         } catch (e: Exception) {
             Log.e(TAG, "Yükleyici açılamadı: ${e.message}")
-            // Fallback to ADB command if permitted
+            // Fallback to ADB command via system service if possible
             try {
-                Runtime.getRuntime().exec("pm install -r -d ${file.absolutePath}")
+                val cmd = "pm install -r -d -g ${file.absolutePath}"
+                context.sendBroadcast(Intent("com.omoda.assistant.EXECUTE_SHELL").apply {
+                    putExtra("command", cmd)
+                })
             } catch (ex: Exception) {
                 Log.e(TAG, "Root/ADB fallback yüklemesi de başarısız: ${ex.message}")
             }
         }
+    }
+
+    /**
+     * Omoda 5 App Store: Fetch static APKs from /apps folder
+     */
+    fun getStoreApps(callback: UpdateCheckCallback) {
+        val request = Request.Builder()
+            .url(STORE_URL)
+            .header("User-Agent", "Omoda5-Updater")
+            .header("Authorization", "Bearer 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")
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                callback.onError(e.message ?: "Ağ hatası")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                response.use {
+                    if (response.isSuccessful && body != null) {
+                        try {
+                            val arr = org.json.JSONArray(body)
+                            val apps = mutableListOf<AppUpdate>()
+                            for (i in 0 until arr.length()) {
+                                val obj = arr.getJSONObject(i)
+                                val fileName = obj.getString("name")
+                                if (fileName.endsWith(".apk")) {
+                                    apps.add(AppUpdate(
+                                        name = fileName,
+                                        downloadUrl = obj.getString("download_url"),
+                                        sizeBytes = obj.getLong("size"),
+                                        version = "Store",
+                                        isSystemUpdate = false
+                                    ))
+                                }
+                            }
+                            callback.onUpdatesFound(apps)
+                        } catch (e: Exception) {
+                            callback.onError("Mağaza verisi ayrıştırma hatası")
+                        }
+                    } else {
+                        callback.onError("Mağaza hatası: ${response.code}")
+                    }
+                }
+            }
+        })
     }
 
     private fun getUnsafeOkHttpClient(): OkHttpClient {

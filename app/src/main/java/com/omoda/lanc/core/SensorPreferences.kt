@@ -18,8 +18,12 @@ object SensorPreferences {
     fun init(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val saved = prefs.getStringSet(KEY_ACTIVE_SENSORS, null)
-        if (saved == null) {
-            val defaults = emptySet<String>()
+        if (saved == null || saved.isEmpty()) {
+            val defaults = setOf(
+                "21401002", "21401008", "21401009", "11600703", "21401005", "21401004",
+                "21401003", "21401007", "2140101e", "2140101f", "21401019", "2140101a",
+                "15200505", "15400500", "1540050b", "15400513"
+            )
             _activeSensors.value = defaults
             prefs.edit().putStringSet(KEY_ACTIVE_SENSORS, defaults).apply()
         } else {

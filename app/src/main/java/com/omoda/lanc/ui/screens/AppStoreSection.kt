@@ -28,12 +28,24 @@ fun AppStoreSection() {
     
     var isChecking by remember { mutableStateOf(false) }
     var updatesList by remember { mutableStateOf<List<AppUpdate>>(emptyList()) }
+    var storeAppsList by remember { mutableStateOf<List<AppUpdate>>(emptyList()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var downloadingApp by remember { mutableStateOf<String?>(null) }
     var downloadProgress by remember { mutableStateOf(0) }
     var downloadSpeed by remember { mutableStateOf(0.0) }
 
-    SettingCard(title = "APP STORE & OTA GÜNCELLEMELER (UniversalAAOSAssistant)") {
+    LaunchedEffect(Unit) {
+        updateManager.getStoreApps(object : OtaUpdateManager.UpdateCheckCallback {
+            override fun onUpdatesFound(updates: List<AppUpdate>) {
+                storeAppsList = updates
+            }
+            override fun onError(error: String) {
+                // Sessiz hata
+            }
+        })
+    }
+
+    SettingCard(title = "APP STORE & OTA GÜNCELLEMELER") {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
@@ -52,7 +64,7 @@ fun AppStoreSection() {
                                 isChecking = false
                                 updatesList = updates
                                 if (updates.isEmpty()) {
-                                    errorMessage = "Yeni sürüm/uygulama bulunamadı."
+                                    errorMessage = "Yeni sürüm bulunamadı."
                                 }
                             }
                             override fun onError(error: String) {
@@ -97,32 +109,50 @@ fun AppStoreSection() {
                 }
             }
 
+            // OTA Updates
             if (updatesList.isNotEmpty()) {
+                Text("Yeni Sürümler:", color = Color(0xFF69E2D3), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                updatesList.forEach { app ->
+                    AppUpdateItem(app, downloadingApp != null) { 
+                        downloadingApp = app.name
+                        updateManager.downloadUpdate(app, object : OtaUpdateManager.DownloadCallback {
+                            override fun onProgress(percentage: Int, speedMbps: Double) {
+                                downloadProgress = percentage
+                                downloadSpeed = speedMbps
+                            }
+                            override fun onComplete(file: java.io.File?) {
+                                downloadingApp = null
+                                file?.let { updateManager.installPackage(it) }
+                            }
+                            override fun onError(error: String) {
+                                downloadingApp = null
+                                coroutineScope.launch { Toast.makeText(context, "Hata: $error", Toast.LENGTH_SHORT).show() }
+                            }
+                        })
+                    }
+                }
+                HorizontalDivider(color = Color.White.copy(alpha = 0.1f), modifier = Modifier.padding(vertical = 4.dp))
+            }
+
+            // Store Apps
+            if (storeAppsList.isNotEmpty()) {
+                Text("Omoda 5 Mağaza Uygulamaları:", color = Color.LightGray, fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    updatesList.forEach { app ->
+                    storeAppsList.forEach { app ->
                         AppUpdateItem(app, downloadingApp != null) { 
                             downloadingApp = app.name
-                            downloadProgress = 0
-                            downloadSpeed = 0.0
-                            
                             updateManager.downloadUpdate(app, object : OtaUpdateManager.DownloadCallback {
                                 override fun onProgress(percentage: Int, speedMbps: Double) {
                                     downloadProgress = percentage
                                     downloadSpeed = speedMbps
                                 }
-
                                 override fun onComplete(file: java.io.File?) {
                                     downloadingApp = null
-                                    if (file != null) {
-                                        updateManager.installPackage(file)
-                                    }
+                                    file?.let { updateManager.installPackage(it) }
                                 }
-
                                 override fun onError(error: String) {
                                     downloadingApp = null
-                                    coroutineScope.launch {
-                                        Toast.makeText(context, "Hata: $error", Toast.LENGTH_SHORT).show()
-                                    }
+                                    coroutineScope.launch { Toast.makeText(context, "Hata: $error", Toast.LENGTH_SHORT).show() }
                                 }
                             })
                         }

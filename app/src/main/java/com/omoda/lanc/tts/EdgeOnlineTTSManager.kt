@@ -72,12 +72,24 @@ class EdgeOnlineTTSManager(
 
     private fun speakInternal(text: String, isRetry: Boolean = false, onComplete: (() -> Unit)? = null, onError: (() -> Unit)? = null) {
         if (text.isBlank()) { onComplete?.invoke(); return }
-        if (isSpeakingFlag.get()) return
+        if (isSpeakingFlag.get()) {
+            stop()
+        }
         isSpeakingFlag.set(true)
         Log.d(TAG, "TTS: ${text.take(50)}...")
 
         try {
+            val trustAllCerts = arrayOf<javax.net.ssl.TrustManager>(object : javax.net.ssl.X509TrustManager {
+                override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {}
+                override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {}
+                override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> = arrayOf()
+            })
+            val sslContext = javax.net.ssl.SSLContext.getInstance("SSL")
+            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+
             val client = OkHttpClient.Builder()
+                .sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as javax.net.ssl.X509TrustManager)
+                .hostnameVerifier { _, _ -> true }
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build()
@@ -122,12 +134,14 @@ class EdgeOnlineTTSManager(
                 }
 
                 override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-                    finishPlayback()
+                    finishPlayback(onComplete)
                 }
 
                 override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                     Log.e(TAG, "Hata: ${t.message}")
                     val code = response?.code ?: lastResponseCode
+                    
+                    // 403 Zaman uyumsuzluğu hatası
                     if (!isRetry && code == 403) {
                         try {
                             val dateStr = response?.header("Date") ?: lastResponseDate
@@ -144,12 +158,26 @@ class EdgeOnlineTTSManager(
                         speakInternal(text, isRetry = true, onComplete = onComplete, onError = onError)
                         return
                     }
-                    finishPlayback()
+                    
+                    // Ağ bağlantı hataları için (örn: reset, eof) bir kez daha dene
+                    if (!isRetry && code != 403) {
+                        Log.w(TAG, "Ağ hatası tespit edildi, tekrar deneniyor...")
+                        isSpeakingFlag.set(false)
+                        speakInternal(text, isRetry = true, onComplete = onComplete, onError = onError)
+                        return
+                    }
+                    
+                    finishPlayback(onComplete)
                     onError?.invoke() ?: onComplete?.invoke()
                 }
             })
         } catch (e: Exception) {
-            Log.e(TAG, "Hata: ${e.message}")
+            Log.e(TAG, "Genel Hata: ${e.message}")
+            if (!isRetry) {
+                isSpeakingFlag.set(false)
+                speakInternal(text, isRetry = true, onComplete = onComplete, onError = onError)
+                return
+            }
             isSpeakingFlag.set(false)
             onError?.invoke() ?: onComplete?.invoke()
         }
@@ -167,7 +195,7 @@ class EdgeOnlineTTSManager(
         val msg = "X-Timestamp:$ts\r\n" +
                 "Content-Type:application/json; charset=utf-8\r\n" +
                 "Path:speech.config\r\n\r\n" +
-                "{\"context\":{\"synthesis\":{\"audio\":{\"metadataoptions\":{\"sentenceBoundaryEnabled\":\"false\",\"wordBoundaryEnabled\":\"false\"},\"outputFormat\":\"audio-24khz-48kbitrate-mono-mp3\"}}}}\r\n"
+                "{\"context\":{\"synthesis\":{\"audio\":{\"metadataoptions\":{\"sentenceBoundaryEnabled\":\"false\",\"wordBoundaryEnabled\":\"false\"},\"outputFormat\":\"audio-24khz-48kbitrate-mono-mp3\"}}}}"
         ws.send(msg)
         
         tempFile = java.io.File(context.cacheDir, "tts_response.mp3")
@@ -241,6 +269,12 @@ class EdgeOnlineTTSManager(
                         it.release()
                         isSpeakingFlag.set(false)
                         onComplete?.invoke()
+                    }
+                    setOnErrorListener { _, what, extra ->
+                        Log.e(TAG, "MediaPlayer error: what=$what extra=$extra")
+                        isSpeakingFlag.set(false)
+                        onComplete?.invoke()
+                        true
                     }
                 }
             } catch (e: Exception) {

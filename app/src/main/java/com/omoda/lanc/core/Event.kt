@@ -35,6 +35,7 @@ sealed class Event {
         data class ContextChanged(val context: DrivingContext) : SystemEvent()
         data class ProfileChanged(val profile: String) : SystemEvent()
         data class HardKeyPressed(val keyCode: Int) : SystemEvent()
+        object ConfigUpdated : SystemEvent()
     }
 
     // 5. Uyarı Olayları (Alert Engine)

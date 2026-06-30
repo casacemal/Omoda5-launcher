@@ -8,6 +8,9 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -77,6 +80,10 @@ class MainActivity : ComponentActivity() {
 
         startPeriodicPermissionCheck()
         generateDefaultWallpapers()
+        checkAndRequestPermissions()
+
+        // Varsayılan Home rolü kontrolü (AAOS'de çalışmadığı için kaldırıldı, ADB üzerinden yapılacak)
+        // checkAndRequestHomeRole()
 
         // Arka plan servisini başlat (Yeni asistan servisi)
         val serviceIntent = Intent(this, com.omoda.lanc.service.VoiceAssistantService::class.java)
@@ -396,6 +403,7 @@ class MainActivity : ComponentActivity() {
             LauncherItem("m","Medya",R.mipmap.home_app_media_n,"com.chery.media"), 
             LauncherItem("p","Telefon",R.mipmap.home_app_phone_n,"com.chery.dialer"), 
             LauncherItem("s","Ayarlar",R.mipmap.home_app_setup_n,"com.chery.settings"), 
+            LauncherItem("store", "App Store", R.drawable.launcher_update_icon_bg, "internal.appstore"),
             LauncherItem("wp", "Duvar Kağıdı", R.mipmap.home_app_pic_n, "internal.wallpaper"),
             LauncherItem("cs","Araç",R.mipmap.home_app_carinfo_n,"com.chery.carsettings"), 
             LauncherItem("hvac","Klima",R.mipmap.home_app_carinfo_n,"com.chery.hvac"),
@@ -441,6 +449,16 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun launchApp(item: LauncherItem) {
+        if (item.packageName == "internal.appstore") {
+            // App Store direkt Ayarlar altındaki bölüme veya ayrı bir ekrana yönlendirilebilir.
+            // Şimdilik Ayarlar ekranını açacak, oradaki AppStoreSection görünür olacak.
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("TARGET_SCREEN", "SETTINGS")
+                putExtra("TARGET_SECTION", "APP_STORE")
+            }
+            startActivity(intent)
+            return
+        }
         item.packageName?.let { p -> 
             val intent = packageManager.getLaunchIntentForPackage(p)
             if (intent != null) {
@@ -456,9 +474,6 @@ class MainActivity : ComponentActivity() {
         }
 
         val baseCmds = mutableListOf(
-            // Varsayılan Launcher Yap (Home)
-            "cmd package set-home-activity $packageName/.MainActivity",
-            
             // Kritik İzinler
             "appops set $packageName SYSTEM_ALERT_WINDOW allow",
             "appops set $packageName GET_USAGE_STATS allow",
@@ -482,7 +497,8 @@ class MainActivity : ComponentActivity() {
         )
         
         if (com.omoda.lanc.AssistantApplication.isTailscaleEnabled.value) {
-            baseCmds.add("am broadcast -n com.tailscale.ipn/.IPNReceiver -a com.tailscale.ipn.CONNECT_VPN")
+            // Kullanıcı isteğiyle kapatıldı (Ağı bozuyor, Tailscale'in kendi uygulaması kullanılacak)
+            // baseCmds.add("am broadcast -n com.tailscale.ipn/.IPNReceiver -a com.tailscale.ipn.CONNECT_VPN")
         }
         
         baseCmds.forEach { exec(it) }
@@ -565,5 +581,28 @@ class MainActivity : ComponentActivity() {
             putExtra("command", c)
         }
         ContextCompat.startForegroundService(this, intent)
+    }
+
+    private fun checkAndRequestHomeRole() {
+        // AAOS'de bu ekran OEM tarafından kısıtlanmıştır (buton pasiftir). 
+        // Bu yüzden Ayarlar sayfasındaki ADB yöntemi (pm disable-user --user 0 com.chery.launcher) kullanılmalıdır.
+    }
+
+    private fun checkAndRequestPermissions() {
+        val permissions = arrayOf(
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+
+        val neededPermissions = permissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (neededPermissions.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, neededPermissions.toTypedArray(), 1001)
+        }
     }
 }

@@ -73,8 +73,6 @@ class HermesTTSManager(private val context: Context) : TTSManager {
         onCompleteCallback = onComplete
 
         val engine = AssistantApplication.ttsEngine.value
-        val isEdge = engine == "EDGE"
-        
         AssistantApplication.ledTts.value = true
         AssistantApplication.status.value = "Konuşuyor..."
         AssistantApplication.addLog("TTS Akışı: $engine")
@@ -83,44 +81,22 @@ class HermesTTSManager(private val context: Context) : TTSManager {
             try {
                 requestAudioFocus()
 
-                val engine = AssistantApplication.ttsEngine.value
-                val isEdge = engine == "EDGE"
-                
-                // Sürüm 6.1: Edge TTS için evrensel token ve URL yapısı (Guide v2 uyumlu)
-                // Edge için de Hermes Gateway (baseUrl) kullanılır, çünkü Gateway proxy görevi görür.
-                // Not: /v2 gateway tarafından yönetilir, bu yüzden base URL içindeki /v2 veya /v1 eklerini temizleyip
-                // asıl endpoint'i manuel ekliyoruz.
                 val base = baseUrl.removeSuffix("/").replace("/v2", "").replace("/v1", "")
-                val voice = if (isEdge) "edge" else "alloy"
+                val voice = "alloy" // Sadece Hermes uyumlu voice
                 
-                // URL Oluşturma: Edge için query param + token yapısı
-                val urlBuilder = StringBuilder("$base/v2/audio/speech")
-                if (isEdge) {
-                    urlBuilder.append("?input=").append(URLEncoder.encode(sanitizedText, "UTF-8"))
-                    urlBuilder.append("&model=tts-1")
-                    urlBuilder.append("&voice=").append(voice)
-                    urlBuilder.append("&TrustedClientToken=").append(AssistantApplication.EDGE_TTS_TOKEN)
-                }
-                
-                val fullUrl = urlBuilder.toString()
-                Log.i(TAG, "TTS İsteği (${if(isEdge) "EDGE" else "HERMES"}): $fullUrl")
+                val fullUrl = "$base/v1/audio/speech"
+                Log.i(TAG, "TTS İsteği (HERMES): $fullUrl")
 
                 val requestBuilder = Request.Builder().url(fullUrl)
                 
-                if (isEdge) {
-                    // Edge için GET kullanımı (veya token URL'de olduğu için boş body POST)
-                    // Rehberdeki örnekte URL encode edilmiş parametreler kullanılıyor.
-                    requestBuilder.post("".toRequestBody("application/json".toMediaType()))
-                } else {
-                    val jsonBody = org.json.JSONObject().apply {
-                        put("model", "tts-1")
-                        put("input", sanitizedText)
-                        put("voice", voice)
-                    }
-                    requestBuilder.post(jsonBody.toString().toRequestBody("application/json".toMediaType()))
-                    requestBuilder.addHeader("Authorization", "Bearer $apiKey")
-                    requestBuilder.addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
+                val jsonBody = org.json.JSONObject().apply {
+                    put("model", "tts-1")
+                    put("input", sanitizedText)
+                    put("voice", voice)
                 }
+                requestBuilder.post(jsonBody.toString().toRequestBody("application/json".toMediaType()))
+                requestBuilder.addHeader("Authorization", "Bearer $apiKey")
+                requestBuilder.addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
 
                 val request = requestBuilder.build()
                 val response = client.newCall(request).execute()

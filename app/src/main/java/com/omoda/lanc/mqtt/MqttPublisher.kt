@@ -8,7 +8,7 @@ import org.json.JSONObject
 import org.json.JSONArray
 
 class MqttPublisher(
-    private var brokerUrl: String = "tcp://100.121.172.79:1883",
+    private var brokerUrl: String = "tcp://homeassistant.tailnet-4f03.ts.net:1883",
     private val clientId: String = "omoda5-assistant",
     private val mqttUser: String = "mqtthome",
     private val mqttPass: String = "4078"
@@ -25,52 +25,55 @@ class MqttPublisher(
     @Volatile private var isConnected = false
 
     fun updateBrokerUrl(newIp: String) {
-        brokerUrl = "tcp://$newIp:1883"
+        val cleanedIp = newIp.trim().replace("\r", "").replace("\n", "")
+        brokerUrl = "tcp://$cleanedIp:1883"
     }
 
     fun connect() {
-        try {
-            client = MqttClient(brokerUrl, clientId, MemoryPersistence())
-            val options = MqttConnectOptions().apply {
-                isCleanSession = true
-                connectionTimeout = 10
-                keepAliveInterval = 30
-                isAutomaticReconnect = true
-                userName = mqttUser
-                password = mqttPass.toCharArray()
-            }
-            client?.setCallback(object : MqttCallbackExtended {
-                override fun connectComplete(reconnect: Boolean, serverURI: String?) {
-                    Log.i(TAG, "MQTT bağlandı: $serverURI")
-                    isConnected = true
-                    com.omoda.lanc.AssistantApplication.isMqttConnected.value = true
-                    client?.subscribe(TOPIC_COMMAND, QOS)
-                    client?.subscribe("omoda/simulate", QOS)
+        Thread {
+            try {
+                client = MqttClient(brokerUrl, clientId, MemoryPersistence())
+                val options = MqttConnectOptions().apply {
+                    isCleanSession = true
+                    connectionTimeout = 10
+                    keepAliveInterval = 30
+                    isAutomaticReconnect = true
+                    userName = mqttUser
+                    password = mqttPass.toCharArray()
                 }
-                override fun connectionLost(cause: Throwable?) {
-                    Log.w(TAG, "MQTT koptu: ${cause?.message}")
-                    isConnected = false
-                    com.omoda.lanc.AssistantApplication.isMqttConnected.value = false
-                }
-                override fun messageArrived(topic: String?, message: MqttMessage?) {
-                    val payloadStr = message?.payload?.toString(Charsets.UTF_8) ?: return
-                    if (topic == TOPIC_COMMAND) {
-                        Log.d(TAG, "Komut: $payloadStr")
-                    } else if (topic == "omoda/simulate") {
-                        try {
-                            val json = JSONObject(payloadStr)
-                            com.omoda.lanc.core.VehicleController.instance?.injectSimulatedData(json)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Simülasyon parse hatası: ${e.message}")
+                client?.setCallback(object : MqttCallbackExtended {
+                    override fun connectComplete(reconnect: Boolean, serverURI: String?) {
+                        Log.i(TAG, "MQTT bağlandı: $serverURI")
+                        isConnected = true
+                        com.omoda.lanc.AssistantApplication.isMqttConnected.value = true
+                        client?.subscribe(TOPIC_COMMAND, QOS)
+                        client?.subscribe("omoda/simulate", QOS)
+                    }
+                    override fun connectionLost(cause: Throwable?) {
+                        Log.w(TAG, "MQTT koptu: ${cause?.message}")
+                        isConnected = false
+                        com.omoda.lanc.AssistantApplication.isMqttConnected.value = false
+                    }
+                    override fun messageArrived(topic: String?, message: MqttMessage?) {
+                        val payloadStr = message?.payload?.toString(Charsets.UTF_8) ?: return
+                        if (topic == TOPIC_COMMAND) {
+                            Log.d(TAG, "Komut: $payloadStr")
+                        } else if (topic == "omoda/simulate") {
+                            try {
+                                val json = JSONObject(payloadStr)
+                                com.omoda.lanc.core.VehicleController.instance?.injectSimulatedData(json)
+                            } catch (e: Exception) {
+                                Log.e(TAG, "Simülasyon parse hatası: ${e.message}")
+                            }
                         }
                     }
-                }
-                override fun deliveryComplete(token: IMqttDeliveryToken?) {}
-            })
-            client?.connect(options)
-        } catch (e: MqttException) {
-            Log.e(TAG, "Bağlantı hatası: ${e.message}")
-        }
+                    override fun deliveryComplete(token: IMqttDeliveryToken?) {}
+                })
+                client?.connect(options)
+            } catch (e: Exception) {
+                Log.e(TAG, "MQTT bağlantı hatası: ${e.message}")
+            }
+        }.start()
     }
 
     fun publishRawVhal(rawLine: String) {

@@ -28,20 +28,23 @@ class WakeWordManager(
     private val TAG = "Hermes-WakeWord"
     private var audioRecord: AudioRecord? = null
     private var isListening = false
-    private val WAKE_WORD = "hey omoda"
-    private val SAMPLE_RATE = 16000
-    private val CHUNK_DURATION_MS = 3000 // 3 saniye chunks
     private val httpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
+    companion object {
+        private const val WAKE_WORD = "hey omoda"
+        private const val SAMPLE_RATE = 16000
+        private const val CHUNK_DURATION_MS = 3000 // 3 saniye chunks
+    }
+
     fun startListening() {
         if (isListening) return
         isListening = true
         thread {
-            Log.i(TAG, "Wake Word Döngüsü Başlatılıyor... (Mod: ${AssistantApplication.sttMode.value})")
+            Log.i(TAG, "Wake Word Döngüsü Başlatılıyor... (Mod: " + AssistantApplication.sttMode.value + ")")
             listenLoop()
         }
         Log.i(TAG, "Wake Word dinlemesi başladı: \"$WAKE_WORD\"")
@@ -72,31 +75,14 @@ class WakeWordManager(
             while (isListening) {
                 // 3 saniyelik ses kaydet
                 val audioData = recordChunk(bufferSize)
-            while (isListening) {
-                // 3 saniyelik ses kaydet
-                val audioData = recordChunk(bufferSize)
                 if (audioData != null && audioData.size > 1000) {
                     // STT ile kontrol et
                     val text = transcribe(audioData)
                     if (text != null) {
                         val lowerText = text.toLowerCase(java.util.Locale.ROOT).trim()
                         val currentMode = AssistantApplication.sttMode.value
-                        Log.d(TAG, "STT ($currentMode): \"$lowerText\"")
+                        Log.d(TAG, "STT ($currentMode): $lowerText")
 
-                        if (lowerText.contains(WAKE_WORD)) {
-                            // Wake word bulundu, komutu çıkar
-                            val command = extractCommand(lowerText)
-                            Log.i(TAG, "Wake Word algılandı! Komut: \"$command\"")
-                            onWakeWordDetected(command)
-                        }
-                    } else {
-                        // Eğer STT başarısızsa (null döndüyse), 429 veya başka bir hata olabilir.
-                        // Sürekli istek atıp sistemi kilitlememek için biraz bekle.
-                        Thread.sleep(2000)
-                    }
-                }
-            }
-                        
                         // Sürüm 7.0: Ultra-Gelişmiş Halüsinasyon Filtresi (Omoda Özel)
                         val hallucinationPatterns = listOf(
                             "altyazı", "abone", "teşekkür", "viewing", "morris", 
@@ -107,16 +93,14 @@ class WakeWordManager(
                                               lowerText.length < 3 ||
                                               hallucinationPatterns.any { lowerText.contains(it) }
 
-                        if (!isHallucination) {
-                            Log.d(TAG, "STT: \"$lowerText\"")
-
-                            if (lowerText.contains(WAKE_WORD)) {
-                                // Wake word bulundu, komutu çıkar
-                                val command = extractCommand(lowerText)
-                                Log.i(TAG, "Wake Word algılandı! Komut: \"$command\"")
-                                onWakeWordDetected(command)
-                            }
+                        if (!isHallucination && lowerText.contains(WAKE_WORD)) {
+                            val command = extractCommand(lowerText)
+                            Log.i(TAG, "Wake Word algılandı! Komut: $command")
+                            onWakeWordDetected(command)
                         }
+                    } else {
+                        // STT başarısızsa bekle (429 rate limit koruması)
+                        Thread.sleep(2000)
                     }
                 }
             }
@@ -125,9 +109,9 @@ class WakeWordManager(
         }
     }
 
-    private fun recordChunk(@Suppress("UNUSED_PARAMETER") bufferSize: Int): ByteArray? {
+private fun recordChunk(@Suppress("UNUSED_PARAMETER") bufferSize: Int): ByteArray? {
         return try {
-            val totalBytes = SAMPLE_RATE * 2 * CHUNK_DURATION_MS / 1000 // 16-bit PCM
+            val totalBytes = WakeWordManager.SAMPLE_RATE * 2 * WakeWordManager.CHUNK_DURATION_MS / 1000 // 16-bit PCM
             val data = ByteArray(totalBytes)
             var totalRead = 0
             while (totalRead < totalBytes && isListening) {
@@ -151,11 +135,11 @@ class WakeWordManager(
             val targetUrl = if (useCloud) {
                 "${AssistantApplication.GROQ_BASE_URL}/audio/transcriptions"
             } else {
-                "${AssistantApplication.STT_BASE_URL}/audio/transcriptions"
+                "http://${AssistantApplication.safeServerIp}:${AssistantApplication.safeSttPort}/v1/audio/transcriptions"
             }
 
-            val apiKey = if (useCloud) AssistantApplication.groqApiKey.value else AssistantApplication.HERMES_API_KEY
-            val modelName = if (useCloud) "whisper-large-v3" else "whisper-1"
+            val apiKey = if (useCloud) AssistantApplication.groqApiKey.value else AssistantApplication.NINEROUTER_API_KEY
+            val modelName = if (useCloud) "whisper-large-v3" else "groq/whisper-large-v3"
 
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -167,7 +151,7 @@ class WakeWordManager(
                 .addFormDataPart("language", "tr")
                 .build()
 
-            val requestBuilder = Request.Builder()
+                val requestBuilder = Request.Builder()
                 .url(targetUrl)
                 .addHeader("Authorization", "Bearer $apiKey")
             
@@ -245,9 +229,9 @@ class WakeWordManager(
      * "hey omoda evi ısıt" → "evi ısıt"
      */
     private fun extractCommand(text: String): String {
-        val index = text.indexOf(WAKE_WORD)
+        val index = text.indexOf(WakeWordManager.WAKE_WORD)
         if (index == -1) return text
-        return text.substring(index + WAKE_WORD.length).trim().ifEmpty { "" }
+        return text.substring(index + WakeWordManager.WAKE_WORD.length).trim().ifEmpty { "" }
     }
 
     fun shutdown() {

@@ -1,10 +1,10 @@
 package com.omoda.lanc.config
 
 data class AppConfig(
-    val serverIp: String = "192.168.1.14",
+    val serverIp: String = "homeassistant.tailnet-4f03.ts.net",
     val hermesPort: String = "8642",
-    val sttPort: String = "8642",
-    val ttsPort: String = "10201",
+    val sttPort: String = "20128",
+    val ttsPort: String = "20128",
     val sttMode: String = "BULUT",
     val ttsEngine: String = "EDGE",
     val useHermesSpeech: Boolean = true,
@@ -14,6 +14,7 @@ data class AppConfig(
     val useHermesDecision: Boolean = false,
     val isAutoTasksEnabled: Boolean = true,
     val groqApiKey: String = "",
+    val isTailscaleEnabled: Boolean = false,
     // Araç veri polling ayarları: PropertyID -> Tier (0=kapalı, 2=2sn, 5=5sn, 10=10sn)
     val vehiclePollingConfig: Map<String, Int> = emptyMap(),
     // Kimlik bilgileri

@@ -13,6 +13,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -91,7 +97,7 @@ fun SettingsScreen(onBack: () -> Unit) {
     )
 
     val backgroundBrush = Brush.verticalGradient(
-        colors = listOf(Color(0xFF1A1C1E), Color(0xFF0D0F10))
+        colors = listOf(Color(0xFF1A1C1E), Color(0xFF0D0F10)) // Force recompile
     )
 
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
@@ -136,6 +142,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                     Button(
                         onClick = { 
                             AssistantApplication.saveCurrentConfig()
+                            AssistantApplication.status.value = "Ayarlar kaydedildi!"
                             onBack()
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
@@ -163,10 +170,10 @@ fun SettingsScreen(onBack: () -> Unit) {
                     verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
                     listOf(
-                        Icons.Default.Settings to "Genel",
-                        Icons.Default.Settings to "Ağ",
-                        Icons.Default.Settings to "Asistan",
-                        Icons.Default.Settings to "Araç"
+                        Icons.Default.Build to "Genel",
+                        Icons.Default.Wifi to "Ağ",
+                        Icons.Default.Person to "Asistan",
+                        Icons.Default.DirectionsCar to "Araç"
                     ).forEach { (icon, label) ->
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Icon(icon, contentDescription = label, tint = Color.White.copy(alpha = 0.7f), modifier = Modifier.size(28.dp))
@@ -268,17 +275,23 @@ fun SettingsScreen(onBack: () -> Unit) {
                             Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 listOf("HERMES", "BULUT", "SHERPA").forEach { mode ->
                                     val isSelected = sttMode == mode
+                                    val isArchived = mode == "SHERPA"
+                                    val label = if (isArchived) "SHERPA (ARŞİV)" else mode
                                     Box(
                                         modifier = Modifier
                                             .weight(1f)
                                             .height(40.dp)
                                             .clip(RoundedCornerShape(8.dp))
-                                            .background(if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) else Color.DarkGray.copy(alpha = 0.3f))
+                                            .background(
+                                                if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) 
+                                                else if (isArchived) Color.Red.copy(alpha = 0.1f)
+                                                else Color.DarkGray.copy(alpha = 0.3f)
+                                            )
                                             .border(1.dp, if (isSelected) Color(0xFF69E2D3) else Color.Transparent, RoundedCornerShape(8.dp))
-                                            .clickable { AssistantApplication.sttMode.value = mode },
+                                            .clickable(enabled = !isArchived) { AssistantApplication.sttMode.value = mode },
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        Text(mode, color = if (isSelected) Color(0xFF69E2D3) else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
+                                        Text(label, color = if (isSelected) Color(0xFF69E2D3) else if (isArchived) Color.Gray else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal, fontSize = if(isArchived) 10.sp else 12.sp)
                                     }
                                 }
                             }
@@ -290,17 +303,23 @@ fun SettingsScreen(onBack: () -> Unit) {
                             Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 listOf("HERMES", "EDGE", "SHERPA").forEach { engine ->
                                     val isSelected = ttsEngine == engine
+                                    val isArchived = engine == "SHERPA"
+                                    val label = if (isArchived) "SHERPA (ARŞİV)" else engine
                                     Box(
                                         modifier = Modifier
                                             .weight(1f)
                                             .height(40.dp)
                                             .clip(RoundedCornerShape(8.dp))
-                                            .background(if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) else Color.DarkGray.copy(alpha = 0.3f))
+                                            .background(
+                                                if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) 
+                                                else if (isArchived) Color.Red.copy(alpha = 0.1f)
+                                                else Color.DarkGray.copy(alpha = 0.3f)
+                                            )
                                             .border(1.dp, if (isSelected) Color(0xFF69E2D3) else Color.Transparent, RoundedCornerShape(8.dp))
-                                            .clickable { AssistantApplication.ttsEngine.value = engine },
+                                            .clickable(enabled = !isArchived) { AssistantApplication.ttsEngine.value = engine },
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        Text(engine, color = if (isSelected) Color(0xFF69E2D3) else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
+                                        Text(label, color = if (isSelected) Color(0xFF69E2D3) else if (isArchived) Color.Gray else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal, fontSize = if(isArchived) 10.sp else 12.sp)
                                     }
                                 }
                             }
@@ -514,6 +533,44 @@ fun SettingsScreen(onBack: () -> Unit) {
                     }
                 }
 
+                // Varsayılan Launcher Ayarları
+                SettingCard(title = "VARSAYILAN LAUNCHER AYARLARI") {
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text("AAOS sistemlerinde varsayılan başlatıcıyı ayarlamak için orijinal arayüzü (com.chery.launcher) devre dışı bırakmanız gerekebilir.", color = Color.Gray, fontSize = 11.sp)
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            OutlinedButton(
+                                onClick = { 
+                                    val intent = Intent(AssistantApplication.configManager.context, com.omoda.lanc.service.AdbBridgeService::class.java).apply {
+                                        action = com.omoda.lanc.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+                                        putExtra("command", "pm disable-user --user 0 com.chery.launcher")
+                                    }
+                                    AssistantApplication.configManager.context.startService(intent)
+                                },
+                                modifier = Modifier.weight(1f),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF69E2D3)),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF69E2D3))
+                            ) {
+                                Text("Omoda'yı Varsayılan Yap", fontSize = 11.sp, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                            }
+                            
+                            OutlinedButton(
+                                onClick = { 
+                                    val intent = Intent(AssistantApplication.configManager.context, com.omoda.lanc.service.AdbBridgeService::class.java).apply {
+                                        action = com.omoda.lanc.service.AdbBridgeService.ACTION_EXECUTE_SHELL
+                                        putExtra("command", "pm enable com.chery.launcher; cmd package set-home-activity com.chery.launcher/.LauncherActivity")
+                                    }
+                                    AssistantApplication.configManager.context.startService(intent)
+                                },
+                                modifier = Modifier.weight(1f),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)
+                            ) {
+                                Text("Orijinal Launcher'a Dön", fontSize = 11.sp, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                            }
+                        }
+                    }
+                }
+
                 // Identity Settings
                 SettingCard(title = "KİMLİK BİLGİLERİ (ASİSTAN KİMLİĞİ)") {
                     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -671,7 +728,9 @@ fun SettingsScreen(onBack: () -> Unit) {
                         context.packageManager.getPackageInfo(context.packageName, 0)
                     } catch (e: Exception) { null }
                 }
-                val versionDisplay = packageInfo?.let { "v${it.versionName} (${it.versionCode})" } ?: "v1.0.0"
+                @Suppress("DEPRECATION")
+                val vCode = packageInfo?.versionCode
+                val versionDisplay = packageInfo?.let { "v${it.versionName}($vCode)" } ?: "v1.0.0"
                 val buildDate = com.omoda.lanc.BuildConfig.BUILD_DATE
 
                 SettingCard(title = "SİSTEM BİLGİSİ") {
@@ -701,10 +760,10 @@ fun SettingsScreen(onBack: () -> Unit) {
                 ) {
                     // Hızlı Aksiyon Tuşları
                     IconButton(onClick = { /* Refresh */ }) {
-                        Icon(Icons.Default.Settings, contentDescription = "Yenile", tint = Color(0xFF69E2D3))
+                        Icon(Icons.Default.Refresh, contentDescription = "Yenile", tint = Color(0xFF69E2D3))
                     }
                     IconButton(onClick = { /* Help */ }) {
-                        Icon(Icons.Default.Settings, contentDescription = "Yardım", tint = Color.White)
+                        Icon(Icons.Default.Info, contentDescription = "Yardım", tint = Color.White)
                     }
                 }
             }

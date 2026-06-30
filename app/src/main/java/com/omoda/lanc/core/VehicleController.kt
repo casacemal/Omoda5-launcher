@@ -150,6 +150,17 @@ class VehicleController(private val context: Context) {
         }
     }
 
+    fun unregisterMediaReceiver() {
+        mediaReceiver?.let {
+            try {
+                context.unregisterReceiver(it)
+                mediaReceiver = null
+            } catch (e: Exception) {
+                Log.e(TAG, "Unregister error: ${e.message}")
+            }
+        }
+    }
+
 
     init {
         startTracking()
