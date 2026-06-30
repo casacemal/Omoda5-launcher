@@ -212,48 +212,17 @@ fun SettingsScreen(onBack: () -> Unit) {
                             )
                         )
                         
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            OutlinedTextField(
-                                value = hermesPortInput,
-                                onValueChange = { 
-                                    hermesPortInput = it
-                                    AssistantApplication.hermesPort.value = it
-                                },
-                                label = { Text("Hermes", color = Color.Gray) },
-                                modifier = Modifier.weight(1f),
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedTextColor = Color.White,
-                                    unfocusedTextColor = Color.White,
-                                    focusedBorderColor = Color(0xFF69E2D3),
-                                    unfocusedBorderColor = Color.Gray
-                                )
-                            )
-                            OutlinedTextField(
-                                value = sttPortInput,
-                                onValueChange = { 
-                                    sttPortInput = it
-                                    AssistantApplication.sttPort.value = it
-                                },
-                                label = { Text("STT", color = Color.Gray) },
-                                modifier = Modifier.weight(1f),
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedTextColor = Color.White,
-                                    unfocusedTextColor = Color.White,
-                                    focusedBorderColor = Color(0xFF69E2D3),
-                                    unfocusedBorderColor = Color.Gray
-                                )
-                            )
-                        }
-
                         OutlinedTextField(
-                            value = ttsPortInput,
+                            value = hermesPortInput,
                             onValueChange = { 
+                                hermesPortInput = it
+                                sttPortInput = it
                                 ttsPortInput = it
+                                AssistantApplication.hermesPort.value = it
+                                AssistantApplication.sttPort.value = it
                                 AssistantApplication.ttsPort.value = it
                             },
-                            label = { Text("TTS Port", color = Color.Gray) },
+                            label = { Text("9Router API Port (Chat & STT)", color = Color.Gray) },
                             modifier = Modifier.fillMaxWidth(),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             colors = OutlinedTextFieldDefaults.colors(
@@ -738,7 +707,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                         InfoRow("Araç Kimliği", vehicleId)
                         InfoRow("STT Motoru", sttMode)
                         InfoRow("TTS Motoru", ttsEngine)
-                        InfoRow("Chat Motoru", "Hermes → Kilo-AI")
+                        InfoRow("Chat Motoru", "9Router → asist_genel")
                         InfoRow("Hermes Sunucu", "${serverIp}:${hermesPort}")
                         InfoRow("Uygulama Sürümü", versionDisplay)
                         InfoRow("Derleme Tarihi", buildDate)
