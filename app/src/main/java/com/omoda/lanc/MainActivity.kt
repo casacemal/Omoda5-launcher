@@ -211,6 +211,16 @@ class MainActivity : ComponentActivity() {
         val recognizedText by AssistantApplication.recognizedText.collectAsState()
         val status by AssistantApplication.status.collectAsState()
         val isListening by AssistantApplication.isListening.collectAsState()
+        val proactiveWarning by AssistantApplication.proactiveWarning.collectAsState()
+
+        // Proaktif Sesli Uyarı Tetikleyici
+        LaunchedEffect(proactiveWarning) {
+            val warnText = proactiveWarning
+            if (!warnText.isNullOrEmpty() && warnText != "DISMISSED") {
+                // Asistanın uyarıyı sesli okumasını sağla
+                com.omoda.lanc.core.AssistantController.getInstance(context).speak(warnText) {}
+            }
+        }
 
         Box(Modifier.fillMaxSize()) {
             // Arka Plan
@@ -320,6 +330,44 @@ class MainActivity : ComponentActivity() {
             }
             // AssistantApplication'dan gelen canlı veriler
             val currentMode by AssistantApplication.currentMode.collectAsState()
+
+            // PROAKTİF UYARI BANNER (Üst Orta Alanda Çıkacak Şık Kart)
+            val warnText = proactiveWarning
+            if (!warnText.isNullOrEmpty() && warnText != "DISMISSED") {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = Color.Red.copy(0.85f)),
+                    shape = RoundedCornerShape(12.dp),
+                    border = androidx.compose.foundation.BorderStroke(2.dp, Color.White),
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = 80.dp)
+                        .width(450.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("KRİTİK ARAÇ UYARISI", color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                            Spacer(Modifier.height(4.dp))
+                            Text(warnText, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                        }
+                        Spacer(Modifier.width(16.dp))
+                        Button(
+                            onClick = {
+                                com.omoda.lanc.core.VehicleController.getInstance(context).dismissActiveAnomaly()
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color.Red),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Text("ONAYLA", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+            }
+
             Box(
                 Modifier
                     .align(Alignment.BottomEnd)

@@ -56,25 +56,25 @@ class VehicleController(private val context: Context) {
             "11400301" to PropertyDef("Motor Durumu", 2),
             "11600305" to PropertyDef("Motor RPM", 2),
             "11600204" to PropertyDef("Toplam KM", 5),
-            "11600307" to PropertyDef("Kalan Yakıt", 5),
+            "11600307" to PropertyDef("Kalan Yakıt", 2), // 2 saniyede bir kontrol et (Hızlı yakıt uyarısı için)
             "11600308" to PropertyDef("Kalan Menzil", 5),
             "11400400" to PropertyDef("Standart Vites Seçimi", 5),
             "11400401" to PropertyDef("Standart Mevcut Vites", 5),
-            "21402000" to PropertyDef("Kapı Açık İkazı", 5),
-            "21402012" to PropertyDef("Ön Sol Kapı", 5),
-            "21402013" to PropertyDef("Ön Sağ Kapı", 5),
-            "21402014" to PropertyDef("Arka Sol Kapı", 5),
-            "21402015" to PropertyDef("Bagaj Kapağı", 5),
-            "21402016" to PropertyDef("Arka Sağ Kapı (Tahmin)", 5),
+            "21402000" to PropertyDef("Kapı Açık İkazı", 2), // 2 saniyede bir kontrol (Güvenlik için hızlı)
+            "21402012" to PropertyDef("Ön Sol Kapı", 2),
+            "21402013" to PropertyDef("Ön Sağ Kapı", 2),
+            "21402014" to PropertyDef("Arka Sol Kapı", 2),
+            "21402015" to PropertyDef("Bagaj Kapağı", 2),
+            "21402016" to PropertyDef("Arka Sağ Kapı (Tahmin)", 2),
             "21402002" to PropertyDef("Sol Sinyal", 5),
             "21402001" to PropertyDef("Sağ Sinyal", 5),
-            "2140100d" to PropertyDef("Park Freni", 5),
+            "2140100d" to PropertyDef("Park Freni", 2), // 2 saniyede bir kontrol
             "11200402" to PropertyDef("Far", 5),
             "21402005" to PropertyDef("Sürüş Modu", 10),
             "21401002" to PropertyDef("AC Güç", 10),
             "21401008" to PropertyDef("AC Sıcaklık (Sürücü)", 10),
             "21401009" to PropertyDef("AC Sıcaklık (Yolcu)", 10),
-            "11600703" to PropertyDef("Dış Sıcaklık", 10),
+            "11600703" to PropertyDef("Dış Sıcaklık", 2), // 2 saniyede bir gitsin (Ortam sıcaklığı)
             "21401005" to PropertyDef("AC Fan Hızı", 10),
             "21401004" to PropertyDef("AC Sirkülasyon", 10),
             "21401003" to PropertyDef("AC Kompresör", 10),
@@ -92,10 +92,10 @@ class VehicleController(private val context: Context) {
             "16200b02" to PropertyDef("Kapı Kilitleri", 5),
             "11400e03" to PropertyDef("Dörtlü Flaşör", 5),
             "11400e00" to PropertyDef("Farlar", 5),
-            "11600304" to PropertyDef("Motor Yağ Sıc.", 10),
+            "11600304" to PropertyDef("Motor Yağ Sıc.", 2), // Yağ sıcaklığı da 2 saniyede bir
             "1540050b" to PropertyDef("Koltuk Isıtma", 5),
             "15400513" to PropertyDef("Koltuk Soğutma", 5),
-            "MEDIA_INFO" to PropertyDef("Çalan Medya", 2),
+            "MEDIA_INFO" to PropertyDef("Çalan Medya", 2), // 2 saniyede bir gitsin
             "MEDIA_BTN_NEXT" to PropertyDef("Medya: İleri Tuşu", 2),
             "MEDIA_BTN_PREV" to PropertyDef("Medya: Geri Tuşu", 2),
             "MEDIA_BTN_PLAY" to PropertyDef("Medya: Oynat Tuşu", 2),
@@ -111,6 +111,11 @@ class VehicleController(private val context: Context) {
     private var slowJob: Job? = null
 
     private var mediaReceiver: BroadcastReceiver? = null
+
+    // Proaktif Uyarı Yönetimi Değişkenleri
+    private var activeAnomaly: String? = null
+    private var anomalyJob: Job? = null
+    private var lastAnomalyText: String? = null
 
     fun registerMediaReceiver() {
         if (mediaReceiver == null) {
@@ -570,6 +575,96 @@ class VehicleController(private val context: Context) {
         if (AssistantApplication.mqttEnabled.value) {
             AssistantApplication.mqttPublisher.publishTelemetry(vehicleState.get())
         }
+        checkProactiveWarnings() // Her state güncellemesinde anomalileri denetle
+    }
+
+    private fun checkProactiveWarnings() {
+        val state = getVehicleState()
+        
+        // 1. Durum: Hareket halinde açık kapı (Güvenlik Öncelikli)
+        val isMoving = state.speed > 5f
+        val hasOpenDoor = state.anyDoorOpen || state.doorDriverOpen || state.doorPassengerOpen || state.doorRearLeftOpen || state.doorRearRightOpen || state.trunkOpen
+        
+        val currentAnomaly = when {
+            isMoving && hasOpenDoor -> {
+                val doorName = when {
+                    state.doorDriverOpen -> "Sürücü kapısı"
+                    state.doorPassengerOpen -> "Ön yolcu kapısı"
+                    state.doorRearLeftOpen -> "Sol arka kapı"
+                    state.doorRearRightOpen -> "Sağ arka kapı"
+                    state.trunkOpen -> "Bagaj kapağı"
+                    else -> "Kapılardan biri"
+                }
+                "DOOR_OPEN_WARNING|$doorName açık durumda hareket ediyorsunuz! Lütfen hemen durun ve kapıyı kapatın."
+            }
+            isMoving && state.parkingBrake -> {
+                "PARK_BRAKE_WARNING|El freni çekili durumda hareket ediyorsunuz! Lütfen el frenini indirin."
+            }
+            state.isEngineRunning && state.fuelLevel > 0f && state.fuelLevel < 5f -> {
+                "LOW_FUEL_WARNING|Yakıt seviyeniz kritik düzeyde, lütfen en yakın akaryakıt istasyonuna müracaat edin."
+            }
+            else -> null
+        }
+
+        if (currentAnomaly != null) {
+            val parts = currentAnomaly.split("|")
+            val type = parts[0]
+            val text = parts[1]
+            
+            if (activeAnomaly != type) {
+                // Yeni bir anomali başladı veya değişti
+                activeAnomaly = type
+                lastAnomalyText = text
+                startAnomalyAlertCycle(text)
+            }
+        } else {
+            // Anomali kalmadı (temizlendi)
+            if (activeAnomaly != null && AssistantApplication.proactiveWarning.value != "DISMISSED") {
+                Log.i(TAG, "Anomali giderildi: $activeAnomaly")
+                activeAnomaly = null
+                lastAnomalyText = null
+                anomalyJob?.cancel()
+                AssistantApplication.proactiveWarning.value = null
+            }
+        }
+    }
+
+    private fun startAnomalyAlertCycle(warningText: String) {
+        anomalyJob?.cancel()
+        anomalyJob = scope.launch {
+            var count = 0
+            val delays = arrayOf(0L, 5000L, 10000L) // 3 Tekrar zamanları (Hemen, 5sn sonra, 10sn sonra)
+
+            while (count < 3 && activeAnomaly != null) {
+                if (count > 0) {
+                    delay(delays[count])
+                }
+                
+                // Kullanıcı onaylamışsa veya anomali bitmişse döngüden çık
+                if (activeAnomaly == null || AssistantApplication.proactiveWarning.value == "DISMISSED") {
+                    break
+                }
+
+                Log.w(TAG, "PROAKTİF UYARI TETİKLENDİ (${count + 1}/3): $warningText")
+                
+                // 1. Ekran Overlay durumunu güncelle (Bu durum MainActivity'de toplanıp seslendirilecek)
+                AssistantApplication.proactiveWarning.value = warningText
+                
+                // 2. Canlı Log Paneline yaz
+                EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("[PROAKTİF UYARI] $warningText", android.graphics.Color.RED))
+                
+                count++
+            }
+        }
+    }
+
+    fun dismissActiveAnomaly() {
+        Log.i(TAG, "Kullanıcı proaktif uyarıyı onayladı ve kapattı.")
+        activeAnomaly = null
+        lastAnomalyText = null
+        anomalyJob?.cancel()
+        AssistantApplication.proactiveWarning.value = "DISMISSED"
+        EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("", android.graphics.Color.TRANSPARENT))
     }
 
     fun updateGpsLocation(lat: Double, lng: Double, gpsSpeed: Float = -1f) {
@@ -594,14 +689,12 @@ class VehicleController(private val context: Context) {
         return true 
     }
 
-    
     fun destroy() {
         scope.cancel()
         try {
             mediaReceiver?.let { context.unregisterReceiver(it) }
         } catch(e: Exception) {}
     }
-
 }
 
 
