@@ -84,9 +84,13 @@ class AssistantApplication : Application() {
         val isBridgeMode = MutableStateFlow(false)
         val isMqttConnected = MutableStateFlow(false)
 
-        val HERMES_BASE_URL: String get() = "http://${serverIp.value}:${hermesPort.value}/v1"
-        val STT_BASE_URL: String get() = "http://${serverIp.value}:${sttPort.value}/v1"
-        val TTS_BASE_URL: String get() = "http://${serverIp.value}:${ttsPort.value}/v1"
+        // Akıllı Çift Ağ Rota Yönlendirici (Tailscale & Yerel Ağ Paralel)
+        val activeServerIp = MutableStateFlow(serverIp.value)
+        val localBackupIp = MutableStateFlow("192.168.1.29") // Yerel ağ yedek IP'si
+
+        val HERMES_BASE_URL: String get() = "http://${activeServerIp.value}:${hermesPort.value}/v1"
+        val STT_BASE_URL: String get() = "http://${activeServerIp.value}:${sttPort.value}/v1"
+        val TTS_BASE_URL: String get() = "http://${activeServerIp.value}:${ttsPort.value}/v1"
         
         // Cloud Fallbacks (KESİN VE DEĞİŞMEZ AYARLAR)
         const val CLOUD_TTS_URL = "https://api.openai.com/v1" 
@@ -186,6 +190,63 @@ class AssistantApplication : Application() {
         
         // Ağ izleyiciyi başlat
         com.omoda.lanc.network.NetworkMonitor(this)
+        
+        // Akıllı Çift Ağ Rota Yönlendirici (ActiveRouteResolver)
+        Thread {
+            while (true) {
+                try {
+                    val port = hermesPort.value.toIntOrNull() ?: 20128
+                    
+                    // 1. Tailscale Rota Testi
+                    val tsIp = serverIp.value
+                    val isTsReachable = try {
+                        java.net.Socket().use { socket ->
+                            socket.connect(java.net.InetSocketAddress(tsIp, port), 800)
+                            true
+                        }
+                    } catch (e: Exception) {
+                        false
+                    }
+
+                    if (isTsReachable) {
+                        if (activeServerIp.value != tsIp) {
+                            activeServerIp.value = tsIp
+                            Log.i("RouteResolver", "Ağ Durumu: Tailscale aktif. Rota güncellendi -> $tsIp")
+                            addLog("Ağ: Tailscale Aktif")
+                        }
+                    } else {
+                        // 2. Yerel Ağ Rota Testi
+                        val localIp = localBackupIp.value
+                        val isLocalReachable = try {
+                            java.net.Socket().use { socket ->
+                                socket.connect(java.net.InetSocketAddress(localIp, port), 800)
+                                true
+                            }
+                        } catch (e: Exception) {
+                            false
+                        }
+
+                        if (isLocalReachable) {
+                            if (activeServerIp.value != localIp) {
+                                activeServerIp.value = localIp
+                                Log.i("RouteResolver", "Ağ Durumu: Yerel Ağ aktif. Rota güncellendi -> $localIp")
+                                addLog("Ağ: Yerel Ağ Aktif ($localIp)")
+                            }
+                        } else {
+                            // İkisi de yoksa varsayılana dön
+                            if (activeServerIp.value != tsIp) {
+                                activeServerIp.value = tsIp
+                                Log.w("RouteResolver", "Ağ Durumu: İki rota da erişilemez! Varsayılana dönülüyor -> $tsIp")
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("RouteResolver", "Hata: ${e.message}")
+                }
+                
+                try { Thread.sleep(8000) } catch (e: InterruptedException) { break }
+            }
+        }.start()
         
         // MQTT
         if (mqttEnabled.value) {
