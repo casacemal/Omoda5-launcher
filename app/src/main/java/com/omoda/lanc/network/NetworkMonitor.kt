@@ -143,7 +143,7 @@ class NetworkMonitor(private val context: Context) {
     }
 
     private fun createNotificationChannel() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES,O) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val name = "Sistem Güncellemeleri"
             val descriptionText = "Omoda Asistan güncelleme bildirimleri"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
