@@ -217,8 +217,11 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(proactiveWarning) {
             val warnText = proactiveWarning
             if (!warnText.isNullOrEmpty() && warnText != "DISMISSED") {
-                // Asistanın uyarıyı sesli okumasını sağla
-                com.omoda.lanc.core.AssistantController.getInstance(context).speak(warnText) {}
+                // Asistanın uyarıyı sesli okuması için broadcast gönder
+                val intent = Intent("com.omoda.assistant.SPEAK").apply {
+                    putExtra("text", warnText)
+                }
+                context.sendBroadcast(intent)
             }
         }
 
