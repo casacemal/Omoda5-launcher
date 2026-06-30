@@ -140,7 +140,7 @@ class AgentManager(
 
         if (AssistantApplication.hasInternetConnection.value) {
             // Proxy üzerinden Whisper
-            sttClient.transcribeOnline(audioFile) { text ->
+            sttClient.transcribe(audioFile) { text ->
                 if (text != null) {
                     processTextInput(text)
                 } else {
@@ -257,7 +257,7 @@ class AgentManager(
         val sentenceBuffer = StringBuilder()
         val toolCallAccumulator = mutableMapOf<Int, ToolCallAccum>()
 
-        currentEventSource = EventSources.createFactory(NetworkModule.sseClient)
+        currentEventSource = EventSources.createFactory(com.omoda.lanc.network.NetworkModule.sseClient)
             .newEventSource(request, object : EventSourceListener() {
 
                 override fun onEvent(source: EventSource, id: String?, type: String?, data: String) {
