@@ -2,6 +2,7 @@ package com.omoda.lanc
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import com.omoda.lanc.config.AppConfig
 import com.omoda.lanc.config.ConfigManager
 import com.omoda.lanc.core.VehicleController
@@ -84,9 +85,9 @@ class AssistantApplication : Application() {
         val isBridgeMode = MutableStateFlow(false)
         val isMqttConnected = MutableStateFlow(false)
 
-        // Akıllı Çift Ağ Rota Yönlendirici (Tailscale & Yerel Ağ Paralel)
+        // Akıllı Çift Ağ Rota Yönlendirici (Tailscale & Yerel Ağ Kesintisiz)
         val activeServerIp = MutableStateFlow(serverIp.value)
-        val localBackupIp = MutableStateFlow("192.168.1.29") // Yerel ağ yedek IP'si
+        val localBackupIp = MutableStateFlow("192.168.1.24") // Yerel ağ yedek IP'si (Home Assistant / Sunucu IP)
 
         val HERMES_BASE_URL: String get() = "http://${activeServerIp.value}:${hermesPort.value}/v1"
         val STT_BASE_URL: String get() = "http://${activeServerIp.value}:${sttPort.value}/v1"
