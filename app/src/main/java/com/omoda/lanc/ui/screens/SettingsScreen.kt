@@ -125,7 +125,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
                         shape = RoundedCornerShape(8.dp),
-                        modifier = Modifier.padding(end = 8.dp)
+                        modifier = Modifier.padding(start = 0.dp, top = 0.dp, end = 8.dp, bottom = 0.dp)
                     ) {
                         Text("KAYDET", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                     }
@@ -902,5 +902,46 @@ fun TabHakkinda(
                 InfoRow("Derleme Tarihi", buildDate)
             }
         }
+    }
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// YARDIMCI COMPOSABLE BİLEŞENLER
+// ──────────────────────────────────────────────────────────────────────────
+@Composable
+fun SettingCard(title: String, content: @Composable () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text(title, color = Color(0xFF69E2D3), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Card(
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF111315)),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier.fillMaxWidth().border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
+        ) {
+            Box(modifier = Modifier.padding(16.dp)) {
+                content()
+            }
+        }
+    }
+}
+
+@Composable
+fun InfoRow(label: String, value: String) {
+    Row {
+        Text(label, color = Color.Gray, modifier = Modifier.weight(1f))
+        Text(value, color = Color.White, fontWeight = FontWeight.Medium)
+    }
+}
+
+@Composable
+fun StatusLed(label: String, isConnected: Boolean) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            modifier = Modifier
+                .size(8.dp)
+                .clip(CircleShape)
+                .background(if (isConnected) Color.Green else Color.Red)
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(label, color = Color.White, fontSize = 10.sp)
     }
 }
