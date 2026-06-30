@@ -318,6 +318,8 @@ class MainActivity : ComponentActivity() {
                 smallestWidth < 800 -> 240.dp
                 else -> 320.dp
             }
+            // AssistantApplication'dan gelen canlı veriler
+            val currentMode by AssistantApplication.currentMode.collectAsState()
             Box(
                 Modifier
                     .align(Alignment.BottomEnd)
@@ -329,11 +331,54 @@ class MainActivity : ComponentActivity() {
                     .padding(15.dp)
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("AI", color = Color.Black, fontSize = 10.sp, fontWeight = FontWeight.Bold, 
-                            modifier = Modifier.background(OmodaCyan, RoundedCornerShape(4.dp)).padding(horizontal = 4.dp))
-                        Spacer(Modifier.width(8.dp))
-                        Text(status, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text("AI", color = Color.Black, fontSize = 10.sp, fontWeight = FontWeight.Bold, 
+                                modifier = Modifier.background(OmodaCyan, RoundedCornerShape(4.dp)).padding(horizontal = 4.dp))
+                            Spacer(Modifier.width(8.dp))
+                            Text(status, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                        }
+                        
+                        // Mod Değiştirici (ASİSTAN / SOHBET)
+                        Row(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(Color.DarkGray.copy(0.5f))
+                                .padding(2.dp)
+                        ) {
+                            Text(
+                                text = "ASİST",
+                                color = if (currentMode == "ASISTANT") Color.Black else Color.White,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .background(if (currentMode == "ASISTANT") OmodaCyan else Color.Transparent)
+                                    .clickable { 
+                                        AssistantApplication.currentMode.value = "ASISTANT"
+                                        AssistantApplication.saveCurrentConfig()
+                                    }
+                                    .padding(horizontal = 6.dp, vertical = 3.dp)
+                            )
+                            Text(
+                                text = "CHAT",
+                                color = if (currentMode == "CHAT") Color.Black else Color.White,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .background(if (currentMode == "CHAT") Color(0xFFF3B14B) else Color.Transparent)
+                                    .clickable { 
+                                        AssistantApplication.currentMode.value = "CHAT"
+                                        AssistantApplication.saveCurrentConfig()
+                                    }
+                                    .padding(horizontal = 6.dp, vertical = 3.dp)
+                            )
+                        }
                     }
                     
                     if (recognizedText.isNotBlank()) {

@@ -103,7 +103,11 @@ class AssistantController(
                 val spokenText = response.replace(Regex("\\[.*?\\]"), "").trim()
                 if (spokenText.isNotEmpty()) {
                     speak(spokenText) {
-                        if (AssistantApplication.isContinuousConversation.value) {
+                        val isErrorResponse = spokenText.contains("anlaşılamadı", ignoreCase = true) || 
+                                              spokenText.contains("bağlanılamadı", ignoreCase = true) || 
+                                              spokenText.contains("hata", ignoreCase = true)
+                                              
+                        if (AssistantApplication.isContinuousConversation.value && !isErrorResponse) {
                             scope.launch {
                                 delay(1000)
                                 startListening()
