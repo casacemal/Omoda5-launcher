@@ -22,7 +22,8 @@ data class AppUpdate(
     val downloadUrl: String,
     val sizeBytes: Long,
     val version: String,
-    val isSystemUpdate: Boolean
+    val isSystemUpdate: Boolean,
+    val isDowngrade: Boolean = false
 )
 
 class OtaUpdateManager(private val context: Context) {
@@ -32,7 +33,7 @@ class OtaUpdateManager(private val context: Context) {
     
     private val GITHUB_OWNER = "casacemal" 
     private val GITHUB_REPO = "Omoda5-launcher"
-    private val API_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases/latest"
+    private val API_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases" // Son sürümlerin listesi
     private val STORE_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/contents/apps?ref=jetpack_componse"
 
     interface UpdateCheckCallback {
@@ -62,34 +63,31 @@ class OtaUpdateManager(private val context: Context) {
                 val body = response.body?.string()
                 if (response.isSuccessful && body != null) {
                     try {
-                        val json = JSONObject(body)
-                        val latestVersion = json.getString("tag_name").replace("v", "").trim()
-                        val assets = json.getJSONArray("assets")
+                        val releasesArray = org.json.JSONArray(body)
                         val updates = mutableListOf<AppUpdate>()
 
                         // Yerel versiyon bilgilerini al
                         val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
                         @Suppress("DEPRECATION")
                         val localVersionCode = pInfo.versionCode
-                        val localVersionName = pInfo.versionName ?: "1.0.0"
 
-                        // GitHub versiyon kodunu ayıkla (örn: v1.0.0.107 -> 107)
-                        val githubVersionCode = try {
-                            latestVersion.substringAfterLast('.').toInt()
-                        } catch (e: Exception) {
-                            -1
-                        }
+                        // En fazla son 4 sürümü tara
+                        val limit = minOf(releasesArray.length(), 4)
+                        for (r in 0 until limit) {
+                            val json = releasesArray.getJSONObject(r)
+                            val latestVersion = json.getString("tag_name").replace("v", "").trim()
+                            val assets = json.getJSONArray("assets")
 
-                        // Güncelleme kontrolü: 
-                        // Eğer tag'den sürüm kodu alabildiysek ve bu kod yerelden büyükse VEYA
-                        // Sürüm kodu alamadıysak ama versiyon adı farklıysa güncelleme var kabul et.
-                        val isNewer = if (githubVersionCode > 0) {
-                            githubVersionCode > localVersionCode
-                        } else {
-                            latestVersion != localVersionName
-                        }
+                            // GitHub versiyon kodunu ayıkla (örn: v1.0.0.107 -> 107)
+                            val githubVersionCode = try {
+                                latestVersion.substringAfterLast('.').toInt()
+                            } catch (e: Exception) {
+                                -1
+                            }
 
-                        if (isNewer) {
+                            // Eğer yerel sürümden küçükse bu bir Downgrade (sürüm düşürme) işlemidir
+                            val isDowngrade = githubVersionCode > 0 && githubVersionCode < localVersionCode
+
                             for (i in 0 until assets.length()) {
                                 val asset = assets.getJSONObject(i)
                                 val fileName = asset.getString("name")
@@ -103,7 +101,8 @@ class OtaUpdateManager(private val context: Context) {
                                         downloadUrl = downloadUrl,
                                         sizeBytes = size,
                                         version = latestVersion,
-                                        isSystemUpdate = isSystemUpdate
+                                        isSystemUpdate = isSystemUpdate,
+                                        isDowngrade = isDowngrade
                                     ))
                                 }
                             }
@@ -150,8 +149,9 @@ class OtaUpdateManager(private val context: Context) {
                             
                             callback.onProgress(pct, speedMbps)
                             
-                            // Bildirim ekranına (Overlay) durumu gönder
-                            EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("İndiriliyor: ${update.name} (%$pct)", android.graphics.Color.YELLOW))
+                            // Ekrandaki sabit indirme alanını güncelle
+                            val progressStr = String.format("İndiriliyor: %d%% (%.1f Mbps)", pct, speedMbps)
+                            com.omoda.lanc.AssistantApplication.downloadProgressText.value = progressStr
                             
                             lastUpdate = now
                         }
@@ -160,10 +160,18 @@ class OtaUpdateManager(private val context: Context) {
                     outputStream.close()
                     inputStream.close()
                     
-                    EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("İndirme Tamamlandı: ${update.name}", android.graphics.Color.GREEN))
+                    com.omoda.lanc.AssistantApplication.downloadProgressText.value = "Yükleniyor..."
+                    // 2 saniye sonra ekranı temizle
+                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                        com.omoda.lanc.AssistantApplication.downloadProgressText.value = null
+                    }, 3000)
+                    
                     callback.onComplete(destination)
                 } catch (e: Exception) { 
-                    EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("İndirme Hatası!", android.graphics.Color.RED))
+                    com.omoda.lanc.AssistantApplication.downloadProgressText.value = "İndirme Hatası!"
+                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                        com.omoda.lanc.AssistantApplication.downloadProgressText.value = null
+                    }, 3000)
                     callback.onError(e.message ?: "Yazma hatası") 
                 }
             }

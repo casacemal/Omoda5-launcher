@@ -47,6 +47,9 @@ class AssistantApplication : Application() {
         // Harici Uzak ADB Bağlantı Durumu
         val isRemoteAdbConnected = MutableStateFlow(false)
         
+        // OTA İndirme Durumu (Ekranda sabit kalması için)
+        val downloadProgressText = MutableStateFlow<String?>(null)
+        
         // Edge TTS Ayarları
         val edgeVoiceName = MutableStateFlow("tr-TR-EmelNeural")
         val edgePitch = MutableStateFlow("+0Hz")

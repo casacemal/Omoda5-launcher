@@ -220,6 +220,7 @@ class MainActivity : ComponentActivity() {
         val isListening by AssistantApplication.isListening.collectAsState()
         val proactiveWarning by AssistantApplication.proactiveWarning.collectAsState()
         val isRemoteAdbConnected by AssistantApplication.isRemoteAdbConnected.collectAsState()
+        val downloadProgressText by AssistantApplication.downloadProgressText.collectAsState()
 
         // Proaktif Sesli Uyarı Tetikleyici
         LaunchedEffect(proactiveWarning) {
@@ -488,6 +489,32 @@ class MainActivity : ComponentActivity() {
                     
                     if (lastAIResponse.isNotBlank()) {
                         Text(lastAIResponse, color = OmodaCyan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    }
+                    
+                    // Sabit OTA İndirme Bildirimi (Asistan sıfırlamalarından bağımsız)
+                    downloadProgressText?.let { progress ->
+                        Spacer(Modifier.height(4.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(Color(0xFFF3B14B).copy(alpha = 0.15f))
+                                .padding(8.dp)
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(12.dp),
+                                strokeWidth = 1.5.dp,
+                                color = Color(0xFFF3B14B)
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                text = progress,
+                                color = Color(0xFFF3B14B),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
             }
