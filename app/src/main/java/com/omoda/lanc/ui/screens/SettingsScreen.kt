@@ -145,7 +145,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                     .width(180.dp)
                     .fillMaxHeight()
                     .background(Color.Black.copy(alpha = 0.25f))
-                    .border(end = 1.dp, Color.White.copy(alpha = 0.05f))
+                    .border(1.dp, Color.White.copy(alpha = 0.05f))
                     .padding(vertical = 12.dp, horizontal = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
