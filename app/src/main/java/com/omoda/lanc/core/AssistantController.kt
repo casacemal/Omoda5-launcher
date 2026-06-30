@@ -44,7 +44,7 @@ class AssistantController(
     private val androidTtsManager by lazy { AndroidSystemTtsManager(context) }
 
     // Dinamik Hermes ve STT İstemcileri
-    private var hermesClient = HermesClient(AssistantApplication.HERMES_BASE_URL, AssistantApplication.HERMES_API_KEY)
+    private var hermesClient = HermesClient(AssistantApplication.HERMES_BASE_URL, AssistantApplication.NINEROUTER_API_KEY)
     private var sttClient = HermesClient(AssistantApplication.STT_BASE_URL, AssistantApplication.NINEROUTER_API_KEY)
 
     private var agentManager: AgentManager = createAgentManager()
