@@ -1,49 +1,74 @@
-# Omoda Assist V2 — Ağ Mimarisi
+# Omoda Assist V2 — Yeni Ağ Mimarisi (v152+)
 
-## 4 Kural (Değişmez)
+## 1. Ağ Kuralları ve Endpointler
 
-| # | Servis | Bağlantı | Yol |
-|---|--------|----------|-----|
-| 1 | Hermes API | 100.95.239.119:8642 | Tailscale (VPN) |
-| 2 | STT (Groq) | api.groq.com/openai/v1 | VPN dışı direkt |
-| 3 | TTS (Edge) | Hermes API -> Edge TTS (LAN) | VPN dışı |
-| 4 | VPN kopunca | Otomatik dene + bildirim göster | - |
+Tüm servisler tek bir sunucu IP ve portu üzerinden birleştirilmiştir. Ağ geçidi olarak 9Router proxy kullanılmaktadır.
 
-## STT Modları
+| # | Servis | Adres | Protokol | Açıklama |
+|---|--------|----------|----------|----------|
+| 1 | **Tüm AI API (LLM + STT)** | `http://homeassistant.tailnet-4f03.ts.net:20128/v1` | HTTP (Bearer Token) | Tek yetkili Tailscale adresi |
+| 2 | **TTS (Edge Online)** | WebSocket (Doğrudan Cihazdan) | WS / WSS | tr-TR-EmelNeural sesi ile |
+| 3 | **MQTT Telemetri** | `tcp://homeassistant.tailnet-4f03.ts.net:1883` | TCP (MQTT) | `omoda/telemetri` konusu |
+| 4 | **Yerel Ağ Yedekleri** | Sherpa & Piper (Pasif/Arşiv) | Local | İnternet yoksa devreye girer |
 
-| Mod | STT Sağlayıcı | TTS Sağlayıcı | Ne Zaman Kullanılır |
-|-----|---------------|---------------|-------------------|
-| BULUT | Groq (api.groq.com, direkt) | Edge Online (Hermes API üstünden) | Varsayılan. VPN dışı çalışır |
-| HERMES | Hermes STT (Tailscale üstünden) | Hermes TTS (Tailscale üstünden) | Gelecekte. Hermes'in kendi STT/TTS servisleri hazır olunca |
+- **API Key:** `sk-b6f4d3879cc4a442-vwd4xl-8ad79a58` (Hem Chat hem STT için ortaktır.)
 
-- **BULUT** = Groq STT + Edge TTS (mevcut, kararlı)
-- **HERMES** = Hermes STT + Hermes TTS (ileriye dönük, şu an kullanılmıyor)
+---
 
-## IP Yapısı
+## 2. Çalışma Modları
 
-| Cihaz | LAN IP | Tailscale IP | Görevi |
-|-------|--------|-------------|--------|
-| DietPi (Hermes) | 192.168.1.14 | 100.95.239.119 | Hermes API, Edge TTS proxy, Mosquitto MQTT |
-| Omoda 5 (Araç) | - | 100.121.172.79 | Android AAOS, Launcher uygulaması |
+Uygulama arayüzünden seçilebilen iki ana mod mevcuttur:
 
-## Trafik Akışı
+1.  **🚗 ARAÇ ASİSTAN (ASISTANT):**
+    - Kısa, net ve direkt yanıtlar verir.
+    - Araç sensör verilerini (hız, klima, vites vb.) sistem bağlamı olarak kullanır.
+    - Wake word ("Hey Omoda") sonrası tek turluk diyalog kurar.
+    - Model: `asist_genel`
 
-Omoda 5 (Araç)
-  |
-  +-- HERMES_API ----> Tailscale ----> 100.95.239.119:8642
-  |
-  +-- STT (Groq) ----> direkt --------> api.groq.com
-  |
-  +-- TTS -----------> Tailscale ----> Hermes API (100.95.239.119:8642)
-                                         |
-                                         +-- Edge TTS (LAN, VPN dışı)
-                                             192.168.1.14:10201
+2.  **💬 KESİNTİSİZ SOHBET (CHAT):**
+    - Kesintisiz ve daha derin diyaloglar kurar.
+    - Model: `asist_genel` (veya sunucu tarafındaki diğer sohbet modelleri).
+    - Yol arkadaşı gibi davranır.
 
-## VPN Kopma Davranışı (Kural 4)
+*Not: Eski `MONITOR` modu kaldırılmıştır. Telemetri analizi arka planda MQTT üzerinden otomatik yürütülmektedir.*
 
-- AssistantController periyodik checkConnection() ile bağlantıyı izler
-- Bağlantı kopunca:
-  1. hermesConnectionStatus = "DISCONNECTED"
-  2. Ekranda bildirim gösterilir
-  3. Otomatik yeniden bağlanma döngüsü başlar
-  4. Bağlantı düzelince "CONNECTED" + bildirim
+---
+
+## 3. Trafik Akış Şeması
+
+```
+[ Omoda 5 / Mobil Cihaz ]
+       │
+       ├── (Ses Kaydı) ───► STT ──► http://homeassistant.tailnet-4f03.ts.net:20128/v1/audio/transcriptions
+       │                                                                  │ (Model: groq/whisper-large-v3-turbo)
+       │                                                                  ▼
+       ├── (Metin) ──────► LLM ──► http://homeassistant.tailnet-4f03.ts.net:20128/v1/chat/completions (stream: true)
+       │                                                                  │
+       │     ◄── [SSE Stream Chunks] ─────────────────────────────────────┘
+       │            │
+       │            ├──► [Cümle Tamponu] ──► Edge TTS (WebSocket) ──► Hoparlör (AudioTrack)
+       │            │
+       │            └──► [tool_calls] ──► CommandFirewall (Yerel Kontrol)
+       │                                         │
+       │                                  [Whitelist & Sınır Kontrolü]
+       │                                         │
+       │                                         ▼ (Onaylandıysa)
+       │                                   ActionExecutor (Shell / VHAL Komutu)
+       │
+       └── (Periyodik Veri) ──► MQTT ──► homeassistant.tailnet-4f03.ts.net:1883 (omoda/telemetri)
+```
+
+---
+
+## 4. SSE (Server-Sent Events) ve TTS Akış Yönetimi
+
+1.  **Gecikme Azaltma:**
+    - LLM yanıtı bütünüyle beklenmez. `stream=true` ile gelen her kelime (chunk) takip edilir.
+    - `reasoning_content` (Deepseek düşünme adımları) algılanarak filtrelenir ve seslendirilmez.
+    - Gelen metin biriktirilir. Cümle sonu karakterleri (`.`, `?`, `!`) veya `\n` algılandığında veya tampon 40 karaktere ulaştığında hemen Edge TTS'e gönderilerek seslendirilir.
+    - Bu sayede ilk kelimenin duyulma süresi **~500ms** seviyesindedir.
+
+2.  **Tool Calls (Aksiyon) İşleme:**
+    - SSE akışı sırasında gelen `tool_calls` delta paketleri arka planda birleştirilir.
+    - Akış tamamlandığında (`[DONE]` veya `finish_reason=tool_calls`), birleştirilen komut yerel `CommandFirewall` kontrolüne gönderilir.
+    - Firewall onaylarsa `ActionExecutor` üzerinden araçta uygulanır.

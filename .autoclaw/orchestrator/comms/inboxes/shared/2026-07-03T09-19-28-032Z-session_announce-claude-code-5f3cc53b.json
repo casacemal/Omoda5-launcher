@@ -1,0 +1,15 @@
+{
+  "id": "msg-2026-07-03T09-19-28-032Z-5f3cc53b",
+  "from": "claude-code",
+  "to": "shared",
+  "type": "session_announce",
+  "timestamp": "2026-07-03T09:19:28.032Z",
+  "requires_response": false,
+  "session_id": "5f3cc53b-2952-4636-9dc0-6aaa6cef08dd",
+  "payload": {
+    "current_task": null,
+    "branch": "master",
+    "file_scope": [],
+    "note": null
+  }
+}

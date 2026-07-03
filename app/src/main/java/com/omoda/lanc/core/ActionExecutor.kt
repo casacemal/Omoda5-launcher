@@ -3,16 +3,20 @@ package com.omoda.lanc.core
 import android.content.Context
 import android.media.AudioManager
 import android.util.Log
+import com.omoda.lanc.core.VehicleController
+import com.omoda.lanc.media.MediaBridge
+import com.omoda.lanc.mqtt.MqttTelemetryBridge
+import com.omoda.lanc.network.AdbClient
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
 /**
  * Sürüm 5.0: Omega Edition - Aksiyon Yürütücü
  * Prensip: Sadece ADB (Shell) ve Standart Android API'leri kullanılır.
- * İmzasız uygulama kısıtlamalarını aşmak için ADB izinleri şarttır.
  */
-class ActionExecutor(private val context: Context) {
+class ActionExecutor(
+    private val context: Context,
+    private val mqttTelemetryBridge: MqttTelemetryBridge? = null
+) {
 
     companion object {
         private const val TAG = "ActionExecutor"
@@ -20,18 +24,8 @@ class ActionExecutor(private val context: Context) {
 
     private fun executeShellCommand(command: String): String {
         Log.d(TAG, "Shell komutu: $command")
-        return try {
-            // Root varsa 'su -c', yoksa direkt sh -c kullanılır. 
-            // Semidrive ünitesinde genelde root veya ADB yetkisiyle çalışır.
-            val proc = Runtime.getRuntime().exec(arrayOf("sh", "-c", command))
-            val reader = BufferedReader(InputStreamReader(proc.inputStream))
-            val output = reader.readText()
-            proc.waitFor()
-            output.trim()
-        } catch (e: Exception) {
-            Log.e(TAG, "Shell hatası: ${e.message}")
-            ""
-        }
+        AdbClient.executeCommand(command)
+        return "Command sent to AdbClient"
     }
 
     internal fun execute(functionName: String, argumentsJson: String): String {
@@ -52,6 +46,13 @@ class ActionExecutor(private val context: Context) {
                 "set_hvac_ac" -> {
                     val value = args.optInt("value", 1) // 1 = Açık, 0 = Kapalı
                     executeShellCommand("dumpsys car_service set-property-value 0x15200505 117 $value")
+                    val state = VehicleController.getInstance(context).getVehicleState()
+                    mqttTelemetryBridge?.publishClimateState(
+                        isOn = value == 1,
+                        tempDriver = state.acTemperatureDriver.toFloat(),
+                        tempPassenger = state.acTemperaturePassenger.toFloat(),
+                        fanSpeed = state.acFanSpeed
+                    )
                     "Success: HVAC AC set to $value"
                 }
 
@@ -59,6 +60,13 @@ class ActionExecutor(private val context: Context) {
                 "set_hvac_fan" -> {
                     val value = args.optInt("value", 3) // 1-7 arası
                     executeShellCommand("dumpsys car_service set-property-value 0x15400500 117 $value")
+                    val state = VehicleController.getInstance(context).getVehicleState()
+                    mqttTelemetryBridge?.publishClimateState(
+                        isOn = state.isHvacOn,
+                        tempDriver = state.acTemperatureDriver.toFloat(),
+                        tempPassenger = state.acTemperaturePassenger.toFloat(),
+                        fanSpeed = value
+                    )
                     "Success: HVAC Fan Speed set to $value"
                 }
 
@@ -79,21 +87,45 @@ class ActionExecutor(private val context: Context) {
                         "play_pause" -> executeShellCommand("input keyevent 85")
                         else -> executeShellCommand("input keyevent 85")
                     }
+                    val mediaInfo = MediaBridge.mediaState.value
+                    mqttTelemetryBridge?.publishMediaState(
+                        title = mediaInfo.title,
+                        artist = mediaInfo.artist,
+                        isPlaying = mediaInfo.isPlaying
+                    )
                     "Success: Media $action command executed"
                 }
 
                 "media_play_pause" -> {
                     executeShellCommand("input keyevent 85")
+                    val mediaInfo = MediaBridge.mediaState.value
+                    mqttTelemetryBridge?.publishMediaState(
+                        title = mediaInfo.title,
+                        artist = mediaInfo.artist,
+                        isPlaying = mediaInfo.isPlaying
+                    )
                     "Success: Media toggled via Keyevent"
                 }
 
                 "media_next" -> {
                     executeShellCommand("input keyevent 87")
+                    val mediaInfo = MediaBridge.mediaState.value
+                    mqttTelemetryBridge?.publishMediaState(
+                        title = mediaInfo.title,
+                        artist = mediaInfo.artist,
+                        isPlaying = mediaInfo.isPlaying
+                    )
                     "Success: Next track"
                 }
 
                 "media_previous" -> {
                     executeShellCommand("input keyevent 88")
+                    val mediaInfo = MediaBridge.mediaState.value
+                    mqttTelemetryBridge?.publishMediaState(
+                        title = mediaInfo.title,
+                        artist = mediaInfo.artist,
+                        isPlaying = mediaInfo.isPlaying
+                    )
                     "Success: Previous track"
                 }
 
@@ -127,6 +159,13 @@ class ActionExecutor(private val context: Context) {
                     } else {
                         executeShellCommand("input tap 200 900") // Sıcaklık azalt butonu
                     }
+                    val state = VehicleController.getInstance(context).getVehicleState()
+                    mqttTelemetryBridge?.publishClimateState(
+                        isOn = state.isHvacOn,
+                        tempDriver = state.acTemperatureDriver.toFloat(),
+                        tempPassenger = state.acTemperaturePassenger.toFloat(),
+                        fanSpeed = state.acFanSpeed
+                    )
                     "Success: HVAC Temperature adjusted towards $temp"
                 }
 
@@ -143,6 +182,17 @@ class ActionExecutor(private val context: Context) {
                         executeShellCommand("dumpsys car_service set-property-value 0x13400bc0 15 $position")
                     }
                     "Success: $target position set to $position"
+                }
+
+                // ADB KOMUTLARI
+                "execute_adb" -> {
+                    val cmd = args.optString("command")
+                    if (cmd.startsWith("input keyevent ")) {
+                        executeShellCommand(cmd)
+                        "Success: ADB command executed"
+                    } else {
+                        "Error: Only input keyevent commands are allowed"
+                    }
                 }
 
                 // UYGULAMA BAŞLATMA
@@ -196,6 +246,44 @@ class ActionExecutor(private val context: Context) {
                 "disconnect_vpn" -> {
                     executeShellCommand("am broadcast -n com.tailscale.ipn/.IPNReceiver -a com.tailscale.ipn.DISCONNECT_VPN")
                     "Success: Tailscale VPN disconnection requested"
+                }
+
+                // ARAÇ DURUMU (TOPLU)
+                "get_vehicle_status" -> {
+                    val state = VehicleController.instance?.getVehicleState()
+                    if (state != null) {
+                        val json = JSONObject().apply {
+                            put("speed", state.speed)
+                            put("gear", state.gearString)
+                            put("rpm", state.engineRpm)
+                            put("fuel", state.fuelLevel)
+                            put("outside_temp", state.outsideTemperature)
+                            put("ac_on", state.isHvacOn)
+                            put("gps", "${state.latitude},${state.longitude}")
+                        }
+                        "Success: Vehicle Status: $json"
+                    } else {
+                        "Error: VehicleController not available"
+                    }
+                }
+
+                // RADYO FREKANSI
+                "set_radio_frequency" -> {
+                    val freq = args.optDouble("frequency", 94.5)
+                    // Örnek: Radyo uygulamasına broadcast veya intent gönder
+                    executeShellCommand("am broadcast -a com.android.music.musicservicecommand --es command set_radio_freq --ef frequency $freq")
+                    "Success: Radio frequency set to $freq MHz requested"
+                }
+
+                // MEDYA ARAMA VE OYNATMA
+                "search_and_play" -> {
+                    val query = args.optString("query")
+                    if (query.isNotEmpty()) {
+                        executeShellCommand("am start -a android.media.action.MEDIA_PLAY_FROM_SEARCH -e query \"$query\"")
+                        "Success: Searching and playing '$query'"
+                    } else {
+                        "Error: Missing query"
+                    }
                 }
 
                 else -> {

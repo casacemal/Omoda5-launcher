@@ -7,13 +7,14 @@ object MediaBridge {
     data class MediaInfo(
         val title: String = "",
         val artist: String = "",
-        val pkg: String = ""
+        val pkg: String = "",
+        val isPlaying: Boolean = false
     )
 
     private val _mediaState = MutableStateFlow(MediaInfo())
     val mediaState: StateFlow<MediaInfo> = _mediaState
 
-    fun updateMedia(title: String, artist: String, pkg: String) {
-        _mediaState.value = MediaInfo(title, artist, pkg)
+    fun updateMedia(title: String, artist: String, pkg: String, isPlaying: Boolean = false) {
+        _mediaState.value = MediaInfo(title, artist, pkg, isPlaying)
     }
 }

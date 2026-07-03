@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -43,27 +44,18 @@ fun SettingsScreen(onBack: () -> Unit) {
     
     val serverIp by AssistantApplication.serverIp.collectAsState()
     val hermesPort by AssistantApplication.hermesPort.collectAsState()
+    val bridgeServerIp by AssistantApplication.bridgeServerIp.collectAsState()
     val sttPort by AssistantApplication.sttPort.collectAsState()
     val ttsPort by AssistantApplication.ttsPort.collectAsState()
     
     val sttMode by AssistantApplication.sttMode.collectAsState()
     val ttsEngine by AssistantApplication.ttsEngine.collectAsState()
-    val edgeVoiceName by AssistantApplication.edgeVoiceName.collectAsState()
-    val edgePitch by AssistantApplication.edgePitch.collectAsState()
-    val edgeRate by AssistantApplication.edgeRate.collectAsState()
     
-    val groqApiKey by AssistantApplication.groqApiKey.collectAsState()
     val isAutoTasksEnabled by AssistantApplication.isAutoTasksEnabled.collectAsState()
     val vehicleId by AssistantApplication.vehicleId.collectAsState()
     val sessionKey by AssistantApplication.sessionKey.collectAsState()
     val pollingConfig by AssistantApplication.vehiclePollingConfig.collectAsState()
     
-    // Tailscale States
-    val tailscaleKey by AssistantApplication.tailscaleKey.collectAsState()
-    val tailscaleStatus by AssistantApplication.tailscaleStatus.collectAsState()
-    val isTailscaleEnabled by AssistantApplication.isTailscaleEnabled.collectAsState()
-    val useTls by AssistantApplication.useTls.collectAsState()
-
     val isMqttConnected by AssistantApplication.isMqttConnected.collectAsState()
     val hasInternet by AssistantApplication.hasInternetConnection.collectAsState()
     val hermesStatus by AssistantApplication.hermesConnectionStatus.collectAsState()
@@ -71,12 +63,10 @@ fun SettingsScreen(onBack: () -> Unit) {
 
     // Inputs
     var ipInput by remember { mutableStateOf(serverIp) }
+    var bridgeIpInput by remember { mutableStateOf(bridgeServerIp) }
     var hermesPortInput by remember { mutableStateOf(hermesPort) }
     var sttPortInput by remember { mutableStateOf(sttPort) }
     var ttsPortInput by remember { mutableStateOf(ttsPort) }
-    var edgePitchInput by remember { mutableStateOf(edgePitch) }
-    var edgeRateInput by remember { mutableStateOf(edgeRate) }
-    var groqKeyInput by remember { mutableStateOf(groqApiKey) }
     var vehicleIdInput by remember { mutableStateOf(vehicleId) }
     var sessionKeyInput by remember { mutableStateOf(sessionKey) }
 
@@ -96,10 +86,18 @@ fun SettingsScreen(onBack: () -> Unit) {
         topBar = {
             TopAppBar(
                 title = { 
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    val packageInfo = remember { try { context.packageManager.getPackageInfo(context.packageName, 0) } catch (e: Exception) { null } }
+                    val installedVersion = "v${packageInfo?.versionName}"
+                    val latestVersion by AssistantApplication.latestVersion.collectAsState()
+
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text("GELİŞMİŞ AYARLAR", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                        Spacer(Modifier.width(16.dp))
-                        Text(currentTime, color = Color(0xFF69E2D3), fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                        Spacer(Modifier.width(12.dp))
+                        Column {
+                            Text(currentTime, color = Color(0xFF69E2D3), fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                            Text("Yüklü: $installedVersion | Güncel: $latestVersion", color = Color.Gray, fontSize = 9.sp)
+                        }
                         Spacer(Modifier.width(24.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                             StatusLed("İnternet", hasInternet)
@@ -125,7 +123,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
                         shape = RoundedCornerShape(8.dp),
-                        modifier = Modifier.padding(start = 0.dp, top = 0.dp, end = 8.dp, bottom = 0.dp)
+                        modifier = Modifier.padding(8.dp)
                     ) {
                         Text("KAYDET", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                     }
@@ -137,9 +135,6 @@ fun SettingsScreen(onBack: () -> Unit) {
     ) { padding ->
         Row(modifier = Modifier.fillMaxSize().background(backgroundBrush).padding(padding)) {
             
-            // ─────────────────────────────────────────────────
-            // SOL SİDEBAR NAVİGASYON (TAB SEÇİCİ)
-            // ─────────────────────────────────────────────────
             Column(
                 modifier = Modifier
                     .width(180.dp)
@@ -151,11 +146,10 @@ fun SettingsScreen(onBack: () -> Unit) {
             ) {
                 val menuItems = listOf(
                     Triple("Genel", Icons.Default.Build, "Genel Ayarlar"),
-                    Triple("Asistan", Icons.Default.Person, "Asistan & Ses"),
                     Triple("Bağlantılar", Icons.Default.Wifi, "Ağ & Protokol"),
                     Triple("Sensörler", Icons.Default.DirectionsCar, "Sensör Ayarları"),
-                    Triple("Mqtt Logları", Icons.Default.List, "MQTT Veri Logu"),
-                    Triple("Güncelleme", Icons.Default.Refresh, "OTA App Store"),
+                    Triple("Mqtt Logları", Icons.AutoMirrored.Filled.List, "MQTT Veri Logu"),
+                    Triple("GÜNCELLEMELER", Icons.Default.Refresh, "OTA App Store"),
                     Triple("Hakkında", Icons.Default.Info, "Sistem Bilgisi")
                 )
 
@@ -196,9 +190,6 @@ fun SettingsScreen(onBack: () -> Unit) {
                 }
             }
 
-            // ─────────────────────────────────────────────────
-            // SAĞ İÇERİK BÖLÜMÜ
-            // ─────────────────────────────────────────────────
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -208,16 +199,15 @@ fun SettingsScreen(onBack: () -> Unit) {
                 when (selectedTab) {
                     "Genel" -> TabGenel(
                         ipInput = ipInput,
-                        onIpChange = { ipInput = it; AssistantApplication.serverIp.value = it },
+                        onIpChange = { ipInput = it; AssistantApplication.serverIp.value = it; AssistantApplication.activeServerIp.value = it },
+                        bridgeIpInput = bridgeIpInput,
+                        onBridgeIpChange = { bridgeIpInput = it; AssistantApplication.bridgeServerIp.value = it },
                         hermesPortInput = hermesPortInput,
-                        onHermesPortChange = {
-                            hermesPortInput = it
-                            sttPortInput = it
-                            ttsPortInput = it
-                            AssistantApplication.hermesPort.value = it
-                            AssistantApplication.sttPort.value = it
-                            AssistantApplication.ttsPort.value = it
-                        },
+                        onHermesPortChange = { hermesPortInput = it; AssistantApplication.hermesPort.value = it },
+                        sttPortInput = sttPortInput,
+                        onSttPortChange = { sttPortInput = it; AssistantApplication.sttPort.value = it },
+                        ttsPortInput = ttsPortInput,
+                        onTtsPortChange = { ttsPortInput = it; AssistantApplication.ttsPort.value = it },
                         vehicleIdInput = vehicleIdInput,
                         onVehicleIdChange = { vehicleIdInput = it; AssistantApplication.vehicleId.value = it },
                         sessionKeyInput = sessionKeyInput,
@@ -225,24 +215,8 @@ fun SettingsScreen(onBack: () -> Unit) {
                         isAutoTasksEnabled = isAutoTasksEnabled,
                         onAutoTasksChange = { AssistantApplication.isAutoTasksEnabled.value = it }
                     )
-                    
-                    "Asistan" -> TabAsistan(
-                        sttMode = sttMode,
-                        ttsEngine = ttsEngine,
-                        edgeVoiceName = edgeVoiceName,
-                        edgePitchInput = edgePitchInput,
-                        onPitchChange = { edgePitchInput = it; AssistantApplication.edgePitch.value = it },
-                        edgeRateInput = edgeRateInput,
-                        onRateChange = { edgeRateInput = it; AssistantApplication.edgeRate.value = it },
-                        groqKeyInput = groqKeyInput,
-                        onGroqKeyChange = { groqKeyInput = it; AssistantApplication.groqApiKey.value = it }
-                    )
 
                     "Bağlantılar" -> TabBaglantilar(
-                        isTailscaleEnabled = isTailscaleEnabled,
-                        useTls = useTls,
-                        tailscaleKey = tailscaleKey,
-                        tailscaleStatus = tailscaleStatus,
                         isMqttConnected = isMqttConnected
                     )
 
@@ -252,12 +226,10 @@ fun SettingsScreen(onBack: () -> Unit) {
 
                     "Mqtt Logları" -> TabMqttLoglari()
 
-                    "Güncelleme" -> AppStoreSection()
+                    "GÜNCELLEMELER" -> AppStoreSection()
 
                     "Hakkında" -> TabHakkinda(
                         vehicleId = vehicleId,
-                        sttMode = sttMode,
-                        ttsEngine = ttsEngine,
                         serverIp = serverIp,
                         hermesPort = hermesPort
                     )
@@ -267,15 +239,18 @@ fun SettingsScreen(onBack: () -> Unit) {
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────
-// TAB 1: GENEL AYARLAR
-// ──────────────────────────────────────────────────────────────────────────
 @Composable
 fun TabGenel(
     ipInput: String,
     onIpChange: (String) -> Unit,
+    bridgeIpInput: String,
+    onBridgeIpChange: (String) -> Unit,
     hermesPortInput: String,
     onHermesPortChange: (String) -> Unit,
+    sttPortInput: String,
+    onSttPortChange: (String) -> Unit,
+    ttsPortInput: String,
+    onTtsPortChange: (String) -> Unit,
     vehicleIdInput: String,
     onVehicleIdChange: (String) -> Unit,
     sessionKeyInput: String,
@@ -293,7 +268,7 @@ fun TabGenel(
                 OutlinedTextField(
                     value = ipInput,
                     onValueChange = onIpChange,
-                    label = { Text("Sunucu IP Adresi", color = Color.Gray) },
+                    label = { Text("Hermes Server IP (100.95.239.119)", color = Color.Gray) },
                     modifier = Modifier.fillMaxWidth(),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = Color.White,
@@ -302,19 +277,60 @@ fun TabGenel(
                         unfocusedBorderColor = Color.Gray
                     )
                 )
-                
+
                 OutlinedTextField(
-                    value = hermesPortInput,
-                    onValueChange = onHermesPortChange,
-                    label = { Text("9Router API Port (Chat & STT)", color = Color.Gray) },
+                    value = bridgeIpInput,
+                    onValueChange = onBridgeIpChange,
+                    label = { Text("Bridge Server IP (100.99.195.67)", color = Color.Gray) },
                     modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         unfocusedTextColor = Color.White,
                         focusedBorderColor = Color(0xFF69E2D3),
                         unfocusedBorderColor = Color.Gray
                     )
+                )
+
+                OutlinedTextField(
+                    value = hermesPortInput,
+                    onValueChange = onHermesPortChange,
+                    label = { Text("Hermes Port (20128)", color = Color.Gray) },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        focusedBorderColor = Color(0xFF69E2D3),
+                        unfocusedBorderColor = Color.Gray
+                    ),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+
+                OutlinedTextField(
+                    value = sttPortInput,
+                    onValueChange = onSttPortChange,
+                    label = { Text("STT Port (20128)", color = Color.Gray) },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        focusedBorderColor = Color(0xFF69E2D3),
+                        unfocusedBorderColor = Color.Gray
+                    ),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+
+                OutlinedTextField(
+                    value = ttsPortInput,
+                    onValueChange = onTtsPortChange,
+                    label = { Text("TTS Port (20128)", color = Color.Gray) },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        focusedBorderColor = Color(0xFF69E2D3),
+                        unfocusedBorderColor = Color.Gray
+                    ),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
             }
         }
@@ -376,204 +392,20 @@ fun TabGenel(
                     ) {
                         Text("ADB TCP AÇ", fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
                     }
-                    
-                    OutlinedButton(
-                        onClick = { 
-                            val intent = Intent(AssistantApplication.configManager.context, com.omoda.lanc.service.AdbBridgeService::class.java).apply {
-                                action = com.omoda.lanc.service.AdbBridgeService.ACTION_EXECUTE_SHELL
-                                putExtra("command", "su -c id")
-                            }
-                            AssistantApplication.configManager.context.startService(intent)
-                        },
-                        modifier = Modifier.weight(1f),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)
-                    ) {
-                        Text("ROOT TEST", fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
-                    }
                 }
             }
         }
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────
-// TAB 2: ASİSTAN AYARLARI
-// ──────────────────────────────────────────────────────────────────────────
-@Composable
-fun TabAsistan(
-    sttMode: String,
-    ttsEngine: String,
-    edgeVoiceName: String,
-    edgePitchInput: String,
-    onPitchChange: (String) -> Unit,
-    edgeRateInput: String,
-    onRateChange: (String) -> Unit,
-    groqKeyInput: String,
-    onGroqKeyChange: (String) -> Unit
-) {
-    val scrollState = rememberScrollState()
-    Column(
-        modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        SettingCard(title = "MOTOR SEÇİMİ (STT & TTS)") {
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Column {
-                    Text("STT (Ses Tanıma) Motoru", color = Color.Gray, fontSize = 12.sp)
-                    Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf("HERMES", "BULUT", "SHERPA").forEach { mode ->
-                            val isSelected = sttMode == mode
-                            val isArchived = mode == "SHERPA"
-                            val label = if (isArchived) "SHERPA (ARŞİV)" else mode
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(40.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(
-                                        if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) 
-                                        else if (isArchived) Color.Red.copy(alpha = 0.1f)
-                                        else Color.DarkGray.copy(alpha = 0.3f)
-                                    )
-                                    .border(1.dp, if (isSelected) Color(0xFF69E2D3) else Color.Transparent, RoundedCornerShape(8.dp))
-                                    .clickable(enabled = !isArchived) { AssistantApplication.sttMode.value = mode },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(label, color = if (isSelected) Color(0xFF69E2D3) else if (isArchived) Color.Gray else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal, fontSize = 12.sp)
-                            }
-                        }
-                    }
-                }
-
-                Column {
-                    Text("TTS (Ses Sentez) Motoru", color = Color.Gray, fontSize = 12.sp)
-                    Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf("HERMES", "EDGE", "SHERPA").forEach { engine ->
-                            val isSelected = ttsEngine == engine
-                            val isArchived = engine == "SHERPA"
-                            val label = if (isArchived) "SHERPA (ARŞİV)" else engine
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(40.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(
-                                        if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) 
-                                        else if (isArchived) Color.Red.copy(alpha = 0.1f)
-                                        else Color.DarkGray.copy(alpha = 0.3f)
-                                    )
-                                    .border(1.dp, if (isSelected) Color(0xFF69E2D3) else Color.Transparent, RoundedCornerShape(8.dp))
-                                    .clickable(enabled = !isArchived) { AssistantApplication.ttsEngine.value = engine },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(label, color = if (isSelected) Color(0xFF69E2D3) else if (isArchived) Color.Gray else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal, fontSize = 12.sp)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        SettingCard(title = "EDGE TTS AYARLARI") {
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Column {
-                    Text("Ses Seçimi", color = Color.Gray, fontSize = 12.sp)
-                    Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf(
-                            "tr-TR-EmelNeural" to "Kadın (Emel)",
-                            "tr-TR-AhmetNeural" to "Erkek (Ahmet)"
-                        ).forEach { (voiceId, label) ->
-                            val isSelected = edgeVoiceName == voiceId
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(40.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) else Color.DarkGray.copy(alpha = 0.3f))
-                                    .border(1.dp, if (isSelected) Color(0xFF69E2D3) else Color.Transparent, RoundedCornerShape(8.dp))
-                                    .clickable { AssistantApplication.edgeVoiceName.value = voiceId },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(label, color = if (isSelected) Color(0xFF69E2D3) else Color.White, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
-                            }
-                        }
-                    }
-                }
-
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedTextField(
-                        value = edgePitchInput,
-                        onValueChange = onPitchChange,
-                        label = { Text("Ses Tonu (Pitch)", color = Color.Gray) },
-                        modifier = Modifier.weight(1f),
-                        placeholder = { Text("+0Hz", color = Color.DarkGray) },
-                        singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedTextColor = Color.White,
-                            unfocusedTextColor = Color.White,
-                            focusedBorderColor = Color(0xFF69E2D3),
-                            unfocusedBorderColor = Color.Gray
-                        )
-                    )
-                    
-                    OutlinedTextField(
-                        value = edgeRateInput,
-                        onValueChange = onRateChange,
-                        label = { Text("Hız (Rate)", color = Color.Gray) },
-                        modifier = Modifier.weight(1f),
-                        placeholder = { Text("+0%", color = Color.DarkGray) },
-                        singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedTextColor = Color.White,
-                            unfocusedTextColor = Color.White,
-                            focusedBorderColor = Color(0xFF69E2D3),
-                            unfocusedBorderColor = Color.Gray
-                        )
-                    )
-                }
-            }
-        }
-
-        SettingCard(title = "GROQ API (STT - BULUT)") {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(
-                    "Bulut STT modu için geçerli bir Groq API anahtarı gereklidir.",
-                    color = Color(0xFFFFD700),
-                    fontSize = 11.sp
-                )
-                OutlinedTextField(
-                    value = groqKeyInput,
-                    onValueChange = onGroqKeyChange,
-                    label = { Text("Groq API Key", color = Color.Gray) },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = Color.White,
-                        unfocusedTextColor = Color.White,
-                        focusedBorderColor = Color(0xFFFFD700),
-                        unfocusedBorderColor = Color.Gray
-                    )
-                )
-            }
-        }
-    }
-}
-
-// ──────────────────────────────────────────────────────────────────────────
-// TAB 3: BAĞLANTILAR
-// ──────────────────────────────────────────────────────────────────────────
 @Composable
 fun TabBaglantilar(
-    isTailscaleEnabled: Boolean,
-    useTls: Boolean,
-    tailscaleKey: String,
-    tailscaleStatus: String,
     isMqttConnected: Boolean
 ) {
     val scrollState = rememberScrollState()
     val mqttEnabled by AssistantApplication.mqttEnabled.collectAsState()
     val bridgeMode by AssistantApplication.isBridgeMode.collectAsState()
+    val bridgeType by AssistantApplication.bridgeType.collectAsState()
     val simulationMode by AssistantApplication.isSimulationMode.collectAsState()
 
     Column(
@@ -598,6 +430,26 @@ fun TabBaglantilar(
                         onCheckedChange = { AssistantApplication.isBridgeMode.value = it },
                         colors = SwitchDefaults.colors(checkedThumbColor = Color(0xFF69E2D3))
                     )
+                }
+
+                if (bridgeMode) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("Köprü Protokolü", color = Color.White, modifier = Modifier.weight(1f))
+                        Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            FilterChip(
+                                selected = bridgeType == "WYOMING",
+                                onClick = { AssistantApplication.bridgeType.value = "WYOMING" },
+                                label = { Text("Wyoming", fontSize = 10.sp) },
+                                colors = FilterChipDefaults.filterChipColors(selectedContainerColor = Color(0xFF69E2D3).copy(alpha = 0.2f))
+                            )
+                            FilterChip(
+                                selected = bridgeType == "WHISPER",
+                                onClick = { AssistantApplication.bridgeType.value = "WHISPER" },
+                                label = { Text("Whisper", fontSize = 10.sp) },
+                                colors = FilterChipDefaults.filterChipColors(selectedContainerColor = Color(0xFF69E2D3).copy(alpha = 0.2f))
+                            )
+                        }
+                    }
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -628,63 +480,15 @@ fun TabBaglantilar(
                 }
             }
         }
-
-        SettingCard(title = "TAILSCALE (TSNET) YAPILANDIRMASI") {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Tailscale Aktif", color = Color.White, modifier = Modifier.weight(1f))
-                    Switch(
-                        checked = isTailscaleEnabled,
-                        onCheckedChange = { AssistantApplication.isTailscaleEnabled.value = it },
-                        colors = SwitchDefaults.colors(checkedThumbColor = Color(0xFF69E2D3))
-                    )
-                }
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("TLS Doğrulama (tsnet)", color = Color.White, modifier = Modifier.weight(1f))
-                    Switch(
-                        checked = useTls,
-                        onCheckedChange = { AssistantApplication.useTls.value = it },
-                        colors = SwitchDefaults.colors(checkedThumbColor = Color(0xFF69E2D3))
-                    )
-                }
-
-                OutlinedTextField(
-                    value = tailscaleKey,
-                    onValueChange = { AssistantApplication.tailscaleKey.value = it },
-                    label = { Text("Auth Key", color = Color.Gray) },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = Color.White,
-                        unfocusedTextColor = Color.White,
-                        focusedBorderColor = Color(0xFF69E2D3),
-                        unfocusedBorderColor = Color.Gray
-                    )
-                )
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Durum:", color = Color.Gray, fontSize = 12.sp, modifier = Modifier.weight(1f))
-                    Text(
-                        tailscaleStatus,
-                        color = if (tailscaleStatus == "Bağlı") Color.Green else Color.Yellow,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp
-                    )
-                }
-            }
-        }
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────
-// TAB 4: SENSÖRLER & CANLI SENSÖR VERİLERİ
-// ──────────────────────────────────────────────────────────────────────────
 @Composable
 fun TabSensorler(
     pollingConfig: Map<String, Int>
 ) {
     val scrollState = rememberScrollState()
-    val tiers = listOf(2, 5, 10, 0) // 0 = kapalı
+    val tiers = listOf(2, 5, 10, 0)
     val tierLabels = mapOf(2 to "2sn", 5 to "5sn", 10 to "10sn", 0 to "KAPALI")
     val tierColors = mapOf(
         2 to Color(0xFF4CAF50),
@@ -693,7 +497,6 @@ fun TabSensorler(
         0 to Color.Gray.copy(alpha = 0.4f)
     )
 
-    // Canlı Sensör Verileri StateFlow'unu Dinliyoruz
     val vehicleDataValues by AssistantApplication.vehicleDataValues.collectAsState()
 
     Column(
@@ -753,173 +556,50 @@ fun TabSensorler(
                 }
             }
         }
-
-        // ─────────────────────────────────────────────────
-        // CANLI SENSÖR VERİLERİ (TEXT LİSTE OLARAK)
-        // ─────────────────────────────────────────────────
-        SettingCard(title = "CANLI AKTİF SENSÖR VERİLERİ") {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                val activeSensors = vehicleDataValues.filter { (propId, _) ->
-                    val tier = pollingConfig[propId] ?: 0
-                    tier > 0
-                }
-
-                if (activeSensors.isEmpty()) {
-                    Text(
-                        "Aktif çalışan (Polling > 0) sensör bulunamadı. Yukarıdan süre seçerek sensörleri aktif edebilirsiniz.",
-                        color = Color.Gray,
-                        fontSize = 12.sp,
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp)
-                    )
-                } else {
-                    activeSensors.forEach { (propId, value) ->
-                        val name = VehicleController.PROPERTY_DEFINITIONS[propId]?.label 
-                                   ?: com.omoda.lanc.core.SensorDictionary.ALL_SENSORS[propId] 
-                                   ?: propId
-                        
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(Color.Black.copy(alpha = 0.2f))
-                                .padding(horizontal = 12.dp, vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(6.dp)
-                                    .clip(CircleShape)
-                                    .background(Color(0xFF69E2D3))
-                            )
-                            Spacer(Modifier.width(12.dp))
-                            Text(
-                                text = name,
-                                color = Color.White.copy(alpha = 0.9f),
-                                fontSize = 12.sp,
-                                modifier = Modifier.weight(1.5f)
-                            )
-                            Text(
-                                text = value,
-                                color = Color(0xFF69E2D3),
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier.weight(1f),
-                                textAlign = TextAlign.End
-                            )
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────
-// TAB 5: CANLI MQTT LOG EKRANI
-// ──────────────────────────────────────────────────────────────────────────
 @Composable
 fun TabMqttLoglari() {
     val mqttLogs by AssistantApplication.mqttLogList.collectAsState()
-
     Column(modifier = Modifier.fillMaxSize()) {
-        Text("MQTT CANLI VERİ LOGU (EN YENİLER ÜSTTE)", color = Color(0xFF69E2D3), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Text("MQTT CANLI VERİ LOGU", color = Color(0xFF69E2D3), fontSize = 12.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(8.dp))
-        
         Card(
             colors = CardDefaults.cardColors(containerColor = Color(0xFF070809)),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(12.dp))
+            modifier = Modifier.fillMaxWidth().weight(1f).border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(12.dp))
         ) {
-            if (mqttLogs.isEmpty()) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("MQTT verisi akmıyor. Bağlantıyı kontrol edin veya sensörleri aktif edin.", color = Color.Gray, fontSize = 12.sp)
-                }
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize().padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    items(mqttLogs) { log ->
-                        val isError = log.contains("HATA") || log.contains("KOPTU")
-                        val isReceived = log.contains("Gelen")
-                        val textColor = when {
-                            isError -> Color(0xFFE57373)
-                            isReceived -> Color(0xFF81C784)
-                            else -> Color(0xFFFFD54F)
-                        }
-
-                        Text(
-                            text = log,
-                            color = textColor,
-                            fontSize = 11.sp,
-                            fontFamily = FontFamily.Monospace,
-                            lineHeight = 15.sp
-                        )
-                    }
+            LazyColumn(modifier = Modifier.fillMaxSize().padding(12.dp)) {
+                items(mqttLogs) { log ->
+                    Text(log, color = Color.White, fontSize = 11.sp, fontFamily = FontFamily.Monospace)
                 }
             }
         }
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────
-// TAB 7: HAKKINDA (SİSTEM BİLGİSİ)
-// ──────────────────────────────────────────────────────────────────────────
 @Composable
-fun TabHakkinda(
-    vehicleId: String,
-    sttMode: String,
-    ttsEngine: String,
-    serverIp: String,
-    hermesPort: String
-) {
+fun TabHakkinda(vehicleId: String, serverIp: String, hermesPort: String) {
     val context = androidx.compose.ui.platform.LocalContext.current
-    val packageInfo = remember {
-        try {
-            context.packageManager.getPackageInfo(context.packageName, 0)
-        } catch (e: Exception) { null }
-    }
-    @Suppress("DEPRECATION")
-    val vCode = packageInfo?.versionCode
-    val versionDisplay = packageInfo?.let { "v${it.versionName}($vCode)" } ?: "v1.0.0"
-    val buildDate = com.omoda.lanc.BuildConfig.BUILD_DATE
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        SettingCard(title = "SİSTEM BİLGİLERİ VE STATÜ") {
+    val packageInfo = remember { try { context.packageManager.getPackageInfo(context.packageName, 0) } catch (e: Exception) { null } }
+    val vCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) packageInfo?.longVersionCode else packageInfo?.versionCode?.toLong()
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        SettingCard(title = "SİSTEM BİLGİLERİ") {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                InfoRow("Araç Kimliği (V-ID)", vehicleId)
-                InfoRow("STT Motoru", sttMode)
-                InfoRow("TTS Motoru", ttsEngine)
-                InfoRow("Chat Yapay Zekası", "9Router → asist_genel")
-                InfoRow("Hermes Sunucu Bağlantısı", "${serverIp}:${hermesPort}")
-                InfoRow("Uygulama Sürümü", versionDisplay)
-                InfoRow("Derleme Tarihi", buildDate)
+                InfoRow("V-ID", vehicleId)
+                InfoRow("Sürüm", "v${packageInfo?.versionName}($vCode)")
+                InfoRow("Sunucu", "$serverIp:$hermesPort")
             }
         }
     }
 }
 
-// ──────────────────────────────────────────────────────────────────────────
-// YARDIMCI COMPOSABLE BİLEŞENLER
-// ──────────────────────────────────────────────────────────────────────────
 @Composable
 fun SettingCard(title: String, content: @Composable () -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(title, color = Color(0xFF69E2D3), fontSize = 12.sp, fontWeight = FontWeight.Bold)
-        Card(
-            colors = CardDefaults.cardColors(containerColor = Color(0xFF111315)),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth().border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
-        ) {
-            Box(modifier = Modifier.padding(16.dp)) {
-                content()
-            }
+        Card(colors = CardDefaults.cardColors(containerColor = Color(0xFF111315)), modifier = Modifier.fillMaxWidth().border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))) {
+            Box(modifier = Modifier.padding(16.dp)) { content() }
         }
     }
 }
@@ -935,12 +615,7 @@ fun InfoRow(label: String, value: String) {
 @Composable
 fun StatusLed(label: String, isConnected: Boolean) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(
-            modifier = Modifier
-                .size(8.dp)
-                .clip(CircleShape)
-                .background(if (isConnected) Color.Green else Color.Red)
-        )
+        Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(if (isConnected) Color.Green else Color.Red))
         Spacer(Modifier.width(4.dp))
         Text(label, color = Color.White, fontSize = 10.sp)
     }

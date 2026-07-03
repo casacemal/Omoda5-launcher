@@ -11,15 +11,14 @@ import com.omoda.lanc.overlay.OverlayManager
 import com.omoda.lanc.stt.AndroidSystemSttManager
 import com.omoda.lanc.stt.SttManager
 import com.omoda.lanc.tts.AndroidSystemTtsManager
-import com.omoda.lanc.tts.EdgeOnlineTTSManager
 import com.omoda.lanc.tts.HermesTTSManager
+import com.omoda.lanc.mqtt.MqttTelemetryBridge
 import kotlinx.coroutines.*
 import java.io.File
 
 /**
  * AssistantController - PDF Plan v2.0 Uyumlu Merkezi İş Mantığı
  * Sesli asistanın yaşam döngüsünü (Dinleme -> STT -> LLM -> TTS) yönetir.
- * VoiceAssistantService'den iş mantığını devralır.
  */
 class AssistantController(
     private val context: Context,
@@ -27,12 +26,12 @@ class AssistantController(
 ) {
     private val audioEngine = AudioEngine(context)
     private val overlayManager = OverlayManager(context)
-    private val actionExecutor = ActionExecutor(context)
+    private val mqttTelemetryBridge = MqttTelemetryBridge(AssistantApplication.mqttPublisher)
+    private val actionExecutor = ActionExecutor(context, mqttTelemetryBridge)
     private val commandFirewall = CommandFirewall(context, actionExecutor)
     private val vehicleController = VehicleController(context)
     private val policyEngine = PolicyEngine()
-    private val ruleEngine = RuleEngine { vehicleController.getVehicleState() }
-    private val commandRouter = CommandRouter(context, actionExecutor, ruleEngine)
+    private val commandRouter = CommandRouter(context, commandFirewall)
     private val alertEngine = AlertEngine(scope)
     private val drivingAnalysisEngine = DrivingAnalysisEngine(scope)
     
@@ -40,8 +39,11 @@ class AssistantController(
     private val androidSttManager by lazy { AndroidSystemSttManager(context) { text -> handleAndroidSttResult(text) } }
     
     private val hermesTtsManager = HermesTTSManager(context)
-    private val edgeTtsManager = EdgeOnlineTTSManager(context)
     private val androidTtsManager by lazy { AndroidSystemTtsManager(context) }
+
+    // Radyo Modu Bileşenleri
+    private var radioSender: com.omoda.lanc.audio.AudioStreamSender? = null
+    private var radioReceiver: com.omoda.lanc.audio.AudioStreamReceiver? = null
 
     // Dinamik Hermes ve STT İstemcileri
     private var hermesClient = HermesClient(AssistantApplication.HERMES_BASE_URL, AssistantApplication.NINEROUTER_API_KEY)
@@ -65,24 +67,28 @@ class AssistantController(
             while (true) {
                 val previousStatus = AssistantApplication.hermesConnectionStatus.value
                 hermesClient.checkConnection()
-                kotlinx.coroutines.delay(500) // Async cevabi bekle
+                kotlinx.coroutines.delay(500)
 
                 val currentStatus = AssistantApplication.hermesConnectionStatus.value
                 if (currentStatus != "DISCONNECTED") {
-                    // Baglanti yeniden kurulduysa bildirim
-                    if (previousStatus == "DISCONNECTED" && consecutiveFailures > 0) {
-                        consecutiveFailures = 0
-                        EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("Hermes baglantisi yeniden kuruldu"))
-                    }
-                    kotlinx.coroutines.delay(30000) // Normal heartbeat
+                    consecutiveFailures = 0
+                    kotlinx.coroutines.delay(30000)
                 } else if (consecutiveFailures < 5) {
-                    // Ilk 5 deneme hemen (retry mantigi)
                     consecutiveFailures++
                 } else {
                     consecutiveFailures++
-                    kotlinx.coroutines.delay(10000) // 10sn ara
+                    kotlinx.coroutines.delay(10000)
                 }
             }
+        }
+
+        // Eager Hermes session creation (runs on IO, waits for first CONNECTED)
+        scope.launch(Dispatchers.IO) {
+            // Wait until connection is established
+            while (AssistantApplication.hermesConnectionStatus.value != "CONNECTED") {
+                kotlinx.coroutines.delay(2000)
+            }
+            hermesClient.createSessionSync()
         }
     }
 
@@ -105,7 +111,8 @@ class AssistantController(
                     speak(spokenText) {
                         val isErrorResponse = spokenText.contains("anlaşılamadı", ignoreCase = true) || 
                                               spokenText.contains("bağlanılamadı", ignoreCase = true) || 
-                                              spokenText.contains("hata", ignoreCase = true)
+                                              spokenText.contains("hata", ignoreCase = true) ||
+                                              spokenText.contains("internet bağlantısı yok", ignoreCase = true)
                                               
                         if (AssistantApplication.isContinuousConversation.value && !isErrorResponse) {
                             scope.launch {
@@ -136,6 +143,9 @@ class AssistantController(
                 policyEngine.updateState(event.state)
                 agentManager.updateVehicleContext(event.state)
             }
+            is Event.VehicleEvent.GpsLocationChanged -> {
+                vehicleController.updateGpsLocation(event.lat, event.lng, event.speed)
+            }
             is Event.AlertEvent.Triggered -> {
                 handleAlert(event.alert)
             }
@@ -144,9 +154,6 @@ class AssistantController(
     }
 
     private fun handleAlert(alert: Alert) {
-        Log.i("Omoda-Alert", "Uyarı Tetiklendi: ${alert.message} (${alert.priority})")
-        
-        // Kritik uyarılarda asistanın mevcut konuşmasını kes ve uyarıyı anons et
         if (alert.priority == AlertPriority.CRITICAL) {
             stopTts()
             audioEngine.requestAlertFocus()
@@ -154,12 +161,10 @@ class AssistantController(
                 audioEngine.releaseFocus()
             }
         } else {
-            // Önemli uyarılarda asistan dinlemiyorsa veya konuşmuyorsa anons et
             if (!isListening) {
                 speak(alert.message)
             }
         }
-        
         AssistantApplication.addLog("UYARI: ${alert.message}")
     }
 
@@ -168,23 +173,30 @@ class AssistantController(
     }
 
     fun startListening() {
-        if (isListening) return
-        
+        if (isListening) {
+            Log.d("Omoda-Workflow", "Zaten dinliyor, tekrar başlatılmadı.")
+            return
+        }
         stopTts()
 
         scope.launch {
             if (audioEngine.requestAssistantFocus()) {
                 isListening = true
                 AssistantApplication.isListening.value = true
-                AssistantApplication.status.value = "Dinliyor..."
                 
-                if (AssistantApplication.sttMode.value == "LOCAL") {
-                    withContext(Dispatchers.Main) {
-                        androidSttManager.startListening()
-                    }
+                if (AssistantApplication.isRadioMode.value) {
+                    AssistantApplication.status.value = "TELSİZ AKTİF"
+                    startRadioMode()
                 } else {
-                    withContext(Dispatchers.IO) {
-                        sttManager.startRecording()
+                    AssistantApplication.status.value = "Dinliyor..."
+                    if (AssistantApplication.sttMode.value == "LOCAL") {
+                        withContext(Dispatchers.Main) {
+                            androidSttManager.startListening()
+                        }
+                    } else {
+                        withContext(Dispatchers.IO) {
+                            sttManager.startRecording()
+                        }
                     }
                 }
                 
@@ -192,7 +204,7 @@ class AssistantController(
                 EventBus.emit(Event.VoiceEvent.RecordingStarted)
 
                 startAmplitudePolling()
-                startTimeoutCounter()
+                if (!AssistantApplication.isRadioMode.value) startTimeoutCounter()
             }
         }
     }
@@ -205,21 +217,51 @@ class AssistantController(
             AssistantApplication.isListening.value = false
             amplitudeJob?.cancel()
             timeoutJob?.cancel()
-            AssistantApplication.status.value = "İşleniyor..."
             
-            EventBus.emit(Event.VoiceEvent.RecordingStopped)
-
-            if (AssistantApplication.sttMode.value == "LOCAL") {
-                withContext(Dispatchers.Main) {
-                    androidSttManager.stopListening()
-                }
+            if (AssistantApplication.isRadioMode.value) {
+                AssistantApplication.status.value = "Telsiz Kapatıldı"
+                stopRadioMode()
             } else {
-                withContext(Dispatchers.IO) {
-                    sttManager.stopRecording()
+                AssistantApplication.status.value = "İşleniyor..."
+                EventBus.emit(Event.VoiceEvent.RecordingStopped)
+
+                if (AssistantApplication.sttMode.value == "LOCAL") {
+                    withContext(Dispatchers.Main) {
+                        androidSttManager.stopListening()
+                    }
+                } else {
+                    withContext(Dispatchers.IO) {
+                        sttManager.stopRecording()
+                    }
                 }
             }
             audioEngine.releaseFocus()
         }
+    }
+
+    private fun startRadioMode() {
+        val wsUrl = AssistantApplication.HERMES_WS_URL
+        AssistantApplication.addLog("Radyo Modu Başlatılıyor: $wsUrl")
+        
+        radioSender = com.omoda.lanc.audio.AudioStreamSender(wsUrl)
+        radioReceiver = com.omoda.lanc.audio.AudioStreamReceiver(context, wsUrl)
+        
+        radioReceiver?.startListening()
+        radioSender?.startStreaming()
+        
+        val msg = "Canlı telsiz bağlantısı kuruldu. Konuşabilirsiniz..."
+        AssistantApplication.assistantResponse.value = msg
+        // Ensure the welcome message is spoken aloud via TTS
+        speak(msg)
+    }
+
+    private fun stopRadioMode() {
+        AssistantApplication.addLog("Radyo Modu Durduruluyor")
+        radioSender?.stopStreaming()
+        radioReceiver?.stop()
+        radioSender = null
+        radioReceiver = null
+        resetState()
     }
 
     private fun handleRecordingFinished(audioPath: String) {
@@ -235,7 +277,6 @@ class AssistantController(
     private fun handleAndroidSttResult(text: String) {
         if (text.isNotBlank() && text != "[STT Hazır Değil]") {
             AssistantApplication.recognizedText.value = text
-            // Yerel Komut Kontrolü
             when (val result = commandRouter.analyzeAndExecute(text)) {
                 is CommandResult.Success -> {
                     speak(result.message) { resetState() }
@@ -262,9 +303,11 @@ class AssistantController(
     fun speak(text: String, onComplete: (() -> Unit)? = null) {
         if (text.isBlank()) return
 
+        mqttTelemetryBridge.publishSpeech(text)
+
         EventBus.tryEmit(Event.AIEvent.TTSStarted)
-        Log.d("Omoda-Workflow", ">>> [7] TTS KASKAD BAŞLIYOR: '${text.take(50)}'")
-        AssistantApplication.addLog("TTS Başlatılıyor (Kaskad)")
+        Log.d("Omoda-Workflow", ">>> TTS BAŞLIYOR: '${text.take(50)}'")
+        AssistantApplication.addLog("TTS Başlatılıyor")
         
         audioEngine.requestAssistantFocus()
 
@@ -274,29 +317,21 @@ class AssistantController(
             onComplete?.invoke()
         }
 
-        // 1. ONLINE DENEME (Edge)
-        edgeTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
-            Log.w("Omoda-Workflow", "Edge TTS Hatası, Hermes TTS'e geçiliyor...")
-            AssistantApplication.addLog("Edge Hatası, Hermes'e Geçiliyor")
+        // Sadece HERMES (Yerel Sunucu) ve Fallback olarak Android System TTS
+        hermesTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
+            Log.w("Omoda-Workflow", "Hermes TTS Hatası, Local TTS'e geçiliyor...")
+            AssistantApplication.addLog("Hermes Hatası, Local'e Geçiliyor")
             
-            // 2. HERMES DENEME
-            hermesTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
-                Log.w("Omoda-Workflow", "Hermes TTS Hatası, Local TTS'e geçiliyor...")
-                AssistantApplication.addLog("Hermes Hatası, Local'e Geçiliyor")
-                
-                // 3. LOCAL DENEME (Android Native TTS)
-                androidTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
-                    Log.e("Omoda-Workflow", "Tüm TTS Sistemleri Çöktü!")
-                    AssistantApplication.addLog("HATA: TTS Çöktü")
-                    wrappedOnComplete()
-                })
+            androidTtsManager.speak(text, onComplete = wrappedOnComplete, onError = {
+                Log.e("Omoda-Workflow", "Tüm TTS Sistemleri Çöktü!")
+                AssistantApplication.addLog("HATA: TTS Çöktü")
+                wrappedOnComplete()
             })
         })
     }
 
     private fun stopTts() {
         hermesTtsManager.stop()
-        edgeTtsManager.stop()
         androidTtsManager.stop()
     }
 
@@ -315,8 +350,11 @@ class AssistantController(
     private fun startTimeoutCounter() {
         timeoutJob?.cancel()
         timeoutJob = scope.launch {
-            delay(5000)
-            if (isListening) stopListening()
+            delay(8000)
+            if (isListening) {
+                AssistantApplication.addLog("Zaman aşımı (8s): Dinleme durduruluyor.")
+                stopListening()
+            }
         }
     }
 
@@ -339,7 +377,7 @@ class AssistantController(
     }
 
     fun updateConfig() {
-        hermesClient = HermesClient(AssistantApplication.HERMES_BASE_URL, AssistantApplication.HERMES_API_KEY)
+        hermesClient = HermesClient(AssistantApplication.HERMES_BASE_URL, AssistantApplication.NINEROUTER_API_KEY)
         sttClient = HermesClient(AssistantApplication.STT_BASE_URL, AssistantApplication.NINEROUTER_API_KEY)
         agentManager = createAgentManager()
     }

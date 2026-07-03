@@ -60,74 +60,80 @@ class OtaUpdateManager(private val context: Context) {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
-                if (response.isSuccessful && body != null) {
-                    try {
-                        val releasesArray = org.json.JSONArray(body)
-                        val updates = mutableListOf<AppUpdate>()
+                response.use { resp ->
+                    val body = resp.body?.string()
+                    if (resp.isSuccessful && body != null) {
+                        try {
+                            val releasesArray = org.json.JSONArray(body)
+                            val updates = mutableListOf<AppUpdate>()
 
-                        // Yerel versiyon bilgilerini al
-                        val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-                        @Suppress("DEPRECATION")
-                        val localVersionCode = pInfo.versionCode
+                            // Yerel versiyon bilgilerini al
+                            val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+                            @Suppress("DEPRECATION")
+                            val localVersionCode = pInfo.versionCode
 
-                        // En fazla son 4 sürümü tara
-                        val limit = minOf(releasesArray.length(), 4)
-                        for (r in 0 until limit) {
-                            val json = releasesArray.getJSONObject(r)
-                            val latestVersion = json.getString("tag_name").replace("v", "").trim()
-                            val assets = json.getJSONArray("assets")
+                            // En fazla son 10 sürümü tara (Kullanıcı eski sürümlere de dönmek isteyebilir)
+                            val limit = minOf(releasesArray.length(), 10)
+                            if (limit > 0) {
+                                val latestTag = releasesArray.getJSONObject(0).getString("tag_name")
+                                com.omoda.lanc.AssistantApplication.latestVersion.value = latestTag
+                            }
+                            for (r in 0 until limit) {
+                                val json = releasesArray.getJSONObject(r)
+                                val latestVersion = json.getString("tag_name").replace("v", "").trim()
+                                val assets = json.getJSONArray("assets")
 
-                            // GitHub versiyon kodunu akıllıca ayıkla (örn: 1.0.0.107 -> 107, 8.1.0 -> 810, 6.5.7 -> 657)
-                            val githubVersionCode = try {
-                                val cleanTag = latestVersion.replace("v", "").trim()
-                                val parts = cleanTag.split(".")
-                                when {
-                                    parts.size >= 4 -> parts.last().toInt() // 1.0.0.107 -> 107
-                                    parts.size == 3 -> {
-                                        val major = parts[0].toInt()
-                                        val minor = parts[1].toInt()
-                                        val patch = parts[2].toInt()
-                                        if (major >= 6) {
-                                            (major * 100) + (minor * 10) + patch // 8.1.0 -> 810, 6.5.7 -> 657
-                                        } else {
-                                            patch
+                                // GitHub versiyon kodunu akıllıca ayıkla (örn: 1.0.0.107 -> 107, 8.1.0 -> 810, 6.5.7 -> 657)
+                                val githubVersionCode = try {
+                                    val cleanTag = latestVersion.replace("v", "").trim()
+                                    val parts = cleanTag.split(".")
+                                    when {
+                                        parts.size >= 4 -> parts.last().toInt() // 1.0.0.107 -> 107
+                                        parts.size == 3 -> {
+                                            val major = parts[0].toInt()
+                                            val minor = parts[1].toInt()
+                                            val patch = parts[2].toInt()
+                                            if (major >= 6) {
+                                                (major * 100) + (minor * 10) + patch // 8.1.0 -> 810, 6.5.7 -> 657
+                                            } else {
+                                                patch
+                                            }
                                         }
+                                        else -> cleanTag.replace("[^0-9]".toRegex(), "").toInt()
                                     }
-                                    else -> cleanTag.replace("[^0-9]".toRegex(), "").toInt()
+                                } catch (e: Exception) {
+                                    -1
                                 }
-                            } catch (e: Exception) {
-                                -1
-                            }
 
-                            // Eğer yerel sürümden küçükse bu bir Downgrade (sürüm düşürme) işlemidir
-                            val isDowngrade = githubVersionCode > 0 && githubVersionCode < localVersionCode
+                                // Eğer yerel sürümden küçükse bu bir Downgrade (sürüm düşürme) işlemidir
+                                val isDowngrade = githubVersionCode > 0 && githubVersionCode < localVersionCode
 
-                            for (i in 0 until assets.length()) {
-                                val asset = assets.getJSONObject(i)
-                                val fileName = asset.getString("name")
-                                val downloadUrl = asset.getString("browser_download_url")
-                                val size = asset.getLong("size")
-                                
-                                if (fileName.endsWith(".apk")) {
-                                    val isSystemUpdate = fileName.contains("app-debug") || fileName.contains("app-release")
-                                    updates.add(AppUpdate(
-                                        name = fileName,
-                                        downloadUrl = downloadUrl,
-                                        sizeBytes = size,
-                                        version = latestVersion,
-                                        isSystemUpdate = isSystemUpdate,
-                                        isDowngrade = isDowngrade
-                                    ))
+                                for (i in 0 until assets.length()) {
+                                    val asset = assets.getJSONObject(i)
+                                    val fileName = asset.getString("name")
+                                    val downloadUrl = asset.getString("browser_download_url")
+                                    val size = asset.getLong("size")
+                                    
+                                    if (fileName.endsWith(".apk")) {
+                                        val isSystemUpdate = fileName.contains("app-debug") || fileName.contains("app-release")
+                                        updates.add(AppUpdate(
+                                            name = fileName,
+                                            downloadUrl = downloadUrl,
+                                            sizeBytes = size,
+                                            version = latestVersion,
+                                            isSystemUpdate = isSystemUpdate,
+                                            isDowngrade = isDowngrade
+                                        ))
+                                    }
                                 }
                             }
+                            callback.onUpdatesFound(updates)
+                        } catch (e: Exception) { 
+                            callback.onError("JSON ayrıştırma hatası") 
                         }
-                        callback.onUpdatesFound(updates)
-                    } catch (e: Exception) { 
-                        callback.onError("JSON ayrıştırma hatası") 
+                    } else { 
+                        callback.onError("GitHub API Hatası: ${resp.code}") 
                     }
-                } else { 
-                    callback.onError("GitHub API Hatası: ${response.code}") 
                 }
             }
         })
@@ -141,53 +147,55 @@ class OtaUpdateManager(private val context: Context) {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) { callback.onError(e.message ?: "Ağ hatası") }
             override fun onResponse(call: Call, response: Response) {
-                val body = response.body ?: return callback.onError("Boş yanıt")
-                try {
-                    val totalBytes = body.contentLength()
-                    val destination = File(context.getExternalFilesDir(null), update.name)
-                    val inputStream = body.byteStream()
-                    val outputStream = FileOutputStream(destination)
-                    val buffer = ByteArray(8192)
-                    var read: Int
-                    var totalRead = 0L
-                    val start = System.currentTimeMillis()
-                    var lastUpdate = start
+                response.use { resp ->
+                    val body = resp.body ?: return callback.onError("Boş yanıt")
+                    try {
+                        val totalBytes = body.contentLength()
+                        val destination = File(context.getExternalFilesDir(null), update.name)
+                        val inputStream = body.byteStream()
+                        val outputStream = FileOutputStream(destination)
+                        val buffer = ByteArray(8192)
+                        var read: Int
+                        var totalRead = 0L
+                        val start = System.currentTimeMillis()
+                        var lastUpdate = start
 
-                    while (inputStream.read(buffer).also { read = it } != -1) {
-                        outputStream.write(buffer, 0, read)
-                        totalRead += read
-                        val now = System.currentTimeMillis()
-                        if (now - lastUpdate > 500) {
-                            val pct = if (totalBytes > 0) (totalRead * 100 / totalBytes).toInt() else 0
-                            val elapsedSec = (now - start) / 1000.0
-                            val speedMbps = if (elapsedSec > 0) ((totalRead * 8) / 1_000_000.0) / elapsedSec else 0.0
-                            
-                            callback.onProgress(pct, speedMbps)
-                            
-                            // Ekrandaki sabit indirme alanını güncelle
-                            val progressStr = String.format("İndiriliyor: %d%% (%.1f Mbps)", pct, speedMbps)
-                            com.omoda.lanc.AssistantApplication.downloadProgressText.value = progressStr
-                            
-                            lastUpdate = now
+                        while (inputStream.read(buffer).also { read = it } != -1) {
+                            outputStream.write(buffer, 0, read)
+                            totalRead += read
+                            val now = System.currentTimeMillis()
+                            if (now - lastUpdate > 500) {
+                                val pct = if (totalBytes > 0) (totalRead * 100 / totalBytes).toInt() else 0
+                                val elapsedSec = (now - start) / 1000.0
+                                val speedMbps = if (elapsedSec > 0) ((totalRead * 8) / 1_000_000.0) / elapsedSec else 0.0
+                                
+                                callback.onProgress(pct, speedMbps)
+                                
+                                // Ekrandaki sabit indirme alanını güncelle
+                                val progressStr = String.format("İndiriliyor: %d%% (%.1f Mbps)", pct, speedMbps)
+                                com.omoda.lanc.AssistantApplication.downloadProgressText.value = progressStr
+                                
+                                lastUpdate = now
+                            }
                         }
+                        outputStream.flush()
+                        outputStream.close()
+                        inputStream.close()
+                        
+                        com.omoda.lanc.AssistantApplication.downloadProgressText.value = "Yükleniyor..."
+                        // 2 saniye sonra ekranı temizle
+                        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                            com.omoda.lanc.AssistantApplication.downloadProgressText.value = null
+                        }, 3000)
+                        
+                        callback.onComplete(destination)
+                    } catch (e: Exception) { 
+                        com.omoda.lanc.AssistantApplication.downloadProgressText.value = "İndirme Hatası!"
+                        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                            com.omoda.lanc.AssistantApplication.downloadProgressText.value = null
+                        }, 3000)
+                        callback.onError(e.message ?: "Yazma hatası") 
                     }
-                    outputStream.flush()
-                    outputStream.close()
-                    inputStream.close()
-                    
-                    com.omoda.lanc.AssistantApplication.downloadProgressText.value = "Yükleniyor..."
-                    // 2 saniye sonra ekranı temizle
-                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                        com.omoda.lanc.AssistantApplication.downloadProgressText.value = null
-                    }, 3000)
-                    
-                    callback.onComplete(destination)
-                } catch (e: Exception) { 
-                    com.omoda.lanc.AssistantApplication.downloadProgressText.value = "İndirme Hatası!"
-                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                        com.omoda.lanc.AssistantApplication.downloadProgressText.value = null
-                    }, 3000)
-                    callback.onError(e.message ?: "Yazma hatası") 
                 }
             }
         })

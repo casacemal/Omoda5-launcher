@@ -13,6 +13,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.omoda.lanc.AssistantApplication
@@ -21,14 +22,15 @@ import com.omoda.lanc.core.Event
 import com.omoda.lanc.core.EventBus
 import com.omoda.lanc.network.AdbClient
 import com.omoda.lanc.vehicle.VehicleLayer
+import com.omoda.lanc.audio.AudioStreamReceiver
+import com.omoda.lanc.audio.AudioStreamSender
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 /**
- * VoiceAssistantService - PDF Plan v2.0
- * Sadece yaşam döngüsü, bildirimler ve sistem yayınlarını yönetir.
- * İş mantığı AssistantController'a devredilmiştir.
+ * VoiceAssistantService - Merkezi Altyapı Servisi
+ * Yaşam döngüsü, bildirimler, telsiz (intercom) ve telemetri bildirimlerini yönetir.
  */
 class VoiceAssistantService : Service() {
 
@@ -41,11 +43,20 @@ class VoiceAssistantService : Service() {
 
     internal var locationManager: LocationManager? = null
 
+    // Hermes Altyapı Bileşenleri (Eski HermesForegroundService'den taşındı)
+    private var radioReceiver: AudioStreamReceiver? = null
+    private var radioSender: AudioStreamSender? = null
+    private var wakeLock: PowerManager.WakeLock? = null
+
     private val locationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             val gpsSpeedKmh = if (location.hasSpeed()) location.speed * 3.6f else -1f
             serviceScope.launch {
-                EventBus.emit(Event.VehicleEvent.SpeedChanged(gpsSpeedKmh))
+                EventBus.emit(Event.VehicleEvent.GpsLocationChanged(
+                    location.latitude,
+                    location.longitude,
+                    gpsSpeedKmh
+                ))
             }
         }
         @Deprecated("Deprecated in Java")
@@ -78,12 +89,16 @@ class VoiceAssistantService : Service() {
 
     override fun onCreate() {
         createNotificationChannel()
+        val notification = createNotification()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            startForeground(1, createNotification(), android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE)
+            startForeground(1, notification, android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE)
         } else {
-            startForeground(1, createNotification())
+            startForeground(1, notification)
         }
         super.onCreate()
+
+        acquireWakeLock()
+        initHermesInfrastructure()
 
         serviceScope.launch {
             assistantController = AssistantController(this@VoiceAssistantService, serviceScope)
@@ -108,7 +123,6 @@ class VoiceAssistantService : Service() {
                 registerReceiver(voiceCommandReceiver, filter)
             }
 
-            // WakeWord Entegrasyonu
             wakeWordManager = com.omoda.lanc.stt.WakeWordManager(this@VoiceAssistantService) { command ->
                 if (command.isNotBlank()) {
                     assistantController.processText(command)
@@ -125,40 +139,66 @@ class VoiceAssistantService : Service() {
             }
 
             launch {
+                AssistantApplication.isListening.collect { listening ->
+                    wakeWordManager?.setAssistantActive(listening)
+                }
+            }
+
+            launch {
                 combine(
-                    AssistantApplication.serverIp,
-                    AssistantApplication.hermesPort,
-                    AssistantApplication.sttPort,
-                    AssistantApplication.ttsPort
-                ) { _, _, _, _ -> Unit }
+                    listOf(
+                        AssistantApplication.serverIp,
+                        AssistantApplication.hermesPort,
+                        AssistantApplication.sttPort,
+                        AssistantApplication.ttsPort,
+                        AssistantApplication.isBridgeMode,
+                        AssistantApplication.bridgeServerIp,
+                        AssistantApplication.bridgeType
+                    )
+                ) { _ -> Unit }
                     .distinctUntilChanged()
-                    .collect { assistantController.updateConfig() }
+                    .collect { 
+                        assistantController.updateConfig() 
+                        restartHermesInfrastructure()
+                    }
             }
 
             autoGrantPermissions()
         }
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(Intent(this, HermesForegroundService::class.java))
-        } else {
-            startService(Intent(this, HermesForegroundService::class.java))
-        }
+    private fun initHermesInfrastructure() {
+        if (!AssistantApplication.isRadioMode.value) return
+        
+        val baseUrl = AssistantApplication.activeServerIp.value
+        val port = AssistantApplication.hermesPort.value
+        
+        radioReceiver = AudioStreamReceiver(applicationContext, "ws://$baseUrl:$port/v1/events")
+        radioSender = AudioStreamSender("ws://$baseUrl:$port/v1/events")
+        
+        radioReceiver?.startListening()
+        radioSender?.startStreaming()
+    }
+
+    private fun restartHermesInfrastructure() {
+        radioReceiver?.stop()
+        radioSender?.stopStreaming()
+        initHermesInfrastructure()
+    }
+
+    private fun acquireWakeLock() {
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Omoda::WakeLock")
+        wakeLock?.acquire(10 * 60 * 1000L)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            startForeground(1, createNotification(), android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE)
-        } else {
-            startForeground(1, createNotification())
-        }
         return START_STICKY
     }
 
-
-
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val chan = NotificationChannel(CHANNEL_ID, "Assistant", NotificationManager.IMPORTANCE_LOW)
+            val chan = NotificationChannel(CHANNEL_ID, "Omoda Assistant", NotificationManager.IMPORTANCE_LOW)
             (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(chan)
         }
     }
@@ -166,14 +206,20 @@ class VoiceAssistantService : Service() {
     private fun createNotification(): Notification = NotificationCompat.Builder(this, CHANNEL_ID)
         .setSmallIcon(android.R.drawable.ic_btn_speak_now)
         .setContentTitle("Omoda Assistant Active")
+        .setContentText("Sesli asistan ve telsiz altyapısı çalışıyor")
+        .setPriority(NotificationCompat.PRIORITY_LOW)
         .build()
 
     override fun onBind(intent: Intent?) = null
     
     override fun onDestroy() {
         locationManager?.removeUpdates(locationListener)
-        stopService(Intent(this, HermesForegroundService::class.java))
         unregisterReceiver(voiceCommandReceiver)
+        
+        radioReceiver?.stop()
+        radioSender?.stopStreaming()
+        if (wakeLock?.isHeld == true) wakeLock?.release()
+        
         assistantController.destroy()
         vehicleLayer.destroy()
         serviceScope.cancel()
@@ -181,7 +227,7 @@ class VoiceAssistantService : Service() {
     }
 
     private fun autoGrantPermissions() {
-        val pkg = "com.omoda.lanc"
+        val pkg = packageName
         val perms = listOf(
             android.Manifest.permission.RECORD_AUDIO,
             android.Manifest.permission.READ_EXTERNAL_STORAGE,

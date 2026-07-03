@@ -1,21 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:97:9-105:20
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:90:9-98:20
 	android:grantUriPermissions
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:101:13-47
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:94:13-47
 	android:authorities
 		INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:99:13-64
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:92:13-64
 	android:exported
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:100:13-37
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:13-37
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:98:13-62
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:91:13-62
 manifest
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-119:12
-MERGED from [sherpa-onnx-1.13.2.aar] /home/cemal/.gradle/caches/transforms-4/a74e105e4b702752a89169b47d769475/transformed/sherpa-onnx-1.13.2/AndroidManifest.xml:2:1-7:12
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-112:12
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-112:12
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-112:12
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:1-112:12
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.navigation:navigation-common:2.7.6] /home/cemal/.gradle/caches/transforms-4/c11d0ab05ae2fad46ab4fcc9b9d542b3/transformed/navigation-common-2.7.6/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-runtime:2.7.6] /home/cemal/.gradle/caches/transforms-4/31d8b603c61d421f5fb20e4912a48393/transformed/navigation-runtime-2.7.6/AndroidManifest.xml:17:1-22:12
@@ -66,8 +65,6 @@ MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /home/cemal/.gr
 MERGED from [androidx.transition:transition:1.2.0] /home/cemal/.gradle/caches/transforms-4/94dbdf117b9a5a171be2906fbca6528d/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/cemal/.gradle/caches/transforms-4/9510d005b53574043e8d3000d6072892/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/cemal/.gradle/caches/transforms-4/ffaa0576b6f8c55e83e72d614a1797bb/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [ai.picovoice:porcupine-android:3.0.1] /home/cemal/.gradle/caches/transforms-4/884f6064d2bb2c61ac7e7ab814d0fb91/transformed/porcupine-android-3.0.1/AndroidManifest.xml:2:1-11:12
-MERGED from [ai.picovoice:android-voice-processor:1.0.2] /home/cemal/.gradle/caches/transforms-4/68b5a694be265391841098e1cc116912/transformed/android-voice-processor-1.0.2/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /home/cemal/.gradle/caches/transforms-4/b1566272d08882d1eea81b381e39a058/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/cemal/.gradle/caches/transforms-4/f2d0dbb4668a7eaae94afb5c17ec8fff/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.1.0] /home/cemal/.gradle/caches/transforms-4/7313f5f264959c0d8210a6f1c10e4e5b/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
@@ -83,7 +80,6 @@ MERGED from [androidx.activity:activity-ktx:1.9.0] /home/cemal/.gradle/caches/tr
 MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] /home/cemal/.gradle/caches/transforms-4/aa8bfaf4b6c0526e6cafb7bf95c41035/transformed/lifecycle-runtime-ktx-2.7.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/3c9d1fff1a049cdd7eb56aa2b76de566/transformed/runtime-saveable-release/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/571a2b180210b31d854215d2f7fdb75d/transformed/runtime-release/AndroidManifest.xml:2:1-7:12
-MERGED from [net.java.dev.jna:jna:5.13.0] /home/cemal/.gradle/caches/transforms-4/10774d49cf2be61068b9c88def0ecca4/transformed/jna-5.13.0/AndroidManifest.xml:2:1-8:12
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/cemal/.gradle/caches/transforms-4/e5cc20bd89db3daaf965d592dc5804f4/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/cemal/.gradle/caches/transforms-4/2a4e00adab19264c07c956eb9907208e/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/cemal/.gradle/caches/transforms-4/5ffea282f65e1e641cf9fff454ceb667/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -97,7 +93,6 @@ MERGED from [androidx.documentfile:documentfile:1.0.0] /home/cemal/.gradle/cache
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/cemal/.gradle/caches/transforms-4/1541714863064c2368eb77b0db00b22e/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] /home/cemal/.gradle/caches/transforms-4/3dac20f5caf99573349f6b057d55e6b6/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
 	package
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:4:5-29
 		INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
@@ -108,132 +103,132 @@ MERGED from [androidx.print:print:1.0.0] /home/cemal/.gradle/caches/transforms-4
 	xmlns:android
 		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:5-67
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:5:5-67
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:22-64
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:5:22-64
 uses-permission#android.permission.WAKE_LOCK
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:5-68
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:5-68
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:22-65
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:22-65
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:5-71
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:5-71
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:22-68
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:22-68
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:5-78
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:5-78
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:22-75
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:22-75
 uses-permission#android.permission.FOREGROUND_SERVICE
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:5-77
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:5-77
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:22-74
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:22-74
 uses-permission#android.permission.FOREGROUND_SERVICE_MICROPHONE
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:5-88
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:5-88
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:22-85
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:22-85
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:5-79
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:5-79
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:22-76
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:22-76
 uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:13:5-80
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:5-80
+	android:name
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:22-77
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:13:5-14:38
+	android:maxSdkVersion
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:14:9-35
 	android:name
 		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:13:22-77
-uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:14:5-15:38
-	android:maxSdkVersion
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:15:9-35
-	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:14:22-77
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:16:5-17:38
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:15:5-16:38
 	android:maxSdkVersion
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:17:9-35
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:16:9-35
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:16:22-78
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:15:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:5-79
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:17:5-79
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:22-76
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:17:22-76
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:5-81
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:5-81
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:22-78
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:22-78
 uses-permission#android.permission.DUMP
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:20:5-63
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:5-63
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:20:22-60
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:22-60
 uses-permission#android.permission.QUERY_ALL_PACKAGES
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:23:5-24:53
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:22:5-23:53
 	tools:ignore
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:24:9-50
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:23:9-50
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:23:22-74
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:22:22-74
 uses-permission#android.permission.PACKAGE_USAGE_STATS
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:25:5-26:47
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:24:5-25:47
 	tools:ignore
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:26:9-44
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:25:9-44
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:25:22-75
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:24:22-75
 uses-permission#android.permission.BIND_ACCESSIBILITY_SERVICE
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:5-85
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:26:5-85
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:22-82
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:26:22-82
 uses-permission#android.permission.BIND_NOTIFICATION_LISTENER_SERVICE
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:28:5-29:47
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:5-28:47
 	tools:ignore
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:29:9-44
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:28:9-44
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:28:22-90
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:22-90
 uses-permission#android.permission.WRITE_SECURE_SETTINGS
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:5-80
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:29:5-80
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:22-77
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:29:22-77
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:5-81
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:5-81
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:22-78
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:22-78
 uses-permission#android.permission.REQUEST_INSTALL_PACKAGES
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:32:5-33:55
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:5-32:55
 	tools:ignore
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:33:9-52
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:32:9-52
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:32:22-80
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:22-80
 uses-permission#android.permission.MEDIA_CONTENT_CONTROL
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:5-80
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:33:5-80
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:22-77
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:33:22-77
 uses-permission#android.permission.BLUETOOTH
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:5-68
+	android:name
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:22-65
+uses-permission#android.permission.READ_LOGS
 ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:35:5-68
 	android:name
 		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:35:22-65
-uses-permission#android.permission.READ_LOGS
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:36:5-68
-	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:36:22-65
 uses-permission#android.car.permission.CAR_SPEED
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:5-72
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:37:5-72
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:22-69
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:37:22-69
 uses-permission#android.car.permission.CAR_INFO
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:5-71
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:5-71
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:22-68
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:22-68
 uses-permission#android.car.permission.CAR_ENERGY
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:5-73
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:5-73
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:22-70
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:22-70
 uses-permission#android.car.permission.CAR_EXTERIOR_ENVIRONMENT
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:5-87
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:5-87
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:22-84
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:22-84
 uses-permission#android.car.permission.CAR_POWERTRAIN
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:42:5-77
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:5-77
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:42:22-74
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:22-74
 application
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:5-107:19
-INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:5-107:19
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:43:5-100:19
+INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:43:5-100:19
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /home/cemal/.gradle/caches/transforms-4/cf067714c92fca073ae3b288b21a3023/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
@@ -257,143 +252,131 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /home/cemal/.gradle/caches/
 	android:extractNativeLibs
 		INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
 	android:requestLegacyExternalStorage
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:52:9-52
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:51:9-52
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] /home/cemal/.gradle/caches/transforms-4/e025f996adad7c4bb0e5587bfafcf4bf/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:50:9-35
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:49:9-35
 	android:label
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:48:9-38
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:47:9-38
 	android:roundIcon
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:49:9-54
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:48:9-54
 	android:icon
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:47:9-43
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:46:9-43
 	android:allowBackup
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:46:9-35
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:45:9-35
 	android:theme
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:53:9-59
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:52:9-59
 	android:usesCleartextTraffic
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:51:9-44
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:50:9-44
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:45:9-45
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:9-45
 activity#com.omoda.lanc.MainActivity
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:55:9-68:20
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:54:9-67:20
 	android:screenOrientation
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:59:13-50
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:58:13-50
 	android:launchMode
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:58:13-44
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:57:13-44
 	android:exported
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:57:13-36
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:56:13-36
 	android:configChanges
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:60:13-87
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:59:13-87
 	android:theme
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:61:13-63
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:60:13-63
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:56:13-41
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:55:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.HOME+category:name:android.intent.category.LAUNCHER
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:62:13-67:29
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:61:13-66:29
 action#android.intent.action.MAIN
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:17-69
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:62:17-69
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:25-66
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:62:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:17-77
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:17-77
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:27-74
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:27-74
 category#android.intent.category.HOME
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:17-73
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:17-73
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:27-70
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:27-70
 category#android.intent.category.DEFAULT
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:66:17-76
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:17-76
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:66:27-73
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:27-73
 service#com.omoda.lanc.service.VoiceAssistantService
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:70:9-74:58
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:69:9-73:58
 	android:enabled
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:72:13-35
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:71:13-35
 	android:exported
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:73:13-36
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:72:13-36
 	android:foregroundServiceType
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:74:13-55
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:73:13-55
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:71:13-58
-service#com.omoda.lanc.service.HermesForegroundService
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:76:9-80:61
-	android:enabled
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:78:13-35
-	android:exported
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:79:13-37
-	android:foregroundServiceType
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:80:13-58
-	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:77:13-60
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:70:13-58
 service#com.omoda.lanc.service.AdbBridgeService
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:82:9-85:40
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:75:9-78:40
 	android:enabled
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:84:13-35
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:77:13-35
 	android:exported
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:85:13-37
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:78:13-37
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:83:13-53
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:76:13-53
 service#com.omoda.lanc.service.MediaNotificationListener
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:87:9-95:19
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:80:9-88:19
 	android:label
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:89:13-49
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:82:13-49
 	android:exported
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:91:13-36
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:84:13-36
 	android:permission
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:90:13-87
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:83:13-87
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:88:13-62
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:81:13-62
 intent-filter#action:name:android.service.notification.NotificationListenerService
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:92:13-94:29
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:85:13-87:29
 action#android.service.notification.NotificationListenerService
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:17-99
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:86:17-99
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:25-96
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:86:25-96
 queries
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:109:5-117:15
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:102:5-110:15
 package#com.google.android.apps.maps
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:110:9-64
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:9-64
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:110:18-61
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:18-61
 package#com.chery.media
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:111:9-51
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:9-51
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:111:18-48
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:18-48
 package#com.chery.hvac
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:112:9-50
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:105:9-50
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:112:18-47
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:105:18-47
 package#com.yfve.hvac
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:113:9-49
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:106:9-49
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:113:18-46
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:106:18-46
 package#in.krosbits.musicolet
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:114:9-57
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:107:9-57
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:114:18-54
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:107:18-54
 package#com.spotify.music
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:115:9-53
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:108:9-53
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:115:18-50
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:108:18-50
 package#com.vivaldi.browser
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:116:9-55
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:109:9-55
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:116:18-52
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:109:18-52
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:102:13-104:54
+ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:95:13-97:54
 	android:resource
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:17-51
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:97:17-51
 	android:name
-		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:17-67
+		ADDED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:96:17-67
 uses-sdk
 INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
 INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
-MERGED from [sherpa-onnx-1.13.2.aar] /home/cemal/.gradle/caches/transforms-4/a74e105e4b702752a89169b47d769475/transformed/sherpa-onnx-1.13.2/AndroidManifest.xml:5:5-44
-MERGED from [sherpa-onnx-1.13.2.aar] /home/cemal/.gradle/caches/transforms-4/a74e105e4b702752a89169b47d769475/transformed/sherpa-onnx-1.13.2/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.11.0] /home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.navigation:navigation-common:2.7.6] /home/cemal/.gradle/caches/transforms-4/c11d0ab05ae2fad46ab4fcc9b9d542b3/transformed/navigation-common-2.7.6/AndroidManifest.xml:20:5-44
@@ -494,10 +477,6 @@ MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/cemal/
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/cemal/.gradle/caches/transforms-4/9510d005b53574043e8d3000d6072892/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/cemal/.gradle/caches/transforms-4/ffaa0576b6f8c55e83e72d614a1797bb/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/cemal/.gradle/caches/transforms-4/ffaa0576b6f8c55e83e72d614a1797bb/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [ai.picovoice:porcupine-android:3.0.1] /home/cemal/.gradle/caches/transforms-4/884f6064d2bb2c61ac7e7ab814d0fb91/transformed/porcupine-android-3.0.1/AndroidManifest.xml:7:5-9:41
-MERGED from [ai.picovoice:porcupine-android:3.0.1] /home/cemal/.gradle/caches/transforms-4/884f6064d2bb2c61ac7e7ab814d0fb91/transformed/porcupine-android-3.0.1/AndroidManifest.xml:7:5-9:41
-MERGED from [ai.picovoice:android-voice-processor:1.0.2] /home/cemal/.gradle/caches/transforms-4/68b5a694be265391841098e1cc116912/transformed/android-voice-processor-1.0.2/AndroidManifest.xml:7:5-9:41
-MERGED from [ai.picovoice:android-voice-processor:1.0.2] /home/cemal/.gradle/caches/transforms-4/68b5a694be265391841098e1cc116912/transformed/android-voice-processor-1.0.2/AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.viewpager:viewpager:1.0.0] /home/cemal/.gradle/caches/transforms-4/b1566272d08882d1eea81b381e39a058/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] /home/cemal/.gradle/caches/transforms-4/b1566272d08882d1eea81b381e39a058/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.recyclerview:recyclerview:1.1.0] /home/cemal/.gradle/caches/transforms-4/f2d0dbb4668a7eaae94afb5c17ec8fff/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
@@ -528,8 +507,6 @@ MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/cema
 MERGED from [androidx.compose.runtime:runtime-saveable-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/3c9d1fff1a049cdd7eb56aa2b76de566/transformed/runtime-saveable-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/571a2b180210b31d854215d2f7fdb75d/transformed/runtime-release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.runtime:runtime-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/571a2b180210b31d854215d2f7fdb75d/transformed/runtime-release/AndroidManifest.xml:5:5-44
-MERGED from [net.java.dev.jna:jna:5.13.0] /home/cemal/.gradle/caches/transforms-4/10774d49cf2be61068b9c88def0ecca4/transformed/jna-5.13.0/AndroidManifest.xml:7:5-47
-MERGED from [net.java.dev.jna:jna:5.13.0] /home/cemal/.gradle/caches/transforms-4/10774d49cf2be61068b9c88def0ecca4/transformed/jna-5.13.0/AndroidManifest.xml:7:5-47
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/cemal/.gradle/caches/transforms-4/e5cc20bd89db3daaf965d592dc5804f4/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] /home/cemal/.gradle/caches/transforms-4/e5cc20bd89db3daaf965d592dc5804f4/transformed/annotation-experimental-1.4.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/cemal/.gradle/caches/transforms-4/2a4e00adab19264c07c956eb9907208e/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
@@ -558,7 +535,6 @@ MERGED from [androidx.print:print:1.0.0] /home/cemal/.gradle/caches/transforms-4
 		INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
-		MERGED from /mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml
 activity#androidx.compose.ui.tooling.PreviewActivity
 ADDED from [androidx.compose.ui:ui-tooling-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/fe965c861a350e8fb6cc936a0a14333b/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
 	android:exported

@@ -18,16 +18,16 @@ object NetworkModule {
 
     val sseClient = OkHttpClient.Builder()
         .readTimeout(0, TimeUnit.MILLISECONDS)
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
-        .retryOnConnectionFailure(false)
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(10, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(true)
         .addInterceptor(loggingInterceptor)
         .build()
 
     val robustClient = OkHttpClient.Builder()
-        .readTimeout(30, TimeUnit.SECONDS) 
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(45, TimeUnit.SECONDS) 
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(45, TimeUnit.SECONDS)
         .retryOnConnectionFailure(true)
         .addInterceptor(loggingInterceptor)
         .addInterceptor(object : Interceptor {
@@ -36,18 +36,21 @@ object NetworkModule {
                 var response: Response? = null
                 var lastException: Exception? = null
                 var tryCount = 0
-                val maxLimit = 3
+                val maxLimit = 2 // Deneme sayısını 2'ye düşürdük (Hızlı hata için)
 
-                while (tryCount < maxLimit && (response == null || !response.isSuccessful)) {
+                while (tryCount < maxLimit) {
                     try {
                         response?.close()
                         if (tryCount > 0) {
                             Log.w(TAG, "Bağlantı hatası, tekrar deneniyor... Deneme: $tryCount")
-                            Thread.sleep(1000)
+                            Thread.sleep(500)
                         }
                         response = chain.proceed(request)
+                        if (response.isSuccessful) break
                     } catch (e: Exception) {
                         lastException = e
+                        // Eğer zaman aşımı ise ve ilk deneme ise bir kez daha dene
+                        if (tryCount >= maxLimit - 1) throw e
                     }
                     tryCount++
                 }

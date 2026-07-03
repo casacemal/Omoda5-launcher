@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.omoda.lanc.app-mergeDebugResources-66:/values-pt-rBR/values-pt-rBR.xml",
+            "outputFile": "com.omoda.lanc.app-mergeDebugResources-64:/values-pt-rBR/values-pt-rBR.xml",
             "map": [
                 {
                     "source": "/home/cemal/.gradle/caches/transforms-4/85109100f64a0ba8b09f0b6064a9aeb9/transformed/foundation-release/res/values-pt-rBR/values-pt-rBR.xml",

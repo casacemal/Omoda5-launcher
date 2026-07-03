@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.omoda.lanc.app-mergeDebugResources-66:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "outputFile": "com.omoda.lanc.app-mergeDebugResources-64:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
                     "source": "/home/cemal/.gradle/caches/transforms-4/2ddfcb115ff36a1b0ca1d87f3f471e09/transformed/material-1.11.0/res/values-ldrtl-v17/values-ldrtl-v17.xml",

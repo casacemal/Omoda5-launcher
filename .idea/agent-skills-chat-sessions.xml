@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AgentSkillsChatSessions">
+    <option name="sessions">
+      <map>
+        <entry key="53ec231f-5b03-4764-9f03-b97d904b1f4e">
+          <value>
+            <Session>
+              <option name="updatedAtEpochMs" value="1782943561167" />
+            </Session>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

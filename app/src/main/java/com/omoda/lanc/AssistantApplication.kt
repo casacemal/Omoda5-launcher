@@ -2,12 +2,12 @@ package com.omoda.lanc
 
 import android.app.Application
 import android.os.Build
-import android.util.Log
 import com.omoda.lanc.config.AppConfig
 import com.omoda.lanc.config.ConfigManager
 import com.omoda.lanc.core.VehicleController
 import com.omoda.lanc.mqtt.MqttPublisher
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.util.*
 
 class AssistantApplication : Application() {
     companion object {
@@ -24,55 +24,35 @@ class AssistantApplication : Application() {
         val isListening = MutableStateFlow(false)
         val currentAmplitude = MutableStateFlow(0)
         
-        val serverIp = MutableStateFlow("homeassistant.tailnet-4f03.ts.net") // Yeni varsayılan
-        val hermesPort = MutableStateFlow("20128")
+        val serverIp = MutableStateFlow("100.95.239.119")
+        val bridgeServerIp = MutableStateFlow("100.95.239.119")
+        val bridgeType = MutableStateFlow("WYOMING")
+        val hermesPort = MutableStateFlow("8642")
         val sttPort = MutableStateFlow("20128")
         val ttsPort = MutableStateFlow("20128")
         
-        val safeServerIp: String get() = serverIp.value.trim()
+        val safeServerIp: String get() = activeServerIp.value.trim()
         val safeSttPort: String get() = sttPort.value.trim()
         
-        // Kimlik ve Oturum Yönetimi (Sürüm 5.0)
         val vehicleId = MutableStateFlow("OMODA5_T19C_001")
         val sessionKey = MutableStateFlow("user:ahmet:master_profile")
-        
-        // Çalışma Modları (Sürüm 5.0)
         val currentMode = MutableStateFlow("ASISTANT")
+        val sttMode = MutableStateFlow("HERMES")
+        val ttsEngine = MutableStateFlow("HERMES")
         
-        val sttMode = MutableStateFlow("BULUT") // Varsayılan olarak BULUT (Groq) seçildi
-        val ttsEngine = MutableStateFlow("EDGE") // Kaynak projedeki motor
-        
-        // Proaktif Sesli/Görsel Uyarı Durumu (Kırmızı Alert Kartı)
         val proactiveWarning = MutableStateFlow<String?>(null)
-        
-        // Harici Uzak ADB Bağlantı Durumu
         val isRemoteAdbConnected = MutableStateFlow(false)
-        
-        // OTA İndirme Durumu (Ekranda sabit kalması için)
         val downloadProgressText = MutableStateFlow<String?>(null)
-        
-        // MQTT Log Listesi (Canlı Log Ekranı için)
         val mqttLogList = MutableStateFlow<List<String>>(emptyList())
         
         fun addMqttLog(log: String) {
             val current = mqttLogList.value.toMutableList()
-            current.add(0, log) // En yeni log en üstte
+            current.add(0, log)
             if (current.size > 50) {
                 current.removeAt(current.size - 1)
             }
             mqttLogList.value = current
         }
-        
-        // Edge TTS Ayarları
-        val edgeVoiceName = MutableStateFlow("tr-TR-EmelNeural")
-        val edgePitch = MutableStateFlow("+0Hz")
-        val edgeRate = MutableStateFlow("+0%")
-        
-        // Tailscale (TSNet) Yapılandırması
-        val tailscaleKey = MutableStateFlow("tskey-auth-kc4mkwRGiw11CNTRL-kQYBK24x1PEnxoYRF3BoGEQAZRzMMhDWb")
-        val tailscaleStatus = MutableStateFlow("Bilinmiyor")
-        val isTailscaleEnabled = MutableStateFlow(true)
-        val useTls = MutableStateFlow(true)
         
         val useHermesSpeech = MutableStateFlow(true)
         val isOnlineMode = MutableStateFlow(true)
@@ -80,27 +60,41 @@ class AssistantApplication : Application() {
         val isWakeWordEnabled = MutableStateFlow(true)
         val micSource = MutableStateFlow("MIC")
 
-        // MQTT Simülatör ve Köprü
         val isSimulationMode = MutableStateFlow(false)
+        val isRadioMode = MutableStateFlow(false) // Normal asistan modu varsayılan
         val isBridgeMode = MutableStateFlow(false)
         val isMqttConnected = MutableStateFlow(false)
+        val isVpnConnected = MutableStateFlow(false)
 
-        // Akıllı Çift Ağ Rota Yönlendirici (Tailscale & Yerel Ağ Kesintisiz)
         val activeServerIp = MutableStateFlow(serverIp.value)
-        val localBackupIp = MutableStateFlow("192.168.1.24") // Yerel ağ yedek IP'si (Home Assistant / Sunucu IP)
 
-        val HERMES_BASE_URL: String get() = "http://${activeServerIp.value}:${hermesPort.value}/v1"
-        val STT_BASE_URL: String get() = "http://${activeServerIp.value}:${sttPort.value}/v1"
-        val TTS_BASE_URL: String get() = "http://${activeServerIp.value}:${ttsPort.value}/v1"
+        val BRIDGE_URL: String get() = "http://${bridgeServerIp.value}:5000/v1"
+
+        val HERMES_BASE_URL: String get() = if (isBridgeMode.value) {
+            if (bridgeType.value == "WHISPER") "http://192.168.1.29:10301/v1" // STT focus for base
+            else BRIDGE_URL
+        } else {
+            "http://${activeServerIp.value}:${hermesPort.value}/v1"
+        }
+
+        val HERMES_WS_URL: String get() = "ws://${activeServerIp.value}:${hermesPort.value}/v1/events"
+
+        val STT_BASE_URL: String get() = if (isBridgeMode.value) {
+            if (bridgeType.value == "WHISPER") "http://192.168.1.29:10301/v1"
+            else BRIDGE_URL
+        } else {
+            "http://${activeServerIp.value}:${sttPort.value}/v1"
+        }
+
+        val TTS_BASE_URL: String get() = if (isBridgeMode.value) {
+            if (bridgeType.value == "WHISPER") "http://192.168.1.29:10201/v1"
+            else BRIDGE_URL
+        } else {
+            "http://${activeServerIp.value}:${ttsPort.value}/v1"
+        }
         
-        // Cloud Fallbacks (KESİN VE DEĞİŞMEZ AYARLAR)
-        const val CLOUD_TTS_URL = "https://api.openai.com/v1" 
-        const val GROQ_BASE_URL = "https://api.groq.com/openai/v1"
         const val HERMES_API_KEY="cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34"
-        const val NINEROUTER_API_KEY = "sk-b6f4d3879cc4a442-vwd4xl-8ad79a58"
-        const val EDGE_TTS_TOKEN = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
-        val groqApiKey = MutableStateFlow("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")
-        const val GROQ_STT_MODEL = "whisper-large-v3"
+        const val NINEROUTER_API_KEY="sk-b6f4d3879cc4a442-vwd4xl-8ad79a58"
         val hermesConnectionStatus = MutableStateFlow("DISCONNECTED")
 
         val ledKey = MutableStateFlow(false)
@@ -108,49 +102,42 @@ class AssistantApplication : Application() {
         val ledStt = MutableStateFlow(false)
         val ledLlm = MutableStateFlow(false)
         val ledTts = MutableStateFlow(false)
+        
+        val workflowState = MutableStateFlow("IDLE") // IDLE, LISTENING, THINKING, TALKING
 
-        // MQTT Publisher
         val mqttPublisher = MqttPublisher()
         val mqttEnabled = MutableStateFlow(true)
 
-        const val HERMES_CHAT_MODEL = "asist_genel"
-        const val STT_MODEL = "whisper-1"
-        const val PICOVOICE_ACCESS_KEY = ""
+        const val HERMES_CHAT_MODEL = "asistan"
+        const val STT_MODEL = "groq/whisper-large-v3-turbo"
         
         val hasInternetConnection = MutableStateFlow(false)
         val isAdbConnected = MutableStateFlow(false)
-
         val systemLogs = MutableStateFlow(listOf<String>())
+        val latestVersion = MutableStateFlow("v---")
 
         val micCaptureProfile = MutableStateFlow("VOICE_RECOGNITION")
-        val micCaptureDetail = MutableStateFlow("Henüz seçilmedi")
-        val useHermesDecision = MutableStateFlow(false) // Akıllı Karar (Hermes v1/responses) Modu
+        val useHermesDecision = MutableStateFlow(false)
         val isAutoTasksEnabled = MutableStateFlow(true)
         
-        val sherpaSttModelInstallState = MutableStateFlow("UNKNOWN")
-        val sherpaSttModelInstallDetail = MutableStateFlow("")
-        
-        val sherpaModelInstallState = MutableStateFlow("UNKNOWN")
-        val sherpaModelInstallDetail = MutableStateFlow("")
-
-        // Araç veri polling: PropertyID -> Tier (0=kapalı, 2=FAST, 5=MEDIUM, 10=SLOW)
         val vehiclePollingConfig = MutableStateFlow(
             VehicleController.PROPERTY_DEFINITIONS.mapValues { it.value.defaultTier }
         )
-
-        // UI'da gösterilecek canlı araç verileri: PropertyID -> görüntülenecek değer
         val vehicleDataValues = MutableStateFlow<Map<String, String>>(emptyMap())
 
-        fun addLog(message: String) {
-            android.util.Log.e("OmodaLog", message)
-            val currentList = systemLogs.value.toMutableList()
-            currentList.add(0, "> $message")
-            if (currentList.size > 15) currentList.removeAt(currentList.size - 1)
-            systemLogs.value = currentList
+        // Kişiselleştirme
+        val wallpaperIdx = MutableStateFlow(0)
+        val appClickCounts = MutableStateFlow<Map<String, Int>>(emptyMap())
+
+        fun addLog(log: String) {
+            val time = java.text.SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+            val newLogs = systemLogs.value.toMutableList()
+            newLogs.add(0, "[$time] $log")
+            if (newLogs.size > 100) newLogs.removeAt(newLogs.size - 1)
+            systemLogs.value = newLogs
         }
-        
+
         fun resetLeds() {
-            ledKey.value = false
             ledRec.value = false
             ledStt.value = false
             ledLlm.value = false
@@ -170,86 +157,49 @@ class AssistantApplication : Application() {
                 useHermesDecision = useHermesDecision.value,
                 isWakeWordEnabled = isWakeWordEnabled.value,
                 micSource = micSource.value,
-                groqApiKey = groqApiKey.value,
                 isAutoTasksEnabled = isAutoTasksEnabled.value,
+                isBridgeMode = isBridgeMode.value,
+                mqttEnabled = mqttEnabled.value,
                 vehiclePollingConfig = vehiclePollingConfig.value,
                 vehicleId = vehicleId.value,
                 sessionKey = sessionKey.value,
-                edgeVoiceName = edgeVoiceName.value,
-                edgePitch = edgePitch.value,
-                edgeRate = edgeRate.value
+                bridgeServerIp = bridgeServerIp.value,
+                bridgeType = bridgeType.value,
+                wallpaperIdx = wallpaperIdx.value,
+                appClickCounts = appClickCounts.value
             )
             configManager.saveConfig(config)
+            activeServerIp.value = serverIp.value
+            
+            // MQTT Yenile (IP değişmiş olabilir)
+            if (mqttEnabled.value) {
+                mqttPublisher.disconnect()
+                mqttPublisher.updateBrokerUrl(serverIp.value)
+                mqttPublisher.connect()
+            } else {
+                mqttPublisher.disconnect()
+            }
+            
+            // Ayarların yenilenmesi için event fırlat
+            com.omoda.lanc.core.EventBus.tryEmit(com.omoda.lanc.core.Event.SystemEvent.ConfigUpdated)
         }
     }
 
     override fun onCreate() {
         super.onCreate()
+        
+        // Cihaz algılama: Eğer araç donanımı değilse simülasyon modunu aktif et
+        isSimulationMode.value = !isCarHardware
+        if (isSimulationMode.value) {
+            addLog("Simülasyon Modu Aktif: Sistem komutları kısıtlandı.")
+        }
+
         com.omoda.lanc.core.SensorPreferences.init(this)
         configManager = ConfigManager(this)
         loadConfig()
         
-        // Ağ izleyiciyi başlat
         com.omoda.lanc.network.NetworkMonitor(this)
         
-        // Akıllı Çift Ağ Rota Yönlendirici (ActiveRouteResolver)
-        Thread {
-            while (true) {
-                try {
-                    val port = hermesPort.value.toIntOrNull() ?: 20128
-                    
-                    // 1. Tailscale Rota Testi
-                    val tsIp = serverIp.value
-                    val isTsReachable = try {
-                        java.net.Socket().use { socket ->
-                            socket.connect(java.net.InetSocketAddress(tsIp, port), 800)
-                            true
-                        }
-                    } catch (e: Exception) {
-                        false
-                    }
-
-                    if (isTsReachable) {
-                        if (activeServerIp.value != tsIp) {
-                            activeServerIp.value = tsIp
-                            Log.i("RouteResolver", "Ağ Durumu: Tailscale aktif. Rota güncellendi -> $tsIp")
-                            addLog("Ağ: Tailscale Aktif")
-                        }
-                    } else {
-                        // 2. Yerel Ağ Rota Testi
-                        val localIp = localBackupIp.value
-                        val isLocalReachable = try {
-                            java.net.Socket().use { socket ->
-                                socket.connect(java.net.InetSocketAddress(localIp, port), 800)
-                                true
-                            }
-                        } catch (e: Exception) {
-                            false
-                        }
-
-                        if (isLocalReachable) {
-                            if (activeServerIp.value != localIp) {
-                                activeServerIp.value = localIp
-                                Log.i("RouteResolver", "Ağ Durumu: Yerel Ağ aktif. Rota güncellendi -> $localIp")
-                                addLog("Ağ: Yerel Ağ Aktif ($localIp)")
-                            }
-                        } else {
-                            // İkisi de yoksa varsayılana dön
-                            if (activeServerIp.value != tsIp) {
-                                activeServerIp.value = tsIp
-                                Log.w("RouteResolver", "Ağ Durumu: İki rota da erişilemez! Varsayılana dönülüyor -> $tsIp")
-                            }
-                        }
-                    }
-                } catch (e: Exception) {
-                    Log.e("RouteResolver", "Hata: ${e.message}")
-                }
-                
-                try { Thread.sleep(8000) } catch (e: InterruptedException) { break }
-            }
-        }.start()
-        
-        // MQTT
         if (mqttEnabled.value) {
             mqttPublisher.updateBrokerUrl(serverIp.value)
             mqttPublisher.connect()
@@ -258,25 +208,33 @@ class AssistantApplication : Application() {
 
     private fun loadConfig() {
         val config = configManager.loadConfig()
-        serverIp.value = config.serverIp.ifBlank { "homeassistant.tailnet-4f03.ts.net" }
-        hermesPort.value = config.hermesPort.ifBlank { "20128" }
-        sttPort.value = config.sttPort.ifBlank { "20128" }
-        ttsPort.value = config.ttsPort.ifBlank { "20128" }
+        
+        serverIp.value = if (config.serverIp.isBlank()) "100.95.239.119" else config.serverIp
+        bridgeServerIp.value = if (config.bridgeServerIp.isBlank()) "192.168.1.14" else config.bridgeServerIp
+        bridgeType.value = if (config.bridgeType.isBlank()) "WYOMING" else config.bridgeType
+        activeServerIp.value = serverIp.value
 
-        sttMode.value = "BULUT"
-        ttsEngine.value = config.ttsEngine
+        hermesPort.value = if (config.hermesPort.isBlank()) "8642" else config.hermesPort
+        sttPort.value = if (config.sttPort.isBlank()) "20128" else config.sttPort
+        ttsPort.value = if (config.ttsPort.isBlank()) "20128" else config.ttsPort
+
+        sttMode.value = if (config.sttMode.isBlank()) "HERMES" else config.sttMode
+        ttsEngine.value = if (config.ttsEngine.isBlank()) "HERMES" else config.ttsEngine
+        
         useHermesSpeech.value = config.useHermesSpeech
         isContinuousConversation.value = config.isContinuousConversation
         useHermesDecision.value = config.useHermesDecision
         isWakeWordEnabled.value = config.isWakeWordEnabled
         micSource.value = config.micSource
-        if (config.groqApiKey.isNotBlank()) groqApiKey.value = config.groqApiKey
         isAutoTasksEnabled.value = config.isAutoTasksEnabled
+        isBridgeMode.value = config.isBridgeMode
+        mqttEnabled.value = config.mqttEnabled
         vehicleId.value = config.vehicleId
         sessionKey.value = config.sessionKey
-        edgeVoiceName.value = config.edgeVoiceName
-        edgePitch.value = config.edgePitch
-        edgeRate.value = config.edgeRate
+        
+        wallpaperIdx.value = config.wallpaperIdx
+        appClickCounts.value = config.appClickCounts
+
         if (config.vehiclePollingConfig.isNotEmpty()) {
             val merged = VehicleController.PROPERTY_DEFINITIONS.mapValues { it.value.defaultTier }.toMutableMap()
             merged.putAll(config.vehiclePollingConfig)

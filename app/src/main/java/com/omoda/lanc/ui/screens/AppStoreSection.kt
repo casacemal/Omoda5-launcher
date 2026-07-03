@@ -35,6 +35,19 @@ fun AppStoreSection() {
     var downloadSpeed by remember { mutableStateOf(0.0) }
 
     LaunchedEffect(Unit) {
+        // Otomatik kontrol
+        isChecking = true
+        updateManager.checkForUpdates(object : OtaUpdateManager.UpdateCheckCallback {
+            override fun onUpdatesFound(updates: List<AppUpdate>) {
+                isChecking = false
+                updatesList = updates
+            }
+            override fun onError(error: String) {
+                isChecking = false
+                errorMessage = error
+            }
+        })
+
         updateManager.getStoreApps(object : OtaUpdateManager.UpdateCheckCallback {
             override fun onUpdatesFound(updates: List<AppUpdate>) {
                 storeAppsList = updates

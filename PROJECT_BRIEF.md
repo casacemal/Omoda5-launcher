@@ -31,11 +31,12 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 ## Kısıtlar ve Kurallar
 *   API 29 (AAOS 10) uyumluluğu kesin kuraldır.
 *   **Bağlantı Ayarları (SABİT / TEK ENDPOINT MİMARİSİ):**
-    *   **Device IP (Omoda/Arac):** `homeassistant.tailnet-4f03.ts.net` (Tek yetkili Tailscale IP)
-    *   **Gateway / Proxy IP:** `homeassistant.tailnet-4f03.ts.net`
-    *   **9Router API Port:** `20128` (Tüm Chat Completions, STT ve model sorgulamaları bu porttaki `/v1` adresinden tek nokta üzerinden yönetilir. 8642 portu iptal edilmiştir.)
-    *   **9Router API Key:** `sk-b6f4d3879cc4a442-vwd4xl-8ad79a58`
-    *   **Proxy:** Tüm LLM ve STT işlemleri 20128 proxy üzerinden yürütülür. Edge TTS için online websocket bağlantısı kullanılır.
+    *   **Device IP (Omoda/Arac):** `100.95.239.119` (Ana Hermes Sunucusu)
+    *   **Gateway / Proxy IP:** `100.95.239.119`
+    *   **9Router API Port:** `8642` (Tüm Chat Completions, STT ve model sorgulamaları bu porttaki `/v1` adresinden tek nokta üzerinden yönetilir.)
+    *   **Bridge API (Test):** `http://192.168.1.14:5000/v1` (Yeni Tailscale Wyoming Köprüsü.)
+    *   **Whisper Bridge (Alternative):** `http://192.168.1.29:10301/v1` (STT) & `10201/v1` (TTS)
+    *   **MQTT Broker:** `100.95.239.119:1883` (Telemetri verileri sadece MQTT üzerinden akar. REST /telemetry endpoint'i kullanılmamaktadır.)
 *   **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
 *   **Command Firewall (Merkezi Karar Birimi) & Tasarım İlkesi:** 
     *   Araç kontrolü asla doğrudan LLM'e bırakılmaz. AI'dan gelen tüm araç fonksiyon istekleri (`tool_calls`) `CommandFirewall.kt` üzerinden geçer, Whitelist ve parametre sınır kontrolüne tabi tutulur.
@@ -43,8 +44,8 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 *   **Genel Hata Ayıklama Tasarım Kuralı:** Ana kodları (mevcut veya yeni eklenecek olanlar) bozarak deneme-yanılma yapmak kesinlikle yasaktır. Herhangi bir şüpheli durumda (API hatası vb.), `aes_app/` (eski adıyla scripts) klasöründeki Python araçları/test script'leri kullanılmalı ve gerektiğinde bu test süiti genişletilmelidir.
 *   Hareket halindeyken (Speed > 0) riskli ayarların değiştirilmesi engellenecek.
 *   **TTS / STT Fallback Politikası:** Ses tanıma ve okuma işlemleri kaskad zincire sahiptir: **Online (9Router/Edge) -> Local (Sherpa/Piper)**. Local sistemler şu an beklemeye alınmış olsa da kod mimarisi buna uygun dizayn edilmiştir. Ses odağı (Audio Ducking) bu zincir bitene kadar korunur.
-*   **SSE Streaming & 2-Mod Yapısı:** Sistem SSE (Server-Sent Events) ile stream edilerek çalışır. Kullanıcı arayüzünde `ASISTANT` (kısa, araç bağlamlı) ve `CHAT` (kesintisiz derin diyalog) modları bulunur. Anomali takip ve izleme işini arka planda MQTT telemetri üstlendiği için `MONITOR` modu ve LLM telemetri analizi kaldırılmıştır.
-*   **MQTT Telemetri:** Araç verileri `homeassistant.tailnet-4f03.ts.net:1883` broker'ına `omoda/telemetri` konusuyla periyodik olarak aktarılır. Bu sayede Home Assistant paneli güncel tutulur.
+*   **SSE Streaming & 2-Mod Yapısı:** Sistem tamamen SSE (Server-Sent Events) üzerinden stream edilerek çalışır. Chat completions ve olay akışları için Hermes SSE API kullanılır. Kullanıcı arayüzünde `ASISTANT` (kısa, araç bağlamlı) ve `CHAT` (kesintisiz derin diyalog) modları bulunur.
+*   **MQTT Telemetri (Yegane Veri Akışı):** Araç verileri `100.95.239.119:1883` broker'ına `omoda/telemetri` konusuyla periyodik olarak aktarılır. REST tabanlı telemetri gönderimi tamamen kaldırılmıştır. Tüm anomali takip ve izleme işini MQTT üstlenir.
 *   **OTA Güncelleme & Sürüm Düşürme:**
     *   Derlenen her yeni asistan sürümü kesinlikle GitHub releases (`casacemal/Omoda5-launcher`) alanına yüklenecektir, atlanmayacaktır.
     *   Uygulama içi App Store ekranında en güncel **4 sürüm** her zaman listelenecektir.

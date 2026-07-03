@@ -1,846 +1,850 @@
 [
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_menu_hardkey_panel_mtrl_mult.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_list_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_list_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_scrubber_control_to_pressed_mtrl_005.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_aa_device_list_more_btn_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_aa_device_list_more_btn_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_list_aa_icon_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/list_aa_icon_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_tab_indicator_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_tab_indicator_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_menu_selectall_mtrl_alpha.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_menu_selectall_mtrl_alpha.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_360_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_360_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_carinfo_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_carinfo_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_switch_btn_on_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/switch_btn_on_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_color_slider.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_color_slider.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_wp_nature.jpg.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/wp_nature.jpg"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_btn1_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_btn1_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_menu_copy_mtrl_am_alpha.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_commit_search_api_mtrl_alpha.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_button_cancel_color.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/button_cancel_color.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_btn2_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_btn2_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_list_focused_holo.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_list_focused_holo.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_menu_home_btn_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/menu_home_btn_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_switch_btn_off_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/switch_btn_off_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_input_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_input_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_menu_home_btn_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/menu_home_btn_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_list_pressed_holo_dark.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_list_pressed_holo_dark.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_media_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_media_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_list_focused_holo.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_list_focused_holo.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_notify_panel_notification_icon_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/notify_panel_notification_icon_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_default_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_default_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_video_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_video_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_phone_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_phone_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_icon_text_aa_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_icon_text_aa_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_apple_carplay_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_apple_carplay_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_360_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_360_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_update_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_update_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_video_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_video_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_scrubber_track_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_popup_usb_connect_btn_close.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/popup_usb_connect_btn_close.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_list_selector_disabled_holo_light.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_list_selector_disabled_holo_light.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_menu_navi_btn_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/menu_navi_btn_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_bg_2.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/bg_2.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_media_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_media_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_media_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_media_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_picture_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_picture_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_star_black_16dp.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_star_black_16dp.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_textfield_search_activated_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_drive_mode_close_btn_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_drive_mode_close_btn_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-xxxhdpi/ic_launcher_round.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_btn1_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_btn1_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_list_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_list_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_bg_1.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/bg_1.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_list_selector_disabled_holo_dark.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_list_selector_disabled_holo_dark.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_manual_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_manual_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_restore_factory_settings_waiting_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/restore_factory_settings_waiting_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_text_select_handle_left_mtrl_dark.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_text_select_handle_left_mtrl_dark.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_textfield_default_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_textfield_default_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_btn2_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_btn2_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_mengjia_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_mengjia_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_list_pressed_holo_light.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_list_pressed_holo_light.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_btn_check_to_on_mtrl_000.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_btn_check_to_on_mtrl_000.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_notification_icon_background.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/notification_icon_background.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_update_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_update_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_aa_device_list_scroll_bar.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_aa_device_list_scroll_bar.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_360_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_360_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_tab_indicator_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_update_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_update_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_notification_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/notification_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_btn_check_to_on_mtrl_015.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_btn_check_to_on_mtrl_015.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-xxhdpi/ic_launcher_round.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_textfield_default_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_textfield_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_bg2.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_bg2.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_usb_connect_off_btn_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_usb_connect_off_btn_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_btn1_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_btn1_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_appstore_launcher.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_appstore_launcher.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_light_adjust_bar_disable.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_light_adjust_bar_disable.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_text_select_handle_right_mtrl_light.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_text_select_handle_right_mtrl_light.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_clear_black_24dp.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_clear_black_24dp.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_light_adjust_slider.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_light_adjust_slider.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_carinfo_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_carinfo_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_setup_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_setup_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_wp_red.jpg.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/wp_red.jpg"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_menu_arrow_up_black_24dp.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_menu_arrow_up_black_24dp.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_headlights_adjust_bar_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_headlights_adjust_bar_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_drive_mode_close_btn_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_drive_mode_close_btn_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_restore_factory_settings_waiting_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/restore_factory_settings_waiting_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_bg_2a.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/bg_2a.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_line.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_line.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_switch_btn_knob_off.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/switch_btn_knob_off.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_keyboard_arrow_right_black_24dp.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_keyboard_arrow_right_black_24dp.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_menu_arrow_down_black_24dp.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_menu_arrow_down_black_24dp.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_list_cp_icon_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/list_cp_icon_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_restore_factory_settings_waiting.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/restore_factory_settings_waiting.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_star_half_black_36dp.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_star_half_black_36dp.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_text_select_handle_middle_mtrl_dark.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_text_select_handle_middle_mtrl_dark.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_light_adjust_bar_process.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_light_adjust_bar_process.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_list_cp_icon_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/list_cp_icon_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_video_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_video_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_btn_switch_to_on_mtrl_00012.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_navi_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_navi_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_pic_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_pic_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_menu_paste_mtrl_am_alpha.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_carplay_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_carplay_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_bg4.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_bg4.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_manual_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_manual_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_setup_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_setup_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_design_ic_visibility.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/design_ic_visibility.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_icon_text_aa_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_icon_text_aa_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_aa_device_list_line.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_aa_device_list_line.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_bg_2.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/bg_2.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_notification_bg_low.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/notification_bg_low.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_default_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_default_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_update_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_update_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_android_auto_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_android_auto_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_picture_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_picture_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_light_adjust_bar_process.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_light_adjust_bar_process.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_360_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_360_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_popup_background_mtrl_mult.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_popup_background_mtrl_mult.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/xml_file_paths.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/xml/file_paths.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_aa_device_list_line.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_aa_device_list_line.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_navi_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_navi_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ab_share_pack_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ab_share_pack_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_carinfo_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_carinfo_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_carinfo_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_carinfo_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_list_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_list_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_list_longpressed_holo.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_list_longpressed_holo.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_phone_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_phone_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_vehicle_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_vehicle_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_switch_btn_off_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/switch_btn_off_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_star_black_48dp.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_star_black_48dp.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_menu_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/menu_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_bg_1.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/bg_1.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_manual_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_manual_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_line.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_line.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_switch_btn_knob.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/switch_btn_knob.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_edit_black_24dp.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_edit_black_24dp.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_notification_bg_low_normal.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/notification_bg_low_normal.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_wp_nature.jpg.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/wp_nature.jpg"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_aa_device_list_more_btn_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_aa_device_list_more_btn_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_text_select_handle_left_mtrl_light.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_text_select_handle_left_mtrl_light.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_star_half_black_16dp.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_star_half_black_16dp.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_calendar_black_24dp.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_calendar_black_24dp.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_phone_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_phone_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_list_pressed_holo_light.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_list_pressed_holo_light.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_bg_indicator_dot.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/bg_indicator_dot.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_menu_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/menu_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_light_adjust_bar_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_light_adjust_bar_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_btn_switch_to_on_mtrl_00001.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_menu_navi_btn_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/menu_navi_btn_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_tab_mask_r.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/tab_mask_r.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_notification_bg_normal_pressed.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/notification_bg_normal_pressed.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_popup_list_more_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_popup_list_more_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_design_ic_visibility.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/design_ic_visibility.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_textfield_activated_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_cab_background_top_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_cab_background_top_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_360_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_360_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_bg5.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_bg5.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_btn_radio_to_on_mtrl_015.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_btn_radio_to_on_mtrl_015.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_color7.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_color7.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_bg_right_1.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/bg_right_1.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_icon_text_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_icon_text_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_btn2_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_btn2_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_manual_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_manual_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_notification_bg_normal.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/notification_bg_normal.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_bg_2a.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/bg_2a.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_usb_connect_off_btn_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_usb_connect_off_btn_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_manual_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_manual_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_test_custom_background.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/test_custom_background.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_setup_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_setup_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_text_select_handle_right_mtrl_light.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_text_select_handle_right_mtrl_light.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_textfield_activated_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_textfield_activated_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_bg_wallpaper_button.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/bg_wallpaper_button.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_textfield_search_default_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_textfield_search_default_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_bg2.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_bg2.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_menu_phone_btn_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/menu_phone_btn_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_apple_carplay_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_apple_carplay_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_btn_check_to_on_mtrl_015.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_btn_check_to_on_mtrl_015.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_menu_arrow_down_black_24dp.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_menu_arrow_down_black_24dp.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_button_cancel_back.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/button_cancel_back.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_apple_carplay_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_apple_carplay_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_keyboard_arrow_right_black_24dp.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_keyboard_arrow_right_black_24dp.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_pic_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_pic_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_light_adjust_bar.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_light_adjust_bar.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_bg_right_2.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/bg_right_2.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_vehicle_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_vehicle_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_wp_purple.jpg.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/wp_purple.jpg"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_button_cancel_back.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/button_cancel_back.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_star_half_black_48dp.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_star_half_black_48dp.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_notification_bg_low_pressed.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/notification_bg_low_pressed.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_aa_device_list_scroll_bar.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_aa_device_list_scroll_bar.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_menu_home_btn_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/menu_home_btn_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_manual_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_manual_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_update_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_update_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_carinfo_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_carinfo_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_notification_action_background.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/notification_action_background.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/ic_launcher.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_star_half_black_48dp.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_star_half_black_48dp.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_navi_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_navi_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_drive_mode_close_btn_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_drive_mode_close_btn_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_text_select_handle_left_mtrl_dark.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_text_select_handle_left_mtrl_dark.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_design_ic_visibility_off.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/design_ic_visibility_off.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_btn1_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_btn1_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_switch_btn_knob_off.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/switch_btn_knob_off.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_menu_selectall_mtrl_alpha.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_menu_selectall_mtrl_alpha.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_menu_hardkey_panel_mtrl_mult.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_list_aa_icon_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/list_aa_icon_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_menu_phone_btn_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/menu_phone_btn_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_headlights_adjust_bar_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_headlights_adjust_bar_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_headlights_adjust_number.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_headlights_adjust_number.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_clear_black_24dp.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_clear_black_24dp.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_media_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_media_n.png"
     },
     {
-        "merged": "com.omoda.lanc.app-debug-68:/xml_file_paths.xml.flat",
-        "source": "com.omoda.lanc.app-main-70:/xml/file_paths.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_list_cp_icon_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/list_cp_icon_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_star_black_36dp.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_star_black_36dp.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_media_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_media_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_pic_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_pic_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_icon_text_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_icon_text_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_bg1.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_bg1.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_aa_device_list_scroll_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_aa_device_list_scroll_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_video_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_video_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_edit_black_24dp.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_edit_black_24dp.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_wp_flare.jpg.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/wp_flare.jpg"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_android_auto_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_android_auto_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_carplay_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_carplay_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_menu_cut_mtrl_alpha.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_menu_cut_mtrl_alpha.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_phone_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_phone_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_media_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_media_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_video_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_video_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_android_auto_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_android_auto_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_list_selector_disabled_holo_light.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_list_selector_disabled_holo_light.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_aa_device_list_more_btn_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_aa_device_list_more_btn_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_android_auto_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_android_auto_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_wp_flare.jpg.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/wp_flare.jpg"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_bg_indicator_dot.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/bg_indicator_dot.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_menu_share_mtrl_alpha.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_menu_share_mtrl_alpha.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_aa_device_list_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_aa_device_list_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_apple_carplay_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_apple_carplay_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_btn_radio_to_on_mtrl_000.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_btn_radio_to_on_mtrl_000.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_air_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_air_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_color7.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_color7.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_mengjia_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_mengjia_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_text_select_handle_left_mtrl_light.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_text_select_handle_left_mtrl_light.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_setup_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_setup_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_scrubber_track_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_scrubber_track_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_navi_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_navi_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_notification_tile_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/notification_tile_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-hdpi/ic_launcher_round.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_popup_usb_connect_btn_close.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/popup_usb_connect_btn_close.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_manual_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_manual_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_pic_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_pic_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_keyboard_arrow_left_black_24dp.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_keyboard_arrow_left_black_24dp.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_360_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_360_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_keyboard_arrow_left_black_24dp.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_keyboard_arrow_left_black_24dp.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_phone_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_phone_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_text_select_handle_right_mtrl_dark.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_text_select_handle_right_mtrl_dark.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_notification_bg_low_pressed.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/notification_bg_low_pressed.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_text_select_handle_middle_mtrl_light.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_text_select_handle_middle_mtrl_light.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_video_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_video_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_menu_phone_btn_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/menu_phone_btn_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_phone_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_phone_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_scrubber_control_off_mtrl_alpha.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_scrubber_control_off_mtrl_alpha.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_carinfo_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_carinfo_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_btn_check_to_on_mtrl_000.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_btn_check_to_on_mtrl_000.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_android_auto_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_android_auto_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_notification_bg_low_normal.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/notification_bg_low_normal.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_media_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_media_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_switch_btn_knob.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/switch_btn_knob.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_pic_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_pic_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_star_black_48dp.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_star_black_48dp.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_notification_action_background.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/notification_action_background.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_video_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_video_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_navi_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_navi_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_aa_device_list_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_aa_device_list_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_mengjia_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_mengjia_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_invisible_icon.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_invisible_icon.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_scrubber_control_to_pressed_mtrl_005.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_update_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_update_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_menu_share_mtrl_alpha.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_menu_share_mtrl_alpha.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_mengjia_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_mengjia_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_invisible_icon.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_invisible_icon.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_restore_factory_settings_waiting.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/restore_factory_settings_waiting.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_light_adjust_bar_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_light_adjust_bar_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_restore_factory_settings_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/restore_factory_settings_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_list_aa_icon_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/list_aa_icon_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_switch_btn_on_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/switch_btn_on_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_bg5.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_bg5.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_menu_arrow_up_black_24dp.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_menu_arrow_up_black_24dp.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_color_slider.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_color_slider.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_light_adjust_bar_disable.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_light_adjust_bar_disable.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_navi_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_navi_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_spinner_mtrl_am_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_spinner_mtrl_am_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_drive_mode_close_btn_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_drive_mode_close_btn_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_list_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_list_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_air_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_air_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_menu_cut_mtrl_alpha.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_menu_cut_mtrl_alpha.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_bg_right_2.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/bg_right_2.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_headlights_adjust_number.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_headlights_adjust_number.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_button_cancel_color.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/button_cancel_color.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_headlights_adjust_bar.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_headlights_adjust_bar.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_setup_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_setup_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_list_pressed_holo_dark.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_list_pressed_holo_dark.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_btn_radio_to_on_mtrl_015.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_bg_wallpaper_button.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/bg_wallpaper_button.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_list_divider_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_list_divider_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_pic_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_pic_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_btn2_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_btn2_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_notification_tile_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/notification_tile_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_video_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_video_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/layout_overlay_assistant.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/layout/overlay_assistant.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_input_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_input_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_system_setting_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_system_setting_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_usb_connect_off_btn_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_usb_connect_off_btn_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_android_auto_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_android_auto_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-hdpi/ic_launcher.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_textfield_search_default_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_menu_home_btn_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/menu_home_btn_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_star_half_black_16dp.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_star_half_black_16dp.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_calendar_black_24dp.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_calendar_black_24dp.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_media_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_media_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_menu_phone_btn_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/menu_phone_btn_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_aa_device_list_scroll_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_aa_device_list_scroll_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_test_custom_background.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/test_custom_background.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_scrubber_control_to_pressed_mtrl_000.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_scrubber_control_to_pressed_mtrl_000.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_popup_list_more_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_popup_list_more_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_mengjia_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_mengjia_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_text_select_handle_middle_mtrl_light.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_text_select_handle_middle_mtrl_light.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_phone_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_phone_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/layout_overlay_assistant.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/layout/overlay_assistant.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_360_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_360_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_star_black_16dp.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_star_black_16dp.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_update_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_update_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_360_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_360_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_switch_track_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_switch_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_bg1.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_bg1.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_lane_auxiliary_alarm_mode_bg_r.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_lane_auxiliary_alarm_mode_bg_r.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_switch_track_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_switch_track_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_usb_connect_off_btn_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_usb_connect_off_btn_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_spinner_mtrl_am_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_spinner_mtrl_am_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ab_share_pack_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ab_share_pack_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_star_half_black_36dp.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_star_half_black_36dp.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_bg4.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_bg4.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/ic_launcher_round.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_default_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_default_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_ic_commit_search_api_mtrl_alpha.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_ic_commit_search_api_mtrl_alpha.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_notification_bg_normal_pressed.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/notification_bg_normal_pressed.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_apple_carplay_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_apple_carplay_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_tab_mask.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/tab_mask.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_notification_bg_low.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/notification_bg_low.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_launcher_qdlink_icon_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/launcher_qdlink_icon_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_notification_icon_background.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/notification_icon_background.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_headlights_adjust_bar.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_headlights_adjust_bar.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_tab_mask.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/tab_mask.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_list_longpressed_holo.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_list_longpressed_holo.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_qdlink_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_qdlink_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_btn1_d.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_btn1_d.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_ic_assistant_launcher.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/ic_assistant_launcher.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_bg_right_1.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/bg_right_1.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_personal_atmosphere_lamp_default_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_personal_atmosphere_lamp_default_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_setup_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_setup_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_list_divider_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_list_divider_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_cab_background_top_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_cab_background_top_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_text_select_handle_right_mtrl_dark.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_text_select_handle_right_mtrl_dark.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_phone_list_left_mask.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/phone_list_left_mask.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_restore_factory_settings_bg.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/restore_factory_settings_bg.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_navi_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_navi_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_ic_star_black_36dp.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_ic_star_black_36dp.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_light_adjust_bar.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_light_adjust_bar.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_list_aa_icon_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/list_aa_icon_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_design_ic_visibility_off.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/design_ic_visibility_off.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_navi_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_navi_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_btn1_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_btn1_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_notify_panel_notification_icon_bg.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/notify_panel_notification_icon_bg.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_update_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_update_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_ic_assistant_launcher.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/ic_assistant_launcher.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_manual_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_manual_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_scrubber_primary_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_mengjia_d.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_mengjia_d.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_notification_bg_normal.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/notification_bg_normal.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_system_setting_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_system_setting_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_wp_purple.jpg.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/wp_purple.jpg"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_launcher_android_auto_icon_bg.xml.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/launcher_android_auto_icon_bg.xml"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_aa_device_list_more_btn_p.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_aa_device_list_more_btn_p.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/drawable_wp_red.jpg.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/drawable/wp_red.jpg"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_android_auto_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_android_auto_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_menu_navi_btn_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/menu_navi_btn_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_carinfo_light_adjust_slider.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/carinfo_light_adjust_slider.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_carinfo_lane_auxiliary_alarm_mode_bg_r.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/carinfo_lane_auxiliary_alarm_mode_bg_r.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_list_selector_disabled_holo_dark.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_list_selector_disabled_holo_dark.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_scrubber_primary_mtrl_alpha.9.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_scrubber_primary_mtrl_alpha.9.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_text_select_handle_middle_mtrl_dark.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_text_select_handle_middle_mtrl_dark.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_home_app_apple_carplay_p.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/home_app_apple_carplay_p.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_btn_radio_to_on_mtrl_000.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_btn_radio_to_on_mtrl_000.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_popup_visible_icon.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/popup_visible_icon.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_menu_navi_btn_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/menu_navi_btn_n.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_list_cp_icon_n.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/list_cp_icon_n.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_popup_visible_icon.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/popup_visible_icon.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_scrubber_control_to_pressed_mtrl_000.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_scrubber_control_to_pressed_mtrl_000.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_abc_popup_background_mtrl_mult.9.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/abc_popup_background_mtrl_mult.9.png"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_phone_list_left_mask.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/phone_list_left_mask.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/drawable_notification_bg.xml.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/drawable/notification_bg.xml"
     },
     {
-        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-68:/mipmap-mdpi_abc_scrubber_control_off_mtrl_alpha.png.flat",
-        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-70:/mipmap-mdpi/abc_scrubber_control_off_mtrl_alpha.png"
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_tab_mask_r.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/tab_mask_r.png"
+    },
+    {
+        "merged": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-debug-66:/mipmap-mdpi_home_app_phone_n.png.flat",
+        "source": "/home/cemal/.gradle/daemon/8.7/com.omoda.lanc.app-main-68:/mipmap-mdpi/home_app_phone_n.png"
     }
 ]

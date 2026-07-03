@@ -30,7 +30,14 @@ class CommandFirewall(private val context: Context, private val actionExecutor: 
         "set_hvac_fan",
         "set_window_position",
         "install_app",
-        "uninstall_app"
+        "uninstall_app",
+        "execute_adb",
+        "set_radio_frequency",
+        "get_vehicle_status",
+        "search_and_play",
+        "fix_system_time",
+        "connect_vpn",
+        "disconnect_vpn"
     )
 
 
@@ -84,9 +91,9 @@ class CommandFirewall(private val context: Context, private val actionExecutor: 
                         return "Error: Invalid position. Must be between 0 and 100."
                     }
                     
-                    // SÜRÜŞ GÜVENLİĞİ: Araç hareket halindeyken cam veya sunroof kontrolünü engelle
+                    // SÜRÜŞ GÜVENLİĞİ: Araç 110 km/h üzerindeyken cam veya sunroof kontrolünü engelle
                     val currentSpeed = VehicleController.getInstance(context).getVehicleState().speed
-                    if (currentSpeed > 5f) {
+                    if (currentSpeed > 110f) {
                         Log.e(TAG, "SÜRÜŞ ENGELLİ: Hız ${currentSpeed} km/h iken camlar kontrol edilemez!")
                         EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("Sürüşte Cam/Sunroof Engelli!", android.graphics.Color.RED))
                         return "Error: Windows and sunroof cannot be operated while driving for safety reasons."

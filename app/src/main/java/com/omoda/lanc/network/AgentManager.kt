@@ -66,10 +66,12 @@ class AgentManager(
                 append(", Sinyal: ${state.turnSignalString}")
                 append(", Yakıt: ${String.format("%.1f", state.fuelLevel)} L (Menzil: ${state.rangeKm.toInt()} km)")
                 append(", Toplam KM: ${state.odometer.toInt()} km")
+                append(", GPS: Lat ${state.latitude}, Lng ${state.longitude}")
                 append(", İnternet: $internetStatus")
                 append(", Medya: ${mediaState.title} - ${mediaState.artist}")
                 append(", Cihaz: ${android.os.Build.MODEL}")
             }
+
         } catch (e: Exception) {
             Log.e(TAG, "Context güncelleme hatası: ${e.message}")
         }
@@ -141,7 +143,9 @@ class AgentManager(
         onFeedback("Ses çözümleniyor...")
         Log.d("Omoda-Workflow", ">>> [5] STT başladı (${audioFile.length()} bytes)")
 
-        if (AssistantApplication.hasInternetConnection.value) {
+        val isConnected = AssistantApplication.hermesConnectionStatus.value == "CONNECTED"
+        
+        if (AssistantApplication.hasInternetConnection.value && isConnected) {
             // Proxy üzerinden Whisper
             sttClient.transcribe(audioFile) { text ->
                 if (text != null) {
@@ -150,14 +154,15 @@ class AgentManager(
                     Log.w(TAG, "Proxy STT başarısız")
                     AssistantApplication.addLog("STT Hatası: Proxy başarısız")
                     onFeedback("Bağlantı hatası")
-                    onSystemResponse("Ses anlaşılamadı, tekrar dener misiniz?", true)
+                    onSystemResponse("Sunucuya bağlanılamadı, lütfen internetinizi kontrol edin.", true)
                 }
             }
         } else {
-            // İnternet yok → lokal komut modu
-            Log.w(TAG, "İnternet yok — lokal mod aktif")
-            onFeedback("İnternet yok")
-            onSystemResponse("İnternet bağlantısı yok. Sadece araç komutları çalışıyor.", true)
+            // İnternet yok veya Gateway kapalı → lokal komut modu
+            val errorMsg = if (!isConnected) "Sunucuya erişilemiyor" else "İnternet yok"
+            Log.w(TAG, "$errorMsg — lokal mod aktif")
+            onFeedback(errorMsg)
+            onSystemResponse("Şu an sunucuya erişemiyorum. Sadece araç komutlarını uygulayabilirim.", true)
         }
     }
 
@@ -236,17 +241,26 @@ class AgentManager(
         addTool("uninstall_app", "Cihazdan belirtilen paket adına sahip uygulamayı kaldırır.",
             strParam("package_name", "Kaldırılacak uygulamanın paket adı (örn: com.example.app)"))
         addTool("fix_system_time", "Sistem saatini senkronize eder.", noParams())
-        addTool("connect_vpn",    "Tailscale VPN bağlar.", noParams())
         addTool("disconnect_vpn", "Tailscale VPN keser.", noParams())
+        addTool("get_vehicle_status", "Aracın tüm sensör verilerini ve anlık durumunu detaylıca okur.", noParams())
+        addTool("set_radio_frequency", "Radyo frekansını ayarlar (Örn: 94.5).",
+            numParam("frequency", "Frekans (MHz)"))
+        addTool("search_and_play", "Müzik veya video arar ve oynatır.",
+            strParam("query", "Aranacak şarkı, sanatçı veya video adı"))
     }
 
     // ─────────────────────────────────────────────────
-    // Ana SSE Chat Fonksiyonu
+    // Ana SSE Chat Fonksiyonu — Session-based Hermes API
     // ─────────────────────────────────────────────────
     private fun sendChatSse(prompt: String) {
         currentEventSource?.cancel()
         Log.d("Omoda-Workflow", ">>> [7] SSE CHAT başlıyor...")
 
+        // Ensure session exists
+        if (hermesClient.sessionId == null) {
+            Log.d(TAG, "Session bulunamadı, oluşturuluyor...")
+            hermesClient.createSessionSync()
+        }
         val mode = AssistantApplication.currentMode.value
 
         val systemPrompt = when (mode) {
@@ -254,143 +268,228 @@ class AgentManager(
                       "Araç verilerini sohbete doğal biçimde katabilirsin. Detaylı, akıcı yanıtlar ver. " +
                       "Araç komutları için ilgili fonksiyonu çağır ve kısa onay ver. " +
                       "Mevcut Araç Verisi: $currentVehicleContextText"
-            else   -> "Sen Chery Omoda 5 için tasarlanmış HMI sesli asistanısın. " +
-                      "'araba', 'arabam', 'arac', 'araç', 'omoda' veya 'omoda5' olarak çağrılabilirsin. " +
-                      "Yanıtlarını çok kısa ve net tut. Araç komutu için fonksiyon çağır ve kısa onay ver. " +
+            else   -> "Chery Omoda 5 asistanısın. Yanıtlarını tek cümleyle, çok kısa ve net tut. " +
+                      "Araç komutu için fonksiyon çağır ve sadece kısa bir onay ver. " +
                       "Mevcut Araç Verisi: $currentVehicleContextText"
         }
 
-        val messages = JSONArray().apply {
-            put(JSONObject().apply { put("role", "system"); put("content", systemPrompt) })
-            put(JSONObject().apply { put("role", "user"); put("content", prompt) })
-        }
-
-        val body = JSONObject().apply {
-            put("model", "asist_genel")
-            put("messages", messages)
-            put("stream", true)
-            put("temperature", if (mode == "CHAT") 0.8 else 0.5)
-            put("tools", buildToolsArray())
+        val serverUrl = AssistantApplication.HERMES_BASE_URL
+            .removeSuffix("/v1").removeSuffix("/")
+        
+        // Session varsa Hermes session API, yoksa OpenAI-compatible chat completions kullan
+        val sessionAvailable = hermesClient.sessionId != null
+        val openaiUrl = "$serverUrl/v1/chat/completions"
+        val sessionUrl = "$serverUrl/api/sessions/${hermesClient.sessionId ?: ""}/chat/stream"
+        val targetUrl = if (sessionAvailable) sessionUrl else openaiUrl
+        val authKey = if (sessionAvailable) AssistantApplication.HERMES_API_KEY else AssistantApplication.NINEROUTER_API_KEY
+        
+        val body = if (sessionAvailable) {
+            JSONObject().apply {
+                put("message", prompt)
+                put("system_prompt", systemPrompt)
+                put("tools", buildToolsArray())
+            }
+        } else {
+            JSONObject().apply {
+                put("model", AssistantApplication.HERMES_CHAT_MODEL)
+                put("messages", JSONArray().apply {
+                    put(JSONObject().apply { put("role", "system"); put("content", systemPrompt) })
+                    put(JSONObject().apply { put("role", "user"); put("content", prompt) })
+                })
+                put("stream", true)
+                put("tools", buildToolsArray())
+            }
         }
 
         val request = Request.Builder()
-            .url("${AssistantApplication.HERMES_BASE_URL}/chat/completions")
-            .addHeader("Authorization", "Bearer ${AssistantApplication.NINEROUTER_API_KEY}")
+            .url(targetUrl)
+            .addHeader("Authorization", "Bearer $authKey")
             .addHeader("Accept", "text/event-stream")
             .post(body.toString().toRequestBody("application/json".toMediaType()))
             .build()
 
-        // SSE durum takibi
         val sentenceBuffer = StringBuilder()
         val toolCallAccumulator = mutableMapOf<Int, ToolCallAccum>()
 
-        currentEventSource = EventSources.createFactory(com.omoda.lanc.network.NetworkModule.sseClient)
+        currentEventSource = EventSources.createFactory(NetworkModule.sseClient)
             .newEventSource(request, object : EventSourceListener() {
 
                 override fun onEvent(source: EventSource, id: String?, type: String?, data: String) {
                     if (data == "[DONE]") {
-                        // Tampondaki kalan metni gönder
-                        val remaining = sentenceBuffer.toString().trim()
-                        if (remaining.isNotBlank()) {
-                            Log.d("Omoda-Workflow", ">>> [8-SSE] Son parça TTS: $remaining")
-                            onSystemResponse(remaining, true)
-                            sentenceBuffer.clear()
-                        } else {
-                            onSystemResponse("", true)
-                        }
-
-                        // Tool calls birleştir ve CommandFirewall'a gönder
-                        toolCallAccumulator.values.forEach { accum ->
-                            if (accum.name.isNotBlank()) {
-                                Log.d("Omoda-Workflow", ">>> [8-SSE] TOOL CALL: ${accum.name}(${accum.arguments})")
-                                
-                                // RATE LIMITER: Özellikle veri okuma (get_property) isteklerini sınırlayalım (2 saniyede bir)
-                                val now = System.currentTimeMillis()
-                                val lastTime = lastCommandTimes[accum.name] ?: 0L
-                                if (accum.name.startsWith("get_") && (now - lastTime) < 2000) {
-                                    Log.w(TAG, "Rate-Limit Engeli: ${accum.name} son 2 saniyede zaten çağrıldı. Sistem yükünü korumak için es geçiliyor.")
-                                    return@forEach
-                                }
-                                lastCommandTimes[accum.name] = now
-
-                                AssistantApplication.addLog("Aksiyon: ${accum.name}")
-                                commandFirewall.validateAndExecute(accum.name, accum.arguments.ifBlank { "{}" })
-                            }
-                        }
+                        flushAndExecute(sentenceBuffer, toolCallAccumulator)
                         return
                     }
 
-                    try {
-                        val json = JSONObject(data)
-                        val choices = json.optJSONArray("choices") ?: return
-                        if (choices.length() == 0) return
-                        val choice = choices.getJSONObject(0)
-                        val delta = choice.optJSONObject("delta") ?: return
-                        val finishReason = choice.optString("finish_reason")
-
-                        // ── Content (metin) ──────────────────────────
-                        val contentChunk = delta.optString("content").takeIf { it.isNotEmpty() && it != "null" }
-                        if (contentChunk != null) {
-                            sentenceBuffer.append(contentChunk)
-                            val buf = sentenceBuffer.toString()
-                            val sentenceEnd = buf.lastIndexOfAny(charArrayOf('.', '?', '!', '\n'))
-                            if (sentenceEnd >= 0 && buf.length >= 15) {
-                                val toSpeak = buf.substring(0, sentenceEnd + 1).trim()
-                                if (toSpeak.isNotBlank()) {
-                                    Log.d("Omoda-Workflow", ">>> [8-SSE] TTS parça: $toSpeak")
-                                    onSystemResponse(toSpeak, false)
+                    when (type) {
+                        "assistant.delta" -> {
+                            try {
+                                val json = JSONObject(data)
+                                val content = json.optString("content")
+                                if (content.isNotEmpty() && content != "null") {
+                                    sentenceBuffer.append(content)
+                                    processSentenceBuffer(sentenceBuffer)
                                 }
-                                sentenceBuffer.clear()
-                                if (sentenceEnd + 1 < buf.length) {
-                                    sentenceBuffer.append(buf.substring(sentenceEnd + 1))
-                                }
-                            } else if (buf.length >= 40) {
-                                onSystemResponse(buf.trim(), false)
-                                sentenceBuffer.clear()
+                            } catch (e: Exception) {
+                                Log.e(TAG, "assistant.delta parse: ${e.message}")
                             }
                         }
-
-                        // ── Tool Call Chunks ─────────────────────────
-                        val toolChunks = delta.optJSONArray("tool_calls")
-                        if (toolChunks != null) {
-                            for (i in 0 until toolChunks.length()) {
-                                val tc = toolChunks.getJSONObject(i)
-                                val idx = tc.optInt("index", 0)
-                                val accum = toolCallAccumulator.getOrPut(idx) { ToolCallAccum() }
-
-                                val fnChunk = tc.optJSONObject("function")
-                                if (fnChunk != null) {
-                                    val namePart = fnChunk.optString("name")
-                                    val argsPart = fnChunk.optString("arguments")
-                                    if (namePart.isNotBlank()) accum.name += namePart
-                                    if (argsPart.isNotBlank() && argsPart != "null") accum.arguments += argsPart
+                        "tool.started" -> {
+                            try {
+                                val json = JSONObject(data)
+                                val toolName = json.optString("tool")
+                                val args = json.optString("arguments", "{}")
+                                if (toolName.isNotBlank()) {
+                                    val idx = toolCallAccumulator.size
+                                    toolCallAccumulator[idx] = ToolCallAccum(
+                                        id = "tool_$idx",
+                                        name = toolName,
+                                        arguments = args
+                                    )
+                                    Log.d("Omoda-Workflow", ">>> [8-SSE] TOOL STARTED: $toolName")
                                 }
-                                val tcId = tc.optString("id")
-                                if (tcId.isNotBlank() && tcId != "null") accum.id = tcId
+                            } catch (e: Exception) {
+                                Log.e(TAG, "tool.started parse: ${e.message}")
                             }
                         }
-
-                        if (finishReason == "stop" || finishReason == "tool_calls") {
-                            Log.d(TAG, "SSE finish: $finishReason")
+                        "tool.completed" -> {
+                            Log.d("Omoda-Workflow", ">>> [8-SSE] TOOL COMPLETED")
                         }
-
-                    } catch (e: Exception) {
-                        Log.e(TAG, "SSE chunk parse hatası: ${e.message} | data=$data")
+                        "run.completed" -> {
+                            try {
+                                val json = JSONObject(data)
+                                val fullText = json.optString("content")
+                                if (fullText.isNotEmpty() && fullText != "null") {
+                                    sentenceBuffer.append(fullText)
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG, "run.completed parse: ${e.message}")
+                            }
+                            flushAndExecute(sentenceBuffer, toolCallAccumulator)
+                        }
+                        null -> {
+                            // Fallback: OpenAI format (no event: field)
+                            handleOpenAIChunk(data, sentenceBuffer, toolCallAccumulator)
+                        }
+                        else -> {
+                            Log.w(TAG, "Bilinmeyen SSE event: type=$type, data=$data")
+                        }
                     }
                 }
 
                 override fun onFailure(source: EventSource, t: Throwable?, response: okhttp3.Response?) {
                     val code = response?.code ?: -1
-                    Log.e("Omoda-Workflow", ">>> [!] SSE HATASI: ${t?.message} (HTTP $code)")
-                    AssistantApplication.addLog("SSE Hatası: ${t?.message}")
+                    val errorMsg = t?.message ?: "Unknown Error"
+                    Log.e("Omoda-Workflow", ">>> [!] SSE HATASI: $errorMsg (HTTP $code)")
+                    AssistantApplication.addLog("SSE Hatası: $errorMsg")
+
+                    // Session expired: recreate on next attempt
+                    if (code == 404 || code == 401) {
+                        hermesClient.sessionId = null
+                    }
+
                     onFeedback("Bağlantı hatası")
-                    onSystemResponse("Sunucuya bağlanılamadı.", true)
+                    onSystemResponse("Sunucuya bağlanılamadı. ($errorMsg)", true)
                 }
 
                 override fun onClosed(source: EventSource) {
                     Log.d(TAG, "SSE bağlantısı kapatıldı")
+                    if (sentenceBuffer.isNotEmpty() || toolCallAccumulator.isNotEmpty()) {
+                        flushAndExecute(sentenceBuffer, toolCallAccumulator)
+                    }
                 }
             })
+    }
+
+    // ── Cümle tamponlama ve TTS ────────────────────────
+    private fun processSentenceBuffer(buf: StringBuilder) {
+        val text = buf.toString()
+        val sentenceEnd = text.lastIndexOfAny(charArrayOf('.', '?', '!', '\n'))
+        if (sentenceEnd >= 0 && text.length >= 15) {
+            val toSpeak = text.substring(0, sentenceEnd + 1).trim()
+            if (toSpeak.isNotBlank()) {
+                Log.d("Omoda-Workflow", ">>> [8-SSE] TTS parça: $toSpeak")
+                onSystemResponse(toSpeak, false)
+            }
+            buf.clear()
+            if (sentenceEnd + 1 < text.length) {
+                buf.append(text.substring(sentenceEnd + 1))
+            }
+        } else if (text.length >= 40) {
+            onSystemResponse(text.trim(), false)
+            buf.clear()
+        }
+    }
+
+    // ── Kalan metni flush et ve tool call'ları çalıştır ───
+    private fun flushAndExecute(buf: StringBuilder, acc: MutableMap<Int, ToolCallAccum>) {
+        val remaining = buf.toString().trim()
+        if (remaining.isNotBlank()) {
+            Log.d("Omoda-Workflow", ">>> [8-SSE] Son parça TTS: $remaining")
+            onSystemResponse(remaining, true)
+        } else {
+            onSystemResponse("", true)
+        }
+        buf.clear()
+
+        acc.values.forEach { accum ->
+            if (accum.name.isNotBlank()) {
+                Log.d("Omoda-Workflow", ">>> [8-SSE] TOOL CALL: ${accum.name}(${accum.arguments})")
+
+                val now = System.currentTimeMillis()
+                val lastTime = lastCommandTimes[accum.name] ?: 0L
+                if (accum.name.startsWith("get_") && (now - lastTime) < 2000) {
+                    Log.w(TAG, "Rate-Limit Engeli: ${accum.name}")
+                    return@forEach
+                }
+                lastCommandTimes[accum.name] = now
+
+                AssistantApplication.addLog("Aksiyon: ${accum.name}")
+                commandFirewall.validateAndExecute(accum.name, accum.arguments.ifBlank { "{}" })
+            }
+        }
+        acc.clear()
+    }
+
+    // ── OpenAI format fallback (event type == null) ────
+    private fun handleOpenAIChunk(data: String, buf: StringBuilder, acc: MutableMap<Int, ToolCallAccum>) {
+        try {
+            val json = JSONObject(data)
+            val choices = json.optJSONArray("choices") ?: return
+            if (choices.length() == 0) return
+            val choice = choices.getJSONObject(0)
+            val delta = choice.optJSONObject("delta") ?: return
+            val finishReason = choice.optString("finish_reason")
+
+            val contentChunk = delta.optString("content").takeIf { it.isNotEmpty() && it != "null" }
+            if (contentChunk != null) {
+                buf.append(contentChunk)
+                processSentenceBuffer(buf)
+            }
+
+            val toolChunks = delta.optJSONArray("tool_calls")
+            if (toolChunks != null) {
+                for (i in 0 until toolChunks.length()) {
+                    val tc = toolChunks.getJSONObject(i)
+                    val idx = tc.optInt("index", 0)
+                    val accum = acc.getOrPut(idx) { ToolCallAccum() }
+                    val fnChunk = tc.optJSONObject("function")
+                    if (fnChunk != null) {
+                        val namePart = fnChunk.optString("name")
+                        val argsPart = fnChunk.optString("arguments")
+                        if (namePart.isNotBlank()) accum.name += namePart
+                        if (argsPart.isNotBlank() && argsPart != "null") accum.arguments += argsPart
+                    }
+                    val tcId = tc.optString("id")
+                    if (tcId.isNotBlank() && tcId != "null") accum.id = tcId
+                }
+            }
+
+            if (finishReason == "stop" || finishReason == "tool_calls") {
+                Log.d(TAG, "SSE finish: $finishReason")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "SSE chunk parse hatası: ${e.message} | data=$data")
+        }
     }
 
     private data class ToolCallAccum(

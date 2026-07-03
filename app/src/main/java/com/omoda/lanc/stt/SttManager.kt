@@ -9,29 +9,35 @@ import android.util.Log
 import com.omoda.lanc.AssistantApplication
 import java.io.File
 import java.io.FileOutputStream
-import kotlin.concurrent.thread
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
 /**
- * Sürüm 3.0: Akıllı STT Yöneticisi
- * Sadece Online modda AAC/M4A kaydeder.
+ * Sürüm 4.0: Bridge Uyumlu STT Yöneticisi
+ * Bridge modu aktifse kayıpsız WAV, değilse AAC/M4A kaydeder.
  */
 class SttManager(private val context: Context, private val onRecordingFinished: (String) -> Unit) {
     private val tag = "Hermes-SttManager"
+    
     private var mediaRecorder: MediaRecorder? = null
-    private val audioFile = File(context.cacheDir, "user_prompt.m4a")
+    private var audioRecord: AudioRecord? = null
+    private var isRecording = false
+    private var recordingThread: Thread? = null
+
+    private val audioFileM4A = File(context.cacheDir, "user_prompt.m4a")
+    private val audioFileWAV = File(context.cacheDir, "user_prompt.wav")
 
     fun startRecording() {
-        startMediaRecording()
+        if (AssistantApplication.isBridgeMode.value) {
+            startWavRecording()
+        } else {
+            startMediaRecording()
+        }
     }
 
     private fun startMediaRecording() {
         try {
-            val parent = audioFile.parentFile
-            if (parent != null && !parent.exists()) {
-                parent.mkdirs()
-            }
-            if (audioFile.exists()) audioFile.delete()
-
+            if (audioFileM4A.exists()) audioFileM4A.delete()
             val source = getAudioSource()
             mediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 MediaRecorder(context)
@@ -44,23 +50,84 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
                 setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                 setAudioSamplingRate(16000)
                 setAudioEncodingBitRate(32000)
-                setOutputFile(audioFile.absolutePath)
+                setOutputFile(audioFileM4A.absolutePath)
                 prepare()
                 start()
             }
-            Log.i(tag, "Media recording started (16kHz AAC): ${audioFile.absolutePath}")
+            Log.i(tag, "Media recording started (16kHz AAC): ${audioFileM4A.absolutePath}")
         } catch (e: Exception) {
             Log.e(tag, "Media Recording Error: ${e.message}")
-            AssistantApplication.addLog("Kayıt Hatası: ${e.message}")
-            // Fallback to MIC if other source fails
-            if (AssistantApplication.micSource.value != "MIC") {
-                AssistantApplication.micSource.value = "MIC"
-                startMediaRecording()
-            }
         }
     }
 
+    private fun startWavRecording() {
+        try {
+            if (audioFileWAV.exists()) audioFileWAV.delete()
+            val sampleRate = 16000
+            val channelConfig = AudioFormat.CHANNEL_IN_MONO
+            val audioFormat = AudioFormat.ENCODING_PCM_16BIT
+            val bufferSize = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
 
+            audioRecord = AudioRecord(
+                getAudioSource(),
+                sampleRate,
+                channelConfig,
+                audioFormat,
+                bufferSize
+            )
+
+            audioRecord?.startRecording()
+            isRecording = true
+            
+            recordingThread = Thread {
+                writeAudioDataToFile(audioFileWAV, sampleRate, bufferSize)
+            }
+            recordingThread?.start()
+            Log.i(tag, "WAV recording started (16kHz PCM): ${audioFileWAV.absolutePath}")
+        } catch (e: Exception) {
+            Log.e(tag, "WAV Recording Error: ${e.message}")
+        }
+    }
+
+    private fun writeAudioDataToFile(file: File, sampleRate: Int, bufferSize: Int) {
+        val data = ByteArray(bufferSize)
+        val fos = FileOutputStream(file)
+        fos.write(ByteArray(44)) // Space for WAV header
+
+        while (isRecording) {
+            val read = audioRecord?.read(data, 0, bufferSize) ?: -1
+            if (read > 0) {
+                fos.write(data, 0, read)
+            }
+        }
+        fos.close()
+        updateWavHeader(file, sampleRate)
+    }
+
+    private fun updateWavHeader(file: File, sampleRate: Int) {
+        val fileSize = file.length()
+        val dataSize = fileSize - 44
+        val raf = java.io.RandomAccessFile(file, "rw")
+        raf.seek(0)
+        
+        val header = ByteBuffer.allocate(44).order(ByteOrder.LITTLE_ENDIAN)
+        header.put("RIFF".toByteArray())
+        header.putInt((36 + dataSize).toInt())
+        header.put("WAVE".toByteArray())
+        header.put("fmt ".toByteArray())
+        header.putInt(16)
+        header.putShort(1.toShort())
+        header.putShort(1.toShort())
+        header.putInt(sampleRate)
+        header.putInt(sampleRate * 2)
+        header.putShort(2.toShort())
+        header.putShort(16.toShort())
+        header.put("data".toByteArray())
+        header.putInt(dataSize.toInt())
+        
+        raf.write(header.array())
+        raf.close()
+    }
 
     private fun getAudioSource(): Int {
         return when (AssistantApplication.micSource.value) {
@@ -73,25 +140,25 @@ class SttManager(private val context: Context, private val onRecordingFinished: 
 
     fun stopRecording() {
         try {
-            // Kaydın çok erken sonlanıp boş dosya oluşmasını engellemek için küçük bir bekleme
-            Thread.sleep(500)
-            mediaRecorder?.apply {
-                stop()
-                release()
+            Thread.sleep(300)
+            if (AssistantApplication.isBridgeMode.value) {
+                isRecording = false
+                recordingThread?.join()
+                audioRecord?.stop()
+                audioRecord?.release()
+                audioRecord = null
+                onRecordingFinished(audioFileWAV.absolutePath)
+            } else {
+                mediaRecorder?.apply {
+                    stop()
+                    release()
+                }
+                mediaRecorder = null
+                onRecordingFinished(audioFileM4A.absolutePath)
             }
         } catch (e: Exception) {
             Log.e(tag, "Stop Error: ${e.message}")
-        } finally {
-            mediaRecorder = null
-            // Dosyanın gerçekten Groq API sınırlarından (0.01s) büyük olup olmadığını kontrol et. (Ortalama 1000 byte m4a başlığı içerir, 2000'den küçükse muhtemelen boştur)
-            if (audioFile.exists() && audioFile.length() > 2000) {
-                onRecordingFinished(audioFile.absolutePath)
-            } else {
-                Log.w(tag, "Audio file is too short or empty, padding or ignoring.")
-                // Kullanıcıya sesin gitmediğini belirtebilir veya bu döngüyü atlayabiliriz. 
-                // Şimdilik boş dönüyoruz ki AgentManager boş dosya atıp 400 hatası yemesin.
-                onRecordingFinished("")
-            }
+            onRecordingFinished("")
         }
     }
 }

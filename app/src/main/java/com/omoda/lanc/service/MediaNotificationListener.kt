@@ -40,8 +40,10 @@ class MediaNotificationListener : NotificationListenerService() {
             
             Log.d("MediaListener", "Medya Yakalandı: $packageName -> $title - $artist")
 
+            val isPlaying = globalController?.playbackState?.state == android.media.session.PlaybackState.STATE_PLAYING
+
             // Merkezi Köprü Güncellemesi
-            MediaBridge.updateMedia(title, artist, packageName)
+            MediaBridge.updateMedia(title, artist, packageName, isPlaying)
 
             // Uygulama içine broadcast gönder
             val intent = Intent(ACTION_MEDIA_UPDATE).apply {

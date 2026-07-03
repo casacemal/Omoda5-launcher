@@ -2,8 +2,6 @@ package com.omoda.lanc.tts
 
 import android.content.Context
 import android.media.AudioAttributes
-import android.media.AudioFocusRequest
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.util.Log
 import com.omoda.lanc.AssistantApplication
@@ -21,7 +19,7 @@ import java.io.File
 import java.net.URLEncoder
 
 /**
- * Hermes ve Edge TTS Yöneticisi (Sürüm 6.0 - Omega Stable)
+ * Hermes TTS Yöneticisi (Sürüm 6.0 - Omega Stable)
  * Dosya tabanlı çalma (File-based playback) ile OOM çökmesi engellendi.
  * API Referansı: POST + JSON Body standardına %100 uyum sağlandı.
  */
@@ -30,10 +28,7 @@ class HermesTTSManager(private val context: Context) : TTSManager {
     private val TAG = "Hermes-TTSManager"
     private val client = NetworkModule.robustClient
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-
     private var mediaPlayer: MediaPlayer? = null
-    private var audioFocusRequest: AudioFocusRequest? = null
     private var onCompleteCallback: (() -> Unit)? = null
     private var currentJob: Job? = null
     private var tempAudioFile: File? = null
@@ -79,20 +74,31 @@ class HermesTTSManager(private val context: Context) : TTSManager {
 
         currentJob = scope.launch {
             try {
-                requestAudioFocus()
-
-                val base = baseUrl.removeSuffix("/").replace("/v2", "").replace("/v1", "")
-                val voice = "alloy" // Sadece Hermes uyumlu voice
+                val isWyoming = AssistantApplication.isBridgeMode.value && AssistantApplication.bridgeType.value == "WYOMING"
                 
-                val fullUrl = "$base/v1/audio/speech"
-                Log.i(TAG, "TTS İsteği (HERMES): $fullUrl")
+                val fullUrl = if (isWyoming) {
+                    "${baseUrl.removeSuffix("/")}/tts"
+                } else {
+                    val base = baseUrl.removeSuffix("/").replace("/v2", "").replace("/v1", "")
+                    "$base/v1/audio/speech"
+                }
+                
+                Log.i(TAG, "TTS İsteği (${if(isWyoming) "WYOMING" else "OPENAI"}): $fullUrl")
 
                 val requestBuilder = Request.Builder().url(fullUrl)
                 
+                val voice = if (AssistantApplication.isBridgeMode.value) "tr_TR-dfki-medium" else "alloy"
+                
                 val jsonBody = org.json.JSONObject().apply {
-                    put("model", "tts-1")
-                    put("input", sanitizedText)
-                    put("voice", voice)
+                    if (isWyoming) {
+                        put("text", sanitizedText)
+                    } else {
+                        if (!AssistantApplication.isBridgeMode.value) {
+                            put("model", "tts-1")
+                        }
+                        put("input", sanitizedText)
+                        put("voice", voice)
+                    }
                 }
                 requestBuilder.post(jsonBody.toString().toRequestBody("application/json".toMediaType()))
                 requestBuilder.addHeader("Authorization", "Bearer $apiKey")
@@ -161,29 +167,6 @@ class HermesTTSManager(private val context: Context) : TTSManager {
         }
     }
 
-    private fun requestAudioFocus() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            audioFocusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                .setAudioAttributes(audioAttributes)
-                .setAcceptsDelayedFocusGain(true)
-                .setOnAudioFocusChangeListener { focusChange ->
-                    Log.d(TAG, "Audio Focus Değişimi: $focusChange")
-                    if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-                        stop()
-                    }
-                }
-                .build()
-            val result = audioManager.requestAudioFocus(audioFocusRequest!!)
-            Log.i(TAG, "Audio Focus İsteği (EXCLUSIVE) Sonucu: $result")
-        }
-    }
-
-    private fun abandonAudioFocus() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            audioFocusRequest?.let { audioManager.abandonAudioFocusRequest(it) }
-        }
-    }
-
     private fun handlePlaybackComplete() {
         cleanup()
         resetLed()
@@ -200,7 +183,6 @@ class HermesTTSManager(private val context: Context) : TTSManager {
 
     private fun cleanup() {
         try {
-            abandonAudioFocus()
             mediaPlayer?.let {
                 if (it.isPlaying) it.stop()
                 it.reset()

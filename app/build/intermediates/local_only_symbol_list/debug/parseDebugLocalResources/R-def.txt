@@ -126,6 +126,7 @@ drawable bg_indicator_dot
 drawable bg_wallpaper_button
 drawable button_cancel_back
 drawable button_cancel_color
+drawable ic_appstore_launcher
 drawable ic_assistant_launcher
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
@@ -161,11 +162,6 @@ drawable wp_flare
 drawable wp_nature
 drawable wp_purple
 drawable wp_red
-id btnCloseOverlay
-id btnStopListening
-id tvStatus
-id waveOverlayView
-layout overlay_assistant
 mipmap abc_ab_share_pack_mtrl_alpha
 mipmap abc_btn_check_to_on_mtrl_000
 mipmap abc_btn_check_to_on_mtrl_015

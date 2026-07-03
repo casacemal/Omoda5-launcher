@@ -133,13 +133,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp-sse:4.12.0'
     implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5"
 
-    // Tailscale TSNet (Go-based SDK via JNA/AAR)
-    // Note: In a real project, we'd use a specific AAR or library.
-    // For now, I'll assume we are using the official tailscale-android approach or a placeholder if not directly available.
-    // implementation 'com.tailscale:tailscale-android:1.56.1'
-
-    implementation 'net.java.dev.jna:jna:5.13.0@aar'
-    implementation 'ai.picovoice:porcupine-android:3.0.1'
+    // Wake word is implemented with STT-based detection; native wake-word SDKs are not bundled.
     implementation 'androidx.media:media:1.7.0'
 
     implementation 'org.json:json:20210307'
@@ -155,5 +149,4 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
-    implementation files('libs/sherpa-onnx-1.13.2.aar')
 }

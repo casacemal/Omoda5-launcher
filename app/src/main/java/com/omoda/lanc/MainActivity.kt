@@ -39,13 +39,9 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.omoda.lanc.AssistantApplication
 import com.omoda.lanc.ui.screens.SettingsScreen
-import com.omoda.lanc.ui.screens.DialogueSection
-import com.omoda.lanc.ui.screens.StatusPillSection
-import com.omoda.lanc.core.Event
-import com.omoda.lanc.core.EventBus
+import com.omoda.lanc.ui.theme.*
 import com.omoda.lanc.model.LauncherItem
 import com.omoda.lanc.ui.components.GlassIcon
-import com.omoda.lanc.ui.theme.*
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
@@ -60,21 +56,15 @@ import android.graphics.Shader
 import android.graphics.Bitmap
 import java.io.FileOutputStream
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    private lateinit var settingsManager: SettingsManager
     private val mediaVM: com.omoda.lanc.media.MediaControllerViewModel by viewModels()
     private lateinit var adbMonitor: com.omoda.lanc.network.AdbConnectionMonitor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        settingsManager = SettingsManager(this)
         
         Handler(Looper.getMainLooper()).postDelayed({
             injectPermissions()
@@ -84,10 +74,8 @@ class MainActivity : ComponentActivity() {
         generateDefaultWallpapers()
         checkAndRequestPermissions()
 
-        // Adb Connection Monitor başlat
         adbMonitor = com.omoda.lanc.network.AdbConnectionMonitor(this).apply { start() }
 
-        // Arka plan servisini başlat (Yeni asistan servisi)
         val serviceIntent = Intent(this, com.omoda.lanc.service.VoiceAssistantService::class.java)
         ContextCompat.startForegroundService(this, serviceIntent)
 
@@ -107,7 +95,6 @@ class MainActivity : ComponentActivity() {
     fun MainNavigation() {
         var currentScreen by remember { mutableStateOf("home") }
 
-        // Sistem Geri Tuşu/Jesti Yönetimi
         BackHandler(enabled = currentScreen != "home") {
             currentScreen = "home"
         }
@@ -118,17 +105,11 @@ class MainActivity : ComponentActivity() {
                 .pointerInput(Unit) {
                     detectDragGestures { change, dragAmount ->
                         change.consume()
-                        // AAOS Geri Jesti: En sol kenardan sağa doğru çekme
                         if (change.position.x < 150 && dragAmount.x > 30) {
-                            if (currentScreen != "home") {
-                                currentScreen = "home"
-                            }
+                            if (currentScreen != "home") currentScreen = "home"
                         }
-                        // AAOS Ana Sayfa Jesti: Alt kenardan yukarı çekme
                         if (change.position.y > (size.height - 150) && dragAmount.y < -30) {
-                            if (currentScreen != "home") {
-                                currentScreen = "home"
-                            }
+                            if (currentScreen != "home") currentScreen = "home"
                         }
                     }
                 }
@@ -146,21 +127,18 @@ class MainActivity : ComponentActivity() {
         val context = androidx.compose.ui.platform.LocalContext.current
         val configuration = androidx.compose.ui.platform.LocalConfiguration.current
         val smallestWidth = configuration.smallestScreenWidthDp
-        val isHandheld = !com.omoda.lanc.AssistantApplication.isCarHardware && smallestWidth < 600
+        val isHandheld = !AssistantApplication.isCarHardware && smallestWidth < 600
         
-        // Mobil için sayfa başına öğe sayısını ayarla
         val itemsPerPage = if (isHandheld) 8 else 10
 
         var launcherPages by remember { mutableStateOf(buildLauncherPages(itemsPerPage)) }
         val pagerState = rememberPagerState { launcherPages.size }
         val scope = rememberCoroutineScope()
         
-        // Uygulamalar değiştikçe veya tıklandıkça listeyi yenile
         LaunchedEffect(itemsPerPage) {
             launcherPages = buildLauncherPages(itemsPerPage)
         }
 
-        // Duvar Kağıdı Yönetimi (Manifesto v9.3.0)
         val internalWallpapers = listOf(
             R.mipmap.bg_1, 
             R.mipmap.bg_2,
@@ -170,11 +148,7 @@ class MainActivity : ComponentActivity() {
             R.drawable.wp_nature
         ) 
         var externalWallpapers by remember { mutableStateOf(emptyList<File>()) }
-        var wallpaperIdx by remember { mutableStateOf(settingsManager.wallpaperIdx) }
-
-        LaunchedEffect(wallpaperIdx) {
-            settingsManager.wallpaperIdx = wallpaperIdx
-        }
+        val wallpaperIdx by AssistantApplication.wallpaperIdx.collectAsState()
 
         LaunchedEffect(Unit) {
             val dir = File("/sdcard/Omoda/Wallpapers")
@@ -186,7 +160,7 @@ class MainActivity : ComponentActivity() {
         }
 
         val totalCount = internalWallpapers.size + externalWallpapers.size
-        val currentIdx = wallpaperIdx % if (totalCount > 0) totalCount else 1
+        val currentIdx = if (totalCount > 0) wallpaperIdx % totalCount else 0
         
         val leftPaddingVal = when {
             isHandheld -> 12.dp
@@ -206,14 +180,15 @@ class MainActivity : ComponentActivity() {
         
         val painter: Painter = if (currentIdx < internalWallpapers.size) {
             painterResource(internalWallpapers[currentIdx])
-        } else {
+        } else if (externalWallpapers.isNotEmpty()) {
             val file = externalWallpapers[currentIdx - internalWallpapers.size]
             val bitmap = BitmapFactory.decodeFile(file.absolutePath)
             if (bitmap != null) BitmapPainter(bitmap.asImageBitmap()) 
             else painterResource(internalWallpapers[0])
+        } else {
+            painterResource(internalWallpapers[0])
         }
 
-        // AssistantApplication'dan gelen canlı veriler
         val lastAIResponse by AssistantApplication.assistantResponse.collectAsState()
         val recognizedText by AssistantApplication.recognizedText.collectAsState()
         val status by AssistantApplication.status.collectAsState()
@@ -221,12 +196,12 @@ class MainActivity : ComponentActivity() {
         val proactiveWarning by AssistantApplication.proactiveWarning.collectAsState()
         val isRemoteAdbConnected by AssistantApplication.isRemoteAdbConnected.collectAsState()
         val downloadProgressText by AssistantApplication.downloadProgressText.collectAsState()
+        val currentMode by AssistantApplication.currentMode.collectAsState()
+        val isVpnConnected by AssistantApplication.isVpnConnected.collectAsState()
 
-        // Proaktif Sesli Uyarı Tetikleyici
         LaunchedEffect(proactiveWarning) {
             val warnText = proactiveWarning
             if (!warnText.isNullOrEmpty() && warnText != "DISMISSED") {
-                // Asistanın uyarıyı sesli okuması için broadcast gönder
                 val intent = Intent("com.omoda.assistant.SPEAK").apply {
                     putExtra("text", warnText)
                 }
@@ -235,7 +210,6 @@ class MainActivity : ComponentActivity() {
         }
 
         Box(Modifier.fillMaxSize()) {
-            // Arka Plan
             Image(
                 painter = painter,
                 contentDescription = null,
@@ -243,7 +217,6 @@ class MainActivity : ComponentActivity() {
                 contentScale = ContentScale.Crop
             )
 
-            // UZAK ADB BAĞLANTI UYARISI (Sağ Üst Köşede Yanıp Sönen Turuncu Sembol)
             if (isRemoteAdbConnected) {
                 val infiniteTransition = rememberInfiniteTransition()
                 val alpha by infiniteTransition.animateFloat(
@@ -269,27 +242,15 @@ class MainActivity : ComponentActivity() {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(8.dp)
-                                .clip(CircleShape)
-                                .background(Color.Red)
-                        )
-                        Text(
-                            text = "UZAK ADB",
-                            color = Color.Black,
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color.Red))
+                        Text(text = "UZAK ADB", color = Color.Black, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
             Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.5f)))
 
-            // Ana İçerik (Launcher Bölümü - Sol Taraf)
             Row(Modifier.fillMaxSize()) {
                 Column(Modifier.weight(1f).fillMaxHeight()) {
-                    // Medya Widget (Üstte)
                     com.omoda.lanc.ui.components.MediaControlWidget(mediaVM)
                     
                     Box(Modifier.weight(1f)) {
@@ -316,12 +277,15 @@ class MainActivity : ComponentActivity() {
                                         item = item,
                                         onClick = { 
                                             if (item.packageName == "internal.wallpaper") {
-                                                wallpaperIdx++
+                                                AssistantApplication.wallpaperIdx.value++
+                                                AssistantApplication.saveCurrentConfig()
                                             } else {
                                                 launchApp(item)
-                                                // Tıklama oranını artır ve sayfaları yeniden oluştur
                                                 item.packageName?.let { pkg ->
-                                                    settingsManager.incrementAppClickCount(pkg)
+                                                    val counts = AssistantApplication.appClickCounts.value.toMutableMap()
+                                                    counts[pkg] = (counts[pkg] ?: 0) + 1
+                                                    AssistantApplication.appClickCounts.value = counts
+                                                    AssistantApplication.saveCurrentConfig()
                                                     launcherPages = buildLauncherPages(itemsPerPage)
                                                 }
                                             }
@@ -331,7 +295,6 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-                        // Navigasyon Bar (v9.0.0): Alt ortada iki adet yatay ince çizgi
                         Row(
                             Modifier
                                 .align(Alignment.BottomCenter)
@@ -340,7 +303,6 @@ class MainActivity : ComponentActivity() {
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Sol Çizgi: 1. Sayfa (Home)
                             Box(
                                 Modifier
                                     .weight(1f)
@@ -349,7 +311,6 @@ class MainActivity : ComponentActivity() {
                                     .background(if(pagerState.currentPage == 0) OmodaCyan else Color.White.copy(0.3f))
                                     .clickable { scope.launch { pagerState.animateScrollToPage(0) } }
                             )
-                            // Sağ Çizgi: 2. Sayfa ve sonrası
                             Box(
                                 Modifier
                                     .weight(1f)
@@ -360,7 +321,6 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        // Görünmez alt tetikleyici (Manifesto v9.3.0)
                         Box(
                             Modifier
                                 .align(Alignment.BottomCenter)
@@ -368,7 +328,10 @@ class MainActivity : ComponentActivity() {
                                 .zIndex(1f)
                                 .combinedClickable(
                                     onClick = { }, 
-                                    onDoubleClick = { wallpaperIdx++ },
+                                    onDoubleClick = { 
+                                        AssistantApplication.wallpaperIdx.value++
+                                        AssistantApplication.saveCurrentConfig()
+                                    },
                                     onLongClick = onOpenSettings
                                 )
                         )
@@ -376,16 +339,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            // SMART HUD (v9.2.0) - Sağ Alt AI Feedback (Ana Box içinde)
-            val hudWidth = when {
-                isHandheld -> 180.dp
-                smallestWidth < 800 -> 240.dp
-                else -> 320.dp
-            }
-            // AssistantApplication'dan gelen canlı veriler
-            val currentMode by AssistantApplication.currentMode.collectAsState()
+            val hudWidth = if (isHandheld) 180.dp else if (smallestWidth < 800) 240.dp else 320.dp
 
-            // PROAKTİF UYARI BANNER (Üst Orta Alanda Çıkacak Şık Kart)
             val warnText = proactiveWarning
             if (!warnText.isNullOrEmpty() && warnText != "DISMISSED") {
                 Card(
@@ -442,10 +397,19 @@ class MainActivity : ComponentActivity() {
                             Text("AI", color = Color.Black, fontSize = 10.sp, fontWeight = FontWeight.Bold, 
                                 modifier = Modifier.background(OmodaCyan, RoundedCornerShape(4.dp)).padding(horizontal = 4.dp))
                             Spacer(Modifier.width(8.dp))
+                            
+                            // VPN Göstergesi
+                            Box(
+                                modifier = Modifier
+                                    .size(8.dp)
+                                    .clip(CircleShape)
+                                    .background(if (isVpnConnected) Color.Green else Color.Red)
+                            )
+                            Spacer(Modifier.width(4.dp))
+
                             Text(status, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Medium)
                         }
                         
-                        // Mod Değiştirici (ASİSTAN / SOHBET)
                         Row(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(8.dp))
@@ -483,15 +447,9 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     
-                    if (recognizedText.isNotBlank()) {
-                        Text(recognizedText, color = Color.Gray, fontSize = 14.sp)
-                    }
+                    if (recognizedText.isNotBlank()) Text(recognizedText, color = Color.Gray, fontSize = 14.sp)
+                    if (lastAIResponse.isNotBlank()) Text(lastAIResponse, color = OmodaCyan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     
-                    if (lastAIResponse.isNotBlank()) {
-                        Text(lastAIResponse, color = OmodaCyan, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    }
-                    
-                    // Sabit OTA İndirme Bildirimi (Asistan sıfırlamalarından bağımsız)
                     downloadProgressText?.let { progress ->
                         Spacer(Modifier.height(4.dp))
                         Row(
@@ -502,28 +460,16 @@ class MainActivity : ComponentActivity() {
                                 .background(Color(0xFFF3B14B).copy(alpha = 0.15f))
                                 .padding(8.dp)
                         ) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(12.dp),
-                                strokeWidth = 1.5.dp,
-                                color = Color(0xFFF3B14B)
-                            )
+                            CircularProgressIndicator(modifier = Modifier.size(12.dp), strokeWidth = 1.5.dp, color = Color(0xFFF3B14B))
                             Spacer(Modifier.width(8.dp))
-                            Text(
-                                text = progress,
-                                color = Color(0xFFF3B14B),
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold
-                            )
+                            Text(text = progress, color = Color(0xFFF3B14B), fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
             }
 
-            // Hızlı Ayarlar / Asistan Tetikleyici (Küçük Yüzen Butonlar)
             Column(
-                Modifier
-                    .align(Alignment.CenterEnd)
-                    .padding(end = 20.dp),
+                Modifier.align(Alignment.CenterEnd).padding(end = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 FloatingActionButton(
@@ -534,40 +480,25 @@ class MainActivity : ComponentActivity() {
                     containerColor = if(isListening) Color.Red else OmodaCyan,
                     contentColor = Color.Black,
                     shape = CircleShape
-                ) {
-                    Icon(painterResource(android.R.drawable.ic_btn_speak_now), null)
-                }
+                ) { Icon(painterResource(android.R.drawable.ic_btn_speak_now), null) }
 
                 FloatingActionButton(
-                    onClick = { wallpaperIdx++ },
+                    onClick = { 
+                        AssistantApplication.wallpaperIdx.value++
+                        AssistantApplication.saveCurrentConfig()
+                    },
                     containerColor = Color.DarkGray.copy(alpha = 0.8f),
                     contentColor = OmodaCyan,
                     shape = CircleShape
-                ) {
-                    Icon(Icons.Default.Image, contentDescription = "Duvar Kağıdı Değiştir")
-                }
+                ) { Icon(Icons.Default.Image, contentDescription = "Duvar Kağıdı Değiştir") }
 
                 FloatingActionButton(
                     onClick = onOpenSettings,
                     containerColor = Color.DarkGray,
                     contentColor = Color.White,
                     shape = CircleShape
-                ) {
-                    Icon(Icons.Default.Settings, null)
-                }
+                ) { Icon(Icons.Default.Settings, null) }
             }
-        }
-    }
-
-    @Composable
-    fun SensorRow(label: String, value: String, valueColor: Color) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(label, color = Color.LightGray, fontSize = 11.sp)
-            Text(value, color = valueColor, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         }
     }
 
@@ -586,7 +517,6 @@ class MainActivity : ComponentActivity() {
             LauncherItem("cp","CarPlay",R.mipmap.home_app_apple_carplay_n,"com.yfve.car.carplay")
         )
         
-        // Tüm yüklü uygulamaları getir (Sistem uygulamaları dahil)
         val mainIntent = Intent(Intent.ACTION_MAIN, null).apply { addCategory(Intent.CATEGORY_LAUNCHER) }
         val resolvedInfos = packageManager.queryIntentActivities(mainIntent, 0)
         
@@ -599,32 +529,22 @@ class MainActivity : ComponentActivity() {
                 title = title,
                 packageName = pkg,
                 iconDrawable = icon,
-                clickCount = settingsManager.getAppClickCount(pkg)
+                clickCount = AssistantApplication.appClickCounts.value[pkg] ?: 0
             )
-        }.filter { app -> 
-            // Sabit listede olmayanları ayır
-            fixedApps.none { it.packageName == app.packageName } 
-        }.sortedByDescending { it.clickCount }
+        }.filter { app -> fixedApps.none { it.packageName == app.packageName } }.sortedByDescending { it.clickCount }
 
         val pages = mutableListOf<List<LauncherItem>>()
-        
-        // Sayfalara böl
         pages.add(fixedApps.take(itemsPerPage)) 
         
         val remainingFixed = if (fixedApps.size > itemsPerPage) fixedApps.drop(itemsPerPage) else emptyList()
         val otherAppsCombined = remainingFixed + allApps
         
-        otherAppsCombined.chunked(itemsPerPage).forEach { chunk ->
-            pages.add(chunk)
-        }
-
+        otherAppsCombined.chunked(itemsPerPage).forEach { chunk -> pages.add(chunk) }
         return pages
     }
 
     private fun launchApp(item: LauncherItem) {
         if (item.packageName == "internal.appstore") {
-            // App Store direkt Ayarlar altındaki bölüme veya ayrı bir ekrana yönlendirilebilir.
-            // Şimdilik Ayarlar ekranını açacak, oradaki AppStoreSection görünür olacak.
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("TARGET_SCREEN", "SETTINGS")
                 putExtra("TARGET_SECTION", "APP_STORE")
@@ -634,32 +554,22 @@ class MainActivity : ComponentActivity() {
         }
         item.packageName?.let { p -> 
             val intent = packageManager.getLaunchIntentForPackage(p)
-            if (intent != null) {
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-            }
+            if (intent != null) startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
     }
 
     private fun injectPermissions() {
-        if (!settingsManager.isAutoTasksEnabled) {
-            Log.d("OMODA_SYS", "Otomatik Görevler Kapalı")
-            return
-        }
+        if (!AssistantApplication.isAutoTasksEnabled.value) return
 
         val baseCmds = mutableListOf(
-            // Kritik İzinler
             "appops set $packageName SYSTEM_ALERT_WINDOW allow",
             "appops set $packageName GET_USAGE_STATS allow",
             "appops set $packageName WRITE_SECURE_SETTINGS allow",
-            
-            // Global Ayarlar (AAOS için serbest pencere vb.)
             "settings put global enable_freeform_support 1",
             "settings put global force_resizable_activities 1",
             "settings put global hidden_api_policy 1",
             "settings put global hidden_api_policy_pre_p_apps 1",
             "settings put global hidden_api_policy_p_apps 1",
-            
-            // Runtime İzinleri
             "pm grant $packageName android.permission.READ_EXTERNAL_STORAGE",
             "pm grant $packageName android.permission.WRITE_EXTERNAL_STORAGE",
             "pm grant $packageName android.permission.RECORD_AUDIO",
@@ -674,96 +584,53 @@ class MainActivity : ComponentActivity() {
             "pm grant $packageName android.car.permission.CAR_EXTERIOR_ENVIRONMENT",
             "pm grant $packageName android.car.permission.CAR_POWERTRAIN"
         )
-        
-        if (com.omoda.lanc.AssistantApplication.isTailscaleEnabled.value) {
-            // Kullanıcı isteğiyle kapatıldı (Ağı bozuyor, Tailscale'in kendi uygulaması kullanılacak)
-            // baseCmds.add("am broadcast -n com.tailscale.ipn/.IPNReceiver -a com.tailscale.ipn.CONNECT_VPN")
-        }
-        
         baseCmds.forEach { exec(it) }
-
-        // Notification Listener (Media Monitoring) - Sürüm 10+ için tam yetki
-        val notifTarget = "$packageName/com.omoda.lanc.service.MediaNotificationListener"
-        exec("cmd notification allow_listener $notifTarget")
-        
-        // Logcat üzerinden takip için
-        Log.d("OMODA_SYS", "Tüm sistem izinleri ve Launcher kurulumu ADB üzerinden tetiklendi.")
+        exec("cmd notification allow_listener $packageName/com.omoda.lanc.service.MediaNotificationListener")
     }
 
     private fun startPeriodicPermissionCheck() {
         val h = Handler(Looper.getMainLooper())
-        val checkInterval = 10 * 1000L // 10 saniyede bir kontrol et
         val checker = object : Runnable {
             override fun run() {
-                if (settingsManager.isAutoTasksEnabled) {
-                    // İzin durumunu kontrol edip log paneline yazalım
+                if (AssistantApplication.isAutoTasksEnabled.value && !AssistantApplication.isSimulationMode.value) {
                     val recordGranted = ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
                     val dumpGranted = ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.DUMP) == PackageManager.PERMISSION_GRANTED
-                    
                     if (!recordGranted || !dumpGranted) {
-                        AssistantApplication.addLog("Eksik İzinler Var! Mikrofon: $recordGranted, DUMP: $dumpGranted")
-                        AssistantApplication.addLog("ADB üzerinden izinler otomatik enjekte ediliyor...")
-                    } else {
-                        // Her 10sn'de bir log kalabalığı yapmamak için sadece değişiklik durumunda yazabiliriz,
-                        // ama kullanıcının isteği üzerine onay logu bırakıyoruz.
-                        AssistantApplication.addLog("Sistem İzinleri: TAMAM")
+                        AssistantApplication.addLog("Eksik İzinler! ADB enjekte ediliyor...")
                     }
-                    
                     injectPermissions()
                 }
-                h.postDelayed(this, checkInterval)
+                h.postDelayed(this, 10000L)
             }
         }
-        h.postDelayed(checker, 2000) // İlk çalıştırma 2sn sonra
+        h.postDelayed(checker, 2000)
     }
 
     private fun generateDefaultWallpapers() {
         val dir = File("/sdcard/Omoda/Wallpapers")
         if (!dir.exists()) dir.mkdirs()
-        
-        // Eğer klasörde zaten resim varsa tekrar üretme
         if ((dir.listFiles()?.size ?: 0) > 0) return
 
         val width = 1920
-        val height = 720 // AAOS standard geniş ekran çözünürlüğü (Semidrive uyumlu)
-
+        val height = 720
         val configs = listOf(
-            // CarPlay Style (Deep Blue/Purple Gradient)
             listOf(0xFF000000.toInt(), 0xFF1A237E.toInt(), 0xFF4A148C.toInt()),
-            // Android Auto Style (Teal/Dark Gray)
             listOf(0xFF000000.toInt(), 0xFF004D40.toInt(), 0xFF212121.toInt()),
-            // Omoda Cyan Style (Black/Cyan)
             listOf(0xFF000000.toInt(), 0xFF006064.toInt(), 0xFF00B8D4.toInt()),
-            // Sunset Drive (Dark Orange/Purple)
             listOf(0xFF212121.toInt(), 0xFFBF360C.toInt(), 0xFF311B92.toInt()),
-            // Midnight OLED (Pure Black/Dark Blue)
             listOf(0xFF000000.toInt(), 0xFF0D47A1.toInt(), 0xFF000000.toInt())
         )
 
         configs.forEachIndexed { index, colors ->
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
-            val paint = Paint()
-            
-            val shader = LinearGradient(
-                0f, 0f, width.toFloat(), height.toFloat(),
-                colors.toIntArray(),
-                null,
-                Shader.TileMode.CLAMP
-            )
-            paint.shader = shader
-            canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
-
+            val shader = LinearGradient(0f, 0f, width.toFloat(), height.toFloat(), colors.toIntArray(), null, Shader.TileMode.CLAMP)
+            canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), Paint().apply { this.shader = shader })
             try {
-                val file = File(dir, "wallpaper_gen_${index + 1}.png")
-                val out = FileOutputStream(file)
+                val out = FileOutputStream(File(dir, "wallpaper_gen_${index + 1}.png"))
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
-                out.flush()
                 out.close()
-                Log.d("WallpaperGen", "Üretildi: ${file.absolutePath}")
-            } catch (e: Exception) {
-                Log.e("WallpaperGen", "Hata: ${e.message}")
-            }
+            } catch (_: Exception) {}
         }
     }
 
@@ -775,26 +642,9 @@ class MainActivity : ComponentActivity() {
         ContextCompat.startForegroundService(this, intent)
     }
 
-    private fun checkAndRequestHomeRole() {
-        // AAOS'de bu ekran OEM tarafından kısıtlanmıştır (buton pasiftir). 
-        // Bu yüzden Ayarlar sayfasındaki ADB yöntemi (pm disable-user --user 0 com.chery.launcher) kullanılmalıdır.
-    }
-
     private fun checkAndRequestPermissions() {
-        val permissions = arrayOf(
-            Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-
-        val neededPermissions = permissions.filter {
-            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
-        }
-
-        if (neededPermissions.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, neededPermissions.toTypedArray(), 1001)
-        }
+        val permissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+        val needed = permissions.filter { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }
+        if (needed.isNotEmpty()) ActivityCompat.requestPermissions(this, needed.toTypedArray(), 1001)
     }
 }

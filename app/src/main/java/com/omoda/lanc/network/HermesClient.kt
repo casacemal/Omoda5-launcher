@@ -2,23 +2,62 @@ package com.omoda.lanc.network
 
 import android.util.Log
 import com.omoda.lanc.AssistantApplication
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
 
+/**
+ * HermesClient - Omoda AI Haberleşme İstemcisi.
+ * 
+ * Bu sınıf, uygulama ile merkezi Hermes Gateway (100.95.239.119:20128) 
+ * arasındaki tüm HTTP trafiğini yönetir.
+ */
 class HermesClient(private val baseUrl: String, private val apiKey: String) {
     private val TAG = "Hermes-Client"
     private val client = NetworkModule.robustClient
 
-    // ──────────────────────────────────────────────────────────────
-    // Bağlantı Kontrolü (Hermes Chat Gateway)
-    // ──────────────────────────────────────────────────────────────
+    /** Session ID from POST /api/sessions (Hermes session-based API) */
+    var sessionId: String? = null
+    var sessionCreationFailed = false
+
+    /** Create a Hermes session synchronously. Returns session_id or null. */
+    fun createSessionSync(): String? {
+        if (sessionCreationFailed) return null
+        val serverUrl = baseUrl.removeSuffix("/v1").removeSuffix("/")
+        val request = Request.Builder()
+            .url("$serverUrl/api/sessions")
+            .addHeader("Authorization", "Bearer $apiKey")
+            .post("".toRequestBody(null))  // empty body for session creation
+            .build()
+        return try {
+            val response = client.newCall(request).execute()
+            response.use { resp ->
+                if (resp.isSuccessful) {
+                    val body = resp.body?.string()
+                    val json = JSONObject(body ?: return null)
+                    json.optString("session_id", "").ifBlank { null }?.also {
+                        sessionId = it
+                    }
+                } else {
+                    sessionCreationFailed = true
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Session oluşturma hatası: ${e.message}")
+            sessionCreationFailed = true
+            null
+        }
+    }
+
     fun checkConnection() {
         val request = Request.Builder()
             .url("${baseUrl.removeSuffix("/")}/models")
@@ -40,152 +79,56 @@ class HermesClient(private val baseUrl: String, private val apiKey: String) {
         })
     }
 
-    // ──────────────────────────────────────────────────────────────
-    // STT - Hermes Whisper API (Local/Gateway)
-    // ──────────────────────────────────────────────────────────────
-    suspend fun sendAudioToHermes(audioFile: File): String? = suspendCancellableCoroutine { continuation ->
-        val hermesUrl = "${baseUrl.removeSuffix("/")}/audio/transcriptions"
-
-        val requestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart(
-                "file", audioFile.name,
-                audioFile.asRequestBody("audio/m4a".toMediaTypeOrNull())
-            )
-            .addFormDataPart("model", "whisper-1")
-            .build()
-
-        val request = Request.Builder()
-            .url(hermesUrl)
-            .addHeader("Authorization", "Bearer $apiKey")
-            .addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
-            .post(requestBody)
-            .build()
-
-        Log.d(TAG, "Hermes STT isteği gönderiliyor → $hermesUrl")
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e(TAG, "Hermes STT Ağ Hatası: ${e.message}")
-                if (continuation.isActive) continuation.resume(null)
-            }
-            override fun onResponse(call: Call, response: Response) {
-                try {
-                    response.use { resp ->
-                        val body = resp.body?.string()
-                        if (resp.isSuccessful && body != null) {
-                            val text = JSONObject(body).optString("text")
-                            Log.d(TAG, "Hermes STT başarılı: '$text'")
-                            if (continuation.isActive) continuation.resume(text.ifBlank { null })
-                        } else {
-                            Log.e(TAG, "Hermes STT HTTP ${resp.code}: $body")
-                            if (continuation.isActive) continuation.resume(null)
-                        }
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Hermes STT parse hatası: ${e.message}")
-                    if (continuation.isActive) continuation.resume(null)
-                }
-            }
-        })
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    // STT - Groq Whisper API
-    // ──────────────────────────────────────────────────────────────
-    suspend fun sendAudio(audioFile: File): String? = suspendCancellableCoroutine { continuation ->
-        val targetUrl = "${baseUrl.removeSuffix("/")}/audio/transcriptions"
-
-        val requestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart(
-                "file", audioFile.name,
-                audioFile.asRequestBody("audio/m4a".toMediaTypeOrNull())
-            )
-            .addFormDataPart("model", AssistantApplication.GROQ_STT_MODEL)
-            .addFormDataPart("language", "tr")
-            .addFormDataPart("response_format", "json")
-            .build()
-
-        val request = Request.Builder()
-            .url(targetUrl)
-            .addHeader("Authorization", "Bearer $apiKey")
-            .addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
-            .post(requestBody)
-            .build()
-
-        Log.d(TAG, "Groq STT isteği (Gateway üzerinden) gönderiliyor → $targetUrl (${audioFile.length()} bytes)")
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e(TAG, "Groq STT Ağ Hatası: ${e.message}")
-                AssistantApplication.addLog("STT Hata: ${e.message}")
-                if (continuation.isActive) continuation.resume(null)
-            }
-            override fun onResponse(call: Call, response: Response) {
-                try {
-                    response.use { resp ->
-                        val respBody = resp.body
-                        val body = respBody?.string()
-                        if (resp.isSuccessful && body != null) {
-                            val text = JSONObject(body).optString("text")
-                            Log.d(TAG, "Groq STT başarılı: '$text'")
-                            if (continuation.isActive) continuation.resume(text.ifBlank { null })
-                        } else {
-                            Log.e(TAG, "Groq STT HTTP ${resp.code}: ${body ?: "null"}")
-                            AssistantApplication.addLog("STT Hata ${resp.code}")
-                            if (continuation.isActive) continuation.resume(null)
-                        }
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Groq STT parse hatası: ${e.message}")
-                    if (continuation.isActive) continuation.resume(null)
-                }
-            }
-        })
-    }
-
     fun transcribe(audioFile: File, onResult: (String?) -> Unit) {
-        val mode = AssistantApplication.sttMode.value
-        val useCloud = mode == "BULUT" || mode == "GROQ"
-        val groqKey = AssistantApplication.groqApiKey.value
+        val isWyoming = AssistantApplication.isBridgeMode.value && AssistantApplication.bridgeType.value == "WYOMING"
         
-        val targetUrl = if (useCloud) {
-            "${AssistantApplication.GROQ_BASE_URL}/audio/transcriptions"
+        val targetUrl = if (isWyoming) {
+            "${baseUrl.removeSuffix("/")}/stt"
         } else {
             "${baseUrl.removeSuffix("/")}/audio/transcriptions"
         }
+        
+        val authHeader = "Bearer $apiKey"
+        val modelName = AssistantApplication.STT_MODEL
 
-        val authHeader = if (useCloud) "Bearer $groqKey" else "Bearer $apiKey"
-        val modelName = if (useCloud) AssistantApplication.GROQ_STT_MODEL else "whisper-1"
+        val requestBody = if (isWyoming) {
+            try {
+                val bytes = audioFile.readBytes()
+                val base64 = android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP)
+                val json = JSONObject().apply {
+                    put("audio", base64)
+                }
+                json.toString().toRequestBody("application/json".toMediaTypeOrNull())
+            } catch (e: Exception) {
+                Log.e(TAG, "Wyoming STT Hazırlama Hatası: ${e.message}")
+                onResult(null)
+                return
+            }
+        } else {
+            MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart(
+                    "file", audioFile.name,
+                    audioFile.asRequestBody("audio/wav".toMediaTypeOrNull())
+                )
+                .addFormDataPart("model", modelName)
+                .addFormDataPart("language", "tr")
+                .addFormDataPart("response_format", "json")
+                .build()
+        }
 
-        val requestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart(
-                "file", audioFile.name,
-                audioFile.asRequestBody("audio/m4a".toMediaTypeOrNull())
-            )
-            .addFormDataPart("model", modelName)
-            .addFormDataPart("language", "tr")
-            .addFormDataPart("response_format", "json")
-            .build()
-
-        val requestBuilder = Request.Builder()
+        val request = Request.Builder()
             .url(targetUrl)
             .addHeader("Authorization", authHeader)
-            
-        // NOT: X-Hermes-Session-Key başlığı ses yüklemelerinde sunucu tarafından reddedilebildiği 
-        // için (kaynak projede olduğu gibi) kaldırıldı.
-            
-        val request = requestBuilder
+            .addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
             .post(requestBody)
             .build()
 
-        Log.d(TAG, "STT isteği gönderiliyor (Mod: $mode, Hedef: ${if(useCloud) "DOĞRUDAN BULUT" else "GATEWAY"}) → $targetUrl")
+        Log.d(TAG, "STT isteği gönderiliyor → $targetUrl")
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.e(TAG, "STT Ağ Hatası ($mode): ${e.message}")
+                Log.e(TAG, "STT Ağ Hatası: ${e.message}")
                 AssistantApplication.addLog("STT Ağ Hatası: ${e.message}")
                 onResult(null)
             }
@@ -195,104 +138,17 @@ class HermesClient(private val baseUrl: String, private val apiKey: String) {
                         val body = resp.body?.string()
                         if (resp.isSuccessful && body != null) {
                             val text = JSONObject(body).optString("text")
-                            Log.d(TAG, "STT Başarılı ($mode): '$text'")
+                            Log.d(TAG, "STT Başarılı: '$text'")
                             onResult(text.ifBlank { null })
                         } else {
-                            Log.e(TAG, "STT HTTP Hatası ($mode) ${resp.code}: ${body ?: "null"}")
-                            AssistantApplication.addLog("STT Başarısız ($mode): ${resp.code}")
-                            
-                            // 401 Unauthorized durumunda API Key kontrolü uyarısı ekle
-                            if (resp.code == 401) {
-                                AssistantApplication.addLog("HATA: API Anahtarı geçersiz veya süresi dolmuş (401)")
-                            }
-
+                            Log.e(TAG, "STT HTTP Hatası ${resp.code}: ${body ?: "null"}")
+                            AssistantApplication.addLog("STT Başarısız: ${resp.code}")
                             onResult(null)
                         }
                     }
                 } catch (e: Exception) {
-                    Log.e(TAG, "STT Parse Hatası ($mode): ${e.message}")
-                    AssistantApplication.addLog("STT İşleme Hatası: ${e.message}")
+                    Log.e(TAG, "STT Parse Hatası: ${e.message}")
                     onResult(null)
-                }
-            }
-        })
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    // Telemetry - Sessiz Araç Verisi Takibi (Sürüm 1.3)
-    // ──────────────────────────────────────────────────────────────
-    fun sendTelemetry(vehicleId: String, sessionKey: String, state: com.omoda.lanc.model.VehicleState) {
-        val telemetryJson = JSONObject().apply {
-            put("vehicle_id", vehicleId)
-            put("session_key", sessionKey)
-            put("timestamp", System.currentTimeMillis() / 1000)
-            put("telemetry", JSONObject().apply {
-                put("speed_kmh", state.speed.toInt())
-                put("gear_position", state.gearString)
-                put("is_hvac_on", state.isHvacOn)
-                put("is_engine_running", state.isEngineRunning)
-            })
-        }
-
-        val requestBody = telemetryJson.toString().toRequestBody("application/json".toMediaTypeOrNull())
-        val request = Request.Builder()
-            .url("${baseUrl.removeSuffix("/")}/telemetry")
-            .addHeader("Authorization", "Bearer $apiKey")
-            .addHeader("X-Hermes-Session-Key", sessionKey)
-            .post(requestBody)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.w(TAG, "Telemetri gönderimi başarısız: ${e.message}")
-            }
-            override fun onResponse(call: Call, response: Response) {
-                response.close()
-            }
-        })
-    }
-
-    // ──────────────────────────────────────────────────────────────
-    // TTS - Hermes TTS (HermesTTSManager bu metodu kullanıyor)
-    // ──────────────────────────────────────────────────────────────
-    fun getSpeechAudio(text: String, callback: (ByteArray?) -> Unit) {
-        val json = JSONObject().apply {
-            put("model", "tts-1")
-            put("input", text)
-            put("voice", "alloy")
-        }
-
-        val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
-        val request = Request.Builder()
-            .url("${baseUrl.removeSuffix("/")}/audio/speech")
-            .addHeader("Authorization", "Bearer $apiKey")
-            .addHeader("X-Hermes-Session-Key", AssistantApplication.sessionKey.value)
-            .post(requestBody)
-            .build()
-
-        Log.d(TAG, "Hermes TTS isteği: ${baseUrl}/audio/speech")
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e(TAG, "TTS Ağ Hatası: ${e.message}")
-                AssistantApplication.addLog("TTS Hatası: ${e.message}")
-                callback(null)
-            }
-            override fun onResponse(call: Call, response: Response) {
-                try {
-                    response.use { resp ->
-                        if (resp.isSuccessful) {
-                            callback(resp.body?.bytes())
-                        } else {
-                            Log.e(TAG, "TTS HTTP ${resp.code}")
-                            AssistantApplication.addLog("TTS Hatası: ${resp.code}")
-                            callback(null)
-                        }
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "TTS parse hatası: ${e.message}")
-                    AssistantApplication.addLog("TTS İşleme Hatası: ${e.message}")
-                    callback(null)
                 }
             }
         })

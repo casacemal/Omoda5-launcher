@@ -32,7 +32,6 @@ class ConfigManager(val context: Context) {
         }
     }
 
-    // Basit XOR tabanlı şifreleme ve Base64 (Kaynak: omoda_v2 güvenlik protokolü)
     private fun encrypt(input: String): String {
         val key = "omoda4078"
         val output = StringBuilder()
@@ -43,7 +42,11 @@ class ConfigManager(val context: Context) {
     }
 
     private fun decrypt(input: String): String {
-        val decoded = String(android.util.Base64.decode(input, android.util.Base64.DEFAULT))
+        val decoded = try {
+            String(android.util.Base64.decode(input, android.util.Base64.DEFAULT))
+        } catch (e: Exception) {
+            input // Eğer base64 değilse ham metni dene (eski sürüm uyumluluğu)
+        }
         val key = "omoda4078"
         val output = StringBuilder()
         for (i in decoded.indices) {
@@ -59,17 +62,15 @@ class ConfigManager(val context: Context) {
 
         return copy(
             serverIp = serverIp.cleanOr(defaults.serverIp),
+            bridgeServerIp = bridgeServerIp.cleanOr(defaults.bridgeServerIp),
+            bridgeType = bridgeType.cleanOr(defaults.bridgeType),
             hermesPort = hermesPort.cleanOr(defaults.hermesPort),
             sttPort = sttPort.cleanOr(defaults.sttPort),
             ttsPort = ttsPort.cleanOr(defaults.ttsPort),
             sttMode = sttMode.cleanOr(defaults.sttMode),
             ttsEngine = ttsEngine.cleanOr(defaults.ttsEngine),
-            groqApiKey = groqApiKey.clean(),
             vehicleId = vehicleId.cleanOr(defaults.vehicleId),
-            sessionKey = sessionKey.cleanOr(defaults.sessionKey),
-            edgeVoiceName = edgeVoiceName.cleanOr(defaults.edgeVoiceName),
-            edgePitch = edgePitch.cleanOr(defaults.edgePitch),
-            edgeRate = edgeRate.cleanOr(defaults.edgeRate),
+            sessionKey = sessionKey.cleanOr(defaults.sessionKey)
         )
     }
 }

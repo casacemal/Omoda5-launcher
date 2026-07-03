@@ -236,9 +236,9 @@ class VehicleController(private val context: Context) {
                     "16200b02", "1540050b", "15400513" -> "1"
                     else -> "0"
                 }
-                // ID'leri 0x önekiyle gönder (AAOS standartı)
+                // Bu ünitedeki CarService ham hex string bekliyor (0x öneki NumberFormatException veriyor)
                 val cleanId = it.replace("0x", "")
-                "dumpsys car_service get-property-value 0x$cleanId $zone"
+                "dumpsys car_service get-property-value $cleanId $zone"
             }
             
             // AdbClient kullanarak yetkili shell üzerinden okuma yap (Kaynak: omodaassist_v2 prensibi)

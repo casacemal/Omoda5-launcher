@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.omoda.lanc.app-mergeDebugResources-66:/values-lt/values-lt.xml",
+            "outputFile": "com.omoda.lanc.app-mergeDebugResources-64:/values-lt/values-lt.xml",
             "map": [
                 {
                     "source": "/home/cemal/.gradle/caches/transforms-4/85109100f64a0ba8b09f0b6064a9aeb9/transformed/foundation-release/res/values-lt/values-lt.xml",

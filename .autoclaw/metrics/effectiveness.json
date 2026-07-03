@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "matrix": {
+    "generatedAt": "2026-07-02T22:05:05.816Z",
+    "totalSessions": 1495,
+    "byTool": [
+      {
+        "tool": "Gemini CLI",
+        "project": "(all)",
+        "projectLabel": "(all)",
+        "sessions": 1490,
+        "shipped": 6,
+        "discarded": 0,
+        "keptSignals": 6,
+        "estTokens": 10573966,
+        "shipRate": 0.004026845637583893,
+        "keptPerSession": 0.004026845637583893,
+        "tokensPerKept": 1762327.6666666667
+      },
+      {
+        "tool": "Continue",
+        "project": "(all)",
+        "projectLabel": "(all)",
+        "sessions": 3,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 14536,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 14536
+      },
+      {
+        "tool": "AutoClaw Orchestrator",
+        "project": "(all)",
+        "projectLabel": "(all)",
+        "sessions": 1,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 80,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 80
+      },
+      {
+        "tool": "Cline / Roo",
+        "project": "(all)",
+        "projectLabel": "(all)",
+        "sessions": 1,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 174,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 174
+      }
+    ],
+    "byToolProject": [
+      {
+        "tool": "Gemini CLI",
+        "project": "/mnt/depo/launcher_v2",
+        "projectLabel": "launcher_v2",
+        "sessions": 1490,
+        "shipped": 6,
+        "discarded": 0,
+        "keptSignals": 6,
+        "estTokens": 10573966,
+        "shipRate": 0.004026845637583893,
+        "keptPerSession": 0.004026845637583893,
+        "tokensPerKept": 1762327.6666666667
+      },
+      {
+        "tool": "Continue",
+        "project": "/mnt/depo/launcher_v2",
+        "projectLabel": "launcher_v2",
+        "sessions": 3,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 14536,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 14536
+      },
+      {
+        "tool": "AutoClaw Orchestrator",
+        "project": "/mnt/depo/launcher_v2",
+        "projectLabel": "launcher_v2",
+        "sessions": 1,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 80,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 80
+      },
+      {
+        "tool": "Cline / Roo",
+        "project": "/mnt/depo/launcher_v2",
+        "projectLabel": "launcher_v2",
+        "sessions": 1,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 174,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 174
+      }
+    ]
+  }
+}

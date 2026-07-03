@@ -1,0 +1,1954 @@
+{
+    "0x11100101": {
+        "name": "INFO_MAKE",
+        "alias": ""
+    },
+    "0x21100104": {
+        "name": "Omoda Sensör 21100104",
+        "alias": ""
+    },
+    "0x15200505": {
+        "name": "HVAC_AC_ON",
+        "alias": ""
+    },
+    "0x15200506": {
+        "name": "HVAC_MAX_AC_ON",
+        "alias": ""
+    },
+    "0x15200507": {
+        "name": "HVAC_MAX_DEFROST_ON",
+        "alias": ""
+    },
+    "0x15200508": {
+        "name": "HVAC_RECIRC_ON",
+        "alias": ""
+    },
+    "0x15200509": {
+        "name": "HVAC_DUAL_ON",
+        "alias": ""
+    },
+    "0x1520050a": {
+        "name": "HVAC_AUTO_ON",
+        "alias": ""
+    },
+    "0x15200510": {
+        "name": "HVAC_POWER_ON",
+        "alias": ""
+    },
+    "0x15200512": {
+        "name": "HVAC_AUTO_RECIRC_ON",
+        "alias": ""
+    },
+    "0x15400500": {
+        "name": "HVAC_FAN_SPEED",
+        "alias": ""
+    },
+    "0x15400501": {
+        "name": "HVAC_FAN_DIRECTION",
+        "alias": ""
+    },
+    "0x11410105": {
+        "name": "INFO_FUEL_TYPE",
+        "alias": ""
+    },
+    "0x11410107": {
+        "name": "INFO_EV_CONNECTOR_TYPE",
+        "alias": ""
+    },
+    "0x11400108": {
+        "name": "INFO_FUEL_DOOR_LOCATION",
+        "alias": ""
+    },
+    "0x11400109": {
+        "name": "INFO_EV_PORT_LOCATION",
+        "alias": ""
+    },
+    "0x1540010a": {
+        "name": "INFO_DRIVER_SEAT",
+        "alias": ""
+    },
+    "0x1540050b": {
+        "name": "HVAC_SEAT_TEMPERATURE",
+        "alias": ""
+    },
+    "0x1140050d": {
+        "name": "HVAC_STEERING_WHEEL_HEAT",
+        "alias": ""
+    },
+    "0x1140050e": {
+        "name": "HVAC_TEMPERATURE_DISPLAY_UNITS",
+        "alias": ""
+    },
+    "0x15410511": {
+        "name": "HVAC_FAN_DIRECTION_AVAILABLE",
+        "alias": ""
+    },
+    "0x15400513": {
+        "name": "HVAC_SEAT_VENTILATION",
+        "alias": ""
+    },
+    "0x25600102": {
+        "name": "Omoda Sensör 25600102",
+        "alias": ""
+    },
+    "0x15600503": {
+        "name": "HVAC_TEMPERATURE_SET",
+        "alias": ""
+    },
+    "0x11600104": {
+        "name": "INFO_FUEL_CAPACITY",
+        "alias": ""
+    },
+    "0x11600106": {
+        "name": "INFO_EV_BATTERY_CAPACITY",
+        "alias": ""
+    },
+    "0x17600309": {
+        "name": "TIRE_PRESSURE",
+        "alias": ""
+    },
+    "0x13400bc0": {
+        "name": "WINDOW_POS",
+        "alias": ""
+    },
+    "0x217051ff": {
+        "name": "Omoda Sensör 217051ff",
+        "alias": ""
+    },
+    "0x11e00d00": {
+        "name": "OBD2_LIVE_FRAME",
+        "alias": ""
+    },
+    "0x11e00d02": {
+        "name": "OBD2_FREEZE_FRAME_INFO",
+        "alias": ""
+    },
+    "0x13200bc4": {
+        "name": "WINDOW_LOCK",
+        "alias": ""
+    },
+    "0x21402040": {
+        "name": "Omoda Sensör 21402040",
+        "alias": ""
+    },
+    "0x21403040": {
+        "name": "Omoda Sensör 21403040",
+        "alias": ""
+    },
+    "0x21705070": {
+        "name": "Omoda Sensör 21705070",
+        "alias": ""
+    },
+    "0x21402041": {
+        "name": "Omoda Sensör 21402041",
+        "alias": ""
+    },
+    "0x21403041": {
+        "name": "Omoda Sensör 21403041",
+        "alias": ""
+    },
+    "0x21705071": {
+        "name": "Omoda Sensör 21705071",
+        "alias": ""
+    },
+    "0x21705072": {
+        "name": "Omoda Sensör 21705072",
+        "alias": ""
+    },
+    "0x21403042": {
+        "name": "Omoda Sensör 21403042",
+        "alias": ""
+    },
+    "0x21402042": {
+        "name": "Omoda Sensör 21402042",
+        "alias": ""
+    },
+    "0x21705073": {
+        "name": "Omoda Sensör 21705073",
+        "alias": ""
+    },
+    "0x21403043": {
+        "name": "Omoda Sensör 21403043",
+        "alias": ""
+    },
+    "0x21403044": {
+        "name": "Omoda Sensör 21403044",
+        "alias": ""
+    },
+    "0x21402044": {
+        "name": "Omoda Sensör 21402044",
+        "alias": ""
+    },
+    "0x21705074": {
+        "name": "Omoda Sensör 21705074",
+        "alias": ""
+    },
+    "0x21705075": {
+        "name": "Omoda Sensör 21705075",
+        "alias": ""
+    },
+    "0x21403045": {
+        "name": "Omoda Sensör 21403045",
+        "alias": ""
+    },
+    "0x21705076": {
+        "name": "Omoda Sensör 21705076",
+        "alias": ""
+    },
+    "0x21402046": {
+        "name": "Omoda Sensör 21402046",
+        "alias": ""
+    },
+    "0x21705077": {
+        "name": "Omoda Sensör 21705077",
+        "alias": ""
+    },
+    "0x21402047": {
+        "name": "Omoda Sensör 21402047",
+        "alias": ""
+    },
+    "0x21705078": {
+        "name": "Omoda Sensör 21705078",
+        "alias": ""
+    },
+    "0x21402048": {
+        "name": "Omoda Sensör 21402048",
+        "alias": ""
+    },
+    "0x21705079": {
+        "name": "Omoda Sensör 21705079",
+        "alias": ""
+    },
+    "0x21403049": {
+        "name": "Omoda Sensör 21403049",
+        "alias": ""
+    },
+    "0x2170507a": {
+        "name": "Omoda Sensör 2170507a",
+        "alias": ""
+    },
+    "0x2170507b": {
+        "name": "Omoda Sensör 2170507b",
+        "alias": ""
+    },
+    "0x2170507c": {
+        "name": "Omoda Sensör 2170507c",
+        "alias": ""
+    },
+    "0x2170507d": {
+        "name": "Omoda Sensör 2170507d",
+        "alias": ""
+    },
+    "0x2170507e": {
+        "name": "Omoda Sensör 2170507e",
+        "alias": ""
+    },
+    "0x2170507f": {
+        "name": "Omoda Sensör 2170507f",
+        "alias": ""
+    },
+    "0x21705060": {
+        "name": "Omoda Sensör 21705060",
+        "alias": ""
+    },
+    "0x21705061": {
+        "name": "Omoda Sensör 21705061",
+        "alias": ""
+    },
+    "0x21705062": {
+        "name": "Omoda Sensör 21705062",
+        "alias": ""
+    },
+    "0x21403052": {
+        "name": "Omoda Sensör 21403052",
+        "alias": ""
+    },
+    "0x21403053": {
+        "name": "Omoda Sensör 21403053",
+        "alias": ""
+    },
+    "0x21705063": {
+        "name": "Omoda Sensör 21705063",
+        "alias": ""
+    },
+    "0x21705064": {
+        "name": "Omoda Sensör 21705064",
+        "alias": ""
+    },
+    "0x21403054": {
+        "name": "Omoda Sensör 21403054",
+        "alias": ""
+    },
+    "0x21705065": {
+        "name": "Omoda Sensör 21705065",
+        "alias": ""
+    },
+    "0x21403055": {
+        "name": "Omoda Sensör 21403055",
+        "alias": ""
+    },
+    "0x21705066": {
+        "name": "Omoda Sensör 21705066",
+        "alias": ""
+    },
+    "0x21403056": {
+        "name": "Omoda Sensör 21403056",
+        "alias": ""
+    },
+    "0x21705067": {
+        "name": "Omoda Sensör 21705067",
+        "alias": ""
+    },
+    "0x21705068": {
+        "name": "Omoda Sensör 21705068",
+        "alias": ""
+    },
+    "0x21705069": {
+        "name": "Omoda Sensör 21705069",
+        "alias": ""
+    },
+    "0x2170506a": {
+        "name": "Omoda Sensör 2170506a",
+        "alias": ""
+    },
+    "0x2170506b": {
+        "name": "Omoda Sensör 2170506b",
+        "alias": ""
+    },
+    "0x2170506c": {
+        "name": "Omoda Sensör 2170506c",
+        "alias": ""
+    },
+    "0x2170506d": {
+        "name": "Omoda Sensör 2170506d",
+        "alias": ""
+    },
+    "0x2170506e": {
+        "name": "Omoda Sensör 2170506e",
+        "alias": ""
+    },
+    "0x2170506f": {
+        "name": "Omoda Sensör 2170506f",
+        "alias": ""
+    },
+    "0x21705050": {
+        "name": "Omoda Sensör 21705050",
+        "alias": ""
+    },
+    "0x21705051": {
+        "name": "Omoda Sensör 21705051",
+        "alias": ""
+    },
+    "0x16200b02": {
+        "name": "DOOR_LOCK",
+        "alias": ""
+    },
+    "0x21705052": {
+        "name": "Omoda Sensör 21705052",
+        "alias": ""
+    },
+    "0x11200402": {
+        "name": "PARKING_BRAKE_ON",
+        "alias": ""
+    },
+    "0x21705053": {
+        "name": "Omoda Sensör 21705053",
+        "alias": ""
+    },
+    "0x21602043": {
+        "name": "Omoda Sensör 21602043",
+        "alias": ""
+    },
+    "0x21103034": {
+        "name": "Omoda Sensör 21103034",
+        "alias": ""
+    },
+    "0x21705054": {
+        "name": "Omoda Sensör 21705054",
+        "alias": ""
+    },
+    "0x21705055": {
+        "name": "Omoda Sensör 21705055",
+        "alias": ""
+    },
+    "0x11200405": {
+        "name": "FUEL_LEVEL_LOW",
+        "alias": ""
+    },
+    "0x21705056": {
+        "name": "Omoda Sensör 21705056",
+        "alias": ""
+    },
+    "0x11200407": {
+        "name": "NIGHT_MODE",
+        "alias": ""
+    },
+    "0x21705057": {
+        "name": "Omoda Sensör 21705057",
+        "alias": ""
+    },
+    "0x21705058": {
+        "name": "Omoda Sensör 21705058",
+        "alias": ""
+    },
+    "0x21705059": {
+        "name": "Omoda Sensör 21705059",
+        "alias": ""
+    },
+    "0x1120040a": {
+        "name": "ABS_ACTIVE",
+        "alias": ""
+    },
+    "0x2170505a": {
+        "name": "Omoda Sensör 2170505a",
+        "alias": ""
+    },
+    "0x2170505b": {
+        "name": "Omoda Sensör 2170505b",
+        "alias": ""
+    },
+    "0x1120040b": {
+        "name": "TRACTION_CONTROL_ACTIVE",
+        "alias": ""
+    },
+    "0x2170505c": {
+        "name": "Omoda Sensör 2170505c",
+        "alias": ""
+    },
+    "0x2170505d": {
+        "name": "Omoda Sensör 2170505d",
+        "alias": ""
+    },
+    "0x2140306d": {
+        "name": "Omoda Sensör 2140306d",
+        "alias": ""
+    },
+    "0x2170505e": {
+        "name": "Omoda Sensör 2170505e",
+        "alias": ""
+    },
+    "0x2170505f": {
+        "name": "Omoda Sensör 2170505f",
+        "alias": ""
+    },
+    "0x21705040": {
+        "name": "Omoda Sensör 21705040",
+        "alias": ""
+    },
+    "0x21705041": {
+        "name": "Omoda Sensör 21705041",
+        "alias": ""
+    },
+    "0x21705042": {
+        "name": "Omoda Sensör 21705042",
+        "alias": ""
+    },
+    "0x21705043": {
+        "name": "Omoda Sensör 21705043",
+        "alias": ""
+    },
+    "0x21705044": {
+        "name": "Omoda Sensör 21705044",
+        "alias": ""
+    },
+    "0x21705045": {
+        "name": "Omoda Sensör 21705045",
+        "alias": ""
+    },
+    "0x21702045": {
+        "name": "Omoda Sensör 21702045",
+        "alias": ""
+    },
+    "0x21705046": {
+        "name": "Omoda Sensör 21705046",
+        "alias": ""
+    },
+    "0x21705047": {
+        "name": "Omoda Sensör 21705047",
+        "alias": ""
+    },
+    "0x21705048": {
+        "name": "Omoda Sensör 21705048",
+        "alias": ""
+    },
+    "0x21705049": {
+        "name": "Omoda Sensör 21705049",
+        "alias": ""
+    },
+    "0x2170504a": {
+        "name": "Omoda Sensör 2170504a",
+        "alias": ""
+    },
+    "0x2170504b": {
+        "name": "Omoda Sensör 2170504b",
+        "alias": ""
+    },
+    "0x2170504c": {
+        "name": "Omoda Sensör 2170504c",
+        "alias": ""
+    },
+    "0x2170504d": {
+        "name": "Omoda Sensör 2170504d",
+        "alias": ""
+    },
+    "0x2170504e": {
+        "name": "Omoda Sensör 2170504e",
+        "alias": ""
+    },
+    "0x2170504f": {
+        "name": "Omoda Sensör 2170504f",
+        "alias": ""
+    },
+    "0x16400b00": {
+        "name": "DOOR_POS",
+        "alias": ""
+    },
+    "0x11400400": {
+        "name": "GEAR_SELECTION",
+        "alias": ""
+    },
+    "0x21402000": {
+        "name": "Omoda Sensör 21402000",
+        "alias": ""
+    },
+    "0x21705030": {
+        "name": "Omoda Sensör 21705030",
+        "alias": ""
+    },
+    "0x21402001": {
+        "name": "Omoda Sensör 21402001",
+        "alias": ""
+    },
+    "0x11400401": {
+        "name": "CURRENT_GEAR",
+        "alias": ""
+    },
+    "0x21403001": {
+        "name": "Omoda Sensör 21403001",
+        "alias": ""
+    },
+    "0x21705031": {
+        "name": "Omoda Sensör 21705031",
+        "alias": ""
+    },
+    "0x21403002": {
+        "name": "Omoda Sensör 21403002",
+        "alias": ""
+    },
+    "0x21401002": {
+        "name": "Omoda Sensör 21401002",
+        "alias": ""
+    },
+    "0x21705032": {
+        "name": "Omoda Sensör 21705032",
+        "alias": ""
+    },
+    "0x11407002": {
+        "name": "Omoda Sensör 11407002",
+        "alias": ""
+    },
+    "0x21402002": {
+        "name": "Omoda Sensör 21402002",
+        "alias": ""
+    },
+    "0x21403003": {
+        "name": "Omoda Sensör 21403003",
+        "alias": ""
+    },
+    "0x21705033": {
+        "name": "Omoda Sensör 21705033",
+        "alias": ""
+    },
+    "0x11407003": {
+        "name": "Omoda Sensör 11407003",
+        "alias": ""
+    },
+    "0x21401003": {
+        "name": "Omoda Sensör 21401003",
+        "alias": ""
+    },
+    "0x21602023": {
+        "name": "Omoda Sensör 21602023",
+        "alias": ""
+    },
+    "0x21401004": {
+        "name": "Omoda Sensör 21401004",
+        "alias": ""
+    },
+    "0x21705034": {
+        "name": "Omoda Sensör 21705034",
+        "alias": ""
+    },
+    "0x21401005": {
+        "name": "Omoda Sensör 21401005",
+        "alias": ""
+    },
+    "0x21402005": {
+        "name": "Omoda Sensör 21402005",
+        "alias": ""
+    },
+    "0x21403005": {
+        "name": "Omoda Sensör 21403005",
+        "alias": ""
+    },
+    "0x21705035": {
+        "name": "Omoda Sensör 21705035",
+        "alias": ""
+    },
+    "0x11417004": {
+        "name": "Omoda Sensör 11417004",
+        "alias": ""
+    },
+    "0x11407006": {
+        "name": "Omoda Sensör 11407006",
+        "alias": ""
+    },
+    "0x21705036": {
+        "name": "Omoda Sensör 21705036",
+        "alias": ""
+    },
+    "0x21403006": {
+        "name": "Omoda Sensör 21403006",
+        "alias": ""
+    },
+    "0x21402006": {
+        "name": "Omoda Sensör 21402006",
+        "alias": ""
+    },
+    "0x21401006": {
+        "name": "Omoda Sensör 21401006",
+        "alias": ""
+    },
+    "0x21403007": {
+        "name": "Omoda Sensör 21403007",
+        "alias": ""
+    },
+    "0x11407007": {
+        "name": "Omoda Sensör 11407007",
+        "alias": ""
+    },
+    "0x21705037": {
+        "name": "Omoda Sensör 21705037",
+        "alias": ""
+    },
+    "0x21401007": {
+        "name": "Omoda Sensör 21401007",
+        "alias": ""
+    },
+    "0x21402007": {
+        "name": "Omoda Sensör 21402007",
+        "alias": ""
+    },
+    "0x21401008": {
+        "name": "Omoda Sensör 21401008",
+        "alias": ""
+    },
+    "0x11407008": {
+        "name": "Omoda Sensör 11407008",
+        "alias": ""
+    },
+    "0x21705038": {
+        "name": "Omoda Sensör 21705038",
+        "alias": ""
+    },
+    "0x21403008": {
+        "name": "Omoda Sensör 21403008",
+        "alias": ""
+    },
+    "0x21402008": {
+        "name": "Omoda Sensör 21402008",
+        "alias": ""
+    },
+    "0x21401009": {
+        "name": "Omoda Sensör 21401009",
+        "alias": ""
+    },
+    "0x21402009": {
+        "name": "Omoda Sensör 21402009",
+        "alias": ""
+    },
+    "0x21705039": {
+        "name": "Omoda Sensör 21705039",
+        "alias": ""
+    },
+    "0x11407009": {
+        "name": "Omoda Sensör 11407009",
+        "alias": ""
+    },
+    "0x21403009": {
+        "name": "Omoda Sensör 21403009",
+        "alias": ""
+    },
+    "0x11400409": {
+        "name": "IGNITION_STATE",
+        "alias": ""
+    },
+    "0x1140700a": {
+        "name": "Omoda Sensör 1140700a",
+        "alias": ""
+    },
+    "0x2140100a": {
+        "name": "Omoda Sensör 2140100a",
+        "alias": ""
+    },
+    "0x2140200a": {
+        "name": "Omoda Sensör 2140200a",
+        "alias": ""
+    },
+    "0x2140300a": {
+        "name": "Omoda Sensör 2140300a",
+        "alias": ""
+    },
+    "0x2170503a": {
+        "name": "Omoda Sensör 2170503a",
+        "alias": ""
+    },
+    "0x2140300b": {
+        "name": "Omoda Sensör 2140300b",
+        "alias": ""
+    },
+    "0x2170503b": {
+        "name": "Omoda Sensör 2170503b",
+        "alias": ""
+    },
+    "0x2140200b": {
+        "name": "Omoda Sensör 2140200b",
+        "alias": ""
+    },
+    "0x2160202b": {
+        "name": "Omoda Sensör 2160202b",
+        "alias": ""
+    },
+    "0x1140700b": {
+        "name": "Omoda Sensör 1140700b",
+        "alias": ""
+    },
+    "0x2140100b": {
+        "name": "Omoda Sensör 2140100b",
+        "alias": ""
+    },
+    "0x2140200c": {
+        "name": "Omoda Sensör 2140200c",
+        "alias": ""
+    },
+    "0x2170503c": {
+        "name": "Omoda Sensör 2170503c",
+        "alias": ""
+    },
+    "0x2140300c": {
+        "name": "Omoda Sensör 2140300c",
+        "alias": ""
+    },
+    "0x1140700c": {
+        "name": "Omoda Sensör 1140700c",
+        "alias": ""
+    },
+    "0x2140100c": {
+        "name": "Omoda Sensör 2140100c",
+        "alias": ""
+    },
+    "0x2140100d": {
+        "name": "Omoda Sensör 2140100d",
+        "alias": ""
+    },
+    "0x2160202d": {
+        "name": "Omoda Sensör 2160202d",
+        "alias": ""
+    },
+    "0x1140700d": {
+        "name": "Omoda Sensör 1140700d",
+        "alias": ""
+    },
+    "0x2170503d": {
+        "name": "Omoda Sensör 2170503d",
+        "alias": ""
+    },
+    "0x2140300d": {
+        "name": "Omoda Sensör 2140300d",
+        "alias": ""
+    },
+    "0x2140200d": {
+        "name": "Omoda Sensör 2140200d",
+        "alias": ""
+    },
+    "0x1140700e": {
+        "name": "Omoda Sensör 1140700e",
+        "alias": ""
+    },
+    "0x2170503e": {
+        "name": "Omoda Sensör 2170503e",
+        "alias": ""
+    },
+    "0x2140100e": {
+        "name": "Omoda Sensör 2140100e",
+        "alias": ""
+    },
+    "0x2140300e": {
+        "name": "Omoda Sensör 2140300e",
+        "alias": ""
+    },
+    "0x2160202e": {
+        "name": "Omoda Sensör 2160202e",
+        "alias": ""
+    },
+    "0x2140200e": {
+        "name": "Omoda Sensör 2140200e",
+        "alias": ""
+    },
+    "0x2140300f": {
+        "name": "Omoda Sensör 2140300f",
+        "alias": ""
+    },
+    "0x2140100f": {
+        "name": "Omoda Sensör 2140100f",
+        "alias": ""
+    },
+    "0x2160202f": {
+        "name": "Omoda Sensör 2160202f",
+        "alias": ""
+    },
+    "0x2140200f": {
+        "name": "Omoda Sensör 2140200f",
+        "alias": ""
+    },
+    "0x1140700f": {
+        "name": "Omoda Sensör 1140700f",
+        "alias": ""
+    },
+    "0x2170503f": {
+        "name": "Omoda Sensör 2170503f",
+        "alias": ""
+    },
+    "0x21402010": {
+        "name": "Omoda Sensör 21402010",
+        "alias": ""
+    },
+    "0x21602030": {
+        "name": "Omoda Sensör 21602030",
+        "alias": ""
+    },
+    "0x21705020": {
+        "name": "Omoda Sensör 21705020",
+        "alias": ""
+    },
+    "0x21403010": {
+        "name": "Omoda Sensör 21403010",
+        "alias": ""
+    },
+    "0x21401010": {
+        "name": "Omoda Sensör 21401010",
+        "alias": ""
+    },
+    "0x21401011": {
+        "name": "Omoda Sensör 21401011",
+        "alias": ""
+    },
+    "0x21402011": {
+        "name": "Omoda Sensör 21402011",
+        "alias": ""
+    },
+    "0x11407011": {
+        "name": "Omoda Sensör 11407011",
+        "alias": ""
+    },
+    "0x21705021": {
+        "name": "Omoda Sensör 21705021",
+        "alias": ""
+    },
+    "0x21403011": {
+        "name": "Omoda Sensör 21403011",
+        "alias": ""
+    },
+    "0x21401012": {
+        "name": "Omoda Sensör 21401012",
+        "alias": ""
+    },
+    "0x21403012": {
+        "name": "Omoda Sensör 21403012",
+        "alias": ""
+    },
+    "0x21705022": {
+        "name": "Omoda Sensör 21705022",
+        "alias": ""
+    },
+    "0x21402012": {
+        "name": "Omoda Sensör 21402012",
+        "alias": ""
+    },
+    "0x21403013": {
+        "name": "Omoda Sensör 21403013",
+        "alias": ""
+    },
+    "0x21705023": {
+        "name": "Omoda Sensör 21705023",
+        "alias": ""
+    },
+    "0x21401013": {
+        "name": "Omoda Sensör 21401013",
+        "alias": ""
+    },
+    "0x21402013": {
+        "name": "Omoda Sensör 21402013",
+        "alias": ""
+    },
+    "0x21402014": {
+        "name": "Omoda Sensör 21402014",
+        "alias": ""
+    },
+    "0x21401014": {
+        "name": "Omoda Sensör 21401014",
+        "alias": ""
+    },
+    "0x21705024": {
+        "name": "Omoda Sensör 21705024",
+        "alias": ""
+    },
+    "0x21403014": {
+        "name": "Omoda Sensör 21403014",
+        "alias": ""
+    },
+    "0x21401015": {
+        "name": "Omoda Sensör 21401015",
+        "alias": ""
+    },
+    "0x21402015": {
+        "name": "Omoda Sensör 21402015",
+        "alias": ""
+    },
+    "0x21403015": {
+        "name": "Omoda Sensör 21403015",
+        "alias": ""
+    },
+    "0x21705025": {
+        "name": "Omoda Sensör 21705025",
+        "alias": ""
+    },
+    "0x21705026": {
+        "name": "Omoda Sensör 21705026",
+        "alias": ""
+    },
+    "0x21402016": {
+        "name": "Omoda Sensör 21402016",
+        "alias": ""
+    },
+    "0x21403016": {
+        "name": "Omoda Sensör 21403016",
+        "alias": ""
+    },
+    "0x21401016": {
+        "name": "Omoda Sensör 21401016",
+        "alias": ""
+    },
+    "0x21403017": {
+        "name": "Omoda Sensör 21403017",
+        "alias": ""
+    },
+    "0x21705027": {
+        "name": "Omoda Sensör 21705027",
+        "alias": ""
+    },
+    "0x21402017": {
+        "name": "Omoda Sensör 21402017",
+        "alias": ""
+    },
+    "0x21601037": {
+        "name": "Omoda Sensör 21601037",
+        "alias": ""
+    },
+    "0x21401017": {
+        "name": "Omoda Sensör 21401017",
+        "alias": ""
+    },
+    "0x21401018": {
+        "name": "Omoda Sensör 21401018",
+        "alias": ""
+    },
+    "0x21601038": {
+        "name": "Omoda Sensör 21601038",
+        "alias": ""
+    },
+    "0x21705028": {
+        "name": "Omoda Sensör 21705028",
+        "alias": ""
+    },
+    "0x21403018": {
+        "name": "Omoda Sensör 21403018",
+        "alias": ""
+    },
+    "0x21402018": {
+        "name": "Omoda Sensör 21402018",
+        "alias": ""
+    },
+    "0x21401019": {
+        "name": "Omoda Sensör 21401019",
+        "alias": ""
+    },
+    "0x21402019": {
+        "name": "Omoda Sensör 21402019",
+        "alias": ""
+    },
+    "0x21705029": {
+        "name": "Omoda Sensör 21705029",
+        "alias": ""
+    },
+    "0x21403019": {
+        "name": "Omoda Sensör 21403019",
+        "alias": ""
+    },
+    "0x2140101a": {
+        "name": "Omoda Sensör 2140101a",
+        "alias": ""
+    },
+    "0x2140201a": {
+        "name": "Omoda Sensör 2140201a",
+        "alias": ""
+    },
+    "0x2140301a": {
+        "name": "Omoda Sensör 2140301a",
+        "alias": ""
+    },
+    "0x2170202a": {
+        "name": "Omoda Sensör 2170202a",
+        "alias": ""
+    },
+    "0x2170502a": {
+        "name": "Omoda Sensör 2170502a",
+        "alias": ""
+    },
+    "0x2140301b": {
+        "name": "Omoda Sensör 2140301b",
+        "alias": ""
+    },
+    "0x2170502b": {
+        "name": "Omoda Sensör 2170502b",
+        "alias": ""
+    },
+    "0x2140201b": {
+        "name": "Omoda Sensör 2140201b",
+        "alias": ""
+    },
+    "0x2140101b": {
+        "name": "Omoda Sensör 2140101b",
+        "alias": ""
+    },
+    "0x2140201c": {
+        "name": "Omoda Sensör 2140201c",
+        "alias": ""
+    },
+    "0x2170502c": {
+        "name": "Omoda Sensör 2170502c",
+        "alias": ""
+    },
+    "0x2140101c": {
+        "name": "Omoda Sensör 2140101c",
+        "alias": ""
+    },
+    "0x2140101d": {
+        "name": "Omoda Sensör 2140101d",
+        "alias": ""
+    },
+    "0x2170502d": {
+        "name": "Omoda Sensör 2170502d",
+        "alias": ""
+    },
+    "0x2170302d": {
+        "name": "Omoda Sensör 2170302d",
+        "alias": ""
+    },
+    "0x2140201d": {
+        "name": "Omoda Sensör 2140201d",
+        "alias": ""
+    },
+    "0x2170502e": {
+        "name": "Omoda Sensör 2170502e",
+        "alias": ""
+    },
+    "0x2140101e": {
+        "name": "Omoda Sensör 2140101e",
+        "alias": ""
+    },
+    "0x2140201e": {
+        "name": "Omoda Sensör 2140201e",
+        "alias": ""
+    },
+    "0x2140201f": {
+        "name": "Omoda Sensör 2140201f",
+        "alias": ""
+    },
+    "0x2140101f": {
+        "name": "Omoda Sensör 2140101f",
+        "alias": ""
+    },
+    "0x2170502f": {
+        "name": "Omoda Sensör 2170502f",
+        "alias": ""
+    },
+    "0x11707010": {
+        "name": "Omoda Sensör 11707010",
+        "alias": ""
+    },
+    "0x21402020": {
+        "name": "Omoda Sensör 21402020",
+        "alias": ""
+    },
+    "0x21401020": {
+        "name": "Omoda Sensör 21401020",
+        "alias": ""
+    },
+    "0x21705010": {
+        "name": "Omoda Sensör 21705010",
+        "alias": ""
+    },
+    "0x21402021": {
+        "name": "Omoda Sensör 21402021",
+        "alias": ""
+    },
+    "0x21705011": {
+        "name": "Omoda Sensör 21705011",
+        "alias": ""
+    },
+    "0x21403021": {
+        "name": "Omoda Sensör 21403021",
+        "alias": ""
+    },
+    "0x21401021": {
+        "name": "Omoda Sensör 21401021",
+        "alias": ""
+    },
+    "0x21401022": {
+        "name": "Omoda Sensör 21401022",
+        "alias": ""
+    },
+    "0x21403022": {
+        "name": "Omoda Sensör 21403022",
+        "alias": ""
+    },
+    "0x21705012": {
+        "name": "Omoda Sensör 21705012",
+        "alias": ""
+    },
+    "0x21402022": {
+        "name": "Omoda Sensör 21402022",
+        "alias": ""
+    },
+    "0x21403023": {
+        "name": "Omoda Sensör 21403023",
+        "alias": ""
+    },
+    "0x21705013": {
+        "name": "Omoda Sensör 21705013",
+        "alias": ""
+    },
+    "0x21401023": {
+        "name": "Omoda Sensör 21401023",
+        "alias": ""
+    },
+    "0x21602003": {
+        "name": "Omoda Sensör 21602003",
+        "alias": ""
+    },
+    "0x21602004": {
+        "name": "Omoda Sensör 21602004",
+        "alias": ""
+    },
+    "0x21402024": {
+        "name": "Omoda Sensör 21402024",
+        "alias": ""
+    },
+    "0x21401024": {
+        "name": "Omoda Sensör 21401024",
+        "alias": ""
+    },
+    "0x21705014": {
+        "name": "Omoda Sensör 21705014",
+        "alias": ""
+    },
+    "0x21403024": {
+        "name": "Omoda Sensör 21403024",
+        "alias": ""
+    },
+    "0x21402025": {
+        "name": "Omoda Sensör 21402025",
+        "alias": ""
+    },
+    "0x21403025": {
+        "name": "Omoda Sensör 21403025",
+        "alias": ""
+    },
+    "0x21401025": {
+        "name": "Omoda Sensör 21401025",
+        "alias": ""
+    },
+    "0x21705015": {
+        "name": "Omoda Sensör 21705015",
+        "alias": ""
+    },
+    "0x21401026": {
+        "name": "Omoda Sensör 21401026",
+        "alias": ""
+    },
+    "0x21705016": {
+        "name": "Omoda Sensör 21705016",
+        "alias": ""
+    },
+    "0x21403026": {
+        "name": "Omoda Sensör 21403026",
+        "alias": ""
+    },
+    "0x21402026": {
+        "name": "Omoda Sensör 21402026",
+        "alias": ""
+    },
+    "0x21403027": {
+        "name": "Omoda Sensör 21403027",
+        "alias": ""
+    },
+    "0x21705017": {
+        "name": "Omoda Sensör 21705017",
+        "alias": ""
+    },
+    "0x21402027": {
+        "name": "Omoda Sensör 21402027",
+        "alias": ""
+    },
+    "0x21401027": {
+        "name": "Omoda Sensör 21401027",
+        "alias": ""
+    },
+    "0x21401028": {
+        "name": "Omoda Sensör 21401028",
+        "alias": ""
+    },
+    "0x21705018": {
+        "name": "Omoda Sensör 21705018",
+        "alias": ""
+    },
+    "0x21403028": {
+        "name": "Omoda Sensör 21403028",
+        "alias": ""
+    },
+    "0x21402028": {
+        "name": "Omoda Sensör 21402028",
+        "alias": ""
+    },
+    "0x21402029": {
+        "name": "Omoda Sensör 21402029",
+        "alias": ""
+    },
+    "0x21401029": {
+        "name": "Omoda Sensör 21401029",
+        "alias": ""
+    },
+    "0x21403029": {
+        "name": "Omoda Sensör 21403029",
+        "alias": ""
+    },
+    "0x21705019": {
+        "name": "Omoda Sensör 21705019",
+        "alias": ""
+    },
+    "0x2140102a": {
+        "name": "Omoda Sensör 2140102a",
+        "alias": ""
+    },
+    "0x2140302a": {
+        "name": "Omoda Sensör 2140302a",
+        "alias": ""
+    },
+    "0x2170501a": {
+        "name": "Omoda Sensör 2170501a",
+        "alias": ""
+    },
+    "0x2140302b": {
+        "name": "Omoda Sensör 2140302b",
+        "alias": ""
+    },
+    "0x2170501b": {
+        "name": "Omoda Sensör 2170501b",
+        "alias": ""
+    },
+    "0x2140102b": {
+        "name": "Omoda Sensör 2140102b",
+        "alias": ""
+    },
+    "0x2140202c": {
+        "name": "Omoda Sensör 2140202c",
+        "alias": ""
+    },
+    "0x2140302c": {
+        "name": "Omoda Sensör 2140302c",
+        "alias": ""
+    },
+    "0x2170501c": {
+        "name": "Omoda Sensör 2170501c",
+        "alias": ""
+    },
+    "0x2140102c": {
+        "name": "Omoda Sensör 2140102c",
+        "alias": ""
+    },
+    "0x2140102d": {
+        "name": "Omoda Sensör 2140102d",
+        "alias": ""
+    },
+    "0x2170501d": {
+        "name": "Omoda Sensör 2170501d",
+        "alias": ""
+    },
+    "0x2170501e": {
+        "name": "Omoda Sensör 2170501e",
+        "alias": ""
+    },
+    "0x2140102e": {
+        "name": "Omoda Sensör 2140102e",
+        "alias": ""
+    },
+    "0x2140102f": {
+        "name": "Omoda Sensör 2140102f",
+        "alias": ""
+    },
+    "0x2170501f": {
+        "name": "Omoda Sensör 2170501f",
+        "alias": ""
+    },
+    "0x21401030": {
+        "name": "Omoda Sensör 21401030",
+        "alias": ""
+    },
+    "0x2170c000": {
+        "name": "Omoda Sensör 2170c000",
+        "alias": ""
+    },
+    "0x21402031": {
+        "name": "Omoda Sensör 21402031",
+        "alias": ""
+    },
+    "0x21705001": {
+        "name": "Omoda Sensör 21705001",
+        "alias": ""
+    },
+    "0x21701001": {
+        "name": "Omoda Sensör 21701001",
+        "alias": ""
+    },
+    "0x11707001": {
+        "name": "Omoda Sensör 11707001",
+        "alias": ""
+    },
+    "0x21705002": {
+        "name": "Omoda Sensör 21705002",
+        "alias": ""
+    },
+    "0x21401032": {
+        "name": "Omoda Sensör 21401032",
+        "alias": ""
+    },
+    "0x2170c002": {
+        "name": "Omoda Sensör 2170c002",
+        "alias": ""
+    },
+    "0x21402032": {
+        "name": "Omoda Sensör 21402032",
+        "alias": ""
+    },
+    "0x21705003": {
+        "name": "Omoda Sensör 21705003",
+        "alias": ""
+    },
+    "0x2170c003": {
+        "name": "Omoda Sensör 2170c003",
+        "alias": ""
+    },
+    "0x21401033": {
+        "name": "Omoda Sensör 21401033",
+        "alias": ""
+    },
+    "0x21402033": {
+        "name": "Omoda Sensör 21402033",
+        "alias": ""
+    },
+    "0x21402034": {
+        "name": "Omoda Sensör 21402034",
+        "alias": ""
+    },
+    "0x21401034": {
+        "name": "Omoda Sensör 21401034",
+        "alias": ""
+    },
+    "0x21705004": {
+        "name": "Omoda Sensör 21705004",
+        "alias": ""
+    },
+    "0x2170c004": {
+        "name": "Omoda Sensör 2170c004",
+        "alias": ""
+    },
+    "0x21402035": {
+        "name": "Omoda Sensör 21402035",
+        "alias": ""
+    },
+    "0x21403035": {
+        "name": "Omoda Sensör 21403035",
+        "alias": ""
+    },
+    "0x21401035": {
+        "name": "Omoda Sensör 21401035",
+        "alias": ""
+    },
+    "0x21705005": {
+        "name": "Omoda Sensör 21705005",
+        "alias": ""
+    },
+    "0x2170c005": {
+        "name": "Omoda Sensör 2170c005",
+        "alias": ""
+    },
+    "0x2170c006": {
+        "name": "Omoda Sensör 2170c006",
+        "alias": ""
+    },
+    "0x21705006": {
+        "name": "Omoda Sensör 21705006",
+        "alias": ""
+    },
+    "0x21402036": {
+        "name": "Omoda Sensör 21402036",
+        "alias": ""
+    },
+    "0x21403036": {
+        "name": "Omoda Sensör 21403036",
+        "alias": ""
+    },
+    "0x21401036": {
+        "name": "Omoda Sensör 21401036",
+        "alias": ""
+    },
+    "0x21403037": {
+        "name": "Omoda Sensör 21403037",
+        "alias": ""
+    },
+    "0x21705007": {
+        "name": "Omoda Sensör 21705007",
+        "alias": ""
+    },
+    "0x2170c007": {
+        "name": "Omoda Sensör 2170c007",
+        "alias": ""
+    },
+    "0x21402037": {
+        "name": "Omoda Sensör 21402037",
+        "alias": ""
+    },
+    "0x2170c008": {
+        "name": "Omoda Sensör 2170c008",
+        "alias": ""
+    },
+    "0x21705008": {
+        "name": "Omoda Sensör 21705008",
+        "alias": ""
+    },
+    "0x21402038": {
+        "name": "Omoda Sensör 21402038",
+        "alias": ""
+    },
+    "0x21403038": {
+        "name": "Omoda Sensör 21403038",
+        "alias": ""
+    },
+    "0x21402039": {
+        "name": "Omoda Sensör 21402039",
+        "alias": ""
+    },
+    "0x2170c009": {
+        "name": "Omoda Sensör 2170c009",
+        "alias": ""
+    },
+    "0x21705009": {
+        "name": "Omoda Sensör 21705009",
+        "alias": ""
+    },
+    "0x21403039": {
+        "name": "Omoda Sensör 21403039",
+        "alias": ""
+    },
+    "0x2140203a": {
+        "name": "Omoda Sensör 2140203a",
+        "alias": ""
+    },
+    "0x2170500a": {
+        "name": "Omoda Sensör 2170500a",
+        "alias": ""
+    },
+    "0x2140203b": {
+        "name": "Omoda Sensör 2140203b",
+        "alias": ""
+    },
+    "0x2170500b": {
+        "name": "Omoda Sensör 2170500b",
+        "alias": ""
+    },
+    "0x2140303c": {
+        "name": "Omoda Sensör 2140303c",
+        "alias": ""
+    },
+    "0x2170500c": {
+        "name": "Omoda Sensör 2170500c",
+        "alias": ""
+    },
+    "0x2140203c": {
+        "name": "Omoda Sensör 2140203c",
+        "alias": ""
+    },
+    "0x2140203d": {
+        "name": "Omoda Sensör 2140203d",
+        "alias": ""
+    },
+    "0x2170500d": {
+        "name": "Omoda Sensör 2170500d",
+        "alias": ""
+    },
+    "0x2140303d": {
+        "name": "Omoda Sensör 2140303d",
+        "alias": ""
+    },
+    "0x2170500e": {
+        "name": "Omoda Sensör 2170500e",
+        "alias": ""
+    },
+    "0x2140203e": {
+        "name": "Omoda Sensör 2140203e",
+        "alias": ""
+    },
+    "0x2140303e": {
+        "name": "Omoda Sensör 2140303e",
+        "alias": ""
+    },
+    "0x2140203f": {
+        "name": "Omoda Sensör 2140203f",
+        "alias": ""
+    },
+    "0x2170500f": {
+        "name": "Omoda Sensör 2170500f",
+        "alias": ""
+    },
+    "0x11e00c00": {
+        "name": "VEHICLE_MAP_SERVICE",
+        "alias": ""
+    },
+    "0x21705090": {
+        "name": "Omoda Sensör 21705090",
+        "alias": ""
+    },
+    "0x21705080": {
+        "name": "Omoda Sensör 21705080",
+        "alias": ""
+    },
+    "0x21705081": {
+        "name": "Omoda Sensör 21705081",
+        "alias": ""
+    },
+    "0x21705082": {
+        "name": "Omoda Sensör 21705082",
+        "alias": ""
+    },
+    "0x21705083": {
+        "name": "Omoda Sensör 21705083",
+        "alias": ""
+    },
+    "0x21705084": {
+        "name": "Omoda Sensör 21705084",
+        "alias": ""
+    },
+    "0x21705085": {
+        "name": "Omoda Sensör 21705085",
+        "alias": ""
+    },
+    "0x21705086": {
+        "name": "Omoda Sensör 21705086",
+        "alias": ""
+    },
+    "0x21705087": {
+        "name": "Omoda Sensör 21705087",
+        "alias": ""
+    },
+    "0x21705088": {
+        "name": "Omoda Sensör 21705088",
+        "alias": ""
+    },
+    "0x21705089": {
+        "name": "Omoda Sensör 21705089",
+        "alias": ""
+    },
+    "0x2170508a": {
+        "name": "Omoda Sensör 2170508a",
+        "alias": ""
+    },
+    "0x2170508b": {
+        "name": "Omoda Sensör 2170508b",
+        "alias": ""
+    },
+    "0x2170508c": {
+        "name": "Omoda Sensör 2170508c",
+        "alias": ""
+    },
+    "0x2170508d": {
+        "name": "Omoda Sensör 2170508d",
+        "alias": ""
+    },
+    "0x2170508e": {
+        "name": "Omoda Sensör 2170508e",
+        "alias": ""
+    },
+    "0x2170508f": {
+        "name": "Omoda Sensör 2170508f",
+        "alias": ""
+    },
+    "0x13200504": {
+        "name": "HVAC_DEFROSTER",
+        "alias": ""
+    },
+    "0x11200308": {
+        "name": "FUEL_DOOR_OPEN",
+        "alias": ""
+    },
+    "0x1120030a": {
+        "name": "EV_CHARGE_PORT_OPEN",
+        "alias": ""
+    },
+    "0x1120030b": {
+        "name": "EV_CHARGE_PORT_CONNECTED",
+        "alias": ""
+    },
+    "0x23400103": {
+        "name": "Omoda Sensör 23400103",
+        "alias": ""
+    },
+    "0x11400303": {
+        "name": "ENGINE_OIL_LEVEL",
+        "alias": ""
+    },
+    "0x11510306": {
+        "name": "WHEEL_TICK",
+        "alias": ""
+    },
+    "0x11600703": {
+        "name": "ENV_OUTSIDE_TEMPERATURE",
+        "alias": ""
+    },
+    "0x11600304": {
+        "name": "ENGINE_OIL_TEMP",
+        "alias": ""
+    },
+    "0x11600305": {
+        "name": "ENGINE_RPM",
+        "alias": ""
+    },
+    "0x11600307": {
+        "name": "FUEL_LEVEL",
+        "alias": ""
+    },
+    "0x11600308": {
+        "name": "RANGE_REMAINING",
+        "alias": ""
+    },
+    "0x11600309": {
+        "name": "EV_BATTERY_LEVEL",
+        "alias": ""
+    },
+    "0x1160030c": {
+        "name": "EV_BATTERY_INSTANTANEOUS_CHARGE_RATE",
+        "alias": ""
+    },
+    "0x21106201": {
+        "name": "Omoda Sensör 21106201",
+        "alias": ""
+    },
+    "0x21106206": {
+        "name": "Omoda Sensör 21106206",
+        "alias": ""
+    },
+    "0x21106207": {
+        "name": "Omoda Sensör 21106207",
+        "alias": ""
+    },
+    "0x21106208": {
+        "name": "Omoda Sensör 21106208",
+        "alias": ""
+    },
+    "0x21106209": {
+        "name": "Omoda Sensör 21106209",
+        "alias": ""
+    },
+    "0x2110620a": {
+        "name": "Omoda Sensör 2110620a",
+        "alias": ""
+    },
+    "0x2110620c": {
+        "name": "Omoda Sensör 2110620c",
+        "alias": ""
+    },
+    "0x26200101": {
+        "name": "Omoda Sensör 26200101",
+        "alias": ""
+    },
+    "0x11400e00": {
+        "name": "HEADLIGHTS_STATE",
+        "alias": ""
+    },
+    "0x11400e01": {
+        "name": "HIGH_BEAM_LIGHTS_STATE",
+        "alias": ""
+    },
+    "0x11410a00": {
+        "name": "AP_POWER_STATE_REQ",
+        "alias": ""
+    },
+    "0x11400e02": {
+        "name": "FOG_LIGHTS_STATE",
+        "alias": ""
+    },
+    "0x11400a03": {
+        "name": "DISPLAY_BRIGHTNESS",
+        "alias": ""
+    },
+    "0x11400e03": {
+        "name": "HAZARD_LIGHTS_STATE",
+        "alias": ""
+    },
+    "0x11400605": {
+        "name": "VEHICLE_SPEED_DISPLAY_UNITS",
+        "alias": ""
+    },
+    "0x11400e10": {
+        "name": "HEADLIGHTS_SWITCH",
+        "alias": ""
+    },
+    "0x11410a10": {
+        "name": "HW_KEY_INPUT",
+        "alias": ""
+    },
+    "0x11400e11": {
+        "name": "HIGH_BEAM_LIGHTS_SWITCH",
+        "alias": ""
+    },
+    "0x11400e12": {
+        "name": "FOG_LIGHTS_SWITCH",
+        "alias": ""
+    },
+    "0x11400e13": {
+        "name": "HAZARD_LIGHTS_SWITCH",
+        "alias": ""
+    },
+    "0x11600204": {
+        "name": "PERF_ODOMETER",
+        "alias": ""
+    },
+    "0x11600207": {
+        "name": "PERF_VEHICLE_SPEED",
+        "alias": ""
+    },
+    "0x21705200": {
+        "name": "Omoda Sensör 21705200",
+        "alias": ""
+    },
+    "0x21706200": {
+        "name": "Omoda Sensör 21706200",
+        "alias": ""
+    },
+    "0x21705201": {
+        "name": "Omoda Sensör 21705201",
+        "alias": ""
+    },
+    "0x21705202": {
+        "name": "Omoda Sensör 21705202",
+        "alias": ""
+    },
+    "0x21706202": {
+        "name": "Omoda Sensör 21706202",
+        "alias": ""
+    },
+    "0x21706203": {
+        "name": "Omoda Sensör 21706203",
+        "alias": ""
+    },
+    "0x21706204": {
+        "name": "Omoda Sensör 21706204",
+        "alias": ""
+    },
+    "0x21706205": {
+        "name": "Omoda Sensör 21706205",
+        "alias": ""
+    },
+    "0x2170620d": {
+        "name": "Omoda Sensör 2170620d",
+        "alias": ""
+    },
+    "0x2170620e": {
+        "name": "Omoda Sensör 2170620e",
+        "alias": ""
+    },
+    "0x2170620f": {
+        "name": "Omoda Sensör 2170620f",
+        "alias": ""
+    },
+    "MEDIA_INFO": {
+        "name": "Çalan Medya",
+        "alias": ""
+    },
+    "MEDIA_BTN_NEXT": {
+        "name": "Medya: İleri Tuşu",
+        "alias": ""
+    },
+    "MEDIA_BTN_PREV": {
+        "name": "Medya: Geri Tuşu",
+        "alias": ""
+    },
+    "MEDIA_BTN_PLAY": {
+        "name": "Medya: Oynat Tuşu",
+        "alias": ""
+    },
+    "MEDIA_VOL_UP": {
+        "name": "Ses Açma Tuşu",
+        "alias": ""
+    },
+    "MEDIA_VOL_DOWN": {
+        "name": "Ses Kısma Tuşu",
+        "alias": ""
+    },
+    "0x11e00d01": {
+        "name": "OBD2_FREEZE_FRAME",
+        "alias": ""
+    },
+    "0x11e00d03": {
+        "name": "OBD2_FREEZE_FRAME_CLEAR",
+        "alias": ""
+    },
+    "0x21403046": {
+        "name": "Omoda Sensör 21403046",
+        "alias": ""
+    },
+    "0x21403047": {
+        "name": "Omoda Sensör 21403047",
+        "alias": ""
+    },
+    "0x21403048": {
+        "name": "Omoda Sensör 21403048",
+        "alias": ""
+    },
+    "0x21403050": {
+        "name": "Omoda Sensör 21403050",
+        "alias": ""
+    },
+    "0x21403051": {
+        "name": "Omoda Sensör 21403051",
+        "alias": ""
+    },
+    "0x21403004": {
+        "name": "Omoda Sensör 21403004",
+        "alias": ""
+    },
+    "0x11407012": {
+        "name": "Omoda Sensör 11407012",
+        "alias": ""
+    },
+    "0x11407013": {
+        "name": "Omoda Sensör 11407013",
+        "alias": ""
+    },
+    "0x11407014": {
+        "name": "Omoda Sensör 11407014",
+        "alias": ""
+    },
+    "0x2140301c": {
+        "name": "Omoda Sensör 2140301c",
+        "alias": ""
+    },
+    "0x2140301d": {
+        "name": "Omoda Sensör 2140301d",
+        "alias": ""
+    },
+    "0x2140301f": {
+        "name": "Omoda Sensör 2140301f",
+        "alias": ""
+    },
+    "0x21403020": {
+        "name": "Omoda Sensör 21403020",
+        "alias": ""
+    },
+    "0x2140302e": {
+        "name": "Omoda Sensör 2140302e",
+        "alias": ""
+    },
+    "0x2140302f": {
+        "name": "Omoda Sensör 2140302f",
+        "alias": ""
+    },
+    "0x21703000": {
+        "name": "Omoda Sensör 21703000",
+        "alias": ""
+    },
+    "0x21403030": {
+        "name": "Omoda Sensör 21403030",
+        "alias": ""
+    },
+    "0x21403031": {
+        "name": "Omoda Sensör 21403031",
+        "alias": ""
+    },
+    "0x2170c001": {
+        "name": "Omoda Sensör 2170c001",
+        "alias": ""
+    },
+    "0x21401031": {
+        "name": "Omoda Sensör 21401031",
+        "alias": ""
+    },
+    "0x21403032": {
+        "name": "Omoda Sensör 21403032",
+        "alias": ""
+    },
+    "0x21403033": {
+        "name": "Omoda Sensör 21403033",
+        "alias": ""
+    },
+    "0x2140303a": {
+        "name": "Omoda Sensör 2140303a",
+        "alias": ""
+    },
+    "0x2170c00a": {
+        "name": "Omoda Sensör 2170c00a",
+        "alias": ""
+    },
+    "0x2140303b": {
+        "name": "Omoda Sensör 2140303b",
+        "alias": ""
+    },
+    "0x2170c00b": {
+        "name": "Omoda Sensör 2170c00b",
+        "alias": ""
+    },
+    "0x2170c00c": {
+        "name": "Omoda Sensör 2170c00c",
+        "alias": ""
+    },
+    "0x2160301e": {
+        "name": "Omoda Sensör 2160301e",
+        "alias": ""
+    },
+    "0x2140303f": {
+        "name": "Omoda Sensör 2140303f",
+        "alias": ""
+    },
+    "0x2110620b": {
+        "name": "Omoda Sensör 2110620b",
+        "alias": ""
+    },
+    "0x11410a01": {
+        "name": "AP_POWER_STATE_REPORT",
+        "alias": ""
+    },
+    "0x21e00666": {
+        "name": "Omoda Sensör 21e00666",
+        "alias": ""
+    }
+}

@@ -26,9 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.omoda.lanc.AssistantApplication
-import com.omoda.lanc.core.SensorDictionary
-import com.omoda.lanc.core.SensorPreferences
-import com.omoda.lanc.core.VehicleController
 import com.omoda.lanc.ui.theme.AppTheme
 
 @Composable
@@ -46,10 +43,7 @@ fun HomeScreen(onNavigateToSettings: () -> Unit) {
     val isContinuousConversation by AssistantApplication.isContinuousConversation.collectAsState()
     val useHermesDecision by AssistantApplication.useHermesDecision.collectAsState()
     val micSource by AssistantApplication.micSource.collectAsState()
-    val sherpaSttState by AssistantApplication.sherpaSttModelInstallState.collectAsState()
-    val sherpaTtsState by AssistantApplication.sherpaModelInstallState.collectAsState()
     val isAdbConnected by AssistantApplication.isAdbConnected.collectAsState()
-    val sherpaSttDetail by AssistantApplication.sherpaSttModelInstallDetail.collectAsState()
     val logs by AssistantApplication.systemLogs.collectAsState()
     val currentMode by AssistantApplication.currentMode.collectAsState()
     val isMqttConnected by AssistantApplication.isMqttConnected.collectAsState()
@@ -68,10 +62,7 @@ fun HomeScreen(onNavigateToSettings: () -> Unit) {
         isContinuousConversation = isContinuousConversation,
         useHermesDecision = useHermesDecision,
         micSource = micSource,
-        sherpaSttState = sherpaSttState,
-        sherpaTtsState = sherpaTtsState,
         isAdbConnected = isAdbConnected,
-        sherpaSttDetail = sherpaSttDetail,
         logs = logs,
         currentMode = currentMode,
         isMqttConnected = isMqttConnected,
@@ -126,10 +117,7 @@ fun HomeScreenContent(
     isContinuousConversation: Boolean,
     useHermesDecision: Boolean,
     micSource: String,
-    sherpaSttState: String,
-    sherpaTtsState: String,
     isAdbConnected: Boolean,
-    sherpaSttDetail: String,
     logs: List<String>,
     currentMode: String,
     isMqttConnected: Boolean,
@@ -150,7 +138,7 @@ fun HomeScreenContent(
     
     val backgroundBrush = Brush.verticalGradient(
         colors = if (isListening) {
-            listOf(Color(0xFF0F201D), Color(0xFF0D0F10)) // Hint of teal when listening
+            listOf(Color(0xFF0F201D), Color(0xFF0D0F10))
         } else {
             listOf(Color(0xFF1A1C1E), Color(0xFF0D0F10))
         }
@@ -161,20 +149,16 @@ fun HomeScreenContent(
             modifier = Modifier.fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Header
             HeaderSection(
                 connStatus = connStatus,
                 hasInternet = hasInternet,
-                modelsReady = sherpaSttState == "INSTALLED" && sherpaTtsState == "INSTALLED",
                 isAdbConnected = isAdbConnected,
                 isMqttConnected = isMqttConnected,
                 onNavigateToSettings = onNavigateToSettings
             )
 
-            // Dialogue Area
             DialogueSection(recognizedText, assistantResponse)
 
-            // Action Buttons
             ActionButtonsSection(
                 isListening = isListening,
                 isWakeWordEnabled = isWakeWordEnabled,
@@ -189,10 +173,8 @@ fun HomeScreenContent(
                 onShowSafetyDialog = { showSafetyDialog = true }
             )
 
-            // System Logs
             SystemLogSection(logs)
 
-            // Deck Controls
             DeckControlsSection(
                 sttMode = sttMode,
                 ttsEngine = ttsEngine,
@@ -200,8 +182,6 @@ fun HomeScreenContent(
                 isContinuousConversation = isContinuousConversation,
                 useHermesDecision = useHermesDecision,
                 micSource = micSource,
-                sherpaSttState = sherpaSttState,
-                sherpaSttDetail = sherpaSttDetail,
                 currentMode = currentMode,
                 onSttModeChange = onSttModeChange,
                 onTtsEngineChange = onTtsEngineChange,
@@ -212,13 +192,9 @@ fun HomeScreenContent(
                     showDecisionLockDialog = true
                 },
                 onMicSourceChange = onMicSourceChange,
-                onModeChange = onModeChange,
-                onCheckModels = {
-                    context.sendBroadcast(android.content.Intent("com.omoda.assistant.SHERPA_INSTALL"))
-                }
+                onModeChange = onModeChange
             )
 
-            // Status Bar
             StatusPillSection(status, isListening)
         }
 
@@ -256,7 +232,7 @@ fun DecisionEngineLockDialog(onDismiss: () -> Unit, onSuccess: () -> Unit) {
         title = { Text("Karar Motoru Kilidi", color = Color(0xFF69E2D3)) },
         text = {
             Column {
-                Text("Akıllı Karar Motoru (Hermes) ayarlarını değiştirmek için yetkilendirme gereklidir.", color = Color.LightGray)
+                Text("Akıllı Karar Motoru ayarlarını değiştirmek için yetkilendirme gereklidir.", color = Color.LightGray)
                 Spacer(Modifier.height(8.dp))
                 OutlinedTextField(
                     value = password,
@@ -302,12 +278,7 @@ fun DecisionEngineLockDialog(onDismiss: () -> Unit, onSuccess: () -> Unit) {
 fun SystemLogSection(logs: List<String>) {
     val scrollState = rememberScrollState()
     
-    // Yeni log geldiğinde otomatik aşağı kaydır
     LaunchedEffect(Unit) {
-        // ADB bağlantısını başlatılışta kontrol et (UI'ın kırmızı kalmasını önlemek için bir komut gönderir)
-        com.omoda.lanc.network.AdbClient.executeCommand("echo ping") { }
-        // Semidrive ekranlarında shell komutu başarılı çalışsa da socket yanıt vermeyebilir.
-        // Arka plan komutları (klima vs) sh üzerinden çalıştığı için UI'ı yeşile zorluyoruz.
         AssistantApplication.isAdbConnected.value = true
     }
     
@@ -347,7 +318,7 @@ fun SystemLogSection(logs: List<String>) {
 }
 
 @Composable
-fun HeaderSection(connStatus: String, hasInternet: Boolean, modelsReady: Boolean, isAdbConnected: Boolean, isMqttConnected: Boolean, onNavigateToSettings: () -> Unit) {
+fun HeaderSection(connStatus: String, hasInternet: Boolean, isAdbConnected: Boolean, isMqttConnected: Boolean, onNavigateToSettings: () -> Unit) {
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val alpha by infiniteTransition.animateFloat(
         initialValue = 0.3f, targetValue = 1f,
@@ -362,16 +333,6 @@ fun HeaderSection(connStatus: String, hasInternet: Boolean, modelsReady: Boolean
             Icon(Icons.Default.Settings, contentDescription = "Ayarlar", tint = Color.Gray)
         }
         
-        Spacer(Modifier.width(8.dp))
-        
-        Box(
-            modifier = Modifier
-                .size(12.dp)
-                .clip(CircleShape)
-                .background(if (modelsReady) Color.Green.copy(alpha = alpha) else Color.Red)
-        )
-        Spacer(Modifier.width(4.dp))
-        Text(if (modelsReady) "MODELLER AKTİF" else "MODELLER EKSİK", color = Color.Gray, fontSize = 15.sp)
         Spacer(Modifier.width(16.dp))
         
         Box(
@@ -419,7 +380,6 @@ fun HeaderSection(connStatus: String, hasInternet: Boolean, modelsReady: Boolean
 fun DialogueSection(userText: String, aiText: String) {
     val scrollState = rememberScrollState()
     
-    // Yeni içerik geldiğinde aşağı kaydır
     LaunchedEffect(userText, aiText) {
         scrollState.animateScrollTo(scrollState.maxValue)
     }
@@ -429,14 +389,14 @@ fun DialogueSection(userText: String, aiText: String) {
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp) // Uzatıldı (140 -> 200)
+            .height(200.dp)
             .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(12.dp))
     ) {
         Column(
             modifier = Modifier
                 .padding(12.dp)
                 .fillMaxSize()
-                .verticalScroll(scrollState), // Kaydırma eklendi
+                .verticalScroll(scrollState),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text("SİZ", color = Color(0xFF69E2D3), fontSize = 14.sp, fontWeight = FontWeight.Bold)
@@ -444,7 +404,7 @@ fun DialogueSection(userText: String, aiText: String) {
             
             HorizontalDivider(color = Color.White.copy(alpha = 0.05f), modifier = Modifier.padding(vertical = 6.dp))
             
-            Text("HERMES", color = Color(0xFFF3B14B), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            Text("ASİSTAN", color = Color(0xFFF3B14B), fontSize = 14.sp, fontWeight = FontWeight.Bold)
             Text(aiText.ifEmpty { "..." }, color = Color.White.copy(alpha = 0.8f), fontSize = 20.sp)
         }
     }
@@ -602,8 +562,6 @@ fun DeckControlsSection(
     isContinuousConversation: Boolean,
     useHermesDecision: Boolean,
     micSource: String,
-    sherpaSttState: String,
-    sherpaSttDetail: String,
     currentMode: String,
     onSttModeChange: (String) -> Unit,
     onTtsEngineChange: (String) -> Unit,
@@ -611,90 +569,42 @@ fun DeckControlsSection(
     onToggleContinuous: (Boolean) -> Unit,
     onToggleHermesDecision: (Boolean) -> Unit,
     onMicSourceChange: (String) -> Unit,
-    onModeChange: (String) -> Unit,
-    onCheckModels: () -> Unit
+    onModeChange: (String) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        // --- STT Bölümü ---
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text("SES TANIMA (STT)", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                if (sherpaSttDetail.isNotEmpty()) {
-                    Text(
-                        text = sherpaSttDetail, 
-                        color = Color.Gray.copy(alpha = 0.5f), 
-                        fontSize = 12.sp, 
-                        maxLines = 1,
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-                }
-            }
-            // Model Durum Etiketi
-            val stateColor = when {
-                sherpaSttState.contains("INSTALLED") -> Color(0xFF69E2D3)
-                sherpaSttState == "MISSING" -> Color.Red
-                else -> Color.Gray
-            }
-            Text(
-                text = if (sherpaSttState == "MISSING") "MODEL EKSİK" else "MODEL HAZIR", 
-                color = stateColor, 
-                fontSize = 14.sp, 
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(end = 8.dp)
-            )
-            TextButton(onClick = onCheckModels, contentPadding = PaddingValues(0.dp), modifier = Modifier.height(20.dp)) {
-                Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(12.dp), tint = Color(0xFF69E2D3))
-                Spacer(Modifier.width(4.dp))
-                Text("Tara", color = Color(0xFF69E2D3), fontSize = 15.sp)
-            }
-        }
-        
+        Text("SES TANIMA (STT)", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             DeckButton(
-                label = "BULUT",
-                active = sttMode == "BULUT", 
-                onClick = { onSttModeChange("BULUT") },
-                modifier = Modifier.weight(1f)
-            )
-            DeckButton(
-                label = "YEREL", 
+                label = "YEREL SUNUCU", 
                 active = sttMode == "HERMES", 
                 onClick = { onSttModeChange("HERMES") },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1.5f)
             )
             DeckButton(
-                label = "CİHAZ", 
+                label = "CİHAZ İÇİ", 
                 active = sttMode == "SHERPA", 
                 onClick = { onSttModeChange("SHERPA") },
                 modifier = Modifier.weight(1f)
             )
         }
 
-        // --- TTS Bölümü ---
         Text("SES SENTEZİ (TTS)", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             DeckButton(
-                label = "YEREL", 
+                label = "YEREL SUNUCU", 
                 active = ttsEngine == "HERMES", 
                 onClick = { onTtsEngineChange("HERMES") }, 
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1.5f)
             )
             DeckButton(
-                label = "BULUT", 
-                active = ttsEngine == "EDGE", 
-                onClick = { onTtsEngineChange("EDGE") }, 
-                modifier = Modifier.weight(1f)
-            )
-            DeckButton(
-                label = "CİHAZ", 
+                label = "CİHAZ İÇİ", 
                 active = ttsEngine == "SHERPA", 
                 onClick = { onTtsEngineChange("SHERPA") }, 
                 modifier = Modifier.weight(1f)
             )
         }
 
-        // --- Hermes Mod Seçimi ---
-        Text("HERMES MOD SEÇİMİ", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+        Text("ÇALIŞMA MODU", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             DeckButton(
                 label = "ASİSTAN", 
@@ -708,15 +618,8 @@ fun DeckControlsSection(
                 onClick = { onModeChange("CHAT") }, 
                 modifier = Modifier.weight(1f)
             )
-            DeckButton(
-                label = "İZLEME (MONITOR)", 
-                active = currentMode == "MONITOR", 
-                onClick = { onModeChange("MONITOR") }, 
-                modifier = Modifier.weight(1f)
-            )
         }
 
-        // --- Diyalog ve Mikrofon Ayarları ---
         Text("DİYALOG VE DONANIM", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Card(
             colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.03f)),
@@ -735,7 +638,7 @@ fun DeckControlsSection(
                 }
                 
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Akıllı Karar Motoru (Hermes)", color = Color.White, modifier = Modifier.weight(1f), fontSize = 18.sp)
+                    Text("Akıllı Karar Motoru", color = Color.White, modifier = Modifier.weight(1f), fontSize = 18.sp)
                     Switch(
                         checked = useHermesDecision,
                         onCheckedChange = onToggleHermesDecision,
@@ -769,20 +672,9 @@ fun DeckControlsSection(
                 }
             }
         }
-
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Text("HİBRİT SES AKIŞI", color = Color.White, modifier = Modifier.weight(1f), fontSize = 18.sp)
-            Switch(
-                checked = useHermesSpeech,
-                onCheckedChange = onUseHermesSpeechChange,
-                modifier = Modifier.scale(0.8f),
-                colors = SwitchDefaults.colors(checkedThumbColor = Color(0xFF69E2D3))
-            )
-        }
     }
 }
 
-// Add Modifier.scale extension helper if needed, but standard Modifier.graphicsLayer or scale is fine.
 fun Modifier.scale(scale: Float): Modifier = this.then(
     Modifier.graphicsLayer(scaleX = scale, scaleY = scale)
 )
@@ -830,10 +722,7 @@ fun HomeScreenPreview() {
             isContinuousConversation = true,
             useHermesDecision = false,
             micSource = "VOICE_RECOGNITION",
-            sherpaSttState = "INSTALLED",
-            sherpaTtsState = "INSTALLED",
             isAdbConnected = true,
-            sherpaSttDetail = "/sdcard/Download/sherpa_stt",
             logs = listOf("[12:00:01] Dinleme başlatıldı", "[12:00:05] Ses işleniyor..."),
             hasInternet = true,
             currentMode = "ASISTANT",

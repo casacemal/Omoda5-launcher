@@ -5,6 +5,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,15 +18,49 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.omoda.lanc.AssistantApplication
-import kotlinx.coroutines.flow.collectLatest
+
+@Composable
+fun WorkflowStep(label: String, isActive: Boolean, activeColor: Color) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Box(
+            modifier = Modifier
+                .size(8.dp)
+                .clip(CircleShape)
+                .background(if (isActive) activeColor else Color.DarkGray)
+        )
+        Text(
+            label,
+            fontSize = 8.sp,
+            color = if (isActive) Color.White else Color.Gray,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+@Composable
+fun WorkflowDivider(isTransitioning: Boolean) {
+    val infiniteTransition = rememberInfiniteTransition(label = "divider")
+    val alpha by infiniteTransition.animateFloat(
+        initialValue = 0.3f,
+        targetValue = if (isTransitioning) 1f else 0.3f,
+        animationSpec = infiniteRepeatable(tween(600), RepeatMode.Reverse),
+        label = "alpha"
+    )
+    
+    Box(
+        modifier = Modifier
+            .width(30.dp)
+            .height(1.dp)
+            .padding(horizontal = 4.dp)
+            .background(Color.White.copy(alpha = if (isTransitioning) alpha else 0.2f))
+    )
+}
 
 @Composable
 fun AssistantOverlayUI(
@@ -36,9 +71,17 @@ fun AssistantOverlayUI(
     val assistantResponse by AssistantApplication.assistantResponse.collectAsState()
     val status by AssistantApplication.status.collectAsState()
     val isListening by AssistantApplication.isListening.collectAsState()
-    val amplitude by AssistantApplication.currentAmplitude.collectAsState()
+    val workflowState by AssistantApplication.workflowState.collectAsState()
 
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+    
+    val workflowColor = when (workflowState) {
+        "LISTENING" -> Color(0xFF69E2D3)
+        "THINKING" -> Color(0xFFF3B14B)
+        "TALKING" -> Color(0xFF4CAF50)
+        else -> Color.Gray
+    }
+
     val pulseScale by infiniteTransition.animateFloat(
         initialValue = 1f,
         targetValue = if (isListening) 1.2f else 1f,
@@ -49,33 +92,21 @@ fun AssistantOverlayUI(
         label = "pulseScale"
     )
 
-    val shadowAlpha by infiniteTransition.animateFloat(
-        initialValue = 0.2f,
-        targetValue = if (isListening) 0.6f else 0.2f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(800),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "shadowAlpha"
-    )
-
     Surface(
         modifier = Modifier
             .width(360.dp)
             .wrapContentHeight()
             .clip(RoundedCornerShape(24.dp))
             .border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(24.dp)),
-        color = Color(0xFF111315).copy(alpha = 0.98f), // Solid dark background to avoid "gray" tinting
-        tonalElevation = 0.dp // Disable tonal tinting which makes it gray/teal
+        color = Color(0xFF111315).copy(alpha = 0.98f),
+        tonalElevation = 0.dp
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Animasyonlu Mikrofon / Dalga Alanı
             Box(contentAlignment = Alignment.Center, modifier = Modifier.size(100.dp)) {
-                // Background Pulse Rings
                 if (isListening) {
                     Box(
                         modifier = Modifier
@@ -93,7 +124,6 @@ fun AssistantOverlayUI(
                     )
                 }
 
-                // Core Icon
                 Surface(
                     modifier = Modifier.size(60.dp),
                     shape = CircleShape,
@@ -109,11 +139,22 @@ fun AssistantOverlayUI(
                 }
             }
 
-            // Durum ve Metin Alanı
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    WorkflowStep("DİNLE", workflowState == "LISTENING", Color(0xFF69E2D3))
+                    WorkflowDivider(workflowState == "THINKING")
+                    WorkflowStep("DÜŞÜN", workflowState == "THINKING", Color(0xFFF3B14B))
+                    WorkflowDivider(workflowState == "TALKING")
+                    WorkflowStep("KONUŞ", workflowState == "TALKING", Color(0xFF4CAF50))
+                }
+
                 Text(
                     text = status.uppercase(),
-                    color = if (isListening) Color(0xFF69E2D3) else Color.Gray,
+                    color = workflowColor,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
@@ -151,32 +192,45 @@ fun AssistantOverlayUI(
                 }
             }
 
-            // Butonlar
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 if (isListening) {
-                    Button(
-                        onClick = onStop,
-                        modifier = Modifier.weight(1f).height(44.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE57373)),
-                        shape = RoundedCornerShape(12.dp)
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(44.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(Color(0xFFE57373))
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null
+                            ) { onStop() },
+                        contentAlignment = Alignment.Center
                     ) {
                         Text("DURDUR", color = Color.White, fontWeight = FontWeight.Bold)
                     }
                 }
 
-                Button(
-                    onClick = onClose,
-                    modifier = Modifier.height(44.dp).let { if (!isListening) it.fillMaxWidth() else it },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333)),
-                    shape = RoundedCornerShape(12.dp)
+                Box(
+                    modifier = Modifier
+                        .height(44.dp)
+                        .let { if (!isListening) it.fillMaxWidth() else it }
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xFF333333))
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null
+                        ) { onClose() },
+                    contentAlignment = Alignment.Center
                 ) {
-                    Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp))
-                    if (!isListening) {
-                        Spacer(Modifier.width(8.dp))
-                        Text("KAPAT", fontSize = 14.sp)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp), tint = Color.White)
+                        if (!isListening) {
+                            Spacer(Modifier.width(8.dp))
+                            Text("KAPAT", fontSize = 14.sp, color = Color.White)
+                        }
                     }
                 }
             }

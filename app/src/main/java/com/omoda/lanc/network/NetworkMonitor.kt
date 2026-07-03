@@ -14,12 +14,14 @@ import androidx.core.app.NotificationCompat
 import com.omoda.lanc.AssistantApplication
 import com.omoda.lanc.MainActivity
 import com.omoda.lanc.core.ActionExecutor
+import com.omoda.lanc.mqtt.MqttTelemetryBridge
 import kotlinx.coroutines.*
 import java.net.InetAddress
 
 class NetworkMonitor(private val context: Context) {
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private val actionExecutor = ActionExecutor(context)
+    private val mqttTelemetryBridge = MqttTelemetryBridge(AssistantApplication.mqttPublisher)
+    private val actionExecutor = ActionExecutor(context, mqttTelemetryBridge)
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var healthCheckJob: Job? = null
 
@@ -84,7 +86,8 @@ class NetworkMonitor(private val context: Context) {
         val hasInternet = caps?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
         AssistantApplication.hasInternetConnection.value = hasInternet
         
-        if (hasInternet) startHealthCheck()
+        // Her zaman health check başlat ki ağ durumu ConnectivityManager tarafından yanlış algılanırsa ping ile düzelsin
+        startHealthCheck()
     }
 
     private fun startHealthCheck() {
@@ -92,7 +95,7 @@ class NetworkMonitor(private val context: Context) {
         healthCheckJob = scope.launch {
             while (isActive) {
                 checkConnectivityHeal()
-                delay(30000) // Her 30 saniyede bir kontrol et
+                delay(15000) // Her 15 saniyede bir kontrol et (Daha hızlı tepki)
             }
         }
     }
@@ -103,21 +106,30 @@ class NetworkMonitor(private val context: Context) {
 
     private suspend fun checkConnectivityHeal() {
         val gatewayIp = AssistantApplication.safeServerIp
+        val gatewayPort = AssistantApplication.hermesPort.value.toIntOrNull() ?: 20128
+        
         val isGatewayReachable = withContext(Dispatchers.IO) {
             try {
-                // Ping simülasyonu / reachability check
-                val address = InetAddress.getByName(gatewayIp)
-                address.isReachable(3000)
+                // Sadece IP değil, servis portuna (20128) soket bağlantısı dene (Daha kesin sonuç)
+                val socket = java.net.Socket()
+                socket.connect(java.net.InetSocketAddress(gatewayIp, gatewayPort), 2000)
+                socket.close()
+                true
             } catch (e: Exception) {
                 false
             }
         }
 
         if (isGatewayReachable) {
-            AssistantApplication.hermesConnectionStatus.value = "CONNECTED"
+            if (AssistantApplication.hermesConnectionStatus.value == "DISCONNECTED") {
+                AssistantApplication.hermesConnectionStatus.value = "CONNECTED"
+            }
+            AssistantApplication.hasInternetConnection.value = true
+            AssistantApplication.isVpnConnected.value = true
             Log.d("NetworkMonitor", "Gateway ($gatewayIp) erişilebilir.")
         } else {
             AssistantApplication.hermesConnectionStatus.value = "DISCONNECTED"
+            AssistantApplication.isVpnConnected.value = false
             AssistantApplication.addLog("Ağ Hatası: Gateway ($gatewayIp) erişilemiyor!")
             
             if (AssistantApplication.hasInternetConnection.value && AssistantApplication.isAutoTasksEnabled.value) {
@@ -132,8 +144,8 @@ class NetworkMonitor(private val context: Context) {
             // 1. Saati düzelt (SSL hatalarını önlemek için kritik)
             actionExecutor.execute("fix_system_time", "{}")
             
-            // 2. Tailscale bağlantısını tazele (KULLANICI İSTEĞİYLE İPTAL EDİLDİ - Ağı bozuyor)
-            // actionExecutor.execute("connect_vpn", "{}")
+            // 2. Tailscale bağlantısını tazele
+            actionExecutor.execute("connect_vpn", "{}")
             
             // 3. Logla
             AssistantApplication.addLog("Onarım: Saat senkronize edildi ve VPN tetiklendi.")

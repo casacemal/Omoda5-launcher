@@ -10,6 +10,7 @@ sealed class Event {
     sealed class VehicleEvent : Event() {
         data class StateUpdated(val state: VehicleState) : VehicleEvent()
         data class SpeedChanged(val speed: Float) : VehicleEvent()
+        data class GpsLocationChanged(val lat: Double, val lng: Double, val speed: Float) : VehicleEvent()
         data class GearChanged(val gear: String) : VehicleEvent()
         data class DoorStateChanged(val open: Boolean) : VehicleEvent()
         object LowFuel : VehicleEvent()

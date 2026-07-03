@@ -52,6 +52,10 @@ class AdbConnectionMonitor(private val context: Context) {
         if (!file.exists()) return false
 
         try {
+            if (!file.canRead()) {
+                // Sadece ilk hatada log bas veya sessizce geç. Android 10+ kısıtlaması.
+                return false
+            }
             file.bufferedReader().use { reader ->
                 // İlk satır başlıktır, atla
                 reader.readLine()
@@ -83,7 +87,9 @@ class AdbConnectionMonitor(private val context: Context) {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Dosya okuma hatası ($filePath): ${e.message}")
+            // Android 10+ cihazlarda bu dosyalara erişim SELinux tarafından engellenmiştir.
+            // Log kalabalığını önlemek için sadece Debug seviyesinde tutuyoruz.
+            Log.d(TAG, "Dosya okuma kısıtlaması ($filePath): ${e.message}")
         }
         return false
     }

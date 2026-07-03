@@ -2,9 +2,11 @@ package com.omoda.lanc.audio
 
 import android.content.Context
 import android.media.*
+import android.os.Build
 import android.os.Process
 import android.util.Log
 import com.omoda.lanc.core.HardwareState
+import kotlin.concurrent.thread
 import okhttp3.*
 import okio.ByteString
 import java.util.concurrent.TimeUnit
@@ -35,7 +37,12 @@ class AudioStreamReceiver(
     private val CHANNEL_CONFIG = AudioFormat.CHANNEL_OUT_MONO
     private val AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT
     private val BUFFER_SIZE = AudioTrack.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT)
-    private val memoryBuffer = ByteArray(BUFFER_SIZE * 2)
+    // Ring buffer: 8× min buffer size to absorb network jitter (API 26+ WRITE_BLOCKING)
+    private val memoryBuffer = ByteArray(maxOf(BUFFER_SIZE * 8, 16384))
+    private var writeIndex = 0
+    private var readIndex = 0
+    private val bufferLock = Any()
+    private var writerThread: Thread? = null
 
     private val audioAttributes = AudioAttributes.Builder()
         .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
@@ -98,6 +105,59 @@ class AudioStreamReceiver(
             .setTransferMode(AudioTrack.MODE_STREAM)
             .build()
         audioTrack?.play()
+        writerThread = thread(name = "AudioStreamWriter") {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO)
+            val tempBuffer = ByteArray(BUFFER_SIZE)
+            while (isRunning) {
+                var available: Int
+                synchronized(bufferLock) {
+                    available = if (readIndex <= writeIndex) {
+                        writeIndex - readIndex
+                    } else {
+                        memoryBuffer.size - readIndex + writeIndex
+                    }
+                }
+
+                if (available > 0) {
+                    val toWrite = minOf(available, tempBuffer.size)
+                    synchronized(bufferLock) {
+                        if (readIndex + toWrite <= memoryBuffer.size) {
+                            System.arraycopy(memoryBuffer, readIndex, tempBuffer, 0, toWrite)
+                        } else {
+                            val firstPart = memoryBuffer.size - readIndex
+                            System.arraycopy(memoryBuffer, readIndex, tempBuffer, 0, firstPart)
+                            System.arraycopy(memoryBuffer, 0, tempBuffer, firstPart, toWrite - firstPart)
+                        }
+                        readIndex = (readIndex + toWrite) % memoryBuffer.size
+                    }
+                    try {
+                        @Suppress("DEPRECATION")
+                        audioTrack?.write(
+                            tempBuffer, 0, toWrite,
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                                AudioTrack.WRITE_BLOCKING
+                            else
+                                toWrite // write returns toWrite on success pre-O
+                        )
+                    } catch (e: Exception) {
+                        Log.w(TAG, "AudioTrack write: ${e.message}")
+                    }
+                } else {
+                    // Write silence to keep AudioTrack alive and prevent underrun clicks
+                    try {
+                        val silence = ByteArray(BUFFER_SIZE.coerceAtMost(1024))
+                        @Suppress("DEPRECATION")
+                        audioTrack?.write(
+                            silence, 0, silence.size,
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                                AudioTrack.WRITE_BLOCKING
+                            else
+                                silence.size
+                        )
+                    } catch (_: Exception) { /* ignore underrun silence write */ }
+                }
+            }
+        }
     }
 
     private fun connectWebSocket() {
@@ -105,11 +165,32 @@ class AudioStreamReceiver(
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                 if (!isRunning || HardwareState.isLocalUserTalking) return // Barge-in
-                // Process önceliğini ses için yükselt
                 Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO)
-                
+
                 val data = bytes.toByteArray()
-                audioTrack?.write(data, 0, data.size)
+                synchronized(bufferLock) {
+                    val used = if (writeIndex >= readIndex) {
+                        writeIndex - readIndex
+                    } else {
+                        memoryBuffer.size - readIndex + writeIndex
+                    }
+                    val free = memoryBuffer.size - used - 1
+
+                    // Overflow: advance readIndex to make room (drop oldest data)
+                    if (data.size > free) {
+                        readIndex = (readIndex + data.size - free) % memoryBuffer.size
+                    }
+
+                    // Chunked copy with wrap-around
+                    if (writeIndex + data.size <= memoryBuffer.size) {
+                        System.arraycopy(data, 0, memoryBuffer, writeIndex, data.size)
+                    } else {
+                        val firstPart = memoryBuffer.size - writeIndex
+                        System.arraycopy(data, 0, memoryBuffer, writeIndex, firstPart)
+                        System.arraycopy(data, firstPart, memoryBuffer, 0, data.size - firstPart)
+                    }
+                    writeIndex = (writeIndex + data.size) % memoryBuffer.size
+                }
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
@@ -136,10 +217,16 @@ class AudioStreamReceiver(
         isRunning = false
         abandonAudioFocus()
         try {
+            writerThread?.interrupt()
+            writerThread = null
             webSocket?.close(1000, "Oturum Kapatıldı")
             audioTrack?.stop()
             audioTrack?.release()
             audioTrack = null
+            synchronized(bufferLock) {
+                writeIndex = 0
+                readIndex = 0
+            }
         } catch (e: Exception) {
             Log.e(TAG, "Durdurma hatası: ${e.message}")
         }

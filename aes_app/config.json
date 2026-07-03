@@ -1,0 +1,12 @@
+{
+    "adb_target": "100.89.242.14:5555",
+    "mqtt_broker": "192.168.1.14",
+    "mqtt_port": 1883,
+    "mqtt_user": "mqtthome",
+    "mqtt_pass": "4078",
+    "mqtt_topic_simulate": "omoda/simulate",
+    "mqtt_topic_komut": "omoda/komut",
+    "poll_interval_sec": 2,
+    "adb_timeout_sec": 10,
+    "batch_size": 20
+}

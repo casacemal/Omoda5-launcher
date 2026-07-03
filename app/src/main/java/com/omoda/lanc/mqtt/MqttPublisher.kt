@@ -46,8 +46,6 @@ class MqttPublisher(
                         Log.i(TAG, "MQTT bağlandı: $serverURI")
                         isConnected = true
                         com.omoda.lanc.AssistantApplication.isMqttConnected.value = true
-                        client?.subscribe(TOPIC_COMMAND, QOS)
-                        client?.subscribe("omoda/simulate", QOS)
                         
                         val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
                         com.omoda.lanc.AssistantApplication.addMqttLog("[$time] MQTT BAĞLANDI: $serverURI")
@@ -64,17 +62,6 @@ class MqttPublisher(
                         val payloadStr = message?.payload?.toString(Charsets.UTF_8) ?: return
                         val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
                         com.omoda.lanc.AssistantApplication.addMqttLog("[$time] Gelen ($topic): $payloadStr")
-                        
-                        if (topic == TOPIC_COMMAND) {
-                            Log.d(TAG, "Komut: $payloadStr")
-                        } else if (topic == "omoda/simulate") {
-                            try {
-                                val json = JSONObject(payloadStr)
-                                com.omoda.lanc.core.VehicleController.instance?.injectSimulatedData(json)
-                            } catch (e: Exception) {
-                                Log.e(TAG, "Simülasyon parse hatası: ${e.message}")
-                            }
-                        }
                     }
                     override fun deliveryComplete(token: IMqttDeliveryToken?) {}
                 })
@@ -94,6 +81,13 @@ class MqttPublisher(
         } catch (e: Exception) {}
     }
 
+    fun publish(topic: String, payload: String) {
+        if (!isConnected) return
+        try {
+            client?.publish(topic, MqttMessage(payload.toByteArray(Charsets.UTF_8)).apply { qos = QOS })
+        } catch (e: Exception) {}
+    }
+
     /**
      * VehicleController tier yapısından çağrılır.
      * Her updateState çağrısında publishTelemetry çağrılır.
@@ -107,14 +101,14 @@ class MqttPublisher(
         try {
             val json = JSONObject().apply {
                 put("timestamp", System.currentTimeMillis())
-                put("speed", state.speed)
+                put("speed", state.speed.toDouble())
                 put("gear", state.gearString)
                 put("engine_running", state.isEngineRunning)
-                put("rpm", state.engineRpm)
+                put("rpm", state.engineRpm.toDouble())
                 put("ac_on", state.isHvacOn)
                 put("ac_driver_temp", state.acTemperatureDriver)
                 put("ac_passenger_temp", state.acTemperaturePassenger)
-                put("outside_temp", state.outsideTemperature)
+                put("outside_temp", state.outsideTemperature.toDouble())
                 put("any_door_open", state.anyDoorOpen)
                 put("door_driver", state.doorDriverOpen)
                 put("door_passenger", state.doorPassengerOpen)
@@ -127,9 +121,11 @@ class MqttPublisher(
                 put("driving_mode", state.drivingMode)
                 put("parking_brake", state.parkingBrake)
                 put("headlights", state.headlights)
-                put("fuel_level", state.fuelLevel)
-                put("range_km", state.rangeKm)
-                put("odometer", state.odometer)
+                put("fuel_level", state.fuelLevel.toDouble())
+                put("range_km", state.rangeKm.toDouble())
+                put("odometer", state.odometer.toDouble())
+                put("latitude", state.latitude)
+                put("longitude", state.longitude)
 
                 // Cihaz ve Uygulama Bilgileri
                 val deviceInfo = JSONObject().apply {
@@ -167,7 +163,8 @@ class MqttPublisher(
             
             // Canlı MQTT log ekranına ekle
             val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
-            com.omoda.lanc.AssistantApplication.addMqttLog("[$time] Gönderildi: Hız=${state.speed}, Aktif Sensör Sayısı=${activeSensorsObj.length()}")
+            val sensorCount = json.optJSONObject("active_sensors")?.length() ?: 0
+            com.omoda.lanc.AssistantApplication.addMqttLog("[$time] Gönderildi: Hız=${state.speed}, Aktif Sensör Sayısı=$sensorCount")
         } catch (e: MqttException) {
             Log.e(TAG, "Publish hatası: ${e.message}")
             val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())

@@ -1,129 +1,129 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.omoda.lanc"
-4    android:versionCode="72"
-5    android:versionName="1.0.0" >
+4    android:versionCode="251"
+5    android:versionName="1.0.1" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="29"
 9        android:targetSdkVersion="33" />
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:5-67
-11-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:22-64
+11-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:5:5-67
+11-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:5:22-64
 12    <uses-permission android:name="android.permission.WAKE_LOCK" />
-12-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:5-68
-12-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:22-65
+12-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:5-68
+12-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:6:22-65
 13    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-13-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:5-71
-13-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:22-68
+13-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:5-71
+13-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:7:22-68
 14    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-14-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:5-78
-14-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:22-75
+14-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:5-78
+14-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:8:22-75
 15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-15-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:5-77
-15-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:22-74
+15-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:5-77
+15-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:9:22-74
 16    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
-16-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:5-88
-16-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:22-85
+16-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:5-88
+16-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:10:22-85
 17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-17-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:5-79
-17-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:22-76
+17-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:5-79
+17-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:11:22-76
 18    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-18-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:13:5-80
-18-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:13:22-77
+18-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:5-80
+18-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:12:22-77
 19    <uses-permission
-19-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:14:5-15:38
+19-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:13:5-14:38
 20        android:name="android.permission.READ_EXTERNAL_STORAGE"
-20-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:14:22-77
+20-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:13:22-77
 21        android:maxSdkVersion="32" />
-21-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:15:9-35
+21-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:14:9-35
 22    <uses-permission
-22-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:16:5-17:38
+22-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:15:5-16:38
 23        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-23-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:16:22-78
+23-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:15:22-78
 24        android:maxSdkVersion="32" />
-24-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:17:9-35
+24-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:16:9-35
 25    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-25-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:5-79
-25-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:22-76
+25-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:17:5-79
+25-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:17:22-76
 26    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-26-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:5-81
-26-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:22-78
+26-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:5-81
+26-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:18:22-78
 27    <uses-permission android:name="android.permission.DUMP" />
-27-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:20:5-63
-27-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:20:22-60
+27-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:5-63
+27-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:19:22-60
 28
 29    <!-- Added from source project -->
 30    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-30-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:23:5-24:53
-30-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:23:22-74
+30-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:22:5-23:53
+30-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:22:22-74
 31    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-31-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:25:5-26:47
-31-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:25:22-75
+31-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:24:5-25:47
+31-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:24:22-75
 32    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
-32-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:5-85
-32-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:22-82
+32-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:26:5-85
+32-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:26:22-82
 33    <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
-33-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:28:5-29:47
-33-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:28:22-90
+33-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:5-28:47
+33-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:27:22-90
 34    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-34-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:5-80
-34-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:22-77
+34-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:29:5-80
+34-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:29:22-77
 35    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-35-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:5-81
-35-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:22-78
+35-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:5-81
+35-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:30:22-78
 36    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-36-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:32:5-33:55
-36-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:32:22-80
+36-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:5-32:55
+36-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:31:22-80
 37    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
-37-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:5-80
-37-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:22-77
+37-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:33:5-80
+37-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:33:22-77
 38    <uses-permission android:name="android.permission.BLUETOOTH" />
-38-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:35:5-68
-38-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:35:22-65
+38-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:5-68
+38-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:34:22-65
 39    <uses-permission android:name="android.permission.READ_LOGS" />
-39-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:36:5-68
-39-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:36:22-65
+39-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:35:5-68
+39-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:35:22-65
 40    <uses-permission android:name="android.car.permission.CAR_SPEED" />
-40-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:5-72
-40-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:22-69
+40-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:37:5-72
+40-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:37:22-69
 41    <uses-permission android:name="android.car.permission.CAR_INFO" />
-41-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:5-71
-41-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:22-68
+41-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:5-71
+41-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:38:22-68
 42    <uses-permission android:name="android.car.permission.CAR_ENERGY" />
-42-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:5-73
-42-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:22-70
+42-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:5-73
+42-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:39:22-70
 43    <uses-permission android:name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT" />
-43-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:5-87
-43-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:22-84
+43-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:5-87
+43-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:40:22-84
 44    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
-44-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:42:5-77
-44-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:42:22-74
+44-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:5-77
+44-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:41:22-74
 45
 46    <queries>
-46-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:109:5-117:15
+46-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:102:5-110:15
 47        <package android:name="com.google.android.apps.maps" />
-47-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:110:9-64
-47-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:110:18-61
+47-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:9-64
+47-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:18-61
 48        <package android:name="com.chery.media" />
-48-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:111:9-51
-48-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:111:18-48
+48-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:9-51
+48-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:18-48
 49        <package android:name="com.chery.hvac" />
-49-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:112:9-50
-49-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:112:18-47
+49-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:105:9-50
+49-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:105:18-47
 50        <package android:name="com.yfve.hvac" />
-50-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:113:9-49
-50-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:113:18-46
+50-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:106:9-49
+50-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:106:18-46
 51        <package android:name="in.krosbits.musicolet" />
-51-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:114:9-57
-51-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:114:18-54
+51-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:107:9-57
+51-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:107:18-54
 52        <package android:name="com.spotify.music" />
-52-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:115:9-53
-52-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:115:18-50
+52-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:108:9-53
+52-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:108:18-50
 53        <package android:name="com.vivaldi.browser" />
-53-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:116:9-55
-53-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:116:18-52
+53-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:109:9-55
+53-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:109:18-52
 54    </queries>
 55
 56    <permission
@@ -138,203 +138,193 @@
 60-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/transforms-4/e025f996adad7c4bb0e5587bfafcf4bf/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
 61
 62    <application
-62-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:5-107:19
+62-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:43:5-100:19
 63        android:name="com.omoda.lanc.AssistantApplication"
-63-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:45:9-45
+63-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:44:9-45
 64        android:allowBackup="true"
-64-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:46:9-35
+64-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:45:9-35
 65        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 65-->[androidx.core:core:1.13.1] /home/cemal/.gradle/caches/transforms-4/e025f996adad7c4bb0e5587bfafcf4bf/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 66        android:debuggable="true"
 67        android:extractNativeLibs="false"
 68        android:icon="@mipmap/ic_launcher"
-68-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:47:9-43
+68-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:46:9-43
 69        android:label="Omoda Asistan"
-69-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:48:9-38
+69-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:47:9-38
 70        android:requestLegacyExternalStorage="true"
-70-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:52:9-52
+70-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:51:9-52
 71        android:roundIcon="@mipmap/ic_launcher_round"
-71-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:49:9-54
+71-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:48:9-54
 72        android:supportsRtl="true"
-72-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:50:9-35
+72-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:49:9-35
 73        android:theme="@style/Theme.AppCompat.NoActionBar"
-73-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:53:9-59
+73-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:52:9-59
 74        android:usesCleartextTraffic="true" >
-74-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:51:9-44
+74-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:50:9-44
 75        <activity
-75-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:55:9-68:20
+75-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:54:9-67:20
 76            android:name="com.omoda.lanc.MainActivity"
-76-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:56:13-41
+76-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:55:13-41
 77            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-77-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:60:13-87
+77-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:59:13-87
 78            android:exported="true"
-78-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:57:13-36
+78-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:56:13-36
 79            android:launchMode="singleTask"
-79-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:58:13-44
+79-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:57:13-44
 80            android:screenOrientation="landscape"
-80-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:59:13-50
+80-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:58:13-50
 81            android:theme="@style/Theme.AppCompat.NoActionBar" >
-81-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:61:13-63
+81-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:60:13-63
 82            <intent-filter>
-82-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:62:13-67:29
+82-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:61:13-66:29
 83                <action android:name="android.intent.action.MAIN" />
-83-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:17-69
-83-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:25-66
+83-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:62:17-69
+83-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:62:25-66
 84
 85                <category android:name="android.intent.category.LAUNCHER" />
-85-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:17-77
-85-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:27-74
+85-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:17-77
+85-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:63:27-74
 86                <category android:name="android.intent.category.HOME" />
-86-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:17-73
-86-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:27-70
+86-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:17-73
+86-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:64:27-70
 87                <category android:name="android.intent.category.DEFAULT" />
-87-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:66:17-76
-87-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:66:27-73
+87-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:17-76
+87-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:65:27-73
 88            </intent-filter>
 89        </activity>
 90
 91        <service
-91-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:70:9-74:58
+91-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:69:9-73:58
 92            android:name="com.omoda.lanc.service.VoiceAssistantService"
-92-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:71:13-58
+92-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:70:13-58
 93            android:enabled="true"
-93-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:72:13-35
+93-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:71:13-35
 94            android:exported="true"
-94-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:73:13-36
+94-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:72:13-36
 95            android:foregroundServiceType="microphone" />
-95-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:74:13-55
+95-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:73:13-55
 96        <service
-96-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:76:9-80:61
-97            android:name="com.omoda.lanc.service.HermesForegroundService"
-97-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:77:13-60
+96-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:75:9-78:40
+97            android:name="com.omoda.lanc.service.AdbBridgeService"
+97-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:76:13-53
 98            android:enabled="true"
-98-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:78:13-35
-99            android:exported="false"
-99-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:79:13-37
-100            android:foregroundServiceType="mediaPlayback" />
-100-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:80:13-58
-101        <service
-101-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:82:9-85:40
-102            android:name="com.omoda.lanc.service.AdbBridgeService"
-102-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:83:13-53
-103            android:enabled="true"
-103-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:84:13-35
-104            android:exported="false" />
-104-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:85:13-37
-105        <service
-105-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:87:9-95:19
-106            android:name="com.omoda.lanc.service.MediaNotificationListener"
-106-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:88:13-62
-107            android:exported="true"
-107-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:91:13-36
-108            android:label="Omoda Media Listener"
-108-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:89:13-49
-109            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
-109-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:90:13-87
-110            <intent-filter>
-110-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:92:13-94:29
-111                <action android:name="android.service.notification.NotificationListenerService" />
-111-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:17-99
-111-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:25-96
-112            </intent-filter>
-113        </service>
-114
-115        <provider
-116            android:name="androidx.core.content.FileProvider"
-116-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:98:13-62
-117            android:authorities="com.omoda.lanc.fileprovider"
-117-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:99:13-64
-118            android:exported="false"
-118-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:100:13-37
-119            android:grantUriPermissions="true" >
-119-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:101:13-47
-120            <meta-data
-120-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:102:13-104:54
-121                android:name="android.support.FILE_PROVIDER_PATHS"
-121-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:103:17-67
-122                android:resource="@xml/file_paths" />
-122-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:104:17-51
-123        </provider>
-124
-125        <activity
-125-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/fe965c861a350e8fb6cc936a0a14333b/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
-126            android:name="androidx.compose.ui.tooling.PreviewActivity"
-126-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/fe965c861a350e8fb6cc936a0a14333b/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
-127            android:exported="true" />
-127-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/fe965c861a350e8fb6cc936a0a14333b/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
-128
-129        <provider
-129-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-130            android:name="androidx.startup.InitializationProvider"
-130-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
-131            android:authorities="com.omoda.lanc.androidx-startup"
-131-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
-132            android:exported="false" >
-132-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
-133            <meta-data
-133-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-134                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-134-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
-135                android:value="androidx.startup" />
-135-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
-136            <meta-data
-136-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/cemal/.gradle/caches/transforms-4/040801e5b5dba2990cee95535f9503b4/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
-137                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-137-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/cemal/.gradle/caches/transforms-4/040801e5b5dba2990cee95535f9503b4/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
-138                android:value="androidx.startup" />
-138-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/cemal/.gradle/caches/transforms-4/040801e5b5dba2990cee95535f9503b4/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
-139            <meta-data
-139-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
-140                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-140-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
-141                android:value="androidx.startup" />
-141-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
-142        </provider>
-143
-144        <activity
-144-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/cemal/.gradle/caches/transforms-4/a386f21f6584a4de9f016b03dee29dfa/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:23:9-25:39
-145            android:name="androidx.activity.ComponentActivity"
-145-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/cemal/.gradle/caches/transforms-4/a386f21f6584a4de9f016b03dee29dfa/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:24:13-63
-146            android:exported="true" />
-146-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/cemal/.gradle/caches/transforms-4/a386f21f6584a4de9f016b03dee29dfa/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:25:13-36
-147
-148        <receiver
-148-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
-149            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-149-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
-150            android:directBootAware="false"
-150-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
-151            android:enabled="true"
-151-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
-152            android:exported="true"
-152-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
-153            android:permission="android.permission.DUMP" >
-153-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
-154            <intent-filter>
-154-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
-155                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-155-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-155-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
-156            </intent-filter>
-157            <intent-filter>
-157-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
-158                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-158-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-158-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
-159            </intent-filter>
-160            <intent-filter>
-160-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
-161                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-161-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-161-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
-162            </intent-filter>
-163            <intent-filter>
-163-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
-164                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-164-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-164-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
-165            </intent-filter>
-166        </receiver>
-167    </application>
-168
-169</manifest>
+98-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:77:13-35
+99            android:exported="false" />
+99-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:78:13-37
+100        <service
+100-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:80:9-88:19
+101            android:name="com.omoda.lanc.service.MediaNotificationListener"
+101-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:81:13-62
+102            android:exported="true"
+102-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:84:13-36
+103            android:label="Omoda Media Listener"
+103-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:82:13-49
+104            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
+104-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:83:13-87
+105            <intent-filter>
+105-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:85:13-87:29
+106                <action android:name="android.service.notification.NotificationListenerService" />
+106-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:86:17-99
+106-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:86:25-96
+107            </intent-filter>
+108        </service>
+109
+110        <provider
+111            android:name="androidx.core.content.FileProvider"
+111-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:91:13-62
+112            android:authorities="com.omoda.lanc.fileprovider"
+112-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:92:13-64
+113            android:exported="false"
+113-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:93:13-37
+114            android:grantUriPermissions="true" >
+114-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:94:13-47
+115            <meta-data
+115-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:95:13-97:54
+116                android:name="android.support.FILE_PROVIDER_PATHS"
+116-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:96:17-67
+117                android:resource="@xml/file_paths" />
+117-->/mnt/depo/launcher_v2/app/src/main/AndroidManifest.xml:97:17-51
+118        </provider>
+119
+120        <activity
+120-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/fe965c861a350e8fb6cc936a0a14333b/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+121            android:name="androidx.compose.ui.tooling.PreviewActivity"
+121-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/fe965c861a350e8fb6cc936a0a14333b/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+122            android:exported="true" />
+122-->[androidx.compose.ui:ui-tooling-android:1.6.8] /home/cemal/.gradle/caches/transforms-4/fe965c861a350e8fb6cc936a0a14333b/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+123
+124        <provider
+124-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+125            android:name="androidx.startup.InitializationProvider"
+125-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+126            android:authorities="com.omoda.lanc.androidx-startup"
+126-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+127            android:exported="false" >
+127-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+128            <meta-data
+128-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+129                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+129-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+130                android:value="androidx.startup" />
+130-->[androidx.emoji2:emoji2:1.3.0] /home/cemal/.gradle/caches/transforms-4/ed6aa85a023921d7b952ffed0b691d7c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+131            <meta-data
+131-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/cemal/.gradle/caches/transforms-4/040801e5b5dba2990cee95535f9503b4/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+132                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+132-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/cemal/.gradle/caches/transforms-4/040801e5b5dba2990cee95535f9503b4/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+133                android:value="androidx.startup" />
+133-->[androidx.lifecycle:lifecycle-process:2.7.0] /home/cemal/.gradle/caches/transforms-4/040801e5b5dba2990cee95535f9503b4/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+134            <meta-data
+134-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+135                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+136                android:value="androidx.startup" />
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+137        </provider>
+138
+139        <activity
+139-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/cemal/.gradle/caches/transforms-4/a386f21f6584a4de9f016b03dee29dfa/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:23:9-25:39
+140            android:name="androidx.activity.ComponentActivity"
+140-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/cemal/.gradle/caches/transforms-4/a386f21f6584a4de9f016b03dee29dfa/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:24:13-63
+141            android:exported="true" />
+141-->[androidx.compose.ui:ui-test-manifest:1.6.8] /home/cemal/.gradle/caches/transforms-4/a386f21f6584a4de9f016b03dee29dfa/transformed/ui-test-manifest-1.6.8/AndroidManifest.xml:25:13-36
+142
+143        <receiver
+143-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+144            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+144-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+145            android:directBootAware="false"
+145-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+146            android:enabled="true"
+146-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+147            android:exported="true"
+147-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+148            android:permission="android.permission.DUMP" >
+148-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+149            <intent-filter>
+149-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+150                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+150-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+151            </intent-filter>
+152            <intent-filter>
+152-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+153                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+153-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+154            </intent-filter>
+155            <intent-filter>
+155-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+156                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+156-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+157            </intent-filter>
+158            <intent-filter>
+158-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+159                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+159-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+159-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/cemal/.gradle/caches/transforms-4/671bf1e8b3260f0909ecd01916e7f8f6/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+160            </intent-filter>
+161        </receiver>
+162    </application>
+163
+164</manifest>
