@@ -5,6 +5,7 @@ import android.media.*
 import android.os.Build
 import android.os.Process
 import android.util.Log
+import com.omoda.lanc.core.GlobalState
 import com.omoda.lanc.core.HardwareState
 import kotlin.concurrent.thread
 import okhttp3.*
@@ -154,6 +155,7 @@ class AudioStreamReceiver(
                             else
                                 silence.size
                         )
+                        Thread.sleep(30)
                     } catch (_: Exception) { /* ignore underrun silence write */ }
                 }
             }
@@ -161,7 +163,13 @@ class AudioStreamReceiver(
     }
 
     private fun connectWebSocket() {
-        val request = Request.Builder().url(serverUrl).build()
+        val request = Request.Builder()
+            .url(serverUrl)
+            .addHeader("Authorization", "Bearer ${GlobalState.HERMES_API_KEY}")
+            .addHeader("X-API-Key", GlobalState.HERMES_API_KEY)
+            .addHeader("X-Hermes-Session-Key", GlobalState.sessionKey.value)
+            .addHeader("Sec-WebSocket-Protocol", "audio-stream-v1")
+            .build()
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                 if (!isRunning || HardwareState.isLocalUserTalking) return // Barge-in

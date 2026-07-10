@@ -33,6 +33,7 @@ class MediaNotificationListener : NotificationListenerService() {
             val title = extras.getString(Notification.EXTRA_TITLE) ?: ""
             val artist = extras.getString(Notification.EXTRA_TEXT) ?: ""
             
+            @Suppress("DEPRECATION")
             val token = extras.getParcelable<android.media.session.MediaSession.Token>(Notification.EXTRA_MEDIA_SESSION)
             if (token != null) {
                 globalController = android.media.session.MediaController(this, token)

@@ -1,21 +1,23 @@
 package com.omoda.lanc.vehicle
 
 import android.content.Context
+import android.util.Log
 import com.omoda.lanc.core.Event
 import com.omoda.lanc.core.EventBus
+import com.omoda.lanc.core.GlobalState
 import com.omoda.lanc.model.VehicleState
 import kotlinx.coroutines.*
 
 /**
- * Vehicle Layer - PDF Plan v2.0
- * Veri çekme ve olay dağıtım katmanı.
+ * Vehicle Layer - Dinamik Ayar Odaklı Polling
  */
 class VehicleLayer(
     private val context: Context,
     private val scope: CoroutineScope
 ) {
-    private val vehicleProvider = VehicleProvider(context)
+    private val dumpsysSource = DumpsysSource()
     private var trackingJob: Job? = null
+    private var tickCount = 0L
 
     init {
         startTracking()
@@ -25,25 +27,36 @@ class VehicleLayer(
         trackingJob?.cancel()
         trackingJob = scope.launch(Dispatchers.IO) {
             while (isActive) {
-                val speed = vehicleProvider.getSpeed()
-                val gear = vehicleProvider.getGear()
-                val fuel = vehicleProvider.getFuelLevel()
-                val isEngineRunning = vehicleProvider.isEngineRunning()
-                val isDoorOpen = vehicleProvider.isAnyDoorOpen()
+                tickCount++
                 
-                val state = VehicleState(
-                    speed = speed,
-                    gear = gear,
-                    fuelLevel = fuel,
-                    isEngineRunning = isEngineRunning,
-                    anyDoorOpen = isDoorOpen
-                )
+                // 1. Ayarları al
+                val config = GlobalState.vehiclePollingConfig.value
                 
-                // Merkezi EventBus üzerinden duyur
-                EventBus.emit(Event.VehicleEvent.StateUpdated(state))
-                EventBus.emit(Event.VehicleEvent.SpeedChanged(speed))
+                // 2. Bu tick'te hangi ID'ler okunmalı?
+                val idsToFetch = mutableListOf<String>()
+                config.forEach { (id, interval) ->
+                    if (interval > 0 && tickCount % interval == 0L) {
+                        idsToFetch.add(id)
+                    }
+                }
+
+                // 3. Eğer okunacak veri varsa dumpsys çalıştır
+                if (idsToFetch.isNotEmpty()) {
+                    val state = dumpsysSource.refreshSelected(idsToFetch)
+                    
+                    // 4. Güncel veriyi duyur
+                    EventBus.emit(Event.VehicleEvent.StateUpdated(state))
+                    
+                    // Eğer hız okunduysa özel event at
+                    if (idsToFetch.contains("11600207")) {
+                        EventBus.emit(Event.VehicleEvent.SpeedChanged(state.speed))
+                    }
+                    
+                    Log.d("VehicleLayer", "Fetched IDs: ${idsToFetch.joinToString()} at tick $tickCount")
+                }
                 
-                delay(1000) // 1 saniye bekle
+                // Her tick 1 saniye (En küçük birim)
+                delay(1000)
             }
         }
     }

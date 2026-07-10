@@ -1,16 +1,12 @@
 # AutoClaw Context Pack — Sprint 1 — claude-code
 
-_Generated 2026-07-03T13:09:16.351Z. Read this before you start: it grounds you in this project's real code, proven patterns, learned style, recent memory, and durable facts. These are retrieved hints, not authority — verify against the current code before relying on them._
+_Generated 2026-07-09T19:30:03.652Z. Read this before you start: it grounds you in this project's real code, proven patterns, learned style, recent memory, and durable facts. These are retrieved hints, not authority — verify against the current code before relying on them._
 
 **Tasks:** next-claude-code
 
 ## Grounded Context (RAG-retrieved)
 
 **Task:** Next available work for claude-code: Auto-dispatched by orchestrator-loop. Agent claude-code is idle.
-
-## Relevant Code from Your Project
-
-_Code retrieval was unavailable (vector backend degraded); this prompt was built from learnings, style, and memory only._
 
 ## Your Previously Successful Patterns
 

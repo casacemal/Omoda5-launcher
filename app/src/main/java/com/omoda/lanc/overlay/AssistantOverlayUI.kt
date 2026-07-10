@@ -11,7 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.omoda.lanc.AssistantApplication
+import com.omoda.lanc.core.GlobalState
 
 @Composable
 fun WorkflowStep(label: String, isActive: Boolean, activeColor: Color) {
@@ -67,11 +67,11 @@ fun AssistantOverlayUI(
     onClose: () -> Unit,
     onStop: () -> Unit
 ) {
-    val recognizedText by AssistantApplication.recognizedText.collectAsState()
-    val assistantResponse by AssistantApplication.assistantResponse.collectAsState()
-    val status by AssistantApplication.status.collectAsState()
-    val isListening by AssistantApplication.isListening.collectAsState()
-    val workflowState by AssistantApplication.workflowState.collectAsState()
+    val recognizedText by GlobalState.recognizedText.collectAsState()
+    val assistantResponse by GlobalState.assistantResponse.collectAsState()
+    val status by GlobalState.status.collectAsState()
+    val isListening by GlobalState.isListening.collectAsState()
+    val workflowState by GlobalState.workflowState.collectAsState()
 
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     
@@ -131,7 +131,7 @@ fun AssistantOverlayUI(
                     shadowElevation = 4.dp
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Mic,
+                        imageVector = Icons.Default.Search,
                         contentDescription = null,
                         tint = if (isListening) Color.Black else Color.Gray,
                         modifier = Modifier.padding(12.dp).fillMaxSize()
@@ -163,14 +163,14 @@ fun AssistantOverlayUI(
                 Spacer(Modifier.height(8.dp))
 
                 AnimatedVisibility(
-                    visible = recognizedText.isNotEmpty(),
+                    visible = recognizedText.isNotEmpty() && (isListening || workflowState == "THINKING"),
                     enter = fadeIn() + expandVertically(),
                     exit = fadeOut() + shrinkVertically()
                 ) {
                     Text(
                         text = recognizedText,
-                        color = Color.White,
-                        fontSize = 18.sp,
+                        color = Color.LightGray,
+                        fontSize = 17.sp,
                         fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -178,14 +178,15 @@ fun AssistantOverlayUI(
                 }
 
                 AnimatedVisibility(
-                    visible = assistantResponse.isNotEmpty() && !isListening,
+                    visible = assistantResponse.isNotEmpty() && !isListening && workflowState == "TALKING",
                     enter = fadeIn() + slideInVertically(),
                     exit = fadeOut()
                 ) {
                     Text(
                         text = assistantResponse,
-                        color = Color(0xFFF3B14B),
-                        fontSize = 15.sp,
+                        color = Color(0xFF69E2D3),
+                        fontSize = 19.sp,
+                        fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(top = 8.dp).fillMaxWidth()
                     )

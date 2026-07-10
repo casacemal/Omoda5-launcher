@@ -122,6 +122,7 @@
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6ffffff</color>
     <color name="white">#FFFFFFFF</color>
+    <string name="accessibility_description">Hermes Bridge accessibility service — allows hermes-agent to read and interact with the Android screen.</string>
     <string name="app_name">Universal AAOS Assistant</string>
     <string name="close">KAPAT</string>
     <string name="listening">🎙️ Dinleniyor…</string>

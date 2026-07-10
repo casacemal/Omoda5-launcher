@@ -1,6 +1,10 @@
 package com.omoda.lanc.ui.screens
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.*
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -26,27 +30,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.omoda.lanc.AssistantApplication
+import com.omoda.lanc.core.GlobalState
+import com.omoda.lanc.ui.components.StatusLed
 import com.omoda.lanc.ui.theme.AppTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun HomeScreen(onNavigateToSettings: () -> Unit) {
-    val recognizedText by AssistantApplication.recognizedText.collectAsState()
-    val assistantResponse by AssistantApplication.assistantResponse.collectAsState()
-    val status by AssistantApplication.status.collectAsState()
-    val isListening by AssistantApplication.isListening.collectAsState()
-    val sttMode by AssistantApplication.sttMode.collectAsState()
-    val ttsEngine by AssistantApplication.ttsEngine.collectAsState()
-    val useHermesSpeech by AssistantApplication.useHermesSpeech.collectAsState()
-    val connStatus by AssistantApplication.hermesConnectionStatus.collectAsState()
-    val hasInternet by AssistantApplication.hasInternetConnection.collectAsState()
-    val isWakeWordEnabled by AssistantApplication.isWakeWordEnabled.collectAsState()
-    val isContinuousConversation by AssistantApplication.isContinuousConversation.collectAsState()
-    val useHermesDecision by AssistantApplication.useHermesDecision.collectAsState()
-    val micSource by AssistantApplication.micSource.collectAsState()
-    val isAdbConnected by AssistantApplication.isAdbConnected.collectAsState()
+    val recognizedText by GlobalState.recognizedText.collectAsState()
+    val assistantResponse by GlobalState.assistantResponse.collectAsState()
+    val status by GlobalState.status.collectAsState()
+    val isListening by GlobalState.isListening.collectAsState()
+    val sttMode by GlobalState.sttMode.collectAsState()
+    val ttsEngine by GlobalState.ttsEngine.collectAsState()
+    val useHermesSpeech by GlobalState.useHermesSpeech.collectAsState()
+    val connStatus by GlobalState.hermesConnectionStatus.collectAsState()
+    val hasInternet by GlobalState.hasInternetConnection.collectAsState()
+    val isWakeWordEnabled by GlobalState.isWakeWordEnabled.collectAsState()
+    val isContinuousConversation by GlobalState.isContinuousConversation.collectAsState()
+    val useHermesDecision by GlobalState.useHermesDecision.collectAsState()
+    val micSource by GlobalState.micSource.collectAsState()
+    val isAdbConnected by GlobalState.isAdbConnected.collectAsState()
     val logs by AssistantApplication.systemLogs.collectAsState()
-    val currentMode by AssistantApplication.currentMode.collectAsState()
-    val isMqttConnected by AssistantApplication.isMqttConnected.collectAsState()
+    val currentMode by GlobalState.currentMode.collectAsState()
+    val isMqttConnected by GlobalState.isMqttConnected.collectAsState()
 
     HomeScreenContent(
         recognizedText = recognizedText,
@@ -67,35 +74,35 @@ fun HomeScreen(onNavigateToSettings: () -> Unit) {
         currentMode = currentMode,
         isMqttConnected = isMqttConnected,
         onSttModeChange = { 
-            AssistantApplication.sttMode.value = it 
+            GlobalState.sttMode.value = it 
             AssistantApplication.saveCurrentConfig()
         },
         onTtsEngineChange = { 
-            AssistantApplication.ttsEngine.value = it 
+            GlobalState.ttsEngine.value = it 
             AssistantApplication.saveCurrentConfig()
         },
         onUseHermesSpeechChange = { 
-            AssistantApplication.useHermesSpeech.value = it 
+            GlobalState.useHermesSpeech.value = it 
             AssistantApplication.saveCurrentConfig()
         },
         onToggleWakeWord = {
-            AssistantApplication.isWakeWordEnabled.value = it
+            GlobalState.isWakeWordEnabled.value = it
             AssistantApplication.saveCurrentConfig()
         },
         onToggleContinuous = {
-            AssistantApplication.isContinuousConversation.value = it
+            GlobalState.isContinuousConversation.value = it
             AssistantApplication.saveCurrentConfig()
         },
         onToggleHermesDecision = {
-            AssistantApplication.useHermesDecision.value = it
+            GlobalState.useHermesDecision.value = it
             AssistantApplication.saveCurrentConfig()
         },
         onMicSourceChange = {
-            AssistantApplication.micSource.value = it
+            GlobalState.micSource.value = it
             AssistantApplication.saveCurrentConfig()
         },
         onModeChange = {
-            AssistantApplication.currentMode.value = it
+            GlobalState.currentMode.value = it
             AssistantApplication.saveCurrentConfig()
         },
         onNavigateToSettings = onNavigateToSettings
@@ -159,10 +166,24 @@ fun HomeScreenContent(
 
             DialogueSection(recognizedText, assistantResponse)
 
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                StatusLed("İnternet", hasInternet)
+                Spacer(Modifier.width(16.dp))
+                StatusLed("MQTT", isMqttConnected)
+                Spacer(Modifier.width(16.dp))
+                val isHermesConnected = connStatus == "CONNECTED" || connStatus == "FALLBACK_CONNECTED" || connStatus == "FULL_CONNECTED"
+                StatusLed("Hermes", isHermesConnected)
+            }
+
             ActionButtonsSection(
                 isListening = isListening,
                 isWakeWordEnabled = isWakeWordEnabled,
-                isSimulationMode = AssistantApplication.isSimulationMode.collectAsState().value,
+                isSimulationMode = GlobalState.isSimulationMode.collectAsState().value,
+                currentMode = currentMode,
                 onStart = { 
                     context.sendBroadcast(android.content.Intent("com.omoda.assistant.START_LISTENING"))
                 },
@@ -170,7 +191,8 @@ fun HomeScreenContent(
                     context.sendBroadcast(android.content.Intent("com.omoda.assistant.STOP_LISTENING"))
                 },
                 onToggleWakeWord = onToggleWakeWord,
-                onShowSafetyDialog = { showSafetyDialog = true }
+                onShowSafetyDialog = { showSafetyDialog = true },
+                onModeChange = onModeChange
             )
 
             SystemLogSection(logs)
@@ -202,11 +224,11 @@ fun HomeScreenContent(
             SimulatorSafetyDialog(
                 onDismiss = { showSafetyDialog = false },
                 onSuccess = {
-                    val currentSimulationMode = AssistantApplication.isSimulationMode.value
+                    val currentSimulationMode = GlobalState.isSimulationMode.value
                     val newVal = !currentSimulationMode
-                    AssistantApplication.isSimulationMode.value = newVal
-                    AssistantApplication.isBridgeMode.value = newVal
-                    AssistantApplication.addLog(if (newVal) "SİMÜLATÖR & KÖPRÜ MODU AKTİF" else "SİMÜLATÖR & KÖPRÜ MODU KAPALI")
+                    GlobalState.isSimulationMode.value = newVal
+                    GlobalState.isBridgeMode.value = newVal
+                    AssistantApplication.addLogStatic(if (newVal) "SİMÜLATÖR & KÖPRÜ MODU AKTİF" else "SİMÜLATÖR & KÖPRÜ MODU KAPALI")
                 }
             )
         }
@@ -279,7 +301,7 @@ fun SystemLogSection(logs: List<String>) {
     val scrollState = rememberScrollState()
     
     LaunchedEffect(Unit) {
-        AssistantApplication.isAdbConnected.value = true
+        GlobalState.isAdbConnected.value = true
     }
     
     LaunchedEffect(logs.size) {
@@ -369,7 +391,7 @@ fun HeaderSection(connStatus: String, hasInternet: Boolean, isAdbConnected: Bool
             modifier = Modifier
                 .size(12.dp)
                 .clip(CircleShape)
-                .background(if (connStatus == "CONNECTED") Color.Green.copy(alpha = alpha) else Color.Red)
+                .background(if (connStatus == "CONNECTED" || connStatus == "FALLBACK_CONNECTED" || connStatus == "FULL_CONNECTED") Color.Green.copy(alpha = alpha) else Color.Red)
         )
         Spacer(Modifier.width(4.dp))
         Text(connStatus, color = Color.Gray, fontSize = 15.sp)
@@ -380,7 +402,19 @@ fun HeaderSection(connStatus: String, hasInternet: Boolean, isAdbConnected: Bool
 fun DialogueSection(userText: String, aiText: String) {
     val scrollState = rememberScrollState()
     
-    LaunchedEffect(userText, aiText) {
+    // Yazı ekranda 5 saniye boyunca görünür kalır, hemen silmez
+    var displayedAiText by remember { mutableStateOf(aiText) }
+    LaunchedEffect(aiText) {
+        if (aiText.isNotEmpty()) {
+            displayedAiText = aiText
+        } else {
+            // AI cevabı silindiğinde 5 saniye sonra ekrandan kaldır
+            delay(5000)
+            displayedAiText = ""
+        }
+    }
+    
+    LaunchedEffect(userText, displayedAiText) {
         scrollState.animateScrollTo(scrollState.maxValue)
     }
 
@@ -405,7 +439,13 @@ fun DialogueSection(userText: String, aiText: String) {
             HorizontalDivider(color = Color.White.copy(alpha = 0.05f), modifier = Modifier.padding(vertical = 6.dp))
             
             Text("ASİSTAN", color = Color(0xFFF3B14B), fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Text(aiText.ifEmpty { "..." }, color = Color.White.copy(alpha = 0.8f), fontSize = 20.sp)
+            AnimatedContent(
+                targetState = displayedAiText,
+                transitionSpec = { fadeIn(tween(400)) togetherWith fadeOut(tween(300)) },
+                label = "ai_text_anim"
+            ) { text ->
+                Text(text.ifEmpty { "..." }, color = Color.White.copy(alpha = 0.8f), fontSize = 20.sp)
+            }
         }
     }
 }
@@ -434,15 +474,49 @@ fun ActionButtonsSection(
     isListening: Boolean,
     isWakeWordEnabled: Boolean,
     isSimulationMode: Boolean,
+    currentMode: String,
     onStart: () -> Unit,
     onStop: () -> Unit,
     onToggleWakeWord: (Boolean) -> Unit,
-    onShowSafetyDialog: () -> Unit
+    onShowSafetyDialog: () -> Unit,
+    onModeChange: (String) -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
+        // ASSIST / CHAT Toggle Tusu
+        val isAssist = currentMode == "ASISTANT"
+        Surface(
+            color = if (isAssist) Color(0xFF1A2C44) else Color(0xFF2C1A44),
+            shape = RoundedCornerShape(10.dp),
+            modifier = Modifier.weight(1f).height(56.dp)
+                .clickable { onModeChange(if (isAssist) "CHAT" else "ASISTANT") }
+                .border(
+                    1.dp,
+                    if (isAssist) Color(0xFF4FC3F7) else Color(0xFFCE93D8),
+                    RoundedCornerShape(10.dp)
+                )
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Text(
+                    if (isAssist) "ASIST" else "SOHBET",
+                    color = if (isAssist) Color(0xFF4FC3F7) else Color(0xFFCE93D8),
+                    fontSize = 12.sp, fontWeight = FontWeight.ExtraBold
+                )
+                Text(
+                    if (isAssist) "● KOMUT" else "● SERBEST",
+                    color = Color.White.copy(alpha = 0.7f),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 13.sp
+                )
+            }
+        }
+
         Button(
             onClick = if (isListening) onStop else onStart,
             modifier = Modifier.weight(1.5f).height(56.dp),
@@ -499,7 +573,7 @@ fun ActionButtonsSection(
 fun SimulatorSafetyDialog(onDismiss: () -> Unit, onSuccess: () -> Unit) {
     var password by remember { mutableStateOf("") }
     var errorText by remember { mutableStateOf("") }
-    val vehicleDataValues by AssistantApplication.vehicleDataValues.collectAsState()
+    val vehicleDataValues by GlobalState.vehicleDataValues.collectAsState()
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -575,32 +649,57 @@ fun DeckControlsSection(
         Text("SES TANIMA (STT)", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             DeckButton(
-                label = "YEREL SUNUCU", 
+                label = "BULUT", 
                 active = sttMode == "HERMES", 
                 onClick = { onSttModeChange("HERMES") },
-                modifier = Modifier.weight(1.5f)
+                modifier = Modifier.weight(1f),
+                enabled = true
             )
             DeckButton(
-                label = "CİHAZ İÇİ", 
+                label = "SHERPA", 
                 active = sttMode == "SHERPA", 
                 onClick = { onSttModeChange("SHERPA") },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                enabled = true
+            )
+            DeckButton(
+                label = "NATIVE", 
+                active = sttMode == "LOCAL", 
+                onClick = { onSttModeChange("LOCAL") },
+                modifier = Modifier.weight(1f),
+                enabled = true
             )
         }
 
         Text("SES SENTEZİ (TTS)", color = Color.Gray, fontSize = 15.sp, fontWeight = FontWeight.Bold)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             DeckButton(
-                label = "YEREL SUNUCU", 
-                active = ttsEngine == "HERMES", 
-                onClick = { onTtsEngineChange("HERMES") }, 
-                modifier = Modifier.weight(1.5f)
+                label = "EDGE ONLINE", 
+                active = ttsEngine == "EDGE", 
+                onClick = { onTtsEngineChange("EDGE") }, 
+                modifier = Modifier.weight(1.2f),
+                enabled = true
             )
             DeckButton(
-                label = "CİHAZ İÇİ", 
+                label = "9ROUTER", 
+                active = ttsEngine == "9ROUTER", 
+                onClick = { onTtsEngineChange("9ROUTER") }, 
+                modifier = Modifier.weight(1.2f),
+                enabled = true
+            )
+            DeckButton(
+                label = "SHERPA", 
                 active = ttsEngine == "SHERPA", 
                 onClick = { onTtsEngineChange("SHERPA") }, 
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                enabled = true
+            )
+            DeckButton(
+                label = "NATIVE", 
+                active = ttsEngine == "LOCAL", 
+                onClick = { onTtsEngineChange("LOCAL")},
+                modifier = Modifier.weight(1f),
+                enabled = true
             )
         }
 
@@ -680,23 +779,29 @@ fun Modifier.scale(scale: Float): Modifier = this.then(
 )
 
 @Composable
-fun DeckButton(label: String, active: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    val bgColor = if (active) Color(0xFF1A1C1E) else Color(0xFF232528)
-    val contentColor = if (active) Color(0xFF69E2D3) else Color.Gray
-    val borderAlpha = if (active) 0.6f else 0.1f
+fun DeckButton(
+    label: String,
+    active: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    val bgColor = if (active) Color(0xFF1A1C1E) else if (enabled) Color(0xFF232528) else Color(0xFF151618)
+    val contentColor = if (active) Color(0xFF69E2D3) else if (enabled) Color.Gray else Color.Gray.copy(alpha = 0.3f)
+    val borderAlpha = if (active) 0.6f else 0.05f
 
     Surface(
         color = bgColor,
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
             .height(40.dp)
-            .clickable { onClick() }
+            .then(if (enabled) Modifier.clickable { onClick() } else Modifier)
             .border(1.dp, contentColor.copy(alpha = borderAlpha), RoundedCornerShape(8.dp))
     ) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
             Text(
                 text = label, 
-                color = if (active) contentColor else Color.White, 
+                color = if (active) contentColor else if (enabled) Color.White else Color.Gray.copy(alpha = 0.3f), 
                 fontWeight = if (active) FontWeight.Bold else FontWeight.Normal,
                 fontSize = 15.sp,
                 textAlign = TextAlign.Center

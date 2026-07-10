@@ -1,48 +1,40 @@
 package com.omoda.lanc.vehicle
 
 import android.content.Context
-import android.util.Log
+import com.omoda.lanc.model.VehicleState
 
 /**
- * VehicleProvider - PDF Plan v2.0
- * CarPropertyManager (Primary) + Dumpsys (Fallback) hibrik telemetri yönetimi.
+ * VehicleProvider - Akıllı Dumpsys Yönetimi
+ * Verileri toplu halde günceller ve talep edildiğinde son veriyi döner.
  */
 class VehicleProvider(context: Context) {
-    private val carSource = CarSource(context)
     private val dumpsysSource = DumpsysSource()
-    
-    // Simülasyon verisi için
-    private var simulatedSpeed: Float? = null
+
+    /**
+     * Belirli ID'leri toplu halde günceller.
+     */
+    fun refreshSelected(ids: List<String>): VehicleState {
+        return dumpsysSource.refreshSelected(ids)
+    }
 
     fun getSpeed(): Float {
-        simulatedSpeed?.let { return it }
-        val speed = carSource.getSpeed() ?: dumpsysSource.getSpeed() ?: 0f
-        Log.d("VehicleProvider", "Speed: $speed")
-        return speed
+        return dumpsysSource.getSpeed() ?: 0f
     }
 
     fun getGear(): Int {
-        val gear = carSource.getGear() ?: dumpsysSource.getGear() ?: 0
-        Log.d("VehicleProvider", "Gear: $gear")
-        return gear
+        return dumpsysSource.getGear() ?: 0
     }
 
     fun isEngineRunning(): Boolean {
-        // CarSource typically doesn't have a simple boolean for this in basic Car API, use Dumpsys for now
-        val running = dumpsysSource.getEngineRunning()
-        Log.d("VehicleProvider", "Engine running: $running")
-        return running
+        // DumpsysSource içindeki hiyerarşiden çek
+        return dumpsysSource.refreshSelected(emptyList()).isEngineRunning
     }
 
     fun getFuelLevel(): Float {
-        val fuel = carSource.getFuelLevel() ?: dumpsysSource.getFuelLevel() ?: 0f
-        Log.d("VehicleProvider", "Fuel level: $fuel")
-        return fuel
+        return dumpsysSource.getFuelLevel() ?: 0f
     }
 
     fun isAnyDoorOpen(): Boolean {
-        val doorOpen = carSource.isAnyDoorOpen() ?: dumpsysSource.isAnyDoorOpen() ?: false
-        Log.d("VehicleProvider", "Any door open: $doorOpen")
-        return doorOpen
+        return dumpsysSource.isAnyDoorOpen() ?: false
     }
 }

@@ -2920,7 +2920,19 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable bg_button_disconnect
+drawable bg_button_orange
+drawable bg_card_rounded
+drawable bg_circuit_pattern
 drawable bg_indicator_dot
+drawable bg_input_dark
+drawable bg_status_dot_green
+drawable bg_status_dot_grey
+drawable bg_status_dot_red
+drawable bg_switch_thumb
+drawable bg_switch_track
+drawable bg_switch_track_off
+drawable bg_switch_track_on
 drawable bg_wallpaper_button
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
@@ -3151,6 +3163,12 @@ id beginning
 id blocking
 id bottom
 id bounce
+id btnAccessibility
+id btnConnect
+id btnDisconnect
+id btnOverlay
+id btnRegenerate
+id btnScreenRecord
 id buttonPanel
 id cancel_action
 id cancel_button
@@ -3223,6 +3241,7 @@ id endToStart
 id end_padder
 id enterAlways
 id enterAlwaysCollapsed
+id etServerUrl
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3263,6 +3282,10 @@ id ignore
 id ignoreRequest
 id image
 id indeterminate
+id indicatorA11y
+id indicatorAuth
+id indicatorRelay
+id indicatorServer
 id info
 id inspection_slot_table_set
 id invisible
@@ -3461,6 +3484,9 @@ id stop
 id stretch
 id submenuarrow
 id submit_area
+id switchAccessibility
+id switchOverlay
+id switchScreenRecord
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3507,6 +3533,16 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvA11yStatus
+id tvAddress
+id tvAuthCode
+id tvPairingCode
+id tvRelayAddr
+id tvRelayStatus
+id tvScreenRecordStatus
+id tvServerStatus
+id tvSetupCommand
+id tvStatus
 id unchecked
 id uniform
 id unlabeled
@@ -3639,6 +3675,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_bridge
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3917,6 +3954,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string accessibility_description
 string androidx_startup
 string app_name
 string appbar_scrolling_view_behavior
@@ -3953,6 +3991,7 @@ string icon_content_description
 string in_progress
 string indeterminate
 string item_view_role_description
+string jna_library_appname
 string listening
 string m3_exceed_max_badge_text_suffix
 string m3_ref_typeface_brand_medium
@@ -5413,4 +5452,5 @@ styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml accessibility_service_config
 xml file_paths

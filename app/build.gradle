@@ -14,8 +14,49 @@ if (versionPropsFile.exists()) {
     versionProps.store(new FileOutputStream(versionPropsFile), null)
 }
 
-def vCode = versionProps['VERSION_CODE'].toInteger()
+// Versiyonu HER build'den önce artır (konfigürasyon fazı)
+def currentCode = versionProps['VERSION_CODE'].toInteger()
+def newCode = currentCode + 1
+def newDate = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm").format(new Date())
+versionProps['VERSION_CODE'] = newCode.toString()
+versionProps['BUILD_DATE'] = newDate
+versionProps.store(new FileOutputStream(versionPropsFile), null)
+
+def vCode = newCode
 def vName = versionProps['VERSION_NAME']
+
+// UPDATE MODU: Büyük modelleri APK dışına çıkar (Boyut küçültme)
+def isUpdateOnly = true
+
+// Versiyonu .md dosyalarına yaz
+def mdFiles = [
+    file("${project.rootDir}/PROGRESS.md"),
+    file("${project.rootDir}/FILE_INDEX.md")
+]
+def versionLine = "Sürüm $vCode ($vName) - $newDate"
+mdFiles.each { f ->
+    if (f.exists()) {
+        def content = f.text
+        if (content.contains("## Son Durum")) {
+            def lines = content.split("\n")
+            def idx = -1
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines[i].contains("## Son Durum")) {
+                    idx = i
+                    break
+                }
+            }
+            if (idx >= 0 && idx + 1 < lines.size()) {
+                lines[idx + 1] = "*   $versionLine"
+            }
+            f.text = lines.join("\n")
+        } else {
+            f.append("\n*   $versionLine\n")
+        }
+    }
+}
+
+println "Versiyon $vCode için build başlıyor... (UpdateOnly: $isUpdateOnly)"
 
 android {
     namespace 'com.omoda.lanc'
@@ -42,10 +83,14 @@ android {
 
     buildTypes {
         debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BUILD_DATE", "\"${versionProps['BUILD_DATE']}\""
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BUILD_DATE", "\"${versionProps['BUILD_DATE']}\""
         }
@@ -67,10 +112,29 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += 'META-INF/INDEX.LIST'
+            excludes += 'META-INF/io.netty.versions.properties'
+            excludes += 'META-INF/DEPENDENCIES'
         }
     }
+
+    sourceSets {
+        main {
+            assets {
+                if (isUpdateOnly) {
+                    exclude 'sherpa_asr/**'
+                    exclude 'sherpa_tts/**'
+                    exclude 'sherpa_vad/**'
+                    println "UPDATE MODU AKTİF: Modeller APK'ya dahil edilmiyor."
+                } else {
+                    println "FULL PAKET MODU: Tüm modeller APK'ya dahil ediliyor."
+                }
+            }
+        }
+    }
+
     aaptOptions {
-        ignoreAssetsPattern "sherpa_stt:sherpa_tts:models"
+        ignoreAssetsPattern "sherpa_asr:sherpa_tts:sherpa_vad"
     }
 }
 
@@ -81,25 +145,28 @@ tasks.register('incrementVersionCodeAndCopyApk') {
         def versionPropsInner = new Properties()
         versionPropsInner.load(new FileInputStream(versionPropsFileInner))
 
-        def currentCode = versionPropsInner['VERSION_CODE'].toInteger()
-        def newCode = currentCode + 1
-
-        versionPropsInner['VERSION_CODE'] = newCode.toString()
-        versionPropsInner['BUILD_DATE'] = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm").format(new Date())
-        versionPropsInner.store(new FileOutputStream(versionPropsFileInner), null)
-
-        println "Versiyon Kodu Artırıldı: $newCode"
-
-        // APK Kopyalama İşlemi
         def apkFile = file("build/outputs/apk/debug/app-debug.apk")
         if (apkFile.exists()) {
-            def destinationDir = file("build/outputs/apk/debug/history")
+            def destinationDir = file("${project.rootDir}/release_apks")
             if (!destinationDir.exists()) destinationDir.mkdirs()
 
-            def newApkName = "app-debugV${currentCode}.apk"
+            def curCode = versionPropsInner['VERSION_CODE'].toInteger()
+            def prefix = isUpdateOnly ? "app-update" : "app-full"
+            def newApkName = "${prefix}V${curCode}.apk"
             def destinationFile = new File(destinationDir, newApkName)
             java.nio.file.Files.copy(apkFile.toPath(), destinationFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING)
             println "APK Kopyalandı: ${destinationFile.absolutePath}"
+
+            // Son sürüm bilgisini bir JSON dosyasına yaz (OTA için kolaylık)
+            def updateInfo = [
+                versionCode: curCode,
+                versionName: versionPropsInner['VERSION_NAME'],
+                isUpdateOnly: isUpdateOnly,
+                fileName: newApkName,
+                date: versionPropsInner['BUILD_DATE']
+            ]
+            def jsonFile = new File(destinationDir, "latest_update.json")
+            jsonFile.text = groovy.json.JsonOutput.toJson(updateInfo)
         }
     }
 }
@@ -112,6 +179,11 @@ afterEvaluate {
 }
 
 dependencies {
+    implementation project(':core')
+    implementation project(':network')
+    implementation project(':voice-offline')
+    implementation files('../voice-offline/src/main/libs/sherpa-onnx-1.13.2.aar')
+
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
@@ -123,19 +195,9 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.compose.material:material-icons-extended'
     implementation 'androidx.navigation:navigation-compose:2.7.6'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
-    implementation 'com.squareup.okhttp3:okhttp-sse:4.12.0'
-    implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5"
-
-    // Wake word is implemented with STT-based detection; native wake-word SDKs are not bundled.
     implementation 'androidx.media:media:1.7.0'
-
     implementation 'org.json:json:20210307'
 
     testImplementation 'junit:junit:4.13.2'
@@ -148,5 +210,4 @@ dependencies {
 
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
-
 }

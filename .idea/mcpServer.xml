@@ -3,5 +3,6 @@
   <component name="McpServerSettings">
     <option name="autoStart" value="true" />
     <option name="port" value="8643" />
+    <option name="staticPort" value="true" />
   </component>
 </project>

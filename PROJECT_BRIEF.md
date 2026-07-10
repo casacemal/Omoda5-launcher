@@ -18,6 +18,7 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 7.  **Alert & Event Engine:** TPMS, yakıt, kapı gibi kritik olay uyarıları.
 8.  **Driving Analysis Engine:** Sürüş sonrası özet ve verimlilik analizi.
 9.  **AI Client (Hermes):** STT, LLM ve TTS pipeline yönetimi.
+9.  **Token Migration:** Tüm API anahtarları (GitHub, Hermes, 9Router, Edge TTS) `app_config.json` içerisinde XOR şifreli olarak saklanır ve `AppConfig` üzerinden yönetilir.
 10. **OTA & App Store:** Github üzerinden otomatik sürüm kontrolü ve in-app güncelleme altyapısı.
 
 ## Kaynak Referanslar
@@ -31,23 +32,38 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 ## Kısıtlar ve Kurallar
 *   API 29 (AAOS 10) uyumluluğu kesin kuraldır.
 *   **Bağlantı Ayarları (SABİT / TEK ENDPOINT MİMARİSİ):**
-    *   **Device IP (Omoda/Arac):** `100.95.239.119` (Ana Hermes Sunucusu)
-    *   **Gateway / Proxy IP:** `100.95.239.119`
-    *   **9Router API Port:** `8642` (Tüm Chat Completions, STT ve model sorgulamaları bu porttaki `/v1` adresinden tek nokta üzerinden yönetilir.)
-    *   **Bridge API (Test):** `http://192.168.1.14:5000/v1` (Yeni Tailscale Wyoming Köprüsü.)
-    *   **Whisper Bridge (Alternative):** `http://192.168.1.29:10301/v1` (STT) & `10201/v1` (TTS)
-    *   **MQTT Broker:** `100.95.239.119:1883` (Telemetri verileri sadece MQTT üzerinden akar. REST /telemetry endpoint'i kullanılmamaktadır.)
-*   **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
+    *   **Main Server IP:** `192.168.1.14` (Local) / `100.95.239.119` (Tailscale)
+    *   **Hermes API Port:** `8642` (Chat & Logic)
+    *   **WebSocket Relay:** `8766` (Android Bridge WS bağlantısı)
+    *   **BridgeServer:** `8765` (Yerel Ktor HTTP sunucusu)
+    *   **9Router Port:** `20128` (STT & TTS - `/v1`)
+    *   **Wyoming/Bridge Port:** `5000` (STT → 9Router proxy, TTS → edge-tts)
+    *   **Edge TTS:** `10201` (Doğrudan edge-tts `/v1/audio/speech`)
+    *   **MQTT Broker:** `100.95.239.119:1883`
+*  []( https://github.com/rusty4444/hermes-android?hl=tr-TR   bu linkteli app nin yöntemini kıullanıyoruz. **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
 *   **Command Firewall (Merkezi Karar Birimi) & Tasarım İlkesi:** 
     *   Araç kontrolü asla doğrudan LLM'e bırakılmaz. AI'dan gelen tüm araç fonksiyon istekleri (`tool_calls`) `CommandFirewall.kt` üzerinden geçer, Whitelist ve parametre sınır kontrolüne tabi tutulur.
     *   **Geri Bildirim ve Şeffaflık İlkesi:** Firewall bir komutu engellediğinde veya izin verdiğinde, bu durum anında Logcat'e (Log.e / Log.i) yazılmalı ve `EventBus` üzerinden `UIEvent.UpdateOverlayState` ile ekrandaki AI bildirim (Overlay) kısmına yansıtılmalıdır. Kullanıcı (ve AI), engellenme ve izin durumlarını anlık görebilmelidir.
 *   **Genel Hata Ayıklama Tasarım Kuralı:** Ana kodları (mevcut veya yeni eklenecek olanlar) bozarak deneme-yanılma yapmak kesinlikle yasaktır. Herhangi bir şüpheli durumda (API hatası vb.), `aes_app/` (eski adıyla scripts) klasöründeki Python araçları/test script'leri kullanılmalı ve gerektiğinde bu test süiti genişletilmelidir.
 *   Hareket halindeyken (Speed > 0) riskli ayarların değiştirilmesi engellenecek.
 *   **TTS / STT Fallback Politikası:** Ses tanıma ve okuma işlemleri kaskad zincire sahiptir: **Online (9Router/Edge) -> Local (Sherpa/Piper)**. Local sistemler şu an beklemeye alınmış olsa da kod mimarisi buna uygun dizayn edilmiştir. Ses odağı (Audio Ducking) bu zincir bitene kadar korunur.
-*   **SSE Streaming & 2-Mod Yapısı:** Sistem tamamen SSE (Server-Sent Events) üzerinden stream edilerek çalışır. Chat completions ve olay akışları için Hermes SSE API kullanılır. Kullanıcı arayüzünde `ASISTANT` (kısa, araç bağlamlı) ve `CHAT` (kesintisiz derin diyalog) modları bulunur.
+.
+    *   **ASISTANT (Asistan) Modu:** Kısa yanıtlar, araç bağlamlı, yerel Regex motoru (`CommandRouter`) öncelikli. Sadece talep edilen eylemi gerçekleştirir.
+    *   **CHAT (Sohbet) Modu:** Kesintisiz, derin ve samimi diyalog. Sürüş arkadaşı kişiliği.
+*   **Donanım Farkındalığı (Hardware Awareness):** AI motoru (`AgentManager`), her diyalogda aracın güncel telemetri verilerini (Hız, Vites, Klima, Sıcaklık vb.) sistem promptu olarak alır ve yanıtlarını buna göre şekillendirir.
 *   **MQTT Telemetri (Yegane Veri Akışı):** Araç verileri `100.95.239.119:1883` broker'ına `omoda/telemetri` konusuyla periyodik olarak aktarılır. REST tabanlı telemetri gönderimi tamamen kaldırılmıştır. Tüm anomali takip ve izleme işini MQTT üstlenir.
 *   **OTA Güncelleme & Sürüm Düşürme:**
     *   Derlenen her yeni asistan sürümü kesinlikle GitHub releases (`casacemal/Omoda5-launcher`) alanına yüklenecektir, atlanmayacaktır.
     *   Uygulama içi App Store ekranında en güncel **4 sürüm** her zaman listelenecektir.
     *   Kullanıcının eski sürümlere geri dönebilmesi (Downgrade) için sürüm düşürme desteği korunacaktır. Eski sürümlerin yanındaki buton turuncu renkte **"DÜŞÜR"** olarak gösterilecek ve `pm install -r -d` komutuyla downgrade sağlanacaktır.
-    *   İnternet bağlantısı koptuktan sonra ilk kez sağlandığında (NetworkMonitor üzerinden) sistem **1 defa** otomatik olarak güncelleme kontrolü yapacak ve ekrandaki Canlı İş Akışı (deploy) paneline bilgi yazacaktır.
+    tworkMonitor üzerinden) sistem **1 defa** otomatik olarak güncelleme kontrolü yapacak ve ekrandaki Canlı İş Akışı (deploy) paneline bilgi yazacaktır.
+
+## Çift Platform Desteği (AAOS & Mobil)
+*   **Donanım Algılama:** Uygulama, çalışma anında `AssistantApplication.isCarHardware` üzerinden donanımı tespit eder.
+*   **AAOS Modu:** Araç ünitelerinde (1920x720 vb.) yatay, geniş ve sürüş emniyeti odaklı (büyük butonlar, sidebar) arayüz sunar.
+*   **Mobil/Test Modu:** Standart telefonlarda (Dikey/Portrait) çalışırken Simülasyon Modu'nu otomatik aktif eder. Arayüz dikey kullanıma, daha küçük ekranlara ve kaydırma (scroll) hareketlerine göre adapte edilir.
+*   **Simülasyon:** Telefonlarda araç verisi bulunmadığı için VHAL verileri rastgele/statik değerlerle simüle edilir, bu sayede test süreçleri araçsız yürütülebilir.
+
+## AAOS Geliştirme İpuçları & Önemli Bilgiler 💡
+*   **Audio Focus İşlemleri:** AAOS üzerinde ses sentezlerken, Chery'nin multimedya sisteminin (Radyo, Bluetooth vb.) sesini kısmak (ducking) veya duraklatmak için mutlaka Android `AudioFocusRequest` mimarisi kullanılmalıdır. Aksi takdirde asistan konuşurken müzikle sesler birbirine karışır.
+*   **Hız Ayarı (lengthScale):** Sürücüye anlık kritik bildirimler verirken (örn: "Sol kör noktada araç var!"), `lengthScale` değerini 0.85 veya 0.90 yaparak Fahrettin modelinin biraz daha seri ve dinamik konuşması sağlanmalıdır.

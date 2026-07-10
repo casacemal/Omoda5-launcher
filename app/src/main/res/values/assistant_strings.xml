@@ -3,4 +3,5 @@
     <string name="listening">🎙️ Dinleniyor&#8230;</string>
     <string name="stop">DURDUR</string>
     <string name="close">KAPAT</string>
+    <string name="accessibility_description">Hermes Bridge accessibility service — allows hermes-agent to read and interact with the Android screen.</string>
 </resources>

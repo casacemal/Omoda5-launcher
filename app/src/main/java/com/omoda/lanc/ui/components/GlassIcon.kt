@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.omoda.lanc.model.LauncherItem
+import com.omoda.lanc.AssistantApplication
 
 @Composable
 fun GlassIcon(
@@ -34,25 +35,26 @@ fun GlassIcon(
     val context = LocalContext.current
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     val smallestWidth = configuration.smallestScreenWidthDp
-    val isCar = com.omoda.lanc.AssistantApplication.isCarHardware
+    val isCar = AssistantApplication.isCarHardware
     val isHandheld = !isCar && smallestWidth < 600
 
+    // OMODA 5 ULTIMATE MANIFESTO STANDARDS
     val iconSize = when {
-        isCar -> 143.dp
-        isHandheld -> 56.dp
-        smallestWidth < 800 -> 90.dp
-        else -> 143.dp
+        isCar -> 110.dp
+        isHandheld -> 64.dp
+        smallestWidth < 800 -> 100.dp
+        else -> 110.dp
     }
     val containerWidth = when {
-        isCar -> 208.dp
+        isCar -> 160.dp
         isHandheld -> 80.dp
-        smallestWidth < 800 -> 120.dp
-        else -> 208.dp
+        smallestWidth < 800 -> 140.dp
+        else -> 160.dp
     }
     val fontSize = when {
         isCar -> 18.sp
         isHandheld -> 12.sp
-        smallestWidth < 800 -> 13.sp
+        smallestWidth < 800 -> 16.sp
         else -> 18.sp
     }
 
@@ -72,7 +74,7 @@ fun GlassIcon(
                 .clip(RoundedCornerShape(when {
                     isHandheld -> 10.dp
                     smallestWidth < 800 -> 18.dp
-                    else -> 28.dp
+                    else -> 22.dp
                 }))
                 .pointerInput(Unit) {
                     detectTapGestures(

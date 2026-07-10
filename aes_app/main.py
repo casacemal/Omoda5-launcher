@@ -35,6 +35,23 @@ CONFIG_FILE = os.path.join(APP_DIR, "config.json")
 DISCOVERED_SENSORS_FILE = os.path.join(APP_DIR, "discovered_sensors.json")
 DEFAULT_LOG_DIR = APP_DIR
 
+# ─── Android (Köprü) MQTT Adresi — SABİT ───────────────────────────────────────
+# Android uygulamanın telemetri verisi gönderdiği broker ve topic'ler.
+# Kaynak: core/src/main/java/com/omoda/lanc/mqtt/MqttPublisher.kt, MqttTelemetryBridge.kt
+ANDROID_MQTT_BROKER = "192.168.1.14"
+ANDROID_MQTT_PORT = 1883
+ANDROID_MQTT_USER = "mqtthome"
+ANDROID_MQTT_PASS = "4078"
+ANDROID_TOPICS = [
+    "omoda/telemetri",
+    "omoda/komut",
+    "omoda/vhal_raw",
+    "omoda5/+/telemetry",
+    "omoda5/+/climate/state",
+    "omoda5/+/media/state",
+    "omoda5/+/assistant/speech",
+]
+
 AOSP_VHAL_PROPERTIES: dict[str, str] = {
     "0x11100100": "INFO_MAKE",
     "0x11100101": "INFO_MODEL",
@@ -142,11 +159,22 @@ class VhalAesApp(ctk.CTk):
         self.last_update_time: Optional[str] = None
         self.adb_connected = False
 
-        # MQTT
+        # MQTT — Simülasyon istemcisi (cfg broker'ı: 100.95.239.119)
         self.mqtt_client = mqtt.Client()
         self.mqtt_client.username_pw_set(
             self.cfg["mqtt_user"], self.cfg["mqtt_pass"]
         )
+
+        # MQTT — Android (Köprü) istemcisi (ayrı broker: 192.168.1.14)
+        # Android telemetrisi bu broker'a yayınlanır; sim broker'ı farklı
+        # olduğundan veri akışı için ayrı bir istemci şarttır.
+        self.bridge_mqtt_client = mqtt.Client()
+        self.bridge_mqtt_client.username_pw_set(
+            ANDROID_MQTT_USER, ANDROID_MQTT_PASS
+        )
+        self.bridge_mqtt_client.on_message = self._on_android_message
+        self.bridge_mqtt_client.on_connect = self._on_bridge_connect
+        self.bridge_mqtt_client.on_disconnect = self._on_bridge_disconnect
 
         self._build_ui()
         self.load_discovered_sensors()
@@ -238,6 +266,12 @@ class VhalAesApp(ctk.CTk):
             self.left_frame, text="MQTT Bağlan", command=self.connect_mqtt
         )
         self.btn_mqtt.pack(pady=5, fill="x", padx=10)
+
+        self.btn_bridge = ctk.CTkButton(
+            self.left_frame, text="🌉 Köprü Adresi / Abone Ol",
+            command=self.open_bridge_panel, fg_color="#5b2a86",
+        )
+        self.btn_bridge.pack(pady=5, fill="x", padx=10)
 
         # ── Manuel Sensör Gönderim ──
         manual_frame = ctk.CTkFrame(self.left_frame)
@@ -396,6 +430,11 @@ class VhalAesApp(ctk.CTk):
             self.status_bar, text="⚪ MQTT: Bağlı değil", text_color="gray", font=ctk.CTkFont(size=12)
         )
         self.lbl_mqtt_status.pack(side="left", padx=10)
+
+        self.lbl_bridge_status = ctk.CTkLabel(
+            self.status_bar, text="⚪ Köprü: 192.168.1.14", text_color="gray", font=ctk.CTkFont(size=12)
+        )
+        self.lbl_bridge_status.pack(side="left", padx=10)
 
         self.lbl_last_update = ctk.CTkLabel(
             self.status_bar, text="Son güncelleme: —", text_color="gray", font=ctk.CTkFont(size=12)
@@ -763,7 +802,7 @@ class VhalAesApp(ctk.CTk):
 
     # ─── MQTT ──────────────────────────────────────────────────────────────────
     def connect_mqtt(self) -> None:
-        """MQTT broker'a bağlanır."""
+        """MQTT broker'a bağlanır (simülasyon istemcisi)."""
         try:
             self.mqtt_client.connect(
                 self.cfg["mqtt_broker"], self.cfg["mqtt_port"], 60
@@ -777,6 +816,226 @@ class VhalAesApp(ctk.CTk):
         except (ConnectionRefusedError, OSError) as e:
             messagebox.showerror("MQTT Hatası", str(e))
             self.lbl_mqtt_status.configure(text="🔴 MQTT: Hata", text_color="red")
+
+    def _connect_bridge(self) -> None:
+        """Android (Köprü) broker'ına bağlanır."""
+        self.bridge_mqtt_client.connect(
+            ANDROID_MQTT_BROKER, ANDROID_MQTT_PORT, 60
+        )
+        self.bridge_mqtt_client.loop_start()
+
+    def _on_mqtt_connect(self, client, userdata, flags, rc) -> None:
+        """Simülasyon istemcisi bağlandı (Android topic aboneliği burada YOK)."""
+        log.info("Simülasyon MQTT bağlandı (rc=%s)", rc)
+
+    def _on_bridge_connect(self, client, userdata, flags, rc) -> None:
+        """Köprü (Android) bağlantısı kurulunca topic'lere abone olur."""
+        if rc != 0:
+            log.warning("Köprü MQTT bağlantı rc=%s", rc)
+            self.after(0, lambda: self._set_bridge_status(False))
+            return
+        for topic in ANDROID_TOPICS:
+            try:
+                client.subscribe(topic)
+                log.info("Köprü topic aboneliği: %s", topic)
+            except Exception as e:
+                log.warning("Abonelik hatası (%s): %s", topic, e)
+        self.after(0, lambda: self._set_bridge_status(True))
+
+    def _on_bridge_disconnect(self, client, userdata, rc) -> None:
+        """Köprü bağlantısı koptuğunda durumu günceller."""
+        log.warning("Köprü MQTT bağlantısı koptu (rc=%s)", rc)
+        self.after(0, lambda: self._set_bridge_status(False))
+
+    def _set_bridge_status(self, connected: bool) -> None:
+        """Köprü durum etiketini günceller."""
+        if connected:
+            self.lbl_bridge_status.configure(
+                text=f"🟢 Köprü: {ANDROID_MQTT_BROKER}", text_color="#4CAF50"
+            )
+        else:
+            self.lbl_bridge_status.configure(
+                text=f"⚪ Köprü: {ANDROID_MQTT_BROKER}", text_color="gray"
+            )
+
+    def subscribe_android_topics(self) -> None:
+        """Android (Köprü) broker'ına bağlanır ve topic'lerine abone olur."""
+        if not self.bridge_mqtt_client.is_connected():
+            try:
+                self._connect_bridge()
+            except (ConnectionRefusedError, OSError) as e:
+                messagebox.showerror(
+                    "🌉 Köprü Hatası",
+                    f"Android broker'a bağlanılamadı:\n"
+                    f"{ANDROID_MQTT_BROKER}:{ANDROID_MQTT_PORT}\n\n{str(e)}",
+                )
+                return
+        for topic in ANDROID_TOPICS:
+            self.bridge_mqtt_client.subscribe(topic)
+        log.info("Köprü (Android) topic'lerine abone olundu: %d topic", len(ANDROID_TOPICS))
+        self.after(0, lambda: messagebox.showinfo(
+            "🌉 Köprü Aktif",
+            f"Android veri adresine abone olundu:\n"
+            f"{ANDROID_MQTT_BROKER}:{ANDROID_MQTT_PORT}\n\n"
+            f"{len(ANDROID_TOPICS)} topic dinleniyor.\n"
+            f"Gelen veriler tabloda '🌉 KÖPRÜ' olarak görünecek.",
+        ))
+
+    def open_bridge_panel(self) -> None:
+        """Android adresini gösteren ve abonelik başlatan Köprü penceresi."""
+        panel = ctk.CTkToplevel(self)
+        panel.title("🌉 Köprü — Android Veri Adresi")
+        panel.geometry("480x420")
+        panel.attributes("-topmost", True)
+
+        ctk.CTkLabel(
+            panel, text="🌉 Android (Köprü) MQTT Adresi",
+            font=ctk.CTkFont(size=16, weight="bold"),
+        ).pack(pady=(15, 5))
+
+        info = (
+            f"Broker : {ANDROID_MQTT_BROKER}:{ANDROID_MQTT_PORT}\n"
+            f"Kullanıcı: {ANDROID_MQTT_USER} / {ANDROID_MQTT_PASS}\n"
+            f"Durum  : {'🟢 Bağlı' if self.bridge_mqtt_client.is_connected() else '⚪ Bağlı değil'}"
+        )
+        ctk.CTkLabel(panel, text=info, justify="left").pack(pady=5, padx=15, anchor="w")
+
+        ctk.CTkLabel(
+            panel, text="Abone olunan topic'ler:",
+            font=ctk.CTkFont(weight="bold"),
+        ).pack(pady=(10, 0))
+
+        topic_box = tk.Listbox(
+            panel, bg="#2b2b2b", fg="white", borderwidth=0,
+            highlightthickness=0, height=10,
+        )
+        topic_box.pack(fill="both", expand=True, padx=15, pady=5)
+        for t in ANDROID_TOPICS:
+            topic_box.insert(tk.END, t)
+
+        ctk.CTkButton(
+            panel, text="🌉 Abone Ol / Köprüyü Aç",
+            fg_color="#5b2a86", command=lambda: (
+                self.subscribe_android_topics(), panel.destroy()
+            ),
+        ).pack(pady=10, fill="x", padx=15)
+
+    def _on_android_message(self, client, userdata, msg) -> None:
+        """Gelen Android (Köprü) MQTT mesajını ana thread'de işler."""
+        try:
+            payload = msg.payload.decode("utf-8", errors="ignore")
+        except Exception:
+            return
+        topic = msg.topic
+        self.after(0, lambda: self._process_android_message(topic, payload))
+
+    def _update_bridge_row(self, iid, prop_id, name, parsed_val,
+                           zone="—", f_val="", i_val="", i64="",
+                           b_val="", s_val="") -> None:
+        """Köprü verisi için tablo satırını ekler/günceller (status: 🌉 KÖPRÜ)."""
+        values = (prop_id, name, parsed_val, "🌉 KÖPRÜ", zone,
+                  f_val, i_val, i64, b_val, s_val)
+        if self.tree.exists(iid):
+            self.tree.item(iid, values=values)
+        else:
+            self.tree.insert("", "end", iid=iid, values=values)
+        self._update_sensor_count()
+
+    def _process_android_message(self, topic: str, payload: str) -> None:
+        """Android topic'ine gelen mesajı ayrıştırıp tabloya yazar."""
+        # ── omoda/telemetri : JSON telemetri ──
+        if topic == "omoda/telemetri":
+            try:
+                data = json.loads(payload)
+            except (json.JSONDecodeError, ValueError):
+                self._update_bridge_row(
+                    "ANDROID_TELEM_RAW", "omoda/telemetri", "Telemetri (ham)",
+                    payload[:120], s_val=payload,
+                )
+                return
+            if "speed" in data:
+                self._update_bridge_row(
+                    "ANDROID_SPEED", "0x11600207", "Hız (Köprü)",
+                    f"{data['speed']} km/h", f_val=str(data["speed"]))
+            if "gear" in data:
+                gear = data["gear"]
+                if isinstance(gear, int):
+                    gear = {1: "P", 2: "R", 3: "N", 5: "D1", 6: "D2", 7: "D3"}.get(gear, "D")
+                self._update_bridge_row(
+                    "ANDROID_GEAR", "0x11400401", "Vites (Köprü)",
+                    str(gear), s_val=str(gear))
+            if "rpm" in data:
+                self._update_bridge_row(
+                    "ANDROID_RPM", "0x11600300", "RPM (Köprü)",
+                    f"{data['rpm']} RPM", i_val=str(data["rpm"]))
+            if "ac_on" in data:
+                self._update_bridge_row(
+                    "ANDROID_AC", "0x15600502", "Klima (Köprü)",
+                    "AÇIK" if data["ac_on"] else "KAPALI",
+                    i_val="1" if data["ac_on"] else "0")
+            sensors = data.get("active_sensors") or data.get("sensors")
+            if isinstance(sensors, list):
+                for idx, s in enumerate(sensors):
+                    if isinstance(s, dict):
+                        sid = s.get("id") or s.get("propertyId") or f"s{idx}"
+                        sval = s.get("value", "")
+                        self._update_bridge_row(
+                            f"ANDROID_SENSOR_{sid}", str(sid),
+                            f"Sensör {sid}", str(sval), s_val=str(sval))
+                    else:
+                        self._update_bridge_row(
+                            f"ANDROID_SENSOR_{idx}", f"s{idx}",
+                            f"Sensör {idx}", str(s), s_val=str(s))
+            return
+
+        # ── omoda/vhal_raw : ham VHAL satırı ──
+        if topic == "omoda/vhal_raw":
+            self._update_bridge_row(
+                "ANDROID_VHAL_RAW", "omoda/vhal_raw", "VHAL (ham)",
+                payload[:120], s_val=payload)
+            return
+
+        # ── omoda5/<vid>/telemetry ──
+        if topic.endswith("/telemetry"):
+            try:
+                data = json.loads(payload)
+                speed = data.get("speed")
+                self._update_bridge_row(
+                    "BRIDGE_TELEMETRY", "omoda5/telemetry", "Köprü Telemetri",
+                    f"{speed} km/h" if speed is not None else payload[:120],
+                    f_val=str(speed) if speed is not None else "",
+                    s_val=payload)
+            except (json.JSONDecodeError, ValueError):
+                self._update_bridge_row(
+                    "BRIDGE_TELEMETRY", "omoda5/telemetry", "Köprü Telemetri",
+                    payload[:120], s_val=payload)
+            return
+
+        # ── omoda5/<vid>/climate/state ──
+        if topic.endswith("/climate/state"):
+            self._update_bridge_row(
+                "BRIDGE_CLIMATE", "omoda5/climate", "Köprü Klima",
+                payload[:120], s_val=payload)
+            return
+
+        # ── omoda5/<vid>/media/state ──
+        if topic.endswith("/media/state"):
+            self._update_bridge_row(
+                "BRIDGE_MEDIA", "omoda5/media", "Köprü Medya",
+                payload[:120], s_val=payload)
+            return
+
+        # ── omoda5/<vid>/assistant/speech ──
+        if topic.endswith("/assistant/speech"):
+            self._update_bridge_row(
+                "BRIDGE_SPEECH", "omoda5/speech", "Köprü Asistan",
+                payload[:120], s_val=payload)
+            return
+
+        # ── omoda/komut vb. genel ──
+        self._update_bridge_row(
+            f"ANDROID_{topic.replace('/', '_')}", topic, f"Köprü: {topic}",
+            payload[:120], s_val=payload)
 
     def trigger_hermes(self, action: str) -> None:
         """Hermes komut tetikleyicisi."""
@@ -971,9 +1230,6 @@ class VhalAesApp(ctk.CTk):
         )
 
         for line in dump_text.splitlines():
-            if not line.startswith("Property:"):
-                continue
-
             m = pattern.search(line)
             if not m:
                 continue

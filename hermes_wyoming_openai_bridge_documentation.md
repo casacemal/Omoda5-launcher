@@ -1,5 +1,12 @@
 # Wyoming OpenAI Bridge (Port 5000) - Complete Technical Documentation
 
+> ⚠️ **GÜNCELLEME (07.07.2026):** Bu doküman ESKİ Wyoming bridge mimarisini (whisper.cpp + Piper TCP) anlatmaktadır. Şu an port 5000'de çalışan `wyoming-bridge.service` (`/home/dietpi/.hermes/relay/wyoming_bridge.py` — aiohttp) farklı bir yapıya sahiptir:
+> - **STT:** `POST /v1/stt` → 9Router proxy (`http://localhost:20128/v1/audio/transcriptions`)
+> - **TTS:** `POST /v1/tts` → edge-tts (yerel, `/home/dietpi/.hermes/relay/edge_tts_server.py` port 10201)
+> - **OpenAI uyumlu:** `POST /v1/audio/transcriptions` ve `POST /v1/audio/speech` endpoint'leri de mevcuttur.
+> - Yeni systemd unit: `wyoming-bridge.service`, `websocket-relay.service` (8766), `edge-tts-server.service` (10201)
+> - Eski script'ler (`wyoming_openai_bridge.py`, `edge_tts.sh`) artık mevcut değildir.
+
 ## 📋 Overview
 
 The **Wyoming OpenAI Bridge** is a HTTP↔Wyoming protocol gateway running on port 5000 that enables third-party clients (9Router, Hermes, etc.) to securely access local STT/TTS services via a standardized OpenAI-compatible API. This proxy service acts as a protocol converter, translating HTTP requests from external clients into Wyoming protocol messages for upstream whisper.cpp (STT) and Piper (TTS) services, then converting their responses back to HTTP.

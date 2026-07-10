@@ -47,8 +47,7 @@ class AudioEngine(private val context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val usage = when (priority) {
                 AudioPriority.ALERT -> AudioAttributes.USAGE_ALARM
-                // Asistan sesini Navigasyon kanalına yönlendiriyoruz (Kullanıcı isteği: Navigasyon kanalından yayın)
-                AudioPriority.ASSISTANT -> AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE
+                AudioPriority.ASSISTANT -> AudioAttributes.USAGE_ASSISTANCE_SONIFICATION // Ducking tetikleyen kanal
                 AudioPriority.NAVIGATION -> AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE
                 AudioPriority.MEDIA -> AudioAttributes.USAGE_MEDIA
             }
@@ -82,7 +81,7 @@ class AudioEngine(private val context: Context) {
             @Suppress("DEPRECATION")
             val result = audioManager.requestAudioFocus(
                 { focusChange -> handleFocusChange(priority, focusChange) },
-                if (priority == AudioPriority.MEDIA) AudioManager.STREAM_MUSIC else AudioManager.STREAM_VOICE_CALL,
+                AudioManager.STREAM_NOTIFICATION, // Daha agresif ducking için
                 if (priority == AudioPriority.ALERT) AudioManager.AUDIOFOCUS_GAIN_TRANSIENT else AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK
             )
             return result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED

@@ -1,81 +1,90 @@
 package com.omoda.lanc.vehicle
 
+import android.util.Log
+import com.omoda.lanc.model.VehicleState
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
+/**
+ * DumpsysSource - Dinamik ve Seçimli Okuma
+ */
 class DumpsysSource : VehicleSource {
-    private var lastDump: String = ""
-    private var lastTime: Long = 0
+    private var lastState = VehicleState()
 
-    override fun getSpeed(): Float? {
-        val dump = getOrRefreshDump()
-        // 0x11600207 (VEHICLE_SPEED) ara
-        return extractById(dump, "0x11600207")?.toFloatOrNull()
-    }
+    override fun getSpeed(): Float? = lastState.speed
+    override fun getGear(): Int? = lastState.gear
+    override fun getFuelLevel(): Float? = lastState.fuelLevel
+    override fun isAnyDoorOpen(): Boolean? = lastState.anyDoorOpen
 
-    override fun getGear(): Int? {
-        val dump = getOrRefreshDump()
-        // 0x21402006 (GEAR_SELECTION) ara
-        return extractById(dump, "0x21402006")?.toIntOrNull()
-    }
+    /**
+     * Sadece istenen ID'leri içeren verileri günceller.
+     * @param ids Tozlanacak Property ID listesi (Örn: ["11600207", "21402006"])
+     */
+    fun refreshSelected(ids: List<String>): VehicleState {
+        if (ids.isEmpty()) return lastState
 
-    fun getEngineRunning(): Boolean {
-        val dump = getOrRefreshDump()
-        // 0x11400301 (IGNITION_STATE)
-        val valStr = extractById(dump, "0x11400301")
-        return valStr == "1" || valStr?.contains("true", ignoreCase = true) == true
-    }
+        // Tüm car_service yerine sadece CarPropertyService kısmını çekmek ÇOK daha hızlıdır.
+        val dump = executeTargetedDumpsys()
+        if (dump.isEmpty()) return lastState
 
-    override fun getFuelLevel(): Float? {
-        val dump = getOrRefreshDump()
-        // 0x11600307 (FUEL_LEVEL)
-        return extractById(dump, "0x11600307")?.toFloatOrNull()
-    }
+        // Yeni değerleri mevcut state üzerine yaz (Kısmi güncelleme)
+        var updatedSpeed = lastState.speed
+        var updatedGear = lastState.gear
+        var updatedFuel = lastState.fuelLevel
+        var updatedEngine = lastState.isEngineRunning
+        var updatedDoors = lastState.anyDoorOpen
 
-    override fun isAnyDoorOpen(): Boolean? {
-        val dump = getOrRefreshDump()
-        // Herhangi bir kapı açık mı kontrol et (basit check)
-        return dump.contains("DOOR_OPEN=true", ignoreCase = true) || dump.contains("21402000): 1")
-    }
-
-    private fun getOrRefreshDump(): String {
-        val now = System.currentTimeMillis()
-        if (now - lastTime < 2000 && lastDump.isNotEmpty()) {
-            return lastDump
+        ids.forEach { id ->
+            val value = extractById(dump, id)
+            if (value != null) {
+                when (id) {
+                    "11600207" -> updatedSpeed = value.toFloatOrNull() ?: updatedSpeed
+                    "21402006" -> updatedGear = value.toIntOrNull() ?: updatedGear
+                    "11600307" -> updatedFuel = value.toFloatOrNull() ?: updatedFuel
+                    "11400301" -> updatedEngine = (value == "1" || value.contains("true", true))
+                    "21402000" -> updatedDoors = (value == "1" || value.contains("true", true))
+                }
+            }
         }
 
+        lastState = VehicleState(
+            speed = updatedSpeed,
+            gear = updatedGear,
+            fuelLevel = updatedFuel,
+            isEngineRunning = updatedEngine,
+            anyDoorOpen = updatedDoors
+        )
+        
+        return lastState
+    }
+
+    private fun executeTargetedDumpsys(): String {
+        var process: Process? = null
         return try {
-            val process = Runtime.getRuntime().exec("dumpsys car_service")
-            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            // Sadece property'lerin olduğu bölümü hedefle
+            process = Runtime.getRuntime().exec("dumpsys car_service CarPropertyService")
             val sb = StringBuilder()
-            var line: String?
-            while (reader.readLine().also { line = it } != null) {
-                sb.append(line).append("\n")
+            process.inputStream.bufferedReader().use { reader ->
+                var line: String?
+                while (reader.readLine().also { line = it } != null) {
+                    sb.append(line).append("\n")
+                }
             }
-            lastDump = sb.toString()
-            lastTime = now
-            lastDump
+            sb.toString()
         } catch (e: Exception) {
             ""
+        } finally {
+            try { process?.errorStream?.close() } catch (_: Exception) {}
+            try { process?.outputStream?.close() } catch (_: Exception) {}
+            process?.destroy()
         }
     }
 
     private fun extractById(dump: String, propId: String): String? {
-        if (dump.isEmpty()) return null
-        val lines = dump.lines()
-        for (line in lines) {
-            if (line.contains(propId, ignoreCase = true)) {
-                // AAOS dump formatı: "[ID]: VALUE (TYPE) at ..." veya "ID=VALUE"
-                val regex = Regex("$propId[):]\\s*([^\\s(]+)")
-                val match = regex.find(line)
-                if (match != null) return match.groupValues[1].trim()
-                
-                // Fallback: value=X formatı
-                if (line.contains("=")) {
-                    return line.substringAfter("=").trim().split(" ")[0].trim(',')
-                }
-            }
-        }
-        return null
+        // ID'nin 0x ile başlayıp başlamadığını kontrol et
+        val searchId = if (propId.startsWith("0x")) propId else "0x$propId"
+        val regex = Regex("$searchId[:=]\\s*([^\\s(]+)")
+        val match = regex.find(dump)
+        return match?.groupValues?.get(1)?.trim()?.trimEnd(',')
     }
 }

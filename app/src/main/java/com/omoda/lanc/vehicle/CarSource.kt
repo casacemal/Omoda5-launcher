@@ -43,12 +43,19 @@ class CarSource(private val context: Context) : VehicleSource {
     override fun isAnyDoorOpen(): Boolean? = null
 
     private fun executeDumpsys(propId: String): String? {
+        var process: Process? = null
         return try {
-            val process = Runtime.getRuntime().exec("dumpsys car_service get-property-value $propId 0")
-            val reader = BufferedReader(InputStreamReader(process.inputStream))
-            reader.readLine()
+            process = Runtime.getRuntime().exec("dumpsys car_service get-property-value $propId 0")
+            val result = process.inputStream.bufferedReader().use { reader ->
+                reader.readLine()
+            }
+            try { process.errorStream.close() } catch (_: Exception) {}
+            try { process.outputStream.close() } catch (_: Exception) {}
+            result
         } catch (e: Exception) {
             null
+        } finally {
+            process?.destroy()
         }
     }
 
