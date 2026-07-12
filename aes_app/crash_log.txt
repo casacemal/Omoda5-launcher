@@ -1,0 +1,15 @@
+bad -weight value "black": must be normal, or bold
+Traceback (most recent call last):
+  File "/mnt/depo/launcher_v2/aes_app/main.py", line 1331, in <module>
+    app = VhalAesApp()
+  File "/mnt/depo/launcher_v2/aes_app/main.py", line 180, in __init__
+    self._build_ui()
+  File "/mnt/depo/launcher_v2/aes_app/main.py", line 431, in _build_ui
+    self._build_dashboard_tab()
+  File "/mnt/depo/launcher_v2/aes_app/main.py", line 962, in _build_dashboard_tab
+    val_lbl = ctk.CTkLabel(card, text=default, font=ctk.CTkFont(size=18, weight="black"))
+  File "/home/cemal/.local/lib/python3.10/site-packages/customtkinter/windows/widgets/font/ctk_font.py", line 39, in __init__
+    super().__init__(family=ThemeManager.theme["CTkFont"]["family"] if family is None else family,
+  File "/usr/lib/python3.10/tkinter/font.py", line 94, in __init__
+    tk.call("font", "create", self.name, *font)
+_tkinter.TclError: bad -weight value "black": must be normal, or bold
