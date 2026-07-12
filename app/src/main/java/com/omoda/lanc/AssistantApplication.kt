@@ -18,6 +18,8 @@ import java.util.*
 class AssistantApplication : Application(), AppLogger {
     companion object {
         lateinit var configManager: ConfigManager
+        @Volatile var instance: AssistantApplication? = null
+            private set
 
         val isCarHardware: Boolean
             get() = (Build.MODEL.contains("omoda", ignoreCase = true) || 
@@ -46,9 +48,9 @@ class AssistantApplication : Application(), AppLogger {
         val sttMode get() = GlobalState.sttMode
         val ttsEngine get() = GlobalState.ttsEngine
         
-        val proactiveWarning = MutableStateFlow<String?>(null)
-        val isRemoteAdbConnected = MutableStateFlow(false)
-        val downloadProgressText = MutableStateFlow<String?>(null)
+        val proactiveWarning get() = GlobalState.proactiveWarning
+        val isRemoteAdbConnected get() = GlobalState.isRemoteAdbConnected
+        val downloadProgressText get() = GlobalState.downloadProgressText
         val mqttLogList = MutableStateFlow<List<String>>(emptyList())
         
         val useHermesSpeech get() = GlobalState.useHermesSpeech
@@ -74,6 +76,11 @@ class AssistantApplication : Application(), AppLogger {
         var GITHUB_TOKEN by GlobalState::GITHUB_TOKEN
         var EDGE_TTS_TOKEN by GlobalState::EDGE_TTS_TOKEN
 
+        val githubToken get() = GlobalState.githubToken
+        val hermesApiKey get() = GlobalState.hermesApiKey
+        val ninerouterApiKey get() = GlobalState.ninerouterApiKey
+        val edgeTtsToken get() = GlobalState.edgeTtsToken
+
         val hasInternetConnection get() = GlobalState.hasInternetConnection
         val isMqttConnected get() = GlobalState.isMqttConnected
         val hermesConnectionStatus get() = GlobalState.hermesConnectionStatus
@@ -89,7 +96,7 @@ class AssistantApplication : Application(), AppLogger {
         val appClickCounts = MutableStateFlow<Map<String, Int>>(emptyMap())
 
         val mqttPublisher = MqttPublisher()
-        val mqttEnabled = MutableStateFlow(true)
+        val mqttEnabled get() = GlobalState.mqttEnabled
 
         fun addLogStatic(log: String) {
             val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
@@ -121,15 +128,16 @@ class AssistantApplication : Application(), AppLogger {
                 isWakeWordEnabled = isWakeWordEnabled.value,
                 micSource = micSource.value,
                 isBridgeMode = isBridgeMode.value,
+                isSimulationMode = isSimulationMode.value,
                 mqttEnabled = mqttEnabled.value,
                 vehicleId = vehicleId.value,
                 sessionKey = sessionKey.value,
                  wallpaperIdx = wallpaperIdx.value,
                 appClickCounts = appClickCounts.value,
-                githubToken = GITHUB_TOKEN,
-                hermesApiKey = HERMES_API_KEY,
-                ninerouterApiKey = NINEROUTER_API_KEY,
-                edgeTtsToken = EDGE_TTS_TOKEN,
+                githubToken = GlobalState.githubToken.value,
+                hermesApiKey = GlobalState.hermesApiKey.value,
+                ninerouterApiKey = GlobalState.ninerouterApiKey.value,
+                edgeTtsToken = GlobalState.edgeTtsToken.value,
                 vadSnrRatio = GlobalState.vadSnrRatio.value,
                 vadSilenceDuration = GlobalState.vadSilenceDuration.value,
                 vadGainFactor = GlobalState.vadGainFactor.value,
@@ -157,12 +165,17 @@ class AssistantApplication : Application(), AppLogger {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         LoggerProvider.logger = this
-        
-        isSimulationMode.value = !isCarHardware
         
         configManager = ConfigManager(this)
         loadConfig()
+        
+        // Donanım değilse ve config'den gelen simülasyon modu false ise bile donanıma göre set et
+        // Ama öncelik config'de olmalı. 
+        if (!isCarHardware) {
+            isSimulationMode.value = true
+        }
         
         SystemLogger.setListener { log ->
             addLogStatic(log)
@@ -183,7 +196,7 @@ class AssistantApplication : Application(), AppLogger {
         RelayClient.autoConnect()
     }
 
-    private fun loadConfig() {
+    fun loadConfig() {
         val config = configManager.loadConfig()
         
         serverIp.value = if (config.serverIp.isBlank()) "192.168.1.14" else config.serverIp
@@ -202,14 +215,15 @@ class AssistantApplication : Application(), AppLogger {
         isWakeWordEnabled.value = config.isWakeWordEnabled
         micSource.value = config.micSource
         isBridgeMode.value = config.isBridgeMode
+        isSimulationMode.value = config.isSimulationMode // STATE-3 Fix
         mqttEnabled.value = config.mqttEnabled
         vehicleId.value = config.vehicleId
         sessionKey.value = config.sessionKey
         
-        GITHUB_TOKEN = config.githubToken?.ifBlank { GITHUB_TOKEN } ?: GITHUB_TOKEN
-        HERMES_API_KEY = config.hermesApiKey?.ifBlank { HERMES_API_KEY } ?: HERMES_API_KEY
-        NINEROUTER_API_KEY = config.ninerouterApiKey?.ifBlank { NINEROUTER_API_KEY } ?: NINEROUTER_API_KEY
-        EDGE_TTS_TOKEN = config.edgeTtsToken?.ifBlank { EDGE_TTS_TOKEN } ?: EDGE_TTS_TOKEN
+        GlobalState.githubToken.value = (if (config.githubToken.isNullOrBlank()) BuildConfig.GITHUB_TOKEN else config.githubToken) ?: ""
+        GlobalState.hermesApiKey.value = (if (config.hermesApiKey.isNullOrBlank()) BuildConfig.HERMES_API_KEY else config.hermesApiKey) ?: ""
+        GlobalState.ninerouterApiKey.value = (if (config.ninerouterApiKey.isNullOrBlank()) BuildConfig.NINEROUTER_API_KEY else config.ninerouterApiKey) ?: ""
+        GlobalState.edgeTtsToken.value = (if (config.edgeTtsToken.isNullOrBlank()) BuildConfig.EDGE_TTS_TOKEN else config.edgeTtsToken) ?: ""
 
         wallpaperIdx.value = config.wallpaperIdx
         appClickCounts.value = config.appClickCounts

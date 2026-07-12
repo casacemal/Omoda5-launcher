@@ -158,6 +158,7 @@ class VhalAesApp(ctk.CTk):
         self.baseline: dict[str, tuple] = {}
         self.last_update_time: Optional[str] = None
         self.adb_connected = False
+        self.dashboard_widgets = {}
 
         # MQTT — Simülasyon istemcisi (cfg broker'ı: 100.95.239.119)
         self.mqtt_client = mqtt.Client()
@@ -352,12 +353,21 @@ class VhalAesApp(ctk.CTk):
             command=lambda: self.trigger_hermes("ac_on"),
         ).pack(pady=5, fill="x", padx=10)
 
-        # ═══ Sağ Panel (Tablo + Arama) ════════════════════════════════════════
+        # ═══ Sağ Panel (Tablo + Arama + Dashboard) ════════════════════════════
         self.right_frame = ctk.CTkFrame(self)
         self.right_frame.pack(side="right", fill="both", expand=True, padx=10, pady=10)
 
+        # ── TabView ──
+        self.tabview = ctk.CTkTabview(self.right_frame)
+        self.tabview.pack(fill="both", expand=True, padx=5, pady=5)
+        self.tabview.add("Sensör Listesi")
+        self.tabview.add("Canlı İzleme & Test")
+
+        # ── TAB 1: Sensör Listesi ──
+        tab_list = self.tabview.tab("Sensör Listesi")
+
         # Arama kutusu
-        search_frame = ctk.CTkFrame(self.right_frame, fg_color="transparent")
+        search_frame = ctk.CTkFrame(tab_list, fg_color="transparent")
         search_frame.pack(fill="x", padx=5, pady=(5, 0))
 
         ctk.CTkLabel(search_frame, text="🔍").pack(side="left", padx=(0, 5))
@@ -389,7 +399,7 @@ class VhalAesApp(ctk.CTk):
         style.configure("Treeview.Heading", background="#333", foreground="white")
         style.map("Treeview", background=[("selected", "#1f538d")])
 
-        tree_frame = ctk.CTkFrame(self.right_frame, fg_color="transparent")
+        tree_frame = ctk.CTkFrame(tab_list, fg_color="transparent")
         tree_frame.pack(fill="both", expand=True, padx=5, pady=5)
 
         self.tree = ttk.Treeview(
@@ -416,6 +426,9 @@ class VhalAesApp(ctk.CTk):
         )
         scrollbar.pack(side="right", fill="y")
         self.tree.configure(yscrollcommand=scrollbar.set)
+
+        # ── TAB 2: Canlı İzleme & Test ──
+        self._build_dashboard_tab()
 
         # Durum çubuğu
         self.status_bar = ctk.CTkFrame(self.right_frame, height=30)
@@ -920,122 +933,121 @@ class VhalAesApp(ctk.CTk):
             ),
         ).pack(pady=10, fill="x", padx=15)
 
-    def _on_android_message(self, client, userdata, msg) -> None:
-        """Gelen Android (Köprü) MQTT mesajını ana thread'de işler."""
-        try:
-            payload = msg.payload.decode("utf-8", errors="ignore")
-        except Exception:
-            return
-        topic = msg.topic
-        self.after(0, lambda: self._process_android_message(topic, payload))
+    def _build_dashboard_tab(self) -> None:
+        """Canlı İzleme tabını (Dashboard) oluşturur."""
+        tab = self.tabview.tab("Canlı İzleme & Test")
 
-    def _update_bridge_row(self, iid, prop_id, name, parsed_val,
-                           zone="—", f_val="", i_val="", i64="",
-                           b_val="", s_val="") -> None:
-        """Köprü verisi için tablo satırını ekler/günceller (status: 🌉 KÖPRÜ)."""
-        values = (prop_id, name, parsed_val, "🌉 KÖPRÜ", zone,
-                  f_val, i_val, i64, b_val, s_val)
-        if self.tree.exists(iid):
-            self.tree.item(iid, values=values)
-        else:
-            self.tree.insert("", "end", iid=iid, values=values)
-        self._update_sensor_count()
+        # Grid ayarları
+        tab.grid_columnconfigure((0, 1, 2, 3), weight=1, pad=10)
+        tab.grid_rowconfigure((0, 1, 2, 3), weight=1, pad=10)
+
+        # Sensör Tanımları (Kartlar)
+        sensors = [
+            ("Hız", "0x11600207", "0 km/h", "#69E2D3"),
+            ("RPM", "0x11600305", "0 RPM", "#69E2D3"),
+            ("Vites", "0x21402006", "P", "#69E2D3"),
+            ("Yakıt", "0x11600307", "0 L", "#F3B14B"),
+            ("Dış Isı", "0x11600703", "0°C", "#2196F3"),
+            ("El Freni", "0x2140100d", "PASİF", "#E57373"),
+            ("Klima", "0x21401002", "KAPALI", "#4CAF50"),
+            ("Klima Isı", "0x21401008", "0°C", "#4CAF50"),
+        ]
+
+        for idx, (label, pid, default, color) in enumerate(sensors):
+            r, c = divmod(idx, 4)
+            card = ctk.CTkFrame(tab, fg_color="#2b2b2b", corner_radius=10, border_width=1, border_color=color)
+            card.grid(row=r, column=c, padx=10, pady=10, sticky="nsew")
+
+            ctk.CTkLabel(card, text=label, font=ctk.CTkFont(size=11, weight="bold"), text_color=color).pack(pady=(5, 0))
+            val_lbl = ctk.CTkLabel(card, text=default, font=ctk.CTkFont(size=18, weight="black"))
+            val_lbl.pack(pady=5)
+            self.dashboard_widgets[pid.lower()] = val_lbl
+
+        # Butonlar (Sadece durum gösterir)
+        controls = [
+            ("KLİMA GÜCÜ", "0x21401002", "#4CAF50"),
+            ("KAPI KİLİDİ", "0x16200b02", "#E57373"),
+            ("DÖRTLÜLER", "0x11400e03", "#F3B14B"),
+            ("FARLAR", "0x11400e00", "#2196F3"),
+        ]
+
+        btn_frame = ctk.CTkFrame(tab, fg_color="transparent")
+        btn_frame.grid(row=2, column=0, columnspan=4, sticky="ew", pady=20)
+
+        for idx, (label, pid, color) in enumerate(controls):
+            btn = ctk.CTkButton(
+                btn_frame, text=f"{label}: BEKLENİYOR",
+                fg_color="#333", border_width=2, border_color=color,
+                hover=False, # Tıklanabilir ama işlevsiz olduğunu hissettirir
+                command=lambda l=label: log.info(f"Test Modu: {l} komutu gönderilmedi.")
+            )
+            btn.pack(side="left", expand=True, padx=10, pady=10, fill="x")
+            self.dashboard_widgets[f"btn_{pid.lower()}"] = btn
+
+    def _update_dashboard_widget(self, pid: str, value: str) -> None:
+        """Dashboard'daki widget'ları günceller."""
+        pid = pid.lower()
+        if pid in self.dashboard_widgets:
+            widget = self.dashboard_widgets[pid]
+            if isinstance(widget, ctk.CTkLabel):
+                widget.configure(text=value)
+            elif isinstance(widget, ctk.CTkButton):
+                # Buton durumunu metin ve renk ile güncelle
+                is_active = "AÇIK" in value.upper() or "AKTİF" in value.upper() or "KİLİTLİ" in value.upper() or "1" == value
+                base_text = widget.cget("text").split(":")[0]
+                new_text = f"{base_text}: {value}"
+                widget.configure(text=new_text, fg_color=widget.cget("border_color") if is_active else "#333")
 
     def _process_android_message(self, topic: str, payload: str) -> None:
-        """Android topic'ine gelen mesajı ayrıştırıp tabloya yazar."""
+        """Android topic'ine gelen mesajı ayrıştırıp tabloya ve Dashboard'a yazar."""
         # ── omoda/telemetri : JSON telemetri ──
         if topic == "omoda/telemetri":
             try:
                 data = json.loads(payload)
             except (json.JSONDecodeError, ValueError):
-                self._update_bridge_row(
-                    "ANDROID_TELEM_RAW", "omoda/telemetri", "Telemetri (ham)",
-                    payload[:120], s_val=payload,
-                )
                 return
+
             if "speed" in data:
-                self._update_bridge_row(
-                    "ANDROID_SPEED", "0x11600207", "Hız (Köprü)",
-                    f"{data['speed']} km/h", f_val=str(data["speed"]))
+                val = f"{data['speed']} km/h"
+                self._update_bridge_row("ANDROID_SPEED", "0x11600207", "Hız (Köprü)", val, f_val=str(data["speed"]))
+                self._update_dashboard_widget("0x11600207", val)
+
             if "gear" in data:
                 gear = data["gear"]
                 if isinstance(gear, int):
                     gear = {1: "P", 2: "R", 3: "N", 5: "D1", 6: "D2", 7: "D3"}.get(gear, "D")
-                self._update_bridge_row(
-                    "ANDROID_GEAR", "0x11400401", "Vites (Köprü)",
-                    str(gear), s_val=str(gear))
+                self._update_bridge_row("ANDROID_GEAR", "0x11400401", "Vites (Köprü)", str(gear), s_val=str(gear))
+                self._update_dashboard_widget("0x21402006", str(gear))
+
             if "rpm" in data:
-                self._update_bridge_row(
-                    "ANDROID_RPM", "0x11600300", "RPM (Köprü)",
-                    f"{data['rpm']} RPM", i_val=str(data["rpm"]))
+                val = f"{data['rpm']} RPM"
+                self._update_bridge_row("ANDROID_RPM", "0x11600300", "RPM (Köprü)", val, i_val=str(data["rpm"]))
+                self._update_dashboard_widget("0x11600305", val)
+
             if "ac_on" in data:
-                self._update_bridge_row(
-                    "ANDROID_AC", "0x15600502", "Klima (Köprü)",
-                    "AÇIK" if data["ac_on"] else "KAPALI",
-                    i_val="1" if data["ac_on"] else "0")
-            sensors = data.get("active_sensors") or data.get("sensors")
-            if isinstance(sensors, list):
-                for idx, s in enumerate(sensors):
-                    if isinstance(s, dict):
-                        sid = s.get("id") or s.get("propertyId") or f"s{idx}"
-                        sval = s.get("value", "")
-                        self._update_bridge_row(
-                            f"ANDROID_SENSOR_{sid}", str(sid),
-                            f"Sensör {sid}", str(sval), s_val=str(sval))
-                    else:
-                        self._update_bridge_row(
-                            f"ANDROID_SENSOR_{idx}", f"s{idx}",
-                            f"Sensör {idx}", str(s), s_val=str(s))
+                val = "AÇIK" if data["ac_on"] else "KAPALI"
+                self._update_bridge_row("ANDROID_AC", "0x15600502", "Klima (Köprü)", val, i_val="1" if data["ac_on"] else "0")
+                self._update_dashboard_widget("0x21401002", val)
+                self._update_dashboard_widget("btn_0x21401002", val)
+
+            if "ac_driver_temp" in data:
+                val = f"{data['ac_driver_temp']}°C"
+                self._update_dashboard_widget("0x21401008", val)
+
+            if "outside_temp" in data:
+                val = f"{data['outside_temp']}°C"
+                self._update_dashboard_widget("0x11600703", val)
+
             return
 
-        # ── omoda/vhal_raw : ham VHAL satırı ──
+        # ── omoda/vhal_raw ──
         if topic == "omoda/vhal_raw":
-            self._update_bridge_row(
-                "ANDROID_VHAL_RAW", "omoda/vhal_raw", "VHAL (ham)",
-                payload[:120], s_val=payload)
+            self._update_bridge_row("ANDROID_VHAL_RAW", "omoda/vhal_raw", "VHAL (ham)", payload[:120], s_val=payload)
+            # Ham veriden Dashboard güncellemesi (isteğe bağlı)
             return
 
-        # ── omoda5/<vid>/telemetry ──
-        if topic.endswith("/telemetry"):
-            try:
-                data = json.loads(payload)
-                speed = data.get("speed")
-                self._update_bridge_row(
-                    "BRIDGE_TELEMETRY", "omoda5/telemetry", "Köprü Telemetri",
-                    f"{speed} km/h" if speed is not None else payload[:120],
-                    f_val=str(speed) if speed is not None else "",
-                    s_val=payload)
-            except (json.JSONDecodeError, ValueError):
-                self._update_bridge_row(
-                    "BRIDGE_TELEMETRY", "omoda5/telemetry", "Köprü Telemetri",
-                    payload[:120], s_val=payload)
-            return
-
-        # ── omoda5/<vid>/climate/state ──
-        if topic.endswith("/climate/state"):
-            self._update_bridge_row(
-                "BRIDGE_CLIMATE", "omoda5/climate", "Köprü Klima",
-                payload[:120], s_val=payload)
-            return
-
-        # ── omoda5/<vid>/media/state ──
-        if topic.endswith("/media/state"):
-            self._update_bridge_row(
-                "BRIDGE_MEDIA", "omoda5/media", "Köprü Medya",
-                payload[:120], s_val=payload)
-            return
-
-        # ── omoda5/<vid>/assistant/speech ──
-        if topic.endswith("/assistant/speech"):
-            self._update_bridge_row(
-                "BRIDGE_SPEECH", "omoda5/speech", "Köprü Asistan",
-                payload[:120], s_val=payload)
-            return
-
-        # ── omoda/komut vb. genel ──
-        self._update_bridge_row(
-            f"ANDROID_{topic.replace('/', '_')}", topic, f"Köprü: {topic}",
-            payload[:120], s_val=payload)
+        # ── Diğer topicler ──
+        self._update_bridge_row(f"ANDROID_{topic.replace('/', '_')}", topic, f"Köprü: {topic}", payload[:120], s_val=payload)
 
     def trigger_hermes(self, action: str) -> None:
         """Hermes komut tetikleyicisi."""
@@ -1217,6 +1229,30 @@ class VhalAesApp(ctk.CTk):
 
         return raw_display
 
+    def _on_android_message(self, client, userdata, message) -> None:
+        """Android MQTT kanalından gelen ham mesajları yakalar."""
+        topic = message.topic
+        payload = message.payload.decode("utf-8", errors="ignore")
+        log.debug("Bridge Msg [%s]: %s", topic, payload)
+        self.after(0, lambda: self._process_android_message(topic, payload))
+
+    def _update_bridge_row(self, iid_base: str, prop_id: str, name: str, parsed_val: str,
+                           f_val: str = "", i_val: str = "", s_val: str = "") -> None:
+        """Tabloda Köprüden gelen veriler için satır günceller."""
+        iid = f"BRIDGE_{iid_base}"
+        zone = "—"
+        status = "🌉 KÖPRÜ"
+        values = (prop_id, name, parsed_val, status, zone, f_val, i_val, "", "", s_val)
+
+        if self.tree.exists(iid):
+            self.tree.item(iid, values=values)
+            self.tree.item(iid, tags=("bridge",))
+        else:
+            self.tree.insert("", 0, iid=iid, values=values, tags=("bridge",))
+
+        self.tree.tag_configure("bridge", foreground="#69E2D3")
+        self._update_sensor_count()
+
     def parse_and_update_table(self, dump_text: str, from_log: bool = False) -> None:
         """dumpsys çıktısını parse eder ve Treeview'ı günceller."""
         pattern = re.compile(
@@ -1291,5 +1327,12 @@ class VhalAesApp(ctk.CTk):
 
 # ═══════════════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
-    app = VhalAesApp()
-    app.mainloop()
+    try:
+        app = VhalAesApp()
+        app.mainloop()
+    except Exception as e:
+        with open("crash_log.txt", "w") as f:
+            import traceback
+            f.write(str(e) + "\n")
+            f.write(traceback.format_exc())
+        print(f"CRASH: {e}")

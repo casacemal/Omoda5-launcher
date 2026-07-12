@@ -1,5 +1,6 @@
 package com.omoda.lanc.voice
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.media.AudioFormat
 import android.media.AudioRecord
@@ -57,6 +58,7 @@ class WakeWordManager(
         isAssistantActive = active
     }
 
+    @SuppressLint("MissingPermission")
     private fun listenLoop() {
         val channelConfig = AudioFormat.CHANNEL_IN_MONO
         val audioFormat = AudioFormat.ENCODING_PCM_16BIT
@@ -124,6 +126,7 @@ class WakeWordManager(
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun recordChunk(): ByteArray? {
         return try {
             val totalBytes = SAMPLE_RATE * 2 * CHUNK_DURATION_MS / 1000

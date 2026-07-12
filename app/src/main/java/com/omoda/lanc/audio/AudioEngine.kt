@@ -72,8 +72,13 @@ class AudioEngine(private val context: Context) {
                 }
                 .build()
 
-            if (priority == AudioPriority.ALERT) alertFocusRequest = request
-            else assistantFocusRequest = request
+            if (priority == AudioPriority.ALERT) {
+                alertFocusRequest?.let { audioManager.abandonAudioFocusRequest(it) }
+                alertFocusRequest = request
+            } else {
+                assistantFocusRequest?.let { audioManager.abandonAudioFocusRequest(it) }
+                assistantFocusRequest = request
+            }
 
             val result = audioManager.requestAudioFocus(request)
             return result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED

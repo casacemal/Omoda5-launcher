@@ -72,6 +72,7 @@ fun AssistantOverlayUI(
     val status by GlobalState.status.collectAsState()
     val isListening by GlobalState.isListening.collectAsState()
     val workflowState by GlobalState.workflowState.collectAsState()
+    val currentAmplitude by GlobalState.currentAmplitude.collectAsState()
 
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     
@@ -108,17 +109,18 @@ fun AssistantOverlayUI(
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.size(100.dp)) {
                 if (isListening) {
+                    val ampFactor = (currentAmplitude / 600f).coerceIn(0.8f, 1.5f)
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .scale(pulseScale)
+                            .scale(pulseScale * ampFactor)
                             .clip(CircleShape)
                             .background(Color(0xFF69E2D3).copy(alpha = 0.2f))
                     )
                     Box(
                         modifier = Modifier
                             .size(70.dp)
-                            .scale(pulseScale * 0.8f)
+                            .scale(pulseScale * 0.8f * ampFactor)
                             .clip(CircleShape)
                             .background(Color(0xFF69E2D3).copy(alpha = 0.3f))
                     )
@@ -155,7 +157,7 @@ fun AssistantOverlayUI(
                 Text(
                     text = status.uppercase(),
                     color = workflowColor,
-                    fontSize = 11.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
                 )
@@ -170,7 +172,7 @@ fun AssistantOverlayUI(
                     Text(
                         text = recognizedText,
                         color = Color.LightGray,
-                        fontSize = 17.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -185,7 +187,7 @@ fun AssistantOverlayUI(
                     Text(
                         text = assistantResponse,
                         color = Color(0xFF69E2D3),
-                        fontSize = 19.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(top = 8.dp).fillMaxWidth()

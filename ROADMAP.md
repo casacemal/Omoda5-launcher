@@ -33,9 +33,17 @@
 - [x] **UI İnce Ayarlar:** Overlay metin çiftleme sorunu giderildi.
 - [ ] Araç içi multimedya (Spotify/YouTube) kontrol araçlarının genişletilmesi.
 - [x] **UI İnce Ayarlar:** Ana ekran sol boşluğu (235dp) ve ikon boyutları (160dp) optimize edildi.
+- [x] **Bridge & Simulator Split:** VHAL Simülatör ve MQTT Köprü kontrolleri birbirinden ayrıldı ve ADB Panel butonu eklendi.
+- [x] **GitHub OTA & Backup Fix:** GitHub token yetkilendirme ve yedekleme sistemi veri kaybı sorunları giderildi.
+- [x] **MQTT Presence:** Cihazın çevrimiçi durumunu bildiren `omoda/status` mesaj sistemi eklendi.
 - [x] **Sistem Kontrolü:** Varsayılan launcher atama ve HVAC hızlı başlatma araçları eklendi.
 - [x] **Aktif Hermes Katmanı:** Pasif köprüden aktif asistan mimarisine geçiş yapıldı.
 - [x] **Hibrit Çalışma Modları:** Sesli Sohbet (CHAT) ve Komut (ASSIST) modları entegre edildi.
 - [x] **Araç Donanım Entegrasyonu:** AI'nın araç durumunu (Hız, Vites, Klima vb.) bilmesi sağlandı.
 - [x] **Dinamik Veri Polling:** Ayarlanabilir frekanslı (2s/5s/10s) ve optimize edilmiş `dumpsys` araç veri izleme sistemi tamamlandı.
 - [x] **Hey Omoda (Wake Word):** Bulut tabanlı uyandırma kelimesi ve "m.k" halüsinasyon filtresi aktifleştirildi.
+- [x] **Firewall Stabilizasyonu:** CommandRouter firewall bypass hatası düzeltildi, engellenen komutlar artık doğru raporlanıyor.
+- [x] **TTS Robustness:** Edge TTS fallback mekanizması onarıldı, hata durumunda alternatif motorlara geçiş sağlandı.
+- [x] **HUD UI Optimization:** Overlay metin boyutları sürüş güvenliği için büyütüldü (16sp/24sp).
+- [x] **Voice Visualization:** Overlay'e gerçek zamanlı ses genliği (amplitude) duyarlılığı eklendi.
+- [x] **Sensor Monitor Screen:** Omoda 5 VHAL verilerinin (Hız, RPM, Yakıt vb.) 2sn periyotla izlendiği özel ekran eklendi.

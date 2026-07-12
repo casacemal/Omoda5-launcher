@@ -1,0 +1,507 @@
+**All property values**
+Property:0x11100101,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: Toy Vehicle
+Property:0x21100104,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: Vendor String Property
+Property:0x15200505,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x15200506,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x15200507,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x15200508,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x15200509,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x1520050a,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x15200510,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x15200512,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x15400500,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [3],int64Values: [],bytes: [],string: 
+Property:0x15400501,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11410105,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11410107,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11400108,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [4],int64Values: [],bytes: [],string: 
+Property:0x11400109,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x1540010a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x1540050b,status: 0,timestamp:0,zone:0x1,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x1540050b,status: 0,timestamp:0,zone:0x4,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x1140050d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x1140050e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [49],int64Values: [],bytes: [],string: 
+Property:0x15410511,status: 0,timestamp:0,zone:0x75,floatValues: [],int32Values: [1, 2, 3],int64Values: [],bytes: [],string: 
+Property:0x15400513,status: 0,timestamp:0,zone:0x1,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x15400513,status: 0,timestamp:0,zone:0x4,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x25600102,status: 0,timestamp:0,zone:0x31,floatValues: [1.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x25600102,status: 0,timestamp:0,zone:0x44,floatValues: [2.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x15600503,status: 0,timestamp:0,zone:0x31,floatValues: [16.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x15600503,status: 0,timestamp:0,zone:0x44,floatValues: [20.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600104,status: 0,timestamp:0,zone:0x0,floatValues: [15000.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600106,status: 0,timestamp:0,zone:0x0,floatValues: [150000.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x17600309,status: 0,timestamp:0,zone:0x1,floatValues: [200.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x17600309,status: 0,timestamp:0,zone:0x2,floatValues: [200.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x17600309,status: 0,timestamp:0,zone:0x4,floatValues: [200.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x17600309,status: 0,timestamp:0,zone:0x8,floatValues: [200.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x13400bc0,status: 0,timestamp:0,zone:0x10,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x13400bc0,status: 0,timestamp:0,zone:0x40,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x13400bc0,status: 0,timestamp:0,zone:0x100,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x13400bc0,status: 0,timestamp:0,zone:0x400,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x13400bc0,status: 0,timestamp:0,zone:0x10000,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x217051ff,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11e00d00,status: 0,timestamp:8443943666,zone:0x0,floatValues: [0.153, 0.0, -0.16, -0.16, -0.16, -0.16, 0.0, 7.5, 1250.0, 40.0, 2.5, 0.0, 19.75, 0.265, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.824, -0.373, 190.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 0.306, 0.0, 0.188, 0.094, 0.0, 0.024, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],int32Values: [2, 0, 0, 69649, 35, 4, 1, 500, 0, 51, 365, 30, 12, 18, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],int64Values: [],bytes: [-1, 63, 33, 0, -67, 55, 0, 0, 0, 28, 108, 1, 0],string: 
+Can not get property value for propertyId: 0x11e00d01, areaId: 0
+Property:0x11e00d02,status: 0,timestamp:8443943666,zone:0x0,floatValues: [],int32Values: [],int64Values: [8443974999, 8443984666],bytes: [],string: 
+Can not get property value for propertyId: 0x11e00d03, areaId: 0
+Property:0x13200bc4,status: 0,timestamp:0,zone:0x540,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402040,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403040,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705070,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402041,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21403041,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705071,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705072,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403042,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21402042,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [58],int64Values: [],bytes: [],string: 
+Property:0x21705073,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403043,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21403044,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21402044,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705074,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705075,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403045,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x21403046, areaId: 0
+Property:0x21705076,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402046,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [81],int64Values: [],bytes: [],string: 
+Property:0x21705077,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21403047, areaId: 0
+Property:0x21402047,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705078,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21403048, areaId: 0
+Property:0x21402048,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705079,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403049,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170507a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170507b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170507c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170507d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170507e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170507f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21403050, areaId: 0
+Property:0x21705060,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21403051, areaId: 0
+Property:0x21705061,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705062,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403052,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403053,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [3],int64Values: [],bytes: [],string: 
+Property:0x21705063,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705064,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403054,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21705065,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403055,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21705066,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403056,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705067,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705068,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705069,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170506a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170506b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170506c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170506d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170506e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170506f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705050,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705051,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x16200b02,status: 0,timestamp:0,zone:0x1,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x16200b02,status: 0,timestamp:0,zone:0x4,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x16200b02,status: 0,timestamp:0,zone:0x10,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x16200b02,status: 0,timestamp:0,zone:0x40,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705052,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11200402,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705053,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21602043,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21103034,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 20260622223417
+Property:0x21705054,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705055,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11200405,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705056,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11200407,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705057,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705058,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705059,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x1120040a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170505a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170505b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x1120040b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170505c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170505d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140306d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x2170505e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170505f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705040,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705041,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705042,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705043,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705044,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705045,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21702045,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0, 0, 0, 0, 0, 0, 0, 0],string: 
+Property:0x21705046,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705047,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705048,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705049,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170504a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170504b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170504c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170504d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170504e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170504f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x16400b00,status: 0,timestamp:0,zone:0x1,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x16400b00,status: 0,timestamp:0,zone:0x4,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x16400b00,status: 0,timestamp:0,zone:0x10,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x16400b00,status: 0,timestamp:0,zone:0x40,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x16400b00,status: 0,timestamp:0,zone:0x20000000,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x11400400,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [4],int64Values: [],bytes: [],string: 
+Property:0x21402000,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21705030,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402001,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x11400401,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [4],int64Values: [],bytes: [],string: 
+Property:0x21403001,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705031,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403002,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401002,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705032,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11407002,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402002,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403003,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705033,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11407003,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401003,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21602023,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21401004,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705034,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21403004, areaId: 0
+Property:0x21401005,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21402005,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403005,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [95],int64Values: [],bytes: [],string: 
+Property:0x21705035,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11417004,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0, 0],int64Values: [],bytes: [],string: 
+Property:0x11407006,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705036,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403006,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21402006,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401006,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403007,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11407007,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705037,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21401007,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402007,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [175],int64Values: [],bytes: [],string: 
+Property:0x21401008,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [19],int64Values: [],bytes: [],string: 
+Property:0x11407008,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705038,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403008,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21402008,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [175],int64Values: [],bytes: [],string: 
+Property:0x21401009,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [19],int64Values: [],bytes: [],string: 
+Property:0x21402009,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [335],int64Values: [],bytes: [],string: 
+Property:0x21705039,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11407009,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403009,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11400409,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [4],int64Values: [],bytes: [],string: 
+Property:0x1140700a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140100a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140200a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [335],int64Values: [],bytes: [],string: 
+Property:0x2140300a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x2170503a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140300b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x2170503b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140200b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [175],int64Values: [],bytes: [],string: 
+Property:0x2160202b,status: 0,timestamp:0,zone:0x0,floatValues: [28.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x1140700b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140100b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140200c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [175],int64Values: [],bytes: [],string: 
+Property:0x2170503c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140300c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [19],int64Values: [],bytes: [],string: 
+Property:0x1140700c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140100c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [31],int64Values: [],bytes: [],string: 
+Property:0x2140100d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2160202d,status: 0,timestamp:0,zone:0x0,floatValues: [2.4249],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x1140700d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [20],int64Values: [],bytes: [],string: 
+Property:0x2170503d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140300d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x2140200d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [335],int64Values: [],bytes: [],string: 
+Property:0x1140700e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170503e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140100e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140300e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x2160202e,status: 0,timestamp:0,zone:0x0,floatValues: [2.3541],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x2140200e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [335],int64Values: [],bytes: [],string: 
+Property:0x2140300f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x2140100f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2160202f,status: 0,timestamp:0,zone:0x0,floatValues: [2.3895],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x2140200f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x1140700f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170503f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402010,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21602030,status: 0,timestamp:0,zone:0x0,floatValues: [2.3895],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21705020,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403010,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401010,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21401011,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402011,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x11407011,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705021,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403011,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401012,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21403012,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x11407012, areaId: 0
+Property:0x21705022,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402012,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403013,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705023,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x11407013, areaId: 0
+Property:0x21401013,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402013,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x11407014, areaId: 0
+Property:0x21402014,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401014,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705024,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403014,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401015,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402015,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403015,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705025,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705026,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402016,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403016,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401016,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403017,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705027,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402017,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21601037,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21401017,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401018,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21601038,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21705028,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403018,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402018,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [4],int64Values: [],bytes: [],string: 
+Property:0x21401019,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402019,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705029,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403019,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140101a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140201a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140301a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x2170202a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170502a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140301b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170502b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140201b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [10],int64Values: [],bytes: [],string: 
+Property:0x2140101b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [66],int64Values: [],bytes: [],string: 
+Property:0x2140201c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170502c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x2140301c, areaId: 0
+Property:0x2140101c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [66],int64Values: [],bytes: [],string: 
+Property:0x2140101d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2140301d, areaId: 0
+Property:0x2170502d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170302d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [2, 1, 1],string: 
+Property:0x2140201d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170502e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140101e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140201e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2140301f, areaId: 0
+Property:0x2140201f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140101f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170502f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11707010,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [47, 2, 82, 0, 47, 1, 5, 0],string: 
+Property:0x21402020,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401020,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705010,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21403020, areaId: 0
+Property:0x21402021,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705011,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403021,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401021,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401022,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21403022,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705012,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402022,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403023,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705013,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21401023,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21602003,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21602004,status: 0,timestamp:0,zone:0x0,floatValues: [-27.625],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21402024,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401024,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705014,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403024,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21402025,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [724],int64Values: [],bytes: [],string: 
+Property:0x21403025,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401025,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705015,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21401026,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705016,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403026,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402026,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [47324],int64Values: [],bytes: [],string: 
+Property:0x21403027,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21705017,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402027,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [85],int64Values: [],bytes: [],string: 
+Property:0x21401027,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401028,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705018,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403028,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21402028,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [472],int64Values: [],bytes: [],string: 
+Property:0x21402029,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21401029,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x21403029,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705019,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140102a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140302a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x2170501a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140302b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x2170501b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140102b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140202c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [82],int64Values: [],bytes: [],string: 
+Property:0x2140302c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [6],int64Values: [],bytes: [],string: 
+Property:0x2170501c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140102c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140102d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170501d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170501e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140102e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2140302e, areaId: 0
+Property:0x2140102f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2140302f, areaId: 0
+Property:0x2170501f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21703000, areaId: 0
+Can not get property value for propertyId: 0x21403030, areaId: 0
+Property:0x21401030,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170c000,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0, 0],string: 
+Property:0x21402031,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705001,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x21403031, areaId: 0
+Property:0x21701001,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11707001,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [3, 7],string: 
+Can not get property value for propertyId: 0x2170c001, areaId: 0
+Can not get property value for propertyId: 0x21401031, areaId: 0
+Property:0x21705002,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21401032,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x21403032, areaId: 0
+Property:0x2170c002,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402032,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705003,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170c003,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21401033,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21402033,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x21403033, areaId: 0
+Property:0x21402034,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401034,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705004,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170c004,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402035,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403035,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [5],int64Values: [],bytes: [],string: 
+Property:0x21401035,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21705005,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170c005,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170c006,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705006,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402036,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403036,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21401036,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403037,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21705007,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170c007,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402037,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170c008,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705008,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21402038,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x21403038,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x21402039,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170c009,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [84, 49, 57, 67, 95, 86, 48, 48, 50, 82, 48, 48, 50, 67, 48, 50, 66, 48, 50, 55],string: 
+Property:0x21705009,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21403039,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2140303a, areaId: 0
+Property:0x2140203a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2170c00a, areaId: 0
+Property:0x2170500a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140203b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2140303b, areaId: 0
+Property:0x2170500b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Can not get property value for propertyId: 0x2170c00b, areaId: 0
+Can not get property value for propertyId: 0x2170c00c, areaId: 0
+Property:0x2140303c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170500c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140203c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x2140203d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2170500d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140303d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170500e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2140203e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x2140303e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2160301e, areaId: 0
+Property:0x2140203f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x2140303f, areaId: 0
+Property:0x2170500f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x11e00c00,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21705090,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705080,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705081,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705082,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705083,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705084,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705085,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705086,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705087,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705088,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705089,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170508a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170508b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170508c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170508d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170508e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170508f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x13200504,status: 0,timestamp:0,zone:0x1,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x13200504,status: 0,timestamp:0,zone:0x2,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x11200308,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x1120030a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x1120030b,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x23400103,status: 0,timestamp:0,zone:0x1,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x23400103,status: 0,timestamp:0,zone:0x2,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x23400103,status: 0,timestamp:0,zone:0x10000,floatValues: [],int32Values: [-1],int64Values: [],bytes: [],string: 
+Property:0x11400303,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [2],int64Values: [],bytes: [],string: 
+Property:0x11510306,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [0, 100000, 200000, 300000, 400000],bytes: [],string: 
+Property:0x11600703,status: 0,timestamp:0,zone:0x0,floatValues: [25.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600304,status: 0,timestamp:0,zone:0x0,floatValues: [101.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600305,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600307,status: 0,timestamp:0,zone:0x0,floatValues: [15000.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600308,status: 0,timestamp:0,zone:0x0,floatValues: [100.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600309,status: 0,timestamp:0,zone:0x0,floatValues: [150000.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x1160030c,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21106201,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: default
+Property:0x21106206,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 03.08.03
+Property:0x21106207,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 1.1.0
+Property:0x21106208,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 0CT1900TP20220987900000000000000
+Property:0x21106209,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 703000555AA     
+Property:0x2110620a,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 000CT1900TP2022059356
+Can not get property value for propertyId: 0x2110620b, areaId: 0
+Property:0x2110620c,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [],string: 9ED
+Property:0x26200101,status: 0,timestamp:0,zone:0x1,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x26200101,status: 0,timestamp:0,zone:0x4,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x26200101,status: 0,timestamp:0,zone:0x10,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x26200101,status: 0,timestamp:0,zone:0x40,floatValues: [],int32Values: [0],int64Values: [],bytes: [],string: 
+Property:0x11400e00,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Can not get property value for propertyId: 0x11410a01, areaId: 0
+Property:0x11400e01,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11410a00,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0, 0],int64Values: [],bytes: [],string: 
+Property:0x11400e02,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11400a03,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [100],int64Values: [],bytes: [],string: 
+Property:0x11400e03,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [1],int64Values: [],bytes: [],string: 
+Property:0x11400605,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [145],int64Values: [],bytes: [],string: 
+Property:0x11400e10,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [256],int64Values: [],bytes: [],string: 
+Property:0x11410a10,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [0, 24, 0],int64Values: [],bytes: [],string: 
+Property:0x11400e11,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [256],int64Values: [],bytes: [],string: 
+Property:0x11400e12,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [256],int64Values: [],bytes: [],string: 
+Property:0x11400e13,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [256],int64Values: [],bytes: [],string: 
+Property:0x11600204,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x11600207,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string: 
+Property:0x21705200,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21706200,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705201,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21705202,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x21706202,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [-81, -4, -115, -63],string: 
+Property:0x21706203,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [59, 1, 74, 19],string: 
+Property:0x21706204,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [-64, 14, 76, 32, 3, 0, 5, 6],string: 
+Property:0x21706205,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [-82, -29, 92, 32, 0, 0, 0, 0],string: 
+Property:0x2170620d,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170620e,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0],string: 
+Property:0x2170620f,status: 0,timestamp:0,zone:0x0,floatValues: [],int32Values: [],int64Values: [],bytes: [0, 0, 0, 0, 0, 0, 0, 0],string: 
+Can not get property value for propertyId: 0x21e00666, areaId: 0

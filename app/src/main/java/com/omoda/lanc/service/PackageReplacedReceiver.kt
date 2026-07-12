@@ -1,5 +1,6 @@
 package com.omoda.lanc.service
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -27,6 +28,7 @@ class PackageReplacedReceiver : BroadcastReceiver() {
         }
     }
 
+    @SuppressLint("NotificationPermission")
     private fun showSuccessNotification(context: Context) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         

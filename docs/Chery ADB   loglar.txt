@@ -1,0 +1,773 @@
+ANKER_SERVICE
+    android.ext.services/.watchdog.ExplicitHealthCheckServiceImpl: android.permission.BIND_EXPLICIT_HEALTH_CHECK_SERVICE
+    com.google.android.apps.maps/com.google.android.apps.gmm.place.timeline.service.postvisitbadge.PostVisitBadgeService: com.google.android.apps.maps.permission.TIMELINE_POST_VISIT_BADGE
+
+
+Dexopt state:
+  [com.android.cts.priv.ctsshim]
+  [com.chery.media]
+    path: /system/priv-app/media/media.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.providers.telephony]
+    path: /system/priv-app/TelephonyProvider/TelephonyProvider.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.dynsystem]
+    path: /system/priv-app/DynamicSystemInstallationService/DynamicSystemInstallationService.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.launcher]
+    path: /system/priv-app/launcher/launcher.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [in.krosbits.musicolet]
+    path: /data/app/in.krosbits.musicolet-JxVJuUkJAeQz-tJ55-yztg==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.android.providers.media]
+    path: /system/priv-app/MediaProvider/MediaProvider.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.teslacoilsw.launcher]
+    path: /data/app/com.teslacoilsw.launcher-CUtOD72lRaq14XkPmKEzCg==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.neusoft.ssp.ces.c4.car.assistant]
+    path: /system/product/app/QDLink/QDLink.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.documentsui]
+    path: /system/priv-app/DocumentsUI/DocumentsUI.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.externalstorage]
+    path: /system/priv-app/ExternalStorageProvider/ExternalStorageProvider.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.cerence]
+    path: /system/product/app/cerence/cerence.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.companiondevicemanager]
+    path: /system/app/CompanionDeviceManager/CompanionDeviceManager.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.mms.service]
+    path: /system/priv-app/MmsService/MmsService.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.settingsthdoverlay]
+  [com.android.providers.downloads]
+    path: /system/priv-app/DownloadProvider/DownloadProvider.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.mirfatif.permissionmanagerx]
+    path: /data/app/com.mirfatif.permissionmanagerx-tCjD5GLak1zRnTm4tXqLKw==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [vendor.yfvet.projection.androidauto]
+    path: /system/app/YfveAndroidAuto/YfveAndroidAuto.apk
+      arm64: [status=speed] [reason=first-boot]
+  [com.yfve.car.androidauto]
+    path: /system/priv-app/androidauto/androidauto.apk
+      arm64: [status=speed] [reason=first-boot]
+  [org.schabi.newpipe]
+    path: /data/app/org.schabi.newpipe-K96-SbNo_p_1wCkgiX-Z_g==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [moe.shizuku.privileged.api]
+    path: /data/app/moe.shizuku.privileged.api-sa70gYBWO1SxVYnpz0MTqQ==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.yfve.engineeringmode]
+    path: /system/product/priv-app/EngineeringMode/EngineeringMode.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.providers.downloads.ui]
+    path: /system/priv-app/DownloadProviderUi/DownloadProviderUi.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.pacprocessor]
+    path: /system/app/PacProcessor/PacProcessor.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.networkstack]
+    path: /system/priv-app/NetworkStack/NetworkStack.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.modulemetadata]
+    path: /system/product/app/ModuleMetadata/ModuleMetadata.apk
+      arm64: [status=speed] [reason=first-boot]
+  [com.android.certinstaller]
+    path: /system/app/CertInstaller/CertInstaller.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [android]
+  [com.chery.settingstwooverlay]
+  [com.assistivehub.app]
+    path: /data/app/com.assistivehub.app-aJxLBHj8dOMLBkQ1m0uXRQ==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [by.green.tuber]
+    path: /data/app/by.green.tuber-C5QPRbdlEP03bn3F4Gtbmw==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.yfve.t19c.projection.devicemanager]
+    path: /data/app/com.yfve.t19c.projection.devicemanager-H2xa79O3-6m0RmtpSZ_-zA==/base.apk
+      arm64: [status=verify] [reason=boot]
+  [com.chery.mediathdoverlay]
+  [me.efesser.flauncher]
+    path: /data/app/me.efesser.flauncher-ivLahQT3lF3RmagH7vnGbQ==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.android.car]
+    path: /system/priv-app/CarService/CarService.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.backupconfirm]
+    path: /system/priv-app/BackupRestoreConfirmation/BackupRestoreConfirmation.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [org.localsend.localsend_app]
+    path: /data/app/org.localsend.localsend_app-a1cWUNCHydjDIaNHfxb0Jg==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.chery.help]
+    path: /system/priv-app/help/help.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.hvac]
+    path: /system/priv-app/hvac/hvac.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.provision]
+    path: /system/product/priv-app/Provision/Provision.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.statementservice]
+    path: /system/priv-app/StatementService/StatementService.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.inputmethod.latinthdoverlay]
+  [com.aurora.store]
+    path: /data/app/com.aurora.store-Irz-fydN5k0ZAihqeg936g==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.yfve.t19c_eol]
+    path: /system/product/priv-app/T19C_EOL/T19C_EOL.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.systemuithdoverlay]
+  [com.yfve.car.carplay]
+    path: /system/priv-app/CarPlay/CarPlay.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.frack.xeq]
+    path: /data/app/com.frack.xeq-ynXRZSFKVVtcmOlbmoS2Gg==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.android.providers.settings]
+    path: /system/priv-app/SettingsProvider/SettingsProvider.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.sharedstoragebackup]
+    path: /system/priv-app/SharedStorageBackup/SharedStorageBackup.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.printspooler]
+    path: /system/app/PrintSpooler/PrintSpooler.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.dialerthdoverlay]
+  [com.android.car.frameworkpackagestubs]
+    path: /system/app/CarFrameworkPackageStubs/CarFrameworkPackageStubs.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.webview]
+    path: /system/product/app/webview/webview.apk
+      arm: [status=speed] [reason=prebuilt]
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.se]
+    path: /system/app/SecureElement/SecureElement.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.inputdevices]
+    path: /system/priv-app/InputDevices/InputDevices.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.mediatwooverlay]
+  [com.google.android.apps.maps]
+    path: /data/app/com.google.android.apps.maps-IP1L3Dj7IRpKgTFXGr3jOA==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.chery.helpthdoverlay]
+  [nu.nav.float]
+    path: /data/app/nu.nav.float-Gj3rYUFWvWEZ0Kt3gwJD6w==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [android.ext.shared]
+    path: /system/app/ExtShared/ExtShared.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.inputmethod.latintwooverlay]
+  [com.android.server.telecom]
+    path: /system/priv-app/Telecom/Telecom.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.systemuitwooverlay]
+  [com.android.keychain]
+    path: /system/app/KeyChain/KeyChain.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.icm]
+    path: /system/priv-app/icm/icm.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [android.ext.services]
+    path: /system/priv-app/ExtServices/ExtServices.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.localtransport]
+    path: /system/priv-app/LocalTransport/LocalTransport.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.dialertwooverlay]
+  [com.android.packageinstaller]
+    path: /system/priv-app/PackageInstaller/PackageInstaller.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.yfve.t19c.projection.carplay.service]
+    path: /system/app/CarPlayApp/CarPlayApp.apk
+      arm64: [status=speed] [reason=first-boot]
+  [muharroot.exe]
+    path: /data/app/muharroot.exe-t5u9QXuSf6uN7mZ1ue-1bg==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.android.proxyhandler]
+    path: /system/priv-app/ProxyHandler/ProxyHandler.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [org.videolan.vlc]
+    path: /data/app/org.videolan.vlc-_IcrqY02mpYX6LzGsqIaBA==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.android.inputmethod.latin]
+    path: /system/product/priv-app/T19CLatinIME/T19CLatinIME.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.managedprovisioning]
+    path: /system/priv-app/ManagedProvisioning/ManagedProvisioning.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.helptwooverlay]
+  [com.chery.upgradethdoverlay]
+  [com.nutomic.syncthingandroid]
+    path: /data/app/com.nutomic.syncthingandroid-BnlyqYMRTTZ9UwDZ1JTZiQ==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.example.chery_master_launcher]
+    path: /data/app/com.example.chery_master_launcher-5ekrimFTXxa3chw6ERUxWA==/base.apk
+      arm64: [status=verify] [reason=boot]
+  [com.chery.settings]
+    path: /system/product/priv-app/settings/settings.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [idu.com.radio.radyoturk]
+    path: /data/app/idu.com.radio.radyoturk-Iw-qVLKVmBr3drhGudY26Q==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.chery.launcherthdoverlay]
+  [com.android.networkstack.permissionconfig]
+    path: /system/priv-app/NetworkPermissionConfig/NetworkPermissionConfig.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.cerencethdoverlay]
+  [com.android.cts.ctsshim]
+  [sw.com.dabdrmradio]
+    path: /system/app/DABAIDLService/DABAIDLService.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.upgradetwooverlay]
+  [com.android.vpndialogs]
+    path: /system/priv-app/VpnDialogs/VpnDialogs.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.phone]
+    path: /system/priv-app/TeleService/TeleService.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.shell]
+    path: /system/priv-app/Shell/Shell.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.dialer]
+    path: /data/app/com.chery.dialer-TTpfd076Cwpj28qWtxn6Sg==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+  [com.android.location.fused]
+    path: /system/priv-app/FusedLocation/FusedLocation.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.systemui]
+    path: /system/product/priv-app/systemui/systemui.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.astrob.turbodog]
+    path: /system/product/app/TurboDog/TurboDog.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.permissioncontroller]
+    path: /system/priv-app/PermissionController/PermissionController.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.launchertwooverlay]
+  [com.chery.upgrade]
+    path: /system/product/priv-app/upgrade/upgrade.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.chery.cerencetwooverlay]
+  [com.android.bluetooth]
+    path: /system/app/Bluetooth/Bluetooth.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.providers.contacts]
+    path: /system/priv-app/ContactsProvider/ContactsProvider.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.android.captiveportallogin]
+    path: /system/app/CaptivePortalLogin/CaptivePortalLogin.apk
+      arm64: [status=speed] [reason=prebuilt]
+  [com.softartstudio.carwebguru]
+    path: /data/app/com.softartstudio.carwebguru-I-E6V8EoO-EX9Y09lO6jMw==/base.apk
+      arm64: [status=speed-profile] [reason=install]
+
+
+Compiler stats:
+  [com.android.cts.priv.ctsshim]
+    (No recorded stats)
+  [com.chery.media]
+    (No recorded stats)
+  [com.android.providers.telephony]
+    (No recorded stats)
+  [com.android.dynsystem]
+    (No recorded stats)
+  [com.chery.launcher]
+    (No recorded stats)
+  [in.krosbits.musicolet]
+    (No recorded stats)
+  [com.android.providers.media]
+    (No recorded stats)
+  [com.teslacoilsw.launcher]
+    (No recorded stats)
+  [com.neusoft.ssp.ces.c4.car.assistant]
+    (No recorded stats)
+  [com.android.documentsui]
+    (No recorded stats)
+  [com.android.externalstorage]
+    (No recorded stats)
+  [com.chery.cerence]
+    (No recorded stats)
+  [com.android.companiondevicemanager]
+    (No recorded stats)
+  [com.android.mms.service]
+    (No recorded stats)
+  [com.chery.settingsthdoverlay]
+    (No recorded stats)
+  [com.android.providers.downloads]
+    (No recorded stats)
+  [com.mirfatif.permissionmanagerx]
+    (No recorded stats)
+  [vendor.yfvet.projection.androidauto]
+    (No recorded stats)
+  [com.yfve.car.androidauto]
+    (No recorded stats)
+  [org.schabi.newpipe]
+    (No recorded stats)
+  [moe.shizuku.privileged.api]
+    (No recorded stats)
+  [com.yfve.engineeringmode]
+    (No recorded stats)
+  [com.android.providers.downloads.ui]
+    (No recorded stats)
+  [com.android.pacprocessor]
+    (No recorded stats)
+  [com.android.networkstack]
+    (No recorded stats)
+  [com.android.modulemetadata]
+    (No recorded stats)
+  [com.android.certinstaller]
+    (No recorded stats)
+  [android]
+    (No recorded stats)
+  [com.chery.settingstwooverlay]
+    (No recorded stats)
+  [com.assistivehub.app]
+    (No recorded stats)
+  [by.green.tuber]
+    (No recorded stats)
+  [com.yfve.t19c.projection.devicemanager]
+    (No recorded stats)
+  [com.chery.mediathdoverlay]
+    (No recorded stats)
+  [me.efesser.flauncher]
+    (No recorded stats)
+  [com.android.car]
+    (No recorded stats)
+  [com.android.backupconfirm]
+    (No recorded stats)
+  [org.localsend.localsend_app]
+    (No recorded stats)
+  [com.chery.help]
+    (No recorded stats)
+  [com.chery.hvac]
+    (No recorded stats)
+  [com.android.provision]
+    (No recorded stats)
+  [com.android.statementservice]
+    (No recorded stats)
+  [com.android.inputmethod.latinthdoverlay]
+    (No recorded stats)
+  [com.aurora.store]
+    (No recorded stats)
+  [com.yfve.t19c_eol]
+    (No recorded stats)
+  [com.android.systemuithdoverlay]
+    (No recorded stats)
+  [com.yfve.car.carplay]
+    (No recorded stats)
+  [com.frack.xeq]
+    (No recorded stats)
+  [com.android.providers.settings]
+    (No recorded stats)
+  [com.android.sharedstoragebackup]
+    (No recorded stats)
+  [com.android.printspooler]
+    (No recorded stats)
+  [com.chery.dialerthdoverlay]
+    (No recorded stats)
+  [com.android.car.frameworkpackagestubs]
+    (No recorded stats)
+  [com.android.webview]
+    (No recorded stats)
+  [com.android.se]
+    (No recorded stats)
+  [com.android.inputdevices]
+    (No recorded stats)
+  [com.chery.mediatwooverlay]
+    (No recorded stats)
+  [com.google.android.apps.maps]
+    (No recorded stats)
+  [com.chery.helpthdoverlay]
+    (No recorded stats)
+  [nu.nav.float]
+    (No recorded stats)
+  [android.ext.shared]
+    (No recorded stats)
+  [com.android.inputmethod.latintwooverlay]
+    (No recorded stats)
+  [com.android.server.telecom]
+    (No recorded stats)
+  [com.android.systemuitwooverlay]
+    (No recorded stats)
+  [com.android.keychain]
+    (No recorded stats)
+  [com.chery.icm]
+    (No recorded stats)
+  [android.ext.services]
+    (No recorded stats)
+  [com.android.localtransport]
+    (No recorded stats)
+  [com.chery.dialertwooverlay]
+    (No recorded stats)
+  [com.android.packageinstaller]
+    (No recorded stats)
+  [com.yfve.t19c.projection.carplay.service]
+    (No recorded stats)
+  [muharroot.exe]
+    (No recorded stats)
+  [com.android.proxyhandler]
+    (No recorded stats)
+  [org.videolan.vlc]
+    (No recorded stats)
+  [com.android.inputmethod.latin]
+    (No recorded stats)
+  [com.android.managedprovisioning]
+    (No recorded stats)
+  [com.chery.helptwooverlay]
+    (No recorded stats)
+  [com.chery.upgradethdoverlay]
+    (No recorded stats)
+  [com.nutomic.syncthingandroid]
+    (No recorded stats)
+  [com.example.chery_master_launcher]
+    (No recorded stats)
+  [com.chery.settings]
+    (No recorded stats)
+  [idu.com.radio.radyoturk]
+    (No recorded stats)
+  [com.chery.launcherthdoverlay]
+    (No recorded stats)
+  [com.android.networkstack.permissionconfig]
+    (No recorded stats)
+  [com.chery.cerencethdoverlay]
+    (No recorded stats)
+  [com.android.cts.ctsshim]
+    (No recorded stats)
+  [sw.com.dabdrmradio]
+    (No recorded stats)
+  [com.chery.upgradetwooverlay]
+    (No recorded stats)
+  [com.android.vpndialogs]
+    (No recorded stats)
+  [com.android.phone]
+    (No recorded stats)
+  [com.android.shell]
+    (No recorded stats)
+  [com.chery.dialer]
+    (No recorded stats)
+  [com.android.location.fused]
+    (No recorded stats)
+  [com.android.systemui]
+    (No recorded stats)
+  [com.astrob.turbodog]
+    (No recorded stats)
+  [com.android.permissioncontroller]
+    (No recorded stats)
+  [com.chery.launchertwooverlay]
+    (No recorded stats)
+  [com.chery.upgrade]
+    (No recorded stats)
+  [com.chery.cerencetwooverlay]
+    (No recorded stats)
+  [com.android.bluetooth]
+    (No recorded stats)
+  [com.android.providers.contacts]
+    (No recorded stats)
+  [com.android.captiveportallogin]
+    (No recorded stats)
+  [com.softartstudio.carwebguru]
+    (No recorded stats)
+
+Settings parse messages:
+Read completed successfully: 102 packages, 12 shared uids
+
+Package warning messages:
+1/1/70 8:00 AM: No settings file; creating initial state
+1/1/70 8:00 AM: Adding duplicate app id: 10020 name=com.android.providers.downloads
+1/1/70 8:00 AM: Adding duplicate shared id: 2000 name=com.android.shell
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.launcher
+1/1/70 8:00 AM: Adding duplicate shared id: 1073 name=com.android.networkstack.permissionconfig
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.help
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=android
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.yfve.car.androidauto
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.hvac
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.localtransport
+1/1/70 8:00 AM: Adding duplicate shared id: 1073 name=com.android.networkstack
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.icm
+1/1/70 8:00 AM: Adding duplicate shared id: 1001 name=com.android.phone
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.location.fused
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.server.telecom
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.dynsystem
+1/1/70 8:00 AM: Adding duplicate app id: 10029 name=com.android.providers.contacts
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.yfve.car.carplay
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.car
+1/1/70 8:00 AM: Adding duplicate app id: 10020 name=com.android.providers.media
+1/1/70 8:00 AM: Adding duplicate shared id: 1001 name=com.android.mms.service
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.media
+1/1/70 8:00 AM: Adding duplicate shared id: 1001 name=com.android.providers.telephony
+1/1/70 8:00 AM: Adding duplicate app id: 10020 name=com.android.providers.downloads.ui
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.providers.settings
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.keychain
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.inputdevices
+1/1/70 8:00 AM: Adding duplicate shared id: 1068 name=com.android.se
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=vendor.yfvet.projection.androidauto
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.yfve.t19c.projection.carplay.service
+1/1/70 8:00 AM: Adding duplicate shared id: 1002 name=com.android.bluetooth
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.yfve.t19c_eol
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.yfve.engineeringmode
+1/1/70 8:00 AM: Adding duplicate app id: 10042 name=com.android.systemui
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.dialer
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.upgrade
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.android.inputmethod.latin
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.settings
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.astrob.turbodog
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.chery.cerence
+1/1/70 8:00 AM: Adding duplicate shared id: 1000 name=com.neusoft.ssp.ces.c4.car.assistant
+24.02.2026 08:42: Adding duplicate app id: 10062 name=com.google.android.apps.maps
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1.01.1970 08:00: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.yfve.t19c.projection.devicemanager
+1/1/70 8:00 AM: Relax SCAN_REQUIRE_KNOWN requirement for package com.chery.dialer
+
+Active install sessions:
+  
+Historical install sessions:
+  
+Legacy install sessions:
+  {}
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:
+chery_t19c:/ $ 
+7a031b8
+Prop: 0x21705033, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705034, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705035, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705036, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705037, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705038, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705039, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170503A, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170503B, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170503C, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170503D, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170503E, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170503F, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705040, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705041, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705042, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705043, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705044, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705045, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705046, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705047, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705048, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705049, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170504A, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170504B, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170504C, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170504D, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170504E, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170504F, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705050, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705051, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705052, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705053, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705054, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705055, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705056, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705057, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705058, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705059, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170505A, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170505B, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170505C, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170505D, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170505E, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170505F, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705060, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705061, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705062, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705063, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705064, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705065, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705066, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705067, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705068, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705069, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170506A, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170506B, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170506C, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170506D, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170506E, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170506F, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705070, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705071, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705072, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705073, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705074, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705075, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705076, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705077, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705078, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705079, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170507A, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170507B, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170507C, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170507D, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170507E, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170507F, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705080, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705081, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705082, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705083, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705084, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705085, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705086, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705087, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705088, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705089, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170508A, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170508B, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170508C, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170508D, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170508E, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170508F, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705090, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x217051FF, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705200, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705201, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21705202, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21706200, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21706202, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21706203, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21706204, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21706205, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170620D, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170620E, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170620F, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C000, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C001, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C002, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C003, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C004, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C005, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C006, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C007, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C008, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C009, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C00A, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C00B, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x2170C00C, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x21E00666, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x23400103, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x25600102, service: com.android.car.hal.PropertyHalService@7a031b8
+Prop: 0x26200101, service: com.android.car.hal.PropertyHalService@7a031b8
+chery_t19c:/ $ dumpsys car_service | grep -i door
+
+Property:0x11400108,Property name:INFO_FUEL_DOOR_LOCATION,access:0x1,changeMode:0x0,config:0x[],fs min:0.0,fs max:0.0,areaId :0,f min:0.0,f max:0.0,i min:0,i max:0,i64 min:0,i64 max:0
+Property:0x16200b02,Property name:DOOR_LOCK,access:0x3,changeMode:0x1,config:0x[],fs min:0.0,fs max:0.0,areaId :1,f min:0.0,f max:0.0,i min:0,i max:0,i64 min:0,i64 max:0,areaId :4,f min:0.0,f max:0.0,i min:0,i max:0,i64 min:0,i64 max:0,areaId :10,f min:0.0,f max:0.0,i min:0,i max:0,i64 min:0,i64 max:0,areaId :40,f min:0.0,f max:0.0,i min:0,i max:0,i64 min:0,i64 max:0
+Property:0x16400b00,Property name:DOOR_POS,access:0x3,changeMode:0x1,config:0x[],fs min:0.0,fs max:0.0,areaId :1,f min:0.0,f max:0.0,i min:0,i max:1,i64 min:0,i64 max:0,areaId :4,f min:0.0,f max:0.0,i min:0,i max:1,i64 min:0,i64 max:0,areaId :10,f min:0.0,f max:0.0,i min:0,i max:1,i64 min:0,i64 max:0,areaId :40,f min:0.0,f max:0.0,i min:0,i max:1,i64 min:0,i64 max:0,areaId :20000000,f min:0.0,f max:0.0,i min:0,i max:1,i64 min:0,i64 max:0
+Property:0x11200308,Property name:FUEL_DOOR_OPEN,access:0x3,changeMode:0x1,config:0x[],fs min:0.0,fs max:0.0,areaId :0,f min:0.0,f max:0.0,i min:0,i max:0,i64 min:0,i64 max:0
+chery_t19c:/ $ setprop log.tag.ActivityManager VERBOSE
+
+chery_t19c:/ $ stop
+
+stop: must be root
+1|chery_t19c:/ $ adb shell start
+
+/system/bin/sh: adb: inaccessible or not found
+127|chery_t19c:/ $ adb shell start
+
+/system/bin/sh: adb: inaccessible or not found
+127|chery_t19c:/ $ start
+
+start: must be root
+1|chery_t19c:/ $ su adb shell start
+
+su: failed to exec shell: Permission denied
+1|chery_t19c:/ $ logcat | grep -i intent
+
+01-01 08:00:11.823  2711  2711 I IntentFirewall: Read new rules (A:0 B:0 S:0)
+01-01 08:00:12.484  2711  2826 W PackageParser: No actions in intent filter at /system/app/Bluetooth/Bluetooth.apk Binary XML file line #264
+01-01 08:00:12.654  2711  2835 W PackageParser: No actions in intent filter at /data/app/in.krosbits.musicolet-JxVJuUkJAeQz-tJ55-yztg==/base.apk Binary XML file line #160
+01-01 08:00:12.655  2711  2835 W PackageParser: No actions in intent filter at /data/app/in.krosbits.musicolet-JxVJuUkJAeQz-tJ55-yztg==/base.apk Binary XML file line #289
+01-01 08:00:12.850  2711  2835 W PackageParser: No actions in intent filter at /data/app/com.softartstudio.carwebguru-I-E6V8EoO-EX9Y09lO6jMw==/base.apk Binary XML file line #383
+01-01 08:00:13.232  2711  2711 D PackageManager: Ephemeral resolver NOT found; no matching intent filters
+01-01 08:00:13.232  2711  2711 D PackageManager: Instant App installer not found with android.intent.action.INSTALL_INSTANT_APP_PACKAGE
+04-06 23:01:19.310  2711  2711 W ActivityManager: Unable to start service Intent { flg=0x100 cmp=com.android.systemui/.keyguard.KeyguardService } U=0: not found
+04-06 23:01:19.425  2711  2711 E ActivityTaskManager: find no home app,intent is Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x100 }
+04-06 23:01:19.475  2711  2711 E ActivityTaskManager: find no home app,intent is Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x100 }
+04-06 23:01:19.527  2711  2711 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=me.efesser.flauncher/.MainActivity} from uid 0
+04-06 23:01:20.537  2711  2711 I Telecom : SystemStateHelper: Registering car mode receiver: android.content.IntentFilter@6a9278e: TS.init@AAA
+04-06 23:01:20.852  2711  2711 V NotificationAssistants: binding: Intent { act=android.service.notification.NotificationAssistantService cmp=android.ext.services/.notification.Assistant (has extras) }
+04-06 23:01:21.872  2711  3160 W ActivityManager: Unable to start service Intent { cmp=android.car.input.service/.DefaultInputService (has extras) } U=0: not found
+04-06 23:01:22.320  2711  3520 W ActivityManager: Unable to start service Intent { act=android.media.IMtpScannerService cmp=com.android.mtp/.MtpScannerService } U=0: not found
+04-06 23:01:23.141  2711  3159 W ActivityManager: Unable to start service Intent { cmp=android.car.cluster/.ClusterRenderingService } U=0: not found
+04-06 23:01:24.511  2711  3608 W ActivityManager: Background start not allowed: service Intent { act=ACTION_PLAY cmp=in.krosbits.musicolet/.MusicService } to in.krosbits.musicolet/.MusicService from pid=3673 uid=10054 pkg=in.krosbits.musicolet startFg?=false
+04-06 23:01:24.598  2711  3608 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.location.PROVIDERS_CHANGED flg=0x10 (has extras) } to com.google.android.apps.maps/com.google.android.apps.gmm.locationsharing.usr.LocationAvailabilityChecker$LocationProvidersChangedBroadcastReceiver
+04-06 23:01:24.599  2711  2803 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.location.PROVIDERS_CHANGED flg=0x10 (has extras) } to com.google.android.apps.maps/com.google.android.apps.gmm.locationsharing.usr.LocationAvailabilityChecker$LocationProvidersChangedBroadcastReceiver
+04-06 23:01:24.600  2711  2803 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.location.MODE_CHANGED flg=0x10 } to com.google.android.apps.maps/com.google.android.apps.gmm.locationsharing.usr.LocationAvailabilityChecker$LocationProvidersChangedBroadcastReceiver
+04-06 23:01:24.655  2711  3608 W ActivityManager: Unable to start service Intent { act=android.media.IMtpScannerService cmp=com.android.mtp/.MtpScannerService } U=0: not found
+04-06 23:01:26.616  2711  3608 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+04-06 23:01:26.630  2711  2776 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+04-06 23:01:26.636  2711  3608 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+04-06 23:01:27.021  2711  3667 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+12-13 02:05:50.105  2711  3520 W ActivityManager: Unable to start service Intent { act=com.android.vending.licensing.ILicensingService pkg=com.android.vending } U=0: not found
+12-13 02:05:50.440  2711  3608 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+12-13 02:05:50.458  2711  3667 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+12-13 02:05:50.619  2711  2795 E BluetoothManagerService: Fail to bind to: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.619  2711  2795 W BluetoothManagerService: Unable to bind with intent: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.620  2711  2795 E BluetoothManagerService: Fail to bind to: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.620  2711  2795 W BluetoothManagerService: Unable to bind with intent: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.621  2711  2795 E BluetoothManagerService: Fail to bind to: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.621  2711  2795 W BluetoothManagerService: Unable to bind with intent: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.623  2711  3520 E BluetoothManagerService: Fail to bind to: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.623  2711  3520 W BluetoothManagerService: Unable to bind with intent: Intent { act=android.bluetooth.IBluetoothHeadset }
+12-13 02:05:50.685  2711  3685 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+12-13 02:05:50.723  2711  3667 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+12-13 02:05:50.732  2711  3520 W ActivityManager: Unable to start service Intent { act=com.chery.launcher.model.service.LauncherService pkg=com.chery.launcher } U=0: not found
+12-13 02:05:51.112  2711  3685 W ActivityTaskManager: Background activity start [callingPackage: com.example.chery_master_launcher; callingUid: 10049; isCallingUidForeground: false; isCallingUidPersistentSystemProcess: false; realCallingUid: 10049; isRealCallingUidForeground: false; isRealCallingUidPersistentSystemProcess: false; originatingPendingIntent: null; isBgStartWhitelisted: false; intent: Intent { flg=0x10000000 cmp=com.example.chery_master_launcher/.MainActivity }; callerApp: ProcessRecord{b9a32ad 4263:com.example.chery_master_launcher/u0a49}]
+12-13 02:05:51.148  2711  3685 W ActivityManager: Unable to start service Intent { act=com.android.vending.licensing.ILicensingService pkg=com.android.vending } U=0: not found
+12-13 02:05:52.190  2711  3685 W ActivityManager: Unable to start service Intent { act=com.android.vending.licensing.ILicensingService pkg=com.android.vending } U=0: not found
+12-13 02:05:53.230  2711  2972 W ActivityManager: Unable to start service Intent { act=com.android.vending.licensing.ILicensingService pkg=com.android.vending } U=0: not found
+12-13 02:05:55.835  2711  3678 W BroadcastQueue: Permission Denial: receiving Intent { act=android.intent.action.BOOT_COMPLETED flg=0x89000010 (has extras) } to in.krosbits.musicolet/androidx.work.impl.background.systemalarm.RescheduleReceiver requires android.permission.RECEIVE_BOOT_COMPLETED due to sender null (uid 1000)
+12-13 02:05:57.235  2711  3667 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.location.PROVIDERS_CHANGED flg=0x10 (has extras) } to com.google.android.apps.maps/com.google.android.apps.gmm.locationsharing.usr.LocationAvailabilityChecker$LocationProvidersChangedBroadcastReceiver
+02-27 02:06:10.001  2711  2711 D ConditionProviders.SCP: onReceive android.intent.action.TIME_SET
+02-27 02:06:10.002  4229  4229 D WM-RescheduleReceiver: Received intent Intent { act=android.intent.action.TIME_SET flg=0x25200010 cmp=com.aurora.store/androidx.work.impl.background.systemalarm.RescheduleReceiver }
+02-27 02:06:10.224  3673  3673 D WM-RescheduleReceiver: Received intent Intent { act=android.intent.action.TIME_SET flg=0x25200010 cmp=in.krosbits.musicolet/androidx.work.impl.background.systemalarm.RescheduleReceiver }
+02-27 02:06:27.561  3815  3815 D MEDIA.HardKeyBusiness: onHardKey:Intent { act=com.saic.keyevent.hardkey.rep

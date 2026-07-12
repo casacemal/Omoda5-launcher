@@ -9,13 +9,13 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
     *   **Önce Sunucu Kontrolü:** Sunucunun (192.168.1.14) erişilebilirliği ve servislerin (8642, 1883 vb.) durumu kontrol edilmeden KESİNLİKLE kod değişikliği yapılmaz.
     *   **Kod Kontrolü:** Sunucu normalse, uygulamadaki **3 kırmızı LED** (Bağlantı durum göstergeleri) üzerinden hata analizi yapılır.
 2.  **Gözlem:** Her kullanıcı isteğinde ve kod incelemesinde yeni bilgiler (teknik kısıtlar, tercihler, kararlar) aranır.
-2.  **Kayıt:** Yeni bir bilgi tespit edildiğinde, kullanıcıya sormadan ilgili dokümana (PROJECT_BRIEF.md, ROADMAP.md vb.) eklenir.
-3.  **Doğrulama:** Eğer yeni bilgi mevcut kararlarla çelişiyorsa, işlem yapmadan önce kullanıcıdan onay istenir.
-4.  **Güncelleme:** Her görev sonunda PROGRESS.md, FILE_INDEX.md, ROADMAP.md ve UI_MANIFESTO.md güncellenir. Yeni bir dosya eklendiğinde veya bir dosyanın görevi değiştiğinde "Proje Mimari Haritası" tablosu derhal revize edilmelidir.
+3.  **Kayıt:** Yeni bir bilgi tespit edildiğinde, kullanıcıya sormadan ilgili dokümana (PROJECT_BRIEF.md, ROADMAP.md vb.) eklenir.
+4.  **Doğrulama:** Eğer yeni bilgi mevcut kararlarla çelişiyorsa, işlem yapmadan önce kullanıcıdan onay istenir.
+5.  **Güncelleme:** Her görev sonunda PROGRESS.md, FILE_INDEX.md, ROADMAP.md ve UI_MANIFESTO.md güncellenir. Yeni bir dosya eklendiğinde veya bir dosyanın görevi değiştiğinde "Proje Mimari Haritası" tablosu derhal revize edilmelidir.
 
 ## Mimari Kısıtlar (ÖNEMLİ)
 
-*   **UI Koruma:** Ana ekran 5x2 grid yapısı ve 235dp sidebar boşluğu `UI_MANIFESTO.md` kurallarına göre korunmalıdır. Değiştirilemez.
+*   **UI & SES Koruma:** Ana ekran 5x2 grid yapısı, 235dp sidebar boşluğu ve 16kHz Mono ses kayıt standartları `UI_MANIFESTO.md` kurallarına göre korunmalıdır. Değiştirilemez.
 *   **Tek IP / Çoklu Port Mimarisi:** Projede tüm dış servisler TEK BİR IP adresi üzerinden sunulur. Farklı hizmetler sadece port numaraları ile ayırt edilir.
 *   **Sabit Sunucu Adresi:** `100.95.239.119` (Tailscale) / `192.168.1.14` (Yerel Ağ)
 *   **Doğrulanmış Servis ve Yetki Haritası (04.07.2026 Test Sonucu):**
@@ -59,16 +59,7 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
     *   Host: `192.168.1.14`
     *   User: `dietpi` (40781)
     *   Password: `40781`
-*   **Servis Uç Noktaları:**
-    *   **Chat:** `http://192.168.1.14:8642/v1`
-    *   **WebSocket Relay:** `ws://192.168.1.14:8766/ws`
-    *   **Relay Send (HTTP):** `POST http://192.168.1.14:8766/relay/send`
-    *   **BridgeServer (Local):** `http://192.168.1.14:8765`
-    *   **STT/TTS (9Router):** `http://192.168.1.14:20128/v1`
-    *   **STT/TTS (Wyoming):** `http://192.168.1.14:5000/v1`
-    *   **TTS (Edge):** `http://192.168.1.14:10201/v1/audio/speech`
-    *   **STT (Sherpa Local):** `http://192.168.1.14:5002/v1/stt`
-*   **Servis Kısıtlamaları:** Groq veya diğer harici doğrudan bulut API'leri KESİNLİKLE kullanılmayacaktır. Tüm yapay zeka ve ses işlemleri `100.95.239.119:8642` ve diğer yerel portlar üzerinden yürütülecektir. TTS (Text-to-Speech) olarak yalnızca yerel Edge TTS sunucusu (Port `10201` - `/v1/audio/speech`) kullanılacaktır.
+*   **Servis Kısıtlamaları:** Groq veya diğer harici doğrudan bulut API'leri KESİNLİKLE kullanılmayacaktır. Tüm yapay zeka ve ses işlemleri `100.95.239.119:8642` ve diğer yerel portlar üzerinden yürütülecektir. TTS olarak yalnızca yerel Edge TTS sunucusu (Port `10201`) kullanılacaktır.
 
 ## Kod İnceleme Protokolü
 
@@ -85,40 +76,48 @@ Bir dosya "kontrol et" dendiğinde aşağıdaki adımlar sırasıyla uygulanır:
     *   Race condition: Birden çok callback'in aynı anda tetiklenme olasılığı değerlendirilir.
 6.  **Raporlama:** Bulgular öncelik sırasına göre (BUG / UYUMSUZLUK / DÜŞÜK RİSK) etiketlenerek sunulur.
 
+## Kapsamlı Kod Audit Raporu
+
+Tüm proje kaynak kodunun profesyonel gözle taramasının sonucu [CODE_AUDIT_REPORT.md](CODE_AUDIT_REPORT.md) dosyasında tutulur. Bu rapor aşağıdaki kategorileri kapsar:
+
+- **Güvenlik:** Export edilmiş korumasız servis/receiver'lar, komut enjeksiyonu, hardcoded API key'leri
+- **Ağ/Bağlantı:** Socket resource leak'leri, timeout ayarları, yeniden bağlanma mekanizmaları, fallback zincirleri
+- **Ses (STT/TTS):** Race condition'lar, AudioRecord/MediaPlayer sızıntıları, onError→onComplete yanlış çağrısı
+- **Durum Yönetimi:** Çift durum tanımları, ölü UI akışları, config kaydetme/revert eksiklikleri
+- **Kaynak Yönetimi:** Coroutine scope sızıntıları, WakeLock zaman aşımı eksikliği, ham Thread sızıntıları
+- **Ölü Kod:** Kullanılmayan dosyalar, boş fonksiyon gövdeleri, kullanılmayan değişkenler
+- **Mimari:** God Object, duplicate ViewModel, reflection bağımlılıkları
+
+**Ajanlar yeni bir görev alduğunda bu raporu referans almalı, düzeltme yapılacaksa öncelik sırasına (Kritik → Yüksek → Orta → Düşük) uymalıdır.**
+
 ## API Hata Ayıklama Protokolü
 
 *   **Sorun Tespiti:** Bağlantı veya yapılandırma sorunu yaşanırsa, doğrudan uygulamanın ana kodlarını bozarak deneme-yanılma yapmak **KESİNLİKLE YASAKTIR!**
 *   **Test Araçlarının Kullanımı:** Ajanlar, API arızalarında öncelikle `scripts/` dizininde bulunan yerel test aracı olan [test_voice_system.py](file:///mnt/depo/launcher_v2/scripts/test_voice_system.py) betiğini kullanmalıdır.
 
-### Servis Canlılık ve API Entegrasyon Testi
+### Servis Canlılık Testi
 
-Bir bağlantı/hata durumunda PC veya sunucu üzerinden şu adımlar sırayla izlenmelidir:
+1. **Ping:** `ping -c 2 -W 3 <ip>`
+2. **Ses Sistemi Testi:** `python3 scripts/test_voice_system.py --ip <ip>` (Wyoming/9Router/EdgeTTS/Hermes test eder)
+3. **Servis Kontrolü:** `python3 scripts/check_services.py` (9Router API port 20128 test eder)
+4. **Simülasyon Verisi Gönderimi:** `python3 scripts/send_sim_data.py` (MQTT üzerinden sahte telemetri basar)
 
-1.  **Ping Kontrolü:** Hedef IP'ye (örneğin 192.168.1.14) ping atılır:
-    ```bash
-    ping -c 2 -W 3 <ip>
-    ```
-    Erişilemiyorsa ağ veya sunucu kapalıdır.
-2.  **Otomatik API Testi:** Ping başarılıysa, terminal üzerinden test aracı çalıştırılır:
-    ```bash
-    python3 scripts/test_voice_system.py --ip <ip>
-    ```
-    Bu araç sırasıyla şu servisleri test eder:
-    - **Wyoming STT** (Port 5000 /v1/stt)
-    - **9Router STT** (Port 20128 /v1/audio/transcriptions)
-    - **Wyoming TTS** (Port 5000 /v1/tts)
-    - **9Router TTS** (Port 20128 /v2/audio/speech - Edge proxy)
-    - **Yerel Edge TTS** (Port 10201 /v1/audio/speech)
-    - **Hermes Chat API** (Port 8642 /v1/chat/completions)
+## Test Araçları Kataloğu
 
-## Ortamdan Çıkarılacak Bilgiler
+Emin olunmayan durumlarda aşağıdaki script'ler doğrulama için KESİNLİKLE kullanılmalıdır:
 
-...
+| Araç | Konum | Açıklama |
+| :--- | :--- | :--- |
+| **Ses Sistemi Testi** | `scripts/test_voice_system.py` | STT, TTS ve LLM servislerini uçtan uca test eder. En kapsamlı test aracıdır. |
+| **Simülasyon Veri Basıcı** | `scripts/send_sim_data.py` | MQTT `omoda/simulate` kanalına sahte Hız, RPM, Vites verisi gönderir. |
+| **API Servis Kontrolü** | `scripts/check_services.py` | 9Router (Port 20128) üzerinden STT, Chat ve TTS fonksiyonlarını test eder. |
+| **Oturum Yönetimi Testi** | `scripts/test_sessions.py` | Hermes API (Port 8642) oturum oluşturma ve SSE stream chat testlerini yapar. |
+| **Edge TTS WS Test** | `aes_app/test_edge_ws.py` | Microsoft Edge TTS WebSocket bağlantısını ve token üretimini doğrular. |
+| **Bridge API Test** | `scripts/test_bridge_api.py` | Wyoming/Bridge (Port 5000) katmanını test eder. |
 
 ## Overlay Uç Noktası
 
-### Sorun:	eger
-Overlay, sesli yanıtı iki kez gösteriyor: üstte gri metin ve altta mavi metin. Çözüm: `AssistantOverlayUI` içinde yalnızca tek metin görünmesi sağlanmalı. Bu değişiklik `AssistantOverlayUI.kt` dosyasında yapılmıştır.
+Overlay, sesli yanıtı iki kez gösteriyordu (üstte gri + altta mavi metin). Çözüm: `AssistantOverlayUI` içinde yalnızca tek metin görünmesi sağlandı.
 
 ## Ses İletim Mimarisi ve Yol Haritası
 
@@ -158,3 +157,16 @@ sequenceDiagram
 1. **Sesin Alınması (STT):** Kullanıcı bas-konuş yaptığında ses `.wav` dosyası olarak kaydedilir ve `http://192.168.1.14:20128/v1/audio/transcriptions` (Yedek: `http://192.168.1.14:5000/v1/stt`) adresi üzerinden metne dönüştürülür.
 2. **AI İşleme (Hermes Chat completions SSE):** Çözümlenen metin `http://192.168.1.14:8642/v1/chat/completions` OpenAI-compatible endpoint'ine gönderilir. Kelimeler SSE stream olarak geri akar. Cümle bitişlerinde (`.`, `?`, `!`) veya 50 karakter sınırında sentezleme sıraya alınır.
 3. **Ses Sentezleme (HTTP GET Stream):** Bölünen cümleler diske yazılmaksızın doğrudan MediaPlayer'a stream URL'si olarak yollanır. MediaPlayer, `http://${serverIp}:8642/v1/audio/speech?input=...&voice=edge` adresi üzerinden ses akışını (GET) alır. Hermes API bu isteği yerel Edge TTS sunucusuna (Port 10201) proxy eder ve dönen MP3 binary akışı MediaPlayer tarafından arabelleğe alınarak anında hoparlörden çalınır. (I/O yazma gecikmesi tamamen engellenmiştir).
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).

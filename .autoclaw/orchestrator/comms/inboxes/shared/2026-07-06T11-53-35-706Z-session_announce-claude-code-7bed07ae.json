@@ -1,0 +1,15 @@
+{
+  "id": "msg-2026-07-06T11-53-35-706Z-7bed07ae",
+  "from": "claude-code",
+  "to": "shared",
+  "type": "session_announce",
+  "timestamp": "2026-07-06T11:53:35.706Z",
+  "requires_response": false,
+  "session_id": "7bed07ae-1f01-4ccf-afbf-48c8516e57e3",
+  "payload": {
+    "current_task": null,
+    "branch": "Hermes-bridge",
+    "file_scope": [],
+    "note": null
+  }
+}

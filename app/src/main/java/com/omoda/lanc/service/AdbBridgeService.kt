@@ -15,6 +15,7 @@ class AdbBridgeService : Service() {
 
     companion object {
         const val ACTION_EXECUTE_SHELL = "ACTION_EXECUTE_SHELL"
+        const val ACTION_STOP_SERVICE = "ACTION_STOP_SERVICE"
     }
 
     override fun onBind(i: Intent?): IBinder? = null
@@ -36,8 +37,19 @@ class AdbBridgeService : Service() {
     }
 
     override fun onStartCommand(i: Intent?, f: Int, s: Int): Int {
-        if (i?.action == ACTION_EXECUTE_SHELL) {
-            i.getStringExtra("command")?.let { AdbClient.executeCommand(it) }
+        when (i?.action) {
+            ACTION_EXECUTE_SHELL -> {
+                i.getStringExtra("command")?.let { AdbClient.executeCommand(it) }
+            }
+            ACTION_STOP_SERVICE -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                } else {
+                    @Suppress("DEPRECATION")
+                    stopForeground(true)
+                }
+                stopSelf()
+            }
         }
         return START_STICKY
     }

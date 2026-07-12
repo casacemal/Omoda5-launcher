@@ -77,8 +77,13 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
 
     init {
         try {
-            val component = ComponentName(application, MediaNotificationListener::class.java)
-            sessionManager.addOnActiveSessionsChangedListener(sessionListener, component, handler)
+            try {
+                val component = ComponentName(application, MediaNotificationListener::class.java)
+                sessionManager.addOnActiveSessionsChangedListener(sessionListener, component, handler)
+            } catch (e: SecurityException) {
+                Log.e("OmodaMedia", "Medya kontrol yetkisi eksik (Notification Access): ${e.message}")
+                AssistantApplication.addLogStatic("HATA: Medya Kontrol Yetkisi Yok (Bildirim Erişimi Verin)")
+            }
             
             // Bridge Sync
             viewModelScope.launch {

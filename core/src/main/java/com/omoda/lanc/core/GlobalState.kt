@@ -49,10 +49,15 @@ object GlobalState {
     val isRadioMode = MutableStateFlow(false)
     val isBridgeMode = MutableStateFlow(false)
 
-    var HERMES_API_KEY = "cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34"
-    var NINEROUTER_API_KEY = "sk-b6f4d3879cc4a442-vwd4xl-8ad79a58"
-    var GITHUB_TOKEN = "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"
-    var EDGE_TTS_TOKEN = "6A5AA1D4EAFF4E9FB37E23D68491D6F4"
+    val hermesApiKey = MutableStateFlow("")
+    val ninerouterApiKey = MutableStateFlow("")
+    val githubToken = MutableStateFlow("")
+    val edgeTtsToken = MutableStateFlow("")
+    
+    @Deprecated("Use flow instead") var HERMES_API_KEY: String get() = hermesApiKey.value; set(v) { hermesApiKey.value = v }
+    @Deprecated("Use flow instead") var NINEROUTER_API_KEY: String get() = ninerouterApiKey.value; set(v) { ninerouterApiKey.value = v }
+    @Deprecated("Use flow instead") var GITHUB_TOKEN: String get() = githubToken.value; set(v) { githubToken.value = v }
+    @Deprecated("Use flow instead") var EDGE_TTS_TOKEN: String get() = edgeTtsToken.value; set(v) { edgeTtsToken.value = v }
     
     val latestVersion = MutableStateFlow("v---")
     val downloadProgressText = MutableStateFlow<String?>(null)

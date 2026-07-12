@@ -26,7 +26,7 @@ def vCode = newCode
 def vName = versionProps['VERSION_NAME']
 
 // UPDATE MODU: Büyük modelleri APK dışına çıkar (Boyut küçültme)
-def isUpdateOnly = true
+def isUpdateOnly = false
 
 // Versiyonu .md dosyalarına yaz
 def mdFiles = [
@@ -78,7 +78,17 @@ android {
             abiFilters 'arm64-v8a'
         }
 
+        def localProps = new Properties()
+        def localPropsFile = project.rootProject.file('local.properties')
+        if (localPropsFile.exists()) {
+            localProps.load(localPropsFile.newDataInputStream())
+        }
+
         buildConfigField "String", "BUILD_DATE", "\"${versionProps['BUILD_DATE']}\""
+        buildConfigField "String", "GITHUB_TOKEN", "\"${localProps.getProperty('github.token', '')}\""
+        buildConfigField "String", "HERMES_API_KEY", "\"${localProps.getProperty('hermes.api.key', '')}\""
+        buildConfigField "String", "NINEROUTER_API_KEY", "\"${localProps.getProperty('ninerouter.api.key', '')}\""
+        buildConfigField "String", "EDGE_TTS_TOKEN", "\"${localProps.getProperty('edge.tts.token', '')}\""
     }
 
     buildTypes {

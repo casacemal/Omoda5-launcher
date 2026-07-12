@@ -5,6 +5,7 @@ import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.util.Log
+import com.omoda.lanc.core.GlobalState
 import com.omoda.lanc.core.HardwareState
 import okhttp3.*
 import okio.ByteString.Companion.toByteString
@@ -81,12 +82,26 @@ class AudioStreamSender(private val serverUrl: String) {
     }
 
     private fun connectWebSocket() {
-        val request = Request.Builder().url(serverUrl).build()
+        val request = Request.Builder()
+            .url(serverUrl)
+            .addHeader("X-API-Key", GlobalState.HERMES_API_KEY)
+            .addHeader("X-Hermes-Session-Key", GlobalState.sessionKey.value)
+            .build()
         webSocket = client.newWebSocket(request, object : WebSocketListener() {
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 Log.e(TAG, "Sender WebSocket Hatası: ${t.message}")
+                if (isStreaming) reconnect()
             }
         })
+    }
+
+    private fun reconnect() {
+        try {
+            Thread.sleep(3000)
+            if (isStreaming) connectWebSocket()
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
+        }
     }
 
     fun stopStreaming() {

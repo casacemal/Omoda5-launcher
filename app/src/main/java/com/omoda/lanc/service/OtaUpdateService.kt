@@ -1,5 +1,6 @@
 package com.omoda.lanc.service
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -99,6 +100,7 @@ class OtaUpdateService : Service() {
         })
     }
 
+    @SuppressLint("NotificationPermission")
     private fun updateProgressNotification(update: AppUpdate, progress: Int) {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.stat_sys_download)
@@ -112,6 +114,7 @@ class OtaUpdateService : Service() {
         notificationManager.notify(NOTIF_ID, notification)
     }
 
+    @SuppressLint("NotificationPermission")
     private fun showUpdateReadyNotification(update: AppUpdate, file: File) {
         val installIntent = Intent(this, OtaInstallReceiver::class.java).apply {
             putExtra("apk_path", file.absolutePath)

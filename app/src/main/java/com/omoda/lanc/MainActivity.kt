@@ -15,6 +15,8 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -24,6 +26,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -49,16 +52,24 @@ import com.omoda.lanc.ui.components.GlassIcon
 import com.omoda.lanc.ui.screens.SettingsScreen
 import com.omoda.lanc.ui.theme.Omoda5NextGenTheme
 import com.omoda.lanc.ui.theme.OmodaCyan
+import kotlinx.coroutines.*
 import java.io.File
 import androidx.compose.foundation.ExperimentalFoundationApi
 
 class MainActivity : ComponentActivity() {
     private val mediaVM: com.omoda.lanc.media.MediaControllerViewModel by viewModels()
     private lateinit var adbMonitor: com.omoda.lanc.network.AdbConnectionMonitor
+    private val currentScreenState = mutableStateOf("home")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        intent?.getStringExtra("TARGET_SCREEN")?.lowercase()?.let {
+            if (it in listOf("home", "settings", "dashboard", "sensors")) {
+                currentScreenState.value = it
+            }
+        }
+
         showVersionToast()
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -81,6 +92,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.getStringExtra("TARGET_SCREEN")?.lowercase()?.let {
+            if (it in listOf("home", "settings", "dashboard", "sensors")) {
+                currentScreenState.value = it
+            }
+        }
+    }
+
     override fun onDestroy() {
         if (::adbMonitor.isInitialized) adbMonitor.stop()
         super.onDestroy()
@@ -88,9 +108,12 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun MainNavigation() {
-        var currentScreen by remember { mutableStateOf("home") }
+        var currentScreen by currentScreenState
 
         BackHandler(enabled = currentScreen != "home") {
+            if (currentScreen == "settings") {
+                AssistantApplication.saveCurrentConfig()
+            }
             currentScreen = "home"
         }
 
@@ -112,30 +135,41 @@ class MainActivity : ComponentActivity() {
             when (currentScreen) {
                 "home" -> HomeScreen(
                     onOpenSettings = { currentScreen = "settings" },
-                    onOpenDashboard = { currentScreen = "dashboard" }
+                    onOpenDashboard = { currentScreen = "dashboard" },
+                    onOpenSensors = { currentScreen = "sensors" }
                 )
                 "settings" -> SettingsScreen(onBack = { currentScreen = "home" })
-                "dashboard" -> com.omoda.lanc.ui.screens.DashboardScreen(onBack = { currentScreen = "home" })
+                "dashboard" -> com.omoda.lanc.ui.screens.DashboardScreen(
+                    viewModel = mediaVM,
+                    onBack = { currentScreen = "home" }
+                )
+                "sensors" -> com.omoda.lanc.ui.screens.SensorMonitorScreen(onBack = { currentScreen = "home" })
             }
         }
     }
 
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
-    fun HomeScreen(onOpenSettings: () -> Unit, onOpenDashboard: () -> Unit) {
+    fun HomeScreen(onOpenSettings: () -> Unit, onOpenDashboard: () -> Unit, onOpenSensors: () -> Unit) {
         val context = androidx.compose.ui.platform.LocalContext.current
+        val currentMode by GlobalState.currentMode.collectAsState()
         val configuration = androidx.compose.ui.platform.LocalConfiguration.current
         val smallestWidth = configuration.smallestScreenWidthDp
         val isHandheld = !AssistantApplication.isCarHardware && smallestWidth < 600
         
         val gridColumnsVal = if (isHandheld) 4 else 5
-        val itemsPerPage = 10 // OMODA 5 Standard: 5x2
+        val itemsPerPage = if (isHandheld) 8 else 10 
 
-        var launcherPages by remember { mutableStateOf(buildLauncherPages(itemsPerPage)) }
+        var launcherPages by remember { mutableStateOf<List<List<LauncherItem>>>(emptyList()) }
         val pagerState = rememberPagerState { launcherPages.size }
         
         LaunchedEffect(itemsPerPage) {
-            launcherPages = buildLauncherPages(itemsPerPage)
+            withContext(Dispatchers.IO) {
+                val pages = buildLauncherPages(itemsPerPage)
+                withContext(Dispatchers.Main) {
+                    launcherPages = pages
+                }
+            }
         }
 
         val internalWallpapers = listOf(
@@ -158,8 +192,11 @@ class MainActivity : ComponentActivity() {
         val totalCount = internalWallpapers.size + externalWallpapers.size
         val currentIdx = if (totalCount > 0) wallpaperIdx % totalCount else 0
         
-        val leftPaddingVal = if (isHandheld) 12.dp else 235.dp
-        val topPaddingVal = if (isHandheld) 12.dp else 60.dp // OMODA 5 Standard: 60dp top padding
+        val leftPaddingVal = if (isHandheld) 16.dp else 235.dp
+        val topPaddingVal = if (isHandheld) 8.dp else 60.dp 
+        val bottomPaddingVal = if (isHandheld) 60.dp else 80.dp
+        val fabSize = if (isHandheld) 48.dp else 64.dp
+        val fabSpacing = if (isHandheld) 10.dp else 16.dp
 
         val painter: Painter = if (currentIdx < internalWallpapers.size) {
             painterResource(internalWallpapers[currentIdx])
@@ -211,9 +248,9 @@ class MainActivity : ComponentActivity() {
                     HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) { pIdx ->
                         LazyVerticalGrid(
                             columns = GridCells.Fixed(gridColumnsVal), 
-                            modifier = Modifier.fillMaxSize().padding(start = leftPaddingVal, end = 40.dp, top = topPaddingVal, bottom = 80.dp),
-                            verticalArrangement = Arrangement.spacedBy(20.dp),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
+                            modifier = Modifier.fillMaxSize().padding(start = leftPaddingVal, end = if(isHandheld) 16.dp else 40.dp, top = topPaddingVal, bottom = bottomPaddingVal),
+                            verticalArrangement = Arrangement.spacedBy(if(isHandheld) 10.dp else 20.dp),
+                            horizontalArrangement = Arrangement.spacedBy(if(isHandheld) 8.dp else 10.dp),
                             userScrollEnabled = false
                         ) {
                             items(launcherPages[pIdx]) { item ->
@@ -238,59 +275,333 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    Row(
-                        modifier = Modifier.align(Alignment.BottomStart).padding(start = 30.dp, bottom = 30.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        val currentMode by com.omoda.lanc.core.GlobalState.currentMode.collectAsState()
-                        
-                        // Dinleme Butonu
-                        FloatingActionButton(
-                            onClick = {
-                                val action = if (isListening) "com.omoda.assistant.STOP_LISTENING" else "com.omoda.assistant.START_LISTENING"
-                                context.sendBroadcast(android.content.Intent(action))
-                            },
-                            containerColor = if(isListening) Color.Red else OmodaCyan,
-                            contentColor = Color.Black, shape = CircleShape, modifier = Modifier.size(64.dp)
-                        ) { Icon(painterResource(android.R.drawable.ic_btn_speak_now), null) }
-
-                        // MOD DEĞİŞTİRME BUTONU (CHAT / ASISTANT)
-                        FloatingActionButton(
-                            onClick = {
-                                com.omoda.lanc.core.GlobalState.currentMode.value = if (currentMode == "CHAT") "ASISTANT" else "CHAT"
-                                AssistantApplication.saveCurrentConfig()
-                            },
-                            containerColor = if (currentMode == "CHAT") Color(0xFF9C27B0) else Color(0xFF607D8B),
-                            contentColor = Color.White, shape = CircleShape, modifier = Modifier.size(64.dp)
-                        ) { 
-                            Text(
-                                text = if (currentMode == "CHAT") "CHAT" else "ASIST", 
-                                fontSize = 12.sp, 
-                                fontWeight = FontWeight.Bold
-                            ) 
+                    if (isHandheld) {
+                        LazyRow(
+                            modifier = Modifier
+                                .align(Alignment.BottomStart)
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, bottom = 12.dp, end = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(fabSpacing)
+                        ) {
+                            item {
+                                // Dinleme Butonu
+                                FloatingActionButton(
+                                    onClick = {
+                                        val action = if (isListening) "com.omoda.assistant.STOP_LISTENING" else "com.omoda.assistant.START_LISTENING"
+                                        context.sendBroadcast(android.content.Intent(action))
+                                    },
+                                    containerColor = if(isListening) Color.Red else OmodaCyan,
+                                    contentColor = Color.Black, shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { Icon(painterResource(android.R.drawable.ic_btn_speak_now), null, modifier = Modifier.size(20.dp)) }
+                            }
+                            item {
+                                // MOD DEĞİŞTİRME BUTONU (CHAT / ASISTANT)
+                                FloatingActionButton(
+                                    onClick = {
+                                        com.omoda.lanc.core.GlobalState.currentMode.value = if (currentMode == "CHAT") "ASISTANT" else "CHAT"
+                                        AssistantApplication.saveCurrentConfig()
+                                    },
+                                    containerColor = if (currentMode == "CHAT") Color(0xFF9C27B0) else Color(0xFF607D8B),
+                                    contentColor = Color.White, shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { 
+                                    Text(text = if (currentMode == "CHAT") "CHAT" else "ASIST", fontSize = 9.sp, fontWeight = FontWeight.Bold) 
+                                }
+                            }
+                            item {
+                                // HEY OMODA TOGGLE BUTONU
+                                val isWakeWordActive by GlobalState.isWakeWordEnabled.collectAsState()
+                                FloatingActionButton(
+                                    onClick = {
+                                        GlobalState.isWakeWordEnabled.value = !isWakeWordActive
+                                        AssistantApplication.saveCurrentConfig()
+                                    },
+                                    containerColor = if (isWakeWordActive) Color(0xFF009688) else Color.DarkGray.copy(alpha = 0.6f),
+                                    contentColor = if (isWakeWordActive) Color.Black else Color.White,
+                                    shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { 
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Text("HEY", fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Text(if(isWakeWordActive) "AÇIK" else "KAPALI", fontSize = 7.sp)
+                                    }
+                                }
+                            }
+                            item {
+                                FloatingActionButton(
+                                    onClick = { AssistantApplication.wallpaperIdx.value++; AssistantApplication.saveCurrentConfig() },
+                                    containerColor = Color.DarkGray.copy(alpha = 0.8f),
+                                    contentColor = OmodaCyan, shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { Icon(Icons.Default.Home, contentDescription = "WP", modifier = Modifier.size(20.dp)) }
+                            }
+                            item {
+                                FloatingActionButton(
+                                    onClick = onOpenSettings,
+                                    containerColor = Color.DarkGray,
+                                    contentColor = Color.White, shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { Icon(Icons.Default.Settings, null, modifier = Modifier.size(20.dp)) }
+                            }
+                            item {
+                                // SENSÖR BUTONU
+                                FloatingActionButton(
+                                    onClick = onOpenSensors,
+                                    containerColor = Color(0xFF2196F3).copy(alpha = 0.8f),
+                                    contentColor = Color.White,
+                                    shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { 
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Text("VERİ", fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Icon(Icons.Default.Info, null, modifier = Modifier.size(10.dp))
+                                    }
+                                }
+                            }
+                            item {
+                                // VHAL SİMÜLATÖR BUTONU
+                                val isSimMode by GlobalState.isSimulationMode.collectAsState()
+                                FloatingActionButton(
+                                    onClick = {
+                                        val newVal = !isSimMode
+                                        GlobalState.isSimulationMode.value = newVal
+                                        AssistantApplication.addLogStatic(if (newVal) "VHAL SİMÜLATÖR AKTİF" else "VHAL SİMÜLATÖR KAPALI")
+                                        AssistantApplication.saveCurrentConfig()
+                                    },
+                                    containerColor = if (isSimMode) Color(0xFFE91E63) else Color.DarkGray.copy(alpha = 0.6f),
+                                    contentColor = if (isSimMode) Color.White else Color.White.copy(0.7f),
+                                    shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { 
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Text("VHAL", fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Text(if(isSimMode) "AÇIK" else "KAPALI", fontSize = 7.sp)
+                                    }
+                                }
+                            }
+                            item {
+                                // MQTT KÖPRÜ BUTONU
+                                val isBridgeMode by GlobalState.isBridgeMode.collectAsState()
+                                FloatingActionButton(
+                                    onClick = {
+                                        val newVal = !isBridgeMode
+                                        GlobalState.isBridgeMode.value = newVal
+                                        AssistantApplication.addLogStatic(if (newVal) "MQTT KÖPRÜ AKTİF" else "MQTT KÖPRÜ KAPALI")
+                                        AssistantApplication.saveCurrentConfig()
+                                    },
+                                    containerColor = if (isBridgeMode) Color(0xFFF3B14B) else Color.DarkGray.copy(alpha = 0.6f),
+                                    contentColor = if (isBridgeMode) Color.Black else Color.White,
+                                    shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { 
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Text("KÖPRÜ", fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Text(if(isBridgeMode) "AÇIK" else "KAPALI", fontSize = 7.sp)
+                                    }
+                                }
+                            }
+                            item {
+                                // ADB / HERMES BRIDGE PANEL BUTONU
+                                FloatingActionButton(
+                                    onClick = {
+                                        try {
+                                            val intent = Intent(context, com.hermesandroid.bridge.BridgeActivity::class.java)
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            context.startActivity(intent)
+                                        } catch (e: Exception) {
+                                            AssistantApplication.addLogStatic("HATA: Bridge Paneli Açılamadı")
+                                        }
+                                    },
+                                    containerColor = Color(0xFF673AB7),
+                                    contentColor = Color.White,
+                                    shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { 
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Text("ADB", fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Text("PANEL", fontSize = 7.sp)
+                                    }
+                                }
+                            }
+                            item {
+                                // MQTT TOGGLE BUTONU
+                                val isMqttEnabled by AssistantApplication.mqttEnabled.collectAsState()
+                                FloatingActionButton(
+                                    onClick = {
+                                        AssistantApplication.mqttEnabled.value = !isMqttEnabled
+                                        AssistantApplication.saveCurrentConfig()
+                                    },
+                                    containerColor = if (isMqttEnabled) Color(0xFF4CAF50) else Color.DarkGray.copy(alpha = 0.6f),
+                                    contentColor = if (isMqttEnabled) Color.Black else Color.White,
+                                    shape = CircleShape, modifier = Modifier.size(fabSize)
+                                ) { 
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Text("MQTT", fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                                        Text(if(isMqttEnabled) "AÇIK" else "KAPALI", fontSize = 7.sp)
+                                    }
+                                }
+                            }
+                            item {
+                                Column {
+                                    val contextInner = androidx.compose.ui.platform.LocalContext.current
+                                    val pInfo = remember { try { contextInner.packageManager.getPackageInfo(contextInner.packageName, 0) } catch (e: Exception) { null } }
+                                    val vName = pInfo?.versionName ?: "2.0.0"
+                                    val vCode = if (android.os.Build.VERSION.SDK_INT >= 28) pInfo?.longVersionCode else pInfo?.versionCode
+                                    Text(text = "v$vName ($vCode)", color = Color.White.copy(alpha = 0.8f), fontSize = 14.sp, fontWeight = FontWeight.Black)
+                                    if (downloadProgressText != null) {
+                                        Text(text = downloadProgressText!!, color = OmodaCyan, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                }
+                            }
                         }
+                    } else {
+                        Row(
+                            modifier = Modifier.align(Alignment.BottomStart).padding(start = 30.dp, bottom = 30.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(fabSpacing)
+                        ) {
+                            // Dinleme Butonu
+                            FloatingActionButton(
+                                onClick = {
+                                    val action = if (isListening) "com.omoda.assistant.STOP_LISTENING" else "com.omoda.assistant.START_LISTENING"
+                                    context.sendBroadcast(android.content.Intent(action))
+                                },
+                                containerColor = if(isListening) Color.Red else OmodaCyan,
+                                contentColor = Color.Black, shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { Icon(painterResource(android.R.drawable.ic_btn_speak_now), null, modifier = Modifier.size(24.dp)) }
 
-                        FloatingActionButton(
-                            onClick = { AssistantApplication.wallpaperIdx.value++; AssistantApplication.saveCurrentConfig() },
-                            containerColor = Color.DarkGray.copy(alpha = 0.8f),
-                            contentColor = OmodaCyan, shape = CircleShape, modifier = Modifier.size(64.dp)
-                        ) { Icon(Icons.Default.Home, contentDescription = "WP") }
+                            // MOD DEĞİŞTİRME BUTONU (CHAT / ASISTANT)
+                            FloatingActionButton(
+                                onClick = {
+                                    com.omoda.lanc.core.GlobalState.currentMode.value = if (currentMode == "CHAT") "ASISTANT" else "CHAT"
+                                    AssistantApplication.saveCurrentConfig()
+                                },
+                                containerColor = if (currentMode == "CHAT") Color(0xFF9C27B0) else Color(0xFF607D8B),
+                                contentColor = Color.White, shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { 
+                                Text(text = if (currentMode == "CHAT") "CHAT" else "ASIST", fontSize = 12.sp, fontWeight = FontWeight.Bold) 
+                            }
 
-                        FloatingActionButton(
-                            onClick = onOpenSettings,
-                            containerColor = Color.DarkGray,
-                            contentColor = Color.White, shape = CircleShape, modifier = Modifier.size(64.dp)
-                        ) { Icon(Icons.Default.Settings, null) }
+                            // HEY OMODA TOGGLE BUTONU
+                            val isWakeWordActive by GlobalState.isWakeWordEnabled.collectAsState()
+                            FloatingActionButton(
+                                onClick = {
+                                    GlobalState.isWakeWordEnabled.value = !isWakeWordActive
+                                    AssistantApplication.saveCurrentConfig()
+                                },
+                                containerColor = if (isWakeWordActive) Color(0xFF009688) else Color.DarkGray.copy(alpha = 0.6f),
+                                contentColor = if (isWakeWordActive) Color.Black else Color.White,
+                                shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { 
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text("HEY", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(if(isWakeWordActive) "AÇIK" else "KAPALI", fontSize = 8.sp)
+                                }
+                            }
 
-                        Column {
-                            val contextInner = androidx.compose.ui.platform.LocalContext.current
-                            val pInfo = remember { try { contextInner.packageManager.getPackageInfo(contextInner.packageName, 0) } catch (e: Exception) { null } }
-                            val vName = pInfo?.versionName ?: "2.0.0"
-                            val vCode = if (android.os.Build.VERSION.SDK_INT >= 28) pInfo?.longVersionCode else pInfo?.versionCode
-                            Text(text = "v$vName ($vCode)", color = Color.White.copy(alpha = 0.8f), fontSize = 16.sp, fontWeight = FontWeight.Black)
-                            if (downloadProgressText != null) {
-                                Text(text = downloadProgressText!!, color = OmodaCyan, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            FloatingActionButton(
+                                onClick = { AssistantApplication.wallpaperIdx.value++; AssistantApplication.saveCurrentConfig() },
+                                containerColor = Color.DarkGray.copy(alpha = 0.8f),
+                                contentColor = OmodaCyan, shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { Icon(Icons.Default.Home, contentDescription = "WP", modifier = Modifier.size(24.dp)) }
+
+                            FloatingActionButton(
+                                onClick = onOpenSettings,
+                                containerColor = Color.DarkGray,
+                                contentColor = Color.White, shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { Icon(Icons.Default.Settings, null, modifier = Modifier.size(24.dp)) }
+
+                            // SENSÖR BUTONU
+                            FloatingActionButton(
+                                onClick = onOpenSensors,
+                                containerColor = Color(0xFF2196F3).copy(alpha = 0.8f),
+                                contentColor = Color.White,
+                                shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { 
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text("VERİ", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Icon(Icons.Default.Info, null, modifier = Modifier.size(12.dp))
+                                }
+                            }
+
+                            // VHAL SİMÜLATÖR BUTONU
+                            val isSimMode by GlobalState.isSimulationMode.collectAsState()
+                            FloatingActionButton(
+                                onClick = {
+                                    val newVal = !isSimMode
+                                    GlobalState.isSimulationMode.value = newVal
+                                    AssistantApplication.addLogStatic(if (newVal) "VHAL SİMÜLATÖR AKTİF" else "VHAL SİMÜLATÖR KAPALI")
+                                    AssistantApplication.saveCurrentConfig()
+                                },
+                                containerColor = if (isSimMode) Color(0xFFE91E63) else Color.DarkGray.copy(alpha = 0.6f),
+                                contentColor = if (isSimMode) Color.White else Color.White.copy(0.7f),
+                                shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { 
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text("VHAL", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(if(isSimMode) "AÇIK" else "KAPALI", fontSize = 8.sp)
+                                }
+                            }
+
+                            // MQTT KÖPRÜ BUTONU
+                            val isBridgeMode by GlobalState.isBridgeMode.collectAsState()
+                            FloatingActionButton(
+                                onClick = {
+                                    val newVal = !isBridgeMode
+                                    GlobalState.isBridgeMode.value = newVal
+                                    AssistantApplication.addLogStatic(if (newVal) "MQTT KÖPRÜ AKTİF" else "MQTT KÖPRÜ KAPALI")
+                                    AssistantApplication.saveCurrentConfig()
+                                },
+                                containerColor = if (isBridgeMode) Color(0xFFF3B14B) else Color.DarkGray.copy(alpha = 0.6f),
+                                contentColor = if (isBridgeMode) Color.Black else Color.White,
+                                shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { 
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text("KÖPRÜ", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(if(isBridgeMode) "AÇIK" else "KAPALI", fontSize = 8.sp)
+                                }
+                            }
+
+                            // ADB / HERMES BRIDGE PANEL BUTONU
+                            FloatingActionButton(
+                                onClick = {
+                                    try {
+                                        val intent = Intent(context, com.hermesandroid.bridge.BridgeActivity::class.java)
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                        context.startActivity(intent)
+                                    } catch (e: Exception) {
+                                        AssistantApplication.addLogStatic("HATA: Bridge Paneli Açılamadı")
+                                    }
+                                },
+                                containerColor = Color(0xFF673AB7),
+                                contentColor = Color.White,
+                                shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { 
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text("ADB", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text("PANEL", fontSize = 8.sp)
+                                }
+                            }
+
+                            // MQTT TOGGLE BUTONU
+                            val isMqttEnabled by AssistantApplication.mqttEnabled.collectAsState()
+                            FloatingActionButton(
+                                onClick = {
+                                    AssistantApplication.mqttEnabled.value = !isMqttEnabled
+                                    AssistantApplication.saveCurrentConfig()
+                                },
+                                containerColor = if (isMqttEnabled) Color(0xFF4CAF50) else Color.DarkGray.copy(alpha = 0.6f),
+                                contentColor = if (isMqttEnabled) Color.Black else Color.White,
+                                shape = CircleShape, modifier = Modifier.size(fabSize)
+                            ) { 
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text("MQTT", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(if(isMqttEnabled) "AÇIK" else "KAPALI", fontSize = 8.sp)
+                                }
+                            }
+
+                            Column {
+                                val contextInner = androidx.compose.ui.platform.LocalContext.current
+                                val pInfo = remember { try { contextInner.packageManager.getPackageInfo(contextInner.packageName, 0) } catch (e: Exception) { null } }
+                                val vName = pInfo?.versionName ?: "2.0.0"
+                                val vCode = if (android.os.Build.VERSION.SDK_INT >= 28) pInfo?.longVersionCode else pInfo?.versionCode
+                                Text(text = "v$vName ($vCode)", color = Color.White.copy(alpha = 0.8f), fontSize = 16.sp, fontWeight = FontWeight.Black)
+                                if (downloadProgressText != null) {
+                                    Text(text = downloadProgressText!!, color = OmodaCyan, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                }
                             }
                         }
                     }
@@ -316,8 +627,19 @@ class MainActivity : ComponentActivity() {
                                     Text("AI", color = Color.Black, fontSize = 10.sp, fontWeight = FontWeight.Bold, 
                                         modifier = Modifier.background(OmodaCyan, RoundedCornerShape(4.dp)).padding(horizontal = 4.dp))
                                     Spacer(Modifier.width(8.dp))
+                                    
+                                    // Internet Status
                                     Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(if (GlobalState.hasInternetConnection.collectAsState().value) Color.Green else Color.Red))
                                     Spacer(Modifier.width(4.dp))
+                                    Text("NET", color = Color.White.copy(alpha = 0.6f), fontSize = 10.sp)
+                                    Spacer(Modifier.width(8.dp))
+
+                                    // MQTT Status
+                                    Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(if (GlobalState.isMqttConnected.collectAsState().value) Color.Green else Color.Red))
+                                    Spacer(Modifier.width(4.dp))
+                                    Text("MQTT", color = Color.White.copy(alpha = 0.6f), fontSize = 10.sp)
+
+                                    Spacer(Modifier.width(12.dp))
                                     Text(status, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Medium)
                                 }
                             }

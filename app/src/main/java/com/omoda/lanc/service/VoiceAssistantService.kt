@@ -123,7 +123,8 @@ class VoiceAssistantService : Service() {
                 addAction("com.omoda.assistant.STOP_LISTENING")
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                registerReceiver(voiceCommandReceiver, filter, Context.RECEIVER_EXPORTED)
+                // Sadece sistem ve bu uygulamadan gelen yayınlara izin ver (Güvenlik SEC-4)
+                registerReceiver(voiceCommandReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
             } else {
                 registerReceiver(voiceCommandReceiver, filter)
             }
@@ -173,7 +174,8 @@ class VoiceAssistantService : Service() {
     private fun acquireWakeLock() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Omoda::WakeLock")
-        wakeLock?.acquire()
+        // 10 dakikalık güvenlik zaman aşımı ekle (RES-2 Fix)
+        wakeLock?.acquire(10 * 60 * 1000L)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

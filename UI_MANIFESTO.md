@@ -1,6 +1,6 @@
-# 📐 OMODA 5 UI MANİFESTOSU
+# 📐 OMODA 5 UI & SES MANİFESTOSU
 
-Bu belge, uygulamanın görsel tutarlılığını korumak için uyulması gereken kesin kuralları içerir.
+Bu belge, uygulamanın görsel ve işitsel tutarlılığını korumak için uyulması gereken kesin kuralları içerir.
 
 ## 1. Ana Ekran (Home Screen) Izgara Yapısı
 - **Sütun/Satır Sayısı:** 5 Sütun x 2 Satır (Sayfa başına tam 10 ikon).
@@ -24,7 +24,17 @@ Bu belge, uygulamanın görsel tutarlılığını korumak için uyulması gereke
 - **Landscape Zorunluluğu:** Tüm kritik aktiviteler (`MainActivity`, `BridgeActivity`) yatay (landscape) modda çalışmalıdır.
 - **Immersive Mode:** Durum çubuğu ve navigasyon gizlenerek tam ekran kullanılmalıdır.
 
-## 4. Chery Stok Uygulama Bağlantıları
+## 4. Mikrofon ve Ses Kayıt Standartları (KRİTİK)
+- **Örnekleme Hızı:** `16000 Hz`.
+- **Kanal:** `Mono (CHANNEL_IN_MONO)`.
+- **Format:** `PCM 16bit`.
+- **VAD Hassasiyeti (SNR):** `1.6f` (Motor ve klima gürültüsüne adaptif).
+- **Yazılımsal Kazanç (Gain):** `3.5f` (Referans projeden optimize edildi).
+- **Sessizlik Süresi:** `2000ms` (Konuşma bittikten sonraki bekleme).
+- **Mikrofon Kaynağı:** Varsayılan `VOICE_RECOGNITION`.
+- **İzin Enjeksiyonu:** Her açılışta ADB üzerinden `RECORD_AUDIO` izni agresif olarak tekrar basılmalıdır.
+
+## 5. Chery Stok Uygulama Bağlantıları
 - **Medya:** `com.chery.media`
 - **Telefon:** `com.chery.dialer`
 - **Ayarlar:** `com.chery.settings`
@@ -35,6 +45,6 @@ Bu belge, uygulamanın görsel tutarlılığını korumak için uyulması gereke
 - **Android Auto:** `com.yfve.car.androidauto`
 - **Apple CarPlay:** `com.yfve.car.carplay`
 
-## 5. Güvenlik ve Eşleşme (Pairing)
+## 6. Güvenlik ve Eşleşme (Pairing)
 - **Varsayılan Eşleşme Kodu:** `OMODA5` (DietPi ve Otomatik Kurulumlar için).
 - **Değişiklik:** Kullanıcı UI üzerinden kodu yenileyebilir.

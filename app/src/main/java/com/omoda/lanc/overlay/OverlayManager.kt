@@ -24,6 +24,7 @@ import com.omoda.lanc.ui.theme.AppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -137,5 +138,12 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
             }
             composeView = null
         }
+    }
+
+    fun destroy() {
+        hide()
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        serviceScope.cancel()
+        _viewModelStore.clear()
     }
 }

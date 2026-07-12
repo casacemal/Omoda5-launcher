@@ -198,6 +198,8 @@ class AssistantController(
             if (audioEngine.requestAssistantFocus()) {
                 isListening = true
                 GlobalState.isListening.value = true
+                GlobalState.workflowState.value = "LISTENING"
+                GlobalState.workflowState.value = "LISTENING"
                 
                 if (GlobalState.isRadioMode.value) {
                     GlobalState.status.value = "TELSİZ AKTİF"
@@ -227,6 +229,7 @@ class AssistantController(
         
         scope.launch {
             GlobalState.isListening.value = false
+            GlobalState.workflowState.value = "THINKING"
             amplitudeJob?.cancel()
             timeoutJob?.cancel()
             
@@ -316,9 +319,11 @@ class AssistantController(
             isTtsBusy = false
             audioEngine.releaseFocus()
             EventBus.tryEmit(Event.AIEvent.TTSCompleted)
+            GlobalState.workflowState.value = "IDLE"
             return
         }
         isTtsBusy = true
+        GlobalState.workflowState.value = "TALKING"
         val (text, onComplete) = ttsQueue.removeFirst()
 
         if (!EventBus.tryEmit(Event.AIEvent.TTSStarted)) {
@@ -367,6 +372,7 @@ class AssistantController(
     private fun resetState() {
         isListening = false
         GlobalState.isListening.value = false
+        GlobalState.workflowState.value = "IDLE"
         GlobalState.status.value = "Hazır"
         wakeWordManager.setAssistantActive(false)
         EventBus.tryEmit(Event.UIEvent.HideOverlay)
@@ -380,6 +386,13 @@ class AssistantController(
         amplitudeJob?.cancel()
         timeoutJob?.cancel()
         ttsManager.shutdown()
+        
+        // Clean up other managers
+        overlayManager.destroy()
+        systemSttManager.destroy() 
+        wakeWordManager.stopListening()
+        
+        sttManager.stopRecording()
     }
 
     fun updateConfig() {

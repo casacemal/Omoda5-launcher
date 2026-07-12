@@ -1,0 +1,12 @@
+# Build ve çıktı klasörlerini tarama
+/build/
+/.gradle/
+
+# Görsel ve medya varlıklarını muaf tut
+/app/src/main/res/drawable/
+/app/src/main/res/mipmap/
+
+# Üçüncü parti büyük veri setleri veya test logları varsa:
+*.log
+/captures/
+

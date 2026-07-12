@@ -1,0 +1,28 @@
+# Android
+build/
+.gradle/
+.idea/
+*.iml
+local.properties
+
+# Secrets
+.env
+app_config.json
+
+# Build Artifacts
+release_apks/
+app/build/
+core/build/
+network/build/
+voice-offline/build/
+
+# Python
+__pycache__/
+*.pyc
+
+# Misc
+.artifacts/
+.kilo/
+graphify-out/
+screenshot*.png
+test_audio.wav

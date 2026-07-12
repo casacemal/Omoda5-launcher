@@ -1,0 +1,9 @@
+{
+  "agent_id": "claude-code",
+  "session_id": "cc313854-ba1b-4cd1-ba11-2a496e39eea2",
+  "timestamp": "2026-07-04T12:04:34.844Z",
+  "status": "active",
+  "current_task": null,
+  "branch": "master",
+  "file_scope": []
+}
