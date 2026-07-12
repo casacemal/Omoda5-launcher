@@ -959,7 +959,7 @@ class VhalAesApp(ctk.CTk):
             card.grid(row=r, column=c, padx=10, pady=10, sticky="nsew")
 
             ctk.CTkLabel(card, text=label, font=ctk.CTkFont(size=11, weight="bold"), text_color=color).pack(pady=(5, 0))
-            val_lbl = ctk.CTkLabel(card, text=default, font=ctk.CTkFont(size=18, weight="black"))
+            val_lbl = ctk.CTkLabel(card, text=default, font=ctk.CTkFont(size=18, weight="bold"))
             val_lbl.pack(pady=5)
             self.dashboard_widgets[pid.lower()] = val_lbl
 
