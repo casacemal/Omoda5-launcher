@@ -16,6 +16,15 @@ core/build/
 network/build/
 voice-offline/build/
 
+# Models (Large Files)
+*.onnx
+*.tar.bz2
+*.tar.gz
+app/src/main/assets/sherpa_asr/
+app/src/main/assets/sherpa_tts/
+app/src/main/assets/sherpa_vad/
+scripts/models/
+
 # Python
 __pycache__/
 *.pyc
