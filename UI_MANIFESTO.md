@@ -2,7 +2,7 @@
 
 Bu belge, uygulamanın görsel ve işitsel tutarlılığını korumak için uyulması gereken kesin kuralları içerir.
 
-## 1. Ana Ekran (Home Screen) Izgara Yapısı
+## 1. Ana Ekran (Home Screen / Dashboard) Kısıtları
 - **Sütun/Satır Sayısı:** 5 Sütun x 2 Satır (Sayfa başına tam 10 ikon).
 - **1. Sayfa Sabitliği:** İlk sayfa her zaman Chery stok uygulamalarını ve Omoda Store'u içermelidir. Kullanıcı bu sayfayı değiştiremez.
 - **İkon Boyutları:**
@@ -13,12 +13,12 @@ Bu belge, uygulamanın görsel ve işitsel tutarlılığını korumak için uyul
     - Üst: `60.dp`.
     - Alt: `80.dp`.
     - Sağ: `80.dp`.
+- **Muafiyet (KRİTİK):** Ana ekran (DashboardScreen), Google AAOS UI Refactoring (Touch Target vb.) kurallarından tamamen muaftır. Klasik Omoda tasarımı korunacaktır.
 
-## 2. Ayarlar Ekranı (Settings Screen) Standartları
-- **Sidebar Genişliği:** `235.dp`.
-- **Sekme Butonları:** Yükseklik `64.dp`, İkon `28.dp`, Yazı `16.sp`.
-- **Kart Yapısı (EnhancedSettingCard):** İç dolgu `16.dp`, Köşe yuvarlığı `20.dp`.
-- **Seçim Butonları (ToggleButton):** Yükseklik `56.dp`, Yazı `14.sp`.
+## 2. Automotive OS (AAOS) Tasarım Standartları
+- **Touch Target (Tıklama Hedefleri):** Sürücü dikkat dağınıklığını önlemek (Driver Distraction Guidelines) amacıyla tüm butonlar ve ikonlar (Ana ekran hariç) en az `64.dp` boyutunda (`MinCarTouchTarget`) olmalıdır.
+- **Odak (Focus):** Rotary controller (D-pad) desteği için tüm tıklanabilir bileşenlerde özel focus state (örn. beyaz kalın kenarlık) bulundurulmalıdır. Bunun için `CarButton` ve `CarIconButton` (AutomotiveComponents.kt) kullanılmalıdır.
+- **Renk ve Kontrast:** Tüm alt ekranlar AAA kontrast kurallarına uymalıdır, metin boyutları sürüş anında okunabilmesi için büyük (genellikle >= 16.sp) tutulmalıdır.
 
 ## 3. Ekran Oryantasyonu ve Görünüm
 - **Landscape Zorunluluğu:** Tüm kritik aktiviteler (`MainActivity`, `BridgeActivity`) yatay (landscape) modda çalışmalıdır.
@@ -47,9 +47,8 @@ Bu belge, uygulamanın görsel ve işitsel tutarlılığını korumak için uyul
 
 ## 6. Güvenlik ve Eşleşme (Pairing)
 - **Varsayılan Eşleşme Kodu:** `OMODA5` (DietPi ve Otomatik Kurulumlar için).
-- **Değişiklik:** Kullanıcı UI üzerinden kodu yenileyebilir.
+- **Değişiklik:** Kullanıcı UI üzerinden kodu yenileyebilir ancak sistemler `OMODA5` ile ön tanımlı senkronize edilir.
 
 ## 7. Dashboard (Split Screen) Kısıtları
-- **Sidebar Padding:** Cihaz araç modunda çalışıyorsa (isCarHardware = true) Dashboard'un sol kenar dolgusu kesinlikle `235.dp` olmalıdır.
 - **Akıllı Split (Smart Hız Kuralı):** Ekran bölme oranı `>80 km/h` ise dar (0.6f medya), `≤80 km/h` ise geniş (0.35f medya) harita odaklı olmalıdır. Manuel kaydırmalar araç hızı `20 km/h` altına düşene kadar korunmalıdır.
 - **Premium Medya Arayüzü:** Dashboard'da geleneksel üst barlar kullanılmamalı, sistem bilgileri (Hız, ECO vb.) harita üzerinde Glassmorphism efektiyle asılı overlay'ler olarak gösterilmelidir.

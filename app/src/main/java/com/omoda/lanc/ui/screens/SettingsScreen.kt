@@ -45,6 +45,9 @@ import com.omoda.lanc.core.VehicleController
 import com.omoda.lanc.core.dsl.Omoda5
 import com.omoda.lanc.ui.theme.OmodaCyan
 import com.omoda.lanc.ui.components.StatusLed
+import com.omoda.lanc.ui.components.CarButton
+import com.omoda.lanc.ui.components.CarIconButton
+import com.omoda.lanc.ui.components.MinCarTouchTarget
 import com.omoda.lanc.voice.ModelRepairManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -177,11 +180,11 @@ fun SettingsScreen(onBack: () -> Unit) {
                         modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        IconButton(
+                        CarIconButton(
                             onClick = { onBack() },
                             modifier = Modifier.padding(start = if(isHandheld) 0.dp else 80.dp)
                         ) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Geri", tint = Color.White, modifier = Modifier.size(if(isHandheld && isLandscape) 20.dp else 24.dp))
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Geri", tint = Color.White, modifier = Modifier.size(if(isHandheld && isLandscape) 24.dp else 32.dp))
                         }
                         
                         Text(
@@ -203,26 +206,20 @@ fun SettingsScreen(onBack: () -> Unit) {
                         Spacer(Modifier.weight(1f))
 
                         if (isHandheld && isLandscape) {
-                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Button(
+                            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                                CarButton(
                                     onClick = { onBack() },
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
-                                    shape = RoundedCornerShape(8.dp),
-                                    modifier = Modifier.height(32.dp).padding(horizontal = 4.dp),
-                                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp)
-                                ) {
-                                    Text("İPTAL", fontWeight = FontWeight.Bold, fontSize = 10.sp)
-                                }
+                                    text = "İPTAL",
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333)),
+                                    modifier = Modifier.height(MinCarTouchTarget)
+                                )
                                 
-                                Button(
+                                CarButton(
                                     onClick = { performSave() },
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
-                                    shape = RoundedCornerShape(8.dp),
-                                    modifier = Modifier.height(32.dp).padding(horizontal = 4.dp),
-                                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp)
-                                ) {
-                                    Text("KAYDET", color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 10.sp)
-                                }
+                                    text = "KAYDET",
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3), contentColor = Color.Black),
+                                    modifier = Modifier.height(MinCarTouchTarget)
+                                )
                             }
                         } else if(!isHandheld) {
                             Text(currentTime, color = Color(0xFF69E2D3), fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace)
@@ -238,25 +235,21 @@ fun SettingsScreen(onBack: () -> Unit) {
                             horizontalArrangement = Arrangement.Center, 
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Button(
+                            CarButton(
                                 onClick = { onBack() },
-                                colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier.height(if(isHandheld) 48.dp else 64.dp).width(if(isHandheld) 100.dp else 180.dp)
-                            ) {
-                                Text("İPTAL", fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                            }
+                                text = "İPTAL",
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF333333)),
+                                modifier = Modifier.height(MinCarTouchTarget).width(if(isHandheld) 140.dp else 220.dp)
+                            )
                             
-                            Spacer(Modifier.width(if(isHandheld) 16.dp else 60.dp))
+                            Spacer(Modifier.width(if(isHandheld) 24.dp else 60.dp))
                             
-                            Button(
+                            CarButton(
                                 onClick = { performSave() },
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3)),
-                                shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier.height(if(isHandheld) 48.dp else 64.dp).width(if(isHandheld) 140.dp else 240.dp)
-                            ) {
-                                Text("KAYDET", color = Color.Black, fontWeight = FontWeight.ExtraBold, fontSize = 14.sp)
-                            }
+                                text = "KAYDET",
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF69E2D3), contentColor = Color.Black),
+                                modifier = Modifier.height(MinCarTouchTarget).width(if(isHandheld) 180.dp else 280.dp)
+                            )
                         }
                     }
                 }

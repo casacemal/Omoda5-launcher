@@ -20,6 +20,8 @@ import com.omoda.lanc.core.SplitManager
 import com.omoda.lanc.media.MediaControllerViewModel
 import com.omoda.lanc.ui.components.CoolwalkMediaCard
 import com.omoda.lanc.ui.components.CoolwalkWeatherCard
+import com.omoda.lanc.ui.components.CarButton
+import com.omoda.lanc.ui.components.MinCarTouchTarget
 import java.util.*
 import kotlinx.coroutines.delay
 
@@ -51,13 +53,13 @@ fun CoolwalkScreen(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 12.dp, end = 12.dp, bottom = 4.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(top = 16.dp, end = 16.dp, bottom = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 // Left Panel: Media + Weather
                 Column(
                     modifier = Modifier.weight(0.4f).fillMaxHeight(),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     CoolwalkMediaCard(viewModel, Modifier.weight(1.5f))
                     CoolwalkWeatherCard(Modifier.weight(1f))
@@ -68,23 +70,22 @@ fun CoolwalkScreen(
                     modifier = Modifier
                         .weight(0.6f)
                         .fillMaxHeight()
-                        .clip(RoundedCornerShape(28.dp))
+                        .clip(RoundedCornerShape(32.dp))
                         .background(if (isMapOpen) Color.Transparent else Color(0xFF1A1C1E)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (!isMapOpen) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("📍", fontSize = 48.sp)
-                            Spacer(Modifier.height(16.dp))
-                            Button(
+                            Text("📍", fontSize = 64.sp)
+                            Spacer(Modifier.height(24.dp))
+                            CarButton(
                                 onClick = {
                                     isMapOpen = true
                                     SplitManager.launchCoolwalkSplit(context, SplitManager.MAPS_GOOGLE)
                                 },
+                                text = "Google Maps'i Başlat",
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4285F4))
-                            ) {
-                                Text("Google Maps'i Başlat", color = Color.White)
-                            }
+                            )
                         }
                     }
                 }
@@ -101,15 +102,15 @@ fun CoolwalkScreen(
 private fun CoolwalkSidebar(onMapClick: () -> Unit, onPlusClick: () -> Unit) {
     Column(
         modifier = Modifier
-            .width(70.dp)
+            .width(88.dp)
             .fillMaxHeight()
-            .padding(vertical = 20.dp),
+            .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         SidebarIconItem("⚙️")
         SidebarIconItem("🎧")
-        Spacer(Modifier.height(20.dp))
+        Spacer(Modifier.height(24.dp))
         SidebarIconItem("📍", onClick = onMapClick)
         SidebarIconItem("Ⓐ")
         SidebarIconItem("+", onClick = onPlusClick)
@@ -120,13 +121,13 @@ private fun CoolwalkSidebar(onMapClick: () -> Unit, onPlusClick: () -> Unit) {
 private fun SidebarIconItem(icon: String, onClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
-            .size(44.dp)
+            .size(MinCarTouchTarget)
             .clip(CircleShape)
             .background(Color.White.copy(alpha = 0.05f))
             .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
-        Text(icon, color = Color.White, fontSize = 20.sp)
+        Text(icon, color = Color.White, fontSize = 28.sp)
     }
 }
 
@@ -147,41 +148,48 @@ private fun CoolwalkBottomBar(onOpenApps: () -> Unit, onBack: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(64.dp)
-            .padding(horizontal = 16.dp),
+            .height(88.dp)
+            .padding(horizontal = 24.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // App Drawer Icon
         Box(
             modifier = Modifier
-                .size(40.dp)
-                .clip(RoundedCornerShape(8.dp))
+                .size(MinCarTouchTarget)
+                .clip(RoundedCornerShape(12.dp))
                 .background(Color(0xFF4D3D33))
                 .clickable { onOpenApps() },
             contentAlignment = Alignment.Center
         ) {
-            Text("⠿", color = Color.White, fontSize = 24.sp)
+            Text("⠿", color = Color.White, fontSize = 32.sp)
         }
 
-        Spacer(Modifier.width(24.dp))
+        Spacer(Modifier.width(32.dp))
 
         // Time and Date
         Text(
             text = "$timeStr  $dateStr",
             color = Color.White,
-            fontSize = 18.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Medium
         )
         
         Spacer(Modifier.weight(1f))
         
         // Back Button
-        Text(
-            text = "HOME",
-            modifier = Modifier.clickable { onBack() },
-            color = Color.Gray,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold
-        )
+        Box(
+            modifier = Modifier
+                .defaultMinSize(minWidth = MinCarTouchTarget, minHeight = MinCarTouchTarget)
+                .clickable { onBack() }
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "HOME",
+                color = Color.Gray,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }

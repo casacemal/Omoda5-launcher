@@ -24,10 +24,13 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 ## Kaynak Referanslar
 *   **Asistan Referansı:** `/mnt/depo/omodaassist_v2` (Sesli asistan için test edilmiş, doğrulanmış kaynak klasör.)
 *   **Launcher Referansı:** `/mnt/depo/lancher proje/app` (Launcher tasarımı ve kuralları için baz alınacak kaynak klasör.)
+*   **Automotive OS Referansı:** `https://github.com/google/automotive-design-compose` (Tasarım standartları).
 
-## Tasarım Kuralları (Launcher)
-*   `/mnt/depo/lancher proje/app` klasöründeki görsel dil ve `MEDIA_TASARIM.md`, `OMODA5_ULTIMATE_MANIFESTO.md` gibi dokümanlardaki kurallar mevcut projeye (launcher_v2) uygulanacaktır.
-*   Görsel tutarlılık için referans projelerdeki Glassmorphism ve renk paleti korunacaktır.
+## Tasarım Kuralları (Launcher & AAOS)
+*   **Görsel Tutarlılık:** `/mnt/depo/lancher proje/app` klasöründeki görsel dil ve `MEDIA_TASARIM.md`, `UI_MANIFESTO.md` gibi dokümanlardaki kurallar uygulanacaktır. Glassmorphism ve renk paleti korunacaktır.
+*   **AAOS Distraction Guidelines:** Ana ekran (Dashboard) haricindeki tüm alt sayfalarda ve bileşenlerde (Settings, App Store, Sensor Monitor, Coolwalk, vb.) **Min 64dp** Touch Target kuralı zorunludur. Tüm butonlar `CarButton`, tüm Icon butonları `CarIconButton` (AutomotiveComponents.kt) olarak kullanılmalıdır.
+*   **D-pad / Rotary Controller:** Focus state sınırları AAOS standartlarına göre (beyaz kalın çerçeve vs.) UI'a dahil edilmiştir.
+*   **Dashboard Muafiyeti:** DashboardScreen (Ana Sayfa) tamamen Omoda stok tasarımında kalacak olup AAOS tasarım refactoring'inden muaftır.
 
 ## Kısıtlar ve Kurallar
 *   API 29 (AAOS 10) uyumluluğu kesin kuraldır.
@@ -48,7 +51,6 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 *   **Genel Hata Ayıklama Tasarım Kuralı:** Ana kodları (mevcut veya yeni eklenecek olanlar) bozarak deneme-yanılma yapmak kesinlikle yasaktır. Herhangi bir şüpheli durumda (API hatası vb.), `aes_app/` (eski adıyla scripts) klasöründeki Python araçları/test script'leri kullanılmalı ve gerektiğinde bu test süiti genişletilmelidir.
 *   Hareket halindeyken (Speed > 0) riskli ayarların değiştirilmesi engellenecek.
 *   **TTS / STT Fallback Politikası:** Ses tanıma ve okuma işlemleri kaskad zincire sahiptir: **Online (9Router/Edge) -> Local (Sherpa/Piper)**. Local sistemler şu an beklemeye alınmış olsa da kod mimarisi buna uygun dizayn edilmiştir. Ses odağı (Audio Ducking) bu zincir bitene kadar korunur.
-.
     *   **ASISTANT (Asistan) Modu:** Kısa yanıtlar, araç bağlamlı, yerel Regex motoru (`CommandRouter`) öncelikli. Sadece talep edilen eylemi gerçekleştirir.
     *   **CHAT (Sohbet) Modu:** Kesintisiz, derin ve samimi diyalog. Sürüş arkadaşı kişiliği.
 *   **Donanım Farkındalığı (Hardware Awareness):** AI motoru (`AgentManager`), her diyalogda aracın güncel telemetri verilerini (Hız, Vites, Klima, Sıcaklık vb.) sistem promptu olarak alır ve yanıtlarını buna göre şekillendirir.

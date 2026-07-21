@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -20,9 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.omoda.lanc.core.CompassManager
-import com.omoda.lanc.core.GlobalState
 import com.omoda.lanc.media.MediaControllerViewModel
 import com.omoda.lanc.network.WeatherManager
+import com.omoda.lanc.ui.components.CarIconButton
+import com.omoda.lanc.ui.components.MinCarTouchTarget
 import java.util.*
 import kotlinx.coroutines.delay
 import androidx.compose.material.icons.Icons
@@ -32,11 +32,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.Canvas
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.geometry.Offset
-
-
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import com.omoda.lanc.ui.theme.OmodaCyan
 
 @Composable
 fun SylvieScreen(
@@ -55,8 +51,8 @@ fun SylvieScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             // Top Header
             Row(
@@ -64,21 +60,21 @@ fun SylvieScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("SYLVIE", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
-                Text("📶", color = Color.White.copy(alpha = 0.5f), fontSize = 14.sp)
+                Text("SYLVIE", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, letterSpacing = 2.sp)
+                Text("📶", color = Color.White.copy(alpha = 0.5f), fontSize = 24.sp)
             }
 
             Row(
                 modifier = Modifier.weight(1f),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 Column(
                     modifier = Modifier.weight(2f),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
                     Row(
                         modifier = Modifier.weight(1f),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        horizontalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
                         SylvieClockWidget(Modifier.weight(1.2f))
                         SylvieWeatherWidget(Modifier.weight(0.8f))
@@ -96,21 +92,21 @@ fun SylvieScreen(
 private fun SylvieSidebar(onHomeClick: () -> Unit) {
     Column(
         modifier = Modifier
-            .width(64.dp)
+            .width(88.dp)
             .fillMaxHeight()
             .background(Color(0xFF080808))
-            .padding(vertical = 20.dp),
+            .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
             SidebarIcon("💡")
             SidebarIcon("📹")
             SidebarIcon("🔊")
             SidebarIcon("ᛒ")
             SidebarIcon("📻")
         }
-        Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
             SidebarIcon("⠿")
             SidebarIcon("⚙️")
             SidebarIcon("🏠", onClick = onHomeClick)
@@ -120,12 +116,19 @@ private fun SylvieSidebar(onHomeClick: () -> Unit) {
 
 @Composable
 private fun SidebarIcon(icon: String, onClick: () -> Unit = {}) {
-    Text(
-        text = icon,
-        color = Color.White.copy(alpha = 0.6f),
-        fontSize = 20.sp,
-        modifier = Modifier.clickable { onClick() }.padding(8.dp)
-    )
+    Box(
+        modifier = Modifier
+            .size(MinCarTouchTarget)
+            .clickable { onClick() }
+            .padding(12.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = icon,
+            color = Color.White.copy(alpha = 0.6f),
+            fontSize = 32.sp
+        )
+    }
 }
 
 @Composable
@@ -143,15 +146,15 @@ private fun SylvieClockWidget(modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(Color(0xFF0F0F0F))
-            .border(0.5.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(8.dp))
+            .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
             .padding(24.dp),
         contentAlignment = Alignment.BottomStart
     ) {
         Column {
-            Text(timeStr, color = Color.White, fontSize = 64.sp, fontWeight = FontWeight.Light)
-            Text(dateStr, color = Color.Gray, fontSize = 14.sp)
+            Text(timeStr, color = Color.White, fontSize = 72.sp, fontWeight = FontWeight.Light)
+            Text(dateStr, color = Color.Gray, fontSize = 24.sp)
         }
     }
 }
@@ -162,17 +165,17 @@ private fun SylvieWeatherWidget(modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(Color(0xFF0F0F0F))
-            .border(0.5.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(8.dp))
+            .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
             .padding(24.dp),
         contentAlignment = Alignment.BottomStart
     ) {
         Column {
-            Text(state?.conditionIcon ?: "☁️", fontSize = 48.sp)
-            Spacer(Modifier.height(8.dp))
-            Text("${state?.temperature ?: "--"}°C", color = Color.White, fontSize = 32.sp, fontWeight = FontWeight.Light)
-            Text(state?.conditionLabel?.uppercase() ?: "UNKNOWN", color = Color.Gray, fontSize = 10.sp, letterSpacing = 1.sp)
+            Text(state?.conditionIcon ?: "☁️", fontSize = 64.sp)
+            Spacer(Modifier.height(16.dp))
+            Text("${state?.temperature ?: "--"}°C", color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.Light)
+            Text(state?.conditionLabel?.uppercase() ?: "UNKNOWN", color = Color.Gray, fontSize = 16.sp, letterSpacing = 1.sp)
         }
     }
 }
@@ -183,9 +186,9 @@ private fun SylvieMediaWidget(viewModel: MediaControllerViewModel, modifier: Mod
     Box(
         modifier = modifier
             .fillMaxSize()
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(Color(0xFF141414))
-            .border(0.5.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(8.dp))
+            .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
     ) {
         // Album Art Background
         uiState.albumArt?.let {
@@ -203,15 +206,15 @@ private fun SylvieMediaWidget(viewModel: MediaControllerViewModel, modifier: Mod
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text("NOW PLAYING", color = Color.White.copy(alpha = 0.3f), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                Text("NOW PLAYING", color = Color.White.copy(alpha = 0.3f), fontSize = 14.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(8.dp))
-                Text(uiState.title.ifEmpty { "Not Playing" }, color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(uiState.artist.ifEmpty { "Omoda 5" }, color = Color.Gray, fontSize = 14.sp)
+                Text(uiState.title.ifEmpty { "Not Playing" }, color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                Text(uiState.artist.ifEmpty { "Omoda 5" }, color = Color.Gray, fontSize = 20.sp)
             }
 
             // Simple line progress
-            Box(Modifier.fillMaxWidth().height(2.dp).background(Color.White.copy(alpha = 0.1f))) {
-                Box(Modifier.fillMaxWidth(uiState.progress).height(2.dp).background(Color.White))
+            Box(Modifier.fillMaxWidth().height(4.dp).background(Color.White.copy(alpha = 0.1f))) {
+                Box(Modifier.fillMaxWidth(uiState.progress).height(4.dp).background(Color.White))
             }
 
             Row(
@@ -219,16 +222,16 @@ private fun SylvieMediaWidget(viewModel: MediaControllerViewModel, modifier: Mod
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = { viewModel.skipToPrevious() }) { Text("⏪", color = Color.White, fontSize = 20.sp) }
-                Spacer(Modifier.width(32.dp))
+                CarIconButton(onClick = { viewModel.skipToPrevious() }) { Text("⏪", color = Color.White, fontSize = 32.sp) }
+                Spacer(Modifier.width(48.dp))
                 Box(
-                    modifier = Modifier.size(56.dp).clip(CircleShape).background(Color.White).clickable { viewModel.togglePlayback() },
+                    modifier = Modifier.size(MinCarTouchTarget).clip(CircleShape).background(Color.White).clickable { viewModel.togglePlayback() },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(if (uiState.isPlaying) "⏸" else "▶", color = Color.Black, fontSize = 24.sp)
+                    Text(if (uiState.isPlaying) "⏸" else "▶", color = Color.Black, fontSize = 32.sp)
                 }
-                Spacer(Modifier.width(32.dp))
-                IconButton(onClick = { viewModel.skipToNext() }) { Text("⏩", color = Color.White, fontSize = 20.sp) }
+                Spacer(Modifier.width(48.dp))
+                CarIconButton(onClick = { viewModel.skipToNext() }) { Text("⏩", color = Color.White, fontSize = 32.sp) }
             }
         }
     }
@@ -242,22 +245,22 @@ private fun SylvieCompassWidget(modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(Color(0xFF0F0F0F))
-            .border(0.5.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(8.dp))
+            .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(16.dp))
             .padding(24.dp)
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("COMPASS", modifier = Modifier.align(Alignment.Start), color = Color.White.copy(alpha = 0.3f), fontSize = 10.sp, fontWeight = FontWeight.Bold)
+            Text("COMPASS", modifier = Modifier.align(Alignment.Start), color = Color.White.copy(alpha = 0.3f), fontSize = 14.sp, fontWeight = FontWeight.Bold)
             
             Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 // Outer ring
-                Canvas(modifier = Modifier.size(220.dp)) {
+                Canvas(modifier = Modifier.size(240.dp)) {
                     drawCircle(color = Color.White.copy(alpha = 0.05f), style = Stroke(1.dp.toPx()))
                 }
                 
                 // Rotating Ring with Cardinal Points
-                Box(modifier = Modifier.size(220.dp).graphicsLayer { rotationZ = -bearing }) {
+                Box(modifier = Modifier.size(240.dp).graphicsLayer { rotationZ = -bearing }) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         val radius = size.minDimension / 2
                         val center = Offset(size.width / 2, size.height / 2)
@@ -266,21 +269,21 @@ private fun SylvieCompassWidget(modifier: Modifier) {
                         for (i in 0 until 360 step 30) {
                             val angleRad = Math.toRadians(i.toDouble() - 90).toFloat()
                             val start = Offset(
-                                center.x + Math.cos(angleRad.toDouble()).toFloat() * (radius - 10.dp.toPx()),
-                                center.y + Math.sin(angleRad.toDouble()).toFloat() * (radius - 10.dp.toPx())
+                                center.x + Math.cos(angleRad.toDouble()).toFloat() * (radius - 12.dp.toPx()),
+                                center.y + Math.sin(angleRad.toDouble()).toFloat() * (radius - 12.dp.toPx())
                             )
                             val end = Offset(
                                 center.x + Math.cos(angleRad.toDouble()).toFloat() * radius,
                                 center.y + Math.sin(angleRad.toDouble()).toFloat() * radius
                             )
-                            drawLine(color = Color.White.copy(alpha = 0.2f), start = start, end = end, strokeWidth = 1.dp.toPx())
+                            drawLine(color = Color.White.copy(alpha = 0.2f), start = start, end = end, strokeWidth = 2.dp.toPx())
                         }
                     }
                     
-                    Text("N", Modifier.align(Alignment.TopCenter).padding(top = 12.dp), color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                    Text("S", Modifier.align(Alignment.BottomCenter).padding(bottom = 12.dp), color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp)
-                    Text("E", Modifier.align(Alignment.CenterEnd).padding(end = 12.dp), color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp)
-                    Text("W", Modifier.align(Alignment.CenterStart).padding(start = 12.dp), color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp)
+                    Text("N", Modifier.align(Alignment.TopCenter).padding(top = 16.dp), color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                    Text("S", Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp), color = Color.White.copy(alpha = 0.6f), fontSize = 18.sp)
+                    Text("E", Modifier.align(Alignment.CenterEnd).padding(end = 16.dp), color = Color.White.copy(alpha = 0.6f), fontSize = 18.sp)
+                    Text("W", Modifier.align(Alignment.CenterStart).padding(start = 16.dp), color = Color.White.copy(alpha = 0.6f), fontSize = 18.sp)
                 }
                 
                 // Fixed Center Arrow (Pointer)
@@ -288,30 +291,29 @@ private fun SylvieCompassWidget(modifier: Modifier) {
                     imageVector = Icons.Default.KeyboardArrowUp,
                     contentDescription = null,
                     tint = Color.White,
-                    modifier = Modifier.size(40.dp).graphicsLayer { translationY = -10f }
+                    modifier = Modifier.size(48.dp).graphicsLayer { translationY = -16f }
                 )
                 
                 // Degree Text in center
                 Text(
                     text = "${bearing.toInt()}°",
                     color = Color.White,
-                    fontSize = 24.sp,
+                    fontSize = 32.sp,
                     fontWeight = FontWeight.Light,
-                    modifier = Modifier.align(Alignment.Center).padding(top = 40.dp)
+                    modifier = Modifier.align(Alignment.Center).padding(top = 48.dp)
                 )
             }
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Column {
-                    Text("LATITUDE", color = Color.White.copy(alpha = 0.3f), fontSize = 8.sp, fontWeight = FontWeight.Bold)
-                    Text("%.4f° N".format(location?.latitude ?: 39.7579), color = Color.White, fontSize = 11.sp)
+                    Text("LATITUDE", color = Color.White.copy(alpha = 0.3f), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text("%.4f° N".format(location?.latitude ?: 39.7579), color = Color.White, fontSize = 16.sp)
                 }
                 Column(horizontalAlignment = Alignment.End) {
-                    Text("LONGITUDE", color = Color.White.copy(alpha = 0.3f), fontSize = 8.sp, fontWeight = FontWeight.Bold)
-                    Text("%.4f° W".format(location?.longitude ?: 33.5108), color = Color.White, fontSize = 11.sp)
+                    Text("LONGITUDE", color = Color.White.copy(alpha = 0.3f), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text("%.4f° W".format(location?.longitude ?: 33.5108), color = Color.White, fontSize = 16.sp)
                 }
             }
         }
     }
 }
-

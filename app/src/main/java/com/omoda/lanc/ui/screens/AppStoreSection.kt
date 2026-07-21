@@ -22,6 +22,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import com.omoda.lanc.network.AppUpdate
 import com.omoda.lanc.network.OtaUpdateManager
+import com.omoda.lanc.ui.components.CarButton
+import com.omoda.lanc.ui.components.CarIconButton
+import com.omoda.lanc.ui.components.MinCarTouchTarget
 import kotlinx.coroutines.launch
 
 @Preview(showBackground = true, widthDp = 800, heightDp = 480)
@@ -79,40 +82,38 @@ fun AppStoreSection() {
         val scrollState = rememberScrollState()
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-                Text("GitHub Sürümleri", color = Color.White, modifier = Modifier.weight(1f), fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                IconButton(onClick = { loadUpdates() }, enabled = !isChecking) {
-                    if (isChecking) CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color(0xFF69E2D3))
-                    else Icon(Icons.Default.Refresh, "Yenile", tint = Color(0xFF69E2D3))
+                Text("GitHub Sürümleri", color = Color.White, modifier = Modifier.weight(1f), fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                CarIconButton(onClick = { loadUpdates() }, enabled = !isChecking) {
+                    if (isChecking) CircularProgressIndicator(modifier = Modifier.size(32.dp), color = Color(0xFF69E2D3))
+                    else Icon(Icons.Default.Refresh, "Yenile", tint = Color(0xFF69E2D3), modifier = Modifier.size(32.dp))
                 }
             }
 
             if (errorMessage != null) {
                 Surface(
                     color = Color.Red.copy(alpha = 0.1f),
-                    shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, Color.Red.copy(alpha = 0.3f)),
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(2.dp, Color.Red.copy(alpha = 0.3f)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(errorMessage!!, color = Color.Red, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
-                        Spacer(Modifier.height(8.dp))
-                        Button(onClick = { loadUpdates() }, colors = ButtonDefaults.buttonColors(containerColor = Color.Red)) {
-                            Text("YENİDEN DENE")
-                        }
+                    Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(errorMessage!!, color = Color.Red, textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        Spacer(Modifier.height(16.dp))
+                        CarButton(onClick = { loadUpdates() }, text = "YENİDEN DENE", colors = ButtonDefaults.buttonColors(containerColor = Color.Red, contentColor = Color.White))
                     }
                 }
             }
 
             if (downloadingApp != null) {
-                Column(modifier = Modifier.fillMaxWidth().background(Color.Black.copy(0.3f), RoundedCornerShape(12.dp)).padding(12.dp)) {
-                    Text("İndiriliyor: $downloadingApp", color = Color(0xFF69E2D3), fontWeight = FontWeight.Bold)
-                    LinearProgressIndicator(progress = { downloadProgress / 100f }, modifier = Modifier.fillMaxWidth().height(12.dp).padding(vertical = 8.dp), color = Color(0xFF69E2D3))
+                Column(modifier = Modifier.fillMaxWidth().background(Color.Black.copy(0.3f), RoundedCornerShape(16.dp)).padding(24.dp)) {
+                    Text("İndiriliyor: $downloadingApp", color = Color(0xFF69E2D3), fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    LinearProgressIndicator(progress = { downloadProgress / 100f }, modifier = Modifier.fillMaxWidth().height(16.dp).padding(vertical = 12.dp), color = Color(0xFF69E2D3))
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("%$downloadProgress", color = Color.White, fontSize = 12.sp)
-                        Text(String.format("%.1f Mbps", downloadSpeed), color = Color.White, fontSize = 12.sp)
+                        Text("%$downloadProgress", color = Color.White, fontSize = 16.sp)
+                        Text(String.format("%.1f Mbps", downloadSpeed), color = Color.White, fontSize = 16.sp)
                     }
                 }
             }
@@ -138,19 +139,22 @@ fun AppStoreSection() {
 @Composable
 fun UpdateItem(app: AppUpdate, isDownloading: Boolean, manager: OtaUpdateManager, onClick: () -> Unit) {
     val isDownloaded = manager.isUpdateDownloaded(app)
-    Card(colors = CardDefaults.cardColors(containerColor = Color.White.copy(0.05f)), modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = Color.White.copy(0.05f)), 
+        modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = MinCarTouchTarget)
+    ) {
+        Row(modifier = Modifier.padding(24.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(app.name, color = Color.White, fontWeight = FontWeight.Bold)
-                Text("v${app.version} • ${app.sizeBytes / 1024 / 1024} MB", color = Color.Gray, fontSize = 12.sp)
+                Text(app.name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                Spacer(Modifier.height(4.dp))
+                Text("v${app.version} • ${app.sizeBytes / 1024 / 1024} MB", color = Color.Gray, fontSize = 18.sp)
             }
-            Button(
+            CarButton(
                 onClick = onClick, 
                 enabled = !isDownloading,
-                colors = ButtonDefaults.buttonColors(containerColor = if(isDownloaded) Color(0xFF4CAF50) else Color(0xFF69E2D3))
-            ) {
-                Text(if(isDownloaded) "YÜKLE" else "İNDİR", color = Color.Black)
-            }
+                text = if(isDownloaded) "YÜKLE" else "İNDİR",
+                colors = ButtonDefaults.buttonColors(containerColor = if(isDownloaded) Color(0xFF4CAF50) else Color(0xFF69E2D3), contentColor = Color.Black)
+            )
         }
     }
 }

@@ -27,6 +27,9 @@ import com.omoda.lanc.core.VehicleController
 import com.omoda.lanc.core.GlobalState
 import com.omoda.lanc.model.VehicleState
 import com.omoda.lanc.ui.theme.OmodaCyan
+import com.omoda.lanc.ui.components.CarButton
+import com.omoda.lanc.ui.components.CarIconButton
+import com.omoda.lanc.ui.components.MinCarTouchTarget
 import kotlinx.coroutines.delay
 
 @Composable
@@ -36,7 +39,6 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
     var lastUpdate by remember { mutableLongStateOf(System.currentTimeMillis()) }
     val isSimMode by GlobalState.isSimulationMode.collectAsState()
 
-    // 2 saniyede bir manuel yenileme (Dumpsys verileri için)
     LaunchedEffect(Unit) {
         while (true) {
             vehicleState = VehicleController.getInstance(context).getVehicleState()
@@ -49,58 +51,56 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF081012))
-            .padding(16.dp)
+            .padding(24.dp)
     ) {
-        // Üst Bar
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onBack) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Geri", tint = Color.White)
+                CarIconButton(onClick = onBack) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Geri", tint = Color.White, modifier = Modifier.size(32.dp))
                 }
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(16.dp))
                 Text(
                     "Omoda 5 Sensör İzleme",
                     color = Color.White,
-                    fontSize = 20.sp,
+                    fontSize = 28.sp,
                     fontWeight = FontWeight.Bold
                 )
                 
                 if (isSimMode) {
-                    Spacer(Modifier.width(12.dp))
+                    Spacer(Modifier.width(16.dp))
                     Surface(
                         color = Color(0xFFE91E63).copy(alpha = 0.2f),
-                        shape = RoundedCornerShape(4.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE91E63).copy(alpha = 0.5f))
+                        shape = RoundedCornerShape(8.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFE91E63).copy(alpha = 0.5f)),
+                        modifier = Modifier.height(36.dp)
                     ) {
-                        Text(
-                            " SİMÜLASYON MODU ",
-                            color = Color(0xFFE91E63),
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(vertical = 2.dp)
-                        )
+                        Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(horizontal = 12.dp)) {
+                            Text(
+                                "SİMÜLASYON",
+                                color = Color(0xFFE91E63),
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
             }
             
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Info, contentDescription = null, tint = OmodaCyan, modifier = Modifier.size(16.dp))
-                Spacer(Modifier.width(4.dp))
+                Icon(Icons.Default.Info, contentDescription = null, tint = OmodaCyan, modifier = Modifier.size(24.dp))
+                Spacer(Modifier.width(8.dp))
                 Text(
-                    "Otomatik Yenileme: 2sn",
-                    color = Color.Gray,
-                    fontSize = 12.sp
+                    "Oto Yenileme: 2sn",
+                    color = Color.LightGray,
+                    fontSize = 18.sp
                 )
             }
         }
 
-        Spacer(Modifier.height(16.dp))
-
-        // Sensör Kartları
         val sensorItems = listOf(
             SensorItem("Hız", "${vehicleState.speed.toInt()} km/h", "Sürüş", Color(0xFF69E2D3)),
             SensorItem("Devir", "${vehicleState.engineRpm.toInt()} RPM", "Sürüş", Color(0xFF69E2D3)),
@@ -117,32 +117,41 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
         )
 
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(140.dp),
-            contentPadding = PaddingValues(4.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            columns = GridCells.Adaptive(220.dp),
+            contentPadding = PaddingValues(bottom = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.weight(1f)
         ) {
             items(sensorItems) { item ->
                 SensorCard(item)
             }
         }
         
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(Modifier.height(16.dp))
         
-        // Alt Butonlar (Basit ve Küçük)
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            SmallActionButton("Klima Aç/Kapat", Color(0xFF4CAF50)) {
-                exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity")
-            }
-            SmallActionButton("WIFI Onar", Color(0xFF2196F3)) {
-                exec(context, "svc wifi disable; sleep 1; svc wifi enable")
-            }
-            SmallActionButton("Logları Temizle", Color.Gray) {
-                exec(context, "logcat -c")
-            }
+            CarButton(
+                onClick = { exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity") },
+                text = "Klima Aç/Kapat",
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50).copy(alpha = 0.2f), contentColor = Color.White)
+            )
+            CarButton(
+                onClick = { exec(context, "svc wifi disable; sleep 1; svc wifi enable") },
+                text = "WIFI Onar",
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3).copy(alpha = 0.2f), contentColor = Color.White)
+            )
+            CarButton(
+                onClick = { exec(context, "logcat -c") },
+                text = "Logları Temizle",
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray.copy(alpha = 0.2f), contentColor = Color.White)
+            )
         }
     }
 }
@@ -161,29 +170,18 @@ data class SensorItem(val label: String, val value: String, val category: String
 fun SensorCard(item: SensorItem) {
     Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(16.dp))
             .background(Color.White.copy(alpha = 0.05f))
-            .border(1.dp, item.color.copy(alpha = 0.2f), RoundedCornerShape(12.dp))
-            .padding(12.dp)
+            .border(2.dp, item.color.copy(alpha = 0.3f), RoundedCornerShape(16.dp))
+            .padding(16.dp)
+            .defaultMinSize(minHeight = MinCarTouchTarget)
     ) {
         Column {
-            Text(item.category.uppercase(), color = item.color, fontSize = 9.sp, fontWeight = FontWeight.Black)
-            Text(item.label, color = Color.Gray, fontSize = 11.sp)
-            Text(item.value, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.ExtraBold)
+            Text(item.category.uppercase(), color = item.color, fontSize = 14.sp, fontWeight = FontWeight.Black)
+            Spacer(Modifier.height(4.dp))
+            Text(item.label, color = Color.LightGray, fontSize = 18.sp)
+            Spacer(Modifier.height(4.dp))
+            Text(item.value, color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.ExtraBold)
         }
-    }
-}
-
-@Composable
-fun RowScope.SmallActionButton(text: String, color: Color, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier.weight(1f).height(36.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = color.copy(alpha = 0.2f)),
-        contentPadding = PaddingValues(horizontal = 8.dp),
-        shape = RoundedCornerShape(8.dp),
-        border = androidx.compose.foundation.BorderStroke(1.dp, color.copy(alpha = 0.5f))
-    ) {
-        Text(text, color = Color.White, fontSize = 11.sp, fontWeight = FontWeight.Bold)
     }
 }
