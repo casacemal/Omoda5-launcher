@@ -6,7 +6,7 @@
 *   **Odaklanma Desteği:** D-pad ve Rotary Controller cihazları için özel focus state (Border) UI'a dahil edildi. Metin boyutları araç kullanımına uygun olarak büyütüldü.
 
 ## Son Durum (UI Restoration: v6312 Standards)
-*   Sürüm 6385 (6.0.0) - 21.07.2026 16:33
+*   Sürüm 6388 (6.0.0) - 21.07.2026 17:46
 *   **Restorasyon:** Tüm UI bileşenleri 19.07.2026 08:00-12:00 (v6312) aralığındaki altın oranlara ve `UI_MANIFESTO.md` standartlarına geri döndürüldü.
 *   **HomeScreen:** Grid padding değerleri manifesto ile eşitlendi (end=80dp, bottom=80dp).
 *   **Dashboard:** Sidebar genişliği 235dp'ye sabitlendi ve akıllı split oranı (high speed) 0.65f olarak güncellendi.

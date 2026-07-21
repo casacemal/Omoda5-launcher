@@ -41,7 +41,7 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
 
     LaunchedEffect(Unit) {
         while (true) {
-            vehicleState = VehicleController.getInstance(context).getVehicleState()
+            vehicleState = VehicleController.getInstance(context).getVehicleState().copy()
             lastUpdate = System.currentTimeMillis()
             delay(2000)
         }
