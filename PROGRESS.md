@@ -1,7 +1,7 @@
 # PROGRESS.md
 
 ## Son Durum (UI Restoration: v6312 Standards)
-*   Sürüm 6384 (6.0.0) - 21.07.2026 15:51
+*   Sürüm 6385 (6.0.0) - 21.07.2026 16:33
 *   **Restorasyon:** Tüm UI bileşenleri 19.07.2026 08:00-12:00 (v6312) aralığındaki altın oranlara ve `UI_MANIFESTO.md` standartlarına geri döndürüldü.
 *   **HomeScreen:** Grid padding değerleri manifesto ile eşitlendi (end=80dp, bottom=80dp).
 *   **Dashboard:** Sidebar genişliği 235dp'ye sabitlendi ve akıllı split oranı (high speed) 0.65f olarak güncellendi.

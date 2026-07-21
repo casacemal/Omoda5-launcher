@@ -41,6 +41,10 @@ object CommandDispatcher {
                     val media = MediaBridge.mediaState.value
                     mapOf(
                         "vehicle" to state,
+                        "device" to mapOf(
+                            "isCarHardware" to com.omoda.lanc.core.GlobalState.isCarHardware,
+                            "hasTelephony" to com.hermesandroid.bridge.model.DeviceCapabilities.hasTelephony
+                        ),
                         "media" to mapOf(
                             "title" to media.title,
                             "artist" to media.artist,

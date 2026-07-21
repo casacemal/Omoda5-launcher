@@ -68,3 +68,6 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 ## AAOS Geliştirme İpuçları & Önemli Bilgiler 💡
 *   **Audio Focus İşlemleri:** AAOS üzerinde ses sentezlerken, Chery'nin multimedya sisteminin (Radyo, Bluetooth vb.) sesini kısmak (ducking) veya duraklatmak için mutlaka Android `AudioFocusRequest` mimarisi kullanılmalıdır. Aksi takdirde asistan konuşurken müzikle sesler birbirine karışır.
 *   **Hız Ayarı (lengthScale):** Sürücüye anlık kritik bildirimler verirken (örn: "Sol kör noktada araç var!"), `lengthScale` değerini 0.85 veya 0.90 yaparak Fahrettin modelinin biraz daha seri ve dinamik konuşması sağlanmalıdır.
+## Hermes Entegrasyon Kuralları
+*   **Sabit Pairing Code (Eşleştirme Kodu):** Hermes Agent (DietPi) ile Android arasındaki entegrasyonda kullanılacak "Pairing Kodu" kesinlikle **OMODA5** olarak sabitlenmiştir. Rastgele eşleştirme kodu üretilmeyecektir.
+*   **Genişletilmiş Telemetri Aktarımı:** Araç ile Hermes Python Agent arasındaki CommandDispatcher `state` uç noktasından sadece kısıtlı veriler değil; doğrudan `VehicleController` telemetrisi, `MediaBridge` bilgileri ve `DeviceCapabilities` (isCarHardware, hasTelephony vb.) gibi donanım yetenekleri, tam hakimiyet amacıyla Python tarafına JSON formatında iletilecektir.

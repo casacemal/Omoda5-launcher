@@ -39,22 +39,11 @@ object PairingManager {
     }
 
     fun getCode(): String {
-        cachedCode?.let { return it }
-        val code = prefs?.getString(KEY_PAIRING_CODE, "") ?: ""
-        cachedCode = code
-        return code
+        return "OMODA5"
     }
 
     fun regenerateCode(): String {
-        val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // no 0/O/1/I to avoid confusion
-        val sb = StringBuilder(CODE_LENGTH)
-        repeat(CODE_LENGTH) {
-            sb.append(chars[secureRandom.nextInt(chars.length)])
-        }
-        val code = sb.toString()
-        prefs?.edit()?.putString(KEY_PAIRING_CODE, code)?.apply()
-        cachedCode = code
-        return code
+        return "OMODA5"
     }
 
     /**
