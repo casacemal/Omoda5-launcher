@@ -14,6 +14,13 @@ class SherpaModelInstaller(private val context: Context) {
     
     // API 29+ compatibility: Use app-specific external storage to avoid permission issues
     private fun getModelsRoot(): File {
+        // Öncelik: SD Kart (Manuel kopyalanmış modeller için)
+        val sdCardRoot = File("/sdcard/Omoda/Models")
+        if (isDirInstalled(File(sdCardRoot, "tts")) || isDirInstalled(File(sdCardRoot, "asr"))) {
+            Log.i(TAG, "Modeller SD kartta bulundu: ${sdCardRoot.absolutePath}")
+            return sdCardRoot
+        }
+
         val external = context.getExternalFilesDir(null)
         return if (external != null) {
             File(external, "Models")

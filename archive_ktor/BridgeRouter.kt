@@ -43,7 +43,7 @@ fun Application.configureRouting() {
                     call.request.header(HttpHeaders.Authorization)
                 )
 
-                val (result, status) = CommandDispatcher.dispatch(method, path, params, body, authenticated)
+                val (result, status) = CommandDispatcher.dispatch(path, params, body, authenticated)
                 call.respond(HttpStatusCode.fromValue(status), result)
             }
         }

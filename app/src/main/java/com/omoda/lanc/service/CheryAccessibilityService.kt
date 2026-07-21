@@ -16,6 +16,8 @@ class CheryAccessibilityService : AccessibilityService() {
     private val TAG = "CheryAccessibility"
     private var wm: WindowManager? = null
     private var method2Overlay: View? = null
+    // Tüm eklenen overlay view'larını takip et — onDestroy'da tam temizlik
+    private val addedOverlays = mutableListOf<View>()
     private var receiver: BroadcastReceiver? = null
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var logcatProcess: Process? = null
@@ -57,7 +59,13 @@ class CheryAccessibilityService : AccessibilityService() {
                 AssistantApplication.addLogStatic("SPLIT: Native Split Screen Tetiklendi")
             }
         }
-        registerReceiver(receiver, IntentFilter("com.omoda.lanc.TOGGLE_SPLIT"))
+        // M-11: API 33+ RECEIVER_NOT_EXPORTED — harici uygulamaların tetiklemesi engellenir
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(receiver, IntentFilter("com.omoda.lanc.TOGGLE_SPLIT"),
+                RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(receiver, IntentFilter("com.omoda.lanc.TOGGLE_SPLIT"))
+        }
     }
 
     private fun startVpnWatchdog() {
@@ -104,6 +112,7 @@ class CheryAccessibilityService : AccessibilityService() {
                 PixelFormat.TRANSLUCENT
             ).apply { gravity = g }
             wm?.addView(v, layoutParams)
+            addedOverlays.add(v)  // Takip listesine ekle
         } catch (e: Exception) {
             Log.e(TAG, "Setup overlay hatasi: ${e.message}")
         }
@@ -167,39 +176,42 @@ class CheryAccessibilityService : AccessibilityService() {
         serviceScope.launch(Dispatchers.IO) {
             try {
                 logcatProcess = Runtime.getRuntime().exec(arrayOf("logcat", "-v", "raw", "-T", "1"))
-                val reader = BufferedReader(InputStreamReader(logcatProcess?.inputStream))
-                var line: String? = null
-                while (isActive) {
-                    line = reader.readLine()
-                    if (line == null) break
-                    val l = line
-                    
-                    // Home key kontrolü
-                    if (homeInterceptMethod == 3 && (l.contains("HOME_KEY") || l.contains("KEYCODE_HOME"))) {
-                        withContext(Dispatchers.Main) { launchHome() }
-                        AssistantApplication.addLogStatic("HOME: Method 3 (Watchdog)")
-                    }
+                // M-10: BufferedReader try blogu içinde oluşturuluyor — kapatılması garantilenir
+                val stream = logcatProcess?.inputStream ?: return@launch
+                BufferedReader(InputStreamReader(stream)).use { reader ->
+                    while (isActive) {
+                        val line = reader.readLine() ?: break
+                        val l = line
+                        
+                        // Home key kontrolü
+                        if (homeInterceptMethod == 3 && (l.contains("HOME_KEY") || l.contains("KEYCODE_HOME"))) {
+                            withContext(Dispatchers.Main) { launchHome() }
+                            AssistantApplication.addLogStatic("HOME: Method 3 (Watchdog)")
+                        }
 
-                    // Genel Tuş (HardKey) Taraması (Çok agresif)
-                    val lowerL = l.lowercase()
-                    if (lowerL.contains("keyevent") || lowerL.contains("keycode")) {
-                        val kcMatch = Regex("keycode[:=]\\s*([0-9]+)", RegexOption.IGNORE_CASE).find(l)
-                        val kc = kcMatch?.groupValues?.getOrNull(1)?.toIntOrNull()
-                        if (kc != null) {
-                            val isUp = lowerL.contains("action_up") || lowerL.contains("up") || !lowerL.contains("down")
-                            if (isUp) {
-                                val keyIntent = Intent("com.omoda.lanc.HARDKEY_EVENT")
-                                keyIntent.putExtra("keyCode", kc)
-                                keyIntent.setPackage(packageName)
-                                sendBroadcast(keyIntent)
-                                if (isKeyMonitoringEnabled) {
-                                    AssistantApplication.addLogStatic("LOGCAT_KEY: $kc (Watchdog)")
+                        // Genel Tuş (HardKey) Taraıması (Çok agresif)
+                        val lowerL = l.lowercase()
+                        if (lowerL.contains("keyevent") || lowerL.contains("keycode")) {
+                            val kcMatch = Regex("keycode[:=]\\s*([0-9]+)", RegexOption.IGNORE_CASE).find(l)
+                            val kc = kcMatch?.groupValues?.getOrNull(1)?.toIntOrNull()
+                            if (kc != null) {
+                                val isUp = lowerL.contains("action_up") || lowerL.contains("up") || !lowerL.contains("down")
+                                if (isUp) {
+                                    val keyIntent = Intent("com.omoda.lanc.HARDKEY_EVENT")
+                                    keyIntent.putExtra("keyCode", kc)
+                                    keyIntent.setPackage(packageName)
+                                    sendBroadcast(keyIntent)
+                                    if (isKeyMonitoringEnabled) {
+                                        AssistantApplication.addLogStatic("LOGCAT_KEY: $kc (Watchdog)")
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+                Log.w(TAG, "Logcat watchdog sona erdi: ${e.message}")
+            }
         }
     }
 
@@ -235,8 +247,16 @@ class CheryAccessibilityService : AccessibilityService() {
         super.onDestroy()
         try {
             receiver?.let { unregisterReceiver(it) }
-            method2Overlay?.let { wm?.removeView(it) }
-        } catch (e: Exception) {}
+            // Tüm overlay view'larını temizle (method2Overlay dahil)
+            val allViews = addedOverlays.toList() + listOfNotNull(method2Overlay)
+            allViews.forEach { view ->
+                try { wm?.removeView(view) } catch (_: Exception) {}
+            }
+            addedOverlays.clear()
+            method2Overlay = null
+        } catch (e: Exception) {
+            Log.e(TAG, "onDestroy overlay temizleme hatası: ${e.message}")
+        }
     }
 
     override fun onInterrupt() {}

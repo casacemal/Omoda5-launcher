@@ -15,22 +15,30 @@ class AlertEngine(private val scope: CoroutineScope) {
         observeVehicleEvents()
     }
 
+    private var lastFuelAlertTime = 0L
+    private var lastDoorAlertTime = 0L
+    private val ALERT_COOLDOWN_MS = 60_000L
+
     private fun observeVehicleEvents() {
         scope.launch(Dispatchers.Default) {
-            EventBus.events.collectLatest { event ->
+            EventBus.events.collect { event ->
                 when (event) {
                     is Event.VehicleEvent.LowFuel -> {
-                        val alert = Alert(priority = AlertPriority.IMPORTANT, message = "Dikkat, yakıt seviyeniz düşüyor.")
-                        EventBus.emit(Event.AlertEvent.Triggered(alert))
+                        if (System.currentTimeMillis() - lastFuelAlertTime > ALERT_COOLDOWN_MS) {
+                            val alert = Alert(priority = AlertPriority.IMPORTANT, message = "Dikkat, yakıt seviyeniz düşüyor.")
+                            EventBus.emit(Event.AlertEvent.Triggered(alert))
+                            lastFuelAlertTime = System.currentTimeMillis()
+                        }
                     }
                     is Event.VehicleEvent.TirePressureLow -> {
                         val alert = Alert(priority = AlertPriority.CRITICAL, message = "Acil durum! Lastik basıncı düşük. Lütfen kontrol edin.")
                         EventBus.emit(Event.AlertEvent.Triggered(alert))
                     }
                     is Event.VehicleEvent.DoorStateChanged -> {
-                        if (event.open) {
+                        if (event.open && System.currentTimeMillis() - lastDoorAlertTime > ALERT_COOLDOWN_MS) {
                             val alert = Alert(priority = AlertPriority.INFORMATIONAL, message = "Kapı açıldı.")
                             EventBus.emit(Event.AlertEvent.Triggered(alert))
+                            lastDoorAlertTime = System.currentTimeMillis()
                         }
                     }
                     is Event.VehicleEvent.StateUpdated -> {
@@ -45,14 +53,20 @@ class AlertEngine(private val scope: CoroutineScope) {
     private fun checkAnomalies(state: com.omoda.lanc.model.VehicleState) {
         // Hız varken kapı açılması gibi anomaliler
         if (state.speed > 5f && (state.doorDriverOpen || state.doorPassengerOpen || state.doorRearLeftOpen || state.doorRearRightOpen)) {
-            val alert = Alert(priority = AlertPriority.CRITICAL, message = "Dikkat! Araç hareket halindeyken kapı açık!")
-            EventBus.tryEmit(Event.AlertEvent.Triggered(alert))
+            if (System.currentTimeMillis() - lastDoorAlertTime > ALERT_COOLDOWN_MS) {
+                val alert = Alert(priority = AlertPriority.CRITICAL, message = "Dikkat! Araç hareket halindeyken kapı açık!")
+                EventBus.tryEmit(Event.AlertEvent.Triggered(alert))
+                lastDoorAlertTime = System.currentTimeMillis()
+            }
         }
         
         // Düşük yakıt kontrolü (eğer event tetiklenmediyse buradan da bakılabilir)
-        if (state.fuelLevel > 0 && state.fuelLevel < 5.0f) {
-            val alert = Alert(priority = AlertPriority.IMPORTANT, message = "Yakıt seviyesi kritik seviyede.")
-            EventBus.tryEmit(Event.AlertEvent.Triggered(alert))
+        if (state.fuelLevel in 0.1f..5.0f) {
+            if (System.currentTimeMillis() - lastFuelAlertTime > ALERT_COOLDOWN_MS) {
+                val alert = Alert(priority = AlertPriority.IMPORTANT, message = "Yakıt seviyesi kritik seviyede.")
+                EventBus.tryEmit(Event.AlertEvent.Triggered(alert))
+                lastFuelAlertTime = System.currentTimeMillis()
+            }
         }
     }
 }

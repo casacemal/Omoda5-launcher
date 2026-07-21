@@ -45,10 +45,17 @@ class DrivingAnalysisEngine(private val scope: CoroutineScope) {
             speedSum += speed
             dataPoints++
             
-            // Sert Fren Tespiti (Basit ivme hesabı: 1 sn'de > 10 km/h düşüş)
+            // Sert Fren Tespiti (Basit ivme hesabı: 1 sn'de > 15 km/h düşüş)
             if (lastSpeed - speed > 15f) {
                 hardBrakeCount++
                 Log.w(TAG, "Sert Fren Tespit Edildi!")
+                GlobalState.ecoScore.value = (GlobalState.ecoScore.value - 3).coerceAtLeast(0)
+            }
+            
+            // Ani Hızlanma Tespiti (1 sn'de > 15 km/h artış)
+            if (speed - lastSpeed > 15f) {
+                Log.w(TAG, "Ani Hızlanma Tespit Edildi!")
+                GlobalState.ecoScore.value = (GlobalState.ecoScore.value - 2).coerceAtLeast(0)
             }
 
             // Sürüş Bitişi Tespiti (Vites P ve Hız 0)
@@ -68,6 +75,7 @@ class DrivingAnalysisEngine(private val scope: CoroutineScope) {
         speedSum = 0f
         dataPoints = 0
         hardBrakeCount = 0
+        GlobalState.ecoScore.value = 100 // Sürüş puanını sıfırla
         
         EventBus.tryEmit(Event.AnalysisEvent.TripStarted(startTime))
     }

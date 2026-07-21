@@ -9,3 +9,17 @@ val TextWhite = Color(0xFFFFFFFF)
 val TextGray = Color(0xFFAAAAAA)
 val MatrixGreen = Color(0xFF00FF41)
 val OmodaRed = Color(0xFFE63946)
+
+// Car UI Specific
+val DimSurface  = Color(0xFF0D0D0D)
+val CardSurface = Color(0xFF141414)
+val DividerGray = Color(0xFF2A2A2A)
+val TextMuted   = Color(0xFF888888)
+
+// Premium UI Additions
+val GlassBackground = Color(0xFF18181A).copy(alpha = 0.5f)
+val GlassBorder = Color.White.copy(alpha = 0.1f)
+val AccentPurple = Color(0xFF7B2CBF)
+val DarkPurpleBg = Color(0xFF0F0B1A)
+val GlowGreen = Color(0xFF38B000)
+val GlowYellow = Color(0xFFFFB703)

@@ -1,0 +1,100 @@
+07-15 01:40:27.605 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1030)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: IllegalArgumentException of calling startProvider
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: java.lang.IllegalArgumentException: provider doesn't exist: network
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.createException(Parcel.java:2075)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.readException(Parcel.java:2039)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.readException(Parcel.java:1987)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.ILocationManager$Stub$Proxy.requestLocationUpdates(ILocationManager.java:1151)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:1019)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:558)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription.startImpl(Unknown Source:13)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription.d(Unknown Source:0)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription$2.run(Unknown Source:28)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Handler.handleCallback(Handler.java:883)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Handler.dispatchMessage(Handler.java:100)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Looper.loop(Looper.java:214)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.app.ActivityThread.main(ActivityThread.java:7407)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at java.lang.reflect.Method.invoke(Native Method)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+07-15 01:40:27.683 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1030)
+07-15 01:40:27.707 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:27.708 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: IllegalArgumentException of calling startProvider
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: java.lang.IllegalArgumentException: provider doesn't exist: network
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.createException(Parcel.java:2075)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.readException(Parcel.java:2039)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.readException(Parcel.java:1987)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.ILocationManager$Stub$Proxy.requestLocationUpdates(ILocationManager.java:1151)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:1019)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:558)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription.startImpl(Unknown Source:13)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription.d(Unknown Source:0)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription$2.run(Unknown Source:28)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Handler.handleCallback(Handler.java:883)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Handler.dispatchMessage(Handler.java:100)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Looper.loop(Looper.java:214)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.app.ActivityThread.main(ActivityThread.java:7407)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at java.lang.reflect.Method.invoke(Native Method)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+07-15 01:40:27.723 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1030)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: IllegalArgumentException of calling startProvider
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: java.lang.IllegalArgumentException: provider doesn't exist: network
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.createException(Parcel.java:2075)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.readException(Parcel.java:2039)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Parcel.readException(Parcel.java:1987)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.ILocationManager$Stub$Proxy.requestLocationUpdates(ILocationManager.java:1151)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:1019)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.location.LocationManager.requestLocationUpdates(LocationManager.java:558)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription.startImpl(Unknown Source:13)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription.d(Unknown Source:0)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.yandex.runtime.sensors.internal.LocationSubscription$2.run(Unknown Source:28)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Handler.handleCallback(Handler.java:883)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Handler.dispatchMessage(Handler.java:100)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.os.Looper.loop(Looper.java:214)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at android.app.ActivityThread.main(ActivityThread.java:7407)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at java.lang.reflect.Method.invoke(Native Method)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+07-15 01:40:27.752 21122 21122 E com.yandex.runtime.sensors.internal.LocationSubscription: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1030)
+07-15 01:40:28.069 21122 21935 D ProfileInstaller: Installing profile for ru.yandex.yandexnavi
+07-15 01:40:29.141 21122 21122 W View    : requestLayout() improperly called by ru.yandex.yandexmaps.tabnavigation.internal.discovery.shutter.items.p2{67b66ee V.E...... ......ID 0,0-380,60} during layout: running second layout pass
+07-15 01:40:29.141 21122 21122 W View    : requestLayout() improperly called by ru.yandex.yandexmaps.tabnavigation.internal.discovery.shutter.items.g2{abb8fa1 V.E...... ......ID 0,0-380,68} during layout: running second layout pass
+07-15 01:40:31.118  2700  2803 I ActivityTaskManager: Fully drawn ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity: +16s537ms
+07-15 01:40:31.562 21956 21956 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 21956 (CarPlayCommServ), pid 21956 (CarPlayCommServ)
+07-15 01:40:31.686 21966 21966 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-15 01:40:31.688  2649  2649 I /system/bin/tombstoned: received crash request for pid 21956
+07-15 01:40:31.689 21966 21966 I crash_dump64: performing dump of process 21956 (target tid = 21956)
+07-15 01:40:31.768 21122 21244 E yandex.maps: decltype: -2: Integrity API error (-2): The Play Store app is either not installed or not the official version.
+07-15 01:40:31.768 21122 21244 E yandex.maps: Ask the user to install an official and recent version of Play Store.
+07-15 01:40:31.768 21122 21244 E yandex.maps:  (https://developer.android.com/google/play/integrity/reference/com/google/android/play/core/integrity/model/IntegrityErrorCode.html#PLAY_STORE_NOT_FOUND).
+07-15 01:40:32.298  2700  2983 W NativeCrashListener: Couldn't find ProcessRecord for pid 21956
+07-15 01:40:32.516 21122 21133 I ndex.yandexnav: Background young concurrent copying GC freed 301149(21MB) AllocSpace objects, 8(288KB) LOS objects, 47% free, 23MB/44MB, paused 131us total 148.897ms
+07-15 01:40:32.863 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:32.867 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:32.891 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:32.896 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:32.906 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:32.910 21171 21355 W GooglePlayServicesUtil: ru.yandex.yandexnavi requires the Google Play Store, but it is missing.
+07-15 01:40:35.717 21978 21978 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 21978 (CarPlayCommServ), pid 21978 (CarPlayCommServ)
+07-15 01:40:35.773 21984 21984 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-15 01:40:35.773  2649  2649 I /system/bin/tombstoned: received crash request for pid 21978
+07-15 01:40:35.774 21984 21984 I crash_dump64: performing dump of process 21978 (target tid = 21978)
+07-15 01:40:36.215  2700  2983 W NativeCrashListener: Couldn't find ProcessRecord for pid 21978
+07-15 01:40:40.758 21997 21997 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 21997 (CarPlayCommServ), pid 21997 (CarPlayCommServ)
+07-15 01:40:40.819 22002 22002 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-15 01:40:40.821  2649  2649 I /system/bin/tombstoned: received crash request for pid 21997
+07-15 01:40:40.821 22002 22002 I crash_dump64: performing dump of process 21997 (target tid = 21997)
+07-15 01:40:41.245  2700  2983 W NativeCrashListener: Couldn't find ProcessRecord for pid 21997
+07-15 01:40:41.840 21122 21243 E yandex.maps: decltype: -2: Integrity API error (-2): The Play Store app is either not installed or not the official version.
+07-15 01:40:41.840 21122 21243 E yandex.maps: Ask the user to install an official and recent version of Play Store.
+07-15 01:40:41.840 21122 21243 E yandex.maps:  (https://developer.android.com/google/play/integrity/reference/com/google/android/play/core/integrity/model/IntegrityErrorCode.html#PLAY_STORE_NOT_FOUND).
+07-15 01:40:45.722 22014 22014 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 22014 (CarPlayCommServ), pid 22014 (CarPlayCommServ)
+07-15 01:40:45.769 22020 22020 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-15 01:40:45.770  2649  2649 I /system/bin/tombstoned: received crash request for pid 22014
+07-15 01:40:45.770 22020 22020 I crash_dump64: performing dump of process 22014 (target tid = 22014)
+07-15 01:40:46.162  2700  2983 W NativeCrashListener: Couldn't find ProcessRecord for pid 22014
+07-15 01:40:50.785 22131 22131 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 22131 (CarPlayCommServ), pid 22131 (CarPlayCommServ)
+07-15 01:40:50.841 22155 22155 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-15 01:40:50.843  2649  2649 I /system/bin/tombstoned: received crash request for pid 22131
+07-15 01:40:50.843 22155 22155 I crash_dump64: performing dump of process 22131 (target tid = 22131)
+07-15 01:40:51.260  2700  2983 W NativeCrashListener: Couldn't find ProcessRecord for pid 22131
+07-15 01:40:51.260 22155 22155 E crash_dump64: AM data write failed: Broken pipe

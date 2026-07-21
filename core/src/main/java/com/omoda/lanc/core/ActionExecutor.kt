@@ -19,6 +19,22 @@ class ActionExecutor(
 
     companion object {
         private const val TAG = "ActionExecutor"
+
+        // C-1/C-3: Güvenli paket adı ve sorgu validasyonu
+        private val SAFE_PACKAGE_REGEX = Regex("^[a-zA-Z][a-zA-Z0-9._]{1,199}$")
+        private const val MAX_QUERY_LENGTH = 200
+
+        /** Android paket adı formatına uyan izin verilen karakterler. */
+        fun isValidPackageName(pkg: String): Boolean {
+            return pkg.isNotBlank() && SAFE_PACKAGE_REGEX.matches(pkg)
+        }
+
+        /** Shell meta-karakterlerinden arındırılmış sorgu kontrolü. */
+        fun isSafeQuery(query: String): Boolean {
+            if (query.isBlank() || query.length > MAX_QUERY_LENGTH) return false
+            // Shell injection karakterleri: ; & | ` $ \ ! < > newline
+            return query.none { it in ";|`$\\!<>\n\r" }
+        }
     }
 
     private fun executeShellCommand(command: String): String {
@@ -27,27 +43,30 @@ class ActionExecutor(
         return "Command sent to AdbClient"
     }
 
-    internal fun execute(functionName: String, argumentsJson: String): String {
+    fun execute(functionName: String, argumentsJson: String): String {
         Log.i(TAG, "Aksiyon: $functionName | Args: $argumentsJson")
         return try {
             val args = if (argumentsJson.isBlank()) JSONObject() else JSONObject(argumentsJson)
 
             when (functionName) {
-                // KLİMA KONTROLÜ (Dumpsys Tabanlı)
+                // KLİMA KONTROLÜ (Dumpsys + OEM Bridge)
                 "hvac_on" -> {
-                    executeShellCommand("dumpsys car_service set-property-value 0x15400500 0 1") // Power
-                    executeShellCommand("dumpsys car_service set-property-value 0x15600502 0 1") // AC
-                    executeShellCommand("input tap 500 900") // Visual Trigger
-                    "Success: HVAC and AC turned ON via Dumpsys"
+                    // Omoda 5 VHAL Property: 0x15200505 (AC_ON), 0x15400500 (FAN_SPEED)
+                    executeShellCommand("dumpsys car_service set-property-value 0x15200505 0 1") 
+                    executeShellCommand("dumpsys car_service set-property-value 0x15400500 0 3")
+                    // OEM Klima Uygulamasını tetikle (Görsel Aktivasyon)
+                    executeShellCommand("am start -n com.chery.hvac/.view.activity.MainActivity")
+                    "Success: HVAC turned ON via VHAL & OEM Bridge"
                 }
                 "hvac_off" -> {
-                    executeShellCommand("dumpsys car_service set-property-value 0x15400500 0 0") // Power
-                    executeShellCommand("dumpsys car_service set-property-value 0x15600502 0 0") // AC
-                    "Success: HVAC and AC turned OFF via Dumpsys"
+                    executeShellCommand("dumpsys car_service set-property-value 0x15200505 0 0")
+                    executeShellCommand("dumpsys car_service set-property-value 0x15400500 0 0")
+                    "Success: HVAC turned OFF via VHAL"
                 }
                 "simulate_hvac_touch" -> {
-                    val x = args.optInt("x", 500)
-                    val y = args.optInt("y", 900)
+                    // C-3: Koordinatları HVAC bölgesiyle sınırla (tam ekran tap engellenir)
+                    val x = args.optInt("x", 500).coerceIn(0, 1920)
+                    val y = args.optInt("y", 900).coerceIn(800, 1080) // Yalnızca alt panel bölgesi
                     executeShellCommand("input tap $x $y")
                     "Success: HVAC tap simulation at ($x, $y)"
                 }
@@ -213,22 +232,31 @@ class ActionExecutor(
                 // UYGULAMA BAŞLATMA VE ARAMA
                 "open_app" -> {
                     val pkg = args.optString("package_name")
-                    if (pkg.isNotEmpty()) {
+                    // C-1: Paket adı whitelist regex doğrulama
+                    if (pkg.isNotEmpty() && isValidPackageName(pkg)) {
                         executeShellCommand("monkey -p $pkg -c android.intent.category.LAUNCHER 1")
                         "Success: App $pkg opened"
-                    } else {
+                    } else if (pkg.isEmpty()) {
                         "Error: Missing package_name"
+                    } else {
+                        Log.w(TAG, "Geçersiz paket adı reddedildi: $pkg")
+                        "Error: Invalid package name format"
                     }
                 }
 
                 "search_youtube" -> {
                     val query = args.optString("query")
-                    if (query.isNotEmpty()) {
-                        // YouTube Arama Intent'i
-                        executeShellCommand("am start -a android.intent.action.SEARCH -n com.google.android.youtube/.SearchActivity -e query \"$query\"")
-                        "Success: YouTube search for $query"
-                    } else {
+                    // C-1: Sorgu shell injection koruması
+                    if (query.isNotEmpty() && isSafeQuery(query)) {
+                        // Query tırnak içinde zaten, ek escape yap
+                        val safeQuery = query.replace("\"", "'")
+                        executeShellCommand("am start -a android.intent.action.SEARCH -n com.google.android.youtube/.SearchActivity -e query \"$safeQuery\"")
+                        "Success: YouTube search for $safeQuery"
+                    } else if (query.isEmpty()) {
                         "Error: Missing query"
+                    } else {
+                        Log.w(TAG, "Güvensiz YouTube sorgusu reddedildi")
+                        "Error: Query contains invalid characters"
                     }
                 }
 
@@ -252,24 +280,32 @@ class ActionExecutor(
                     "Success: Tailscale VPN disconnection requested"
                 }
 
-                // ARAÇ DURUMU (TOPLU)
                 "get_vehicle_status" -> {
-                    val state = VehicleController.instance?.getVehicleState()
-                    if (state != null) {
-                        val json = JSONObject().apply {
-                            put("speed", state.speed)
-                            put("gear", state.gearString)
-                            put("rpm", state.engineRpm)
-                            put("fuel", state.fuelLevel)
-                            put("outside_temp", state.outsideTemperature)
-                            put("ac_on", state.isHvacOn)
-                            put("gps", "${state.latitude},${state.longitude}")
-                        }
-                        "Success: Vehicle Status: $json"
-                    } else {
-                        "Error: VehicleController not available"
+                    val state = VehicleController.getInstance(context).getVehicleState()
+                    val json = JSONObject().apply {
+                        put("speed", state.speed)
+                        put("gear", state.gearString)
+                        put("rpm", state.engineRpm)
+                        put("fuel", state.fuelLevel)
+                        put("outside_temp", state.outsideTemperature)
+                        put("ac_on", state.isHvacOn)
+                        put("driver_temp", state.acTemperatureDriver)
+                        put("window_pos", state.windowPosition)
+                        put("gps", "${state.latitude},${state.longitude}")
                     }
+                    "Success: Vehicle Status: $json"
                 }
+
+                "get_media_queue" -> {
+                    val media = MediaBridge.mediaState.value
+                    val json = JSONObject().apply {
+                        put("current_track", media.title)
+                        put("current_artist", media.artist)
+                        put("queue", org.json.JSONArray(media.queue))
+                    }
+                    "Success: Media Queue: $json"
+                }
+
 
                 // RADYO FREKANSI
                 "set_radio_frequency" -> {
@@ -282,11 +318,16 @@ class ActionExecutor(
                 // MEDYA ARAMA VE OYNATMA
                 "search_and_play" -> {
                     val query = args.optString("query")
-                    if (query.isNotEmpty()) {
-                        executeShellCommand("am start -a android.media.action.MEDIA_PLAY_FROM_SEARCH -e query \"$query\"")
-                        "Success: Searching and playing '$query'"
-                    } else {
+                    // C-1: Sorgu shell injection koruması
+                    if (query.isNotEmpty() && isSafeQuery(query)) {
+                        val safeQuery = query.replace("\"", "'")
+                        executeShellCommand("am start -a android.media.action.MEDIA_PLAY_FROM_SEARCH -e query \"$safeQuery\"")
+                        "Success: Searching and playing '$safeQuery'"
+                    } else if (query.isEmpty()) {
                         "Error: Missing query"
+                    } else {
+                        Log.w(TAG, "Güvensiz medya sorgusu reddedildi")
+                        "Error: Query contains invalid characters"
                     }
                 }
 

@@ -42,7 +42,7 @@ class VehicleCommandEngine(private val scope: CoroutineScope) {
 
     private fun observeCommands() {
         scope.launch(Dispatchers.Default) {
-            EventBus.events.collectLatest { event ->
+            EventBus.events.collect { event ->
                 if (event is Event.CommandEvent.RouteDecided && event.target == CommandTarget.VEHICLE) {
                     executeCommand(event.text)
                 }

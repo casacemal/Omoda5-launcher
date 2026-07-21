@@ -29,8 +29,8 @@ class AudioStreamReceiver(
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
     private val client = OkHttpClient.Builder()
-        .readTimeout(0, TimeUnit.MILLISECONDS)
-        .writeTimeout(0, TimeUnit.MILLISECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
         .pingInterval(10, TimeUnit.SECONDS)
         .build()
 

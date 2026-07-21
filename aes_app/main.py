@@ -72,7 +72,7 @@ AOSP_VHAL_PROPERTIES: dict[str, str] = {
     "0x11400b03": "TRACTION_CONTROL_ACTIVE",
     "0x11600205": "FUEL_LEVEL",
     "0x11600207": "PERF_VEHICLE_SPEED",
-    "0x11600300": "ENGINE_RPM",
+    "0x11600305": "ENGINE_RPM",
     "0x11600702": "EV_BATTERY_LEVEL",
     "0x15400500": "HVAC_POWER_ON",
     "0x15600501": "HVAC_DEFROSTER",
@@ -113,7 +113,7 @@ def load_app_config() -> dict:
         "mqtt_pass": "4078",
         "mqtt_topic_simulate": "omoda/simulate",
         "mqtt_topic_komut": "omoda/komut",
-        "poll_interval_sec": 2,
+        "poll_interval_sec": 1,
         "adb_timeout_sec": 10,
         "batch_size": 20,
     }
@@ -192,7 +192,6 @@ class VhalAesApp(ctk.CTk):
         ctk.CTkLabel(
             self.left_frame,
             text="VHAL AES Kontrol",
-            font=ctk.CTkFont(size=20, weight="bold"),
         ).pack(pady=10)
 
         # ── ADB Hedef IP ──
@@ -333,7 +332,7 @@ class VhalAesApp(ctk.CTk):
             quick_frame,
             text="RPM: 2000",
             width=80,
-            command=lambda: self.quick_send("0x11600300", 2000.0),
+            command=lambda: self.quick_send("0x11600305", 2000.0),
         ).pack(side="left", padx=2)
 
         # ── Hermes ──
@@ -958,8 +957,9 @@ class VhalAesApp(ctk.CTk):
             card = ctk.CTkFrame(tab, fg_color="#2b2b2b", corner_radius=10, border_width=1, border_color=color)
             card.grid(row=r, column=c, padx=10, pady=10, sticky="nsew")
 
-            ctk.CTkLabel(card, text=label, font=ctk.CTkFont(size=11, weight="bold"), text_color=color).pack(pady=(5, 0))
-            val_lbl = ctk.CTkLabel(card, text=default, font=ctk.CTkFont(size=18, weight="bold"))
+            # KRİTİK KURAL: Linux Tkinter'da weight="black" kullanmak çökmeye neden olur! SADECE "bold" VEYA "normal" KULLANIN.
+            ctk.CTkLabel(card, text=label, text_color=color).pack(pady=(5, 0))
+            val_lbl = ctk.CTkLabel(card, text=default)
             val_lbl.pack(pady=5)
             self.dashboard_widgets[pid.lower()] = val_lbl
 
@@ -1021,7 +1021,7 @@ class VhalAesApp(ctk.CTk):
 
             if "rpm" in data:
                 val = f"{data['rpm']} RPM"
-                self._update_bridge_row("ANDROID_RPM", "0x11600300", "RPM (Köprü)", val, i_val=str(data["rpm"]))
+                self._update_bridge_row("ANDROID_RPM", "0x11600305", "RPM (Köprü)", val, i_val=str(data["rpm"]))
                 self._update_dashboard_widget("0x11600305", val)
 
             if "ac_on" in data:

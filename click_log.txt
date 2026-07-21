@@ -1,0 +1,563 @@
+--------- beginning of main
+07-15 00:52:07.396 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: REMOTE_LOCK_FEEDBACK_STS : 0
+07-15 00:52:07.396 I/CarPropertyManager(12151): PropID,area,value:REMOTE_LOCK_FEEDBACK_STS_0_0
+07-15 00:52:07.397 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: PLG_POSITION_SET : 95
+07-15 00:52:07.397 I/CarPropertyManager(12151): PropID,area,value:PLG_POSITION_SET_0_95
+07-15 00:52:07.397 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: CWC_WORKING_STS : 1
+07-15 00:52:07.397 I/CarPropertyManager(12151): PropID,area,value:CWC_WORKING_STS_0_1
+07-15 00:52:07.397 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: CWC_CHARGING_STS : 0
+07-15 00:52:07.397 I/CarPropertyManager(12151): PropID,area,value:CWC_CHARGING_STS_0_0
+07-15 00:52:07.398 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: CWC_PHONE_FORGOTTEN_FUN_STS : 1
+07-15 00:52:07.398 I/CarPropertyManager(12151): PropID,area,value:CWC_PHONE_FORGOTTEN_FUN_STS_0_1
+07-15 00:52:07.398 D/HVAC.BindCarService(12151): onKeySts:    1
+07-15 00:52:07.398 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: KEY_STS : 1
+07-15 00:52:07.398 I/CarPropertyManager(12151): PropID,area,value:KEY_STS_0_1
+07-15 00:52:07.399 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG : 0,000000
+07-15 00:52:07.399 I/CarPropertyManager(12151): PropID,area,value:VEHICLE_SPEED_VSOSIG_0_0.0
+07-15 00:52:07.399 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: VEHICLE_SPEED_VSOSIG_VALIDATION : 0
+07-15 00:52:07.399 I/CarPropertyManager(12151): PropID,area,value:VEHICLE_SPEED_VSOSIG_VALIDATION_0_0
+07-15 00:52:07.399 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: ICM_BRIGHTNESS_LEVEL : 10
+07-15 00:52:07.399 I/CarPropertyManager(12151): PropID,area,value:ICM_BRIGHTNESS_LEVEL_0_10
+07-15 00:52:07.400 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: ISS_SWITCH : 0
+07-15 00:52:07.400 I/CarPropertyManager(12151): PropID,area,value:ISS_SWITCH_0_0
+07-15 00:52:07.400 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: DAY_NIGHT_MODE_LIGHT : 0
+07-15 00:52:07.400 I/CarPropertyManager(12151): PropID,area,value:DAY_NIGHT_MODE_LIGHT_0_0
+07-15 00:52:07.400 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: DAY_NIGHT_MODE_LIGHT_CAN : 0
+07-15 00:52:07.400 I/CarPropertyManager(12151): PropID,area,value:DAY_NIGHT_MODE_LIGHT_CAN_0_0
+07-15 00:52:07.401 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: DAY_NIGHT_MODE_LIGHT_SENSOR : 0
+07-15 00:52:07.401 I/CarPropertyManager(12151): PropID,area,value:DAY_NIGHT_MODE_LIGHT_SENSOR_0_0
+07-15 00:52:07.401 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: CWC_PHONE_FORGOTTEN_MSG : 0
+07-15 00:52:07.401 I/CarPropertyManager(12151): PropID,area,value:CWC_PHONE_FORGOTTEN_MSG_0_0
+07-15 00:52:07.401 I/CarPropertyManager(12151): PropID,area,value:IPC_TIME_0_20260715005205
+07-15 00:52:07.401 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: TRUNK_STS : 0
+07-15 00:52:07.401 I/CarPropertyManager(12151): PropID,area,value:TRUNK_STS_0_0
+07-15 00:52:07.402 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: SRF_OPERATE_STS : 2
+07-15 00:52:07.402 I/CarPropertyManager(12151): PropID,area,value:SRF_OPERATE_STS_0_2
+07-15 00:52:07.402 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: IHU_WINDOW_MSG_FD : 4
+07-15 00:52:07.402 I/CarPropertyManager(12151): PropID,area,value:IHU_WINDOW_MSG_FD_0_4
+07-15 00:52:07.402 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: IHU_WINDOW_MSG_FP : 4
+07-15 00:52:07.402 I/CarPropertyManager(12151): PropID,area,value:IHU_WINDOW_MSG_FP_0_4
+07-15 00:52:07.403 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: IHU_WINDOW_MSG_RL : 4
+07-15 00:52:07.403 I/CarPropertyManager(12151): PropID,area,value:IHU_WINDOW_MSG_RL_0_4
+07-15 00:52:07.403 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: IHU_WINDOW_MSG_RR : 4
+07-15 00:52:07.403 I/CarPropertyManager(12151): PropID,area,value:IHU_WINDOW_MSG_RR_0_4
+07-15 00:52:07.403 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: SCREEN_OVER_TEMPERATURE : 0
+07-15 00:52:07.403 I/CarPropertyManager(12151): PropID,area,value:SCREEN_OVER_TEMPERATURE_0_0
+07-15 00:52:07.403 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: CTP_KEY_VOICE_REMIND : 0
+07-15 00:52:07.403 I/CarPropertyManager(12151): PropID,area,value:CTP_KEY_VOICE_REMIND_0_0
+07-15 00:52:07.404 I/CAR.CarBasicClient(12151): onChangeEvent: app receive call back: DMS_ALRM_SWT : 1
+07-15 00:52:07.404 I/CarPropertyManager(12151): PropID,area,value:DMS_ALRM_SWT_0_1
+07-15 00:52:07.407 I/adbd    ( 2595): opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 00:52:07.407 I/adbd    ( 2595): UsbFfsConnection constructed
+07-15 00:52:07.410 D/android.hardware.power@1.3-service.semidrive( 2555): LAUNCH: 0
+07-15 00:52:07.411 I/HVAC.VerticalView(12151): setProgress:0
+07-15 00:52:07.417 I/AM      ( 3101): onForegroundActivitiesChanged uid 1000 pid 12151 fg false
+07-15 00:52:07.418 I/CAR.AM  ( 3010): onForegroundActivitiesChanged uid 1000 pid 12151 fg false
+07-15 00:52:07.426 I/AM      ( 3101): Updating top task to: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4171, stackId=0, userId=0, displayId=0, position=5
+07-15 00:52:07.426 I/AM      ( 3101): Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4171, stackId=0, userId=0, displayId=0, position=5
+07-15 00:52:07.426 I/SYSUI.UiVisibilityManag( 3101): TopActivity: getPackageName = com.omoda.lanc, info =ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 00:52:07.432 I/CAR.AM  ( 3010): Updating top task to: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4171, stackId=0, userId=0, displayId=0, position=5
+07-15 00:52:07.432 I/CAR.AM  ( 3010): Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4171, stackId=0, userId=0, displayId=0, position=5
+07-15 00:52:07.432 I/CAR.AM  ( 3010): Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4171, stackId=0, userId=0, displayId=0, position=5
+07-15 00:52:07.436 I/tbox_service_socketclient( 2573): recTCPMsg  readlen=655
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): tboxDataResp,str={
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): 	"NMEA":	"$GPGSV,5,1,17,06,29,104,34,11,18,144,39,12,45,284,49,13,,,50,1*5D\r\n$GPGSV,5,2,17,14,00,080,24,15,19,212,39,19,54,056,52,20,10,187,35,1*6F\r\n$GPGSV,5,3,17,22,16,071,40,24,80,262,54,25,09,272,36,32,01,330,21,1*67\r\n$GPGSV,5,4,17,17,20,045,,41,,,36,42,,,41,47,,,37,1*52\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,215208.00,3951.174842,N,03330.191171,E,1,09,0.5,763.2,M,37.0,M,,*67\r\n$GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24\r\n$GPRMC,215208.00,A,3951.174842,N,03330.191171,E,0.0,227.2,140726,4.1,E,A,V*4A\r\n$GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F\r\n"
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): }
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): gpsNotification nmea=$GPGSV,5,1,17,06,29,104,34,11,18,144,39,12,45,284,49,13,,,50,1*5D
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPGSV,5,2,17,14,00,080,24,15,19,212,39,19,54,056,52,20,10,187,35,1*6F
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPGSV,5,3,17,22,16,071,40,24,80,262,54,25,09,272,36,32,01,330,21,1*67
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPGSV,5,4,17,17,20,045,,41,,,36,42,,,41,47,,,37,1*52
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPGSV,5,5,17,49,,,45,1*6E
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPGGA,215208.00,3951.174842,N,03330.191171,E,1,09,0.5,763.2,M,37.0,M,,*67
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPRMC,215208.00,A,3951.174842,N,03330.191171,E,0.0,227.2,140726,4.1,E,A,V*4A
+07-15 00:52:07.436 I/tbox_service_parsejson( 2573): $GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): initData
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,altitude=800.200000,latitude=39.852914,longtitude=33.503186
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,pdop=0.800000,hdop=0.500000,vdop=0.600000
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=104;filed_1=29
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=144;filed_1=18
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=284;filed_1=45
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=3
+07-15 00:52:07.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=80;filed_1=00
+07-15 00:52:07.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=212;filed_1=19
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=56;filed_1=54
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=187;filed_1=10
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=7
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=71;filed_1=16
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=262;filed_1=80
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=272;filed_1=09
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=330;filed_1=01
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=11
+07-15 00:52:07.438 I/chatty  ( 2573): uid=0(root) tbox@1.0-servic identical 1 line
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=11
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=21,gpsInfo.minute=52,gpsInfo.second=8,gpsInfo.gpsTime=2026-7-14 21:52:8
+07-15 00:52:07.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,222 gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:07.438 I/tbox_service_socketclient( 2573): recTCPMsg,waiting for recv tcp data.
+07-15 00:52:07.438 I/GnssLocationProvider( 2692): onGPSInfoChanged gpsSpeed=0.0;heading=227.2
+07-15 00:52:07.438 I/GnssLocationProvider( 2692): onGPSInfoChanged reportLocation
+07-15 00:52:07.439 I/GnssLocationProvider( 2692): onSatellitesChanged onSvStatusChanged
+07-15 00:52:07.440 I/HVAC.VerticalView(12151): setProgress:0
+07-15 00:52:07.452 D/SYSUI.UiVisibilityManag( 3101): MSG_HIDE_QUICK_SETTING_PANEL 
+07-15 00:52:07.452 D/UiVisibilityBinder( 3101): setUiVisibility:4:0 by com.android.systemui:sysui
+07-15 00:52:07.452 I/SYSUI.UiVisibilityManag( 3101): onTargetUiVisibilityChanged:4,visibility:0
+07-15 00:52:07.452 D/SYSUI.UiVisibilityManag( 3101): MSG_UI_VISIBLE_CHANGED 
+07-15 00:52:07.452 I/SYSUI.UiVisibilityManag( 3101): handleVisibilityChange: flag = 4 vis = 0
+07-15 00:52:07.452 W/SYSUI.UiVisibilityManag( 3101): handleVisibilityChange => collapse Quick Setting
+07-15 00:52:07.452 I/SYSUI.QuickStatusBarCon( 3101): changeActivityAndCollapse: 
+07-15 00:52:07.452 W/SYSUI.QuickStatusBarCon( 3101): Already collapse! Do nothing!
+07-15 00:52:07.523 D/HVAC.ACDiagnose(12151): handleSelfTestActiveState:    自检状态      0
+07-15 00:52:07.523 D/HVAC.ACDiagnose(12151): handleSelfTestResultState:     刷新诊断结果    31
+07-15 00:52:07.523 D/HVAC.ACDiagnose(12151): handleSelfTestResultState: NOT_ACTIVE
+07-15 00:52:07.525 D/HVAC.BindCarService(12151): sendHu4 -- cmd:21,val:1
+07-15 00:52:07.525 I/CAR.CarHvacClient(12151): setBeep:   1
+07-15 00:52:07.525 D/CarPropertyManager(12151): setProperty, propId: HVAC_PANEL_KEY_VOICE, areaId: 0x0, class: class java.lang.Integer, val: 1
+07-15 00:52:07.527 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.vehicle.request: 0x06 0x03 0x00 0xE9 0x01 
+07-15 00:52:07.590 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0a09
+07-15 00:52:07.607 I/hwservicemanager( 2282): getTransport: Cannot find entry android.hardware.graphics.mapper@3.0::IMapper/default in either framework or device manifest.
+07-15 00:52:07.607 W/Gralloc3(12151): mapper 3.x is not supported
+07-15 00:52:07.651 I/HVAC.VerticalView(12151): setProgress:0
+07-15 00:52:07.651 I/HVAC.VerticalView(12151): setProgress:0
+07-15 00:52:07.652 D/HVAC.PanelBar(12151): collapsePanels: 
+07-15 00:52:07.652 D/HVAC.ACController(12151): releaseWakeLock 
+07-15 00:52:07.652 D/WakeLockBinder( 3101): releaseWakeLock = com.chery.power.IWakeLockListener$Stub$Proxy@6b2b71 , asBinder =android.os.BinderProxy@f441d56
+07-15 00:52:07.652 E/WakeLockBinder( 3101): releaseWakeLock: Listener was not previously registered.
+07-15 00:52:07.655 D/HVAC.PanelBar(12151): removeMsgCollapsePanels:移除延时关闭空调的msg
+07-15 00:52:07.655 D/HVAC.PanelBar(12151):    onAnimation start 
+07-15 00:52:07.655 D/HVAC.PanelBar(12151): animatorChangedPanelViewHeight:   isUserTouchOrClick  =  false/mPanelViewHeight = 0.0
+07-15 00:52:07.655 I/HVAC.VerticalView(12151): setProgress:0
+07-15 00:52:07.655 I/HVAC.VerticalView(12151): setProgress:0
+07-15 00:52:07.684 E/OmodaAI ( 8139): [2026-07-15 00:52:07.681] [INFO] [Omoda/AssistantApplication] [CORR-43887105-54912-37d601f2] #135 App: [VEHICLE_ID_REDACTED]: com.chery.hvac
+07-15 00:52:07.704 D/HVAC.PanelBar(12151):    onAnimationEnd 
+07-15 00:52:07.704 D/HVAC.PanelBar(12151): handlePanelExpansionChanged
+07-15 00:52:07.704 D/HVAC.ACController(12151): panelExpansionChanged:  height   0.0
+07-15 00:52:07.704 D/HVAC.BaseACController(12151): releaseFocus -- flags:50333448,systemUiVisibility:0
+07-15 00:52:07.704 D/UiVisibilityBinder( 3101): setTargetUiVisibility:8:0 by com.chery.hvac:hvac
+07-15 00:52:07.727 D/SYSUI.UiVisibilityManag( 3101): MSG_HIDE_QUICK_SETTING_PANEL 
+07-15 00:52:07.727 D/UiVisibilityBinder( 3101): setUiVisibility:4:0 by com.android.systemui:sysui
+07-15 00:52:07.728 I/SYSUI.UiVisibilityManag( 3101): onTargetUiVisibilityChanged:4,visibility:0
+07-15 00:52:07.728 D/SYSUI.UiVisibilityManag( 3101): MSG_UI_VISIBLE_CHANGED 
+07-15 00:52:07.728 I/SYSUI.UiVisibilityManag( 3101): handleVisibilityChange: flag = 4 vis = 0
+07-15 00:52:07.728 W/SYSUI.UiVisibilityManag( 3101): handleVisibilityChange => collapse Quick Setting
+07-15 00:52:07.728 I/SYSUI.QuickStatusBarCon( 3101): changeActivityAndCollapse: 
+07-15 00:52:07.728 W/SYSUI.QuickStatusBarCon( 3101): Already collapse! Do nothing!
+07-15 00:52:07.733 W/AudioFlinger( 2587): RecordThread: buffer overflow
+07-15 00:52:08.088 D/AVStageFactory(12179): createInstance(64bit): createVendorAVFactory success!
+07-15 00:52:08.088 D/AVStageFactory(12179): AVStageFactory()
+07-15 00:52:08.088 D/YfveAVStageFactory(12179): YfveAVStageFactory()
+07-15 00:52:08.088 D/AVStageUtils(12179): createInstance(64bit): createVendorAVUtils success!
+07-15 00:52:08.088 D/YfveAVStageUtils(12179): createVendorAVUtils()
+07-15 00:52:08.088 D/YfveAVStageUtils(12179): YfveAVStageUtils()
+07-15 00:52:08.088 D/AVStageFactory(12179): createInstance(64bit): createVendorAVFactory success!
+07-15 00:52:08.088 D/AVStageFactory(12179): AVStageFactory()
+07-15 00:52:08.088 D/YfveAVStageFactory(12179): YfveAVStageFactory()
+07-15 00:52:08.091 I/CarPlayLooper(12179): Looper::Looper construct.......
+07-15 00:52:08.091 I/CarPlayCommProtocal_CPP(12179): CarPlayCommProtocal::CarPlayCommProtocal
+07-15 00:52:08.091 I/CarPlayLooper(12179): pthread_create id:278482702556496 ,ret = 0
+07-15 00:52:08.091 I/CarPlayLooper(12179): set thread id:278482702556496 with name:CarPlayCommProtocal
+07-15 00:52:08.091 I/CarPlayLooper(12179): thread name CarPlayCommProtocal
+07-15 00:52:08.091 I/CarPlayLooper(12179): start thread 0xc7b602c578d0......
+07-15 00:52:08.091 I/CarPlayLooper(12179): Looper::loop start running for CarPlayCommProtocal .......,
+07-15 00:52:08.091 I/CarPlayConfig(12179): CarPlayConfiguration::CarPlayConfiguration in...
+07-15 00:52:08.091 I/CarPlayConfig(12179): CarPlayConfiguration::CarPlayConfiguration out...
+07-15 00:52:08.091 D/plugin  (12179): call MFiPlatform_CopyCertificate
+07-15 00:52:08.091 D/plugin  (12179): MFi auth copy certificate
+07-15 00:52:08.091 D/plugin  (12179): create ceitificate try to get lock
+07-15 00:52:08.091 D/plugin  (12179): create ceitificate lock end
+07-15 00:52:08.091 D/plugin  (12179): ### MFi auth set register 0x30 failed (try 1): 121/0x79 
+07-15 00:52:08.097 D/plugin  (12179): ### MFi auth read register 0x30, 2 bytes failed (try 1): 121/0x79 
+07-15 00:52:08.102 W/Hermes-WakeWord( 8139): Primary STT failed, trying Wyoming Bridge fallback...
+07-15 00:52:08.103 D/plugin  (12179): ### certificateLen: 608
+07-15 00:52:08.103 D/plugin  (12179): offset=[0],dataAddr=0x31
+07-15 00:52:08.104 D/plugin  (12179): ### MFi auth read register 0x31, 128 bytes failed (try 1): 121/0x79 
+07-15 00:52:08.120 D/plugin  (12179): offset=[128],dataAddr=0x32
+07-15 00:52:08.120 D/plugin  (12179): ### MFi auth read register 0x32, 128 bytes failed (try 1): 121/0x79 
+07-15 00:52:08.137 D/plugin  (12179): offset=[256],dataAddr=0x33
+07-15 00:52:08.137 D/plugin  (12179): ### MFi auth read register 0x33, 128 bytes failed (try 1): 121/0x79 
+07-15 00:52:08.154 D/plugin  (12179): offset=[384],dataAddr=0x34
+07-15 00:52:08.154 D/plugin  (12179): ### MFi auth read register 0x34, 128 bytes failed (try 1): 121/0x79 
+07-15 00:52:08.160 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x00 0x52 0x06 
+07-15 00:52:08.171 D/plugin  (12179): offset=[512],dataAddr=0x35
+07-15 00:52:08.171 D/plugin  (12179): ### MFi auth read register 0x35, 96 bytes failed (try 1): 121/0x79 
+07-15 00:52:08.173 I/CarPropertyManager(12151): PropID,area,value:IPC_TIME_16777216_20260715005206
+07-15 00:52:08.173 I/CarPropertyManager( 3747): PropID,area,value:IPC_TIME_16777216_20260715005206
+07-15 00:52:08.173 I/CarPropertyManager( 3716): PropID,area,value:IPC_TIME_16777216_20260715005206
+07-15 00:52:08.173 I/CarPropertyManager( 3101): PropID,area,value:IPC_TIME_16777216_20260715005206
+07-15 00:52:08.173 D/SET.GPSTimeUtilscitosTime( 3716): icmTime  20260715005206
+07-15 00:52:08.174 I/SYSUI.CanControllerImpl( 3101): onIcmTimeChanged: 20260715005206
+07-15 00:52:08.185 D/plugin  (12179): MFi auth copy certificate done: 608 bytes
+07-15 00:52:08.185 I/CarPlayCommProtocal_CPP(12179): CarPlayCommProtocal::startCommThread
+07-15 00:52:08.185 I/CarPlayCommProtocal_CPP(12179): CarPlayCommProtocal::_AirPlayThread
+07-15 00:52:08.185 I/mDNSResponder(12179): Default: DNSStart!
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: No unicast UDP responses
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: get local hostLabel is 	localhost
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: get local hostLabel is localhost
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: hostLabel len is 9
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: after MakeDomainLabelFromLiteralString hostLabel is 	localhost
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: after MakeDomainLabelFromLiteralString hostLabel is localhost
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: after MakeDomainLabelFromLiteralString hostLabel len is 9
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: mDNS_SetFQDN: AppendDomainLabel hostlabel,newmname is 	localhost
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: mDNS_SetFQDN: AppendLiteralLabelString hostlabel,newmname is 	localhostlocal
+07-15 00:52:08.186 I/mDNSResponder(12179): Default: mDNS_SetFQDN: after AssignDomainName MulticastHostname is 	localhostlocal
+07-15 00:52:08.187 I/mDNSResponder(12179): Default: SetupInterfaceList
+07-15 00:52:08.187 I/mDNSResponder(12179): Default: SetupOneInterface::intfName=[wlan0]
+07-15 00:52:08.187 I/mDNSResponder(12179): Default: ignore wlan0
+07-15 00:52:08.187 I/mDNSResponder(12179): Default: SetupOneInterface::intfName=[tbox0]
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: register other interface as normal activation
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: SetupOneInterface: tbox0 fe80::4419:d3ff:fe66:6a32 Registered
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: SetupOneInterface::intfName=[wlan0]
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: ignore wlan0
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: SetupOneInterface::intfName=[tbox0]
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: SetupOneInterface: tbox0 192.168.225.10 is an alias of fe80::4419:d3ff:fe66:6a32
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: register other interface as normal activation
+07-15 00:52:08.188 I/mDNSResponder(12179): Default: SetupOneInterface: tbox0 192.168.225.10 Registered
+--------- beginning of crash
+07-15 00:52:08.189 F/libc    (12179): Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 12179 (CarPlayCommServ), pid 12179 (CarPlayCommServ)
+07-15 00:52:08.199 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0215
+07-15 00:52:08.199 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing RXM_RAWX message...
+07-15 00:52:08.223 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0107
+07-15 00:52:08.223 V/u-blox  ( 2547): : Processing NAV_PVT message...
+07-15 00:52:08.234 I/crash_dump64(12185): obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-15 00:52:08.237 I//system/bin/tombstoned( 2645): received crash request for pid 12179
+07-15 00:52:08.239 I/crash_dump64(12185): performing dump of process 12179 (target tid = 12179)
+07-15 00:52:08.249 F/DEBUG   (12185): *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+07-15 00:52:08.249 F/DEBUG   (12185): Build fingerprint: 'yfve/chery_t19c/chery_t19c:10/QQ1C.191205.016.A1/eng.user.20230406.230150:userdebug/test-keys'
+07-15 00:52:08.249 F/DEBUG   (12185): Revision: '0'
+07-15 00:52:08.249 F/DEBUG   (12185): ABI: 'arm64'
+07-15 00:52:08.249 F/DEBUG   (12185): Timestamp: 2026-07-15 00:52:08+0300
+07-15 00:52:08.250 F/DEBUG   (12185): pid: 12179, tid: 12179, name: CarPlayCommServ  >>> /system/bin/CarPlayCommService <<<
+07-15 00:52:08.250 F/DEBUG   (12185): uid: 0
+07-15 00:52:08.250 F/DEBUG   (12185): signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0
+07-15 00:52:08.250 F/DEBUG   (12185): Cause: null pointer dereference
+07-15 00:52:08.250 F/DEBUG   (12185):     x0  0000000000000001  x1  0000000000000009  x2  0000ffffc58d3be0  x3  0000fd47515d75b8
+07-15 00:52:08.250 F/DEBUG   (12185):     x4  0000000000000001  x5  333339392f376465  x6  333339392f376465  x7  7f7f7f7f7f7f7f7f
+07-15 00:52:08.250 F/DEBUG   (12185):     x8  0000000000000000  x9  b5c69949a3fb9425  x10 0000ffffc58d3b60  x11 0000ffffc58d3b98
+07-15 00:52:08.250 F/DEBUG   (12185):     x12 0000ffffc58d3be0  x13 000000006a56af88  x14 00057bcf172337c0  x15 0000245fd95567f5
+07-15 00:52:08.250 F/DEBUG   (12185):     x16 0000fd474fdf99c0  x17 0000fd475530975c  x18 0000fd475437c000  x19 0000000000000000
+07-15 00:52:08.250 F/DEBUG   (12185):     x20 0000fd474f9f90a0  x21 0000fd4753edea00  x22 0000000000000001  x23 0000fd474f98cffb
+07-15 00:52:08.250 F/DEBUG   (12185):     x24 0000fd474f99aad1  x25 0000fd4754049020  x26 0000fd4753edf400  x27 0000000000000001
+07-15 00:52:08.250 F/DEBUG   (12185):     x28 0000000000000011  x29 0000ffffc58d3cb0
+07-15 00:52:08.250 F/DEBUG   (12185):     sp  0000ffffc58d3c50  lr  0000fd474f9a7314  pc  0000fd474f9a72ec
+07-15 00:52:08.259 F/DEBUG   (12185): 
+07-15 00:52:08.259 F/DEBUG   (12185): backtrace:
+07-15 00:52:08.259 F/DEBUG   (12185):       #00 pc 00000000000252ec  /system/lib64/libbonjour.so (SetupInterfaceList+180) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 00:52:08.259 F/DEBUG   (12185):       #01 pc 0000000000024b14  /system/lib64/libbonjour.so (mDNSPlatformInit+700) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 00:52:08.260 F/DEBUG   (12185):       #02 pc 0000000000043b28  /system/lib64/libbonjour.so (mDNS_Init+880) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 00:52:08.260 F/DEBUG   (12185):       #03 pc 00000000000230e4  /system/lib64/libbonjour.so (DNSStart+116) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 00:52:08.260 F/DEBUG   (12185):       #04 pc 0000000000014d58  /system/bin/CarPlayCommService (CarPlayCommProtocal::initialize()+208) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 00:52:08.260 F/DEBUG   (12185):       #05 pc 0000000000014c48  /system/bin/CarPlayCommService (CarPlayCommProtocal::CarPlayCommProtocal()+228) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 00:52:08.260 F/DEBUG   (12185):       #06 pc 0000000000014b38  /system/bin/CarPlayCommService (CarPlayCommProtocal::getInstance()+76) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 00:52:08.260 F/DEBUG   (12185):       #07 pc 00000000000130f4  /system/bin/CarPlayCommService (android::CarPlayCommService::CarPlayCommService()+164) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 00:52:08.260 F/DEBUG   (12185):       #08 pc 00000000000149d4  /system/bin/CarPlayCommService (main+52) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 00:52:08.261 F/DEBUG   (12185):       #09 pc 000000000007d798  /apex/com.android.runtime/lib64/bionic/libc.so (__libc_init+108) (BuildId: 7dc1d79d3a516206a7d66112d0ef6abd)
+07-15 00:52:08.267 V/u-blox  ( 2547): ubx_thread: MSG UNKNOWN RX (size 20)
+07-15 00:52:08.299 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0135
+07-15 00:52:08.302 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0103
+07-15 00:52:08.303 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0122
+07-15 00:52:08.303 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing templated message...
+07-15 00:52:08.383 I/tbox_service_socketclient( 2573): sendData:: aa 55 00 00 00 00 00 00 
+07-15 00:52:08.383 E/tbox_service_socketclient( 2573): sendMsg,send Tbox success!len=0
+07-15 00:52:08.414 W/adbd    ( 2595): timed out while waiting for FUNCTIONFS_BIND, trying again
+07-15 00:52:08.414 I/adbd    ( 2595): UsbFfs: connection terminated: monitor thread finished
+07-15 00:52:08.414 I/adbd    ( 2595): UsbFfs: already offline
+07-15 00:52:08.414 I/adbd    ( 2595): destroying transport UsbFfs
+07-15 00:52:08.414 I/adbd    ( 2595): UsbFfsConnection being destroyed
+07-15 00:52:08.437 I/tbox_service_socketclient( 2573): recTCPMsg  readlen=653
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): tboxDataResp,str={
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): 	"NMEA":	"$GPGSV,5,1,17,06,29,104,35,11,18,144,39,12,45,284,49,13,,,50,1*5C\r\n$GPGSV,5,2,17,14,00,080,26,15,19,212,39,19,54,056,52,20,10,187,34,1*6C\r\n$GPGSV,5,3,17,22,16,071,39,24,80,262,54,25,09,272,36,17,20,045,,1*6F\r\n$GPGSV,5,4,17,32,01,330,,41,,,36,42,,,41,47,,,38,1*58\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,215209.00,3951.174843,N,03330.191168,E,1,09,0.5,763.2,M,37.0,M,,*6F\r\n$GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24\r\n$GPRMC,215209.00,A,3951.174843,N,03330.191168,E,0.0,227.2,140726,4.1,E,A,V*42\r\n$GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F\r\n"
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): }
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): gpsNotification nmea=$GPGSV,5,1,17,06,29,104,35,11,18,144,39,12,45,284,49,13,,,50,1*5C
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPGSV,5,2,17,14,00,080,26,15,19,212,39,19,54,056,52,20,10,187,34,1*6C
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPGSV,5,3,17,22,16,071,39,24,80,262,54,25,09,272,36,17,20,045,,1*6F
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPGSV,5,4,17,32,01,330,,41,,,36,42,,,41,47,,,38,1*58
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPGSV,5,5,17,49,,,45,1*6E
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPGGA,215209.00,3951.174843,N,03330.191168,E,1,09,0.5,763.2,M,37.0,M,,*6F
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPRMC,215209.00,A,3951.174843,N,03330.191168,E,0.0,227.2,140726,4.1,E,A,V*42
+07-15 00:52:08.437 I/tbox_service_parsejson( 2573): $GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): initData
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,altitude=800.200000,latitude=39.852914,longtitude=33.503186
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,pdop=0.800000,hdop=0.500000,vdop=0.600000
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=104;filed_1=29
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=144;filed_1=18
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=284;filed_1=45
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=3
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=80;filed_1=00
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=212;filed_1=19
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=56;filed_1=54
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=187;filed_1=10
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=7
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=71;filed_1=16
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=262;filed_1=80
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=272;filed_1=09
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=10
+07-15 00:52:08.437 I/chatty  ( 2573): uid=0(root) tbox@1.0-servic identical 1 line
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=10
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=21,gpsInfo.minute=52,gpsInfo.second=9,gpsInfo.gpsTime=2026-7-14 21:52:9
+07-15 00:52:08.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,222 gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:08.438 I/tbox_service_socketclient( 2573): recTCPMsg,waiting for recv tcp data.
+07-15 00:52:08.438 I/GnssLocationProvider( 2692): onGPSInfoChanged gpsSpeed=0.0;heading=227.2
+07-15 00:52:08.438 I/GnssLocationProvider( 2692): onGPSInfoChanged reportLocation
+07-15 00:52:08.438 I/GnssLocationProvider( 2692): onSatellitesChanged onSvStatusChanged
+07-15 00:52:08.443 I/adbd    ( 2595): opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 00:52:08.443 I/adbd    ( 2595): UsbFfsConnection constructed
+--------- beginning of system
+07-15 00:52:08.495 W/NativeCrashListener( 2692): Couldn't find ProcessRecord for pid 12179
+07-15 00:52:08.496 E//system/bin/tombstoned( 2645): Tombstone written to: /data/tombstones/tombstone_28
+07-15 00:52:08.505 I/BootReceiver( 2692): Copying /data/tombstones/tombstone_28 to DropBox (SYSTEM_TOMBSTONE)
+07-15 00:52:08.507 I/DropBoxManagerService( 2692): add tag=SYSTEM_TOMBSTONE isTagEnabled=true flags=0x2
+07-15 00:52:08.591 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0a09
+07-15 00:52:09.018 E/        ( 2540): DAB_ScanStatus2_not recevier 1 Freq:239200, DABSignalPresent:0, SNR:0, RSSI:0,EnsembleInfoFlag:0, SIAvailableFlag:0, TimeOutFlag:0
+07-15 00:52:09.018 E/        ( 2540): DAB_BG_Scan,Scan on receiver 1 finished!
+07-15 00:52:09.018 E/        ( 2540): Dab_Send_Service_List_Check, the service list(E/S/C number:0,0,0) has changed from the last scan(E/S/C number:0,0,0)
+07-15 00:52:09.018 E/        ( 2540): DAB_BG_Scan, 111ListView:0
+07-15 00:52:09.018 E/        ( 2540): DAB_BG_Scan, 222ListView:0
+07-15 00:52:09.018 E/        ( 2540): DAB_BG_Scan, 333ListView:0
+07-15 00:52:09.023 E/        ( 2540): DAB IPCL_MsgTransmit,DAB_V2H_DATA_ID_LIST_SAVED, List is 0!!!
+07-15 00:52:09.023 E/        ( 2540): 
+07-15 00:52:09.027 I/dabdrm_dbus( 2540): dab_dbus_meaasge_handle,group_id=0xf,event_id = 0x0,frame_counter = 0xea, data_id=0x3
+07-15 00:52:09.027 I/dabdrm_dbus( 2540): DAB_V2H_DATA_ID_LIST_SAVED 
+07-15 00:52:09.027 I/dabdrm_hw_stub( 2540): notifyDabServiceList++ notifyDabServiceList, total=0.
+07-15 00:52:09.027 I/dabdrm_hw_stub( 2540): notifyDabServiceList++ 0xe3fe43f39410.
+07-15 00:52:09.028 E/        ( 2540): DAB_BG_Scan, Returning to idle!
+07-15 00:52:09.028 E/        ( 2540): 
+07-15 00:52:09.028 E/        ( 2540): 
+07-15 00:52:09.028 E/        ( 2540): RadioApplication_Monitoring, Start compare SNR, CurFrequency:0
+07-15 00:52:09.028 E/        ( 2540): RadioApplication_Scan,DabScanStart!!!
+07-15 00:52:09.054 E/        ( 2540): DAB_Reply, DAB_SetAudioStatus2Notifier_repl: 0
+07-15 00:52:09.054 E/        ( 2540): DAB_BG_Scan ,Starting scan on receiver 1! timer_x50ms:5
+07-15 00:52:09.075 E/        ( 2540): DAB_BG_Scan ,eScanState_ScanReply Ok!
+07-15 00:52:09.127 W/DabDrm  ( 2540): DABDRM_EVENT_DAB_SERVICE_LIST_SAVED, 0.
+07-15 00:52:09.127 V/BroadcastDabDrmService.DabDrmCallback.jni( 4216): notifyDabServiceList(0 0x0 0x0 0x0)
+07-15 00:52:09.127 I/DadDrm_DabDrmCallback( 4216): notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0
+07-15 00:52:09.127 I/DadDrm_AIDLService( 4216): notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0, sc_ids: 0
+07-15 00:52:09.128 I/DAB.DabBusiness( 3747): notifyDabServiceList, savelist: {"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 00:52:09.128 I/DAB.DabBusiness( 3747): parseServiceList, totalNum 0
+07-15 00:52:09.128 I/DAB.DabBusiness( 3747): setCurPlayType, listType: 0, name: 
+07-15 00:52:09.129 I/DadDrm_AIDLService( 4216): ------notifyDabServiceList------------{"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 00:52:09.135 I//vendor/bin/yfve_diag( 2478): [tbox_diag] tbox connected
+07-15 00:52:09.137 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x00 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x01 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x02 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x03 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x04 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x05 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x06 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x07 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x08 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x09 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x0A 0x00 
+07-15 00:52:09.140 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x0C 0x00 
+07-15 00:52:09.141 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x0D 0x01 
+07-15 00:52:09.168 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x00 0x52 0x07 
+07-15 00:52:09.182 I/CarPropertyManager( 3747): PropID,area,value:IPC_TIME_16777216_20260715005207
+07-15 00:52:09.182 I/CarPropertyManager(12151): PropID,area,value:IPC_TIME_16777216_20260715005207
+07-15 00:52:09.182 I/CarPropertyManager( 3101): PropID,area,value:IPC_TIME_16777216_20260715005207
+07-15 00:52:09.182 I/SYSUI.CanControllerImpl( 3101): onIcmTimeChanged: 20260715005207
+07-15 00:52:09.183 I/CarPropertyManager( 3716): PropID,area,value:IPC_TIME_16777216_20260715005207
+07-15 00:52:09.183 D/SET.GPSTimeUtilscitosTime( 3716): icmTime  20260715005207
+07-15 00:52:09.199 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0215
+07-15 00:52:09.199 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing RXM_RAWX message...
+07-15 00:52:09.221 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0107
+07-15 00:52:09.221 V/u-blox  ( 2547): : Processing NAV_PVT message...
+07-15 00:52:09.265 V/u-blox  ( 2547): ubx_thread: MSG UNKNOWN RX (size 20)
+07-15 00:52:09.296 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0135
+07-15 00:52:09.299 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0103
+07-15 00:52:09.302 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0122
+07-15 00:52:09.302 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing templated message...
+07-15 00:52:09.307 I/tbox_service_socketclient( 2573): recTCPMsg  readlen=269
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): tboxDataResp,str={
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"URI":	"content://tbox.automotive.neusoft.com/NetworkStatusNotification",
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"DataConnection":	false,
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"SimCardRegistraionStatus":	false,
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"MobileNetworkType":	"NoNetwork",
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"Roaming":	false,
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"SignalStrength":	-1,
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"RouterIPAddress":	"",
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): 	"VPNIPAddress":	""
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): }
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): tboxDataResp,uri=content://tbox.automotive.neusoft.com/NetworkStatusNotification
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): networkStatusNotification,dataConnection=0
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): networkStatusNotification,simCardRegistraionStatus=0
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): networkStatusNotification,mobileNetworkType=NoNetwork
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): networkStatusNotification,roaming=0
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): networkStatusNotification,signalStrength=-1
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): networkStatusNotification,routerIPAddress=
+07-15 00:52:09.307 I/tbox_service_parsejson( 2573): networkStatusNotification,vpnIPAddress=
+07-15 00:52:09.307 I/tbox_service_socketclient( 2573): recTCPMsg,waiting for recv tcp data.
+07-15 00:52:09.383 I/tbox_service_socketclient( 2573): sendData:: aa 55 00 00 00 00 00 00 
+07-15 00:52:09.383 E/tbox_service_socketclient( 2573): sendMsg,send Tbox success!len=0
+07-15 00:52:09.436 I/tbox_service_socketclient( 2573): recTCPMsg  readlen=653
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): tboxDataResp,str={
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): 	"NMEA":	"$GPGSV,5,1,17,06,29,104,34,11,18,144,39,12,45,284,49,13,,,50,1*5D\r\n$GPGSV,5,2,17,14,00,080,28,15,19,212,40,19,54,056,52,20,10,187,34,1*6C\r\n$GPGSV,5,3,17,22,16,071,40,24,80,262,54,25,09,272,36,17,20,045,,1*61\r\n$GPGSV,5,4,17,32,01,330,,41,,,37,42,,,41,47,,,37,1*56\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,215210.00,3951.174843,N,03330.191165,E,1,09,0.5,763.2,M,37.0,M,,*6A\r\n$GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24\r\n$GPRMC,215210.00,A,3951.174843,N,03330.191165,E,0.0,227.2,140726,4.1,E,A,V*47\r\n$GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F\r\n"
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): }
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): gpsNotification nmea=$GPGSV,5,1,17,06,29,104,34,11,18,144,39,12,45,284,49,13,,,50,1*5D
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPGSV,5,2,17,14,00,080,28,15,19,212,40,19,54,056,52,20,10,187,34,1*6C
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPGSV,5,3,17,22,16,071,40,24,80,262,54,25,09,272,36,17,20,045,,1*61
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPGSV,5,4,17,32,01,330,,41,,,37,42,,,41,47,,,37,1*56
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPGSV,5,5,17,49,,,45,1*6E
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPGGA,215210.00,3951.174843,N,03330.191165,E,1,09,0.5,763.2,M,37.0,M,,*6A
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPRMC,215210.00,A,3951.174843,N,03330.191165,E,0.0,227.2,140726,4.1,E,A,V*47
+07-15 00:52:09.436 I/tbox_service_parsejson( 2573): $GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F
+07-15 00:52:09.436 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData
+07-15 00:52:09.436 I/tbox_service_nmeaanalysisutils( 2573): initData
+07-15 00:52:09.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,altitude=800.200000,latitude=39.852914,longtitude=33.503186
+07-15 00:52:09.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,pdop=0.800000,hdop=0.500000,vdop=0.600000
+07-15 00:52:09.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=104;filed_1=29
+07-15 00:52:09.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=144;filed_1=18
+07-15 00:52:09.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=284;filed_1=45
+07-15 00:52:09.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=3
+07-15 00:52:09.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=80;filed_1=00
+07-15 00:52:09.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=212;filed_1=19
+07-15 00:52:09.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=56;filed_1=54
+07-15 00:52:09.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=187;filed_1=10
+07-15 00:52:09.438 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=7
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=71;filed_1=16
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=262;filed_1=80
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=272;filed_1=09
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=10
+07-15 00:52:09.439 I/chatty  ( 2573): uid=0(root) tbox@1.0-servic identical 1 line
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=10
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=21,gpsInfo.minute=52,gpsInfo.second=10,gpsInfo.gpsTime=2026-7-14 21:52:10
+07-15 00:52:09.439 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,222 gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:09.439 I/tbox_service_socketclient( 2573): recTCPMsg,waiting for recv tcp data.
+07-15 00:52:09.440 I/GnssLocationProvider( 2692): onGPSInfoChanged gpsSpeed=0.0;heading=227.2
+07-15 00:52:09.441 I/GnssLocationProvider( 2692): onGPSInfoChanged reportLocation
+07-15 00:52:09.441 I/GnssLocationProvider( 2692): onSatellitesChanged onSvStatusChanged
+07-15 00:52:09.445 W/adbd    ( 2595): timed out while waiting for FUNCTIONFS_BIND, trying again
+07-15 00:52:09.445 I/adbd    ( 2595): UsbFfs: connection terminated: monitor thread finished
+07-15 00:52:09.445 I/adbd    ( 2595): UsbFfs: already offline
+07-15 00:52:09.445 I/adbd    ( 2595): destroying transport UsbFfs
+07-15 00:52:09.445 I/adbd    ( 2595): UsbFfsConnection being destroyed
+07-15 00:52:09.483 I/adbd    ( 2595): opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 00:52:09.483 I/adbd    ( 2595): UsbFfsConnection constructed
+07-15 00:52:09.601 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0a09
+07-15 00:52:09.971 E/TaskPersister( 2692): File error accessing recents directory (directory doesn't exist?).
+07-15 00:52:10.170 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x00 0x52 0x08 
+07-15 00:52:10.182 I/CarPropertyManager( 3747): PropID,area,value:IPC_TIME_16777216_20260715005208
+07-15 00:52:10.183 I/CarPropertyManager(12151): PropID,area,value:IPC_TIME_16777216_20260715005208
+07-15 00:52:10.183 I/CarPropertyManager( 3101): PropID,area,value:IPC_TIME_16777216_20260715005208
+07-15 00:52:10.183 I/SYSUI.CanControllerImpl( 3101): onIcmTimeChanged: 20260715005208
+07-15 00:52:10.183 I/CarPropertyManager( 3716): PropID,area,value:IPC_TIME_16777216_20260715005208
+07-15 00:52:10.183 D/SET.GPSTimeUtilscitosTime( 3716): icmTime  20260715005208
+07-15 00:52:10.199 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0215
+07-15 00:52:10.199 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing RXM_RAWX message...
+07-15 00:52:10.224 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0107
+07-15 00:52:10.224 V/u-blox  ( 2547): : Processing NAV_PVT message...
+07-15 00:52:10.268 V/u-blox  ( 2547): ubx_thread: MSG UNKNOWN RX (size 20)
+07-15 00:52:10.279 I/YFVehicle_Power( 2535): RecMsgFromService,289435663
+07-15 00:52:10.279 I/YFVehicle_v2_0( 2535):  SendMessageToPowerVehicle,1,3
+07-15 00:52:10.280 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.power.request: 0x01 0x03 0x02 0x01 
+07-15 00:52:10.294 I/GnssLocationProvider( 2692): reportLocation hasLatLong=false;location=Location[gps 0,000000,0,000000 hAcc=??? et=+7m6s446ms vAcc=3750003 sAcc=20 bAcc=180]
+07-15 00:52:10.295 W/LocationManagerService( 2692): Dropping incomplete location: Location[gps 0,000000,0,000000 hAcc=??? et=+7m6s446ms vAcc=3750003 sAcc=20 bAcc=180 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+07-15 00:52:10.299 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0135
+07-15 00:52:10.301 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0103
+07-15 00:52:10.303 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0122
+07-15 00:52:10.303 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing templated message...
+07-15 00:52:10.383 I/tbox_service_socketclient( 2573): sendData:: aa 55 00 00 00 00 00 00 
+07-15 00:52:10.384 E/tbox_service_socketclient( 2573): sendMsg,send Tbox success!len=0
+07-15 00:52:10.437 I/tbox_service_socketclient( 2573): recTCPMsg  readlen=653
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): tboxDataResp,str={
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): 	"NMEA":	"$GPGSV,5,1,17,06,29,104,34,11,18,144,39,12,45,284,49,13,,,50,1*5D\r\n$GPGSV,5,2,17,14,00,080,28,15,19,212,40,19,54,056,52,20,10,187,34,1*6C\r\n$GPGSV,5,3,17,22,16,071,40,24,80,262,54,25,09,272,36,17,20,045,,1*61\r\n$GPGSV,5,4,17,32,01,330,,41,,,37,42,,,41,47,,,37,1*56\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,215211.00,3951.174843,N,03330.191162,E,1,09,0.5,763.2,M,37.0,M,,*6C\r\n$GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24\r\n$GPRMC,215211.00,A,3951.174843,N,03330.191162,E,0.0,227.2,140726,4.1,E,A,V*41\r\n$GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F\r\n"
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): }
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): gpsNotification nmea=$GPGSV,5,1,17,06,29,104,34,11,18,144,39,12,45,284,49,13,,,50,1*5D
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPGSV,5,2,17,14,00,080,28,15,19,212,40,19,54,056,52,20,10,187,34,1*6C
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPGSV,5,3,17,22,16,071,40,24,80,262,54,25,09,272,36,17,20,045,,1*61
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPGSV,5,4,17,32,01,330,,41,,,37,42,,,41,47,,,37,1*56
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPGSV,5,5,17,49,,,45,1*6E
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPGGA,215211.00,3951.174843,N,03330.191162,E,1,09,0.5,763.2,M,37.0,M,,*6C
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPVTG,227.2,T,223.1,M,0.0,N,0.0,K,A*24
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPRMC,215211.00,A,3951.174843,N,03330.191162,E,0.0,227.2,140726,4.1,E,A,V*41
+07-15 00:52:10.437 I/tbox_service_parsejson( 2573): $GPGSA,A,2,06,11,12,15,19,20,22,24,25,,,,0.8,0.5,0.6,1*2F
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): initData
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,altitude=800.200000,latitude=39.852914,longtitude=33.503186
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,pdop=0.800000,hdop=0.500000,vdop=0.600000
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=104;filed_1=29
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=144;filed_1=18
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=284;filed_1=45
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=3
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=80;filed_1=00
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=212;filed_1=19
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=56;filed_1=54
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=187;filed_1=10
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=7
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=71;filed_1=16
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=262;filed_1=80
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,sGPS.azimuth=272;filed_1=09
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=10
+07-15 00:52:10.437 I/chatty  ( 2573): uid=0(root) tbox@1.0-servic identical 1 line
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,m_tSatNum=10
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=21,gpsInfo.minute=52,gpsInfo.second=11,gpsInfo.gpsTime=2026-7-14 21:52:11
+07-15 00:52:10.437 I/tbox_service_nmeaanalysisutils( 2573): processNmeaData,222 gpsSpeed=0.000000,heading=227.200000
+07-15 00:52:10.438 I/tbox_service_socketclient( 2573): recTCPMsg,waiting for recv tcp data.
+07-15 00:52:10.438 I/GnssLocationProvider( 2692): onGPSInfoChanged gpsSpeed=0.0;heading=227.2
+07-15 00:52:10.438 I/GnssLocationProvider( 2692): onGPSInfoChanged reportLocation
+07-15 00:52:10.438 I/GnssLocationProvider( 2692): onSatellitesChanged onSvStatusChanged
+07-15 00:52:10.485 W/adbd    ( 2595): timed out while waiting for FUNCTIONFS_BIND, trying again
+07-15 00:52:10.485 I/adbd    ( 2595): UsbFfs: connection terminated: monitor thread finished
+07-15 00:52:10.485 I/adbd    ( 2595): UsbFfs: already offline
+07-15 00:52:10.485 I/adbd    ( 2595): destroying transport UsbFfs
+07-15 00:52:10.485 I/adbd    ( 2595): UsbFfsConnection being destroyed
+07-15 00:52:10.515 I/adbd    ( 2595): opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 00:52:10.515 I/adbd    ( 2595): UsbFfsConnection constructed
+07-15 00:52:10.589 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0a09
+07-15 00:52:10.861 E/        ( 2540): DAB_ScanStatus2_not recevier 1 Freq:239200, DABSignalPresent:0, SNR:0, RSSI:0,EnsembleInfoFlag:0, SIAvailableFlag:0, TimeOutFlag:0
+07-15 00:52:10.861 E/        ( 2540): DAB_BG_Scan,Scan on receiver 1 finished!
+07-15 00:52:10.861 E/        ( 2540): Dab_Send_Service_List_Check, the service list(E/S/C number:0,0,0) has changed from the last scan(E/S/C number:0,0,0)
+07-15 00:52:10.861 E/        ( 2540): DAB_BG_Scan, 111ListView:0
+07-15 00:52:10.861 E/        ( 2540): DAB_BG_Scan, 222ListView:0
+07-15 00:52:10.861 E/        ( 2540): DAB_BG_Scan, 333ListView:0
+07-15 00:52:10.866 E/        ( 2540): DAB IPCL_MsgTransmit,DAB_V2H_DATA_ID_LIST_SAVED, List is 0!!!
+07-15 00:52:10.866 E/        ( 2540): 
+07-15 00:52:10.871 I/dabdrm_dbus( 2540): dab_dbus_meaasge_handle,group_id=0xf,event_id = 0x0,frame_counter = 0xeb, data_id=0x3
+07-15 00:52:10.871 I/dabdrm_dbus( 2540): DAB_V2H_DATA_ID_LIST_SAVED 
+07-15 00:52:10.871 I/dabdrm_hw_stub( 2540): notifyDabServiceList++ notifyDabServiceList, total=0.
+07-15 00:52:10.871 I/dabdrm_hw_stub( 2540): notifyDabServiceList++ 0xe3fe43f39460.
+07-15 00:52:10.871 E/        ( 2540): DAB_BG_Scan, Returning to idle!
+07-15 00:52:10.871 E/        ( 2540): 
+07-15 00:52:10.871 E/        ( 2540): 
+07-15 00:52:10.871 E/        ( 2540): RadioApplication_Monitoring, Start compare SNR, CurFrequency:0
+07-15 00:52:10.871 E/        ( 2540): RadioApplication_Scan,DabScanStart!!!
+07-15 00:52:10.897 E/        ( 2540): DAB_Reply, DAB_SetAudioStatus2Notifier_repl: 0
+07-15 00:52:10.897 E/        ( 2540): DAB_BG_Scan ,Starting scan on receiver 1! timer_x50ms:6
+07-15 00:52:10.918 E/        ( 2540): DAB_BG_Scan ,eScanState_ScanReply Ok!
+07-15 00:52:10.972 W/DabDrm  ( 2540): DABDRM_EVENT_DAB_SERVICE_LIST_SAVED, 0.
+07-15 00:52:10.972 V/BroadcastDabDrmService.DabDrmCallback.jni( 4216): notifyDabServiceList(0 0x0 0x0 0x0)
+07-15 00:52:10.972 I/DadDrm_DabDrmCallback( 4216): notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0
+07-15 00:52:10.972 I/DadDrm_AIDLService( 4216): notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0, sc_ids: 0
+07-15 00:52:10.973 I/DAB.DabBusiness( 3747): notifyDabServiceList, savelist: {"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 00:52:10.973 I/DAB.DabBusiness( 3747): parseServiceList, totalNum 0
+07-15 00:52:10.973 I/DAB.DabBusiness( 3747): setCurPlayType, listType: 0, name: 
+07-15 00:52:10.974 I/DadDrm_AIDLService( 4216): ------notifyDabServiceList------------{"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 00:52:11.176 I/IPCLSERVICE( 2476): dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x00 0x52 0x09 
+07-15 00:52:11.190 I/CarPropertyManager( 3747): PropID,area,value:IPC_TIME_16777216_20260715005209
+07-15 00:52:11.190 I/CarPropertyManager(12151): PropID,area,value:IPC_TIME_16777216_20260715005209
+07-15 00:52:11.190 I/CarPropertyManager( 3716): PropID,area,value:IPC_TIME_16777216_20260715005209
+07-15 00:52:11.191 D/SET.GPSTimeUtilscitosTime( 3716): icmTime  20260715005209
+07-15 00:52:11.191 I/CarPropertyManager( 3101): PropID,area,value:IPC_TIME_16777216_20260715005209
+07-15 00:52:11.191 I/SYSUI.CanControllerImpl( 3101): onIcmTimeChanged: 20260715005209
+07-15 00:52:11.199 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0215
+07-15 00:52:11.199 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing RXM_RAWX message...
+07-15 00:52:11.222 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0107
+07-15 00:52:11.222 V/u-blox  ( 2547): : Processing NAV_PVT message...
+07-15 00:52:11.266 V/u-blox  ( 2547): ubx_thread: MSG UNKNOWN RX (size 20)
+07-15 00:52:11.297 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0135
+07-15 00:52:11.300 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0103
+07-15 00:52:11.302 V/u-blox  ( 2547): CProtocolUBX::Process: New message with ID: 0x0122
+07-15 00:52:11.302 V/u-blox  ( 2547): CProtocolUBX::processMessage: Processing templated message...

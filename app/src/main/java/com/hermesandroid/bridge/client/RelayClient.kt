@@ -117,12 +117,14 @@ object RelayClient {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 Log.i(TAG, "WebSocket connected to ${buildWsUrl(serverUrl, "***")}")
                 isConnected = true
+                GlobalState.isRemoteAdbConnected.value = true
                 try {
                     BridgeAccessibilityService.instance?.startForeground()
                 } catch (e: SecurityException) {
                     Log.w(TAG, "Could not promote bridge service to foreground", e)
                 }
                 notifyStatus(true, "Connected to $serverUrl")
+                startStateReporting()
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
@@ -139,6 +141,7 @@ object RelayClient {
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
                 Log.i(TAG, "WebSocket closed: $code $reason")
                 isConnected = false
+                GlobalState.isRemoteAdbConnected.value = false
                 notifyStatus(false, "Closed: code=$code $reason")
                 scheduleReconnect()
             }
@@ -148,6 +151,7 @@ object RelayClient {
                 val errorDetail = "Error: ${t.javaClass.simpleName}: ${t.message} (HTTP $httpCode)"
                 Log.e(TAG, "WebSocket failure: $errorDetail", t)
                 isConnected = false
+                GlobalState.isRemoteAdbConnected.value = false
                 notifyStatus(false, errorDetail)
                 scheduleReconnect()
             }
@@ -219,7 +223,7 @@ object RelayClient {
 
             if (BuildConfig.DEBUG) Log.d(TAG, "Received command: $method $path (id=$requestId)")
 
-            val response = CommandDispatcher.dispatch(method, path, params, body, authenticated = true)
+            val response = CommandDispatcher.dispatch(path, params, body, authenticated = true)
 
             val responseJson = JsonObject().apply {
                 addProperty("request_id", requestId)
@@ -251,4 +255,23 @@ object RelayClient {
             }
         } catch (_: Exception) {}
     }
+
+    private fun startStateReporting() {
+        scope?.launch {
+            while (isConnected) {
+                try {
+                    val stateResponse = CommandDispatcher.dispatch("/state", JsonObject(), JsonObject(), true)
+                    val json = JsonObject().apply {
+                        addProperty("type", "state_update")
+                        add("data", gson.toJsonTree(stateResponse.first))
+                    }
+                    webSocket?.send(json.toString())
+                } catch (e: Exception) {
+                    Log.e(TAG, "State reporting error: ${e.message}")
+                }
+                delay(30_000) // Her 30 saniyede bir durum raporla
+            }
+        }
+    }
 }
+

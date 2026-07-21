@@ -135,7 +135,7 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             SmallActionButton("Klima Aç/Kapat", Color(0xFF4CAF50)) {
-                exec(context, "am start -n com.yfve.hvac/com.yfve.hvac.MainActivity")
+                exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity")
             }
             SmallActionButton("WIFI Onar", Color(0xFF2196F3)) {
                 exec(context, "svc wifi disable; sleep 1; svc wifi enable")

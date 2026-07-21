@@ -7,13 +7,7 @@ class MqttTelemetryBridge(private val mqttPublisher: MqttPublisher) {
     private val vehicleId get() = GlobalState.vehicleId.value
 
     fun publishTelemetry(state: com.omoda.lanc.model.VehicleState) {
-        mqttPublisher.publish("omoda5/$vehicleId/telemetry", JSONObject().apply {
-            put("speed_kmh", state.speed.toInt())
-            put("gear_position", state.gearString)
-            put("is_hvac_on", state.isHvacOn)
-            put("is_engine_running", state.isEngineRunning)
-            put("timestamp", System.currentTimeMillis() / 1000)
-        }.toString())
+        mqttPublisher.publishTelemetry(state)
     }
 
     fun publishClimateState(isOn: Boolean, tempDriver: Float, tempPassenger: Float, fanSpeed: Int) {

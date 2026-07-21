@@ -88,7 +88,8 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
             }
 
             try {
-                composeView = ComposeView(context).apply {
+                // L-6: applicationContext kullan\u0131l\u0131yor \u2014 Activity context bellek s\u0131z\u0131nt\u0131s\u0131n\u0131 \u00f6nler
+                composeView = ComposeView(context.applicationContext).apply {
                     setViewTreeLifecycleOwner(this@OverlayManager)
                     setViewTreeViewModelStoreOwner(this@OverlayManager)
                     setViewTreeSavedStateRegistryOwner(this@OverlayManager)
@@ -123,6 +124,7 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
     }
 
     fun updateAmplitude(amp: Int) {
+        GlobalState.currentAmplitude.value = amp
     }
 
     fun hide() {

@@ -1,0 +1,30 @@
+  Stack #23: type=standard mode=fullscreen
+    * TaskRecord{c3bab78 #4278 A=com.omoda.lanc U=0 StackId=23 sz=1}
+      affinity=com.omoda.lanc
+      intent={flg=0x10000000 cmp=com.omoda.lanc/.MainActivity}
+      mActivityComponent=com.omoda.lanc/.MainActivity
+      Activities=[ActivityRecord{d0bf0d2 u0 com.omoda.lanc/.MainActivity t4278}]
+      mRootProcess=ProcessRecord{2174db 17547:com.omoda.lanc/u0a51}
+      * Hist #0: ActivityRecord{d0bf0d2 u0 com.omoda.lanc/.MainActivity t4278}
+          packageName=com.omoda.lanc processName=com.omoda.lanc
+          app=ProcessRecord{2174db 17547:com.omoda.lanc/u0a51}
+          Intent { flg=0x10000000 cmp=com.omoda.lanc/.MainActivity }
+          frontOfTask=true task=TaskRecord{c3bab78 #4278 A=com.omoda.lanc U=0 StackId=23 sz=1}
+          taskAffinity=com.omoda.lanc
+          mActivityComponent=com.omoda.lanc/.MainActivity
+          baseDir=/data/app/com.omoda.lanc-eaNW1--c567OCLwNUFTdrA==/base.apk
+          dataDir=/data/user/0/com.omoda.lanc
+      TaskRecord{c3bab78 #4278 A=com.omoda.lanc U=0 StackId=23 sz=1}
+        Run #0: ActivityRecord{d0bf0d2 u0 com.omoda.lanc/.MainActivity t4278}
+    mResumedActivity: ActivityRecord{d0bf0d2 u0 com.omoda.lanc/.MainActivity t4278}
+  Stack #9: type=standard mode=fullscreen
+      userId=0 effectiveUid=u0a57 mCallingUid=u0a51 mUserSetupComplete=true mCallingPackage=com.omoda.lanc
+          launchedFromUid=10051 launchedFromPackage=com.omoda.lanc userId=0
+  Stack #13: type=standard mode=fullscreen
+  Stack #17: type=standard mode=fullscreen
+  Stack #5: type=standard mode=fullscreen
+      userId=0 effectiveUid=u0a46 mCallingUid=u0a51 mUserSetupComplete=true mCallingPackage=com.omoda.lanc
+          launchedFromUid=10051 launchedFromPackage=com.omoda.lanc userId=0
+  Stack #0: type=home mode=fullscreen
+ ResumedActivity:ActivityRecord{d0bf0d2 u0 com.omoda.lanc/.MainActivity t4278}
+  ResumedActivity: ActivityRecord{d0bf0d2 u0 com.omoda.lanc/.MainActivity t4278}

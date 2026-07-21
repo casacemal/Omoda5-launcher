@@ -2,9 +2,8 @@ package com.omoda.lanc.network
 
 import android.util.Log
 import com.omoda.lanc.core.GlobalState
-import com.omoda.lanc.core.CommandFirewall
-import com.omoda.lanc.core.CommandResult
-import com.omoda.lanc.core.CommandRouter
+import com.omoda.lanc.core.dsl.*
+import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -16,26 +15,40 @@ import org.json.JSONObject
 import java.io.File
 
 class AgentManager(
-    private val commandFirewall: CommandFirewall,
-    private val commandRouter: CommandRouter,
+    private val firewallV2: FirewallV2,
+    private val hybridRouter: HybridRouter,
     private val sttClient: SttClient,
     private val hermesClient: HermesClient,
+    private val toolRegistry: List<ToolDefinition>,
     private val onFeedback: (String) -> Unit,
     private val onSystemResponse: (String, Boolean) -> Unit,
     private val onCancelPrevious: (() -> Unit)? = null  // Yeni istek gelince önceki TTS'i durdur
 ) {
     private val TAG = "AgentManager"
     private var currentEventSource: EventSource? = null
+    private var thinkingTimeoutJob: kotlinx.coroutines.Job? = null
     private var vehicleContext: String = ""
+
+    private val networkScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     fun updateVehicleContext(state: com.omoda.lanc.model.VehicleState) {
         val mqttStatus = if (GlobalState.isMqttConnected.value) "AKTİF" else "KOPUK"
-        vehicleContext = "Hız: ${state.speed}km/h, Vites: ${state.gearString}, Klima: ${if(state.isHvacOn) "Açık" else "Kapalı"}, Temp: ${state.acTemperatureDriver}C, MQTT Akışı: $mqttStatus"
+        val media = com.omoda.lanc.media.MediaBridge.mediaState.value
+        val mediaInfo = if (media.title.isNotEmpty()) "Çalan: ${media.title} - ${media.artist} (${if(media.isPlaying) "Oynatılıyor" else "Duraklatıldı"})" else "Medya Çalmıyor"
+        vehicleContext = "Hız: ${state.speed}km/h, Vites: ${state.gearString}, Klima: ${if(state.isHvacOn) "Açık" else "Kapalı"}, Temp: ${state.acTemperatureDriver}C, MQTT: $mqttStatus, $mediaInfo"
     }
 
     fun processVoiceInput(audioFile: File) {
         onFeedback("Ses çözümleniyor...")
+        
+        val sttTimeoutJob = networkScope.launch {
+            delay(10000) // STT için 10 saniye limit
+            Log.w(TAG, "STT zaman aşımı!")
+            onSystemResponse("Hata: Ses çözümleme hizmetinden yanıt alınamadı.", true)
+        }
+
         sttClient.transcribe(audioFile) { text, error ->
+            sttTimeoutJob.cancel()
             if (text != null) processTextInput(text)
             else onSystemResponse(error ?: "Ses anlaşılamadı.", true)
         }
@@ -56,12 +69,11 @@ class AgentManager(
 
         onFeedback("Anladım: $text")
         
-        // 1. KRİTİK YEREL KOMUTLAR (Mod Değişiklikleri) - Her zaman yerel çalışır
-        if (lowerText.contains("sohbet modu") || lowerText.contains("asistan modu") || lowerText.contains("izleme modu")) {
-            when (val res = commandRouter.analyzeAndExecute(text)) {
-                is CommandResult.Success -> { onSystemResponse(res.message, true); return }
-                else -> {}
-            }
+        // 1. KRİTİK YEREL KOMUTLAR (Hybrid Router DSL üzerinden)
+        val hybridResult = hybridRouter.analyzeAndExecute(text)
+        if (hybridResult != null) {
+            onSystemResponse(hybridResult, true)
+            return
         }
 
         // 2. KARAR MEKANİZMASI SEÇİMİ
@@ -70,16 +82,8 @@ class AgentManager(
             Log.d(TAG, "Karar Motoru: SUNUCU (Hermes)")
             sendChatSse(text)
         } else {
-            // Yerel Karar Motoru (Regex) - Önce yerel kontrol, yoksa buluta gönder (sohbet için)
-            Log.d(TAG, "Karar Motoru: YEREL (CommandRouter)")
-            when (val res = commandRouter.analyzeAndExecute(text)) {
-                is CommandResult.Success -> { onSystemResponse(res.message, true); return }
-                is CommandResult.Blocked -> { onSystemResponse(res.reason, true); return }
-                else -> {
-                    // Yerel eşleşme yok, genel sohbet için buluta gönder
-                    sendChatSse(text)
-                }
-            }
+            // Sadece sohbet için buluta gönder (Hybrid Router yerel eşleşme bulamazsa buraya düşer)
+            sendChatSse(text)
         }
     }
 
@@ -87,41 +91,38 @@ class AgentManager(
         val speed = vehicleContext // already formatted string
         return when (mode) {
             "CHAT" -> """
-Sen Omoda 5'in eğlence ve sohbet asistanısın. Adın OMOS.
+Sen Omoda 5'in eğlence ve sohbet asistanısın. Adın Chery.
 
-GÖREV: Sürücüyle samimi, eğlenceli ve akıcı bir sohbet yürüt. Gündelik konular, müzik, genel kültür, espri, seyahat tavsiyeleri hakkında konuşabilirsin.
+GÖREV: Sürücüyle samimi, eğlenceli ve akıcı bir sohbet yürüt.
 
-ARAÇ DURUMU (MQTT TELEMETRİ): $speed
+ARAÇ DURUMU: $speed
 
 KONUŞMA KURALLARI:
-- Türkçe konuş, samimi ve doğal bir dil kullan
-- Cevaplar 1-3 cümle olsun, çok uzun yazma
-- Emoji veya özel karakter KULLANMA (sesli okunacak)
-- Noktalama işaretleri kullan (., ?, !) - bunlar ses senkronizasyonu için kritik
-- Araç hızı 80 km/h üzerindeyse sohbeti kısa tut ve dikkat dağıtıcı sorulardan kaçın
-- Sürücü yorgunluk veya dikkat belirtisi gösterirse uyar
-- Müzik, podcast veya rota önerisi isterse yardımcı ol
-- Asla zararlı, tehlikeli veya yasadışı içerik üretme
+- Türkçe konuş, samimi ve doğal bir dil kullan.
+- CEVAPLARINI ÇOK KISA TUT. En fazla 1 veya 2 cümle kullan, detaylara boğma.
+- Yabancı/İngilizce marka, terim veya isimleri MUTLAKA TÜRKÇE OKUNUŞUYLA yaz. Örnek: "Bluetooth" yerine "bulutut", "YouTube" yerine "yutub", "Apple" yerine "epıl". Bu TTS (seslendirme) motorunun doğru okuması için çok kritiktir. Yabancı dilde kelime bırakma.
+- Emoji veya özel karakter KULLANMA (sesli okunacak).
+- Noktalama işaretleri kullan (., ?, !) - bunlar ses senkronizasyonu için kritik.
+- Araç hızı 80 km/h üzerindeyse sohbeti ekstra kısa tut ve dikkat dağıtıcı sorulardan kaçın.
+- Asla zararlı, tehlikeli veya yasadışı içerik üretme.
             """.trimIndent()
 
             else -> """
-Sen Omoda 5'in sürüş güvenliği asistanısın. Adın OMOS.
+Sen Omoda 5'in sürüş güvenliği asistanısın. Adın Chery.
 
-GÖREV: Araç komutlarını kısa ve net şekilde onayla, sürüş güvenliğini her şeyin önünde tut.
+GÖREV: Sürücünün isteklerini ve araç komutlarını kısa, net ve güvenli bir şekilde yerine getir.
 
-ARAÇ DURUMU (MQTT TELEMETRİ): $speed
+ARAÇ DURUMU: $speed
 
 KOMUT KURALLARI:
-- Türkçe konuş
-- Maksimum 1-2 cümle ile cevap ver
-- Emoji veya özel karakter KULLANMA (sesli okunacak)
-- Noktalama işaretleri kullan (., ?, !) - ses senkronizasyonu için kritik
-- Komut onaylarken sadece eylemi söyle: "Klima 22 dereceye ayarlandı." gibi
-- Sürücünün dikkatini dağıtma, teknik detaya girme
-- Hız 100 km/h üzerindeyse kritik olmayan ayar isteklerini uyarıyla ertele
-- Trafik veya hava koşullarına göre güvenlik önerisi ver
-- Yönlendirme, müzik, klima, cam komutlarına yanıt ver
-- Bilmediğin araç komutlarını kabul etme, kibarca reddet
+- Türkçe konuş.
+- Yabancı/İngilizce marka veya kelime kullanırsan MUTLAKA TÜRKÇE OKUNUŞUYLA yaz (örn: "Bluetooth" -> "bulutut", "WhatsApp" -> "vatsap").
+- Sürüş güvenliğini bozmayacak KISA cevaplar ver. Sohbeti uzatmaya veya sürdürmeye ÇALIŞMA.
+- Komut geldiğinde doğal onayla: Örn "Anladım, camı açıyorum" veya "Klima 22 dereceye ayarlandı."
+- Araç komutu dışında genel bir bilgi sorulursa (ör: Hava kaç derece?) buna da kısa ve net şekilde cevap ver. "Komut anlaşılamadı" DEME.
+- Emoji veya özel karakter KULLANMA (sesli okunacak).
+- Noktalama işaretleri kullan (., ?, !) - ses senkronizasyonu için kritik.
+- Hız 100 km/h üzerindeyse kritik olmayan ayar isteklerini uyarıyla ertele.
             """.trimIndent()
         }
     }
@@ -132,6 +133,17 @@ KOMUT KURALLARI:
             currentEventSource?.cancel()
             onCancelPrevious?.invoke()  // AssistantController'daki stopTts() çağrılır
         }
+        
+        thinkingTimeoutJob?.cancel()
+        thinkingTimeoutJob = networkScope.launch {
+            kotlinx.coroutines.delay(12000) // 12 saniye bekle
+            Log.w(TAG, "Düşünme zaman aşımı! Sunucudan yanıt gelmiyor.")
+            val currentTtsEngine = GlobalState.ttsEngine.value
+            val currentSttMode = GlobalState.sttMode.value
+            onSystemResponse("Üzgünüm, seçili hizmet ($currentTtsEngine/$currentSttMode) şu an yanıt vermiyor. Ayarlardan diğer motorları deneyebilirsiniz.", true)
+            currentEventSource?.cancel()
+        }
+
         val mode = GlobalState.currentMode.value
         val systemPrompt = buildSystemPrompt(mode)
 
@@ -147,7 +159,7 @@ KOMUT KURALLARI:
 
         val request = Request.Builder()
             .url(GlobalState.HERMES_BASE_URL + "/chat/completions")
-            .addHeader("Authorization", "Bearer ${GlobalState.HERMES_API_KEY}")
+            .addHeader("Authorization", "Bearer ${GlobalState.hermesApiKey.value}")
             .addHeader("X-Hermes-Session-Key", GlobalState.sessionKey.value)
             .post(body.toString().toRequestBody("application/json".toMediaType()))
             .build()
@@ -159,6 +171,10 @@ KOMUT KURALLARI:
 
                 override fun onEvent(source: EventSource, id: String?, type: String?, data: String) {
                     Log.d(TAG, "SSE Event - Type: $type, Data: $data")
+                    
+                    // Veri gelmeye başladığı anda zaman aşımını iptal et
+                    thinkingTimeoutJob?.cancel()
+
                     currentEventType = type
                     if (data == "[DONE]" || type == "done" || type == "run.completed") {
                         // Köşe durumu: henuz seslendirilmemiş kısa bir kuyruğ varsa onu gönder
@@ -187,7 +203,8 @@ KOMUT KURALLARI:
                             null -> {
                                 // Fallback to OpenAI format if type is missing
                                 val choices = json.optJSONArray("choices")
-                                if (choices != null) {
+                                // M-5: Bo\u015f array i\u00e7in JSONException korumas\u0131
+                                if (choices != null && choices.length() > 0) {
                                     val delta = choices.getJSONObject(0).getJSONObject("delta")
                                     if (delta.has("tool_calls")) {
                                         handleToolCalls(delta.getJSONArray("tool_calls"))
@@ -221,6 +238,8 @@ KOMUT KURALLARI:
                 }
 
                 override fun onFailure(source: EventSource, t: Throwable?, response: okhttp3.Response?) {
+                    thinkingTimeoutJob?.cancel()
+
                     val code = response?.code
                     val msg = t?.message ?: "Bağlantı kesildi"
                     Log.e(TAG, "SSE Connection Failure: $msg (Code: $code)")
@@ -238,29 +257,26 @@ KOMUT KURALLARI:
     }
 
     private fun buildTools() = JSONArray().apply {
-        // Araç Kontrol Araçları (Granular Tools)
-        put(createTool("set_hvac_temp", "Klima sıcaklığını ayarlar", 
-            mapOf("temperature" to "number")))
-        put(createTool("set_hvac_fan", "Klima fan hızını ayarlar (1-7)", 
-            mapOf("value" to "integer")))
-        put(createTool("set_hvac_ac", "Klima AC (soğutma) modunu açar veya kapatır", 
-            mapOf("value" to "integer"))) // 1: On, 0: Off
-        put(createTool("hvac_on", "Klimayı genel olarak açar", emptyMap()))
-        put(createTool("hvac_off", "Klimayı genel olarak kapatır", emptyMap()))
-        
-        put(createTool("set_volume", "Ses seviyesini ayarlar (0-15)", 
-            mapOf("volume_level" to "integer")))
-        put(createTool("media_control", "Medya oynatmayı kontrol eder", 
-            mapOf("action" to "string"))) // play_pause, next, prev
-        
-        put(createTool("set_window_position", "Cam veya sunroof pozisyonunu ayarlar (0-100)", 
-            mapOf("target" to "string", "position" to "integer")))
-            
-        put(createTool("open_app", "Belirtilen uygulamayı başlatır", 
-            mapOf("package_name" to "string")))
-            
-        put(createTool("search_youtube", "YouTube üzerinde video arar", 
-            mapOf("query" to "string")))
+        toolRegistry.forEach { tool ->
+            put(JSONObject().apply {
+                put("type", "function")
+                put("function", JSONObject().apply {
+                    put("name", tool.name)
+                    put("description", tool.description)
+                    put("parameters", JSONObject().apply {
+                        put("type", "object")
+                        put("properties", JSONObject().apply {
+                            tool.parameters.forEach { param ->
+                                put(param.name, JSONObject().apply {
+                                    put("type", param.type.name.lowercase())
+                                    put("description", param.description)
+                                })
+                            }
+                        })
+                    })
+                })
+            })
+        }
     }
 
     private fun createTool(name: String, description: String, params: Map<String, String>) = JSONObject().apply {
@@ -284,8 +300,16 @@ KOMUT KURALLARI:
             for (i in 0 until calls.length()) {
                 val call = calls.getJSONObject(i).getJSONObject("function")
                 val name = call.getString("name")
-                val args = call.getString("arguments")
-                val result = commandFirewall.validateAndExecute(name, args)
+                val argsJson = call.getString("arguments")
+                
+                // Convert JSON arguments to Map
+                val argsMap = mutableMapOf<String, Any>()
+                try {
+                    val jobj = JSONObject(argsJson)
+                    jobj.keys().forEach { key -> argsMap[key] = jobj.get(key) }
+                } catch (e: Exception) {}
+
+                val result = firewallV2.validateAndExecute(name, argsMap)
                 
                 // Eğer hata dönerse ekranda bildir
                 if (result.startsWith("Error")) {

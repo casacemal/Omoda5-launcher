@@ -14,6 +14,17 @@ class OtaInstallReceiver : BroadcastReceiver() {
         Log.d("OtaInstallReceiver", "Yükleme denetleniyor: $apkPath")
         
         val file = File(apkPath)
+        try {
+            val canonicalPath = file.canonicalPath
+            val allowedPath = context.getExternalFilesDir(null)?.canonicalPath
+            if (allowedPath == null || !canonicalPath.startsWith(allowedPath)) {
+                Log.e("OtaInstallReceiver", "Güvenlik İhlali: APK dizini geçersiz! ($canonicalPath)")
+                return
+            }
+        } catch (e: Exception) {
+            Log.e("OtaInstallReceiver", "Path doğrulama hatası", e)
+            return
+        }
         if (file.exists()) {
             if (expectedSize > 0 && file.length() != expectedSize) {
                 Log.e("OtaInstallReceiver", "Eksik APK algılandı! Beklenen: $expectedSize, Mevcut: ${file.length()}")

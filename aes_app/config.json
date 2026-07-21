@@ -6,7 +6,7 @@
     "mqtt_pass": "4078",
     "mqtt_topic_simulate": "omoda/simulate",
     "mqtt_topic_komut": "omoda/komut",
-    "poll_interval_sec": 2,
+    "poll_interval_sec": 1,
     "adb_timeout_sec": 10,
     "batch_size": 20
 }

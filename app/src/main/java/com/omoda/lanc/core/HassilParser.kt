@@ -15,8 +15,10 @@ class HassilParser(private val context: Context) {
 
     private fun loadIntents() {
         try {
-            val inputStream = context.assets.open("sentences/tr/intents.json")
-            val jsonString = InputStreamReader(inputStream).readText()
+            // L-5: InputStream use{} blogu ile kapan\u0131r \u2014 kaynak s\u0131z\u0131nt\u0131s\u0131 \u00f6nlenir
+            val jsonString = context.assets.open("sentences/tr/intents.json").use { inputStream ->
+                InputStreamReader(inputStream).readText()
+            }
             val rootObj = JSONObject(jsonString)
             val intentsObj = rootObj.getJSONObject("intents")
 

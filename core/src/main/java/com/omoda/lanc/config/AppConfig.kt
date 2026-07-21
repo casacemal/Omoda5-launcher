@@ -7,8 +7,8 @@ data class AppConfig(
     val ttsPort: String = "20128",
     val bridgeServerIp: String = "100.95.239.119",
     val bridgeType: String = "WYOMING", // WYOMING veya WHISPER
-    val sttMode: String = "HERMES",
-    val ttsEngine: String = "9ROUTER",
+    val sttMode: String = "SHERPA",
+    val ttsEngine: String = "SHERPA",
     val useHermesSpeech: Boolean = true,
     val isContinuousConversation: Boolean = true,
     val isWakeWordEnabled: Boolean = true,
@@ -35,10 +35,16 @@ data class AppConfig(
     val appClickCounts: Map<String, Int> = emptyMap(),
     
     // VHAL / STT Hassasiyet Ayarları
-    val vadSnrRatio: Float = 1.6f,
-    val vadSilenceDuration: Long = 2000L,
-    val vadGainFactor: Float = 2.5f,
+    val vadSnrRatio: Float = 1.4f,
+    val vadSilenceDuration: Long = 2500L,
+    val vadGainFactor: Float = 4.5f,
     val isKlimaAutoEnable: Boolean = true,
     val ttsRate: Float = 1.0f,
-    val ttsPitch: Float = 1.0f
+    val ttsPitch: Float = 1.0f,
+    
+    // Yeni Premium Özellik Anahtarları
+    val proactiveNotificationsEnabled: Boolean = true,
+    val criticalNotificationsOnly: Boolean = false,
+    val waveformEnabled: Boolean = true,
+    val gamificationEnabled: Boolean = true
 )

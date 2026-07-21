@@ -48,3 +48,8 @@ Bu belge, uygulamanın görsel ve işitsel tutarlılığını korumak için uyul
 ## 6. Güvenlik ve Eşleşme (Pairing)
 - **Varsayılan Eşleşme Kodu:** `OMODA5` (DietPi ve Otomatik Kurulumlar için).
 - **Değişiklik:** Kullanıcı UI üzerinden kodu yenileyebilir.
+
+## 7. Dashboard (Split Screen) Kısıtları
+- **Sidebar Padding:** Cihaz araç modunda çalışıyorsa (isCarHardware = true) Dashboard'un sol kenar dolgusu kesinlikle `235.dp` olmalıdır.
+- **Akıllı Split (Smart Hız Kuralı):** Ekran bölme oranı `>80 km/h` ise dar (0.6f medya), `≤80 km/h` ise geniş (0.35f medya) harita odaklı olmalıdır. Manuel kaydırmalar araç hızı `20 km/h` altına düşene kadar korunmalıdır.
+- **Premium Medya Arayüzü:** Dashboard'da geleneksel üst barlar kullanılmamalı, sistem bilgileri (Hız, ECO vb.) harita üzerinde Glassmorphism efektiyle asılı overlay'ler olarak gösterilmelidir.

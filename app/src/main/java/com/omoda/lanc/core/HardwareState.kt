@@ -9,8 +9,4 @@ object HardwareState {
     
     @Volatile
     var isRemoteAudioPlaying: Boolean = false
-
-    fun switchToLocalSpeechEngine(force: Boolean) {
-        // Lokal motor geçiş mantığı
-    }
 }

@@ -1,0 +1,33 @@
+Unknown command: "CarPropertyService"
+Car service commands:
+	-h
+	  Print this help text.
+	day-night-mode [day|night|sensor]
+	  Force into day/night mode or restore to auto.
+	inject-vhal-event property [zone] data(can be comma separated list)
+	  Inject a vehicle property for testing.
+	inject-error-event property zone errorCode
+	  Inject an error event from VHAL for testing.
+	enable-uxr true|false
+	  Enable/Disable UX restrictions and App blocking.
+	garage-mode [on|off|query]
+	  Force into garage mode or check status.
+	get-do-activities pkgname
+	  Get Distraction Optimized activities in given package.
+	get-carpropertyconfig [propertyId]
+	  Get a CarPropertyConfig by Id in Hex or list all CarPropertyConfigs
+	get-property-value [propertyId] [areaId]
+	  Get a vehicle property value by property id in Hex and areaId
+	  or list all property values for all areaId
+	suspend
+	  Suspend the system to Deep Sleep.
+	resume
+	  Wake the system up after a 'suspend.'
+	enable-trusted-device true|false
+	  Enable/Disable Trusted device feature.
+	remove-trusted-devices
+	  Remove all trusted devices for the current foreground user.
+	projection-tethering [true|false]
+	  Whether tethering should be used when creating access point for wireless projection
+	--metrics
+	  When used with dumpsys, only metrics will be in the dumpsys output.

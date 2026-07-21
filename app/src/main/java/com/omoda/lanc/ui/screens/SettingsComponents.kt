@@ -2,20 +2,81 @@ package com.omoda.lanc.ui.screens
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.omoda.lanc.core.PermissionManager
+import com.omoda.lanc.ui.theme.OmodaCyan
+
+@Composable
+fun PermissionItem(
+    status: PermissionManager.PermissionStatus,
+    onFix: () -> Unit
+) {
+    Surface(
+        color = Color.White.copy(alpha = 0.03f),
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(if (status.isGranted) Color(0xFF4CAF50).copy(0.2f) else Color(0xFFF44336).copy(0.2f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = if (status.isGranted) Icons.Default.Check else Icons.Default.Warning,
+                        contentDescription = null,
+                        tint = if (status.isGranted) Color(0xFF4CAF50) else Color(0xFFF44336),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Column {
+                    Text(status.label, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                    Text(status.id, color = Color.Gray, fontSize = 10.sp)
+                }
+            }
+
+            if (!status.isGranted) {
+                Button(
+                    onClick = onFix,
+                    colors = ButtonDefaults.buttonColors(containerColor = OmodaCyan),
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                    modifier = Modifier.height(32.dp)
+                ) {
+                    Text("ONAR", color = Color.Black, fontSize = 11.sp, fontWeight = FontWeight.ExtraBold)
+                }
+            } else {
+                Text("AKTİF", color = Color(0xFF4CAF50), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
 
 @Composable
 fun EnhancedSettingCard(title: String, modifier: Modifier = Modifier, isCompact: Boolean = false, content: @Composable () -> Unit) {

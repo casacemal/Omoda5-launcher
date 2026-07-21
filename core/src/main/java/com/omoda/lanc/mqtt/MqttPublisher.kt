@@ -76,11 +76,27 @@ class MqttPublisher(
                         LoggerProvider.mqttLog("[$time] Gelen ($topic): $payloadStr")
                         
                         if (topic == TOPIC_SIMULATE) {
+                            if (!GlobalState.isSimulationMode.value) return
                             try {
                                 val json = JSONObject(payloadStr)
                                 VehicleController.instance?.injectSimulatedData(json)
                             } catch (e: Exception) {
-                                Log.e(TAG, "Simülasyon verisi işleme hatası: ${e.message}")
+                                Log.e(TAG, "Simülasyon hatası: ${e.message}")
+                            }
+                        } else if (topic == TOPIC_COMMAND) {
+                            // Uzaktan Komut İcrası (Architecture 2.0 Firewall üzerinden)
+                            try {
+                                val json = JSONObject(payloadStr)
+                                val cmd = json.getString("command")
+                                val args = mutableMapOf<String, Any>()
+                                if (json.has("args")) {
+                                    val jArgs = json.getJSONObject("args")
+                                    jArgs.keys().forEach { key -> args[key] = jArgs.get(key) }
+                                }
+                                // Firewall 2.0'a gönder
+                                GlobalState.firewallV2?.validateAndExecute(cmd, args)
+                            } catch (e: Exception) {
+                                Log.e(TAG, "MQTT Komut Hatası: ${e.message}")
                             }
                         }
                     }
@@ -99,14 +115,18 @@ class MqttPublisher(
         if (!isConnected) return
         try {
             client?.publish("omoda/vhal_raw", MqttMessage(rawLine.toByteArray(Charsets.UTF_8)).apply { qos = 0 })
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+            Log.e(TAG, "Raw VHAL Publish hatası: ${e.message}")
+        }
     }
 
     fun publish(topic: String, payload: String) {
         if (!isConnected) return
         try {
             client?.publish(topic, MqttMessage(payload.toByteArray(Charsets.UTF_8)).apply { qos = QOS })
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+            Log.e(TAG, "Publish ($topic) hatası: ${e.message}")
+        }
     }
 
     private fun publishOnlineStatus() {
@@ -159,11 +179,8 @@ class MqttPublisher(
                 // Active Sensors
                 val activeSensorsObj = JSONObject()
                 val currentData = GlobalState.vehicleDataValues.value
-                currentData.forEach { (propId, value) ->
-                    val name = VehicleController.PROPERTY_DEFINITIONS[propId]?.label 
-                               ?: SensorDictionary.ALL_SENSORS[propId] 
-                               ?: propId
-                    activeSensorsObj.put(name, value)
+                currentData.forEach { (key, value) ->
+                    activeSensorsObj.put(key, value)
                 }
                 put("active_sensors", activeSensorsObj)
             }

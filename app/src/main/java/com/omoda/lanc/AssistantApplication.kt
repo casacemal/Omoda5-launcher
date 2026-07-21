@@ -1,33 +1,35 @@
 package com.omoda.lanc
 
 import android.app.Application
-import android.os.Build
 import com.omoda.lanc.config.AppConfig
 import com.omoda.lanc.config.ConfigManager
 import com.omoda.lanc.core.*
+import com.omoda.lanc.core.dsl.*
+import com.omoda.lanc.voice.ModelRepairManager
+import kotlinx.coroutines.*
 import com.omoda.lanc.mqtt.MqttPublisher
 import com.omoda.lanc.log.AdvancedLogger
 import com.hermesandroid.bridge.auth.PairingManager
 import com.hermesandroid.bridge.client.RelayClient
 import com.hermesandroid.bridge.model.DeviceCapabilities
 import com.hermesandroid.bridge.power.WakeLockManager
-// import com.hermesandroid.bridge.server.BridgeServer
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.*
 
 class AssistantApplication : Application(), AppLogger {
     companion object {
         lateinit var configManager: ConfigManager
+        
+        // Architecture 2.0 DSL Components
+        lateinit var firewallV2: FirewallV2
+        lateinit var hybridRouter: HybridRouter
+        val omodaPlatform = Omoda5
+        val omodaTools = OmodaTools
+
         @Volatile var instance: AssistantApplication? = null
             private set
 
-        val isCarHardware: Boolean
-            get() = (Build.MODEL.contains("omoda", ignoreCase = true) || 
-                    Build.MANUFACTURER.contains("semidrive", ignoreCase = true) ||
-                    Build.MANUFACTURER.contains("rockchip", ignoreCase = true) ||
-                    Build.PRODUCT.contains("omoda", ignoreCase = true)) &&
-                    !Build.MANUFACTURER.contains("Xiaomi", ignoreCase = true) &&
-                    !Build.MANUFACTURER.contains("samsung", ignoreCase = true)
+        val isCarHardware: Boolean get() = GlobalState.isCarHardware
         
         // Delegate to GlobalState
         val recognizedText get() = GlobalState.recognizedText
@@ -134,6 +136,7 @@ class AssistantApplication : Application(), AppLogger {
                 sessionKey = sessionKey.value,
                  wallpaperIdx = wallpaperIdx.value,
                 appClickCounts = appClickCounts.value,
+                vehiclePollingConfig = GlobalState.vehiclePollingConfig.value,
                 githubToken = GlobalState.githubToken.value,
                 hermesApiKey = GlobalState.hermesApiKey.value,
                 ninerouterApiKey = GlobalState.ninerouterApiKey.value,
@@ -143,7 +146,11 @@ class AssistantApplication : Application(), AppLogger {
                 vadGainFactor = GlobalState.vadGainFactor.value,
                 isKlimaAutoEnable = GlobalState.isKlimaAutoEnable.value,
                 ttsRate = GlobalState.ttsRate.value,
-                ttsPitch = GlobalState.ttsPitch.value
+                ttsPitch = GlobalState.ttsPitch.value,
+                proactiveNotificationsEnabled = GlobalState.proactiveNotificationsEnabled.value,
+                criticalNotificationsOnly = GlobalState.criticalNotificationsOnly.value,
+                waveformEnabled = GlobalState.waveformEnabled.value,
+                gamificationEnabled = GlobalState.gamificationEnabled.value
             )
             configManager.saveConfig(config)
             activeServerIp.value = serverIp.value
@@ -170,9 +177,21 @@ class AssistantApplication : Application(), AppLogger {
         
         configManager = ConfigManager(this)
         loadConfig()
+
+        // Architecture 2.0 Init
+        firewallV2 = FirewallV2(this, OmodaTools, emptyList())
+        hybridRouter = HybridRouter(this, firewallV2, OmodaTools)
         
-        // Donanım değilse ve config'den gelen simülasyon modu false ise bile donanıma göre set et
-        // Ama öncelik config'de olmalı. 
+        GlobalState.firewallV2 = firewallV2
+        GlobalState.hybridRouter = hybridRouter
+
+        // Model Check
+        CoroutineScope(Dispatchers.IO).launch {
+            ModelRepairManager.checkAndRepair(this@AssistantApplication) { 
+                addLogStatic("MODEL: $it")
+            }
+        }
+        
         if (!isCarHardware) {
             isSimulationMode.value = true
         }
@@ -182,6 +201,8 @@ class AssistantApplication : Application(), AppLogger {
         }
         
         com.omoda.lanc.network.NetworkMonitor(this)
+        com.omoda.lanc.network.WeatherManager.startPolling()
+        com.omoda.lanc.core.CompassManager.init(this)
         
         if (mqttEnabled.value) {
             mqttPublisher.updateBrokerUrl(serverIp.value)
@@ -191,7 +212,6 @@ class AssistantApplication : Application(), AppLogger {
         PairingManager.init(applicationContext)
         DeviceCapabilities.init(applicationContext)
         WakeLockManager.init(applicationContext)
-        // BridgeServer.start(port = 8765) // Disabled to save space
         RelayClient.init(applicationContext)
         RelayClient.autoConnect()
     }
@@ -209,24 +229,29 @@ class AssistantApplication : Application(), AppLogger {
         sttMode.value = if (config.sttMode.isBlank()) "HERMES" else config.sttMode
         ttsEngine.value = if (config.ttsEngine.isBlank()) "9ROUTER" else config.ttsEngine
         
-        useHermesSpeech.value = config.useHermesSpeech
+        GlobalState.githubToken.value = (if (config.githubToken.isNullOrBlank()) BuildConfig.GITHUB_TOKEN else config.githubToken) ?: ""
         isContinuousConversation.value = config.isContinuousConversation
         useHermesDecision.value = config.useHermesDecision
         isWakeWordEnabled.value = config.isWakeWordEnabled
         micSource.value = config.micSource
         isBridgeMode.value = config.isBridgeMode
-        isSimulationMode.value = config.isSimulationMode // STATE-3 Fix
+        isSimulationMode.value = config.isSimulationMode
         mqttEnabled.value = config.mqttEnabled
         vehicleId.value = config.vehicleId
         sessionKey.value = config.sessionKey
         
-        GlobalState.githubToken.value = (if (config.githubToken.isNullOrBlank()) BuildConfig.GITHUB_TOKEN else config.githubToken) ?: ""
         GlobalState.hermesApiKey.value = (if (config.hermesApiKey.isNullOrBlank()) BuildConfig.HERMES_API_KEY else config.hermesApiKey) ?: ""
         GlobalState.ninerouterApiKey.value = (if (config.ninerouterApiKey.isNullOrBlank()) BuildConfig.NINEROUTER_API_KEY else config.ninerouterApiKey) ?: ""
         GlobalState.edgeTtsToken.value = (if (config.edgeTtsToken.isNullOrBlank()) BuildConfig.EDGE_TTS_TOKEN else config.edgeTtsToken) ?: ""
 
         wallpaperIdx.value = config.wallpaperIdx
         appClickCounts.value = config.appClickCounts
+        
+        GlobalState.vehiclePollingConfig.value = if (config.vehiclePollingConfig.isEmpty()) mapOf(
+            "11600207" to 1, // Hız
+            "21402006" to 1, // Vites
+            "11600307" to 10 // Yakıt
+        ) else config.vehiclePollingConfig
         
         GlobalState.vadSnrRatio.value = config.vadSnrRatio
         GlobalState.vadSilenceDuration.value = config.vadSilenceDuration
@@ -236,5 +261,10 @@ class AssistantApplication : Application(), AppLogger {
         
         GlobalState.ttsRate.value = config.ttsRate
         GlobalState.ttsPitch.value = config.ttsPitch
+        
+        GlobalState.proactiveNotificationsEnabled.value = config.proactiveNotificationsEnabled
+        GlobalState.criticalNotificationsOnly.value = config.criticalNotificationsOnly
+        GlobalState.waveformEnabled.value = config.waveformEnabled
+        GlobalState.gamificationEnabled.value = config.gamificationEnabled
     }
 }

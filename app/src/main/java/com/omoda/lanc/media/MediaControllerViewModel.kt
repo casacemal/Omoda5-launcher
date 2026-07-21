@@ -26,8 +26,10 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
         val isPlaying: Boolean = false,
         val progress: Float = 0f,
         val duration: Long = 0L,
-        val source: String = "Sistem"
+        val source: String = "Sistem",
+        val albumArt: android.graphics.Bitmap? = null
     )
+
 
     private val _mediaState = MutableStateFlow(MediaUiState())
     val mediaState: StateFlow<MediaUiState> = _mediaState.asStateFlow()
@@ -36,22 +38,12 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
     private val sessionManager = application.getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
     private val handler = Handler(Looper.getMainLooper())
 
-    private val mediaUpdateReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val title = intent?.getStringExtra("title") ?: return
-            val artist = intent?.getStringExtra("artist") ?: ""
-            val pkg = intent?.getStringExtra("package") ?: ""
-            
-            _mediaState.value = _mediaState.value.copy(
-                title = title,
-                artist = artist,
-                source = "Notif: $pkg"
-            )
-        }
-    }
-
     private val sessionListener = MediaSessionManager.OnActiveSessionsChangedListener { controllers ->
-        controllers?.firstOrNull()?.let { attachToController(it) } ?: run {
+        val playing = controllers?.firstOrNull { it.playbackState?.state == PlaybackState.STATE_PLAYING }
+        val withMeta = controllers?.firstOrNull { it.metadata != null }
+        val target = playing ?: withMeta ?: controllers?.firstOrNull()
+        
+        target?.let { attachToController(it) } ?: run {
             activeController = null
             _mediaState.value = MediaUiState()
         }
@@ -63,7 +55,12 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private val progressUpdater = object : Runnable {
+        private var ticks = 0
         override fun run() {
+            ticks++
+            // Her 3 saniyede bir aktif session'u tekrar kontrol et
+            if (ticks % 3 == 0) refreshSession()
+            
             activeController?.playbackState?.let { state ->
                 if (state.state == PlaybackState.STATE_PLAYING) {
                     val pos = state.position
@@ -82,25 +79,27 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
                 sessionManager.addOnActiveSessionsChangedListener(sessionListener, component, handler)
             } catch (e: SecurityException) {
                 Log.e("OmodaMedia", "Medya kontrol yetkisi eksik (Notification Access): ${e.message}")
-                AssistantApplication.addLogStatic("HATA: Medya Kontrol Yetkisi Yok (Bildirim Erişimi Verin)")
             }
             
-            // Bridge Sync
+            // Source of Truth: MediaBridge (Fed by MediaNotificationListener)
             viewModelScope.launch {
                 MediaBridge.mediaState.collect { info ->
                     if (info.pkg.isNotEmpty()) {
                         _mediaState.value = _mediaState.value.copy(
-                            title = info.title,
-                            artist = info.artist,
-                            source = "Bridge: ${info.pkg}"
+                            title = info.title.ifBlank { "Bilinmeyen Şarkı" },
+                            artist = info.artist.ifBlank { "Bilinmeyen Sanatçı" },
+                            source = info.pkg,
+                            isPlaying = info.isPlaying,
+                            albumArt = info.albumArt
                         )
+                        // If we don't have an active controller, try to find one for this package
+                        if (activeController == null || activeController?.packageName != info.pkg) {
+                            refreshSession()
+                        }
                     }
                 }
             }
 
-            val filter = IntentFilter(MediaNotificationListener.ACTION_MEDIA_UPDATE)
-            application.registerReceiver(mediaUpdateReceiver, filter)
-            
             refreshSession()
             handler.post(progressUpdater)
             Log.d("OmodaMedia", "Medya denetleyici başlatıldı")
@@ -109,12 +108,18 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
         }
     }
 
+
     fun refreshSession() {
         try {
             val component = ComponentName(getApplication(), MediaNotificationListener::class.java)
             val sessions = sessionManager.getActiveSessions(component)
-            sessions.firstOrNull()?.let { attachToController(it) }
-        } catch (e: Exception) { }
+            val playing = sessions.firstOrNull { it.playbackState?.state == PlaybackState.STATE_PLAYING }
+            val withMeta = sessions.firstOrNull { it.metadata != null && it.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) != null }
+            val target = playing ?: withMeta ?: sessions.firstOrNull()
+            target?.let { attachToController(it) }
+        } catch (e: Exception) { 
+            Log.e("OmodaMedia", "refreshSession hatasi: ${e.message}")
+        }
     }
 
     private fun attachToController(controller: MediaController) {
@@ -131,8 +136,23 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
         val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) ?: "Omoda 5 Media"
         val artist = metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: "Sistem Hazır"
         val dur = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION) ?: 0L
-        _mediaState.value = _mediaState.value.copy(title = title, artist = artist, duration = dur)
+        
+        // Try multiple metadata keys for album art
+        val art = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
+            ?: metadata?.getBitmap(MediaMetadata.METADATA_KEY_ART)
+            ?: metadata?.getBitmap(MediaMetadata.METADATA_KEY_DISPLAY_ICON)
+            
+        Log.d("OmodaMedia", "Metadata Güncellendi: $title - $artist, Art: ${art != null}")
+            
+        _mediaState.value = _mediaState.value.copy(
+            title = title, 
+            artist = artist, 
+            duration = dur,
+            albumArt = art
+        )
     }
+
+
 
     private fun updatePlaybackState(state: PlaybackState?) {
         val isPlaying = state?.state == PlaybackState.STATE_PLAYING
@@ -172,7 +192,6 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
     override fun onCleared() {
         try {
             sessionManager.removeOnActiveSessionsChangedListener(sessionListener)
-            getApplication<Application>().unregisterReceiver(mediaUpdateReceiver)
             activeController?.unregisterCallback(mediaCallback)
         } catch (e: Exception) {}
         handler.removeCallbacks(progressUpdater)

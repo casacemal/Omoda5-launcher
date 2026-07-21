@@ -23,7 +23,8 @@ class EdgeOnlineTTSManager(private val context: Context) : TTSManager {
     private var mediaPlayer: MediaPlayer? = null
     private var pendingOnComplete: (() -> Unit)? = null
     private var pendingOnError: (() -> Unit)? = null
-    private var isPlaying = false
+    @Volatile private var isPlaying = false
+    @Volatile private var isStopped = false  // H-13: stop() çağrılınca finalizeAndPlay() engellenir
     private var currentAudioFile: File? = null
     private var outputStream: FileOutputStream? = null
 
@@ -36,6 +37,7 @@ class EdgeOnlineTTSManager(private val context: Context) : TTSManager {
         }
 
         stop()
+        isStopped = false  // H-13: Yeni konuşma başlıyor, durdurma bayragi sıfırlanır
         pendingOnComplete = onComplete
         pendingOnError = onError
         
@@ -100,14 +102,17 @@ class EdgeOnlineTTSManager(private val context: Context) : TTSManager {
     }
 
     private fun finalizeAndPlay() {
+        // H-13: stop() çağrıldıysa oynatma iptal edilir
+        if (isStopped) return
         try {
             outputStream?.flush()
             outputStream?.close()
             outputStream = null
 
-            if (currentAudioFile?.exists() == true && currentAudioFile!!.length() > 0) {
+            val audioFile = currentAudioFile  // H-12: Yerel değişkene kopyala (eszamanlı null riski)
+            if (audioFile != null && audioFile.exists() && audioFile.length() > 0) {
                 android.os.Handler(android.os.Looper.getMainLooper()).post {
-                    playCapturedFile()
+                    if (!isStopped) playCapturedFile(audioFile)  // H-13: Tekrar kontrol
                 }
             }
         } catch (e: Exception) {
@@ -115,7 +120,7 @@ class EdgeOnlineTTSManager(private val context: Context) : TTSManager {
         }
     }
 
-    private fun playCapturedFile() {
+    private fun playCapturedFile(audioFile: File) {  // H-12: null-safe paramètre
         if (webSocket == null && !isPlaying && mediaPlayer == null) {
             // Already stopped before we could play
             return
@@ -128,7 +133,7 @@ class EdgeOnlineTTSManager(private val context: Context) : TTSManager {
                         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                         .build()
                 )
-                setDataSource(currentAudioFile!!.absolutePath)
+                setDataSource(audioFile.absolutePath)  // H-12: !! kaldırıldı, null-safe paramètre
                 setOnPreparedListener { 
                     this@EdgeOnlineTTSManager.isPlaying = true
                     start() 
@@ -152,16 +157,18 @@ class EdgeOnlineTTSManager(private val context: Context) : TTSManager {
     }
 
     override fun stop() {
+        isStopped = true  // H-13: finalizeAndPlay() bu bayrağı görünce dur
         try {
             webSocket?.close(1000, null)
             webSocket = null
-            mediaPlayer?.let {
-                if (it.isPlaying) it.stop()
-                it.release()
+            val player = mediaPlayer
+            mediaPlayer = null
+            this@EdgeOnlineTTSManager.isPlaying = false
+            if (player != null) {
+                try { if (player.isPlaying) player.stop() } catch (_: Exception) {}
+                try { player.release() } catch (_: Exception) {}  // H-11 pattern
             }
         } catch (_: Exception) {}
-        mediaPlayer = null
-        this@EdgeOnlineTTSManager.isPlaying = false
         try { outputStream?.close() } catch (_: Exception) {}
         outputStream = null
         

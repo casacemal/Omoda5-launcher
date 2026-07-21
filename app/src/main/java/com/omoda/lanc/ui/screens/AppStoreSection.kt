@@ -19,14 +19,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import com.omoda.lanc.network.AppUpdate
 import com.omoda.lanc.network.OtaUpdateManager
 import kotlinx.coroutines.launch
 
+@Preview(showBackground = true, widthDp = 800, heightDp = 480)
+@Composable
+fun PreviewAppStoreSection() {
+    MaterialTheme {
+        Box(modifier = Modifier.background(Color.Black).fillMaxSize().padding(16.dp)) {
+            AppStoreSection()
+        }
+    }
+}
+
 @Composable
 fun AppStoreSection() {
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
     val updateManager = remember { OtaUpdateManager(context) }
     
     var isChecking by remember { mutableStateOf(false) }

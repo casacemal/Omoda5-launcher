@@ -17,7 +17,7 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.omoda.lanc.core.*
-import com.omoda.lanc.vehicle.VehicleLayer
+import com.omoda.lanc.core.VehicleController
 import com.omoda.lanc.audio.AudioStreamReceiver
 import com.omoda.lanc.audio.AudioStreamSender
 import kotlinx.coroutines.*
@@ -30,7 +30,7 @@ class VoiceAssistantService : Service() {
     private val CHANNEL_ID = "VoiceAssistantChannel"
     
     internal lateinit var assistantController: AssistantController
-    internal lateinit var vehicleLayer: VehicleLayer
+    internal lateinit var vehicleController: VehicleController
 
     internal var locationManager: LocationManager? = null
 
@@ -48,6 +48,9 @@ class VoiceAssistantService : Service() {
                     gpsSpeedKmh
                 ))
             }
+
+            // Sistem saatini GPS ile senkronize et (Bağımsız Motor)
+            SystemTimeSync.syncWithGps(location.time)
         }
         @Deprecated("Deprecated in Java")
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
@@ -106,7 +109,7 @@ class VoiceAssistantService : Service() {
 
         serviceScope.launch {
             assistantController = AssistantController(this@VoiceAssistantService, serviceScope)
-            vehicleLayer = VehicleLayer(this@VoiceAssistantService, serviceScope)
+            vehicleController = VehicleController.getInstance(this@VoiceAssistantService)
 
             try {
                 locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -213,8 +216,8 @@ class VoiceAssistantService : Service() {
         if (::assistantController.isInitialized) {
             assistantController.destroy()
         }
-        if (::vehicleLayer.isInitialized) {
-            vehicleLayer.destroy()
+        if (::vehicleController.isInitialized) {
+            vehicleController.destroy()
         }
         serviceScope.cancel()
         super.onDestroy()

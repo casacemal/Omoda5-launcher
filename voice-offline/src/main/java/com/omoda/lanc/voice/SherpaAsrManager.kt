@@ -26,34 +26,51 @@ class SherpaAsrManager(private val context: Context, private val onResult: (Stri
 
     init {
         scope.launch {
+            Log.e(TAG, "SherpaAsrManager INIT")
             if (installer.ensureInstalled()) {
                 initAsr()
+            } else {
+                Log.e(TAG, "Model kurulumu BAŞARISIZ")
             }
         }
     }
 
     private fun initAsr() {
+        Log.e(TAG, "ASR Motoru başlatılıyor...")
         try {
             val asrDir = installer.asrDirectory()
+            Log.e(TAG, "ASR Model Dizini: ${asrDir.absolutePath}")
             
+            val encoderFile = File(asrDir, "tiny-encoder.int8.onnx")
+            val decoderFile = File(asrDir, "tiny-decoder.int8.onnx")
+            val tokensFile = File(asrDir, "tiny-tokens.txt")
+
+            Log.e(TAG, "Dosya Kontrolleri: Encoder=${encoderFile.exists()}, Decoder=${decoderFile.exists()}, Tokens=${tokensFile.exists()}")
+
+            if (!encoderFile.exists() || !decoderFile.exists() || !tokensFile.exists()) {
+                Log.e(TAG, "ASR Model dosyaları eksik! İptal ediliyor.")
+                return
+            }
+
             val config = OfflineRecognizerConfig().apply {
                 modelConfig = OfflineModelConfig().apply {
                     whisper = OfflineWhisperModelConfig().apply {
-                        encoder = File(asrDir, "tiny-encoder.int8.onnx").absolutePath
-                        decoder = File(asrDir, "tiny-decoder.int8.onnx").absolutePath
-                        tokens = File(asrDir, "tokens.txt").absolutePath
+                        encoder = encoderFile.absolutePath
+                        decoder = decoderFile.absolutePath
+                        tokens = tokensFile.absolutePath
                         language = "tr"
                         task = "transcribe"
                     }
                     numThreads = 2
-                    debug = false
+                    debug = true // Debug aktif et
                 }
             }
             
+            Log.e(TAG, "OfflineRecognizer oluşturuluyor...")
             recognizer = OfflineRecognizer(null, config)
-            Log.i(TAG, "Sherpa Offline ASR Hazır (Whisper Tiny int8)")
+            Log.e(TAG, "✅ Sherpa Offline ASR Hazır (Whisper Tiny int8)")
         } catch (e: Exception) {
-            Log.e(TAG, "ASR Init Hatası: ${e.message}")
+            Log.e(TAG, "❌ ASR Init Hatası: ${e.message}", e)
         }
     }
 
@@ -62,7 +79,7 @@ class SherpaAsrManager(private val context: Context, private val onResult: (Stri
         if (isListening || recognizer == null) return
         isListening = true
         
-        Log.i(TAG, "Yerel STT başlatıldı.")
+        Log.e(TAG, "Yerel STT başlatıldı.")
         
         scope.launch {
             try {
@@ -109,7 +126,7 @@ class SherpaAsrManager(private val context: Context, private val onResult: (Stri
             rec.decode(stream)
             val text = rec.getResult(stream).text
             if (!text.isNullOrBlank()) {
-                Log.i(TAG, "ASR Sonucu: $text")
+                Log.e(TAG, "ASR Sonucu: $text")
                 scope.launch(Dispatchers.Main) { onResult(text) }
             }
             stream.release()
@@ -130,6 +147,7 @@ class SherpaAsrManager(private val context: Context, private val onResult: (Stri
     fun transcribeFile(audioFile: File) {
         scope.launch {
             try {
+                Log.e(TAG, "Dosya işleniyor: ${audioFile.absolutePath}")
                 // Modeller henüz yüklenmediyse bekle
                 if (recognizer == null) {
                     installer.ensureInstalled()
@@ -145,6 +163,7 @@ class SherpaAsrManager(private val context: Context, private val onResult: (Stri
                 val bytes = audioFile.readBytes()
                 val headerSize = 44
                 if (bytes.size <= headerSize) {
+                    Log.e(TAG, "Dosya çok küçük veya boş")
                     withContext(Dispatchers.Main) { onResult("") }
                     return@launch
                 }
@@ -162,7 +181,7 @@ class SherpaAsrManager(private val context: Context, private val onResult: (Stri
                 rec.decode(stream)
                 val text = rec.getResult(stream).text ?: ""
                 stream.release()
-                Log.i(TAG, "Offline ASR Sonucu: $text")
+                Log.e(TAG, "Offline ASR Sonucu: $text")
                 withContext(Dispatchers.Main) { onResult(text) }
             } catch (e: Exception) {
                 Log.e(TAG, "transcribeFile Hatası: ${e.message}")

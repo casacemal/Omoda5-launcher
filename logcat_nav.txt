@@ -1,0 +1,1228 @@
+--------- beginning of system
+07-15 04:17:55.194  2700  2800 W ActivityManager: Slow operation: 68ms so far, now at startProcess: returned from zygote!
+07-15 04:17:55.206  2700  2800 W ActivityManager: Slow operation: 80ms so far, now at startProcess: done updating battery stats
+07-15 04:17:55.206  2700  2800 W ActivityManager: Slow operation: 80ms so far, now at startProcess: building log message
+07-15 04:17:55.206  2700  2800 I ActivityManager: Start proc 6177:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 04:17:55.206  2700  2800 W ActivityManager: Slow operation: 80ms so far, now at startProcess: starting to update pids map
+07-15 04:17:55.206  2700  2800 W ActivityManager: Slow operation: 81ms so far, now at startProcess: done updating pids map
+07-15 04:17:55.310  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 04:17:55.771  2700  2800 W ActivityManager: Slow operation: 54ms so far, now at startProcess: returned from zygote!
+07-15 04:17:55.789  2700  2800 W ActivityManager: Slow operation: 72ms so far, now at startProcess: done updating battery stats
+07-15 04:17:55.789  2700  2800 W ActivityManager: Slow operation: 72ms so far, now at startProcess: building log message
+07-15 04:17:55.789  2700  2800 I ActivityManager: Start proc 6236:by.green.tuber/u0a61 for broadcast {by.green.tuber/androidx.work.impl.background.systemalarm.RescheduleReceiver}
+07-15 04:17:55.789  2700  2800 W ActivityManager: Slow operation: 72ms so far, now at startProcess: starting to update pids map
+07-15 04:17:55.789  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: done updating pids map
+07-15 04:17:55.869  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{89ab52 u0 com.omoda.lanc/.MainActivity t4253}
+07-15 01:17:55.010  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{89ab52 u0 com.omoda.lanc/.MainActivity t4253}
+07-15 01:17:55.257  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:17:55.521  2700  3729 I ActivityManager: Process io.homeassistant.companion.android.minimal (pid 5632) has died: cch+25 CEM 
+07-15 01:17:57.040  2700  2800 W ActivityManager: Slow operation: 135ms so far, now at startProcess: returned from zygote!
+07-15 01:17:57.041  2700  2800 W ActivityManager: Slow operation: 135ms so far, now at startProcess: done updating battery stats
+07-15 01:17:57.041  2700  2800 W ActivityManager: Slow operation: 135ms so far, now at startProcess: building log message
+07-15 01:17:57.041  2700  2800 I ActivityManager: Start proc 6339:by.green.tuber:AppMetrica/u0a61 for service {by.green.tuber/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:17:57.041  2700  2800 W ActivityManager: Slow operation: 135ms so far, now at startProcess: starting to update pids map
+07-15 01:17:57.041  2700  2800 W ActivityManager: Slow operation: 135ms so far, now at startProcess: done updating pids map
+07-15 01:17:57.227  2700  3198 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 5724) has died: cch+15 CEM 
+07-15 01:17:57.800  2700  2800 I ActivityManager: Start proc 6385:com.google.android.apps.maps/u0a62 for broadcast {com.google.android.apps.maps/androidx.work.impl.background.systemalarm.RescheduleReceiver}
+07-15 01:17:59.600  2700  2800 I ActivityManager: Start proc 6470:com.ilv.vradio/u0a77 for broadcast {com.ilv.vradio/com.ilv.vradio.AlarmReceiver}
+07-15 01:18:00.276  2700  2800 I ActivityManager: Start proc 6496:de.danoeh.antennapod/u0a88 for broadcast {de.danoeh.antennapod/androidx.work.impl.background.systemalarm.RescheduleReceiver}
+07-15 01:18:00.412  2700  3233 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 5744) has died: cch+55 CEM 
+07-15 01:18:00.860  2700  2800 I ActivityManager: Start proc 6526:in.krosbits.musicolet:musicolet/u0a54 for broadcast {in.krosbits.musicolet/androidx.work.impl.background.systemalarm.RescheduleReceiver}
+07-15 01:18:01.469  2700  3571 I ActivityManager: Process by.green.tuber (pid 6236) has died: cch+55 CEM 
+07-15 01:18:02.647  2700  2800 I ActivityManager: Start proc 6572:by.green.tuber/u0a61 for broadcast {by.green.tuber/androidx.work.impl.background.systemalarm.RescheduleReceiver}
+07-15 01:18:03.185  2700  3233 I ActivityManager: Process by.green.tuber:AppMetrica (pid 6339) has died: cch+55 CEM 
+07-15 01:18:03.717  2700  2800 W ActivityManager: Slow operation: 102ms so far, now at startProcess: returned from zygote!
+07-15 01:18:03.718  2700  2800 W ActivityManager: Slow operation: 103ms so far, now at startProcess: done updating battery stats
+07-15 01:18:03.720  2700  2800 W ActivityManager: Slow operation: 105ms so far, now at startProcess: building log message
+07-15 01:18:03.720  2700  2800 I ActivityManager: Start proc 6625:by.green.tuber:AppMetrica/u0a61 for service {by.green.tuber/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:18:03.720  2700  2800 W ActivityManager: Slow operation: 105ms so far, now at startProcess: starting to update pids map
+07-15 01:18:03.723  2700  2800 W ActivityManager: Slow operation: 107ms so far, now at startProcess: done updating pids map
+07-15 01:18:04.511  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:18:04.890  2700  3198 I ActivityManager: Process idu.com.radio.radyoturk (pid 5966) has died: cch+55 CEM 
+07-15 01:18:05.506  2700  3571 I ActivityManager: Process by.green.tuber (pid 6572) has died: cch+55 CEM 
+07-15 01:18:05.890  2700  2745 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=com.tailscale.ipn cmp=com.tailscale.ipn/.MainActivity} from uid 10051
+07-15 01:18:06.399  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{89ab52 u0 com.omoda.lanc/.MainActivity t4253}
+07-15 01:18:06.405  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{89ab52 u0 com.omoda.lanc/.MainActivity t4253}
+07-15 01:18:09.457  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:18:09.457  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:18:09.501  2700  2787 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity (has extras)} from uid 0
+07-15 01:18:09.528  2700  3059 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:18:09.637  2700  3059 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:18:09.937  2700  3198 I ActivityManager: Process by.green.tuber:AppMetrica (pid 6625) has died: cch+55 CEM 
+07-15 01:18:23.086  2700  3233 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:18:23.260  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.finishDrawingWindow:2422 com.android.server.wm.Session.finishDrawing:231 
+07-15 01:18:23.268  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:18:25.709  2700  2800 I ActivityManager: Start proc 7105:com.vivaldi.browser/u0a50 for broadcast {com.vivaldi.browser/org.vivaldi.browser.prompts.PrivacyReportNotificationReceiver}
+07-15 01:18:27.147  2700  2800 I ActivityManager: Start proc 7153:com.vivaldi.browser:privileged_process0/u0a50 for service {com.vivaldi.browser/org.chromium.content.app.PrivilegedProcessService0}
+07-15 01:18:27.609  2700  3198 I ActivityManager: Process com.ilv.vradio (pid 6470) has died: cch+25 CEM 
+07-15 01:18:27.626  2700  3596 I ActivityManager: Process com.google.android.apps.maps (pid 6385) has died: cch+25 CEM 
+07-15 01:18:28.482  2700  3596 I ActivityManager: Process de.danoeh.antennapod (pid 6496) has died: cch+35 CEM 
+07-15 01:18:28.534  2700  3059 I ActivityManager: Process in.krosbits.musicolet:musicolet (pid 6526) has died: cch+25 CEM 
+07-15 01:18:28.603  2700  3198 I ActivityManager: Process com.vivaldi.browser (pid 7105) has died: cch+15 CEM 
+07-15 01:18:28.676  2700  5471 I ActivityManager: Process com.vivaldi.browser:privileged_process0 (pid 7153) has died: fore SVC 
+07-15 01:18:53.153  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:18:53.367  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:18:53.390  2700  3575 D WindowManager: relayoutVisibleWindow: Window{1137442 u0 com.chery.launcher/com.chery.launcher.view.activity.MainActivity EXITING} mAnimatingExit=true, mRemoveOnExit=false, mDestroying=false
+07-15 01:19:04.269  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=true longpress=false
+07-15 01:19:04.405  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:19:04.415  2700  2934 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:19:04.421  2700  2787 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity (has extras)} from uid 0
+--------- beginning of main
+07-15 01:19:15.609  2700  3059 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x14000000 pkg=ru.yandex.yandexnavi cmp=ru.yandex.yandexnavi/.core.NavigatorActivity} from uid 10051
+07-15 01:19:15.854  2700  3233 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: clear data
+07-15 01:19:15.856  2700  3233 I ActivityManager: Killing 3503:com.omoda.lanc/u0a51 (adj 50): stop com.omoda.lanc
+07-15 01:19:15.864  2700  3233 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.CheryAccessibilityService in 1000ms
+07-15 01:19:15.865  2700  3233 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.ui.overlay.SidebarOverlayService in 10994ms
+07-15 01:19:15.866  2700  3233 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 20994ms
+07-15 01:19:15.866  2700  3233 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 30993ms
+07-15 01:19:15.866  2700  3233 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/com.hermesandroid.bridge.service.BridgeAccessibilityService in 40993ms
+07-15 01:19:15.867  2700  3233 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 50993ms
+07-15 01:19:15.867  2700  3233 W ActivityTaskManager: Force removing ActivityRecord{89ab52 u0 com.omoda.lanc/.MainActivity t4253 f}: app died, no saved state
+07-15 01:19:15.884  2700  3233 I ActivityManager:   Force stopping service ServiceRecord{cd04cf1 u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:19:15.884  2700  3233 I ActivityManager:   Force stopping service ServiceRecord{e8f78b7 u0 com.omoda.lanc/.ui.overlay.SidebarOverlayService}
+07-15 01:19:15.884  2700  3233 I ActivityManager:   Force stopping service ServiceRecord{4790388 u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:19:15.884  2700  3233 I ActivityManager:   Force stopping service ServiceRecord{f6b4a4e u0 com.omoda.lanc/.service.CheryAccessibilityService}
+07-15 01:19:15.884  2700  3233 I ActivityManager:   Force stopping service ServiceRecord{2ec7c7c u0 com.omoda.lanc/com.hermesandroid.bridge.service.BridgeAccessibilityService}
+07-15 01:19:15.884  2700  3233 I ActivityManager:   Force stopping service ServiceRecord{1432e99 u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:19:15.899  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@f58a661
+07-15 01:19:15.910  2700  2804 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=-1: clearApplicationUserData
+07-15 01:19:15.946  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@94e844f
+07-15 01:19:15.968  2700  5471 I WindowManager: WIN DEATH: Window{5ccdddc u0 com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:19:15.979  2700  3587 I WindowManager: WIN DEATH: Window{26995fd u0 com.omoda.lanc}
+07-15 01:19:16.000  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: done updating battery stats
+07-15 01:19:16.001  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: building log message
+07-15 01:19:16.001  2700  2800 I ActivityManager: Start proc 7608:ru.yandex.yandexnavi/u0a57 for activity {ru.yandex.yandexnavi/ru.yandex.yandexnavi.core.NavigatorActivity}
+07-15 01:19:16.001  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: starting to update pids map
+07-15 01:19:16.002  2700  2800 W ActivityManager: Slow operation: 54ms so far, now at startProcess: done updating pids map
+07-15 01:19:16.105  2700  2800 I ActivityManager: Start proc 7627:com.android.documentsui/u0a26 for broadcast {com.android.documentsui/com.android.documentsui.PackageReceiver}
+07-15 01:19:16.137  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: done updating pids map
+07-15 01:19:16.215  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{89ab52 u0 com.omoda.lanc/.MainActivity t-1 f}
+07-15 01:19:16.225  2700  2745 I ActivityManager: Force stopping com.chery.launcher appid=1000 user=0: from pid 7632
+07-15 01:19:16.225  2700  2745 I ActivityManager: Killing 4400:com.chery.launcher/1000 (adj 100): stop com.chery.launcher
+07-15 01:19:16.240  2700  2745 W ActivityManager: Scheduling restart of crashed service com.chery.launcher/.model.service.LauncherService in 1000ms
+07-15 01:19:16.241  2700  2745 W ActivityTaskManager: Force removing ActivityRecord{5ce32da u0 com.chery.launcher/.view.activity.MainActivity t4258 f}: app died, no saved state
+07-15 01:19:16.271  2700  2745 I ActivityManager:   Force stopping service ServiceRecord{8d0c041 u0 com.chery.launcher/.model.service.LauncherService}
+07-15 01:19:16.288  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 3503
+07-15 01:19:16.303  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 4400
+07-15 01:19:16.345  2700  3729 W ActivityManager: Permission Denial: not allowed to send broadcast android.intent.action.SCREEN_OFF from pid=7650, uid=2000
+07-15 01:19:16.496  2700  2800 I ActivityManager: Start proc 7657:com.android.externalstorage/u0a31 for content provider {com.android.externalstorage/com.android.externalstorage.ExternalStorageProvider}
+07-15 01:19:16.638  2700  2800 I ActivityManager: Start proc 7681:com.vivaldi.browser/u0a50 for broadcast {com.vivaldi.browser/org.chromium.chrome.browser.browserservices.InstalledWebappBroadcastReceiver}
+07-15 01:19:17.085  2700  2800 I ActivityManager: Start proc 7718:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:19:17.175  2700  2800 I ActivityManager: Start proc 7738:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:19:17.500  2700  3729 W ActivityManager: Permission Denial: not allowed to send broadcast android.intent.action.SCREEN_ON from pid=7760, uid=2000
+07-15 01:19:17.678  2700  7649 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:19:18.187  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:19:18.202  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:19:18.257  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: returned from zygote!
+07-15 01:19:18.257  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: done updating battery stats
+07-15 01:19:18.257  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: building log message
+07-15 01:19:18.257  2700  2800 I ActivityManager: Start proc 7830:com.omoda.lanc/u0a51 for activity {com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:19:18.257  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: starting to update pids map
+07-15 01:19:18.257  2700  2800 W ActivityManager: Slow operation: 52ms so far, now at startProcess: done updating pids map
+07-15 01:19:18.499  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:19:18.765  2700  3729 I ActivityTaskManager: START u0 {act=android.content.pm.action.REQUEST_PERMISSIONS pkg=com.android.permissioncontroller cmp=com.android.permissioncontroller/com.android.packageinstaller.permission.ui.GrantPermissionsActivity (has extras)} from uid 10051
+07-15 01:19:19.288  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:19:19.288  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:19:19.871  2700  2803 I ActivityTaskManager: Displayed com.android.permissioncontroller/com.android.packageinstaller.permission.ui.GrantPermissionsActivity: +4s164ms
+07-15 01:19:21.000  2700  3587 W WindowManager: Unable to start animation, surface is null or no children.
+07-15 01:19:23.087  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:19:23.606  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:19:23.616  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:19:26.193  2700  2934 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:19:26.444  2700  2934 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:19:26.709  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:19:26.724  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:19:30.887  2700  2789 W ActivityTaskManager: Activity stop timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:19:33.262  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@ac1f079
+07-15 01:19:37.210  2700  7649 I ActivityTaskManager: Activity reported stop, but no longer stopping: ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+--------- beginning of crash
+07-15 01:19:38.884  2700  5471 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:19:56.461  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:19:57.005  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:20:06.506  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:20:13.409  2700  7649 I ActivityManager: Process com.android.documentsui (pid 7627) has died: cch+65 CEM 
+07-15 01:20:13.429  2700  7649 I ActivityManager: Process com.android.externalstorage (pid 7657) has died: cch+55 CEM 
+07-15 01:20:20.920  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 2000
+07-15 01:20:21.362  2700  2800 W ActivityManager: Slow operation: 54ms so far, now at startProcess: returned from zygote!
+07-15 01:20:21.363  2700  2800 W ActivityManager: Slow operation: 54ms so far, now at startProcess: done updating battery stats
+07-15 01:20:21.363  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: building log message
+07-15 01:20:21.363  2700  2800 I ActivityManager: Start proc 9067:com.chery.launcher/1000 for activity {com.chery.launcher/com.chery.launcher.view.activity.MainActivity}
+07-15 01:20:21.363  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: starting to update pids map
+07-15 01:20:21.363  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: done updating pids map
+07-15 01:20:21.760  2700  3575 W ActivityManager: Unable to start service Intent { act=com.chery.iflytekosservice.IflytekOsService pkg=com.chery.iflytekosservice } U=0: not found
+07-15 01:20:21.771  2700  2804 V ActivityManager: Attempted to start a foreground service (com.chery.cerence/.VrService) with a broken notification (no icon: Notification(channel=cerence01 pri=0 contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 vis=PRIVATE))
+07-15 01:20:22.082  2700  2803 I ActivityTaskManager: Displayed com.chery.launcher/.view.activity.MainActivity: +1s73ms
+07-15 01:20:25.316  2700  3613 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:20:25.430  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.finishDrawingWindow:2422 com.android.server.wm.Session.finishDrawing:231 
+07-15 01:20:25.442  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:20:44.775  2700  3541 I ActivityTaskManager: START u0 {act=android.settings.SETTINGS flg=0x10000000} from uid 2000
+07-15 01:20:55.392  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:20:55.536  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.finishDrawingWindow:2422 com.android.server.wm.Session.finishDrawing:231 
+07-15 01:20:55.544  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:21:02.738  2700  7607 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.settings/.SettingsActivity} from uid 2000
+07-15 01:21:25.365  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:21:25.503  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.finishDrawingWindow:2422 com.android.server.wm.Session.finishDrawing:231 
+07-15 01:21:25.512  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:21:28.363  2700  7607 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.settings/.view.settings.activity.SettingsActivity} from uid 2000
+07-15 01:21:29.146  2700  2803 I ActivityTaskManager: Displayed com.chery.settings/.view.settings.activity.SettingsActivity: +712ms
+07-15 01:21:36.880  2700  3587 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:21:36.897  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=true repeatCount=0 keyguardOn=false canceled=false
+07-15 01:21:36.897  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down true
+07-15 01:21:36.897  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=true longpress=false
+07-15 01:21:36.897  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = false
+07-15 01:21:37.022  2700  3587 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:21:37.029  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=false repeatCount=0 keyguardOn=false canceled=false
+07-15 01:21:37.029  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down false
+07-15 01:21:37.029  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:21:37.029  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = true
+07-15 01:21:37.031  2700  2787 D WindowManager: launchHomeFromHotKey: displayId -1 awakenFromDreams true respectKeyguard true
+07-15 01:21:37.031  2700  2787 D WindowManager: launchHomeFromHotKey: isKeyguardShowingAndNotOccluded false
+07-15 01:21:37.040  2700  3587 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:21:37.051  2700  2787 D WindowManager: startDockOrHome: Start home
+07-15 01:21:37.070  2700  2787 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity (has extras)} from uid 0
+07-15 01:21:47.055  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:21:55.879  2700  3541 I ActivityManager: Process com.vivaldi.browser (pid 7681) has died: cch+55 CEM 
+07-15 01:21:56.496  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:22:06.514  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:22:26.646  2700  3057 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:22:27.154  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:22:27.167  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t4262}
+07-15 01:22:36.667  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:22:57.144  2700  3233 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.chery.hvac/.view.activity.MainActivity} from uid 2000
+07-15 01:23:07.177  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:23:12.360  2700  3587 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN flg=0x34000000 cmp=com.omoda.lanc/.MainActivity} from uid 10051
+07-15 01:23:12.365  2700  3587 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:23:12.365  2700  3587 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:23:12.371  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=true repeatCount=0 keyguardOn=false canceled=false
+07-15 01:23:12.371  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down true
+07-15 01:23:12.371  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = false
+07-15 01:23:12.371  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=true longpress=false
+07-15 01:23:12.380  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=false repeatCount=0 keyguardOn=false canceled=false
+07-15 01:23:12.380  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down false
+07-15 01:23:12.380  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = true
+07-15 01:23:12.380  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:23:12.381  2700  2787 D WindowManager: launchHomeFromHotKey: displayId -1 awakenFromDreams true respectKeyguard true
+07-15 01:23:12.381  2700  2787 D WindowManager: launchHomeFromHotKey: isKeyguardShowingAndNotOccluded false
+07-15 01:23:12.386  2700  3587 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:23:12.393  2700  2787 D WindowManager: startDockOrHome: Start home
+07-15 01:23:12.405  2700  2787 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity (has extras)} from uid 0
+07-15 01:23:13.905  2700  3057 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN flg=0x34000000 cmp=com.omoda.lanc/.MainActivity} from uid 10051
+07-15 01:23:13.909  2700  3057 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:23:13.909  2700  3057 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:23:13.916  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=true repeatCount=0 keyguardOn=false canceled=false
+07-15 01:23:13.916  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down true
+07-15 01:23:13.916  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = false
+07-15 01:23:13.917  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=false repeatCount=0 keyguardOn=false canceled=false
+07-15 01:23:13.917  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down false
+07-15 01:23:13.917  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = true
+07-15 01:23:13.917  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:23:13.920  2700  2787 D WindowManager: launchHomeFromHotKey: displayId -1 awakenFromDreams true respectKeyguard true
+07-15 01:23:13.920  2700  2787 D WindowManager: launchHomeFromHotKey: isKeyguardShowingAndNotOccluded false
+07-15 01:23:13.917  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:23:13.924  2700  3057 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:23:13.948  2700  3587 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:23:13.966  2700  2787 D WindowManager: startDockOrHome: Start home
+07-15 01:23:13.969  2700  2787 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity (has extras)} from uid 0
+07-15 01:23:16.429  2700  3057 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x14000000 pkg=ru.yandex.yandexnavi cmp=ru.yandex.yandexnavi/.core.NavigatorActivity} from uid 10051
+07-15 01:23:16.721  2700  3057 W ActivityTaskManager:   Force finishing activity com.omoda.lanc/.MainActivity
+07-15 01:23:16.725  2700  3057 I ActivityTaskManager: Clearing package preferred activities from com.omoda.lanc
+07-15 01:23:16.814  2700  3057 I WindowManager: WIN DEATH: Window{41a1106 u0 com.omoda.lanc}
+07-15 01:23:16.821  2700  7607 I ActivityManager: Process com.omoda.lanc (pid 7830) has died: fore  +50 TOP 
+07-15 01:23:16.821  2700  2745 I WindowManager: WIN DEATH: Window{fd6cfe3 u0 com.omoda.lanc}
+07-15 01:23:16.825  2700  7649 I WindowManager: WIN DEATH: Window{93d3fba u0 com.omoda.lanc}
+07-15 01:23:16.829  2700  3198 I WindowManager: WIN DEATH: Window{e811a04 u0 com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:23:16.835  2700  3729 I WindowManager: WIN DEATH: Window{8bbe2f u0 com.omoda.lanc}
+07-15 01:23:16.839  2700  3233 I WindowManager: WIN DEATH: Window{5535dc5 u0 com.omoda.lanc}
+07-15 01:23:16.843  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@4ecc00a
+07-15 01:23:16.844  2700  3575 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowState$DeathRecipient.binderDied:2531 android.os.BinderProxy.sendDeathNotice:620 
+07-15 01:23:16.845  2700  3575 I WindowManager: WIN DEATH: null
+07-15 01:23:16.852  2700  7607 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.CheryAccessibilityService in 1000ms
+07-15 01:23:16.853  2700  7607 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 10999ms
+07-15 01:23:16.853  2700  7607 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 20999ms
+07-15 01:23:16.854  2700  7607 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 30999ms
+07-15 01:23:16.854  2700  7607 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/com.hermesandroid.bridge.service.BridgeAccessibilityService in 40999ms
+07-15 01:23:16.854  2700  7607 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.ui.overlay.SidebarOverlayService in 50999ms
+07-15 01:23:16.872  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@e6503f3
+07-15 01:23:16.896  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 7830
+07-15 01:23:17.058  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{83930e3 u0 com.omoda.lanc/.MainActivity t-1 f}
+07-15 01:23:17.889  2700  2800 I ActivityManager: Start proc 11073:com.omoda.lanc/u0a51 for service {com.omoda.lanc/com.omoda.lanc.service.CheryAccessibilityService}
+07-15 01:23:20.060  2700  2747 I WindowManager: WIN DEATH: Window{87aef6f u0 com.omoda.lanc}
+07-15 01:23:20.065  2700  2934 I ActivityManager: Process com.omoda.lanc (pid 11073) has died: vis FGS 
+07-15 01:23:20.068  2700  3729 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@4ecc00a
+07-15 01:23:20.070  2700  3057 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@e6503f3
+07-15 01:23:20.073  2700  2934 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.CheryAccessibilityService in 1800000ms
+07-15 01:23:20.073  2700  2934 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 1810000ms
+07-15 01:23:20.073  2700  2934 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 1819999ms
+07-15 01:23:20.074  2700  2934 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 1829999ms
+07-15 01:23:20.074  2700  2934 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/com.hermesandroid.bridge.service.BridgeAccessibilityService in 1839999ms
+07-15 01:23:20.074  2700  2934 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.ui.overlay.SidebarOverlayService in 1849998ms
+07-15 01:23:20.095  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 11073
+07-15 01:23:22.605  2700 11143 I ActivityManager: Low on memory:
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??  102461: avm (   78,712K memtrack) (pid 2468) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??   78602: android.hardware.graphics.allocator@2.0-service (   73,391K memtrack) (pid 2237) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??   73855: android.hardware.broadcastdabdrm@1.0-service (pid 2534) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??   59088: natp (pid 2473) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??   58314: surfaceflinger (   46,548K memtrack) (pid 2286) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??   15095: audioserver (pid 2573) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??   13238: logd (pid 2280) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    9887: zygote64 (pid 2497) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    9182: media.extractor (pid 2636) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    7635: init (    2,096K memtrack) (pid 1) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    6887: media.swcodec (pid 2645) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    6846: keystore (pid 2632) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    6639: androidautod (pid 2613) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    6525: webview_zygote (pid 3159) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    6269: zygote (pid 2498) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    6181: vold (pid 2295) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5814: android.hardware.automotive.vehicle@2.0-service (pid 2532) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5797: media.codec (       94K memtrack) (pid 2643) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5686: android.hardware.camera.provider@2.4-service_64 (pid 2535) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5659: vendor.yfve.hardware.tbox@1.0-service (pid 2558) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5538: installd (pid 2630) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5191: android.hardware.wifi@1.0-service (pid 2520) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5179: android.hardware.configstore@1.1-service (pid 2287) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5158: vendor.yfve.hardware.audiocontrol@1.0-service (pid 2549) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5123: android.hardware.bluetooth@1.0-service-barrot (pid 2533) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5111: incidentd (pid 2629) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5082: android.hardware.light@2.0-service.yfve (pid 2540) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5071: netd (pid 2496) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5050: android.hardware.usb@1.1-service.semidrive (pid 2548) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5034: android.hardware.sensors@1.0-service (pid 2547) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    5016: yfve_diag (pid 2474) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4935: com.android.car.procfsinspector (pid 3646) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4898: wificond (pid 2642) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4887: android.hardware.boot@1.0-service (pid 2475) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4852: ipcl (pid 2472) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4846: android.hardware.light@2.0-service.semidrive (pid 2539) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4835: android.hardware.power@1.3-service.semidrive (pid 2546) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4789: android.hardware.graphics.composer@2.3-service (      199K memtrack) (pid 2288) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4760: vndservicemanager (pid 2283) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4736: mdnsd (pid 2652) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4723: perfservice (pid 2203) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4655: hwservicemanager (pid 2282) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4642: tombstoned (pid 2649) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4551: media.metrics (pid 2637) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4476: dbus-daemon (pid 2470) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4443: adbd (pid 2590) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    4356: logcat (pid 8946) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3848: android.hardware.gnss@1.0-service-ubx (pid 2538) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3811: init (pid 1791) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3775: ueventd (pid 1793) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3766: IAP2CommService (pid 2567) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3640: android.hardware.keymaster@3.0-service (pid 2476) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3614: apexd (pid 2485) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3495: storaged (pid 2641) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3486: init (pid 1792) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3453: update_engine (pid 2650) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3292: gpuservice (pid 2574) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3219: android.system.suspend@1.0-service (pid 2529) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3148: gatekeeperd (pid 2648) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3074: mediaserver (pid 2638) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3060: android.hardware.audio@2.0-service (pid 2531) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    3053: android.hardware.memtrack@1.0-service (pid 2545) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    2922: servicemanager (pid 2281) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    2914: lmkd (pid 2575) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    2639: sh (pid 2513) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    2407: cameraserver (pid 2623) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    1817: statsd (pid 2639) native
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ntv   ??    1728: wpa_supplicant (
+07-15 01:23:22.605  2700 11143 I ActivityManager:   sys    PER   105802: system (   10,997K memtrack) (pid 2700) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    46929: com.chery.cerence (   19,997K memtrack) (pid 3218) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    30445: com.android.systemui (    7,669K memtrack) (pid 3097) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    26544: com.yfve.car.carplay (    6,678K memtrack) (pid 3290) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    24846: com.android.car (       94K memtrack) (pid 3066) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    16316: com.android.phone (pid 3145) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    12375: com.android.networkstack (pid 3124) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    11595: com.yfve.car.androidauto (pid 3246) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    10166: com.android.se (pid 3307) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER    10117: com.yfve.t19c_eol (pid 3270) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   pers   PER     9902: com.neusoft.ssp.ces.c4.car.assistant (pid 3200) fixed
+07-15 01:23:22.605  2700 11143 I ActivityManager:   psvc   PER    17621: com.android.bluetooth (pid 2960) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.android.bluetooth/.a2dpsink.A2dpSinkService<=Proc{4139:com.chery.media/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   fore   TOP   399635: ru.yandex.yandexnavi (   41,255K memtrack) (pid 7608) top-activity
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    FGS    74228: com.tailscale.ipn (    9,249K memtrack) (pid 3317) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.tailscale.ipn/.IPNService<=Proc{2700:system/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   73669: com.chery.settings (   16,857K memtrack) (pid 4118) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.chery.settings/.model.service.BrightnessServer<=Proc{4139:com.chery.media/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    BTOP   47851: ru.yandex.yandexnavi:AppMetrica (pid 7738) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService<=Proc{7608:ru.yandex.yandexnavi/u0a57}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   17708: com.yfve.t19c.projection.devicemanager (pid 3377) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.yfve.t19c.projection.devicemanager/.DeviceManagerService<=Proc{3246:com.yfve.car.androidauto/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   17535: android.process.media (pid 3730) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.android.providers.media/.UsbScannerService<=Proc{4298:com.chery.media:scanner/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    BFGS   17366: com.android.permissioncontroller (       95K memtrack) (pid 6177) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl<=Proc{2700:system/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    FGS    15852: vendor.yfvet.projection.androidauto (    2,447K memtrack) (pid 3419) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        vendor.yfvet.projection.androidauto/.ProjectionUiService<=Proc{3377:com.yfve.t19c.projection.devicemanager/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   15314: com.chery.media (pid 4139) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.chery.media/.model.service.EolRadioService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    BFGS   11314: android.ext.services (pid 3329) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        android.ext.services/.notification.Assistant<=Proc{2700:system/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   11304: com.astrob.turbodog (pid 4150) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.astrob.turbodog/.NaviAidlService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   11125: com.chery.media:thumbnail (pid 4313) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.chery.media/.model.service.ThumbnailService<=Proc{4139:com.chery.media/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   11110: com.yfve.t19c.projection.carplay.service (pid 3479) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.yfve.t19c.projection.carplay.service/.CarPlayFuncService<=Proc{4139:com.chery.media/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   11072: sw.com.dabdrmradio (pid 4424) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        sw.com.dabdrmradio/.AIDLService<=Proc{4139:com.chery.media/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF   11050: com.chery.media:utils (pid 4345) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.chery.media/.model.service.UtilsService<=Proc{4139:com.chery.media/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   vis    IMPF    9952: com.chery.media:scanner (pid 4298) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.chery.media/.model.service.UsbScannerManagerService<=Proc{4139:com.chery.media/1000}
+07-15 01:23:22.605  2700 11143 I ActivityManager:   prcp   FGS    52259: com.dofun.dofunweather.main (    6,072K memtrack) (pid 4936) fg-service
+07-15 01:23:22.605  2700 11143 I ActivityManager:   prcp   FGS    36253: com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0 (pid 5348) service
+07-15 01:23:22.605  2700 11143 I ActivityManager:                        com.dofun.dofu
+07-15 01:23:22.605  2700 11143 I ActivityManager:   MemInfo:   134,036K slab,       868K shmem,    46,552K vm alloc,    39,812K page tables    25,216K kernel stack
+07-15 01:23:22.605  2700 11143 I ActivityManager:                6,756K buffers,   336,856K cached,   284,016K mapped,   585,792K free
+07-15 01:23:22.605  2700 11143 I ActivityManager:   ZRAM:     3,216K RAM, 1,480,936K swap total, 1,445,608K swap free
+07-15 01:23:22.605  2700 11143 I ActivityManager:   Free RAM:   777,655K
+07-15 01:23:22.605  2700 11143 I ActivityManager:   Used RAM: 2,186,246K
+07-15 01:23:22.605  2700 11143 I ActivityManager:   Lost RAM:    29,347K
+07-15 01:25:37.923  2700  2804 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=-1: installPackageLI
+07-15 01:25:37.979  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{477213b u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:25:37.979  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{8b8265 u0 com.omoda.lanc/.ui.overlay.SidebarOverlayService}
+07-15 01:25:37.979  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{ee80c1d u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:25:37.979  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{f1b4ebd u0 com.omoda.lanc/.service.CheryAccessibilityService}
+07-15 01:25:37.979  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{1b319b9 u0 com.omoda.lanc/com.hermesandroid.bridge.service.BridgeAccessibilityService}
+07-15 01:25:37.979  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{d29923a u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:25:40.876  2700  2818 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: pkg removed
+07-15 01:25:41.027  2700  2800 I ActivityManager: Start proc 11675:com.android.keychain/1000 for service {com.android.keychain/com.android.keychain.KeyChainService}
+07-15 01:25:41.091  2700  2800 W ActivityManager: Slow operation: 90ms so far, now at startProcess: returned from zygote!
+07-15 01:25:41.095  2700  2800 W ActivityManager: Slow operation: 95ms so far, now at startProcess: done updating battery stats
+07-15 01:25:41.095  2700  2800 W ActivityManager: Slow operation: 95ms so far, now at startProcess: building log message
+07-15 01:25:41.095  2700  2800 I ActivityManager: Start proc 11682:com.omoda.lanc/u0a51 for broadcast {com.omoda.lanc/com.omoda.lanc.service.PackageReplacedReceiver}
+07-15 01:25:41.095  2700  2800 W ActivityManager: Slow operation: 95ms so far, now at startProcess: starting to update pids map
+07-15 01:25:41.096  2700  2800 W ActivityManager: Slow operation: 95ms so far, now at startProcess: done updating pids map
+07-15 01:25:41.096  2700  2982 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: from pid 11674
+07-15 01:25:41.097  2700  2982 I ActivityManager: Killing 11682:com.omoda.lanc/u0a51 (adj -10000): stop com.omoda.lanc
+07-15 01:25:41.100  2700  2982 I ActivityManager:   Force stopping service ServiceRecord{9e9f279 u0 com.omoda.lanc/.service.CheryAccessibilityService}
+07-15 01:25:41.100  2700  2982 I ActivityManager:   Force stopping service ServiceRecord{3134bbe u0 com.omoda.lanc/com.hermesandroid.bridge.service.BridgeAccessibilityService}
+07-15 01:25:41.319  2700  3592 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:25:41.909  2700  2800 I ActivityManager: Start proc 11711:com.omoda.lanc/u0a51 for activity {com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:25:48.757  2700  2803 I ActivityTaskManager: Displayed com.omoda.lanc/.MainActivity: +7s388ms
+07-15 01:25:51.479  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:25:51.793  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:25:52.202  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:25:52.213  2700  2789 W WindowManager: Unable to start animation, surface is null or no children.
+07-15 01:25:55.565  2700 11060 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 7718) has died: cch+45 CEM 
+07-15 01:25:55.661  2700 11138 I WindowManager: WIN DEATH: Window{142f916 u0 HAVC}
+07-15 01:25:55.743  2700  2747 I WindowManager: WIN DEATH: Window{612154 u0 com.chery.launcher/com.chery.launcher.view.activity.MainActivity}
+07-15 01:25:55.779  2700  3233 I ActivityManager: Process com.android.keychain (pid 11675) has died: cch+35 CEM 
+07-15 01:25:55.816  2700  3592 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 7738) has died: cch+25 CEM 
+07-15 01:25:55.819  2700  3587 I ActivityManager: Process com.chery.hvac (pid 4471) has died: cch+15 SVC 
+07-15 01:25:55.823  2700  3587 W ActivityManager: Scheduling restart of crashed service com.chery.hvac/.model.service.HavcService in 1000ms
+07-15 01:25:55.832  2700  2982 I ActivityManager: Process com.chery.launcher (pid 9067) has died: cch+5 SVC 
+07-15 01:25:55.832  2700  2982 W ActivityManager: Scheduling restart of crashed service com.chery.launcher/.model.service.LauncherService in 10990ms
+07-15 01:25:55.840  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 9067
+07-15 01:25:55.840  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 4471
+07-15 01:25:56.481  2700  2800 W ActivityManager: Slow operation: 67ms so far, now at startProcess: returned from zygote!
+07-15 01:25:56.483  2700  2800 W ActivityManager: Slow operation: 69ms so far, now at startProcess: done updating battery stats
+07-15 01:25:56.483  2700  2800 W ActivityManager: Slow operation: 69ms so far, now at startProcess: building log message
+07-15 01:25:56.483  2700  2800 I ActivityManager: Start proc 12057:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:25:56.483  2700  2800 W ActivityManager: Slow operation: 69ms so far, now at startProcess: starting to update pids map
+07-15 01:25:56.483  2700  2800 W ActivityManager: Slow operation: 69ms so far, now at startProcess: done updating pids map
+07-15 01:25:56.734  2700  2800 I ActivityManager: Start proc 12077:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:25:56.874  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: returned from zygote!
+07-15 01:25:56.875  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: done updating battery stats
+07-15 01:25:56.875  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: building log message
+07-15 01:25:56.875  2700  2800 I ActivityManager: Start proc 12094:com.chery.hvac/1000 for service {com.chery.hvac/com.chery.hvac.model.service.HavcService}
+07-15 01:25:56.875  2700  2800 W ActivityManager: Slow operation: 51ms so far, now at startProcess: starting to update pids map
+07-15 01:25:56.875  2700  2800 W ActivityManager: Slow operation: 52ms so far, now at startProcess: done updating pids map
+07-15 01:25:59.763  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@b3382e2
+07-15 01:26:04.965  2700  5471 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 12077) has died: cch+5 CEM 
+07-15 01:26:06.856  2700  2800 I ActivityManager: Start proc 12280:com.chery.launcher/1000 for service {com.chery.launcher/com.chery.launcher.model.service.LauncherService}
+07-15 01:26:07.194  2700 11060 W ActivityManager: Unable to start service Intent { act=com.chery.iflytekosservice.IflytekOsService pkg=com.chery.iflytekosservice } U=0: not found
+07-15 01:26:07.205  2700  2804 V ActivityManager: Attempted to start a foreground service (com.chery.cerence/.VrService) with a broken notification (no icon: Notification(channel=cerence01 pri=0 contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 vis=PRIVATE))
+07-15 01:26:07.218  2700  5471 I ActivityManager: Process com.android.permissioncontroller (pid 6177) has died: cch+5 CEM 
+07-15 01:26:07.228  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 6177
+07-15 01:26:17.145  2700  3592 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 12057) has died: cch+5 CEM 
+07-15 01:26:21.818  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:26:21.913  2700  2800 W ActivityManager: Slow operation: 58ms so far, now at startProcess: returned from zygote!
+07-15 01:26:21.914  2700  2800 W ActivityManager: Slow operation: 58ms so far, now at startProcess: done updating battery stats
+07-15 01:26:21.914  2700  2800 W ActivityManager: Slow operation: 58ms so far, now at startProcess: building log message
+07-15 01:26:21.914  2700  2800 I ActivityManager: Start proc 12467:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:26:21.914  2700  2800 W ActivityManager: Slow operation: 58ms so far, now at startProcess: starting to update pids map
+07-15 01:26:21.914  2700  2800 W ActivityManager: Slow operation: 59ms so far, now at startProcess: done updating pids map
+07-15 01:26:51.740  2700 11060 I ActivityManager: Process com.android.permissioncontroller (pid 12467) has died: cch+5 CEM 
+07-15 01:26:51.941  2700  2800 I ActivityManager: Start proc 12685:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:26:52.179  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:27:22.050  2700  3592 I ActivityManager: Process com.android.permissioncontroller (pid 12685) has died: cch+5 CEM 
+07-15 01:27:22.344  2700  2800 I ActivityManager: Start proc 12949:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:27:22.358  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:27:52.457  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:28:20.241  2700  3592 I ActivityManager: Process com.android.permissioncontroller (pid 12949) has died: cch+5 CEM 
+07-15 01:28:22.689  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:28:22.729  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: returned from zygote!
+07-15 01:28:22.730  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: done updating battery stats
+07-15 01:28:22.730  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: building log message
+07-15 01:28:22.730  2700  2800 I ActivityManager: Start proc 13425:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:28:22.730  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: starting to update pids map
+07-15 01:28:22.730  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: done updating pids map
+07-15 01:28:52.858  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:29:23.087  2700  3592 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:29:44.798  2700  5471 I ActivityManager: Process com.android.permissioncontroller (pid 13425) has died: cch+5 CEM 
+07-15 01:29:45.930  2700 13987 I ActivityManager: Low on memory:
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??  101831: avm (   78,712K memtrack) (pid 2468) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??   89578: android.hardware.graphics.allocator@2.0-service (   84,352K memtrack) (pid 2237) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??   73849: android.hardware.broadcastdabdrm@1.0-service (pid 2534) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??   59082: natp (pid 2473) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??   30460: surfaceflinger (   19,262K memtrack) (pid 2286) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??   22225: logd (pid 2280) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??   14395: audioserver (pid 2573) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    9506: zygote64 (pid 2497) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    9144: media.extractor (pid 2636) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    7857: init (    2,751K memtrack) (pid 1) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    6878: media.swcodec (pid 2645) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    6589: androidautod (pid 2613) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    6430: vold (pid 2295) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    6353: webview_zygote (pid 3159) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    6045: zygote (pid 2498) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    6029: vendor.yfve.hardware.tbox@1.0-service (pid 2558) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5827: android.hardware.automotive.vehicle@2.0-service (pid 2532) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5787: media.codec (       94K memtrack) (pid 2643) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5699: installd (pid 2630) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5670: android.hardware.camera.provider@2.4-service_64 (pid 2535) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5663: keystore (pid 2632) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5613: netd (pid 2496) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5174: android.hardware.bluetooth@1.0-service-barrot (pid 2533) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5169: android.hardware.configstore@1.1-service (pid 2287) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5146: android.hardware.wifi@1.0-service (pid 2520) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5107: incidentd (pid 2629) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5092: vendor.yfve.hardware.audiocontrol@1.0-service (pid 2549) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5044: android.hardware.power@1.3-service.semidrive (pid 2546) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5044: android.hardware.usb@1.1-service.semidrive (pid 2548) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5031: android.hardware.light@2.0-service.yfve (pid 2540) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    5027: android.hardware.sensors@1.0-service (pid 2547) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4950: yfve_diag (pid 2474) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4943: com.android.car.procfsinspector (pid 3646) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4940: wificond (pid 2642) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4880: android.hardware.boot@1.0-service (pid 2475) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4860: mdnsd (pid 2652) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4850: ipcl (pid 2472) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4839: android.hardware.light@2.0-service.semidrive (pid 2539) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4767: perfservice (pid 2203) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4765: android.hardware.graphics.composer@2.3-service (      199K memtrack) (pid 2288) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4759: vndservicemanager (pid 2283) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4652: hwservicemanager (pid 2282) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4641: tombstoned (pid 2649) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4500: media.metrics (pid 2637) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4469: dbus-daemon (pid 2470) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    4222: adbd (pid 2590) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3788: init (pid 1791) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3727: IAP2CommService (pid 2567) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3721: ueventd (pid 1793) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3682: android.hardware.gnss@1.0-service-ubx (pid 2538) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3557: storaged (pid 2641) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3475: init (pid 1792) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3447: update_engine (pid 2650) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3310: apexd (pid 2485) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3300: abb (pid 11542) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3267: gpuservice (pid 2574) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3214: android.system.suspend@1.0-service (pid 2529) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3143: gatekeeperd (pid 2648) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3078: android.hardware.keymaster@3.0-service (pid 2476) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3071: android.hardware.memtrack@1.0-service (pid 2545) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    3046: mediaserver (pid 2638) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    2925: servicemanager (pid 2281) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    2916: lmkd (pid 2575) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    2861: wpa_supplicant (pid 3076) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    2638: sh (pid 2513) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    2475: android.hardware.audio@2.0-service (pid 2531) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    2396: cameraserver (pid 2623) native
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ntv   ??    1726: statsd (pi
+07-15 01:29:45.930  2700 13987 I ActivityManager:   sys    PER    98543: system (   10,988K memtrack) (pid 2700) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    46513: com.chery.cerence (   19,997K memtrack) (pid 3218) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    28432: com.android.systemui (    7,669K memtrack) (pid 3097) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    25893: com.yfve.car.carplay (    6,678K memtrack) (pid 3290) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    23164: com.android.car (       94K memtrack) (pid 3066) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    16533: com.android.phone (pid 3145) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    11997: com.android.networkstack (pid 3124) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    11402: com.yfve.car.androidauto (pid 3246) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER    10053: com.android.se (pid 3307) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER     9941: com.yfve.t19c_eol (pid 3270) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   pers   PER     9742: com.neusoft.ssp.ces.c4.car.assistant (pid 3200) fixed
+07-15 01:29:45.930  2700 13987 I ActivityManager:   psvc   PER    20905: com.android.bluetooth (pid 2960) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.android.bluetooth/.a2dpsink.A2dpSinkService<=Proc{4139:com.chery.media/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   fore   TOP   330748: com.omoda.lanc (   21,891K memtrack) (pid 11711) top-activity
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    FGS    81280: com.tailscale.ipn (    9,249K memtrack) (pid 3317) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.tailscale.ipn/.IPNService<=Proc{2700:system/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   72577: com.chery.settings (   16,857K memtrack) (pid 4118) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.chery.settings/.model.service.BrightnessServer<=Proc{4139:com.chery.media/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   17118: com.yfve.t19c.projection.devicemanager (pid 3377) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.yfve.t19c.projection.devicemanager/.DeviceManagerService<=Proc{3246:com.yfve.car.androidauto/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   16994: android.process.media (pid 3730) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.android.providers.media/.UsbScannerService<=Proc{4298:com.chery.media:scanner/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    FGS    15316: vendor.yfvet.projection.androidauto (    2,447K memtrack) (pid 3419) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        vendor.yfvet.projection.androidauto/.ProjectionUiService<=Proc{3377:com.yfve.t19c.projection.devicemanager/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   13637: com.chery.media (pid 4139) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.chery.media/.model.service.EolRadioService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    BFGS   12755: android.ext.services (pid 3329) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        android.ext.services/.notification.Assistant<=Proc{2700:system/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   11071: com.astrob.turbodog (pid 4150) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.astrob.turbodog/.NaviAidlService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   10962: com.chery.media:thumbnail (pid 4313) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.chery.media/.model.service.ThumbnailService<=Proc{4139:com.chery.media/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   10912: com.chery.media:utils (pid 4345) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.chery.media/.model.service.UtilsService<=Proc{4139:com.chery.media/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   10883: com.yfve.t19c.projection.carplay.service (pid 3479) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.yfve.t19c.projection.carplay.service/.CarPlayFuncService<=Proc{4139:com.chery.media/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF   10697: sw.com.dabdrmradio (pid 4424) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        sw.com.dabdrmradio/.AIDLService<=Proc{4139:com.chery.media/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   vis    IMPF    9759: com.chery.media:scanner (pid 4298) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.chery.media/.model.service.UsbScannerManagerService<=Proc{4139:com.chery.media/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   prcp   FGS    60911: com.dofun.dofunweather.main (    6,072K memtrack) (pid 4936) fg-service
+07-15 01:29:45.930  2700 13987 I ActivityManager:   prcp   FGS    33361: com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0 (pid 5348) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.dofun.dofunweather.main/org.chromium.content.app.SandboxedProcessService0<=Proc{4936:com.dofun.dofunweather.main/u0a97}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   prcp   IMPB   31799: com.google.android.apps.automotive.inputmethod (pid 3338) service
+07-15 01:29:45.930  2700 13987 I ActivityManager:                        com.google.android.apps.automotive.inputmethod/.InputMethodService<=Proc{2700:system/1000}
+07-15 01:29:45.930  2700 13987 I ActivityManager:   svc    SVC    44073: com.chery.hvac (    5,842K memtrack) (pid 12094) started-services
+07-15 01:29:45.930  2700 13987 I ActivityManager:   svc    SVC    25049: com.chery.launcher (pid 12280) st
+07-15 01:29:45.930  2700 13987 I ActivityManager:   MemInfo:   135,008K slab,       872K shmem,    44,964K vm alloc,    38,232K page tables    23,632K kernel stack
+07-15 01:29:45.930  2700 13987 I ActivityManager:               16,488K buffers,   343,248K cached,   243,468K mapped,   494,032K free
+07-15 01:29:45.930  2700 13987 I ActivityManager:   ZRAM:     8,672K RAM, 1,480,936K swap total, 1,410,024K swap free
+07-15 01:29:45.930  2700 13987 I ActivityManager:   Free RAM:   657,096K
+07-15 01:29:45.930  2700 13987 I ActivityManager:   Used RAM: 2,355,789K
+07-15 01:29:45.930  2700 13987 I ActivityManager:   Lost RAM:    10,196K
+07-15 01:29:53.274  2700  2800 W ActivityManager: Slow operation: 83ms so far, now at startProcess: returned from zygote!
+07-15 01:29:53.274  2700  2800 W ActivityManager: Slow operation: 84ms so far, now at startProcess: done updating battery stats
+07-15 01:29:53.274  2700  2800 W ActivityManager: Slow operation: 84ms so far, now at startProcess: building log message
+07-15 01:29:53.274  2700  2800 I ActivityManager: Start proc 14120:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:29:53.274  2700  2800 W ActivityManager: Slow operation: 84ms so far, now at startProcess: starting to update pids map
+07-15 01:29:53.275  2700  2800 W ActivityManager: Slow operation: 84ms so far, now at startProcess: done updating pids map
+07-15 01:29:53.407  2700  2745 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:30:23.571  2700  3592 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:30:39.600  2700 11060 I ActivityManager: Process com.android.permissioncontroller (pid 14120) has died: cch+5 CEM 
+07-15 01:30:53.869  2700  2800 W ActivityManager: Slow operation: 59ms so far, now at startProcess: returned from zygote!
+07-15 01:30:53.870  2700  2800 W ActivityManager: Slow operation: 60ms so far, now at startProcess: done updating battery stats
+07-15 01:30:53.870  2700  2800 W ActivityManager: Slow operation: 60ms so far, now at startProcess: building log message
+07-15 01:30:53.870  2700  2800 I ActivityManager: Start proc 14593:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:30:53.870  2700  2800 W ActivityManager: Slow operation: 60ms so far, now at startProcess: starting to update pids map
+07-15 01:30:53.870  2700  2800 W ActivityManager: Slow operation: 61ms so far, now at startProcess: done updating pids map
+07-15 01:30:53.925  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:31:00.663  2700  2804 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=-1: installPackageLI
+07-15 01:31:00.664  2700  2804 I ActivityManager: Killing 11711:com.omoda.lanc/u0a51 (adj 0): stop com.omoda.lanc
+07-15 01:31:00.665  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 1000ms
+07-15 01:31:00.666  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 11000ms
+07-15 01:31:00.666  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 20999ms
+07-15 01:31:00.674  2700  2804 W ActivityTaskManager: Force removing ActivityRecord{5dd1c70 u0 com.omoda.lanc/.MainActivity t4274 f}: app died, no saved state
+07-15 01:31:00.948  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{fbcb930 u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:31:00.948  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{ea60978 u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:31:00.948  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{6c91bf u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:31:00.958  2700  2804 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity} from uid 0
+07-15 01:31:01.024  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 11711
+07-15 01:31:01.133  2700  2818 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: pkg removed
+07-15 01:31:01.134  2700  2818 I ActivityTaskManager:   Force finishing activity ActivityRecord{cf83264 u0 com.omoda.lanc/.MainActivity t4275}
+07-15 01:31:01.262  2700  2800 W ActivityManager: Slow operation: 59ms so far, now at startProcess: done updating battery stats
+07-15 01:31:01.265  2700  2800 W ActivityManager: Slow operation: 61ms so far, now at startProcess: building log message
+07-15 01:31:01.265  2700  2800 I ActivityManager: Start proc 14657:com.android.keychain/1000 for service {com.android.keychain/com.android.keychain.KeyChainService}
+07-15 01:31:01.265  2700  2800 W ActivityManager: Slow operation: 61ms so far, now at startProcess: starting to update pids map
+07-15 01:31:01.265  2700  2800 W ActivityManager: Slow operation: 61ms so far, now at startProcess: done updating pids map
+07-15 01:31:01.309  2700  2800 I ActivityManager: Start proc 14663:com.omoda.lanc/u0a51 for broadcast {com.omoda.lanc/com.omoda.lanc.service.PackageReplacedReceiver}
+07-15 01:31:01.333  2700 12056 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: from pid 14662
+07-15 01:31:01.333  2700 12056 I ActivityManager: Killing 14663:com.omoda.lanc/u0a51 (adj -10000): stop com.omoda.lanc
+07-15 01:31:01.536  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:31:01.594  2700  3592 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:31:01.794  2700  2800 I ActivityManager: Start proc 14692:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:31:01.802  2700  2800 W ActivityManager: Slow operation: 58ms so far, now at startProcess: done updating pids map
+07-15 01:31:01.888  2700  2800 W ActivityManager: Slow operation: 56ms so far, now at startProcess: returned from zygote!
+07-15 01:31:01.888  2700  2800 W ActivityManager: Slow operation: 56ms so far, now at startProcess: done updating battery stats
+07-15 01:31:01.888  2700  2800 W ActivityManager: Slow operation: 56ms so far, now at startProcess: building log message
+07-15 01:31:01.888  2700  2800 I ActivityManager: Start proc 14710:com.omoda.lanc/u0a51 for activity {com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:31:01.888  2700  2800 W ActivityManager: Slow operation: 57ms so far, now at startProcess: starting to update pids map
+07-15 01:31:01.888  2700  2800 W ActivityManager: Slow operation: 57ms so far, now at startProcess: done updating pids map
+07-15 01:31:01.990  2700  2800 I ActivityManager: Start proc 14727:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:31:02.149  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:31:02.159  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:31:07.703  2700  2803 I ActivityTaskManager: Displayed com.omoda.lanc/.MainActivity: +6s715ms
+07-15 01:31:09.136  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:31:10.989  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:31:11.180  2700  2789 W WindowManager: Unable to start animation, surface is null or no children.
+07-15 01:31:13.073  2700  3729 I ActivityManager: Process com.android.keychain (pid 14657) has died: cch+15 CEM 
+07-15 01:31:13.265  2700  3059 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 14727) has died: cch+5 CEM 
+07-15 01:31:19.513  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@5b0660b
+07-15 01:31:20.133  2700  2934 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 14692) has died: cch+5 CEM 
+07-15 01:31:40.257  2700  2934 I ActivityManager: Process com.android.permissioncontroller (pid 14593) has died: cch+5 CEM 
+07-15 01:31:40.637  2700 12056 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:31:40.805  2700  2800 I ActivityManager: Start proc 15420:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:32:05.024  2700  2934 I ActivityManager: Process com.android.permissioncontroller (pid 15420) has died: cch+5 CEM 
+07-15 01:32:10.950  2700  2800 W ActivityManager: Slow operation: 62ms so far, now at startProcess: returned from zygote!
+07-15 01:32:10.950  2700  2800 W ActivityManager: Slow operation: 62ms so far, now at startProcess: done updating battery stats
+07-15 01:32:10.950  2700  2800 W ActivityManager: Slow operation: 62ms so far, now at startProcess: building log message
+07-15 01:32:10.950  2700  2800 I ActivityManager: Start proc 15651:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:32:10.950  2700  2800 W ActivityManager: Slow operation: 62ms so far, now at startProcess: starting to update pids map
+07-15 01:32:10.950  2700  2800 W ActivityManager: Slow operation: 63ms so far, now at startProcess: done updating pids map
+07-15 01:32:11.064  2700 12056 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:32:27.310  2700  3057 I ActivityManager: Process com.android.permissioncontroller (pid 15651) has died: cch+5 CEM 
+07-15 01:32:30.597  2700  3057 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: from pid 15767
+07-15 01:32:30.597  2700  3057 I ActivityManager: Killing 14710:com.omoda.lanc/u0a51 (adj 0): stop com.omoda.lanc
+07-15 01:32:30.603  2700  3057 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 1000ms
+07-15 01:32:30.603  2700  3057 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 10999ms
+07-15 01:32:30.603  2700  3057 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 20999ms
+07-15 01:32:30.607  2700  3057 W ActivityTaskManager: Force removing ActivityRecord{a921a3a u0 com.omoda.lanc/.MainActivity t4276 f}: app died, no saved state
+07-15 01:32:30.669  2700  3057 I ActivityManager:   Force stopping service ServiceRecord{f8e8f01 u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:32:30.669  2700  3057 I ActivityManager:   Force stopping service ServiceRecord{5cccbfd u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:32:30.670  2700  3057 I ActivityManager:   Force stopping service ServiceRecord{da7189a u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:32:30.671  2700  3057 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity} from uid 0
+07-15 01:32:30.784  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 14710
+07-15 01:32:30.877  2700  2745 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:32:31.159  2700  2800 I ActivityManager: Start proc 15778:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:32:31.259  2700  2800 I ActivityManager: Start proc 15797:com.omoda.lanc/u0a51 for activity {com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:32:31.271  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:32:31.301  2700  2800 W ActivityManager: Slow operation: 65ms so far, now at startProcess: returned from zygote!
+07-15 01:32:31.301  2700  2800 W ActivityManager: Slow operation: 66ms so far, now at startProcess: done updating battery stats
+07-15 01:32:31.301  2700  2800 W ActivityManager: Slow operation: 66ms so far, now at startProcess: building log message
+07-15 01:32:31.301  2700  2800 I ActivityManager: Start proc 15802:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:32:31.301  2700  2800 W ActivityManager: Slow operation: 66ms so far, now at startProcess: starting to update pids map
+07-15 01:32:31.302  2700  2800 W ActivityManager: Slow operation: 67ms so far, now at startProcess: done updating pids map
+07-15 01:32:36.879  2700  2803 I ActivityTaskManager: Displayed com.omoda.lanc/.MainActivity: +6s171ms
+07-15 01:32:38.271  2700  2800 W ActivityManager: Slow operation: 67ms so far, now at startProcess: returned from zygote!
+07-15 01:32:38.271  2700  2800 W ActivityManager: Slow operation: 67ms so far, now at startProcess: done updating battery stats
+07-15 01:32:38.271  2700  2800 W ActivityManager: Slow operation: 67ms so far, now at startProcess: building log message
+07-15 01:32:38.271  2700  2800 I ActivityManager: Start proc 16128:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:32:38.271  2700  2800 W ActivityManager: Slow operation: 67ms so far, now at startProcess: starting to update pids map
+07-15 01:32:38.271  2700  2800 W ActivityManager: Slow operation: 68ms so far, now at startProcess: done updating pids map
+07-15 01:32:38.342  2700  3057 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:32:38.868  2700  3729 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 15802) has died: cch+5 CEM 
+07-15 01:32:40.368  2700  2789 W WindowManager: Unable to start animation, surface is null or no children.
+07-15 01:32:40.408  2700  2745 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:32:48.840  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@2964826
+07-15 01:32:50.321  2700 11060 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 15778) has died: cch+5 CEM 
+07-15 01:33:05.744  2700  2800 I ActivityManager: Start proc 16381:io.homeassistant.companion.android.minimal/u0a49 for service {io.homeassistant.companion.android.minimal/androidx.work.impl.background.systemjob.SystemJobService}
+07-15 01:33:10.016  2700 15770 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:33:40.380  2700  3057 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:34:10.727  2700 15770 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:34:40.885  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:35:11.235  2700  3057 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:35:32.147  2700  2804 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=-1: installPackageLI
+07-15 01:35:32.148  2700  2804 I ActivityManager: Killing 15797:com.omoda.lanc/u0a51 (adj 0): stop com.omoda.lanc
+07-15 01:35:32.152  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 1000ms
+07-15 01:35:32.152  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 10999ms
+07-15 01:35:32.152  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 20999ms
+07-15 01:35:32.157  2700  2804 W ActivityTaskManager: Force removing ActivityRecord{9de1a00 u0 com.omoda.lanc/.MainActivity t4277 f}: app died, no saved state
+07-15 01:35:34.987  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{ef28a14 u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:35:34.987  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{4e19cf8 u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:35:34.987  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{41dcc0c u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:35:35.029  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 15797
+07-15 01:35:35.127  2700  2818 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: pkg removed
+07-15 01:35:35.229  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: done updating battery stats
+07-15 01:35:35.229  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: building log message
+07-15 01:35:35.229  2700  2800 I ActivityManager: Start proc 17532:com.android.keychain/1000 for service {com.android.keychain/com.android.keychain.KeyChainService}
+07-15 01:35:35.229  2700  2800 W ActivityManager: Slow operation: 54ms so far, now at startProcess: starting to update pids map
+07-15 01:35:35.229  2700  2800 W ActivityManager: Slow operation: 54ms so far, now at startProcess: done updating pids map
+07-15 01:35:35.267  2700  2800 I ActivityManager: Start proc 17547:com.omoda.lanc/u0a51 for broadcast {com.omoda.lanc/com.omoda.lanc.service.PackageReplacedReceiver}
+07-15 01:35:35.331  2700  3729 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:35:35.422  2700 17526 W ActivityManager: Slow operation: 52ms so far, now at attachApplicationLocked: immediately after bindApplication
+07-15 01:35:35.424  2700 17526 W ActivityManager: Slow operation: 54ms so far, now at attachApplicationLocked: after updateLruProcessLocked
+07-15 01:35:35.427  2700 17526 W ActivityManager: Slow operation: 58ms so far, now at attachApplicationLocked: after mServices.attachApplicationLocked
+07-15 01:35:35.453  2700 17526 W ActivityManager: Slow operation: 84ms so far, now at attachApplicationLocked: after sendPendingBroadcastsLocked
+07-15 01:35:35.713  2700  2800 W ActivityManager: Slow operation: 57ms so far, now at startProcess: returned from zygote!
+07-15 01:35:35.713  2700  2800 W ActivityManager: Slow operation: 57ms so far, now at startProcess: done updating battery stats
+07-15 01:35:35.736  2700  2800 W ActivityManager: Slow operation: 80ms so far, now at startProcess: building log message
+07-15 01:35:35.736  2700  2800 I ActivityManager: Start proc 17586:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:35:35.736  2700  2800 W ActivityManager: Slow operation: 81ms so far, now at startProcess: starting to update pids map
+07-15 01:35:35.737  2700  2800 W ActivityManager: Slow operation: 81ms so far, now at startProcess: done updating pids map
+07-15 01:35:35.879  2700  2800 W ActivityManager: Slow operation: 86ms so far, now at startProcess: returned from zygote!
+07-15 01:35:35.880  2700  2800 W ActivityManager: Slow operation: 98ms so far, now at startProcess: done updating battery stats
+07-15 01:35:35.880  2700  2800 W ActivityManager: Slow operation: 98ms so far, now at startProcess: building log message
+07-15 01:35:35.880  2700  2800 I ActivityManager: Start proc 17604:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:35:35.880  2700  2800 W ActivityManager: Slow operation: 98ms so far, now at startProcess: starting to update pids map
+07-15 01:35:35.881  2700  2800 W ActivityManager: Slow operation: 98ms so far, now at startProcess: done updating pids map
+07-15 01:35:35.898  2700  2789 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:35:35.912  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:35:41.389  2700  2803 I ActivityTaskManager: Displayed com.omoda.lanc/.MainActivity: +6s31ms
+07-15 01:35:42.945  2700 12056 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:35:44.750  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:35:44.893  2700  2789 W WindowManager: Unable to start animation, surface is null or no children.
+07-15 01:35:45.403  2700  3596 I ActivityManager: Process io.homeassistant.companion.android.minimal (pid 16381) has died: cch+25 CEM 
+07-15 01:35:45.445  2700 12056 I ActivityManager: Process com.android.keychain (pid 17532) has died: cch+15 CEM 
+07-15 01:35:45.633  2700 12056 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 17604) has died: cch+5 CEM 
+07-15 01:35:47.346  2700 18059 I ActivityManager: Low on memory:
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??  101826: avm (   78,712K memtrack) (pid 2468) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??   78694: android.hardware.graphics.allocator@2.0-service (   73,485K memtrack) (pid 2237) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??   73849: android.hardware.broadcastdabdrm@1.0-service (pid 2534) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??   59039: natp (pid 2473) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??   41408: surfaceflinger (   30,129K memtrack) (pid 2286) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??   28759: logd (pid 2280) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??   15002: audioserver (pid 2573) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??   14730: CarPlayCommService (pid 18047) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    9291: zygote64 (pid 2497) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    9139: media.extractor (pid 2636) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    6890: init (    1,979K memtrack) (pid 1) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    6876: media.swcodec (pid 2645) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    6576: androidautod (pid 2613) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    6393: vendor.yfve.hardware.tbox@1.0-service (pid 2558) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    6342: webview_zygote (pid 3159) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    6265: vold (pid 2295) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    6033: zygote (pid 2498) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5787: media.codec (       94K memtrack) (pid 2643) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5726: android.hardware.automotive.vehicle@2.0-service (pid 2532) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5670: android.hardware.camera.provider@2.4-service_64 (pid 2535) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5658: keystore (pid 2632) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5522: installd (pid 2630) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5378: netd (pid 2496) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5253: android.hardware.configstore@1.1-service (pid 2287) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5149: android.hardware.wifi@1.0-service (pid 2520) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5144: mdnsd (pid 2652) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5104: incidentd (pid 2629) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5092: vendor.yfve.hardware.audiocontrol@1.0-service (pid 2549) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5058: android.hardware.bluetooth@1.0-service-barrot (pid 2533) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5044: android.hardware.usb@1.1-service.semidrive (pid 2548) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5031: android.hardware.light@2.0-service.yfve (pid 2540) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    5027: android.hardware.sensors@1.0-service (pid 2547) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4994: wificond (pid 2642) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4967: yfve_diag (pid 2474) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4916: com.android.car.procfsinspector (pid 3646) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4880: android.hardware.boot@1.0-service (pid 2475) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4850: ipcl (pid 2472) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4839: android.hardware.light@2.0-service.semidrive (pid 2539) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4808: android.hardware.power@1.3-service.semidrive (pid 2546) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4759: vndservicemanager (pid 2283) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4725: android.hardware.graphics.composer@2.3-service (      199K memtrack) (pid 2288) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4722: perfservice (pid 2203) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4663: hwservicemanager (pid 2282) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4641: tombstoned (pid 2649) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4494: media.metrics (pid 2637) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4469: dbus-daemon (pid 2470) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    4287: adbd (pid 2590) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3772: init (pid 1791) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3723: IAP2CommService (pid 2567) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3705: ueventd (pid 1793) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3567: android.hardware.audio@2.0-service (pid 2531) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3531: android.hardware.gnss@1.0-service-ubx (pid 2538) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3459: init (pid 1792) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3442: update_engine (pid 2650) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3432: storaged (pid 2641) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3362: gpuservice (pid 2574) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3283: apexd (pid 2485) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3204: android.system.suspend@1.0-service (pid 2529) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3138: gatekeeperd (pid 2648) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3095: abb (pid 11542) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3078: android.hardware.keymaster@3.0-service (pid 2476) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3070: android.hardware.memtrack@1.0-service (pid 2545) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    3046: mediaserver (pid 2638) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    2922: servicemanager (pid 2281) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    2915: lmkd (pid 2575) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    2638: sh (pid 2513) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    2396: cameraserver (pid 2623) native
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ntv   ??    2365: wpa_s
+07-15 01:35:47.346  2700 18059 I ActivityManager:   sys    PER   110267: system (   10,987K memtrack) (pid 2700) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER    46298: com.chery.cerence (   19,997K memtrack) (pid 3218) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER    28107: com.android.systemui (    7,669K memtrack) (pid 3097) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER    25787: com.yfve.car.carplay (    6,678K memtrack) (pid 3290) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER    21530: com.android.car (       94K memtrack) (pid 3066) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER    15299: com.android.phone (pid 3145) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER    11669: com.android.networkstack (pid 3124) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER    11321: com.yfve.car.androidauto (pid 3246) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER     9976: com.android.se (pid 3307) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER     9934: com.yfve.t19c_eol (pid 3270) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   pers   PER     9660: com.neusoft.ssp.ces.c4.car.assistant (pid 3200) fixed
+07-15 01:35:47.346  2700 18059 I ActivityManager:   psvc   PER    18304: com.android.bluetooth (pid 2960) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.android.bluetooth/.a2dpsink.A2dpSinkService<=Proc{4139:com.chery.media/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   fore   TOP   319628: com.omoda.lanc (   16,681K memtrack) (pid 17547) top-activity
+07-15 01:35:47.346  2700 18059 I ActivityManager:   fore   SVC    78140: ru.yandex.yandexnavi:AppMetrica (pid 17586) exec-service
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    FGS    65026: com.tailscale.ipn (    9,249K memtrack) (pid 3317) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.tailscale.ipn/.IPNService<=Proc{2700:system/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   42025: com.chery.settings (    8,366K memtrack) (pid 4118) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.chery.settings/.model.service.BrightnessServer<=Proc{4139:com.chery.media/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   17048: com.yfve.t19c.projection.devicemanager (pid 3377) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.yfve.t19c.projection.devicemanager/.DeviceManagerService<=Proc{3246:com.yfve.car.androidauto/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   15880: android.process.media (pid 3730) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.android.providers.media/.UsbScannerService<=Proc{4298:com.chery.media:scanner/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    FGS    15270: vendor.yfvet.projection.androidauto (    2,447K memtrack) (pid 3419) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        vendor.yfvet.projection.androidauto/.ProjectionUiService<=Proc{3377:com.yfve.t19c.projection.devicemanager/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   14989: com.chery.media (pid 4139) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.chery.media/.model.service.EolRadioService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    BFGS   12580: com.android.permissioncontroller (pid 16128) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl<=Proc{2700:system/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    BFGS   11548: android.ext.services (pid 3329) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        android.ext.services/.notification.Assistant<=Proc{2700:system/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   10988: com.astrob.turbodog (pid 4150) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.astrob.turbodog/.NaviAidlService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   10884: com.chery.media:thumbnail (pid 4313) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.chery.media/.model.service.ThumbnailService<=Proc{4139:com.chery.media/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   10864: com.yfve.t19c.projection.carplay.service (pid 3479) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.yfve.t19c.projection.carplay.service/.CarPlayFuncService<=Proc{4139:com.chery.media/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   10830: com.chery.media:utils (pid 4345) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.chery.media/.model.service.UtilsService<=Proc{4139:com.chery.media/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF   10745: sw.com.dabdrmradio (pid 4424) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        sw.com.dabdrmradio/.AIDLService<=Proc{4139:com.chery.media/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   vis    IMPF    9682: com.chery.media:scanner (pid 4298) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.chery.media/.model.service.UsbScannerManagerService<=Proc{4139:com.chery.media/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   prcp   IMPB   39121: com.google.android.apps.automotive.inputmethod (pid 3338) service
+07-15 01:35:47.346  2700 18059 I ActivityManager:                        com.google.android.apps.automotive.inputmethod/.InputMethodService<=Proc{2700:system/1000}
+07-15 01:35:47.346  2700 18059 I ActivityManager:   prcp   FGS    34616: com.dofun.dofunweather.main (    6,072K memtrack) (pid 4936) fg-service
+07-15 01:35:47.346  2700 18059 I ActivityManager:   prcp   FGS    17739: com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0 (pid 53
+07-15 01:35:47.346  2700 18059 I ActivityManager:   MemInfo:   137,356K slab,       868K shmem,    46,788K vm alloc,    40,600K page tables    25,504K kernel stack
+07-15 01:35:47.346  2700 18059 I ActivityManager:                6,328K buffers,   404,928K cached,   212,976K mapped,   477,780K free
+07-15 01:35:47.346  2700 18059 I ActivityManager:   ZRAM:    15,792K RAM, 1,480,936K swap total, 1,349,864K swap free
+07-15 01:35:47.346  2700 18059 I ActivityManager:   Free RAM:   722,988K
+07-15 01:35:47.346  2700 18059 I ActivityManager:   Used RAM: 2,343,007K
+07-15 01:35:47.346  2700 18059 I ActivityManager:   Lost RAM:     9,830K
+07-15 01:35:53.200  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@cca34e4
+07-15 01:35:59.966  2700 17526 I ActivityManager: Process com.android.permissioncontroller (pid 16128) has died: cch+5 CEM 
+07-15 01:36:00.006  2700 17526 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 17586) has died: cch+5 CEM 
+07-15 01:36:14.295  2700  3596 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:36:14.345  2700  2800 I ActivityManager: Start proc 18284:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:36:35.363  2700  2982 I ActivityManager: Process com.android.permissioncontroller (pid 18284) has died: cch+5 CEM 
+07-15 01:36:44.541  2700 17526 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:36:44.617  2700  2800 I ActivityManager: Start proc 18526:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:37:14.628  2700  2982 I ActivityManager: Process com.android.permissioncontroller (pid 18526) has died: cch+5 CEM 
+07-15 01:37:14.820  2700  3596 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:37:14.898  2700  2800 I ActivityManager: Start proc 18779:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:37:44.684  2700  3596 I ActivityManager: Process com.android.permissioncontroller (pid 18779) has died: cch+5 CEM 
+07-15 01:37:44.998  2700  2800 I ActivityManager: Start proc 19083:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:37:45.010  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:38:14.916  2700  2982 I ActivityManager: Process com.android.permissioncontroller (pid 19083) has died: cch+5 CEM 
+07-15 01:38:15.110  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: returned from zygote!
+07-15 01:38:15.110  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: done updating battery stats
+07-15 01:38:15.110  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: building log message
+07-15 01:38:15.110  2700  2800 I ActivityManager: Start proc 19327:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:38:15.110  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: starting to update pids map
+07-15 01:38:15.111  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: done updating pids map
+07-15 01:38:15.209  2700  3596 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:38:45.328  2700 17526 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:39:05.993  2700  2747 I ActivityManager: Process com.android.permissioncontroller (pid 19327) has died: cch+5 CEM 
+07-15 01:39:14.014  2700  2804 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=-1: installPackageLI
+07-15 01:39:14.015  2700  2804 I ActivityManager: Killing 17547:com.omoda.lanc/u0a51 (adj 0): stop com.omoda.lanc
+07-15 01:39:14.023  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 1000ms
+07-15 01:39:14.023  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 11000ms
+07-15 01:39:14.023  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 21000ms
+07-15 01:39:14.028  2700  2804 W ActivityTaskManager: Force removing ActivityRecord{d0bf0d2 u0 com.omoda.lanc/.MainActivity t4278 f}: app died, no saved state
+07-15 01:39:14.289  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{6e4f002 u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:39:14.289  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{5e0a8dc u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:39:14.289  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{24ed657 u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:39:14.292  2700  2804 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity} from uid 0
+07-15 01:39:14.338  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 17547
+07-15 01:39:14.370  2700  2818 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: pkg removed
+07-15 01:39:14.380  2700  2818 I ActivityTaskManager:   Force finishing activity ActivityRecord{7cf27a6 u0 com.omoda.lanc/.MainActivity t4279}
+07-15 01:39:14.497  2700  2800 W ActivityManager: Slow operation: 61ms so far, now at startProcess: returned from zygote!
+07-15 01:39:14.498  2700  2800 W ActivityManager: Slow operation: 62ms so far, now at startProcess: done updating battery stats
+07-15 01:39:14.498  2700  2800 W ActivityManager: Slow operation: 63ms so far, now at startProcess: building log message
+07-15 01:39:14.498  2700  2800 I ActivityManager: Start proc 19734:com.android.keychain/1000 for service {com.android.keychain/com.android.keychain.KeyChainService}
+07-15 01:39:14.498  2700  2800 W ActivityManager: Slow operation: 63ms so far, now at startProcess: starting to update pids map
+07-15 01:39:14.498  2700  2800 W ActivityManager: Slow operation: 63ms so far, now at startProcess: done updating pids map
+07-15 01:39:14.530  2700  2800 I ActivityManager: Start proc 19740:com.omoda.lanc/u0a51 for broadcast {com.omoda.lanc/com.omoda.lanc.service.PackageReplacedReceiver}
+07-15 01:39:14.568  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: returned from zygote!
+07-15 01:39:14.568  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: done updating battery stats
+07-15 01:39:14.568  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: building log message
+07-15 01:39:14.568  2700  2800 I ActivityManager: Start proc 19746:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:39:14.568  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: starting to update pids map
+07-15 01:39:14.568  2700  3729 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:39:14.703  2700  2800 W ActivityManager: Slow operation: 214ms so far, now at startProcess: done updating pids map
+07-15 01:39:14.845  2700  2789 W ActivityTaskManager: Activity pause timeout for ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261}
+07-15 01:39:15.014  2700  2800 W ActivityManager: Slow operation: 55ms so far, now at startProcess: returned from zygote!
+07-15 01:39:15.016  2700  2800 W ActivityManager: Slow operation: 56ms so far, now at startProcess: done updating battery stats
+07-15 01:39:15.016  2700  2800 W ActivityManager: Slow operation: 56ms so far, now at startProcess: building log message
+07-15 01:39:15.016  2700  2800 I ActivityManager: Start proc 19797:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:39:15.016  2700  2800 W ActivityManager: Slow operation: 56ms so far, now at startProcess: starting to update pids map
+07-15 01:39:15.024  2700  2800 W ActivityManager: Slow operation: 64ms so far, now at startProcess: done updating pids map
+07-15 01:39:15.255  2700  2800 W ActivityManager: Slow operation: 90ms so far, now at startProcess: returned from zygote!
+07-15 01:39:15.255  2700  2800 W ActivityManager: Slow operation: 91ms so far, now at startProcess: done updating battery stats
+07-15 01:39:15.255  2700  2800 W ActivityManager: Slow operation: 91ms so far, now at startProcess: building log message
+07-15 01:39:15.255  2700  2800 I ActivityManager: Start proc 19816:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:39:15.255  2700  2800 W ActivityManager: Slow operation: 91ms so far, now at startProcess: starting to update pids map
+07-15 01:39:15.256  2700  2800 W ActivityManager: Slow operation: 91ms so far, now at startProcess: done updating pids map
+07-15 01:39:20.423  2700  2803 I ActivityTaskManager: Displayed com.omoda.lanc/.MainActivity: +6s117ms
+07-15 01:39:22.130  2700  3198 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:39:23.512  2700  3198 I ActivityManager: Process com.android.keychain (pid 19734) has died: cch+15 CEM 
+07-15 01:39:23.644  2700  3198 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 19816) has died: cch+5 CEM 
+07-15 01:39:23.928  2700  2789 W WindowManager: Unable to start animation, surface is null or no children.
+07-15 01:39:23.978  2700  3057 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:39:32.334  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@4037da4
+07-15 01:39:40.989  2700  3198 I ActivityManager: Process com.android.permissioncontroller (pid 19746) has died: cch+5 CEM 
+07-15 01:39:41.021  2700  3198 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 19797) has died: cch+5 CEM 
+07-15 01:39:53.316  2700  2800 W ActivityManager: Slow operation: 105ms so far, now at startProcess: returned from zygote!
+07-15 01:39:53.316  2700  2800 W ActivityManager: Slow operation: 106ms so far, now at startProcess: done updating battery stats
+07-15 01:39:53.316  2700  2800 W ActivityManager: Slow operation: 106ms so far, now at startProcess: building log message
+07-15 01:39:53.316  2700  2800 I ActivityManager: Start proc 20487:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:39:53.316  2700  2800 W ActivityManager: Slow operation: 106ms so far, now at startProcess: starting to update pids map
+07-15 01:39:53.317  2700  2800 W ActivityManager: Slow operation: 106ms so far, now at startProcess: done updating pids map
+07-15 01:39:53.526  2700  3729 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:40:00.087  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=ru.yandex.yandexnavi/.core.NavigatorActivity} from uid 2000
+07-15 01:40:00.868  2700  2800 I ActivityManager: Start proc 20559:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:40:00.984  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: done updating battery stats
+07-15 01:40:00.984  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: building log message
+07-15 01:40:00.985  2700  2800 I ActivityManager: Start proc 20576:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:40:00.985  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: starting to update pids map
+07-15 01:40:00.985  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: done updating pids map
+07-15 01:40:07.874  2700  3198 I ActivityManager: Force stopping ru.yandex.yandexnavi appid=10057 user=0: from pid 20742
+07-15 01:40:07.875  2700  3198 I ActivityManager: Killing 20559:ru.yandex.yandexnavi:AppMetrica/u0a57 (adj 100): stop ru.yandex.yandexnavi
+07-15 01:40:07.877  2700  3198 W ActivityManager: Scheduling restart of crashed service ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService in 1000ms
+07-15 01:40:07.878  2700  3198 I ActivityManager: Killing 7608:ru.yandex.yandexnavi/u0a57 (adj 0): stop ru.yandex.yandexnavi
+07-15 01:40:07.882  2700  3198 W ActivityTaskManager: Force removing ActivityRecord{e685824 u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4261 f}: app died, no saved state
+07-15 01:40:07.914  2700  3198 I ActivityManager: Killing 20576:ru.yandex.yandexnavi:passport/u0a57 (adj 700): stop ru.yandex.yandexnavi
+07-15 01:40:07.925  2700  3198 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity} from uid 0
+07-15 01:40:08.069  2700  7649 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=ru.yandex.yandexnavi/.core.NavigatorActivity} from uid 2000
+07-15 01:40:08.196  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 7608
+07-15 01:40:08.286  2700  2800 I ActivityManager: Start proc 20751:ru.yandex.yandexnavi/u0a57 for activity {ru.yandex.yandexnavi/ru.yandex.yandexnavi.core.NavigatorActivity}
+07-15 01:40:08.363  2700  2803 I ActivityTaskManager: Displayed ru.yandex.yandexnavi/.core.NavigatorActivity: +177ms
+07-15 01:40:08.669  2700  2800 I ActivityManager: Start proc 20780:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:40:08.742  2700  2800 I ActivityManager: Start proc 20800:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:40:13.721  2700  3587 I ActivityManager: Process com.android.permissioncontroller (pid 20487) has died: cch+5 CEM 
+07-15 01:40:14.415  2700  3587 I ActivityManager: Force stopping ru.yandex.yandexnavi appid=10057 user=0: from pid 21107
+07-15 01:40:14.415  2700  3587 I ActivityManager: Killing 20800:ru.yandex.yandexnavi:AppMetrica/u0a57 (adj 100): stop ru.yandex.yandexnavi
+07-15 01:40:14.418  2700  3587 W ActivityManager: Scheduling restart of crashed service ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService in 1000ms
+07-15 01:40:14.419  2700  3587 I ActivityManager: Killing 20751:ru.yandex.yandexnavi/u0a57 (adj 0): stop ru.yandex.yandexnavi
+07-15 01:40:14.421  2700  3587 W ActivityManager: Scheduling restart of crashed service ru.yandex.yandexnavi/io.appmetrica.analytics.push.internal.service.PushJobService in 10998ms
+07-15 01:40:14.422  2700  3587 W ActivityTaskManager: Force removing ActivityRecord{9175fdd u0 ru.yandex.yandexnavi/.core.NavigatorActivity t4282 f}: app died, no saved state
+07-15 01:40:14.463  2700  3587 I ActivityManager: Killing 20780:ru.yandex.yandexnavi:passport/u0a57 (adj 0): stop ru.yandex.yandexnavi
+07-15 01:40:14.476  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:40:14.478  2700  3587 I ActivityManager:   Force stopping service ServiceRecord{2c7604b u0 ru.yandex.yandexnavi/io.appmetrica.analytics.push.internal.service.PushJobService}
+07-15 01:40:14.562  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity} from uid 2000
+07-15 01:40:14.681  2700  2800 I ActivityManager: Start proc 21122:ru.yandex.yandexnavi/u0a57 for activity {ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity}
+07-15 01:40:14.706  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 20751
+07-15 01:40:14.885  2700  2790 W WindowManager: Failed looking up window callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5316 com.android.server.wm.WindowManagerService.removeWindow:1778 com.android.server.wm.Session.remove:176 
+07-15 01:40:15.025  2700  2800 I ActivityManager: Start proc 21151:ru.yandex.yandexnavi:passport/u0a57 for content provider {ru.yandex.yandexnavi/com.yandex.passport.internal.provider.InternalProvider}
+07-15 01:40:15.156  2700  2800 I ActivityManager: Start proc 21171:ru.yandex.yandexnavi:AppMetrica/u0a57 for service {ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService}
+07-15 01:40:17.848  2700  2800 W ActivityManager: Slow operation: 113ms so far, now at startProcess: returned from zygote!
+07-15 01:40:17.849  2700  2800 W ActivityManager: Slow operation: 113ms so far, now at startProcess: done updating battery stats
+07-15 01:40:17.849  2700  2800 W ActivityManager: Slow operation: 113ms so far, now at startProcess: building log message
+07-15 01:40:17.849  2700  2800 I ActivityManager: Start proc 21492:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:40:17.849  2700  2800 W ActivityManager: Slow operation: 113ms so far, now at startProcess: starting to update pids map
+07-15 01:40:17.849  2700  2800 W ActivityManager: Slow operation: 113ms so far, now at startProcess: done updating pids map
+07-15 01:40:17.915  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:40:17.956  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:40:20.297  2700  3613 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:40:23.773  2700  3571 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:40:24.345  2700  2803 I ActivityTaskManager: Displayed ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity: +9s693ms
+07-15 01:40:29.047  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@4723148
+07-15 01:40:31.118  2700  2803 I ActivityTaskManager: Fully drawn ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity: +16s537ms
+07-15 01:40:50.193  2700  3233 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:40:53.575  2700  3541 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:41:20.272  2700  3233 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:41:23.600  2700  3541 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:41:50.495  2700  3571 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:41:53.675  2700  3233 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:42:04.084  2700  2804 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=-1: installPackageLI
+07-15 01:42:04.088  2700  2804 I ActivityManager: Killing 19740:com.omoda.lanc/u0a51 (adj 200): stop com.omoda.lanc
+07-15 01:42:04.091  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 1000ms
+07-15 01:42:04.091  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 11000ms
+07-15 01:42:04.092  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 21000ms
+07-15 01:42:04.094  2700  2804 W ActivityTaskManager: Force removing ActivityRecord{4d38584 u0 com.omoda.lanc/.MainActivity t4281 f}: app died, no saved state
+07-15 01:42:04.111  2700  2804 I ActivityTaskManager:   Force finishing activity ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:42:04.112  2700  2804 W ActivityTaskManager: Duplicate finish request for ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:42:04.112  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{ca746c2 u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:42:04.112  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{b8dc388 u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:42:04.112  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{2d94e22 u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:42:04.261  2700  3575 I WindowManager: WIN DEATH: Window{8caec1a u0 com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:42:04.264  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 19740
+07-15 01:42:04.492  2700  2818 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: pkg removed
+07-15 01:42:04.494  2700  2818 I ActivityTaskManager:   Force finishing activity ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:42:04.494  2700  2818 W ActivityTaskManager: Duplicate finish request for ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:42:04.593  2700  2800 W ActivityManager: Slow operation: 71ms so far, now at startProcess: returned from zygote!
+07-15 01:42:04.593  2700  2800 W ActivityManager: Slow operation: 71ms so far, now at startProcess: done updating battery stats
+07-15 01:42:04.593  2700  2800 W ActivityManager: Slow operation: 71ms so far, now at startProcess: building log message
+07-15 01:42:04.593  2700  2800 I ActivityManager: Start proc 23000:com.android.keychain/1000 for service {com.android.keychain/com.android.keychain.KeyChainService}
+07-15 01:42:04.593  2700  2800 W ActivityManager: Slow operation: 71ms so far, now at startProcess: starting to update pids map
+07-15 01:42:04.594  2700  2800 W ActivityManager: Slow operation: 73ms so far, now at startProcess: done updating pids map
+07-15 01:42:04.638  2700  2800 W ActivityManager: Slow operation: 85ms so far, now at startProcess: returned from zygote!
+07-15 01:42:04.638  2700  2800 W ActivityManager: Slow operation: 86ms so far, now at startProcess: done updating battery stats
+07-15 01:42:04.639  2700  2800 W ActivityManager: Slow operation: 86ms so far, now at startProcess: building log message
+07-15 01:42:04.639  2700  2800 I ActivityManager: Start proc 23006:com.omoda.lanc/u0a51 for broadcast {com.omoda.lanc/com.omoda.lanc.service.PackageReplacedReceiver}
+07-15 01:42:04.639  2700  2800 W ActivityManager: Slow operation: 86ms so far, now at startProcess: starting to update pids map
+07-15 01:42:04.639  2700  2800 W ActivityManager: Slow operation: 87ms so far, now at startProcess: done updating pids map
+07-15 01:42:04.664  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:42:04.747  2700  3575 W ActivityManager: Slow operation: 61ms so far, now at attachApplicationLocked: immediately before bindApplication
+07-15 01:42:04.755  2700  3575 W ActivityManager: Slow operation: 70ms so far, now at attachApplicationLocked: immediately after bindApplication
+07-15 01:42:04.755  2700  3575 W ActivityManager: Slow operation: 70ms so far, now at attachApplicationLocked: after updateLruProcessLocked
+07-15 01:42:04.799  2700  3575 W ActivityManager: Slow operation: 113ms so far, now at attachApplicationLocked: after mServices.attachApplicationLocked
+07-15 01:42:10.067  2700  2803 I ActivityTaskManager: Displayed com.omoda.lanc/.MainActivity: +5s400ms
+07-15 01:42:11.488  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:42:13.582  2700  2789 W WindowManager: Unable to start animation, surface is null or no children.
+07-15 01:42:13.884  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:42:22.139  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@486f5ed
+07-15 01:42:43.273  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:43:04.402  2700  3575 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 pkg=ru.yandex.yandexnavi cmp=ru.yandex.yandexnavi/.core.NavigatorActivity} from uid 10051
+07-15 01:43:06.509  2700  3571 I ActivityManager: Process com.android.keychain (pid 23000) has died: cch+15 CEM 
+07-15 01:43:07.187  2700  3575 I ActivityManager: Process com.android.permissioncontroller (pid 21492) has died: cch+5 CEM 
+07-15 01:43:08.368  2700 23749 I ActivityManager: Low on memory:
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??  105874: android.hardware.graphics.allocator@2.0-service (  100,640K memtrack) (pid 2237) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??  101818: avm (   78,712K memtrack) (pid 2468) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??   73848: android.hardware.broadcastdabdrm@1.0-service (pid 2534) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??   59036: natp (pid 2473) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??   47174: surfaceflinger (   35,619K memtrack) (pid 2286) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??   30398: logd (pid 2280) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??   28241: init (   23,355K memtrack) (pid 1) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??   15144: audioserver (pid 2573) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    9164: zygote64 (pid 2497) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    9136: media.extractor (pid 2636) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    6874: media.swcodec (pid 2645) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    6820: vendor.yfve.hardware.tbox@1.0-service (pid 2558) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    6572: androidautod (pid 2613) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    6435: keystore (pid 2632) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    6342: webview_zygote (pid 3159) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    6224: vold (pid 2295) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    6032: zygote (pid 2498) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5843: installd (pid 2630) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5787: media.codec (       94K memtrack) (pid 2643) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5717: android.hardware.automotive.vehicle@2.0-service (pid 2532) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5669: android.hardware.camera.provider@2.4-service_64 (pid 2535) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5212: netd (pid 2496) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5136: android.hardware.wifi@1.0-service (pid 2520) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5117: android.hardware.bluetooth@1.0-service-barrot (pid 2533) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5103: incidentd (pid 2629) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5097: android.hardware.configstore@1.1-service (pid 2287) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5091: vendor.yfve.hardware.audiocontrol@1.0-service (pid 2549) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5043: android.hardware.usb@1.1-service.semidrive (pid 2548) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5030: android.hardware.light@2.0-service.yfve (pid 2540) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    5026: android.hardware.sensors@1.0-service (pid 2547) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4944: yfve_diag (pid 2474) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4935: com.android.car.procfsinspector (pid 3646) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4879: android.hardware.boot@1.0-service (pid 2475) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4877: wificond (pid 2642) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4839: android.hardware.light@2.0-service.semidrive (pid 2539) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4833: ipcl (pid 2472) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4775: android.hardware.power@1.3-service.semidrive (pid 2546) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4768: android.hardware.graphics.composer@2.3-service (      199K memtrack) (pid 2288) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4758: vndservicemanager (pid 2283) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4721: perfservice (pid 2203) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4662: hwservicemanager (pid 2282) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4648: mdnsd (pid 2652) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4640: tombstoned (pid 2649) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4492: media.metrics (pid 2637) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4468: dbus-daemon (pid 2470) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4462: adbd (pid 2590) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    4398: logcat (pid 23666) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3773: android.hardware.gnss@1.0-service-ubx (pid 2538) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3771: init (pid 1791) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3723: android.hardware.audio@2.0-service (pid 2531) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3715: IAP2CommService (pid 2567) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3704: ueventd (pid 1793) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3485: storaged (pid 2641) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3459: init (pid 1792) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3441: update_engine (pid 2650) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3292: apexd (pid 2485) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3284: android.system.suspend@1.0-service (pid 2529) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3284: gpuservice (pid 2574) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3158: abb (pid 11542) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3137: gatekeeperd (pid 2648) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3077: android.hardware.keymaster@3.0-service (pid 2476) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3046: mediaserver (pid 2638) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    3030: android.hardware.memtrack@1.0-service (pid 2545) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    2922: servicemanager (pid 2281) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    2922: lmkd (pid 2575) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    2637: sh (pid 2513) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    2564: wpa_supplicant (pid 3076) native
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ntv   ??    2396: cameraserver (p
+07-15 01:43:08.368  2700 23749 I ActivityManager:   sys    PER    98592: system (    5,581K memtrack) (pid 2700) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER    46327: com.chery.cerence (   19,997K memtrack) (pid 3218) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER    28315: com.android.systemui (    7,669K memtrack) (pid 3097) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER    25784: com.yfve.car.carplay (    6,678K memtrack) (pid 3290) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER    23400: com.android.car (       94K memtrack) (pid 3066) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER    16674: com.android.phone (pid 3145) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER    11759: com.android.networkstack (pid 3124) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER    11324: com.yfve.car.androidauto (pid 3246) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER     9974: com.android.se (pid 3307) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER     9872: com.yfve.t19c_eol (pid 3270) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   pers   PER     9664: com.neusoft.ssp.ces.c4.car.assistant (pid 3200) fixed
+07-15 01:43:08.368  2700 23749 I ActivityManager:   psvc   PER    18825: com.android.bluetooth (pid 2960) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.android.bluetooth/.a2dpsink.A2dpSinkService<=Proc{4139:com.chery.media/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   fore   TOP   333225: ru.yandex.yandexnavi (   46,178K memtrack) (pid 21122) top-activity
+07-15 01:43:08.368  2700 23749 I ActivityManager:   fore  +50 FGS   373622: com.omoda.lanc (   26,086K memtrack) (pid 23006) fg-service-act
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    FGS    75488: com.tailscale.ipn (    9,249K memtrack) (pid 3317) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.tailscale.ipn/.IPNService<=Proc{2700:system/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    BTOP   49136: ru.yandex.yandexnavi:AppMetrica (pid 21171) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        ru.yandex.yandexnavi/io.appmetrica.analytics.internal.AppMetricaService<=Proc{21122:ru.yandex.yandexnavi/u0a57}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   42623: com.chery.settings (    8,366K memtrack) (pid 4118) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.chery.settings/.model.service.BrightnessServer<=Proc{4139:com.chery.media/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   17282: com.yfve.t19c.projection.devicemanager (pid 3377) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.yfve.t19c.projection.devicemanager/.DeviceManagerService<=Proc{3246:com.yfve.car.androidauto/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   15882: android.process.media (pid 3730) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.android.providers.media/.UsbScannerService<=Proc{4298:com.chery.media:scanner/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    FGS    15263: vendor.yfvet.projection.androidauto (    2,447K memtrack) (pid 3419) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        vendor.yfvet.projection.androidauto/.ProjectionUiService<=Proc{3377:com.yfve.t19c.projection.devicemanager/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   13415: com.chery.media (pid 4139) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.chery.media/.model.service.EolRadioService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    BFGS   11298: android.ext.services (pid 3329) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        android.ext.services/.notification.Assistant<=Proc{2700:system/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   10988: com.astrob.turbodog (pid 4150) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.astrob.turbodog/.NaviAidlService<=Proc{3270:com.yfve.t19c_eol/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   10881: com.chery.media:thumbnail (pid 4313) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.chery.media/.model.service.ThumbnailService<=Proc{4139:com.chery.media/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   10873: sw.com.dabdrmradio (pid 4424) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        sw.com.dabdrmradio/.AIDLService<=Proc{4139:com.chery.media/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   10857: com.yfve.t19c.projection.carplay.service (pid 3479) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.yfve.t19c.projection.carplay.service/.CarPlayFuncService<=Proc{4139:com.chery.media/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF   10830: com.chery.media:utils (pid 4345) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.chery.media/.model.service.UtilsService<=Proc{4139:com.chery.media/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   vis    IMPF    9678: com.chery.media:scanner (pid 4298) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.chery.media/.model.service.UsbScannerManagerService<=Proc{4139:com.chery.media/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   prcp   FGS    53124: com.dofun.dofunweather.main (    6,072K memtrack) (pid 4936) fg-service
+07-15 01:43:08.368  2700 23749 I ActivityManager:   prcp   IMPB   37069: com.google.android.apps.automotive.inputmethod (pid 3338) service
+07-15 01:43:08.368  2700 23749 I ActivityManager:                        com.google.android.apps.automotive.inputmethod/.InputMethodService<=Proc{2700:system/1000}
+07-15 01:43:08.368  2700 23749 I ActivityManager:   prcp   FGS    22685: com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0 (pid 
+07-15 01:43:08.368  2700 23749 I ActivityManager:   MemInfo:   141,244K slab,       864K shmem,    46,920K vm alloc,    40,972K page tables    25,568K kernel stack
+07-15 01:43:08.368  2700 23749 I ActivityManager:               10,976K buffers,   397,200K cached,   288,456K mapped,   518,384K free
+07-15 01:43:08.368  2700 23749 I ActivityManager:   ZRAM:    68,148K RAM, 1,480,936K swap total, 1,165,032K swap free
+07-15 01:43:08.368  2700 23749 I ActivityManager:   Free RAM:   687,328K
+07-15 01:43:08.368  2700 23749 I ActivityManager:   Used RAM: 2,522,503K
+07-15 01:43:08.368  2700 23749 I ActivityManager:   Lost RAM:    -2,194K
+07-15 01:43:08.934  2700  5471 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:43:08.947  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=true repeatCount=0 keyguardOn=false canceled=false
+07-15 01:43:08.949  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down true
+07-15 01:43:08.950  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=true longpress=false
+07-15 01:43:08.950  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = false
+07-15 01:43:09.066  2700  3575 D WindowManager: interceptKeyTq keycode=3 interactive=true keyguardActive=false policyFlags=23000000repeat=0
+07-15 01:43:09.072  2700  2907 D WindowManager: interceptKeyTi keyCode=3 down=false repeatCount=0 keyguardOn=false canceled=false
+07-15 01:43:09.072  2700  2907 I WindowManager: interceptKeyBeforeDispatching: report hardkey event keyCode 3down false
+07-15 01:43:09.072  2700  2907 D WindowManager: handleHomeButton in display#-1 mHomePressed = true
+07-15 01:43:09.074  2700  2787 D WindowManager: reportHardKeyEvent:  keycode=3 down=false longpress=false
+07-15 01:43:09.080  2700  2787 D WindowManager: launchHomeFromHotKey: displayId -1 awakenFromDreams true respectKeyguard true
+07-15 01:43:09.080  2700  2787 D WindowManager: launchHomeFromHotKey: isKeyguardShowingAndNotOccluded false
+07-15 01:43:09.082  2700  3575 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.chery.launcher/.view.activity.MainActivity} from uid 10042
+07-15 01:43:09.087  2700  2787 D WindowManager: startDockOrHome: Start home
+07-15 01:43:09.102  2700  2787 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity (has extras)} from uid 0
+07-15 01:43:12.407  2700  2800 I ActivityManager: Start proc 23889:com.android.permissioncontroller/u0a24 for service {com.android.permissioncontroller/com.android.packageinstaller.role.service.RoleControllerServiceImpl}
+07-15 01:43:12.442  2700  3571 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:43:13.788  2700  3575 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:43:15.457  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:43:19.096  2700  2789 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+07-15 01:43:23.783  2700  2700 W WindowManager: removeWindowToken: Attempted to remove non-existing token: android.os.Binder@9bbdbac
+07-15 01:43:43.892  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:43:45.637  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:44:14.037  2700  3571 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:44:15.791  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:44:44.335  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:44:45.945  2700  5471 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:45:14.460  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:45:16.282  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:45:44.777  2700  3575 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:45:46.591  2700  3571 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:46:14.994  2700 11060 I ActivityManager: Process ru.yandex.yandexnavi:AppMetrica (pid 21171) has died: cch+15 CEM 
+07-15 01:46:15.022  2700  3571 I ActivityManager: Process ru.yandex.yandexnavi:passport (pid 21151) has died: cch+15 CEM 
+07-15 01:46:15.230  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:46:16.977  2700  2982 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.yfve.hvac/.MainActivity} from uid 2000
+07-15 01:46:35.666  2700  2804 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=-1: installPackageLI
+07-15 01:46:35.667  2700  2804 I ActivityManager: Killing 23006:com.omoda.lanc/u0a51 (adj 0): stop com.omoda.lanc
+07-15 01:46:35.669  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.OtaUpdateService in 1000ms
+07-15 01:46:35.670  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.AdbBridgeService in 10999ms
+07-15 01:46:35.672  2700  2804 W ActivityManager: Scheduling restart of crashed service com.omoda.lanc/.service.VoiceAssistantService in 20998ms
+07-15 01:46:35.672  2700  2804 W ActivityTaskManager: Force removing ActivityRecord{b12c813 u0 com.omoda.lanc/.MainActivity t4285 f}: app died, no saved state
+07-15 01:46:35.690  2700  2804 W ActivityTaskManager: Force removing ActivityRecord{8c3d70a u0 com.omoda.lanc/.MainActivity t4284 f}: app died, no saved state
+07-15 01:46:35.942  2700  2804 I ActivityTaskManager:   Force finishing activity ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:46:35.942  2700  2804 W ActivityTaskManager: Duplicate finish request for ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:46:35.942  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{92186b3 u0 com.omoda.lanc/.service.VoiceAssistantService}
+07-15 01:46:35.942  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{b318ad0 u0 com.omoda.lanc/.service.AdbBridgeService}
+07-15 01:46:35.942  2700  2804 I ActivityManager:   Force stopping service ServiceRecord{e689215 u0 com.omoda.lanc/.service.OtaUpdateService}
+07-15 01:46:35.971  2700  2789 W ActivityManager: setHasOverlayUi called on unknown pid: 23006
+07-15 01:46:36.045  2700  2818 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: pkg removed
+07-15 01:46:36.046  2700  2818 I ActivityTaskManager:   Force finishing activity ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:46:36.046  2700  2818 W ActivityTaskManager: Duplicate finish request for ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:46:36.182  2700  2800 W ActivityManager: Slow operation: 52ms so far, now at startProcess: done updating battery stats
+07-15 01:46:36.182  2700  2800 W ActivityManager: Slow operation: 52ms so far, now at startProcess: building log message
+07-15 01:46:36.182  2700  2800 I ActivityManager: Start proc 26321:com.android.keychain/1000 for service {com.android.keychain/com.android.keychain.KeyChainService}
+07-15 01:46:36.182  2700  2800 W ActivityManager: Slow operation: 53ms so far, now at startProcess: starting to update pids map
+07-15 01:46:36.185  2700  2800 W ActivityManager: Slow operation: 56ms so far, now at startProcess: done updating pids map
+07-15 01:46:36.217  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: returned from zygote!
+07-15 01:46:36.217  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: done updating battery stats
+07-15 01:46:36.218  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: building log message
+07-15 01:46:36.218  2700  2800 I ActivityManager: Start proc 26329:com.omoda.lanc/u0a51 for broadcast {com.omoda.lanc/com.omoda.lanc.service.PackageReplacedReceiver}
+07-15 01:46:36.218  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: starting to update pids map
+07-15 01:46:36.218  2700  2800 W ActivityManager: Slow operation: 78ms so far, now at startProcess: done updating pids map
+07-15 01:46:36.440  2700  5471 I ActivityManager: Force stopping com.omoda.lanc appid=10051 user=0: from pid 26350
+07-15 01:46:36.441  2700  5471 I ActivityManager: Killing 26329:com.omoda.lanc/u0a51 (adj 0): stop com.omoda.lanc
+07-15 01:46:36.445  2700  5471 I ActivityTaskManager:   Force finishing activity ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:46:36.446  2700  5471 W ActivityTaskManager: Duplicate finish request for ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+07-15 01:46:36.729  2700 11060 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:46:36.827  2700  2800 I ActivityManager: Start proc 26379:com.omoda.lanc/u0a51 for activity {com.omoda.lanc/com.omoda.lanc.MainActivity}

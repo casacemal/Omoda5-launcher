@@ -29,6 +29,12 @@ object AdbClient {
     private val mainHandler = Handler(Looper.getMainLooper())
 
     fun executeCommand(cmd: String, onLine: (String) -> Unit = {}) {
+        // GÜVENLİK KATMANI: Hermes ve dış ajanların yetkisiz shell komutlarını önlemek için.
+        if (!GlobalState.isSimulationMode.value && !GlobalState.isCarHardware) {
+            Log.w(TAG, "ADB Shell Komutu Reddedildi: Sistem Güvenlik Kilidi Aktif! (cmd: $cmd)")
+            return
+        }
+        
         Thread {
             var success = false
             var retryCount = 0
@@ -49,13 +55,8 @@ object AdbClient {
                 Log.e(TAG, "Tüm ADB socket denemeleri başarısız. Onarım deneniyor...")
                 attemptAdbRepair()
                 
-                // UI UYARISI
-                mainHandler.post {
-                    GlobalState.status.value = "ADB HATASI: YETKİ KISITLI"
-                    EventBus.tryEmit(Event.UIEvent.UpdateOverlayState("ADB Portu Kapalı!", android.graphics.Color.RED))
-                }
-
-                // Son çare fallback
+                // Local ADB cannot be restarted without root, ignore silently.
+                Log.w(TAG, "ADB Port 5555 kapalı ve açılamıyor (Root yok).")
                 runtimeFallback(cmd, onLine)
             }
         }.start()

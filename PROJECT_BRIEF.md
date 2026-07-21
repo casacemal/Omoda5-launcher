@@ -18,8 +18,8 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 7.  **Alert & Event Engine:** TPMS, yakıt, kapı gibi kritik olay uyarıları.
 8.  **Driving Analysis Engine:** Sürüş sonrası özet ve verimlilik analizi.
 9.  **AI Client (Hermes):** STT, LLM ve TTS pipeline yönetimi.
-9.  **Token Migration:** Tüm API anahtarları (GitHub, Hermes, 9Router, Edge TTS) `app_config.json` içerisinde XOR şifreli olarak saklanır ve `AppConfig` üzerinden yönetilir.
-10. **OTA & App Store:** Github üzerinden otomatik sürüm kontrolü ve in-app güncelleme altyapısı.
+10. **Token Migration:** Tüm API anahtarları (GitHub, Hermes, 9Router, Edge TTS) `app_config.json` içerisinde XOR şifreli olarak saklanır ve `AppConfig` üzerinden yönetilir.
+11. **OTA & App Store:** Github üzerinden otomatik sürüm kontrolü ve in-app güncelleme altyapısı.
 
 ## Kaynak Referanslar
 *   **Asistan Referansı:** `/mnt/depo/omodaassist_v2` (Sesli asistan için test edilmiş, doğrulanmış kaynak klasör.)
@@ -40,7 +40,8 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
     *   **Wyoming/Bridge Port:** `5000` (STT → 9Router proxy, TTS → edge-tts)
     *   **Edge TTS:** `10201` (Doğrudan edge-tts `/v1/audio/speech`)
     *   **MQTT Broker:** `100.95.239.119:1883`
-*  []( https://github.com/rusty4444/hermes-android?hl=tr-TR   bu linkteli app nin yöntemini kıullanıyoruz. **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
+*   **Referans Mimarisi:** [Hermes-Android](https://github.com/rusty4444/hermes-android) uygulamasının asistan yöntemi baz alınmıştır. 
+*   **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
 *   **Command Firewall (Merkezi Karar Birimi) & Tasarım İlkesi:** 
     *   Araç kontrolü asla doğrudan LLM'e bırakılmaz. AI'dan gelen tüm araç fonksiyon istekleri (`tool_calls`) `CommandFirewall.kt` üzerinden geçer, Whitelist ve parametre sınır kontrolüne tabi tutulur.
     *   **Geri Bildirim ve Şeffaflık İlkesi:** Firewall bir komutu engellediğinde veya izin verdiğinde, bu durum anında Logcat'e (Log.e / Log.i) yazılmalı ve `EventBus` üzerinden `UIEvent.UpdateOverlayState` ile ekrandaki AI bildirim (Overlay) kısmına yansıtılmalıdır. Kullanıcı (ve AI), engellenme ve izin durumlarını anlık görebilmelidir.
@@ -56,7 +57,7 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
     *   Derlenen her yeni asistan sürümü kesinlikle GitHub releases (`casacemal/Omoda5-launcher`) alanına yüklenecektir, atlanmayacaktır.
     *   Uygulama içi App Store ekranında en güncel **4 sürüm** her zaman listelenecektir.
     *   Kullanıcının eski sürümlere geri dönebilmesi (Downgrade) için sürüm düşürme desteği korunacaktır. Eski sürümlerin yanındaki buton turuncu renkte **"DÜŞÜR"** olarak gösterilecek ve `pm install -r -d` komutuyla downgrade sağlanacaktır.
-    tworkMonitor üzerinden) sistem **1 defa** otomatik olarak güncelleme kontrolü yapacak ve ekrandaki Canlı İş Akışı (deploy) paneline bilgi yazacaktır.
+    *   **Otomatik Kontrol:** İnternet bağlantısı sağlandığında (NetworkMonitor üzerinden) sistem **1 defa** otomatik olarak güncelleme kontrolü yapacak ve ekrandaki Canlı İş Akışı (deploy) paneline bilgi yazacaktır.
 
 ## Çift Platform Desteği (AAOS & Mobil)
 *   **Donanım Algılama:** Uygulama, çalışma anında `AssistantApplication.isCarHardware` üzerinden donanımı tespit eder.

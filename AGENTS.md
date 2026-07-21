@@ -8,12 +8,27 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
 1.  **Bağlantı Sorunları Protokolü:** Hermes veya MQTT bağlantı sorunu yaşandığında:
     *   **Önce Sunucu Kontrolü:** Sunucunun (192.168.1.14) erişilebilirliği ve servislerin (8642, 1883 vb.) durumu kontrol edilmeden KESİNLİKLE kod değişikliği yapılmaz.
     *   **Kod Kontrolü:** Sunucu normalse, uygulamadaki **3 kırmızı LED** (Bağlantı durum göstergeleri) üzerinden hata analizi yapılır.
-2.  **Gözlem:** Her kullanıcı isteğinde ve kod incelemesinde yeni bilgiler (teknik kısıtlar, tercihler, kararlar) aranır.
-3.  **Kayıt:** Yeni bir bilgi tespit edildiğinde, kullanıcıya sormadan ilgili dokümana (PROJECT_BRIEF.md, ROADMAP.md vb.) eklenir.
-4.  **Doğrulama:** Eğer yeni bilgi mevcut kararlarla çelişiyorsa, işlem yapmadan önce kullanıcıdan onay istenir.
-5.  **Güncelleme:** Her görev sonunda PROGRESS.md, FILE_INDEX.md, ROADMAP.md ve UI_MANIFESTO.md güncellenir. Yeni bir dosya eklendiğinde veya bir dosyanın görevi değiştiğinde "Proje Mimari Haritası" tablosu derhal revize edilmelidir.
+2.  **Sürüm/Versiyon Doğrulama Kuralı:** Ajanlar, cihaza her bağlandığında (ADB veya diğer yollarla) ve test/analiz aşamasına geçmeden ÖNCE mutlaka cihazdaki aktif uygulamanın versiyonunu (`dumpsys package` veya loglar aracılığıyla) kontrol edecektir. Eski sürüm çalışıyorken kod değişikliği yapmak veya hata aramak KESİNLİKLE YASAKTIR.
+3.  **Gözlem:** Her kullanıcı isteğinde ve kod incelemesinde yeni bilgiler (teknik kısıtlar, tercihler, kararlar) aranır.
+3.  **Kayıt:** Yeni bir teknik karar, kısıt veya bilgi tespit edildiğinde, kullanıcıya sormadan direkt olarak sistemin yapı taşı olan ilgili dokümana (örneğin tasarım için `UI_MANIFESTO.md`, genel kurallar için `PROJECT_BRIEF.md`) eklenir.
+4.  **Otonom İş Akışı (Auto-Fix & Deploy):** SADECE ufak syntax veya derleme hataları için "EVET" onayı bekleme kuralı kaldırılmıştır. Ajan, ufak hataları tespit ettiğinde otomatik düzeltir, derler, yükler. ANCAK BÜYÜK MİMARİ DEĞİŞİKLİKLER İÇİN BU KURAL GEÇERLİ DEĞİLDİR.
+5.  **Doğrulama:** Eğer yeni bilgi mevcut kararlarla çelişiyorsa, işlem yapmadan önce kullanıcıdan onay istenir.
+6.  **Analiz ve Ezbere Düzenleme Yasağı (KRİTİK):** Her işlem veya düzenleme adımından önce ve sonra mutlaka detaylı durum analizi yapılacaktır. Ajanlar kesinlikle ezbere kod editlemeyecek; mevcut kodu, alınan sistem izinlerini ve bağımlılıkları derinlemesine incelemeden "Ben böyle yapardım" deyip kod yapısını DEĞİŞTİREMEZ.
+7.  **Mimari Değişiklik ve Hack Yasağı (MUTLAK KURAL):** Bir API veya komut (örn. dumpsys) çalışmadığında veya sorun çıkardığında, ajan KESİNLİKLE ana mimariyi terk edip logcat okumak (log parsing) gibi "çöp karıştırma" veya geçici hack yöntemlerine otonom olarak geçemez. Sorun çözülürken, öncelikle mevcut sistemin ve izinlerin neden başarısız olduğu analiz edilecek ve KULLANICIDAN AÇIKÇA ONAY ALINMADAN alternatif/hack yöntemler uygulanmayacaktır.
+8.  **Dokümantasyon Güncelleme Kuralı:** Ajanlar her görev tamamlandığında aşağıdaki dosyaları mutlaka güncellemeli ve senkronize etmelidir:
+    *   `PROGRESS.md`: Yapılan son geliştirmenin, sürüm numarasının ve çözülen hataların kronolojik günlüğü.
+    *   `ROADMAP.md`: Projedeki ana hedeflerin tamamlanma durumu (Checkbox güncellemeleri).
+    *   `FILE_INDEX.md`: Değişen veya yeni eklenen dosyaların amacına dair endeks kaydı.
+    *   `UI_MANIFESTO.md`: Yeni alınan veya değişen tasarımsal kısıtlar (Padding, ekran oranları vb.).
+    *   `PROJECT_BRIEF.md` & `SISTEM_CALISMA_MANTIGI.md`: Yeni bir port, dış servis, veya veri akışı (Event) kurgulandığında, bu mimari tasarım dosyaları derhal revize edilmelidir. Sistemdeki "Proje Mimari Haritası" terimi bu iki dosyayı ifade eder.
 
 ## Mimari Kısıtlar (ÖNEMLİ)
+
+*   **EventBus Kuralı (No Polling Dependency):** Sistemdeki UI bileşenleri verileri ASLA kaynak koddan veya VehicleController'dan polling (saniyede bir sorma) yöntemiyle çekmeyecektir. Tüm veriler doğrudan tasarımdaki reaktif yapısına uygun olarak `EventBus` veya `GlobalState` akışlarından toplanacak (collect).
+*   **Güvenlik Anahtarı Kuralı:** Simülasyon verisi, tüm uygulama içerisinde tek bir global anahtara (`GlobalState.isSimulationMode.value`) bağlı olmalıdır. MQTT simülatöründen gelen veri bu kilit kapalıyken asla EventBus'a veya içeriye enjekte edilemez.
+*   **ActivityView Kısıtı (Kritik Donanım Koruması):** `ActivityView` veya `SurfaceView` barındıran bileşenleri (örn. Harita) arka planda gizlemek için ASLA `Modifier.offset(10000.dp)` veya aşırı büyük koordinat değerleri kullanılamaz. Bu durum `SurfaceFlinger` bellek taşmasına ve cihazın Soft-Brick olmasına (Siyah ekran çökmesine) yol açar. Gizlemek için `Modifier.alpha(0f)` ve z-index veya `graphicsLayer(scaleX=0.001f, scaleY=0.001f)` kullanılmalıdır.
+*   **Arayüz (UI) Kontrol Kuralı:** Bir sistem katmanı veya veri editi yapıldığında (özellikle EventBus entegrasyonlarında), bu değişikliğin doğrudan UI'ye yansıyıp yansımadığı kesinlikle kontrol edilip, ekranın reaksiyon vermeme riski eksik bırakılmayacaktır.
+*   **Sabit Katman Mimarisi Kuralı:** Sistem; Hardware/VHAL, Yürütme/ADB, Reaktif Merkez/EventBus, Telemetri/MQTT, Yapay Zeka/Hermes, UI/Overlay ve PC Simülasyon olmak üzere 7 sabit katmandan oluşur. Tüm yeni revizyonlar ve özellikler KESİNLİKLE bu katmanlardan birine entegre edilecektir. Sisteme yeni bir mimari katman eklenmesi YASAKTIR. (Architecture 2.0 ile bu katmanlar DSL üzerinden yönetilmektedir).
 
 *   **UI & SES Koruma:** Ana ekran 5x2 grid yapısı, 235dp sidebar boşluğu ve 16kHz Mono ses kayıt standartları `UI_MANIFESTO.md` kurallarına göre korunmalıdır. Değiştirilemez.
 *   **Tek IP / Çoklu Port Mimarisi:** Projede tüm dış servisler TEK BİR IP adresi üzerinden sunulur. Farklı hizmetler sadece port numaraları ile ayırt edilir.
@@ -25,7 +40,7 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
         *   API Key: `cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34` (Primary)
     *   **Hermes WebSocket Relay (8766):**
         *   Görev: Bridge sunucusu ile Hermes arasında çift yönlü komut/yanıt WebSocket kanalı.
-        *   Durum: **AKTİF** (websocket-relay.service — systemd)
+        *   Durum: **AKTİF VE ONARILDI** (13.07.2026'da servis kapalı bulundu, manuel restart edildi)
         *   Not: `POST /relay/send` ile WS client'ına komut gönderilebilir.
     *   **BridgeServer (8765):**
         *   Görev: Cihaz üzerinde çalışan yerel HTTP API sunucusu (ActionExecutor komutları).
@@ -60,6 +75,7 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
     *   User: `dietpi` (40781)
     *   Password: `40781`
 *   **Servis Kısıtlamaları:** Groq veya diğer harici doğrudan bulut API'leri KESİNLİKLE kullanılmayacaktır. Tüm yapay zeka ve ses işlemleri `100.95.239.119:8642` ve diğer yerel portlar üzerinden yürütülecektir. TTS olarak yalnızca yerel Edge TTS sunucusu (Port `10201`) kullanılacaktır.
+*   **Linux/Tkinter UI Kısıtlamaları (VHAL AES):** Python CustomTkinter kütüphanesinde (main.py vb.) font ağırlığı olarak KESİNLİKLE `weight="black"` KULLANILMAMALIDIR. Linux X11 ortamı bunu desteklemediğinden `_tkinter.TclError` ile uygulamanın çökmesine neden olur. Yalnızca `weight="bold"` veya `weight="normal"` kullanılacaktır.
 
 ## Kod İnceleme Protokolü
 

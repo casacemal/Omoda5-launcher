@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
@@ -40,11 +39,17 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.omoda.lanc.AssistantApplication
 import com.omoda.lanc.core.GlobalState
+import com.omoda.lanc.core.PermissionManager
+import com.omoda.lanc.core.SystemTimeSync
 import com.omoda.lanc.core.VehicleController
+import com.omoda.lanc.core.dsl.Omoda5
+import com.omoda.lanc.ui.theme.OmodaCyan
 import com.omoda.lanc.ui.components.StatusLed
+import com.omoda.lanc.voice.ModelRepairManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,7 +122,7 @@ fun SettingsScreen(onBack: () -> Unit) {
     val isHermesConnected = hermesStatus == "CONNECTED" || hermesStatus == "FALLBACK_CONNECTED" || hermesStatus == "FULL_CONNECTED"
 
     val vehicleDataValues by GlobalState.vehicleDataValues.collectAsState()
-    val speedStr = vehicleDataValues["11600207"] ?: "0"
+    val speedStr = vehicleDataValues["HIZ"] ?: "0"
     val speed = speedStr.replace(" km/h", "").replace(",", ".").toFloatOrNull() ?: 0f
     val isMoving = speed > 5f
 
@@ -263,6 +268,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                     val tabs = listOf(
                         "Asistan" to Icons.Default.Face,
                         "Bağlantılar" to Icons.Default.Settings,
+                        "İzinler" to Icons.Default.CheckCircle,
                         "Sensörler" to Icons.Default.Place,
                         "Sistem" to Icons.Default.Build,
                         "Loglar" to Icons.AutoMirrored.Filled.List,
@@ -349,6 +355,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                         val tabs = listOf(
                             "Asistan" to Icons.Default.Face,
                             "Bağlantılar" to Icons.Default.Settings,
+                            "İzinler" to Icons.Default.CheckCircle,
                             "Sensörler" to Icons.Default.Place,
                             "Sistem" to Icons.Default.Build,
                             "Loglar" to Icons.AutoMirrored.Filled.List,
@@ -506,8 +513,75 @@ fun SettingsContent(
             "Sensörler" -> TabSensorler(isHandheld, pollingConfig)
             "Sistem" -> TabSistemEnhanced(isHandheld, isKlimaAuto)
             "Loglar" -> TabMqttLoglari(isHandheld)
+            "İzinler" -> TabIzinler(isHandheld)
             "Market" -> AppStoreSection()
             "Hakkında" -> TabHakkinda(isHandheld, vehicleId, serverIp, "8642")
+        }
+    }
+}
+
+@Composable
+fun TabIzinler(isCompact: Boolean) {
+    val context = LocalContext.current
+    val permissions by PermissionManager.permissions.collectAsState()
+    val rootedStatus by PermissionManager.isRooted.collectAsState()
+    val scrollState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        while(true) {
+            PermissionManager.checkAll(context)
+            delay(5000)
+        }
+    }
+
+    Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(if(isCompact) 8.dp else 16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        EnhancedSettingCard(title = "SİSTEM YETKİLERİ", isCompact = isCompact) {
+            Column {
+                permissions.forEach { status ->
+                    PermissionItem(status = status, onFix = { PermissionManager.fixPermission(context, status) })
+                }
+            }
+        }
+
+        EnhancedSettingCard(title = "ADB & ROOT YÖNETİMİ", isCompact = isCompact) {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                    Column {
+                        Text("Root Durumu", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                        Text(if(rootedStatus) "Cihaz Rootlu (UID 0)" else "Root Erişimi Yok", color = if(rootedStatus) Color.Green else Color.Gray, fontSize = 11.sp)
+                    }
+                    Button(onClick = { PermissionManager.requestRoot(context) }, colors = ButtonDefaults.buttonColors(containerColor = if(rootedStatus) Color.Gray else OmodaCyan)) {
+                        Text(if(rootedStatus) "AKTİF" else "ROOT DENE", color = Color.Black, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
+                
+                HorizontalDivider(color = Color.White.copy(alpha = 0.05f))
+                
+                Text("Hızlı ADB Komutları", color = Color(0xFF69E2D3), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    val adbCmds = listOf(
+                        "TCP 5555" to "setprop service.adb.tcp.port 5555; stop adbd; start adbd",
+                        "USB MOD" to "setprop service.adb.tcp.port -1; stop adbd; start adbd",
+                        "LOG TEMİZLE" to "logcat -c"
+                    )
+                    adbCmds.forEach { (label, cmd) ->
+                        Button(
+                            onClick = { 
+                                val intent = Intent("com.omoda.lanc.ACTION_EXECUTE_SHELL").apply { 
+                                    setPackage(context.packageName)
+                                    putExtra("command", cmd) 
+                                }
+                                context.startForegroundService(intent)
+                            },
+                            modifier = Modifier.weight(1f),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
+                            contentPadding = PaddingValues(0.dp)
+                        ) {
+                            Text(label, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -568,6 +642,9 @@ fun TabAsistanEnhanced(
     val config = LocalConfiguration.current
     val isPortrait = config.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
     val spacing = if (isCompact) (if(isPortrait) 8.dp else 4.dp) else 16.dp
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var repairStatus by remember { mutableStateOf<String?>(null) }
 
     Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(spacing)) {
         if (isPortrait) {
@@ -582,6 +659,7 @@ fun TabAsistanEnhanced(
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     SettingsToggleButton(label = "EDGE", active = ttsEngine == "EDGE", onClick = { onTtsEngineChange("EDGE") }, modifier = Modifier.weight(1f), isCompact = isCompact)
                     SettingsToggleButton(label = "9ROUTER", active = ttsEngine == "9ROUTER", onClick = { onTtsEngineChange("9ROUTER") }, modifier = Modifier.weight(1f), isCompact = isCompact)
+                    SettingsToggleButton(label = "PIPER", active = ttsEngine == "SHERPA", onClick = { onTtsEngineChange("SHERPA") }, modifier = Modifier.weight(1f), isCompact = isCompact)
                     SettingsToggleButton(label = "NATIVE", active = ttsEngine == "LOCAL", onClick = { onTtsEngineChange("LOCAL") }, modifier = Modifier.weight(1f), isCompact = isCompact)
                 }
             }
@@ -598,6 +676,7 @@ fun TabAsistanEnhanced(
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         SettingsToggleButton(label = "EDGE", active = ttsEngine == "EDGE", onClick = { onTtsEngineChange("EDGE") }, isCompact = isCompact)
                         SettingsToggleButton(label = "9ROUTER", active = ttsEngine == "9ROUTER", onClick = { onTtsEngineChange("9ROUTER") }, isCompact = isCompact)
+                        SettingsToggleButton(label = "PIPER", active = ttsEngine == "SHERPA", onClick = { onTtsEngineChange("SHERPA") }, isCompact = isCompact)
                         SettingsToggleButton(label = "NATIVE", active = ttsEngine == "LOCAL", onClick = { onTtsEngineChange("LOCAL") }, isCompact = isCompact)
                     }
                 }
@@ -625,7 +704,24 @@ fun TabAsistanEnhanced(
                     SwitchOption(label = "Hey Omoda", checked = isWakeWord, onChecked = onIsWakeWordChange)
                     SwitchOption(label = "Kesintisiz", checked = isContinuous, onChecked = onIsContinuousChange)
                 }
-                SwitchOption(label = "Akıllı Karar Motoru", checked = useDecision, onChecked = onUseDecisionChange)
+
+                Button(
+                    onClick = {
+                        scope.launch {
+                            ModelRepairManager.checkAndRepair(context) { status ->
+                                repairStatus = status
+                            }
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+                ) {
+                    Text(repairStatus ?: "SES MODELLERİNİ ONAR", fontSize = 12.sp)
+                }
+
+                if (repairStatus != null) {
+                    Text(repairStatus!!, color = OmodaCyan, fontSize = 10.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+                }
                 
                 HorizontalDivider(color = Color.White.copy(alpha = 0.05f))
                 Text("Mikrofon Kaynağı", color = Color.Gray, fontSize = 12.sp)
@@ -765,12 +861,15 @@ fun TabBaglantilarEnhanced(
             EnhancedSettingCard(title = "SİMÜLASYON VE KÖPRÜ", modifier = Modifier.weight(1f), isCompact = isCompact) {
                 Column(verticalArrangement = Arrangement.spacedBy(if(isLandscape && isCompact) 4.dp else 8.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                        Text("Simülatör:", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = if(isCompact) 11.sp else 14.sp)
-                        Switch(checked = isSimMode, onCheckedChange = onIsSimModeChange, modifier = Modifier.scale(0.8f))
-                    }
-                    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                        Text("Köprü:", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = if(isCompact) 11.sp else 14.sp)
-                        Switch(checked = isBridgeMode, onCheckedChange = onIsBridgeModeChange, modifier = Modifier.scale(0.8f))
+                        Text("Simülatör & Köprü:", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = if(isCompact) 11.sp else 14.sp)
+                        Switch(
+                            checked = isSimMode || isBridgeMode, 
+                            onCheckedChange = { 
+                                onIsSimModeChange(it)
+                                onIsBridgeModeChange(it) 
+                            }, 
+                            modifier = Modifier.scale(0.8f)
+                        )
                     }
                     
                     Button(
@@ -809,15 +908,34 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 EnhancedSettingCard(title = "VARSAYILAN LAUNCHER", modifier = Modifier.weight(1f), isCompact = isCompact) {
                     Button(onClick = { 
-                        val cmds = listOf("pm disable-user --user 0 com.yfve.launcher", "cmd package set-home-activity com.omoda.lanc/.MainActivity", "am start -n com.yfve.hvac/com.yfve.hvac.MainActivity")
+                        val cmds = listOf("pm disable-user --user 0 com.yfve.launcher", "cmd package set-home-activity com.omoda.lanc/.MainActivity", "am start -n com.chery.hvac/.view.activity.MainActivity")
                         cmds.forEach { exec(context, it) }
                     }, modifier = Modifier.fillMaxWidth().height(32.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF3B14B))) {
                         Text("VARSAYILAN YAP", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 9.sp)
                     }
                 }
+            }
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                EnhancedSettingCard(title = "PREMIUM ÖZELLİKLER", modifier = Modifier.weight(1.5f), isCompact = isCompact) {
+                    val proactive by GlobalState.proactiveNotificationsEnabled.collectAsState()
+                    val criticalOnly by GlobalState.criticalNotificationsOnly.collectAsState()
+                    val waveform by GlobalState.waveformEnabled.collectAsState()
+                    val gamification by GlobalState.gamificationEnabled.collectAsState()
+
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                            SwitchOption(label = "Akıllı Bildirimler", checked = proactive, onChecked = { GlobalState.proactiveNotificationsEnabled.value = it; AssistantApplication.saveCurrentConfig() })
+                            SwitchOption(label = "Waveform", checked = waveform, onChecked = { GlobalState.waveformEnabled.value = it; AssistantApplication.saveCurrentConfig() })
+                        }
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                            SwitchOption(label = "Sadece Kritik Uyar.", checked = criticalOnly, onChecked = { GlobalState.criticalNotificationsOnly.value = it; AssistantApplication.saveCurrentConfig() })
+                            SwitchOption(label = "Sürüş Puanı", checked = gamification, onChecked = { GlobalState.gamificationEnabled.value = it; AssistantApplication.saveCurrentConfig() })
+                        }
+                    }
+                }
                 EnhancedSettingCard(title = "ARAÇ ARAÇLARI", modifier = Modifier.weight(1f), isCompact = isCompact) {
                     Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Button(onClick = { exec(context, "am start -n com.yfve.hvac/com.yfve.hvac.MainActivity") }, modifier = Modifier.weight(1f).height(32.dp)) { Text("KLİMA", fontSize = 9.sp) }
+                        Button(onClick = { exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity") }, modifier = Modifier.weight(1f).height(32.dp)) { Text("KLİMA", fontSize = 9.sp) }
                         Button(onClick = { exec(context, "svc wifi disable; sleep 2; svc wifi enable") }, modifier = Modifier.weight(1f).height(32.dp)) { Text("WIFI", fontSize = 9.sp) }
                     }
                 }
@@ -826,16 +944,44 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
             EnhancedSettingCard(title = "VARSAYILAN LAUNCHER", isCompact = isCompact) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(onClick = { 
-                        val cmds = listOf("pm disable-user --user 0 com.yfve.launcher", "cmd package set-home-activity com.omoda.lanc/.MainActivity", "am start -n com.yfve.hvac/com.yfve.hvac.MainActivity")
+                        val cmds = listOf("pm disable-user --user 0 com.yfve.launcher", "cmd package set-home-activity com.omoda.lanc/.MainActivity", "am start -n com.chery.hvac/.view.activity.MainActivity")
                         cmds.forEach { exec(context, it) }
                     }, modifier = Modifier.fillMaxWidth().height(if(isCompact) 44.dp else 60.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF3B14B))) {
                         Text("VARSAYILAN YAP (ZORLA)", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = if(isCompact) 11.sp else 14.sp)
                     }
                 }
             }
+            EnhancedSettingCard(title = "PREMIUM ÖZELLİKLER", isCompact = isCompact) {
+                val proactive by GlobalState.proactiveNotificationsEnabled.collectAsState()
+                val criticalOnly by GlobalState.criticalNotificationsOnly.collectAsState()
+                val waveform by GlobalState.waveformEnabled.collectAsState()
+                val gamification by GlobalState.gamificationEnabled.collectAsState()
+
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    SwitchOption(label = "Akıllı Bildirimler (Dynamic Island)", checked = proactive, onChecked = { GlobalState.proactiveNotificationsEnabled.value = it; AssistantApplication.saveCurrentConfig() })
+                    if (proactive) {
+                        SwitchOption(label = "Sadece Önemli Bildirimler", checked = criticalOnly, onChecked = { GlobalState.criticalNotificationsOnly.value = it; AssistantApplication.saveCurrentConfig() })
+                    }
+                    SwitchOption(label = "Ses Dalgası Animasyonu", checked = waveform, onChecked = { GlobalState.waveformEnabled.value = it; AssistantApplication.saveCurrentConfig() })
+                    SwitchOption(label = "Sürüş Puanı (Gamification)", checked = gamification, onChecked = { GlobalState.gamificationEnabled.value = it; AssistantApplication.saveCurrentConfig() })
+                }
+            }
             EnhancedSettingCard(title = "ARAÇ ARAÇLARI", isCompact = isCompact) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = { exec(context, "am start -n com.yfve.hvac/com.yfve.hvac.MainActivity") }, modifier = Modifier.weight(1f).height(if(isCompact) 36.dp else 48.dp)) { Text("KLİMA", fontSize = if(isCompact) 10.sp else 13.sp) }
+                    Button(
+                        onClick = { 
+                            val cmds = listOf(
+                                "pm enable com.chery.hvac", 
+                                "am start -n com.chery.hvac/.view.activity.MainActivity",
+                                "dumpsys car_service set-property-value 0x15200505 0 1"
+                            )
+                            cmds.forEach { exec(context, it) }
+                        }, 
+                        modifier = Modifier.weight(1f).height(if(isCompact) 36.dp else 48.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE91E63))
+                    ) { 
+                        Text("KLİMA ONAR", fontSize = if(isCompact) 10.sp else 13.sp, fontWeight = FontWeight.Bold) 
+                    }
                     Button(onClick = { exec(context, "svc wifi disable; sleep 2; svc wifi enable") }, modifier = Modifier.weight(1f).height(if(isCompact) 36.dp else 48.dp)) { Text("WIFI ONAR", fontSize = if(isCompact) 10.sp else 13.sp) }
                 }
             }
@@ -885,8 +1031,8 @@ fun TabSensorler(isCompact: Boolean, pollingConfig: Map<String, Int>) {
     Column(modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(bottom = 80.dp)) {
         EnhancedSettingCard(title = "ARAÇ VERİ POLİTİKASI", isCompact = isCompact) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                VehicleController.PROPERTY_DEFINITIONS.forEach { (id, def) ->
-                    val tier = pollingConfig[id] ?: def.defaultTier
+                Omoda5.capabilities.forEach { (id, def) ->
+                    val tier = pollingConfig[id] ?: def.pollingTier
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(def.label, color = Color.White, modifier = Modifier.weight(1f), fontSize = if(isCompact) 12.sp else 14.sp)
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {

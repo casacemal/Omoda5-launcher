@@ -1,0 +1,670 @@
+--------- beginning of main
+07-15 01:08:03.679  2476  2485 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x01 0x08 0x02 
+07-15 01:08:03.694  3747  3747 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010802
+07-15 01:08:03.694  3101  3101 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010802
+07-15 01:08:03.694  3101  3967 I SYSUI.CanControllerImpl: onIcmTimeChanged: 20260715010802
+07-15 01:08:03.695 19130 19130 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010802
+07-15 01:08:03.706  3716  3716 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010802
+07-15 01:08:03.706  3716  3956 D SET.GPSTimeUtilscitosTime: icmTime  20260715010802
+--------- beginning of system
+07-15 01:08:03.825  2692  3617 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.omoda.lanc/.MainActivity} from uid 2000
+07-15 01:08:03.833  2555  2555 D android.hardware.power@1.3-service.semidrive: LAUNCH: 1
+07-15 01:08:03.861  3716  3716 D SET.WifiFragment: onPause
+07-15 01:08:03.861  3716  3716 D SettingsActivity: onPause
+07-15 01:08:03.862  2692  2692 V SettingsProvider: Notifying for 0: content://settings/system/SettingMenuID
+07-15 01:08:03.876  2553  2553 W IMGMemtrackHAL: hal_get_memory: memtrack cache rebuild was required
+07-15 01:08:03.896  2499  2499 D Zygote  : Forked child process 23305
+07-15 01:08:03.899  2692  2801 I ActivityManager: Start proc 23305:com.omoda.lanc/u0a51 for activity {com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:08:03.908 23305 23305 I com.omoda.lanc: Late-enabling -Xcheck:jni
+07-15 01:08:03.951 23305 23305 E com.omoda.lanc: Unknown bits set in runtime_flags: 0x8000
+07-15 01:08:03.963  3010  3068 I CAR.AM  : onTaskStackChanged
+07-15 01:08:03.963  3101  3639 I AM      : onTaskStackChanged
+07-15 01:08:03.965  3101  3293 I AM      : Updating top task to: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:03.965  3010  3142 I CAR.AM  : Updating top task to: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:03.966  3010  3142 I CAR.AM  : Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:03.966  3101  3293 I AM      : Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:03.966  3101  3293 I SYSUI.UiVisibilityManag: TopActivity: getPackageName = com.omoda.lanc, info =ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:08:03.967  3010  3142 I CAR.AUDIO: setZoneIdForUid Calling uid 10051 mapped to : 0
+07-15 01:08:03.967  3010  3142 I CAR.AUDIO: checkAndRemoveUid removing Calling uid 10051 from zone 0
+07-15 01:08:03.968  3010  3142 D CAR.AUDIO: setZoneIdForUidNoCheck Calling uid 10051 mapped to 0
+07-15 01:08:03.969  3010  3142 I CAR.AM  : Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:04.004  2573  3586 I tbox_service_socketclient: sendData:: aa 55 00 00 00 00 00 00 
+07-15 01:08:04.006  2573  3586 E tbox_service_socketclient: sendMsg,send Tbox success!len=0
+07-15 01:08:04.021  3010  3068 I CAR.AM  : onForegroundActivitiesChanged uid 10051 pid 23305 fg true
+07-15 01:08:04.024  3101  3639 I AM      : onForegroundActivitiesChanged uid 10051 pid 23305 fg true
+07-15 01:08:04.027  2498  2763 E TrafficController: Failed to set the counterSet: Function not implemented, fd: -1
+07-15 01:08:04.030  3101  3293 I AM      : Updating top task to: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:04.030  3101  3293 I AM      : Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:04.030  3101  3293 I SYSUI.UiVisibilityManag: TopActivity: getPackageName = com.omoda.lanc, info =ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}
+07-15 01:08:04.031  3010  3142 I CAR.AM  : Updating top task to: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:04.031  3010  3142 I CAR.AM  : Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:04.031  3010  3142 I CAR.AM  : Notifying about top task: TaskInfoContainer [topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}, taskId=4222, stackId=60, userId=0, displayId=0, position=2
+07-15 01:08:04.266  3101  3101 D SYSUI.UiVisibilityManag: MSG_HIDE_QUICK_SETTING_PANEL 
+07-15 01:08:04.266  3101  3101 D UiVisibilityBinder: setUiVisibility:4:0 by com.android.systemui:sysui
+07-15 01:08:04.266  3101  3101 I SYSUI.UiVisibilityManag: onTargetUiVisibilityChanged:4,visibility:0
+07-15 01:08:04.266  3101  3101 D SYSUI.UiVisibilityManag: MSG_UI_VISIBLE_CHANGED 
+07-15 01:08:04.266  3101  3101 I SYSUI.UiVisibilityManag: handleVisibilityChange: flag = 4 vis = 0
+07-15 01:08:04.266  3101  3101 W SYSUI.UiVisibilityManag: handleVisibilityChange => collapse Quick Setting
+07-15 01:08:04.266  3101  3101 I SYSUI.QuickStatusBarCon: changeActivityAndCollapse: 
+07-15 01:08:04.266  3101  3101 W SYSUI.QuickStatusBarCon: Already collapse! Do nothing!
+07-15 01:08:04.293  2573  5330 I tbox_service_socketclient: recTCPMsg  readlen=269
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: tboxDataResp,str={
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"URI":	"content://tbox.automotive.neusoft.com/NetworkStatusNotification",
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"DataConnection":	false,
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"SimCardRegistraionStatus":	false,
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"MobileNetworkType":	"NoNetwork",
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"Roaming":	false,
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"SignalStrength":	-1,
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"RouterIPAddress":	"",
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: 	"VPNIPAddress":	""
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: }
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: tboxDataResp,uri=content://tbox.automotive.neusoft.com/NetworkStatusNotification
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: networkStatusNotification,dataConnection=0
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: networkStatusNotification,simCardRegistraionStatus=0
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: networkStatusNotification,mobileNetworkType=NoNetwork
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: networkStatusNotification,roaming=0
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: networkStatusNotification,signalStrength=-1
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: networkStatusNotification,routerIPAddress=
+07-15 01:08:04.293  2573  5330 I tbox_service_parsejson: networkStatusNotification,vpnIPAddress=
+07-15 01:08:04.294  2573  5330 I tbox_service_socketclient: recTCPMsg,waiting for recv tcp data.
+07-15 01:08:04.330  3101  3101 D SYSUI.UiVisibilityManag: MSG_HIDE_QUICK_SETTING_PANEL 
+07-15 01:08:04.330  3101  3101 D UiVisibilityBinder: setUiVisibility:4:0 by com.android.systemui:sysui
+07-15 01:08:04.330  3101  3101 I SYSUI.UiVisibilityManag: onTargetUiVisibilityChanged:4,visibility:0
+07-15 01:08:04.330  3101  3101 D SYSUI.UiVisibilityManag: MSG_UI_VISIBLE_CHANGED 
+07-15 01:08:04.330  3101  3101 I SYSUI.UiVisibilityManag: handleVisibilityChange: flag = 4 vis = 0
+07-15 01:08:04.330  3101  3101 W SYSUI.UiVisibilityManag: handleVisibilityChange => collapse Quick Setting
+07-15 01:08:04.330  3101  3101 I SYSUI.QuickStatusBarCon: changeActivityAndCollapse: 
+07-15 01:08:04.330  3101  3101 W SYSUI.QuickStatusBarCon: Already collapse! Do nothing!
+07-15 01:08:04.421  2573  5330 I tbox_service_socketclient: recTCPMsg  readlen=650
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: tboxDataResp,str={
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: 	"NMEA":	"$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,27,1*52\r\n$GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,28,1*6E\r\n$GPGSV,5,3,17,24,78,209,52,25,14,278,38,32,06,324,34,06,33,095,,1*6A\r\n$GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,220805.00,3951.174905,N,03330.191894,E,1,09,0.5,768.5,M,37.0,M,,*6A\r\n$GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20\r\n$GPRMC,220805.00,A,3951.174905,N,03330.191894,E,0.0,138.0,140726,4.1,E,A,V*44\r\n$GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23\r\n"
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: }
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: gpsNotification nmea=$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,27,1*52
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,28,1*6E
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,3,17,24,78,209,52,25,14,278,38,32,06,324,34,06,33,095,,1*6A
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,5,17,49,,,45,1*6E
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPGGA,220805.00,3951.174905,N,03330.191894,E,1,09,0.5,768.5,M,37.0,M,,*6A
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPRMC,220805.00,A,3951.174905,N,03330.191894,E,0.0,138.0,140726,4.1,E,A,V*44
+07-15 01:08:04.421  2573  5330 I tbox_service_parsejson: $GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: initData
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,altitude=805.500000,latitude=39.852915,longtitude=33.503198
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,pdop=0.700000,hdop=0.500000,vdop=0.600000
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=139;filed_1=24
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=292;filed_1=49
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=208;filed_1=13
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=3
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=45;filed_1=13
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=50;filed_1=47
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=184;filed_1=04
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=77;filed_1=11
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=7
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=209;filed_1=78
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=278;filed_1=14
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=324;filed_1=06
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:04.421  2573  5330 I chatty  : uid=0(root) tbox@1.0-servic identical 1 line
+07-15 01:08:04.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:04.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:04.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=22,gpsInfo.minute=8,gpsInfo.second=5,gpsInfo.gpsTime=2026-7-14 22:8:5
+07-15 01:08:04.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,222 gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:04.422  2573  5330 I tbox_service_socketclient: recTCPMsg,waiting for recv tcp data.
+07-15 01:08:04.423  2692  3851 I GnssLocationProvider: onGPSInfoChanged gpsSpeed=0.0;heading=138.0
+07-15 01:08:04.423  2692  3851 I GnssLocationProvider: onGPSInfoChanged reportLocation
+07-15 01:08:04.423  2692  3851 I GnssLocationProvider: onSatellitesChanged onSvStatusChanged
+07-15 01:08:04.493  2595 23297 W adbd    : timed out while waiting for FUNCTIONFS_BIND, trying again
+07-15 01:08:04.493  2595 23297 I adbd    : UsbFfs: connection terminated: monitor thread finished
+07-15 01:08:04.493  2595  2595 I adbd    : UsbFfs: already offline
+07-15 01:08:04.494  2595  2595 I adbd    : destroying transport UsbFfs
+07-15 01:08:04.494  2595  2595 I adbd    : UsbFfsConnection being destroyed
+07-15 01:08:04.523  2595  2626 I adbd    : opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 01:08:04.523  2595  2626 I adbd    : UsbFfsConnection constructed
+07-15 01:08:04.547  2498  2750 E TrafficController: Failed to add iface wlan0(3): Function not implemented
+07-15 01:08:04.548  2692  3617 D WificondControl: Scan result ready event
+07-15 01:08:04.551  2692  2791 I EthernetTracker: interfaceLinkStateChanged, iface: wlan0, up: true
+07-15 01:08:04.555  2498  2876 I netd    : interfaceGetCfg("wlan0") <3.39ms>
+07-15 01:08:04.559  2692  2919 D WificondScannerImpl: Filtering out 5 scan results.
+07-15 01:08:04.563  3262  3262 D WifiReceiver: onReceive: action = android.net.wifi.SCAN_RESULTS
+07-15 01:08:04.564  2692  2917 D ANQPRequestManager: Not allowed to send ANQP request to 143794198620271 for another 568 seconds
+07-15 01:08:04.565  2692  2917 D PasspointManager: ANQP entry not found for: 82:c7:b2:21:28:6f:<cemal2>
+07-15 01:08:04.580  2692  2917 D ANQPRequestManager: Not allowed to send ANQP request to 143794198620271 for another 568 seconds
+07-15 01:08:04.580  2692  2917 D PasspointManager: ANQP entry not found for: 82:c7:b2:21:28:6f:<cemal2>
+07-15 01:08:04.586  3716  3716 D SET.WifiReposity: onAccessPointsChanged
+07-15 01:08:04.586  3716  3716 D SET.WifiReposity: updateWifiList 12
+07-15 01:08:04.598  2540  4543 E         : DAB_ScanStatus2_not recevier 1 Freq:239200, DABSignalPresent:0, SNR:0, RSSI:0,EnsembleInfoFlag:0, SIAvailableFlag:0, TimeOutFlag:0
+07-15 01:08:04.598  2540  4543 E         : DAB_BG_Scan,Scan on receiver 1 finished!
+07-15 01:08:04.598  2540  4543 E         : Dab_Send_Service_List_Check, the service list(E/S/C number:0,0,0) has changed from the last scan(E/S/C number:0,0,0)
+07-15 01:08:04.598  2540  4543 E         : DAB_BG_Scan, 111ListView:0
+07-15 01:08:04.598  2540  4543 E         : DAB_BG_Scan, 222ListView:0
+07-15 01:08:04.598  2540  4543 E         : DAB_BG_Scan, 333ListView:0
+07-15 01:08:04.603  2540  4543 E         : DAB IPCL_MsgTransmit,DAB_V2H_DATA_ID_LIST_SAVED, List is 0!!!
+07-15 01:08:04.603  2540  4543 E         : 
+07-15 01:08:04.608  2540  4545 I dabdrm_dbus: dab_dbus_meaasge_handle,group_id=0xf,event_id = 0x0,frame_counter = 0x34, data_id=0x3
+07-15 01:08:04.608  2540  4545 I dabdrm_dbus: DAB_V2H_DATA_ID_LIST_SAVED 
+07-15 01:08:04.608  2540  4545 I dabdrm_hw_stub: notifyDabServiceList++ notifyDabServiceList, total=0.
+07-15 01:08:04.608  2540  4545 I dabdrm_hw_stub: notifyDabServiceList++ 0xe3fe43f39370.
+07-15 01:08:04.608  2540  4543 E         : DAB_BG_Scan, Returning to idle!
+07-15 01:08:04.608  2540  4543 E         : 
+07-15 01:08:04.608  2540  4543 E         : 
+07-15 01:08:04.608  2540  4543 E         : RadioApplication_Monitoring, Start compare SNR, CurFrequency:0
+07-15 01:08:04.608  2540  4543 E         : RadioApplication_Scan,DabScanStart!!!
+07-15 01:08:04.632  3716  3716 D SET.WifiFragment: wifiHistoryList onChanged: 1
+07-15 01:08:04.632  3716  3716 D SET.WifiFragment: wifiScanList onChanged: 11
+07-15 01:08:04.634  2540  4543 E         : DAB_Reply, DAB_SetAudioStatus2Notifier_repl: 0
+07-15 01:08:04.634  2540  4543 E         : DAB_BG_Scan ,Starting scan on receiver 1! timer_x50ms:6
+07-15 01:08:04.655  2540  4543 E         : DAB_BG_Scan ,eScanState_ScanReply Ok!
+07-15 01:08:04.683  2476  2485 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x01 0x08 0x03 
+07-15 01:08:04.696  3716  3716 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010803
+07-15 01:08:04.696  3101  3101 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010803
+07-15 01:08:04.697  3716  3956 D SET.GPSTimeUtilscitosTime: icmTime  20260715010803
+07-15 01:08:04.697  3747  3747 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010803
+07-15 01:08:04.697  3101  3967 I SYSUI.CanControllerImpl: onIcmTimeChanged: 20260715010803
+07-15 01:08:04.697 19130 19130 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010803
+07-15 01:08:04.708  2540  4550 W DabDrm  : DABDRM_EVENT_DAB_SERVICE_LIST_SAVED, 0.
+07-15 01:08:04.708  4216  4547 V BroadcastDabDrmService.DabDrmCallback.jni: notifyDabServiceList(0 0x0 0x0 0x0)
+07-15 01:08:04.708  4216  4546 I DadDrm_DabDrmCallback: notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0
+07-15 01:08:04.708  4216  4546 I DadDrm_AIDLService: notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0, sc_ids: 0
+07-15 01:08:04.709  3747  5639 I DAB.DabBusiness: notifyDabServiceList, savelist: {"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 01:08:04.709  3747  5639 I DAB.DabBusiness: parseServiceList, totalNum 0
+07-15 01:08:04.709  3747  5639 I DAB.DabBusiness: setCurPlayType, listType: 0, name: 
+07-15 01:08:04.710  4216  4546 I DadDrm_AIDLService: ------notifyDabServiceList------------{"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 01:08:04.783 23324 23324 D AVStageFactory: createInstance(64bit): createVendorAVFactory success!
+07-15 01:08:04.784 23324 23324 D AVStageFactory: AVStageFactory()
+07-15 01:08:04.784 23324 23324 D YfveAVStageFactory: YfveAVStageFactory()
+07-15 01:08:04.784 23324 23324 D AVStageUtils: createInstance(64bit): createVendorAVUtils success!
+07-15 01:08:04.784 23324 23324 D YfveAVStageUtils: createVendorAVUtils()
+07-15 01:08:04.784 23324 23324 D YfveAVStageUtils: YfveAVStageUtils()
+07-15 01:08:04.784 23324 23324 D AVStageFactory: createInstance(64bit): createVendorAVFactory success!
+07-15 01:08:04.784 23324 23324 D AVStageFactory: AVStageFactory()
+07-15 01:08:04.784 23324 23324 D YfveAVStageFactory: YfveAVStageFactory()
+07-15 01:08:04.786 23324 23324 I CarPlayLooper: Looper::Looper construct.......
+07-15 01:08:04.786 23324 23324 I CarPlayCommProtocal_CPP: CarPlayCommProtocal::CarPlayCommProtocal
+07-15 01:08:04.786 23324 23324 I CarPlayLooper: pthread_create id:264365407198544 ,ret = 0
+07-15 01:08:04.786 23324 23324 I CarPlayLooper: set thread id:264365407198544 with name:CarPlayCommProtocal
+07-15 01:08:04.786 23324 23324 I CarPlayLooper: thread name CarPlayCommProtocal
+07-15 01:08:04.786 23324 23326 I CarPlayLooper: start thread 0xb5821f90a8d0......
+07-15 01:08:04.786 23324 23326 I CarPlayLooper: Looper::loop start running for CarPlayCommProtocal .......,
+07-15 01:08:04.786 23324 23324 I CarPlayConfig: CarPlayConfiguration::CarPlayConfiguration in...
+07-15 01:08:04.786 23324 23324 I CarPlayConfig: CarPlayConfiguration::CarPlayConfiguration out...
+07-15 01:08:04.786 23324 23324 D plugin  : call MFiPlatform_CopyCertificate
+07-15 01:08:04.786 23324 23324 D plugin  : MFi auth copy certificate
+07-15 01:08:04.786 23324 23324 D plugin  : create ceitificate try to get lock
+07-15 01:08:04.786 23324 23324 D plugin  : create ceitificate lock end
+07-15 01:08:04.787 23324 23324 D plugin  : ### MFi auth set register 0x30 failed (try 1): 121/0x79 
+07-15 01:08:04.792 23324 23324 D plugin  : ### MFi auth read register 0x30, 2 bytes failed (try 1): 121/0x79 
+07-15 01:08:04.798 23324 23324 D plugin  : ### certificateLen: 608
+07-15 01:08:04.798 23324 23324 D plugin  : offset=[0],dataAddr=0x31
+07-15 01:08:04.798 23324 23324 D plugin  : ### MFi auth read register 0x31, 128 bytes failed (try 1): 121/0x79 
+07-15 01:08:04.815 23324 23324 D plugin  : offset=[128],dataAddr=0x32
+07-15 01:08:04.815 23324 23324 D plugin  : ### MFi auth read register 0x32, 128 bytes failed (try 1): 121/0x79 
+07-15 01:08:04.831 23324 23324 D plugin  : offset=[256],dataAddr=0x33
+07-15 01:08:04.832 23324 23324 D plugin  : ### MFi auth read register 0x33, 128 bytes failed (try 1): 121/0x79 
+07-15 01:08:04.848 23324 23324 D plugin  : offset=[384],dataAddr=0x34
+07-15 01:08:04.849 23324 23324 D plugin  : ### MFi auth read register 0x34, 128 bytes failed (try 1): 121/0x79 
+07-15 01:08:04.865 23324 23324 D plugin  : offset=[512],dataAddr=0x35
+07-15 01:08:04.865 23324 23324 D plugin  : ### MFi auth read register 0x35, 96 bytes failed (try 1): 121/0x79 
+07-15 01:08:04.879 23324 23324 D plugin  : MFi auth copy certificate done: 608 bytes
+07-15 01:08:04.879 23324 23324 I CarPlayCommProtocal_CPP: CarPlayCommProtocal::startCommThread
+07-15 01:08:04.880 23324 23327 I CarPlayCommProtocal_CPP: CarPlayCommProtocal::_AirPlayThread
+07-15 01:08:04.880 23324 23324 I mDNSResponder: Default: DNSStart!
+07-15 01:08:04.880 23324 23324 I mDNSResponder: Default: No unicast UDP responses
+07-15 01:08:04.880 23324 23324 I mDNSResponder: Default: get local hostLabel is 	localhost
+07-15 01:08:04.880 23324 23324 I mDNSResponder: Default: get local hostLabel is localhost
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: hostLabel len is 9
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: after MakeDomainLabelFromLiteralString hostLabel is 	localhost
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: after MakeDomainLabelFromLiteralString hostLabel is localhost
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: after MakeDomainLabelFromLiteralString hostLabel len is 9
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: mDNS_SetFQDN: AppendDomainLabel hostlabel,newmname is 	localhost
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: mDNS_SetFQDN: AppendLiteralLabelString hostlabel,newmname is 	localhostlocal
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: mDNS_SetFQDN: after AssignDomainName MulticastHostname is 	localhostlocal
+07-15 01:08:04.881 23324 23324 I mDNSResponder: Default: SetupInterfaceList
+07-15 01:08:04.882 23324 23324 I mDNSResponder: Default: SetupOneInterface::intfName=[wlan0]
+07-15 01:08:04.882 23324 23324 I mDNSResponder: Default: ignore wlan0
+07-15 01:08:04.882 23324 23324 I mDNSResponder: Default: SetupOneInterface::intfName=[tbox0]
+07-15 01:08:04.882 23324 23324 I mDNSResponder: Default: register other interface as normal activation
+07-15 01:08:04.883 23324 23324 I mDNSResponder: Default: SetupOneInterface: tbox0 fe80::4419:d3ff:fe66:6a32 Registered
+07-15 01:08:04.883 23324 23324 I mDNSResponder: Default: SetupOneInterface::intfName=[wlan0]
+07-15 01:08:04.883 23324 23324 I mDNSResponder: Default: ignore wlan0
+07-15 01:08:04.883 23324 23324 I mDNSResponder: Default: SetupOneInterface::intfName=[tbox0]
+07-15 01:08:04.883 23324 23324 I mDNSResponder: Default: SetupOneInterface: tbox0 192.168.225.10 is an alias of fe80::4419:d3ff:fe66:6a32
+07-15 01:08:04.884 23324 23324 I mDNSResponder: Default: register other interface as normal activation
+07-15 01:08:04.884 23324 23324 I mDNSResponder: Default: SetupOneInterface: tbox0 192.168.225.10 Registered
+--------- beginning of crash
+07-15 01:08:04.884 23324 23324 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0 in tid 23324 (CarPlayCommServ), pid 23324 (CarPlayCommServ)
+07-15 01:08:04.932 23330 23330 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdTombstone
+07-15 01:08:04.932  2645  2645 I /system/bin/tombstoned: received crash request for pid 23324
+07-15 01:08:04.933 23330 23330 I crash_dump64: performing dump of process 23324 (target tid = 23324)
+07-15 01:08:04.945 23330 23330 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+07-15 01:08:04.945 23330 23330 F DEBUG   : Build fingerprint: 'yfve/chery_t19c/chery_t19c:10/QQ1C.191205.016.A1/eng.user.20230406.230150:userdebug/test-keys'
+07-15 01:08:04.945 23330 23330 F DEBUG   : Revision: '0'
+07-15 01:08:04.945 23330 23330 F DEBUG   : ABI: 'arm64'
+07-15 01:08:04.945 23330 23330 F DEBUG   : Timestamp: 2026-07-15 01:08:04+0300
+07-15 01:08:04.945 23330 23330 F DEBUG   : pid: 23324, tid: 23324, name: CarPlayCommServ  >>> /system/bin/CarPlayCommService <<<
+07-15 01:08:04.946 23330 23330 F DEBUG   : uid: 0
+07-15 01:08:04.946 23330 23330 F DEBUG   : signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x0
+07-15 01:08:04.946 23330 23330 F DEBUG   : Cause: null pointer dereference
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x0  0000000000000001  x1  0000000000000009  x2  0000ffffe05939b0  x3  0000f0705eb9a5b8
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x4  0000000000000001  x5  333339392f376465  x6  333339392f376465  x7  7f7f7f7f7f7f7f7f
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x8  0000000000000000  x9  2be0d53e9b249020  x10 0000ffffe0593930  x11 0000ffffe0593968
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x12 0000ffffe05939b0  x13 000000006a56b344  x14 001a39de50293d80  x15 00001fb5d6aabae7
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x16 0000f0705fba49c0  x17 0000f07064d7e75c  x18 0000f07063faa000  x19 0000000000000000
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x20 0000f07060eb80a0  x21 0000f070637c8a00  x22 0000000000000001  x23 0000f07060e4bffb
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x24 0000f07060e59ad1  x25 0000f07063abe020  x26 0000f070637c9400  x27 0000000000000001
+07-15 01:08:04.946 23330 23330 F DEBUG   :     x28 0000000000000011  x29 0000ffffe0593a80
+07-15 01:08:04.946 23330 23330 F DEBUG   :     sp  0000ffffe0593a20  lr  0000f07060e66314  pc  0000f07060e662ec
+07-15 01:08:04.950 23330 23330 F DEBUG   : 
+07-15 01:08:04.950 23330 23330 F DEBUG   : backtrace:
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #00 pc 00000000000252ec  /system/lib64/libbonjour.so (SetupInterfaceList+180) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #01 pc 0000000000024b14  /system/lib64/libbonjour.so (mDNSPlatformInit+700) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #02 pc 0000000000043b28  /system/lib64/libbonjour.so (mDNS_Init+880) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #03 pc 00000000000230e4  /system/lib64/libbonjour.so (DNSStart+116) (BuildId: 4b871cc2794040b78c030fc4169d1d21)
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #04 pc 0000000000014d58  /system/bin/CarPlayCommService (CarPlayCommProtocal::initialize()+208) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #05 pc 0000000000014c48  /system/bin/CarPlayCommService (CarPlayCommProtocal::CarPlayCommProtocal()+228) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #06 pc 0000000000014b38  /system/bin/CarPlayCommService (CarPlayCommProtocal::getInstance()+76) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 01:08:04.950 23330 23330 F DEBUG   :       #07 pc 00000000000130f4  /system/bin/CarPlayCommService (android::CarPlayCommService::CarPlayCommService()+164) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 01:08:04.951 23330 23330 F DEBUG   :       #08 pc 00000000000149d4  /system/bin/CarPlayCommService (main+52) (BuildId: 0551d7b5d12c1dd90ce50e7cdf8e7574)
+07-15 01:08:04.951 23330 23330 F DEBUG   :       #09 pc 000000000007d798  /apex/com.android.runtime/lib64/bionic/libc.so (__libc_init+108) (BuildId: 7dc1d79d3a516206a7d66112d0ef6abd)
+07-15 01:08:05.006  2573  3586 I tbox_service_socketclient: sendData:: aa 55 00 00 00 00 00 00 
+07-15 01:08:05.006  2573  3586 E tbox_service_socketclient: sendMsg,send Tbox success!len=0
+07-15 01:08:05.220  2692  2979 W NativeCrashListener: Couldn't find ProcessRecord for pid 23324
+07-15 01:08:05.221  2645  2645 E /system/bin/tombstoned: Tombstone written to: /data/tombstones/tombstone_18
+07-15 01:08:05.228  2692  2811 I BootReceiver: Copying /data/tombstones/tombstone_18 to DropBox (SYSTEM_TOMBSTONE)
+07-15 01:08:05.236  2692  2811 I DropBoxManagerService: add tag=SYSTEM_TOMBSTONE isTagEnabled=true flags=0x2
+07-15 01:08:05.422  2573  5330 I tbox_service_socketclient: recTCPMsg  readlen=650
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: tboxDataResp,str={
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: 	"NMEA":	"$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,26,1*53\r\n$GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,28,1*6E\r\n$GPGSV,5,3,17,24,78,209,52,25,14,278,38,32,06,324,33,06,33,095,,1*6D\r\n$GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,220806.00,3951.174905,N,03330.191891,E,1,09,0.5,768.5,M,37.0,M,,*6C\r\n$GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20\r\n$GPRMC,220806.00,A,3951.174905,N,03330.191891,E,0.0,138.0,140726,4.1,E,A,V*42\r\n$GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23\r\n"
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: }
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: gpsNotification nmea=$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,26,1*53
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,28,1*6E
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPGSV,5,3,17,24,78,209,52,25,14,278,38,32,06,324,33,06,33,095,,1*6D
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPGSV,5,5,17,49,,,45,1*6E
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPGGA,220806.00,3951.174905,N,03330.191891,E,1,09,0.5,768.5,M,37.0,M,,*6C
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPRMC,220806.00,A,3951.174905,N,03330.191891,E,0.0,138.0,140726,4.1,E,A,V*42
+07-15 01:08:05.422  2573  5330 I tbox_service_parsejson: $GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: initData
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,altitude=805.500000,latitude=39.852915,longtitude=33.503198
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,pdop=0.700000,hdop=0.500000,vdop=0.600000
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=139;filed_1=24
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=292;filed_1=49
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=208;filed_1=13
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=3
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=45;filed_1=13
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=50;filed_1=47
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=184;filed_1=04
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=77;filed_1=11
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=7
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=209;filed_1=78
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=278;filed_1=14
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=324;filed_1=06
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:05.422  2573  5330 I chatty  : uid=0(root) tbox@1.0-servic identical 1 line
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:05.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=22,gpsInfo.minute=8,gpsInfo.second=6,gpsInfo.gpsTime=2026-7-14 22:8:6
+07-15 01:08:05.423  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,222 gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:05.423  2573  5330 I tbox_service_socketclient: recTCPMsg,waiting for recv tcp data.
+07-15 01:08:05.423  2692  2938 I GnssLocationProvider: onGPSInfoChanged gpsSpeed=0.0;heading=138.0
+07-15 01:08:05.423  2692  2938 I GnssLocationProvider: onGPSInfoChanged reportLocation
+07-15 01:08:05.423  2692  2938 I GnssLocationProvider: onSatellitesChanged onSvStatusChanged
+07-15 01:08:05.525  2595 23325 W adbd    : timed out while waiting for FUNCTIONFS_BIND, trying again
+07-15 01:08:05.525  2595 23325 I adbd    : UsbFfs: connection terminated: monitor thread finished
+07-15 01:08:05.526  2595  2595 I adbd    : UsbFfs: already offline
+07-15 01:08:05.526  2595  2595 I adbd    : destroying transport UsbFfs
+07-15 01:08:05.526  2595  2595 I adbd    : UsbFfsConnection being destroyed
+07-15 01:08:05.559  2595  2626 I adbd    : opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 01:08:05.559  2595  2626 I adbd    : UsbFfsConnection constructed
+07-15 01:08:05.657  2476  2485 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x01 0x08 0x04 
+07-15 01:08:05.670  3716  3716 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010804
+07-15 01:08:05.670 19130 19130 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010804
+07-15 01:08:05.671  3716  3956 D SET.GPSTimeUtilscitosTime: icmTime  20260715010804
+07-15 01:08:05.671  3747  3747 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010804
+07-15 01:08:05.671  3101  3101 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010804
+07-15 01:08:05.672  3101  3967 I SYSUI.CanControllerImpl: onIcmTimeChanged: 20260715010804
+07-15 01:08:05.773  2476  2485 I IPCLSERVICE: dbus msg com.yfve.ivi.tuner.respond: 0x05 0x00 0x62 0x13 0x01 
+07-15 01:08:05.773  2476  2485 I IPCLSERVICE: dbus msg com.yfve.ivi.tuner.respond: 0x05 0x00 0x62 0x13 0x01 
+07-15 01:08:05.779  2535  2535 I YFVehicle_Power: RecMsgFromService,289435663
+07-15 01:08:05.779  2535  2535 I YFVehicle_v2_0:  SendMessageToPowerVehicle,1,3
+07-15 01:08:05.780  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.power.request: 0x01 0x03 0x02 0x01 
+07-15 01:08:05.781  2570  2584 I Radio.HAL DBUS: [Radio=>HAL] 5 0 98 19 1
+07-15 01:08:05.781  2570  2584 V Radio.HAL: onMsgCallback msg.size=5
+07-15 01:08:05.781  2570  2584 V Radio.HAL: onMsgCallback mCallback 2060711592 type = 0
+07-15 01:08:05.781  2570  2584 I Radio.HAL DBUS: [Radio=>HAL] 5 0 98 19 1
+07-15 01:08:05.781  2570  2584 V Radio.HAL: onMsgCallback msg.size=5
+07-15 01:08:05.781  2570  2584 V Radio.HAL: onMsgCallback mCallback 2060711592 type = 0
+07-15 01:08:06.006  2573  3586 I tbox_service_socketclient: sendData:: aa 55 00 00 00 00 00 00 
+07-15 01:08:06.007  2573  3586 E tbox_service_socketclient: sendMsg,send Tbox success!len=0
+07-15 01:08:06.085  2540  4543 E         : DAB_ScanStatus2_not recevier 1 Freq:239200, DABSignalPresent:0, SNR:0, RSSI:0,EnsembleInfoFlag:0, SIAvailableFlag:0, TimeOutFlag:0
+07-15 01:08:06.085  2540  4543 E         : DAB_BG_Scan,Scan on receiver 1 finished!
+07-15 01:08:06.085  2540  4543 E         : Dab_Send_Service_List_Check, the service list(E/S/C number:0,0,0) has changed from the last scan(E/S/C number:0,0,0)
+07-15 01:08:06.085  2540  4543 E         : DAB_BG_Scan, 111ListView:0
+07-15 01:08:06.085  2540  4543 E         : DAB_BG_Scan, 222ListView:0
+07-15 01:08:06.085  2540  4543 E         : DAB_BG_Scan, 333ListView:0
+07-15 01:08:06.085  2478  2478 I /vendor/bin/yfve_diag: [tbox_diag] tbox connected
+07-15 01:08:06.089  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x00 0x00 
+07-15 01:08:06.089  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x01 0x00 
+07-15 01:08:06.089  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x02 0x00 
+07-15 01:08:06.089  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x03 0x00 
+07-15 01:08:06.089  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x04 0x00 
+07-15 01:08:06.089  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x05 0x00 
+07-15 01:08:06.089  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x06 0x00 
+07-15 01:08:06.090  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x07 0x00 
+07-15 01:08:06.090  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x08 0x00 
+07-15 01:08:06.090  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x09 0x00 
+07-15 01:08:06.090  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x0A 0x00 
+07-15 01:08:06.090  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x0C 0x00 
+07-15 01:08:06.090  2476  2484 I IPCLSERVICE: dbus msg com.yfve.ivi.diag.request: 0x07 0x04 0x00 0x0D 0x01 
+07-15 01:08:06.090  2540  4543 E         : DAB IPCL_MsgTransmit,DAB_V2H_DATA_ID_LIST_SAVED, List is 0!!!
+07-15 01:08:06.090  2540  4543 E         : 
+07-15 01:08:06.095  2540  4545 I dabdrm_dbus: dab_dbus_meaasge_handle,group_id=0xf,event_id = 0x0,frame_counter = 0x35, data_id=0x3
+07-15 01:08:06.095  2540  4545 I dabdrm_dbus: DAB_V2H_DATA_ID_LIST_SAVED 
+07-15 01:08:06.095  2540  4545 I dabdrm_hw_stub: notifyDabServiceList++ notifyDabServiceList, total=0.
+07-15 01:08:06.095  2540  4545 I dabdrm_hw_stub: notifyDabServiceList++ 0xe3fe43f39230.
+07-15 01:08:06.095  2540  4543 E         : DAB_BG_Scan, Returning to idle!
+07-15 01:08:06.095  2540  4543 E         : 
+07-15 01:08:06.095  2540  4543 E         : 
+07-15 01:08:06.095  2540  4543 E         : RadioApplication_Monitoring, Start compare SNR, CurFrequency:0
+07-15 01:08:06.095  2540  4543 E         : RadioApplication_Scan,DabScanStart!!!
+07-15 01:08:06.122  2540  4543 E         : DAB_Reply, DAB_SetAudioStatus2Notifier_repl: 0
+07-15 01:08:06.122  2540  4543 E         : DAB_BG_Scan ,Starting scan on receiver 1! timer_x50ms:5
+07-15 01:08:06.143  2540  4543 E         : DAB_BG_Scan ,eScanState_ScanReply Ok!
+07-15 01:08:06.195  2540  4550 W DabDrm  : DABDRM_EVENT_DAB_SERVICE_LIST_SAVED, 0.
+07-15 01:08:06.195  4216  4547 V BroadcastDabDrmService.DabDrmCallback.jni: notifyDabServiceList(0 0x0 0x0 0x0)
+07-15 01:08:06.196  4216  4546 I DadDrm_DabDrmCallback: notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0
+07-15 01:08:06.196  4216  4546 I DadDrm_AIDLService: notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0, sc_ids: 0
+07-15 01:08:06.196  3747  5639 I DAB.DabBusiness: notifyDabServiceList, savelist: {"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 01:08:06.196  3747  5639 I DAB.DabBusiness: parseServiceList, totalNum 0
+07-15 01:08:06.196  3747  5639 I DAB.DabBusiness: setCurPlayType, listType: 0, name: 
+07-15 01:08:06.197  4216  4546 I DadDrm_AIDLService: ------notifyDabServiceList------------{"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 01:08:06.198 23305 23339 D NetworkMonitor: Gateway (192.168.1.14) erişilebilir.
+07-15 01:08:06.275 23305 23338 E OmodaAI : [2026-07-15 01:08:06.178] [INFO] [Omoda/AssistantApplication] [CORR-44845603-64279-97f03182] #1 App: Ağ: İnternet Bağlantısı Sağlandı
+07-15 01:08:06.282 23305 23338 E OmodaAI : 🔒[ENCRYPTED] uu}zxbyt~vwx¬m¦®m·»¼¤z¬¬¡ª¡§dª¡§¬||x~yz}wx¨|s®sgw)©¦£u£¢´¦®·¡§w¨dµ£¤¦¥°£©¯¨¡
+07-15 01:08:06.287 23305 23338 E OmodaAI : [2026-07-15 01:08:06.282] [INFO] [Omoda/NetworkMonitor] [CORR-44845706-30939-97f03182] #3 Ağ Bağlantısı Aktif
+07-15 01:08:06.295 23305 23338 E OmodaAI : 🔒[ENCRYPTED] °xxzw~{i}||}|u¢d­¢²o¨½³¯ª¬ ¨£ §µk¡£qysªx¯h|t£r¡j ³¤²s¥¦q«r°¬µ£¡ ¨¤¶³¦¤±
+07-15 01:08:06.306 23305 23340 I OtaUpdateManager: GitHub güncelleme kontrolü başlatılıyor...
+07-15 01:08:06.317 23305 23305 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+07-15 01:08:06.330 23305 23305 I RelayClient: Auto-connecting to 192.168.1.14 with code OMODA5
+07-15 01:08:06.335 23305 23305 D RelayClient: Built WebSocket URL: ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:06.335 23305 23305 D RelayClient: Built WebSocket URL: ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:06.335 23305 23305 I RelayClient: Connecting to ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:06.336 23305 23305 D RelayClient: Built WebSocket URL: ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:06.350 23305 23350 D Hermes-Network: API_LOG: --> GET https://api.github.com/repos/casacemal/Omoda5-launcher/releases
+07-15 01:08:06.350 23305 23350 D Hermes-Network: API_LOG: User-Agent: Omoda5-Updater
+07-15 01:08:06.351 23305 23350 D Hermes-Network: API_LOG: --> END GET
+07-15 01:08:06.368 23305 23339 D NetworkMonitor: Gateway (192.168.1.14) erişilebilir.
+07-15 01:08:06.421  2573  5330 I tbox_service_socketclient: recTCPMsg  readlen=650
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: tboxDataResp,str={
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: 	"NMEA":	"$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,27,1*52\r\n$GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,29,1*6F\r\n$GPGSV,5,3,17,24,78,209,52,25,14,278,37,32,06,324,33,06,33,095,,1*62\r\n$GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,220807.00,3951.174905,N,03330.191889,E,1,09,0.5,768.5,M,37.0,M,,*64\r\n$GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20\r\n$GPRMC,220807.00,A,3951.174905,N,03330.191889,E,0.0,138.0,140726,4.1,E,A,V*4A\r\n$GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23\r\n"
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: }
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: gpsNotification nmea=$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,27,1*52
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,29,1*6F
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,3,17,24,78,209,52,25,14,278,37,32,06,324,33,06,33,095,,1*62
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,5,17,49,,,45,1*6E
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPGGA,220807.00,3951.174905,N,03330.191889,E,1,09,0.5,768.5,M,37.0,M,,*64
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPRMC,220807.00,A,3951.174905,N,03330.191889,E,0.0,138.0,140726,4.1,E,A,V*4A
+07-15 01:08:06.421  2573  5330 I tbox_service_parsejson: $GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23
+07-15 01:08:06.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData
+07-15 01:08:06.423  2573  5330 I tbox_service_nmeaanalysisutils: initData
+07-15 01:08:06.423  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,altitude=805.500000,latitude=39.852915,longtitude=33.503198
+07-15 01:08:06.423  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,pdop=0.700000,hdop=0.500000,vdop=0.600000
+07-15 01:08:06.423  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=139;filed_1=24
+07-15 01:08:06.423  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=292;filed_1=49
+07-15 01:08:06.423  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=208;filed_1=13
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=3
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=45;filed_1=13
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=50;filed_1=47
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=184;filed_1=04
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=77;filed_1=11
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=7
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=209;filed_1=78
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=278;filed_1=14
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=324;filed_1=06
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:06.424  2573  5330 I chatty  : uid=0(root) tbox@1.0-servic identical 1 line
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=22,gpsInfo.minute=8,gpsInfo.second=7,gpsInfo.gpsTime=2026-7-14 22:8:7
+07-15 01:08:06.424  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,222 gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:06.424  2573  5330 I tbox_service_socketclient: recTCPMsg,waiting for recv tcp data.
+07-15 01:08:06.424  2692  3851 I GnssLocationProvider: onGPSInfoChanged gpsSpeed=0.0;heading=138.0
+07-15 01:08:06.425  2692  3851 I GnssLocationProvider: onGPSInfoChanged reportLocation
+07-15 01:08:06.425  2692  3851 I GnssLocationProvider: onSatellitesChanged onSvStatusChanged
+07-15 01:08:06.432  3331  3625 D gojni   : 10.7M/129.4M open-conn-track: flow TCP (TCP 100.121.172.79:58896 => 192.168.1.14:8766) got RST by peer
+07-15 01:08:06.438 23305 23351 E RelayClient: WebSocket failure: Error: ConnectException: Failed to connect to /192.168.1.14:8766 (HTTP 0)
+07-15 01:08:06.438 23305 23351 E RelayClient: java.net.ConnectException: Failed to connect to /192.168.1.14:8766
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:297)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:517)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.lang.Thread.run(Thread.java:919)
+07-15 01:08:06.438 23305 23351 E RelayClient: Caused by: java.net.ConnectException: failed to connect to /192.168.1.14 (port 8766) from /100.121.172.79 (port 58896) after 10000ms: isConnected failed: ECONNREFUSED (Connection refused)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at libcore.io.IoBridge.isConnected(IoBridge.java:288)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at libcore.io.IoBridge.connectErrno(IoBridge.java:193)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at libcore.io.IoBridge.connect(IoBridge.java:135)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:142)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:390)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:230)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:212)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:436)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at java.net.Socket.connect(Socket.java:621)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	... 18 more
+07-15 01:08:06.438 23305 23351 E RelayClient: Caused by: android.system.ErrnoException: isConnected failed: ECONNREFUSED (Connection refused)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	at libcore.io.IoBridge.isConnected(IoBridge.java:275)
+07-15 01:08:06.438 23305 23351 E RelayClient: 	... 28 more
+07-15 01:08:06.441 23305 23339 I RelayClient: Reconnecting in 1000ms... (attempt 1/5)
+07-15 01:08:06.497  2553  2553 W IMGMemtrackHAL: hal_get_memory: memtrack cache rebuild was required
+07-15 01:08:06.507 23305 23305 E DEBUG_MODE: GÜNCEL STT MODU: SHERPA
+07-15 01:08:06.507 23305 23305 E DEBUG_MODE: GÜNCEL TTS MOTORU: SHERPA
+07-15 01:08:06.508 23305 23340 W AdbConnectionMonitor: Uzak Bağlantı Durumu Değişti: true
+07-15 01:08:06.555  2498 23355 E ResolverController: No valid NAT64 prefix (101, <unspecified>/0)
+07-15 01:08:06.562  2595 23337 W adbd    : timed out while waiting for FUNCTIONFS_BIND, trying again
+07-15 01:08:06.563  2595 23337 I adbd    : UsbFfs: connection terminated: monitor thread finished
+07-15 01:08:06.563  2595  2595 I adbd    : UsbFfs: already offline
+07-15 01:08:06.563  2595  2595 I adbd    : destroying transport UsbFfs
+07-15 01:08:06.563  2595  2595 I adbd    : UsbFfsConnection being destroyed
+07-15 01:08:06.599  2595  2626 I adbd    : opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 01:08:06.599  2595  2626 I adbd    : UsbFfsConnection constructed
+07-15 01:08:06.657 23305 23357 I MQTT-Publisher: MQTT bağlandı: tcp://192.168.1.14:1883
+07-15 01:08:06.658  2476  2485 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x01 0x08 0x05 
+07-15 01:08:06.670 23305 23305 I Choreographer: Skipped 35 frames!  The application may be doing too much work on its main thread.
+07-15 01:08:06.671 19130 19130 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010805
+07-15 01:08:06.671  3716  3716 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010805
+07-15 01:08:06.671  3716  3956 D SET.GPSTimeUtilscitosTime: icmTime  20260715010805
+07-15 01:08:06.672  3101  3101 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010805
+07-15 01:08:06.672  3747  3747 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010805
+07-15 01:08:06.672  3101  3967 I SYSUI.CanControllerImpl: onIcmTimeChanged: 20260715010805
+07-15 01:08:07.007  2573  3586 I tbox_service_socketclient: sendData:: aa 55 00 00 00 00 00 00 
+07-15 01:08:07.007  2573  3586 E tbox_service_socketclient: sendMsg,send Tbox success!len=0
+07-15 01:08:07.344 23305 23305 W com.omoda.lanc: Class androidx.compose.runtime.snapshots.SnapshotStateList failed lock verification and will run slower.
+07-15 01:08:07.344 23305 23305 W com.omoda.lanc: Common causes for lock verification issues are non-optimized dex code
+07-15 01:08:07.344 23305 23305 W com.omoda.lanc: and incorrect proguard optimizations.
+07-15 01:08:07.420  2692  3060 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+07-15 01:08:07.421  2573  5330 I tbox_service_socketclient: recTCPMsg  readlen=650
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: tboxDataResp,str={
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: 	"URI":	"content://tbox.automotive.neusoft.com/GPSNotification",
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: 	"NMEA":	"$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,27,1*52\r\n$GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,29,1*6F\r\n$GPGSV,5,3,17,24,78,209,52,25,14,278,37,32,06,324,33,06,33,095,,1*62\r\n$GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62\r\n$GPGSV,5,5,17,49,,,45,1*6E\r\n$GPGGA,220808.00,3951.174905,N,03330.191886,E,1,09,0.5,768.5,M,37.0,M,,*64\r\n$GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20\r\n$GPRMC,220808.00,A,3951.174905,N,03330.191886,E,0.0,138.0,140726,4.1,E,A,V*4A\r\n$GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23\r\n"
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: }
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: tboxDataResp,uri=content://tbox.automotive.neusoft.com/GPSNotification
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: gpsNotification nmea=$GPGSV,5,1,17,11,24,139,40,12,49,292,53,13,,,52,15,13,208,27,1*52
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,2,17,17,13,045,37,19,47,050,51,20,04,184,32,22,11,077,29,1*6F
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,3,17,24,78,209,52,25,14,278,37,32,06,324,33,06,33,095,,1*62
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,4,17,40,,,33,41,,,37,42,,,41,47,,,37,1*62
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPGSV,5,5,17,49,,,45,1*6E
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPGGA,220808.00,3951.174905,N,03330.191886,E,1,09,0.5,768.5,M,37.0,M,,*64
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPVTG,138.0,T,133.8,M,0.0,N,0.0,K,A*20
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPRMC,220808.00,A,3951.174905,N,03330.191886,E,0.0,138.0,140726,4.1,E,A,V*4A
+07-15 01:08:07.421  2573  5330 I tbox_service_parsejson: $GPGSA,A,2,11,12,15,17,19,22,24,25,32,,,,0.7,0.5,0.6,1*23
+07-15 01:08:07.421  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData
+07-15 01:08:07.421  2573  5330 I tbox_service_nmeaanalysisutils: initData
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,altitude=805.500000,latitude=39.852915,longtitude=33.503198
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,pdop=0.700000,hdop=0.500000,vdop=0.600000
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=139;filed_1=24
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=292;filed_1=49
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=208;filed_1=13
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=3
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=45;filed_1=13
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=50;filed_1=47
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=184;filed_1=04
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=77;filed_1=11
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=7
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=209;filed_1=78
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=278;filed_1=14
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,sGPS.azimuth=324;filed_1=06
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:07.422  2573  5330 I chatty  : uid=0(root) tbox@1.0-servic identical 1 line
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,m_tSatNum=10
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,gpsInfo.year=2026,gpsInfo.month=7,nSec=14,gpsInfo.hour=22,gpsInfo.minute=8,gpsInfo.second=8,gpsInfo.gpsTime=2026-7-14 22:8:8
+07-15 01:08:07.422  2573  5330 I tbox_service_nmeaanalysisutils: processNmeaData,222 gpsSpeed=0.000000,heading=138.000000
+07-15 01:08:07.422  2573  5330 I tbox_service_socketclient: recTCPMsg,waiting for recv tcp data.
+07-15 01:08:07.424  2692  3851 I GnssLocationProvider: onGPSInfoChanged gpsSpeed=0.0;heading=138.0
+07-15 01:08:07.424  2692  3851 I GnssLocationProvider: onGPSInfoChanged reportLocation
+07-15 01:08:07.424  2692  3851 I GnssLocationProvider: onSatellitesChanged onSvStatusChanged
+07-15 01:08:07.445 23305 23340 D RelayClient: Built WebSocket URL: ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:07.445 23305 23340 D RelayClient: Built WebSocket URL: ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:07.445 23305 23340 I RelayClient: Connecting to ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:07.445 23305 23340 D RelayClient: Built WebSocket URL: ws://192.168.1.14:8766/ws?token=***
+07-15 01:08:07.472 23305 23350 D Hermes-Network: API_LOG: <-- 200 https://api.github.com/repos/casacemal/Omoda5-launcher/releases (1121ms)
+07-15 01:08:07.473 23305 23350 D Hermes-Network: API_LOG: date: Tue, 14 Jul 2026 22:08:07 GMT
+07-15 01:08:07.473 23305 23350 D Hermes-Network: API_LOG: content-type: application/json; charset=utf-8
+07-15 01:08:07.473 23305 23350 D Hermes-Network: API_LOG: cache-control: private, max-age=60, s-maxage=60
+07-15 01:08:07.474 23305 23350 D Hermes-Network: API_LOG: etag: W/"7765b8863be85392d6a631696a5f4bc95a0b0716984acfa33f0eedd68c812c7b"
+07-15 01:08:07.477 23305 23350 D Hermes-Network: API_LOG: x-oauth-scopes: admin:org, gist, project, repo, workflow, write:packages, write:repo_hook
+07-15 01:08:07.477 23305 23350 D Hermes-Network: API_LOG: x-accepted-oauth-scopes: repo
+07-15 01:08:07.477 23305 23350 D Hermes-Network: API_LOG: x-github-media-type: github.v3; format=json
+07-15 01:08:07.478 23305 23350 D Hermes-Network: API_LOG: link: <https://api.github.com/repositories/1238956241/releases?page=2>; rel="next", <https://api.github.com/repositories/1238956241/releases?page=3>; rel="last"
+07-15 01:08:07.478 23305 23350 D Hermes-Network: API_LOG: x-github-api-version-selected: 2022-11-28
+07-15 01:08:07.480 23305 23350 D Hermes-Network: API_LOG: access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning
+07-15 01:08:07.480 23305 23350 D Hermes-Network: API_LOG: access-control-allow-origin: *
+07-15 01:08:07.480 23305 23350 D Hermes-Network: API_LOG: strict-transport-security: max-age=31536000; includeSubdomains; preload
+07-15 01:08:07.480 23305 23350 D Hermes-Network: API_LOG: x-frame-options: deny
+07-15 01:08:07.481 23305 23350 D Hermes-Network: API_LOG: x-content-type-options: nosniff
+07-15 01:08:07.481 23305 23350 D Hermes-Network: API_LOG: x-xss-protection: 0
+07-15 01:08:07.481 23305 23350 D Hermes-Network: API_LOG: referrer-policy: origin-when-cross-origin, strict-origin-when-cross-origin
+07-15 01:08:07.481 23305 23350 D Hermes-Network: API_LOG: content-security-policy: default-src 'none'
+07-15 01:08:07.481 23305 23350 D Hermes-Network: API_LOG: server: github.com
+07-15 01:08:07.481 23305 23350 D Hermes-Network: API_LOG: x-ratelimit-limit: 5000
+07-15 01:08:07.482 23305 23350 D Hermes-Network: API_LOG: x-ratelimit-remaining: 4984
+07-15 01:08:07.482 23305 23350 D Hermes-Network: API_LOG: x-ratelimit-reset: 1784070233
+07-15 01:08:07.482 23305 23350 D Hermes-Network: API_LOG: x-ratelimit-used: 16
+07-15 01:08:07.482 23305 23350 D Hermes-Network: API_LOG: x-ratelimit-resource: core
+07-15 01:08:07.482 23305 23350 D Hermes-Network: API_LOG: x-github-request-id: EA1B:28314F:B3E4CA3:A9CAA4F:6A56B347
+07-15 01:08:07.482 23305 23350 D Hermes-Network: API_LOG: <-- END HTTP
+07-15 01:08:07.491 23305 23305 E OmodaMedia: Medya kontrol yetkisi eksik (Notification Access): Missing permission to control media.
+07-15 01:08:07.495 23305 23305 E OmodaAI : [2026-07-15 01:08:07.493] [INFO] [Omoda/AssistantApplication] [CORR-44846917-27397-97f03182] #5 App: HATA: Medya Kontrol Yetkisi Yok (Bildirim Erişimi Verin)
+07-15 01:08:07.502 23305 23305 E OmodaAI : 🔒[ENCRYPTED] ­|vurlt|q}t©¥­o®¾»¾«z£¡³  ¤·l§wvs|º}yw mzj-®{n°©¢´ ©«r¦¥«¦{|k¡ ¢­©¤¥­¨¸°¢¤
+07-15 01:08:07.505 23305 23350 D OtaUpdateManager: GitHub Yanıt Kodu: 200
+07-15 01:08:07.507 23305 23305 E OmodaAI : 🔒[ENCRYPTED] ¯yyzuwr}~{s{}ta¢£®w£¡Á¸¬¢¯£¢¦¡®£¨u©t|u~w|xqwzrz~ªzu²cri+®§yv® ¦®¥¬µ¨¡ssa³¢ ²·§©ª°
+07-15 01:08:07.512  3331  3604 D gojni   : 10.7M/129.4M open-conn-track: flow TCP (TCP 100.121.172.79:58900 => 192.168.1.14:8766) got RST by peer
+07-15 01:08:07.514 23305 23305 D OmodaMedia: Medya denetleyici başlatıldı
+07-15 01:08:07.522 23305 23351 E RelayClient: WebSocket failure: Error: ConnectException: Failed to connect to /192.168.1.14:8766 (HTTP 0)
+07-15 01:08:07.522 23305 23351 E RelayClient: java.net.ConnectException: Failed to connect to /192.168.1.14:8766
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:297)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:517)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.lang.Thread.run(Thread.java:919)
+07-15 01:08:07.522 23305 23351 E RelayClient: Caused by: java.net.ConnectException: failed to connect to /192.168.1.14 (port 8766) from /100.121.172.79 (port 58900) after 10000ms: isConnected failed: ECONNREFUSED (Connection refused)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at libcore.io.IoBridge.isConnected(IoBridge.java:288)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at libcore.io.IoBridge.connectErrno(IoBridge.java:193)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at libcore.io.IoBridge.connect(IoBridge.java:135)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:142)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:390)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:230)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:212)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:436)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at java.net.Socket.connect(Socket.java:621)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	... 18 more
+07-15 01:08:07.522 23305 23351 E RelayClient: Caused by: android.system.ErrnoException: isConnected failed: ECONNREFUSED (Connection refused)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	at libcore.io.IoBridge.isConnected(IoBridge.java:275)
+07-15 01:08:07.522 23305 23351 E RelayClient: 	... 28 more
+07-15 01:08:07.522 23305 23351 D RelayClient: Reconnection job is already active. Skipping duplicate scheduling.
+07-15 01:08:07.576  2540  4543 E         : DAB_ScanStatus2_not recevier 1 Freq:239200, DABSignalPresent:0, SNR:0, RSSI:0,EnsembleInfoFlag:0, SIAvailableFlag:0, TimeOutFlag:0
+07-15 01:08:07.576  2540  4543 E         : DAB_BG_Scan,Scan on receiver 1 finished!
+07-15 01:08:07.576  2540  4543 E         : Dab_Send_Service_List_Check, the service list(E/S/C number:0,0,0) has changed from the last scan(E/S/C number:0,0,0)
+07-15 01:08:07.576  2540  4543 E         : DAB_BG_Scan, 111ListView:0
+07-15 01:08:07.576  2540  4543 E         : DAB_BG_Scan, 222ListView:0
+07-15 01:08:07.576  2540  4543 E         : DAB_BG_Scan, 333ListView:0
+07-15 01:08:07.581  2540  4543 E         : DAB IPCL_MsgTransmit,DAB_V2H_DATA_ID_LIST_SAVED, List is 0!!!
+07-15 01:08:07.581  2540  4543 E         : 
+07-15 01:08:07.582  2540  4545 I dabdrm_dbus: dab_dbus_meaasge_handle,group_id=0xf,event_id = 0x0,frame_counter = 0x36, data_id=0x3
+07-15 01:08:07.582  2540  4545 I dabdrm_dbus: DAB_V2H_DATA_ID_LIST_SAVED 
+07-15 01:08:07.582  2540  4545 I dabdrm_hw_stub: notifyDabServiceList++ notifyDabServiceList, total=0.
+07-15 01:08:07.582  2540  4545 I dabdrm_hw_stub: notifyDabServiceList++ 0xe3fe43f39280.
+07-15 01:08:07.585 23305 23350 E OmodaAI : [2026-07-15 01:08:07.583] [INFO] [Omoda/AssistantApplication] [CORR-44847007-24611-97f03182] #8 App: Güncelleme Kontrolü: Uygulamanız en güncel sürümde.
+07-15 01:08:07.586  2540  4543 E         : DAB_BG_Scan, Returning to idle!
+07-15 01:08:07.586  2540  4543 E         : 
+07-15 01:08:07.586  2540  4543 E         : 
+07-15 01:08:07.586  2540  4543 E         : RadioApplication_Monitoring, Start compare SNR, CurFrequency:0
+07-15 01:08:07.586  2540  4543 E         : RadioApplication_Scan,DabScanStart!!!
+07-15 01:08:07.605  2595 23358 W adbd    : timed out while waiting for FUNCTIONFS_BIND, trying again
+07-15 01:08:07.605  2595 23358 I adbd    : UsbFfs: connection terminated: monitor thread finished
+07-15 01:08:07.606  2595  2595 I adbd    : UsbFfs: already offline
+07-15 01:08:07.606  2595  2595 I adbd    : destroying transport UsbFfs
+07-15 01:08:07.606  2595  2595 I adbd    : UsbFfsConnection being destroyed
+07-15 01:08:07.612  2540  4543 E         : DAB_Reply, DAB_SetAudioStatus2Notifier_repl: 0
+07-15 01:08:07.612  2540  4543 E         : DAB_BG_Scan ,Starting scan on receiver 1! timer_x50ms:6
+07-15 01:08:07.633  2540  4543 E         : DAB_BG_Scan ,eScanState_ScanReply Ok!
+07-15 01:08:07.643  2595  2626 I adbd    : opening control endpoint /dev/usb-ffs/adb/ep0
+07-15 01:08:07.643  2595  2626 I adbd    : UsbFfsConnection constructed
+07-15 01:08:07.663  2476  2485 I IPCLSERVICE: dbus msg com.yfve.ivi.vehicle.respond: 0x06 0x03 0x01 0x00 0x40 0x20 0x26 0x07 0x15 0x01 0x08 0x06 
+07-15 01:08:07.675 19130 19130 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010806
+07-15 01:08:07.676  3101  3101 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010806
+07-15 01:08:07.676  3716  3716 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010806
+07-15 01:08:07.676  3101  3967 I SYSUI.CanControllerImpl: onIcmTimeChanged: 20260715010806
+07-15 01:08:07.676  3747  3747 I CarPropertyManager: PropID,area,value:IPC_TIME_16777216_20260715010806
+07-15 01:08:07.676  3716  3956 D SET.GPSTimeUtilscitosTime: icmTime  20260715010806
+07-15 01:08:07.685  2540  4550 W DabDrm  : DABDRM_EVENT_DAB_SERVICE_LIST_SAVED, 0.
+07-15 01:08:07.685  4216  4547 V BroadcastDabDrmService.DabDrmCallback.jni: notifyDabServiceList(0 0x0 0x0 0x0)
+07-15 01:08:07.685  4216  4546 I DadDrm_DabDrmCallback: notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0
+07-15 01:08:07.685  4216  4546 I DadDrm_AIDLService: notifyDabServiceList:freq :0  ensemble_id : 0 service_id: 0 service_pty: 0 component_id: 0 component_type :0, sc_ids: 0
+07-15 01:08:07.686  3747  5639 I DAB.DabBusiness: notifyDabServiceList, savelist: {"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 01:08:07.686  3747  5639 I DAB.DabBusiness: parseServiceList, totalNum 0
+07-15 01:08:07.687  3747  5639 I DAB.DabBusiness: setCurPlayType, listType: 0, name: 
+07-15 01:08:07.687  4216  4546 I DadDrm_AIDLService: ------notifyDabServiceList------------{"total_num":0,"cur_num":0,"freq":0,"ensemble_id":0,"ensemble_name":"","service_id":0,"service_pty":0,"service_name":"","component_id":0,"component_type":0,"component_name":"","sc_ids":0}
+07-15 01:08:08.007  2573  3586 I tbox_service_socketclient: sendData:: aa 55 00 00 00 00 00 00 
+07-15 01:08:08.007  2573  3586 E tbox_service_socketclient: sendMsg,send Tbox success!len=0

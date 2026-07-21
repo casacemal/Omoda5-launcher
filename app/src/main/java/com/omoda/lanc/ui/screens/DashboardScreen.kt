@@ -1,153 +1,182 @@
 package com.omoda.lanc.ui.screens
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.omoda.lanc.ui.components.MediaControlWidget
-import com.omoda.lanc.media.MediaControllerViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.omoda.lanc.ui.theme.OmodaCyan
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.draw.blur
+import com.omoda.lanc.core.GlobalState
+import com.omoda.lanc.core.SplitManager
+import com.omoda.lanc.AssistantApplication
+import com.omoda.lanc.media.MediaControllerViewModel
+import com.omoda.lanc.ui.theme.*
+import com.omoda.lanc.ui.components.BottomNavBar
+import com.omoda.lanc.ui.components.GlassCard
+import com.omoda.lanc.ui.widgets.vehicle.PremiumCarWidget
 
-/**
- * DashboardScreen - Bölünmüş ekran tasarımı (Navigasyon + Medya)
- * Araç ünitesinde yan yana harita ve medya kontrolü sağlar.
- */
 @Composable
 fun DashboardScreen(
     viewModel: MediaControllerViewModel = viewModel(),
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
-    val mediaViewModel = viewModel
+    var vehicleState by remember { mutableStateOf(com.omoda.lanc.core.VehicleController.getInstance(context).getVehicleState()) }
 
-    Column(modifier = Modifier.fillMaxSize().background(Color(0xFF0D0F10)).padding(16.dp)) {
-        // Üst Bar
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(modifier = Modifier.size(8.dp).clip(androidx.compose.foundation.shape.CircleShape).background(OmodaCyan))
-                Spacer(Modifier.width(12.dp))
-                Text("DASHBOARD CONTROL", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Black)
-            }
-            
-            Button(
-                onClick = onBack, 
-                colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text("KAPAT", fontWeight = FontWeight.Bold)
+    val configuration = LocalConfiguration.current
+    val isHandheld = configuration.screenWidthDp < 600
+    val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
+
+    LaunchedEffect(Unit) {
+        com.omoda.lanc.core.EventBus.events.collect { event ->
+            if (event is com.omoda.lanc.core.Event.VehicleEvent.StateUpdated) {
+                vehicleState = event.state
             }
         }
+    }
 
-        // Split Content
-        Row(modifier = Modifier.fillMaxSize()) {
-            // SOL: Harita Alanı (Placeholder + Başlatıcı)
-            Card(
-                colors = CardDefaults.cardColors(containerColor = Color(0xFF16181A)),
-                modifier = Modifier
-                    .weight(1.2f) // Harita biraz daha geniş
-                    .fillMaxHeight()
-                    .clip(RoundedCornerShape(24.dp))
-                    .clickable { launchSplitScreen(context) }
-                    .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(24.dp))
-            ) {
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text("📍", fontSize = 72.sp)
-                        Spacer(modifier = Modifier.height(24.dp))
-                        Text("NAVİGASYON MODU", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.ExtraBold)
-                        Text("Yan yana görünümü başlatmak için dokun", color = Color.Gray, fontSize = 14.sp)
-                        
-                        Spacer(modifier = Modifier.height(32.dp))
-                        
-                        Surface(
-                            color = OmodaCyan.copy(alpha = 0.1f),
-                            shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.border(1.dp, OmodaCyan.copy(alpha = 0.3f), RoundedCornerShape(12.dp))
-                        ) {
-                            Text(
-                                "GOOGLE MAPS SPLIT", 
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                                color = OmodaCyan,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 12.sp
-                            )
-                        }
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            // SAĞ: Medya ve Bilgi Alanı
-            Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                // Medya Kartı
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFF111315)),
+    Box(modifier = Modifier.fillMaxSize().background(DarkPurpleBg)) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            
+            // MAIN CONTENT
+            if (isHandheld && isPortrait) {
+                // PHONE PORTRAIT LAYOUT
+                val scrollState = rememberScrollState()
+                Column(
                     modifier = Modifier
                         .weight(1f)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(24.dp))
-                        .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(24.dp))
+                        .padding(16.dp)
+                        .verticalScroll(scrollState),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("MEDYA", color = OmodaCyan, fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                            Spacer(Modifier.weight(1f))
-                            Box(modifier = Modifier.size(6.dp).clip(androidx.compose.foundation.shape.CircleShape).background(Color.Green))
-                        }
-                        
-                        Spacer(modifier = Modifier.height(12.dp))
-                        
-                        // Dashboard için özel modifiye edilmiş MediaControlWidget (Padding sıfırlandı)
-                        Box(modifier = Modifier.weight(1f)) {
-                            DashboardMediaWidget(mediaViewModel)
-                        }
+                    // Car View on top
+                    Box(modifier = Modifier.fillMaxWidth().height(450.dp)) {
+                        PremiumCarWidget().Content()
                     }
+                    
+                    // Cards stacked vertically
+                    DashboardInfoCard()
+                    DashboardBatteryCard(vehicleState)
+                    DashboardMapCard(context)
+                    DashboardMediaWidgetSmall(viewModel, Modifier.fillMaxWidth().height(200.dp))
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Alt Kısayol / Durum Kartı
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFF1C1E20)),
+            } else {
+                // TABLET / CAR LANDSCAPE LAYOUT
+                Row(
                     modifier = Modifier
-                        .height(120.dp)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(24.dp))
-                        .border(1.dp, Color.White.copy(alpha = 0.05f), RoundedCornerShape(24.dp))
+                        .weight(1f)
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    val vehicleData by com.omoda.lanc.core.GlobalState.vehicleDataValues.collectAsState()
-                    Row(
-                        modifier = Modifier.fillMaxSize().padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceAround
-                    ) {
-                        InfoItem("HIZ", "${vehicleData["speed"] ?: "0"} km/h")
-                        Divider(modifier = Modifier.width(1.dp).fillMaxHeight().padding(vertical = 8.dp), color = Color.White.copy(0.1f))
-                        InfoItem("KLİMA", if (vehicleData["ac_on"] == "true") "AÇIK" else "KAPALI")
+                    // LEFT PANEL: Premium Car View
+                    Box(modifier = Modifier.weight(0.4f)) {
+                        PremiumCarWidget().Content()
                     }
+
+                    // RIGHT PANEL: Grid of GlassCards
+                    Column(
+                        modifier = Modifier.weight(0.6f),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        // Top Row
+                        Row(
+                            modifier = Modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            DashboardInfoCard(modifier = Modifier.weight(1f))
+                            DashboardMapCard(context, modifier = Modifier.weight(1f))
+                        }
+
+                        // Bottom Row
+                        Row(
+                            modifier = Modifier.weight(1f),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            DashboardBatteryCard(vehicleState, modifier = Modifier.weight(1f))
+                            DashboardMediaWidgetSmall(viewModel, Modifier.weight(1f))
+                        }
+                    }
+                }
+            }
+
+            // BOTTOM NAVIGATION BAR
+            BottomNavBar(
+                driverTemp = vehicleState.acTemperatureDriver,
+                passengerTemp = vehicleState.acTemperaturePassenger,
+                onMenuClick = onBack
+            )
+        }
+    }
+}
+
+@Composable
+fun DashboardInfoCard(modifier: Modifier = Modifier.fillMaxWidth().height(200.dp)) {
+    GlassCard(modifier = modifier) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Omoda Assistant", color = Color.White, fontWeight = FontWeight.Bold)
+            Spacer(Modifier.height(16.dp))
+            Text("READY", color = GlowGreen, fontSize = 32.sp, fontWeight = FontWeight.Black)
+            Text("System Normal", color = TextMuted)
+        }
+    }
+}
+
+@Composable
+fun DashboardMapCard(context: Context, modifier: Modifier = Modifier.fillMaxWidth().height(200.dp)) {
+    GlassCard(modifier = modifier) {
+        Box(modifier = Modifier.fillMaxSize().clickable { 
+            SplitManager.launchSplitMaps(context, SplitManager.MAPS_YANDEX)
+        }, contentAlignment = Alignment.Center) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("\uD83D\uDDFD", fontSize = 48.sp) // Map icon fallback
+                Spacer(Modifier.height(8.dp))
+                Text("Open Maps", color = Color.White, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+
+@Composable
+fun DashboardBatteryCard(vehicleState: com.omoda.lanc.model.VehicleState, modifier: Modifier = Modifier.fillMaxWidth().height(200.dp)) {
+    GlassCard(modifier = modifier) {
+        val batteryLevel = vehicleState.evBatteryLevel
+        val range = vehicleState.rangeKm
+        val isRunning = vehicleState.isEngineRunning
+
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Status", color = Color.White, fontWeight = FontWeight.Bold)
+            Spacer(Modifier.height(8.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(modifier = Modifier.height(40.dp).weight(1f).clip(RoundedCornerShape(8.dp)).background(Color.White.copy(0.1f))) {
+                    Box(modifier = Modifier.fillMaxHeight().fillMaxWidth(if(batteryLevel > 0) batteryLevel/100f else 0.5f).background(if (isRunning) GlowGreen else GlowYellow))
+                }
+            }
+            Spacer(Modifier.height(16.dp))
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                Column {
+                    Text("${range.toInt()} km", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    Text("Range", color = TextMuted, fontSize = 12.sp)
+                }
+                Column {
+                    Text("${batteryLevel.toInt()}%", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    Text("Battery", color = TextMuted, fontSize = 12.sp)
                 }
             }
         }
@@ -155,82 +184,29 @@ fun DashboardScreen(
 }
 
 @Composable
-fun InfoItem(label: String, value: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(label, color = Color.Gray, fontSize = 10.sp, fontWeight = FontWeight.Bold)
-        Text(value, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Black)
-    }
-}
-
-/**
- * Dashboard için optimize edilmiş medya görünümü (Padding kısıtlamaları kaldırıldı)
- */
-@Composable
-fun DashboardMediaWidget(viewModel: MediaControllerViewModel) {
+fun DashboardMediaWidgetSmall(viewModel: MediaControllerViewModel, modifier: Modifier) {
     val uiState by viewModel.mediaState.collectAsState()
-    
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
-        Text(
-            text = uiState.title,
-            color = Color.White,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Black,
-            maxLines = 1
-        )
-        Text(
-            text = uiState.artist,
-            color = OmodaCyan,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium
-        )
-        
-        Spacer(modifier = Modifier.height(24.dp))
-        
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = { viewModel.skipToPrevious() }) {
-                Text("⏮", color = Color.White, fontSize = 32.sp)
-            }
-            
-            FloatingActionButton(
-                onClick = { viewModel.togglePlayback() },
-                containerColor = OmodaCyan,
-                contentColor = Color.Black,
-                shape = androidx.compose.foundation.shape.CircleShape,
-                modifier = Modifier.size(64.dp)
-            ) {
-                Text(if (uiState.isPlaying) "⏸" else "▶", fontSize = 28.sp)
-            }
-            
-            IconButton(onClick = { viewModel.skipToNext() }) {
-                Text("⏭", color = Color.White, fontSize = 32.sp)
-            }
+    GlassCard(modifier = modifier) {
+        // Album Art Background
+        uiState.albumArt?.let {
+            Image(
+                bitmap = it.asImageBitmap(),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize().blur(15.dp),
+                contentScale = ContentScale.Crop,
+                alpha = 0.3f
+            )
         }
-        
-        Spacer(modifier = Modifier.height(16.dp))
-        
-        LinearProgressIndicator(
-            progress = { uiState.progress },
-            modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
-            color = OmodaCyan,
-            trackColor = Color.White.copy(alpha = 0.1f)
-        )
-    }
-}
 
-fun launchSplitScreen(context: Context) {
-    try {
-        // Android 10+ Multi-tasking için haritayı başlat
-        val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=maps")).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT) 
+        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(16.dp).fillMaxSize(), verticalArrangement = Arrangement.Center) {
+            Text(uiState.title.ifEmpty { "Müzik Çalmıyor" }, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+            Text(uiState.artist.ifEmpty { "Omoda Media" }, color = TextMuted, fontSize = 14.sp)
+            Spacer(Modifier.height(16.dp))
+            Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+                IconButton(onClick = { viewModel.skipToPrevious() }) { Text("\u23ee", color = Color.White, fontSize = 20.sp) }
+                IconButton(onClick = { viewModel.togglePlayback() }) { Text(if (uiState.isPlaying) "\u23f8" else "\u25b6", color = GlowYellow, fontSize = 28.sp) }
+                IconButton(onClick = { viewModel.skipToNext() }) { Text("\u23ed", color = Color.White, fontSize = 20.sp) }
+            }
         }
-        context.startActivity(mapIntent)
-        Log.i("Dashboard", "Split screen launch requested")
-    } catch (e: Exception) {
-        Log.e("LauncherError", "Multi-task başlatılamadı", e)
     }
 }

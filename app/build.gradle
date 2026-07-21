@@ -26,7 +26,7 @@ def vCode = newCode
 def vName = versionProps['VERSION_NAME']
 
 // UPDATE MODU: Büyük modelleri APK dışına çıkar (Boyut küçültme)
-def isUpdateOnly = false
+def isUpdateOnly = true
 
 // Versiyonu .md dosyalarına yaz
 def mdFiles = [
@@ -193,6 +193,8 @@ dependencies {
     implementation project(':network')
     implementation project(':voice-offline')
     implementation files('../voice-offline/src/main/libs/sherpa-onnx-1.13.2.aar')
+
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.3'
 
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'

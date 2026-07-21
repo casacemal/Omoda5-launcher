@@ -25,6 +25,10 @@ class SttManager(
     private val tag = "Hermes-SttManager"
     private var audioRecord: AudioRecord? = null
     private val isRecording = AtomicBoolean(false)
+    private val _lastAmplitude = java.util.concurrent.atomic.AtomicInteger(0)
+
+    /** Son ölçülen RMS amplitüdü (0-700 aralığı, 0 = henüz ölçüm yok). */
+    fun getLastAmplitude(): Int = _lastAmplitude.get()
     private var recordingFile: File? = null
 
     private val sampleRate = 16000
@@ -35,11 +39,13 @@ class SttManager(
     private val FRAME_SIZE = 512              // ~32ms @ 16kHz
     private val MIN_RECORDING_MS   = 600L     // Bu süre dolmadan bitmez
     private val MAX_RECORDING_MS   = 10000L   // Zorla durdurma sınırı
-    private val SILENCE_DURATION_MS = 2000L   // Sessizlik bu kadar sürerse kayıt biter
+    
+    private val SILENCE_DURATION_MS get() = GlobalState.vadSilenceDuration.value
+    private val SNR_RATIO get() = GlobalState.vadSnrRatio.value
+    private val GAIN_FACTOR get() = GlobalState.vadGainFactor.value
+
     private val NOISE_CALIB_FRAMES  = 25      // Başlangıçta ölçülen gürültü frame sayısı
     private val SPEECH_CONFIRM_FRAMES = 2     // Konuşma onayı için ardışık "ses" frame sayısı (Azaltıldı: 3 -> 2)
-    private val SNR_RATIO = 1.6f              // Konuşmanın gürültüden kaç kat yüksek olması lazım (Hassaslaştırıldı: 2.2 -> 1.6)
-    private val GAIN_FACTOR = 3.5f            // Yazılımsal ses artırma (Boost) - Manifesto v1.0
     // ──────────────────────────────────────────────────────────────────────────
 
     @SuppressLint("MissingPermission")
@@ -90,6 +96,11 @@ class SttManager(
         val startTime      = System.currentTimeMillis()
         var lastSpeechTime = startTime
 
+        // VAD Parametrelerini bu döngü için sabitle (Performans için)
+        val currentGain = GlobalState.vadGainFactor.value
+        val currentSnr = GlobalState.vadSnrRatio.value
+        val currentSilence = GlobalState.vadSilenceDuration.value
+
         // Kalibrasyon değişkenleri
         var noiseBaseline      = 300.0   // Başlangıç varsayımı (sıfır bölme önlemi)
         var calibFrames        = 0
@@ -117,10 +128,12 @@ class SttManager(
                 }
 
                 val rms = frameRms(frame, read)
+                // Amplitüdü dışa aktar (0..32767 → 0..700)
+                _lastAmplitude.set((rms / 32767.0 * 700).toInt().coerceIn(0, 700))
 
                 // Frame'i Gain uygulayarak diske yaz
                 for (i in 0 until read) {
-                    var sample = frame[i].toFloat() * GAIN_FACTOR
+                    var sample = frame[i].toFloat() * currentGain
                     // Clipping önleme
                     if (sample > 32767f) sample = 32767f
                     if (sample < -32768f) sample = -32768f
@@ -141,7 +154,7 @@ class SttManager(
                 }
 
                 // ── Adaptif eşik ────────────────────────────────────────────
-                val threshold  = noiseBaseline * SNR_RATIO
+                val threshold  = noiseBaseline * currentSnr
                 val isSpeech   = rms > threshold
 
                 if (isSpeech) {
@@ -165,7 +178,7 @@ class SttManager(
                 // ── Sessizlik bitişi ─────────────────────────────────────────
                 if (speechStarted && elapsed > MIN_RECORDING_MS) {
                     val silence = now - lastSpeechTime
-                    if (silence > SILENCE_DURATION_MS) {
+                    if (silence > currentSilence) {
                         Log.i(tag, "🛑 Sessizlik ${silence}ms → kayıt bitiyor.")
                         android.os.Handler(android.os.Looper.getMainLooper()).post { stopRecording() }
                         break

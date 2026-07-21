@@ -25,18 +25,22 @@
 - [x] **Bridge API Entegrasyonu:** `192.168.1.14` (Wyoming - Port 5000) ve `192.168.1.29` (Whisper) köprüleri eklendi.
 - [x] **Bridge Fix:** Sunucudaki port 5000 Wyoming Bridge scripti onarıldı ve stabil hale getirildi.
 - [x] **Hibrit Protokol Desteği:** JSON/Base64 (Wyoming) ve Multipart (OpenAI) protokolleri desteklendi.
-- [x] **Sürüm 229 Yayında:** Yeni IP ve köprü yapılandırması araca yüklendi.
+- [x] **Sürüm 229 Yayında:** Yeni IP ve köbrü yapılandırması araca yüklendi.
 - [x] **Edge TTS Fix:** 403 Forbidden hatası için Sec-MS-GEC token algoritması ve audio streaming ayrıştırıcısı güncellendi.
 - [x] **MultiTask Dashboard:** Harita ve Medya split-screen desteği ve Dashboard ekranı entegre edildi.
 - [x] **Sesli Komut Çevrimdışı Kapasitesi:** CommandRouter Regex motoru (YouTube Follow-up) genişletildi.
 - [x] **Multimedya Kontrolü:** Spotify/YouTube için `search_youtube` aracı eklendi.
 - [x] **UI İnce Ayarlar:** Overlay metin çiftleme sorunu giderildi.
-- [ ] Araç içi multimedya (Spotify/YouTube) kontrol araçlarının genişletilmesi.
-- [x] **UI İnce Ayarlar:** Ana ekran sol boşluğu (235dp) ve ikon boyutları (160dp) optimize edildi.
+- [x] **Architecture 2.0:** Tam fonksiyonel, DSL tabanlı, modüler AAOS Platformu tamamlandı.
+- [x] **Akıllı Split:** 80 km/h hız duyarlı dinamik panel oranları aktif edildi.
+- [x] **Model Otomasyonu:** Eksik ses dosyalarını otomatik indiren onarım motoru eklendi.
+- [x] **TPMS Entegrasyonu:** Lastik basınç takip widget'ı Dashboard'a mühürlendi.
+- [ ] Performans optimizasyonları ve stres testleri.
 - [x] **Bridge & Simulator Split:** VHAL Simülatör ve MQTT Köprü kontrolleri birbirinden ayrıldı ve ADB Panel butonu eklendi.
 - [x] **GitHub OTA & Backup Fix:** GitHub token yetkilendirme ve yedekleme sistemi veri kaybı sorunları giderildi.
 - [x] **MQTT Presence:** Cihazın çevrimiçi durumunu bildiren `omoda/status` mesaj sistemi eklendi.
 - [x] **Sistem Kontrolü:** Varsayılan launcher atama ve HVAC hızlı başlatma araçları eklendi.
+- [x] **Klima Paketi Fix:** Omoda 5 `com.chery.hvac` uyumsuzluğu giderildi.
 - [x] **Aktif Hermes Katmanı:** Pasif köprüden aktif asistan mimarisine geçiş yapıldı.
 - [x] **Hibrit Çalışma Modları:** Sesli Sohbet (CHAT) ve Komut (ASSIST) modları entegre edildi.
 - [x] **Araç Donanım Entegrasyonu:** AI'nın araç durumunu (Hız, Vites, Klima vb.) bilmesi sağlandı.
@@ -47,3 +51,8 @@
 - [x] **HUD UI Optimization:** Overlay metin boyutları sürüş güvenliği için büyütüldü (16sp/24sp).
 - [x] **Voice Visualization:** Overlay'e gerçek zamanlı ses genliği (amplitude) duyarlılığı eklendi.
 - [x] **Sensor Monitor Screen:** Omoda 5 VHAL verilerinin (Hız, RPM, Yakıt vb.) 2sn periyotla izlendiği özel ekran eklendi.
+- [x] **Premium Dashboard:** 80 km/h akıllı split ekran (20 km/h reset state), glassmorphism medya widget'ı ve tam ekran Dashboard (235dp kuralıyla) entegre edildi.
+- [x] **Health Watchdog:** Sunucu yanıt vermediğinde (Thinking/STT) kullanıcıyı uyaran zaman aşımı mekanizması eklendi.
+- [x] **Local Voice Fallback:** Piper TTS ve Whisper STT motorları SD kart model desteği ile tam stabil hale getirildi.
+- [x] **Split View Map Fix:** ActivityView "Active view not supported" hatası retry mantığıyla çözüldü.
+- [x] **UI Restorasyonu:** Tüm arayüz v6312 (19.07.2026 08:00-12:00) standartlarına ve manifesto kurallarına geri döndürüldü.

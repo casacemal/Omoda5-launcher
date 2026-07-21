@@ -79,6 +79,12 @@ class BridgeActivity : Activity() {
         updateStatus()
     }
 
+    override fun onDestroy() {
+        // H-14: Activity capture eden lambda temizlenir — bellek sızıntısı önlenir
+        RelayClient.onStatusChanged = null
+        super.onDestroy()
+    }
+
     override fun onResume() {
         super.onResume()
         updateStatus()

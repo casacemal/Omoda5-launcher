@@ -22,8 +22,8 @@ object GlobalState {
     val vehicleId = MutableStateFlow("OMODA5_T19C_001")
     val sessionKey = MutableStateFlow("user:ahmet:master_profile")
     val currentMode = MutableStateFlow("ASISTANT")
-    val sttMode = MutableStateFlow("HERMES")
-    val ttsEngine = MutableStateFlow("9ROUTER")
+    val sttMode = MutableStateFlow("SHERPA")
+    val ttsEngine = MutableStateFlow("SHERPA")
     
     val isMqttConnected = MutableStateFlow(false)
     val hasInternetConnection = MutableStateFlow(false)
@@ -35,13 +35,13 @@ object GlobalState {
     val isContinuousConversation = MutableStateFlow(true)
     val useHermesDecision = MutableStateFlow(false)
     val isWakeWordEnabled = MutableStateFlow(true)
-    val micSource = MutableStateFlow("VOICE_RECOGNITION")
+    val micSource = MutableStateFlow("MIC")
     val isAutoTasksEnabled = MutableStateFlow(true)
     
     // VHAL / STT Hassasiyet Ayarları
-    val vadSnrRatio = MutableStateFlow(1.6f)
-    val vadSilenceDuration = MutableStateFlow(2000L)
-    val vadGainFactor = MutableStateFlow(2.5f)
+    val vadSnrRatio = MutableStateFlow(1.4f)
+    val vadSilenceDuration = MutableStateFlow(2500L)
+    val vadGainFactor = MutableStateFlow(4.5f)
     
     val isKlimaAutoEnable = MutableStateFlow(true)
     
@@ -83,4 +83,35 @@ object GlobalState {
     val mqttEnabled = MutableStateFlow(true)
 
     val workflowState = MutableStateFlow("IDLE") // IDLE, LISTENING, THINKING, TALKING
+    
+    // Architecture 2.0: Dynamic Layout State
+    val dashboardLeftWeight = MutableStateFlow(0.6f)
+    val isHighSpeedMode = MutableStateFlow(false)
+
+    /**
+     * Sidebar (sol çubuk) genişliği — dp cinsinden.
+     * Araç donanımında varsayılan 235dp.  Handheld / kapanmış durumda 0dp.
+     * LayoutEngine bu değeri reaktif olarak dinler, sabit 235.dp kullanmaz.
+     */
+    val sidebarWidth = MutableStateFlow(if (isCarHardware) 235 else 0)
+    
+    // Architecture 2.0 References
+    var firewallV2: com.omoda.lanc.core.dsl.FirewallV2? = null
+    var hybridRouter: com.omoda.lanc.core.dsl.HybridRouter? = null
+    
+    // Premium Özellikler UI Durumları
+    val proactiveNotificationsEnabled = MutableStateFlow(true)
+    val criticalNotificationsOnly = MutableStateFlow(false)
+    val waveformEnabled = MutableStateFlow(true)
+    val gamificationEnabled = MutableStateFlow(true)
+    val ecoScore = MutableStateFlow(100)
+    val proactiveWarningType = MutableStateFlow("NORMAL") // NORMAL veya CRITICAL
+
+    val isCarHardware: Boolean
+        get() = (android.os.Build.MODEL.contains("omoda", ignoreCase = true) || 
+                android.os.Build.MANUFACTURER.contains("semidrive", ignoreCase = true) ||
+                android.os.Build.MANUFACTURER.contains("rockchip", ignoreCase = true) ||
+                android.os.Build.PRODUCT.contains("omoda", ignoreCase = true)) &&
+                !android.os.Build.MANUFACTURER.contains("Xiaomi", ignoreCase = true) &&
+                !android.os.Build.MANUFACTURER.contains("samsung", ignoreCase = true)
 }

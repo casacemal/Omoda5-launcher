@@ -1,0 +1,32 @@
+Stack id=14 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=freeform mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4360: in.krosbits.musicolet/in.krosbits.musicolet.MusicActivity bounds=[0,0][1920,720] userId=0 visible=true topActivity=ComponentInfo{in.krosbits.musicolet/in.krosbits.musicolet.MusicActivity}
+
+Stack id=13 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=freeform mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4359: ru.yandex.yandexnavi/ru.yandex.yandexnavi.core.NavigatorActivity bounds=[1077,0][1920,720] userId=0 visible=true topActivity=ComponentInfo{ru.yandex.yandexnavi/ru.yandex.yandexnavi.core.NavigatorActivity}
+
+Stack id=0 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=home mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4353: com.omoda.lanc/com.omoda.lanc.MainActivity bounds=[0,0][1920,720] userId=0 visible=true topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}
+
+Stack id=2 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4347: com.chery.launcher/com.chery.launcher.view.activity.MainActivity bounds=[0,0][1920,720] userId=0 visible=false topActivity=ComponentInfo{com.chery.launcher/com.chery.launcher.view.activity.MainActivity}
+
+Stack id=6 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4351: com.omoda.lanc/com.omoda.lanc.MainActivity bounds=[0,0][1920,720] userId=0 visible=false topActivity=ComponentInfo{com.omoda.lanc/com.omoda.lanc.MainActivity}
+
+Stack id=4 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4349: com.chery.upgrade/com.chery.upgrade.view.MainActivity bounds=[0,0][1920,720] userId=0 visible=false topActivity=ComponentInfo{com.chery.upgrade/com.chery.upgrade.view.MainActivity}
+
+Stack id=3 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4348: com.tailscale.ipn/com.tailscale.ipn.MainActivity bounds=[0,0][1920,720] userId=0 visible=false topActivity=ComponentInfo{com.tailscale.ipn/com.tailscale.ipn.MainActivity}
+
+Stack id=1 bounds=[0,0][1920,720] displayId=0 userId=0
+ configuration={1.0 ?mcc?mnc [tr] ldltr sw385dp w1585dp h720dp 160dpi lrg long land car night finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1920, 720) mAppBounds=Rect(235, 0 - 1920, 720) mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.94}
+  taskId=4346: com.chery.settings/com.chery.settings.view.settings.activity.SettingsActivity bounds=[0,0][1920,720] userId=0 visible=false topActivity=ComponentInfo{com.chery.settings/com.chery.settings.view.settings.activity.SettingsActivity}
+

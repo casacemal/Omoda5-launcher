@@ -101,12 +101,14 @@ class NineRouterTTSManager(private val context: Context) : TTSManager {
     }
 
     override fun stop() {
-        try {
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-        } catch (_: Exception) {}
+        // H-11: stop() hata verse de release() garantili \u00e7al\u0131\u015f\u0131r \u2014 native MediaPlayer s\u0131z\u0131nt\u0131s\u0131 \u00f6nlenir
+        val player = mediaPlayer
         mediaPlayer = null
         this@NineRouterTTSManager.isPlaying = false
+        if (player != null) {
+            try { player.stop() } catch (_: Exception) {}
+            try { player.release() } catch (_: Exception) {}
+        }
     }
 
     override fun isSpeaking(): Boolean = isPlaying

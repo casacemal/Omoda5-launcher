@@ -1,0 +1,83 @@
+  Stack #0: type=home mode=fullscreen
+    * TaskRecord{b88c5fb #4285 A=com.omoda.lanc U=0 StackId=0 sz=1}
+      affinity=com.omoda.lanc
+      intent={act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity}
+      mActivityComponent=com.omoda.lanc/.MainActivity
+      Activities=[ActivityRecord{b12c813 u0 com.omoda.lanc/.MainActivity t4285}]
+      mRootProcess=ProcessRecord{d22e09b 23006:com.omoda.lanc/u0a51}
+      * Hist #0: ActivityRecord{b12c813 u0 com.omoda.lanc/.MainActivity t4285}
+          packageName=com.omoda.lanc processName=com.omoda.lanc
+          app=ProcessRecord{d22e09b 23006:com.omoda.lanc/u0a51}
+          Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.omoda.lanc/.MainActivity (has extras) }
+          frontOfTask=true task=TaskRecord{b88c5fb #4285 A=com.omoda.lanc U=0 StackId=0 sz=1}
+          taskAffinity=com.omoda.lanc
+          mActivityComponent=com.omoda.lanc/.MainActivity
+          baseDir=/data/app/com.omoda.lanc-nMss2CPq5YGoFcVCDAV8kA==/base.apk
+          dataDir=/data/user/0/com.omoda.lanc
+      TaskRecord{b88c5fb #4285 A=com.omoda.lanc U=0 StackId=0 sz=1}
+        Run #0: ActivityRecord{b12c813 u0 com.omoda.lanc/.MainActivity t4285}
+    mResumedActivity: ActivityRecord{b12c813 u0 com.omoda.lanc/.MainActivity t4285}
+  Stack #13: type=standard mode=fullscreen
+  Stack #26: type=standard mode=fullscreen
+    * TaskRecord{b2b0c38 #4283 A=ru.yandex.yandexnavi U=0 StackId=26 sz=1}
+      userId=0 effectiveUid=u0a57 mCallingUid=u0a51 mUserSetupComplete=true mCallingPackage=com.omoda.lanc
+      affinity=ru.yandex.yandexnavi
+      intent={flg=0x10000000 cmp=ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity}
+      mActivityComponent=ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity
+      Activities=[ActivityRecord{5d08392 u0 ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity t4283}]
+      mRootProcess=ProcessRecord{f6b96d8 21122:ru.yandex.yandexnavi/u0a57}
+      * Hist #0: ActivityRecord{5d08392 u0 ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity t4283}
+          packageName=ru.yandex.yandexnavi processName=ru.yandex.yandexnavi
+          app=ProcessRecord{f6b96d8 21122:ru.yandex.yandexnavi/u0a57}
+          Intent { flg=0x10000000 cmp=ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity }
+          frontOfTask=true task=TaskRecord{b2b0c38 #4283 A=ru.yandex.yandexnavi U=0 StackId=26 sz=1}
+          taskAffinity=ru.yandex.yandexnavi
+          mActivityComponent=ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity
+          baseDir=/data/app/ru.yandex.yandexnavi--C9ZqDAjZAQL9RMhcmwgOw==/base.apk
+          dataDir=/data/user/0/ru.yandex.yandexnavi
+      TaskRecord{b2b0c38 #4283 A=ru.yandex.yandexnavi U=0 StackId=26 sz=1}
+        Run #0: ActivityRecord{5d08392 u0 ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity t4283}
+    mLastPausedActivity: ActivityRecord{5d08392 u0 ru.yandex.yandexnavi/ru.yandex.yandexmaps.app.MapActivity t4283}
+  Stack #27: type=standard mode=fullscreen
+    * TaskRecord{a5d7411 #4284 A=com.omoda.lanc U=0 StackId=27 sz=1}
+      affinity=com.omoda.lanc
+      intent={flg=0x10000000 cmp=com.omoda.lanc/.MainActivity}
+      mActivityComponent=com.omoda.lanc/.MainActivity
+      Activities=[ActivityRecord{8c3d70a u0 com.omoda.lanc/.MainActivity t4284}]
+      mRootProcess=ProcessRecord{d22e09b 23006:com.omoda.lanc/u0a51}
+      * Hist #0: ActivityRecord{8c3d70a u0 com.omoda.lanc/.MainActivity t4284}
+          packageName=com.omoda.lanc processName=com.omoda.lanc
+          app=ProcessRecord{d22e09b 23006:com.omoda.lanc/u0a51}
+          Intent { flg=0x10000000 cmp=com.omoda.lanc/.MainActivity }
+          frontOfTask=true task=TaskRecord{a5d7411 #4284 A=com.omoda.lanc U=0 StackId=27 sz=1}
+          taskAffinity=com.omoda.lanc
+          mActivityComponent=com.omoda.lanc/.MainActivity
+          baseDir=/data/app/com.omoda.lanc-nMss2CPq5YGoFcVCDAV8kA==/base.apk
+          dataDir=/data/user/0/com.omoda.lanc
+      TaskRecord{a5d7411 #4284 A=com.omoda.lanc U=0 StackId=27 sz=1}
+        Run #0: ActivityRecord{8c3d70a u0 com.omoda.lanc/.MainActivity t4284}
+    mLastPausedActivity: ActivityRecord{8c3d70a u0 com.omoda.lanc/.MainActivity t4284}
+  Stack #24: type=standard mode=fullscreen
+    * TaskRecord{94dc976 #4280 A=com.omoda.lanc U=0 StackId=24 sz=1}
+      affinity=com.omoda.lanc
+      intent={flg=0x10000000 cmp=com.omoda.lanc/.MainActivity}
+      mActivityComponent=com.omoda.lanc/.MainActivity
+      Activities=[ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}]
+      * Hist #0: ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+          packageName=com.omoda.lanc processName=com.omoda.lanc
+          app=ProcessRecord{c4eb77 0:com.omoda.lanc/u0a51}
+          Intent { flg=0x10000000 cmp=com.omoda.lanc/.MainActivity }
+          frontOfTask=true task=TaskRecord{94dc976 #4280 A=com.omoda.lanc U=0 StackId=24 sz=1}
+          taskAffinity=com.omoda.lanc
+          mActivityComponent=com.omoda.lanc/.MainActivity
+          baseDir=/data/app/com.omoda.lanc-nMss2CPq5YGoFcVCDAV8kA==/base.apk
+          dataDir=/data/user/0/com.omoda.lanc
+      TaskRecord{94dc976 #4280 A=com.omoda.lanc U=0 StackId=24 sz=1}
+        Run #0: ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+    mLastPausedActivity: ActivityRecord{9cd9792 u0 com.omoda.lanc/.MainActivity t4280 f}
+  Stack #17: type=standard mode=fullscreen
+  Stack #5: type=standard mode=fullscreen
+      userId=0 effectiveUid=u0a46 mCallingUid=u0a51 mUserSetupComplete=true mCallingPackage=com.omoda.lanc
+          launchedFromUid=10051 launchedFromPackage=com.omoda.lanc userId=0
+ ResumedActivity:ActivityRecord{b12c813 u0 com.omoda.lanc/.MainActivity t4285}
+  ResumedActivity: ActivityRecord{b12c813 u0 com.omoda.lanc/.MainActivity t4285}
