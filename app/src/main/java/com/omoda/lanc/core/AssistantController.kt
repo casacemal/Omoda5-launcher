@@ -332,7 +332,7 @@ class AssistantController(
     }
 
     fun destroy() {
-        controllerScope.cancel()
+        scope.cancel()
         vehicleController.destroy()
         audioEngine.releaseFocus()
         ttsManager.shutdown()

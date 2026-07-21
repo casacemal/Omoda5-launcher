@@ -27,7 +27,7 @@ fun MediaControlWidget(viewModel: MediaControllerViewModel) {
 
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     val smallestWidth = configuration.smallestScreenWidthDp
-    val isCar = com.omoda.lanc.GlobalState.isCarHardware
+    val isCar = GlobalState.isCarHardware
     val isHandheld = !isCar && smallestWidth < 600
 
     val leftPadding = when {
