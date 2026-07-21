@@ -1,5 +1,6 @@
 package com.omoda.lanc.overlay
 
+import com.omoda.lanc.core.GlobalState
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color

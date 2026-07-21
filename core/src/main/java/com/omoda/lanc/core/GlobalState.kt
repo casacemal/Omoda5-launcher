@@ -61,6 +61,27 @@ object GlobalState {
     
     val latestVersion = MutableStateFlow("v---")
     val downloadProgressText = MutableStateFlow<String?>(null)
+    
+    // UI states migrated from AssistantApplication
+    val wallpaperIdx = MutableStateFlow(0)
+    val appClickCounts = MutableStateFlow<Map<String, Int>>(emptyMap())
+    val systemLogs = MutableStateFlow(listOf<String>())
+    val mqttLogList = MutableStateFlow<List<String>>(emptyList())
+    
+    fun addLog(log: String) {
+        val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
+        val newLogs = systemLogs.value.toMutableList()
+        newLogs.add(0, "[$time] $log")
+        if (newLogs.size > 100) newLogs.removeAt(newLogs.size - 1)
+        systemLogs.value = newLogs
+    }
+
+    fun addMqttLog(log: String) {
+        val current = mqttLogList.value.toMutableList()
+        current.add(0, log)
+        if (current.size > 50) current.removeAt(current.size - 1)
+        mqttLogList.value = current
+    }
 
     // TTS Voice Settings
     val ttsRate = MutableStateFlow(1.0f)

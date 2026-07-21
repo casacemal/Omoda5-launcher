@@ -135,7 +135,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val wallpaperIdx by AssistantApplication.wallpaperIdx.collectAsState()
+        val wallpaperIdx by GlobalState.wallpaperIdx.collectAsState()
         val internalWps = listOf(R.mipmap.bg_1, R.mipmap.bg_2, R.drawable.wp_purple, R.drawable.wp_red)
         var externalWps by remember { mutableStateOf(emptyList<File>()) }
         
@@ -154,7 +154,7 @@ class MainActivity : ComponentActivity() {
             if (bitmap != null) BitmapPainter(bitmap.asImageBitmap()) else painterResource(internalWps[0])
         } else painterResource(internalWps[0])
 
-        val isHandheld = !AssistantApplication.isCarHardware
+        val isHandheld = !GlobalState.isCarHardware
 
         val startPad = if (isHandheld) 20.dp else 235.dp
         val topPad = if (isHandheld) 20.dp else 60.dp
@@ -180,7 +180,7 @@ class MainActivity : ComponentActivity() {
                             items(launcherPages[pIdx]) { item ->
                                 GlassIcon(item = item, onClick = { 
                                     if (item.packageName == "internal.wallpaper") {
-                                        AssistantApplication.wallpaperIdx.value++; AssistantApplication.saveCurrentConfig()
+                                        GlobalState.wallpaperIdx.value++; com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                                     } else launchApp(item)
                                 })
                             }
@@ -203,33 +203,33 @@ class MainActivity : ComponentActivity() {
                 }
                 VoiceTriggerButton(if(currentMode == "CHAT") "CHAT" else "ASIST", OmodaCyan) { 
                     GlobalState.currentMode.value = if (currentMode == "CHAT") "ASISTANT" else "CHAT"
-                    AssistantApplication.saveCurrentConfig()
+                    com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
                 VoiceTriggerButton("VERİ", Color.Magenta) { onOpenSensors() }
                 VoiceTriggerButton("TEMA", Color(0xFFFF9800)) { 
-                    AssistantApplication.wallpaperIdx.value++; AssistantApplication.saveCurrentConfig()
+                    GlobalState.wallpaperIdx.value++; com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
 
                 val isSimMode by GlobalState.isSimulationMode.collectAsState()
                 VoiceTriggerButton(if (isSimMode) "VHAL(A)" else "VHAL(K)", if (isSimMode) Color(0xFFE91E63) else Color.DarkGray) {
                     val newVal = !isSimMode
                     GlobalState.isSimulationMode.value = newVal
-                    AssistantApplication.addLogStatic(if (newVal) "VHAL SİMÜLATÖR AKTİF" else "VHAL SİMÜLATÖR KAPALI")
-                    AssistantApplication.saveCurrentConfig()
+                    com.omoda.lanc.core.GlobalState.addLog(if (newVal) "VHAL SİMÜLATÖR AKTİF" else "VHAL SİMÜLATÖR KAPALI")
+                    com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
 
                 val isBridgeMode by GlobalState.isBridgeMode.collectAsState()
                 VoiceTriggerButton(if (isBridgeMode) "KÖPRÜ(A)" else "KÖPRÜ(K)", if (isBridgeMode) Color(0xFFF3B14B) else Color.DarkGray) {
                     val newVal = !isBridgeMode
                     GlobalState.isBridgeMode.value = newVal
-                    AssistantApplication.addLogStatic(if (newVal) "MQTT KÖPRÜ AKTİF" else "MQTT KÖPRÜ KAPALI")
-                    AssistantApplication.saveCurrentConfig()
+                    com.omoda.lanc.core.GlobalState.addLog(if (newVal) "MQTT KÖPRÜ AKTİF" else "MQTT KÖPRÜ KAPALI")
+                    com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
 
                 val isMqttEnabled by GlobalState.mqttEnabled.collectAsState()
                 VoiceTriggerButton(if (isMqttEnabled) "MQTT(A)" else "MQTT(K)", if (isMqttEnabled) Color(0xFF4CAF50) else Color.DarkGray) {
                     GlobalState.mqttEnabled.value = !isMqttEnabled
-                    AssistantApplication.saveCurrentConfig()
+                    com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
 
                 VoiceTriggerButton("ADB", Color(0xFF673AB7)) {
@@ -238,7 +238,7 @@ class MainActivity : ComponentActivity() {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         context.startActivity(intent)
                     } catch (e: Exception) {
-                        AssistantApplication.addLogStatic("HATA: Bridge Paneli Açılamadı")
+                        com.omoda.lanc.core.GlobalState.addLog("HATA: Bridge Paneli Açılamadı")
                     }
                 }
             }
@@ -290,7 +290,7 @@ class MainActivity : ComponentActivity() {
         val allApps = packageManager.queryIntentActivities(mainIntent, 0).map { res ->
             val pkg = res.activityInfo.packageName
             LauncherItem(pkg, res.loadLabel(packageManager).toString(), 0, pkg, res.loadIcon(packageManager))
-        }.filter { app -> fixedApps.none { it.packageName == app.packageName } }.sortedByDescending { AssistantApplication.appClickCounts.value[it.packageName] ?: 0 }
+        }.filter { app -> fixedApps.none { it.packageName == app.packageName } }.sortedByDescending { GlobalState.appClickCounts.value[it.packageName] ?: 0 }
         return listOf(fixedApps) + allApps.chunked(itemsPerPage)
     }
 

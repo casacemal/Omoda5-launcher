@@ -47,17 +47,17 @@ class VoicePanelWidget : DashboardWidget {
                 
                 VoiceTriggerButton("CHAT", OmodaCyan) { 
                     GlobalState.currentMode.value = if (GlobalState.currentMode.value == "CHAT") "ASISTANT" else "CHAT"
-                    AssistantApplication.saveCurrentConfig()
+                    com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
                 
                 VoiceTriggerButton("VHAL", Color.Magenta) { 
                     GlobalState.isSimulationMode.value = !GlobalState.isSimulationMode.value
-                    AssistantApplication.saveCurrentConfig()
+                    com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
                 
                 VoiceTriggerButton("TEMA", Color(0xFFFF9800)) { 
-                    AssistantApplication.wallpaperIdx.value++
-                    AssistantApplication.saveCurrentConfig()
+                    GlobalState.wallpaperIdx.value++
+                    com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
             }
         }

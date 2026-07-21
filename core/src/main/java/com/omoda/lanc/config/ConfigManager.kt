@@ -41,6 +41,59 @@ class ConfigManager(val context: Context) {
         }
     }
 
+    fun saveConfigAndSync() {
+        val config = AppConfig(
+            serverIp = com.omoda.lanc.core.GlobalState.serverIp.value,
+            hermesPort = com.omoda.lanc.core.GlobalState.hermesPort.value,
+            sttPort = com.omoda.lanc.core.GlobalState.sttPort.value,
+            ttsPort = com.omoda.lanc.core.GlobalState.ttsPort.value,
+            sttMode = com.omoda.lanc.core.GlobalState.sttMode.value,
+            ttsEngine = com.omoda.lanc.core.GlobalState.ttsEngine.value,
+            useHermesSpeech = com.omoda.lanc.core.GlobalState.useHermesSpeech.value,
+            isContinuousConversation = com.omoda.lanc.core.GlobalState.isContinuousConversation.value,
+            useHermesDecision = com.omoda.lanc.core.GlobalState.useHermesDecision.value,
+            isWakeWordEnabled = com.omoda.lanc.core.GlobalState.isWakeWordEnabled.value,
+            micSource = com.omoda.lanc.core.GlobalState.micSource.value,
+            isBridgeMode = com.omoda.lanc.core.GlobalState.isBridgeMode.value,
+            isSimulationMode = com.omoda.lanc.core.GlobalState.isSimulationMode.value,
+            mqttEnabled = com.omoda.lanc.core.GlobalState.mqttEnabled.value,
+            vehicleId = com.omoda.lanc.core.GlobalState.vehicleId.value,
+            sessionKey = com.omoda.lanc.core.GlobalState.sessionKey.value,
+            wallpaperIdx = com.omoda.lanc.core.GlobalState.wallpaperIdx.value,
+            appClickCounts = com.omoda.lanc.core.GlobalState.appClickCounts.value,
+            vehiclePollingConfig = com.omoda.lanc.core.GlobalState.vehiclePollingConfig.value,
+            githubToken = com.omoda.lanc.core.GlobalState.githubToken.value,
+            hermesApiKey = com.omoda.lanc.core.GlobalState.hermesApiKey.value,
+            ninerouterApiKey = com.omoda.lanc.core.GlobalState.ninerouterApiKey.value,
+            edgeTtsToken = com.omoda.lanc.core.GlobalState.edgeTtsToken.value,
+            vadSnrRatio = com.omoda.lanc.core.GlobalState.vadSnrRatio.value,
+            vadSilenceDuration = com.omoda.lanc.core.GlobalState.vadSilenceDuration.value,
+            vadGainFactor = com.omoda.lanc.core.GlobalState.vadGainFactor.value,
+            isKlimaAutoEnable = com.omoda.lanc.core.GlobalState.isKlimaAutoEnable.value,
+            ttsRate = com.omoda.lanc.core.GlobalState.ttsRate.value,
+            ttsPitch = com.omoda.lanc.core.GlobalState.ttsPitch.value,
+            proactiveNotificationsEnabled = com.omoda.lanc.core.GlobalState.proactiveNotificationsEnabled.value,
+            criticalNotificationsOnly = com.omoda.lanc.core.GlobalState.criticalNotificationsOnly.value,
+            waveformEnabled = com.omoda.lanc.core.GlobalState.waveformEnabled.value,
+            gamificationEnabled = com.omoda.lanc.core.GlobalState.gamificationEnabled.value
+        )
+        saveConfig(config)
+        com.omoda.lanc.core.GlobalState.activeServerIp.value = com.omoda.lanc.core.GlobalState.serverIp.value
+        
+        val mqttPublisher = com.omoda.lanc.core.GlobalState.mqttPublisher
+        if (mqttPublisher != null) {
+            if (com.omoda.lanc.core.GlobalState.mqttEnabled.value) {
+                mqttPublisher.disconnect()
+                mqttPublisher.updateBrokerUrl(com.omoda.lanc.core.GlobalState.serverIp.value)
+                mqttPublisher.connect()
+            } else {
+                mqttPublisher.disconnect()
+            }
+        }
+        
+        com.omoda.lanc.core.EventBus.tryEmit(com.omoda.lanc.core.Event.SystemEvent.ConfigUpdated)
+    }
+
     private fun getPublicOmodaDir(): File {
         // SDCard/Omoda format (Legacy and Scoped Storage compatible if permission granted)
         val omodaDir = File(Environment.getExternalStorageDirectory(), "Omoda")

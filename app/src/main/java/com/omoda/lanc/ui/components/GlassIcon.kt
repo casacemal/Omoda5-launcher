@@ -1,5 +1,6 @@
 package com.omoda.lanc.ui.components
 
+import com.omoda.lanc.core.GlobalState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -35,7 +36,7 @@ fun GlassIcon(
     val context = LocalContext.current
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     val smallestWidth = configuration.smallestScreenWidthDp
-    val isCar = AssistantApplication.isCarHardware
+    val isCar = GlobalState.isCarHardware
     val isHandheld = !isCar && smallestWidth < 600
 
     // OMODA 5 ULTIMATE MANIFESTO STANDARDS

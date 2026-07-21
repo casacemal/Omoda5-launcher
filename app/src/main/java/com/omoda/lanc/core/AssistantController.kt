@@ -1,5 +1,6 @@
 package com.omoda.lanc.core
 
+import com.omoda.lanc.core.GlobalState
 import android.content.Context
 import android.util.Log
 import com.omoda.lanc.AssistantApplication

@@ -1,5 +1,6 @@
 package com.omoda.lanc.service
 
+import com.omoda.lanc.core.GlobalState
 import android.accessibilityservice.AccessibilityService
 import android.content.*
 import android.graphics.*
@@ -42,7 +43,7 @@ class CheryAccessibilityService : AccessibilityService() {
         // v10.1.1: Adjusted areas for Overscan (-80px right)
         setup(100, -1, Gravity.END) { 
             performGlobalAction(GLOBAL_ACTION_BACK) 
-            AssistantApplication.addLogStatic("ACCESSIBILITY: Geri jeti algilandi (Sağdan Sola)")
+            com.omoda.lanc.core.GlobalState.addLog("ACCESSIBILITY: Geri jeti algilandi (Sağdan Sola)")
         }
         setup(-1, 60, Gravity.BOTTOM) { 
             launchHome() 
@@ -50,13 +51,13 @@ class CheryAccessibilityService : AccessibilityService() {
         refreshHomeInterception()
         startLogcatWatchdog()
         startVpnWatchdog()
-        AssistantApplication.addLogStatic("ACCESSIBILITY: Chery Accessibility Engine Ready")
+        com.omoda.lanc.core.GlobalState.addLog("ACCESSIBILITY: Chery Accessibility Engine Ready")
         
         // Split Screen Tetikleyici Receiver
         receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 performGlobalAction(GLOBAL_ACTION_TOGGLE_SPLIT_SCREEN)
-                AssistantApplication.addLogStatic("SPLIT: Native Split Screen Tetiklendi")
+                com.omoda.lanc.core.GlobalState.addLog("SPLIT: Native Split Screen Tetiklendi")
             }
         }
         // M-11: API 33+ RECEIVER_NOT_EXPORTED — harici uygulamaların tetiklemesi engellenir
@@ -83,7 +84,7 @@ class CheryAccessibilityService : AccessibilityService() {
                         }
                         
                         if (!isVpnActive) {
-                            AssistantApplication.addLogStatic("VPN: Tailscale bağlı değil, başlatılıyor...")
+                            com.omoda.lanc.core.GlobalState.addLog("VPN: Tailscale bağlı değil, başlatılıyor...")
                             val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
                                 .setComponent(ComponentName("com.tailscale.ipn", "com.tailscale.ipn.IPNActivity"))
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -126,7 +127,7 @@ class CheryAccessibilityService : AccessibilityService() {
                     setBackgroundColor(Color.TRANSPARENT)
                     setOnClickListener { 
                         launchHome()
-                        AssistantApplication.addLogStatic("HOME: Method 2 (Overlay)") 
+                        com.omoda.lanc.core.GlobalState.addLog("HOME: Method 2 (Overlay)") 
                     } 
                 }
                 val layoutParams = WindowManager.LayoutParams(
@@ -156,18 +157,18 @@ class CheryAccessibilityService : AccessibilityService() {
 
         // Voice Assistant Trigger (KeyCode 293 veya KeyCode 290)
         if ((keyCode == 293 || keyCode == 290) && isUp) {
-            AssistantApplication.addLogStatic("ACCESSIBILITY: HardKey $keyCode algilandi, asistan tetikleniyor.")
+            com.omoda.lanc.core.GlobalState.addLog("ACCESSIBILITY: HardKey $keyCode algilandi, asistan tetikleniyor.")
             EventBus.tryEmit(Event.SystemEvent.HardKeyPressed(keyCode))
             return true
         }
 
         if (homeInterceptMethod == 1 && (keyCode == 3 || keyCode == 294) && isUp) { 
             launchHome()
-            AssistantApplication.addLogStatic("HOME: Method 1 (Key)")
+            com.omoda.lanc.core.GlobalState.addLog("HOME: Method 1 (Key)")
             return true 
         }
         if (isKeyMonitoringEnabled) {
-            AssistantApplication.addLogStatic("CANBUS_KEY: $keyCode (${if(isUp) "UP" else "DOWN"})")
+            com.omoda.lanc.core.GlobalState.addLog("CANBUS_KEY: $keyCode (${if(isUp) "UP" else "DOWN"})")
         }
         return super.onKeyEvent(e)
     }
@@ -186,7 +187,7 @@ class CheryAccessibilityService : AccessibilityService() {
                         // Home key kontrolü
                         if (homeInterceptMethod == 3 && (l.contains("HOME_KEY") || l.contains("KEYCODE_HOME"))) {
                             withContext(Dispatchers.Main) { launchHome() }
-                            AssistantApplication.addLogStatic("HOME: Method 3 (Watchdog)")
+                            com.omoda.lanc.core.GlobalState.addLog("HOME: Method 3 (Watchdog)")
                         }
 
                         // Genel Tuş (HardKey) Taraıması (Çok agresif)
@@ -202,7 +203,7 @@ class CheryAccessibilityService : AccessibilityService() {
                                     keyIntent.setPackage(packageName)
                                     sendBroadcast(keyIntent)
                                     if (isKeyMonitoringEnabled) {
-                                        AssistantApplication.addLogStatic("LOGCAT_KEY: $kc (Watchdog)")
+                                        com.omoda.lanc.core.GlobalState.addLog("LOGCAT_KEY: $kc (Watchdog)")
                                     }
                                 }
                             }
@@ -219,7 +220,7 @@ class CheryAccessibilityService : AccessibilityService() {
         if (e.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             val pkg = e.packageName?.toString() ?: ""
             if (isDataMonitoringEnabled) {
-                AssistantApplication.addLogStatic("WINDOW: $pkg")
+                com.omoda.lanc.core.GlobalState.addLog("WINDOW: $pkg")
             }
         }
     }
@@ -234,7 +235,7 @@ class CheryAccessibilityService : AccessibilityService() {
             
             // Sistem seviyesinde Home tetikle (Yedek)
             performGlobalAction(GLOBAL_ACTION_HOME)
-            AssistantApplication.addLogStatic("HOME: Balyoz Metodu Tetiklendi (Ana Ekrana Yonlendirme)")
+            com.omoda.lanc.core.GlobalState.addLog("HOME: Balyoz Metodu Tetiklendi (Ana Ekrana Yonlendirme)")
         } catch (e: Exception) { 
             performGlobalAction(GLOBAL_ACTION_HOME) 
         } 

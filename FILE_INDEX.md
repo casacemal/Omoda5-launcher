@@ -16,7 +16,7 @@
 *   Surum 6230 (6.0.0) - 13.07.2026 16:30
     *   `ActionExecutor.kt`: HVAC baslatma komutu `com.chery.hvac` paketiyle uyumlu hale getirildi.
     *   `MainActivity.kt`: Klima otomatik onarim (Auto-Repair) paket adi ve activity yolu guncellendi.
-    *   `SettingsScreen.kt` & `SensorMonitorScreen.kt`: Klima acma ve onarma butonlarindaki paket adi uyusmazligi giderildi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)` & `SensorMonitorScreen.kt`: Klima acma ve onarma butonlarindaki paket adi uyusmazligi giderildi.
 
 *   Surum 6169 (6.0.0) - 11.07.2026
     *   `CODE_AUDIT_REPORT.md`: Kapsamli kod audit raporu — 57 sorun tespit edildi (5 Kritik, 16 Yuksek, 22 Orta, 14 Dusuk). Guvenlik, ag, ses, durum yonetimi, kaynak yonetimi, olu kod ve mimari kategorileri.
@@ -30,12 +30,12 @@
 *   Surum 6076 (6.0.0) - 10.07.2026 19:30
     *   `MainActivity.kt`: 5x2 grid duzeni, Chery ikonlari ve referans padding degerleri uygulandi.
     *   `GlassIcon.kt`: Ikon boyutlari referans manifesto degerlerine cekildi (110dp).
-    *   `SettingsScreen.kt`: Sidebar genisligi (235dp) ve buton boyutlari optimize edildi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)`: Sidebar genisligi (235dp) ve buton boyutlari optimize edildi.
     *   `PairingManager.kt`: Varsayilan eslesme kodu `OMODA5` yapildi.
     *   `UI_MANIFESTO.md`: Yeni tasarim kurallari dosyasi.
 
 *   Surum 6075 (6.0.0) - 10.07.2026 18:30
-    *   `SettingsScreen.kt`: Market (Guncelleme) sekmesi geri getirildi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)`: Market (Guncelleme) sekmesi geri getirildi.
 
 *   Surum 6077 (6.0.0) - 10.07.2026 21:14
 
@@ -132,7 +132,7 @@
 *   Surum 6118 (6.0.0) - 11.07.2026 11:25
 
 *   Surum 6119 (6.0.0) - 11.07.2026 11:26
-    *   `SettingsScreen.kt` & `SettingsComponents.kt`: Mobil cihazlar icin kompakt gorunum (`isCompact`) destegi eklendi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)` & `SettingsComponents.kt`: Mobil cihazlar icin kompakt gorunum (`isCompact`) destegi eklendi.
     *   `SensorMonitorScreen.kt`: Omoda 5 VHAL verilerinin izlendigi dinamik ekran tamamlandi.
     *   `MainActivity.kt`: "VERI" butonu ile sensor ekranina navigasyon eklendi.
 
@@ -153,7 +153,7 @@
 *   Surum 6127 (6.0.0) - 11.07.2026 13:10
     *   `ConfigManager.kt`: Ayarlari SD karta yedekleme ve geri yukleme (Backup/Restore) destegi eklendi.
     *   `GlobalState.kt` & `AssistantApplication.kt`: API anahtarlari flow tabanli reaktif yapiya gecirildi.
-    *   `SettingsScreen.kt`: Backup/Restore butonlari ve dinamik API anahtari giris alanlari eklendi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)`: Backup/Restore butonlari ve dinamik API anahtari giris alanlari eklendi.
     *   `EdgeOnlineTTSManager.kt`: Sabit token yerine dinamik `GlobalState` token'i kullanimi aktiflestirildi.
 
 *   Surum 6128 (6.0.0) - 11.07.2026 13:46
@@ -161,7 +161,7 @@
 *   Surum 6129 (6.0.0) - 11.07.2026 13:47
 
 *   Surum 6153 (6.0.0) - 11.07.2026 17:05
-    *   `SettingsScreen.kt`: Alt bar kaldirildi, Kaydet/Iptal ust bara tasindi, mobil yatay mod optimizasyonu yapildi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)`: Alt bar kaldirildi, Kaydet/Iptal ust bara tasindi, mobil yatay mod optimizasyonu yapildi.
     *   `MainActivity.kt`: Uygulama yukleme arkaya (IO) alindi, FAB butonlari `LazyRow` ile kaydirilabilir yapildi.
     *   `AdbConnectionMonitor.kt`: Port 5555 kontrolu sessizlestirildi (log temizligi).
     *   `MediaControllerViewModel.kt`: `SecurityException` korumasi eklendi.
@@ -241,7 +241,7 @@
     *   `ConfigManager.kt`: Yedekleme yolu `/sdcard/Omoda` olarak sabitlendi, ByteArray tabanli XOR sifreleme ile veri butunlugu saglandi.
     *   `RelayClient.kt`: Varsayilan baglanti parametreleri (192.168.1.14 & OMODA5) eklendi.
     *   `MqttPublisher.kt`: `omoda/status` konusuna online/retained durum mesaji gonderimi eklendi.
-    *   `SettingsScreen.kt`: Yatay modda sol bar (sidebar) destegi ve kompakt UI bilesenleri eklendi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)`: Yatay modda sol bar (sidebar) destegi ve kompakt UI bilesenleri eklendi.
 
 *   Surum 6165 (6.0.0) - 11.07.2026 18:50
 
@@ -316,7 +316,7 @@
     *   `AgentManager.kt`: Dusunme ve STT asamalari icin watchdog (zaman asimi) eklendi.
     *   `MainActivity.kt`: Split ekran butonu UI'a eklendi ve ADB izin enjeksiyonu genisletildi.
     *   `GlobalState.kt`: `isCarHardware` kontrolu mimari donguyu onlemek icin merkeze tasindi.
-    *   `SettingsScreen.kt`: TTS ayarlarina yerel ses motoru icin "PIPER" butonu eklendi.
+    *   `SettingsScreen.kt (ve alt SettingsTab'ları)`: TTS ayarlarina yerel ses motoru icin "PIPER" butonu eklendi.
 
 *   Surum 6205 (6.0.0) - 13.07.2026
     *   `SherpaModelInstaller.kt`: Model arama dizinine `/sdcard/Omoda/Models` yolu eklendi.
@@ -677,3 +677,7 @@
 *   Sürüm 6381 (6.0.0) - 21.07.2026 08:25
 
 *   Sürüm 6382 (6.0.0) - 21.07.2026 13:58
+
+*   Sürüm 6383 (6.0.0) - 21.07.2026 15:48
+
+*   Sürüm 6384 (6.0.0) - 21.07.2026 15:51

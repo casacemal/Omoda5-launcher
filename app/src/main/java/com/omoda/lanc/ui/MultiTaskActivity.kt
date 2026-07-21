@@ -1,5 +1,6 @@
 package com.omoda.lanc.ui
 
+import com.omoda.lanc.core.GlobalState
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -76,7 +77,7 @@ class MultiTaskActivity : ComponentActivity() {
     }
 
     private fun runStackResizeEngine() {
-        AssistantApplication.addLogStatic("MULTITASK: am stack resize motoru baslatiliyor... Sol: $launcherPackage, Sag: $mapPackage")
+        com.omoda.lanc.core.GlobalState.addLog("MULTITASK: am stack resize motoru baslatiliyor... Sol: $launcherPackage, Sag: $mapPackage")
 
         val splitX = 1077 // 1920'nin ~%56'sı
 
@@ -103,7 +104,7 @@ class MultiTaskActivity : ComponentActivity() {
             // Stack ID'lerin 3 ve 4 olduğunu varsayıyoruz (Omoda/Semidrive spesifik)
             sh("am stack resize $STACK_LEFT 235 0 $splitX 720")
             sh("am stack resize $STACK_RIGHT $splitX 0 1920 720")
-            AssistantApplication.addLogStatic("MULTITASK: Stack resize komutlari gönderildi.")
+            com.omoda.lanc.core.GlobalState.addLog("MULTITASK: Stack resize komutlari gönderildi.")
         }
     }
 
@@ -115,7 +116,7 @@ class MultiTaskActivity : ComponentActivity() {
                 putExtra("command", cmd)
             })
         } catch (e: Exception) {
-            AssistantApplication.addLogStatic("MT_ERR: $cmd -> ${e.message}")
+            com.omoda.lanc.core.GlobalState.addLog("MT_ERR: $cmd -> ${e.message}")
         }
     }
 

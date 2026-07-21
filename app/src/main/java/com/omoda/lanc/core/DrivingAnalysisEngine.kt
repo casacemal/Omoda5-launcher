@@ -1,5 +1,6 @@
 package com.omoda.lanc.core
 
+import com.omoda.lanc.core.GlobalState
 import android.util.Log
 import com.omoda.lanc.model.VehicleState
 import kotlinx.coroutines.*

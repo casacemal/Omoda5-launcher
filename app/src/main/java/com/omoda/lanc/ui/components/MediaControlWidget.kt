@@ -1,5 +1,6 @@
 package com.omoda.lanc.ui.components
 
+import com.omoda.lanc.core.GlobalState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,7 +27,7 @@ fun MediaControlWidget(viewModel: MediaControllerViewModel) {
 
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     val smallestWidth = configuration.smallestScreenWidthDp
-    val isCar = com.omoda.lanc.AssistantApplication.isCarHardware
+    val isCar = com.omoda.lanc.GlobalState.isCarHardware
     val isHandheld = !isCar && smallestWidth < 600
 
     val leftPadding = when {
