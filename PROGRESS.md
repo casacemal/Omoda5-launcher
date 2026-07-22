@@ -1,5 +1,13 @@
 # PROGRESS.md
 
+## OTA ve UI İyileştirmeleri & Mağaza Modu Onarımı (22.07.2026)
+*   **Aksiyon:** Omoda Store (Mağaza) modu onarıldı, UI ekranlarında versiyon ve tarih gösterimleri düzeltildi, ADB komut paneli mantıksal yerine taşındı.
+*   **Detay:** 
+    *   **Mağaza Onarımı:** Eski `jetpack_componse` dalından silinmiş mağaza APK'ları (aptoide, smarttube vb.) kurtarılarak güncel dalda oluşturulan `magaza` dizinine alındı. `OtaUpdateManager.kt` içindeki `STORE_URL` bu dizine yönlendirildi.
+    *   **GitHub Tarih Parse Etme:** GitHub `/releases` API'sinden gelen `published_at` alanı ayrıştırılarak `AppStoreSection.kt` içerisine entegre edildi. Artık uygulamaların yayınlanma tarihleri gösteriliyor.
+    *   **Versiyon İsimlendirmesi:** `SettingsTabAbout.kt`'de kafa karıştıran "v + versionCode" kullanımı yerine `VERSION_NAME` tekilleştirildi.
+    *   **UI Revizyonu:** `SettingsTabSystem.kt` içerisindeki ADB "KOMUT" paneli, `SettingsTabLogs.kt` altına (Hızlı ADB İşlemleri kısmına) taşındı.
+
 ## Kod Denetim Raporu Aksiyonları (22.07.2026)
 *   **Aksiyon:** `CODE_AUDIT_REPORT.md` kapsamındaki 16 düzeltme kodu entegre edildi.
 *   **Detay:** 
@@ -51,7 +59,7 @@
 *   **Odaklanma Desteği:** D-pad ve Rotary Controller cihazları için özel focus state (Border) UI'a dahil edildi. Metin boyutları araç kullanımına uygun olarak büyütüldü.
 
 ## Son Durum (UI Restoration: v6312 Standards)
-*   Sürüm 6412 (6.3.921) - 22.07.2026 12:36
+*   Sürüm 6413 (6.3.921) - 22.07.2026 14:49
 *   **Restorasyon:** Tüm UI bileşenleri 19.07.2026 08:00-12:00 (v6312) aralığındaki altın oranlara ve `UI_MANIFESTO.md` standartlarına geri döndürüldü.
 *   **HomeScreen:** Grid padding değerleri manifesto ile eşitlendi (end=80dp, bottom=80dp).
 *   **Dashboard:** Sidebar genişliği 235dp'ye sabitlendi ve akıllı split oranı (high speed) 0.65f olarak güncellendi.

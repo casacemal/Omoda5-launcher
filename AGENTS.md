@@ -67,6 +67,9 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
     *   Token: `AssistantApplication.GITHUB_TOKEN` (Hardcoded fallback + ConfigManager override)
     *   Kullanım: Sürüm kontrolü ve APK indirme süreçlerinde yetkilendirme sağlar.
     *   Yönetim: Token, `AppConfig.githubToken` alanı üzerinden `app_config.json`'a yazılır. Config dosyasında yoksa hardcoded varsayılan kullanılır.
+*   **Omoda Store Yapılandırması (Kritik):**
+    *   Mağazada yer alacak 3. parti uygulamalar KESİNLİKLE GitHub deposunun root dizinindeki `magaza/` klasöründe barındırılır. Başka bir dal (örn. `jetpack_componse`) veya klasör (`apps/`) KULLANILAMAZ.
+    *   `OtaUpdateManager`'daki `STORE_URL` her zaman `magaza` dizinine işaret etmelidir. Omoda Store'da gösterilecek uygulama meta verileri (Tarih) GitHub `/releases` ve `/contents/magaza` API'lerinden elde edilir.
 *   **Paket Boyutu ve Güncelleme Politikası (Kritik):**
     *   Derleme ve yükleme süreçlerinde her zaman APK boyutunu küçük tutmaya (modelleri dışarıda bırakan hafif "Update" paketi: `app/build.gradle` içindeki `isUpdateOnly = true`) ve güncellemeleri bu hafif paket üzerinden kurmaya özen gösterilmelidir.
     *   Full paket (`app-fullV*.apk`) yalnızca modellerin ilk kurulumu veya modellerin güncellenmesi gereken önemli ve major durumlarda tercih edilmelidir. Cihazda modeller zaten yüklü ise her zaman update paketi derlenip yüklenmelidir.

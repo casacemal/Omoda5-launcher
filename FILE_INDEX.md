@@ -1,5 +1,12 @@
 # FILE_INDEX.md
 
+*   Sürüm 6413 (6.3.921) - 22.07.2026 12:00
+    *   `OtaUpdateManager.kt`: Mağaza kaynağı (STORE_URL) `magaza` dizini olarak güncellendi. Ayrıca release_date parsing yeteneği eklendi.
+    *   `AppStoreSection.kt`: Arayüze yayınlanma tarihi eklendi ve liste tasarımı modernize edildi.
+    *   `SettingsTabLogs.kt`: `SettingsTabSystem` içindeki ADB komut satırı taşındı.
+    *   `SettingsTabAbout.kt`: Versiyon ismi `VERSION_NAME` kullanılarak tekilleştirildi.
+    *   `magaza/`: Omoda Store üzerinde gösterilecek tüm üçüncü parti uygulamalar (aptoide, smarttube vs.) `jetpack_componse` arşiv dalından alınarak proje ana dizinindeki bu klasöre taşındı.
+
 *   Sürüm 6406 (6.3.921) - 22.07.2026 09:35
     *   `VehicleController.kt`: Flow güncellemelerine `Mutex` kilitleri eklendi (Lost Update koruması).
     *   `AssistantController.kt`: TTS kuyruk limitleri sınırlandırıldı, çift `AudioRecord` kullanımı engellendi.
@@ -744,3 +751,5 @@
 *   Sürüm 6411 (6.3.921) - 22.07.2026 12:31
 
 *   Sürüm 6412 (6.3.921) - 22.07.2026 12:36
+
+*   Sürüm 6413 (6.3.921) - 22.07.2026 14:49
