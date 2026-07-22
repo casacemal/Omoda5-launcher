@@ -1,8 +1,13 @@
 package com.omoda.lanc.ui.screens
 
+import com.omoda.lanc.core.Event
+import com.omoda.lanc.core.EventBus
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -40,10 +45,11 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
     val isSimMode by GlobalState.isSimulationMode.collectAsState()
 
     LaunchedEffect(Unit) {
-        while (true) {
-            vehicleState = VehicleController.getInstance(context).getVehicleState().copy()
-            lastUpdate = System.currentTimeMillis()
-            delay(2000)
+        EventBus.events.collect { event ->
+            if (event is Event.VehicleEvent.StateUpdated) {
+                vehicleState = event.state
+                lastUpdate = System.currentTimeMillis()
+            }
         }
     }
 
@@ -117,7 +123,7 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
         )
 
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(220.dp),
+            columns = GridCells.Adaptive(240.dp),
             contentPadding = PaddingValues(bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -168,11 +174,19 @@ data class SensorItem(val label: String, val value: String, val category: String
 
 @Composable
 fun SensorCard(item: SensorItem) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
+    
+    val bgColor = if (isFocused) Color.White.copy(alpha = 0.15f) else Color.White.copy(alpha = 0.08f)
+    val borderColor = if (isFocused) Color.White else item.color.copy(alpha = 0.5f)
+    val borderWidth = if (isFocused) 4.dp else 2.dp
+
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(Color.White.copy(alpha = 0.05f))
-            .border(2.dp, item.color.copy(alpha = 0.3f), RoundedCornerShape(16.dp))
+            .background(bgColor)
+            .border(borderWidth, borderColor, RoundedCornerShape(16.dp))
+            .clickable(interactionSource = interactionSource, indication = null) {} // Add focusability for Rotary
             .padding(16.dp)
             .defaultMinSize(minHeight = MinCarTouchTarget)
     ) {

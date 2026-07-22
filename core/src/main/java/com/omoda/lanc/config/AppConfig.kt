@@ -29,6 +29,8 @@ data class AppConfig(
     val hermesApiKey: String? = "",
     val ninerouterApiKey: String? = "",
     val edgeTtsToken: String? = "",
+    val mqttUrl: String? = "192.168.1.14",
+    val mqttPort: String? = "1883",
     
     // Kişiselleştirme (SettingsManager'dan taşındı)
     val wallpaperIdx: Int = 0,

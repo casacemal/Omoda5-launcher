@@ -1,5 +1,18 @@
 # FILE_INDEX.md
 
+*   Sürüm 6406 (6.3.921) - 22.07.2026 09:35
+    *   `VehicleController.kt`: Flow güncellemelerine `Mutex` kilitleri eklendi (Lost Update koruması).
+    *   `AssistantController.kt`: TTS kuyruk limitleri sınırlandırıldı, çift `AudioRecord` kullanımı engellendi.
+    *   `EventBus.kt`: Buffer boyutu 256'ya çıkarıldı (DROP_OLDEST eklendi).
+    *   `MqttPublisher.kt`: Tüm ağ işlemleri IO Coroutine'lerine taşındı.
+    *   `FirewallV2.kt`: Yasaklı sistem komutları (`rm`, `su`, vb.) shell injection'a karşı filtrelendi.
+    *   `OverlayManager.kt`: Reaktif akışta `collectLatest` yerine `collect` kullanımı ile UI titremeleri düzeltildi.
+    *   `AgentManager.kt`: İptal mekanizması eksikliği giderilerek `cancel()` eklendi.
+
+*   Sürüm 6394 (6.3.921) - 21.07.2026 19:45
+    *   `SettingsScreen.kt` ve `SettingsTab*.kt`: Standart Button'lar AAOS `CarButton` ile değiştirildi, 64dp yükseklik ve odak state (Rotary Controller) desteği eklendi.
+    *   `SensorMonitorScreen.kt`: `SensorCard` bileşenine Rotary controller odaklanma durumu eklendi. Grid genişliği AAOS için 240.dp'ye çıkarıldı.
+
 *   Surum 6354 (6.0.0) - 20.07.2026 12:45
     *   `MainActivity.kt`: HomeScreen padding değerleri manifesto standartlarına (235, 60, 80, 80) çekildi.
     *   `DashboardScreen.kt`: Sidebar genişliği 235dp yapıldı, split ağırlığı v6312 standartlarına (0.65f) geri getirildi.
@@ -689,3 +702,45 @@
 *   Sürüm 6387 (6.0.0) - 21.07.2026 17:38
 
 *   Sürüm 6388 (6.0.0) - 21.07.2026 17:46
+
+*   Sürüm 6389 (6.0.0) - 21.07.2026 17:51
+
+*   Sürüm 6390 (6.0.0) - 21.07.2026 17:57
+
+*   Sürüm 6391 (6.0.0) - 21.07.2026 18:11
+
+*   Sürüm 6393 (6.3.920) - 21.07.2026 18:56
+
+*   Sürüm 6394 (6.3.920) - 21.07.2026 19:44
+
+*   Sürüm 6395 (6.3.920) - 21.07.2026 19:47
+
+*   Sürüm 6396 (6.3.920) - 21.07.2026 20:41
+
+*   Sürüm 6398 (6.3.921) - 21.07.2026 23:43
+
+*   Sürüm 6399 (6.3.921) - 21.07.2026 23:57
+
+*   Sürüm 6400 (6.3.921) - 22.07.2026 00:01
+
+*   Sürüm 6402 (6.3.921) - 22.07.2026 00:13
+
+*   Sürüm 6403 (6.3.921) - 22.07.2026 00:21
+
+*   Sürüm 6404 (6.3.921) - 22.07.2026 00:33
+
+*   Sürüm 6405 (6.3.921) - 22.07.2026 09:27
+
+*   Sürüm 6406 (6.3.921) - 22.07.2026 09:31
+
+*   Sürüm 6407 (6.3.921) - 22.07.2026 10:08
+
+*   Sürüm 6408 (6.3.921) - 22.07.2026 10:39
+
+*   Sürüm 6409 (6.3.921) - 22.07.2026 10:41
+
+*   Sürüm 6410 (6.3.921) - 22.07.2026 12:17
+
+*   Sürüm 6411 (6.3.921) - 22.07.2026 12:31
+
+*   Sürüm 6412 (6.3.921) - 22.07.2026 12:36

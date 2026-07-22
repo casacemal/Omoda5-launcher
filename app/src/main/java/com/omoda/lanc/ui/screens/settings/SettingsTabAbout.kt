@@ -53,7 +53,7 @@ import java.util.*
 import com.omoda.lanc.ui.screens.*
 
 @Composable
-fun TabHakkinda(isCompact: Boolean, vehicleId: String, serverIp: String, hermesPort: String) {
+fun TabHakkinda(isCompact: Boolean, vehicleId: String, serverIp: String) {
     EnhancedSettingCard(title = "SİSTEM BİLGİSİ", isCompact = isCompact) {
         Column(verticalArrangement = Arrangement.spacedBy(if(isCompact) 4.dp else 8.dp)) {
             InfoRow("Versiyon", "${com.omoda.lanc.BuildConfig.VERSION_NAME} (v${com.omoda.lanc.BuildConfig.VERSION_CODE})")

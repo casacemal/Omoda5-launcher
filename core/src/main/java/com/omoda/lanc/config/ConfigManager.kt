@@ -66,6 +66,8 @@ class ConfigManager(val context: Context) {
             hermesApiKey = com.omoda.lanc.core.GlobalState.hermesApiKey.value,
             ninerouterApiKey = com.omoda.lanc.core.GlobalState.ninerouterApiKey.value,
             edgeTtsToken = com.omoda.lanc.core.GlobalState.edgeTtsToken.value,
+            mqttUrl = com.omoda.lanc.core.GlobalState.mqttUrl.value,
+            mqttPort = com.omoda.lanc.core.GlobalState.mqttPort.value,
             vadSnrRatio = com.omoda.lanc.core.GlobalState.vadSnrRatio.value,
             vadSilenceDuration = com.omoda.lanc.core.GlobalState.vadSilenceDuration.value,
             vadGainFactor = com.omoda.lanc.core.GlobalState.vadGainFactor.value,
@@ -84,7 +86,8 @@ class ConfigManager(val context: Context) {
         if (mqttPublisher != null) {
             if (com.omoda.lanc.core.GlobalState.mqttEnabled.value) {
                 mqttPublisher.disconnect()
-                mqttPublisher.updateBrokerUrl(com.omoda.lanc.core.GlobalState.serverIp.value)
+                val brokerUrl = "tcp://${com.omoda.lanc.core.GlobalState.mqttUrl.value}:${com.omoda.lanc.core.GlobalState.mqttPort.value}"
+                mqttPublisher.updateBrokerUrl(brokerUrl)
                 mqttPublisher.connect()
             } else {
                 mqttPublisher.disconnect()
@@ -188,7 +191,9 @@ class ConfigManager(val context: Context) {
             githubToken = githubToken?.cleanOr(defaults.githubToken ?: "") ?: defaults.githubToken,
             hermesApiKey = hermesApiKey?.cleanOr(defaults.hermesApiKey ?: "") ?: defaults.hermesApiKey,
             ninerouterApiKey = ninerouterApiKey?.cleanOr(defaults.ninerouterApiKey ?: "") ?: defaults.ninerouterApiKey,
-            edgeTtsToken = edgeTtsToken?.cleanOr(defaults.edgeTtsToken ?: "") ?: defaults.edgeTtsToken
+            edgeTtsToken = edgeTtsToken?.cleanOr(defaults.edgeTtsToken ?: "") ?: defaults.edgeTtsToken,
+            mqttUrl = mqttUrl?.cleanOr(defaults.mqttUrl ?: "") ?: defaults.mqttUrl,
+            mqttPort = mqttPort?.cleanOr(defaults.mqttPort ?: "") ?: defaults.mqttPort
         )
     }
 }

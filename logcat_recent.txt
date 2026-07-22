@@ -1,0 +1,3 @@
+--------- beginning of main
+07-22 00:08:37.382 I/DAB.DabBusiness( 4474): setCurPlayType, listType: 0, name: 
+07-22 00:08:37.382 I/mDNSResponder(23097): Default: SetupOneInterface::intfName=[wlan0]

@@ -26,7 +26,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collectLatest
+// [FIX-15] collectLatest yerine collect kullanılacak
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelStoreOwner, SavedStateRegistryOwner {
@@ -50,7 +51,11 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
 
     private fun observeEvents() {
         serviceScope.launch {
-            EventBus.events.collectLatest { event ->
+            // [FIX-15] collectLatest yerine collect kullanılıyor
+            // collectLatest hızlı gelen olaylarda önceki show/hide işlemini iptal ediyordu
+            // → overlay gösterilip hemen gizlenirken iptal olabiliyordu ve overlay takılıyordu.
+            // collect ile her olay sırayla işlenir, hiçbiri atlanmaz.
+            EventBus.events.collect { event ->
                 when (event) {
                     is Event.UIEvent.ShowOverlay -> show()
                     is Event.UIEvent.HideOverlay -> hide()
@@ -89,7 +94,7 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
             }
 
             try {
-                // L-6: applicationContext kullan\u0131l\u0131yor \u2014 Activity context bellek s\u0131z\u0131nt\u0131s\u0131n\u0131 \u00f6nler
+                // L-6: applicationContext kullanılıyor — Activity context bellek sızıntısını önler
                 composeView = ComposeView(context.applicationContext).apply {
                     setViewTreeLifecycleOwner(this@OverlayManager)
                     setViewTreeViewModelStoreOwner(this@OverlayManager)
@@ -145,7 +150,13 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
 
     fun destroy() {
         hide()
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        // [FIX-16] ON_DESTROY event'i gönder — ViewModelStore ve SavedStateRegistry temizlenir
+        // Eski kodda hide() sonrası ON_DESTROY çağrılıyordu ama try-catch yoktu
+        try {
+            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        } catch (e: Exception) {
+            Log.w("OverlayMgr", "Lifecycle ON_DESTROY hatası: ${e.message}")
+        }
         serviceScope.cancel()
         _viewModelStore.clear()
     }

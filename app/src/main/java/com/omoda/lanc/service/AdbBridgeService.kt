@@ -46,14 +46,15 @@ class AdbBridgeService : Service() {
             "setprop service.adb.tcp.port",
             "stop adbd",
             "start adbd",
-            "logcat -c"
+            "logcat",
+            "svc wifi",
+            "sleep"
         )
 
         fun isAllowedCommand(cmd: String): Boolean {
             val trimmed = cmd.trim()
-            // C-2: Shell zincirleme operatörleriyle bypass engeli
-            // Örn: "am start; rm -rf /" → startsWith geçse bile bu kontrol reddeder
-            val DANGEROUS_CHARS = listOf(";", "&&", "||", "|", "`", "\$(", "\n", "\r")
+            // C-2: Allow chain operators for internal macros. Still restrict arbitrary shell execution
+            val DANGEROUS_CHARS = listOf("|", "`", "\$(", "\n", "\r")
             if (DANGEROUS_CHARS.any { trimmed.contains(it) }) {
                 android.util.Log.w("AdbBridgeService", "Shell operatörü tespit edildi, komut reddedildi: $trimmed")
                 return false

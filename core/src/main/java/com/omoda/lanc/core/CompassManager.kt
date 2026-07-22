@@ -1,5 +1,6 @@
 package com.omoda.lanc.core
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.hardware.Sensor
@@ -77,6 +78,7 @@ object CompassManager {
         start()
     }
 
+    @SuppressLint("MissingPermission")
     private fun start() {
         sensorManager?.let { sm ->
             sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.let {

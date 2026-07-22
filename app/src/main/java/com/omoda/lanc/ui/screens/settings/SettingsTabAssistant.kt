@@ -145,7 +145,7 @@ fun TabAsistanEnhanced(
                     SwitchOption(label = "Kesintisiz", checked = isContinuous, onChecked = onIsContinuousChange)
                 }
 
-                Button(
+                com.omoda.lanc.ui.components.CarButton(
                     onClick = {
                         scope.launch {
                             ModelRepairManager.checkAndRepair(context) { status ->
@@ -153,11 +153,10 @@ fun TabAsistanEnhanced(
                             }
                         }
                     },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
-                ) {
-                    Text(repairStatus ?: "SES MODELLERİNİ ONAR", fontSize = 12.sp)
-                }
+                    modifier = Modifier.fillMaxWidth().height(if(isCompact) 48.dp else 64.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
+                    text = repairStatus ?: "SES MODELLERİNİ ONAR"
+                )
 
                 if (repairStatus != null) {
                     Text(repairStatus!!, color = OmodaCyan, fontSize = 10.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())

@@ -14,6 +14,8 @@ object GlobalState {
     val bridgeServerIp = MutableStateFlow("192.168.1.14")
     val bridgeType = MutableStateFlow("WYOMING")
     val activeServerIp = MutableStateFlow("192.168.1.14")
+    val mqttUrl = MutableStateFlow("192.168.1.14")
+    val mqttPort = MutableStateFlow("1883")
     
     val hermesPort = MutableStateFlow("8642")
     val sttPort = MutableStateFlow("20128")
@@ -65,22 +67,13 @@ object GlobalState {
     // UI states migrated from AssistantApplication
     val wallpaperIdx = MutableStateFlow(0)
     val appClickCounts = MutableStateFlow<Map<String, Int>>(emptyMap())
-    val systemLogs = MutableStateFlow(listOf<String>())
-    val mqttLogList = MutableStateFlow<List<String>>(emptyList())
+    val generalLogs = MutableStateFlow<List<LogEntry>>(emptyList())
     
-    fun addLog(log: String) {
-        val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
-        val newLogs = systemLogs.value.toMutableList()
-        newLogs.add(0, "[$time] $log")
-        if (newLogs.size > 100) newLogs.removeAt(newLogs.size - 1)
-        systemLogs.value = newLogs
-    }
-
-    fun addMqttLog(log: String) {
-        val current = mqttLogList.value.toMutableList()
-        current.add(0, log)
-        if (current.size > 50) current.removeAt(current.size - 1)
-        mqttLogList.value = current
+    fun addGeneralLog(level: LogLevel, message: String) {
+        val current = generalLogs.value.toMutableList()
+        current.add(0, LogEntry(level, message))
+        if (current.size > 500) current.removeAt(current.size - 1)
+        generalLogs.value = current
     }
 
     // TTS Voice Settings

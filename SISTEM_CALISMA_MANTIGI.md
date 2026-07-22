@@ -23,10 +23,25 @@ Bir sesli komut şu aşamalardan geçer:
 7.  **Geri Bildirim (TTS):** Yanıt metni `HermesTTSManager` (OpenAI/Piper) üzerinden sese dönüştürülür. Hata durumunda `AndroidSystemTtsManager` fallback olarak devreye girir.
 
 ## 3. Araç Veri Akışı (Telemetri)
-1.  **Veri Toplama (`VehicleController`):** CarPropertyManager üzerinden hız, vites, sıcaklık gibi veriler sürekli okunur.
+1.  **Veri Toplama (`VehicleController`):** `dumpsys car_service get-property-value <decimalId> <zone>` komutu AdbClient üzerinden çalıştırılır. **KRİTİK KURAL:** `car_service` hex string (`0x...`) kabul ETMEZ, ID'ler `.toLong(16)` ile decimal'e çevrilmelidir.
 2.  **Dağıtım (`EventBus`):** Okunan her veri `VehicleEvent.StateUpdated` olarak tüm sisteme yayılır.
 3.  **Dışa Aktarım (`MqttPublisher`):** `MqttTelemetryBridge` bu eventleri yakalayarak `100.95.239.119:1883` broker'ına `omoda/telemetri` konusuyla iletir.
 4.  **AI Bağlamı:** `AgentManager` bu verileri kullanarak LLM'e aracın anlık durumunu (Hız, konum, klima) "Context" olarak fısıldar.
+
+### 3a. Doğrulanmış VHAL Property Haritası (21.07.2026 Cihaz Testi)
+
+| Sensör | Hex ID | Decimal ID | Zone | Tip | Değer Notu |
+|--------|--------|-----------|------|-----|------------|
+| Hız / Devir (Combo) | `0x11e00d00` | `300561664` | `0x0` | floatValues[] | [0]=hız m/s, [8]=RPM, [9]=Vites(PRND), [12]=Dış sıcaklık |
+| Yakıt (mL) | `0x11600104` | `292556036` | `0x0` | float | ÷1000 = Litre |
+| Menzil (m) | `0x11600106` | `292556038` | `0x0` | float | ÷1000 = km |
+| Klima Sıcaklığı | `0x21401008` | `554696712` | `0x0` | int32 | °C (22 = 22°C) |
+| Klima Güç | `0x21401002` | `554696706` | `0x0` | int32 | 1=Açık, 0=Kapalı |
+| Fan Hızı | `0x21401005` | `554696709` | `0x0` | int32 | 0-8 |
+| Kapı Kilitleri | `0x16200b02` | `371197698` | multi-zone | int32 | 1=Kilitli (zone:1,4,10,40) |
+| Ön Sol Kapı | `0x21402012` | `557056018` | `0x0` | int32 | 1=Açık |
+| Ön Sağ Kapı | `0x21402013` | `557056019` | `0x0` | int32 | 1=Açık |
+| EV Tekerlek | `0x17600309` | `392266505` | 0x1,2,4,8 | float | 200.0 rpm |
 
 ## 4. Ses ve Focus Yönetimi (`AudioEngine`)
 Sistemde ses önceliği hiyerarşisi vardır:
@@ -41,3 +56,31 @@ Sistemde ses önceliği hiyerarşisi vardır:
     *   Sunucu kapalıysa STT ve TTS yerel sistemlere (Android Native) döner.
     *   İnternet yoksa sadece `CommandRouter` (çevrimdışı komutlar) çalışır.
 *   **Simülasyon Modu:** Araç donanımı yoksa (test telefonu) donanım bağımlı hatalar otomatik bastırılır.
+
+## 6. Bilinen Sorunlar ve Mimari Kararlar
+
+### 6a. VHAL Hex/Decimal Sorunu (ÇÖZÜLDÜ - V6390)
+`dumpsys car_service get-property-value` komutu hex string kabul etmez. Tüm property ID'ler `.toLong(16)` ile decimal'e çevrilmeli.
+
+### 6b. `0x11e00d00` Combo Property (Hız+Devir)
+Cihazda hız ve devir ayrı property'lerde değil, tek bir büyük `floatValues[]` dizisinde geliyor:
+- `floatValues[0]` = Hız (m/s) → km/h için × 3.6
+- `floatValues[8]` = Motor devri (RPM)
+- `floatValues[9]` = Direksiyon açısı
+- `floatValues[12]` = Dış hava sıcaklığı
+- `floatValues[43]` = Şarj akımı (EV)
+- `floatValues[44]` = Menzil km
+
+> **NOT:** `VehicleController.parseLine()` bu combo property'yi henüz ayrıştırmıyor. Hız ve devir için ayrı parser eklenmeli.
+
+### 6c. `open_windows` / `close_windows` Araç Komutları
+`OmadaTools`'da cam komutları hâlâ hex format kullanıyor (`0x13400bc0`). Bu komutlar çalışmaz, decimal'e çevrilmeli:
+```
+# Yanlış:
+dumpsys car_service set-property-value 0x13400bc0 15 100
+# Doğru:
+dumpsys car_service set-property-value 324536256 15 100
+```
+
+### 6d. SensorMonitorScreen EventBus Bağlantısı
+Ekran artık `EventBus.collect` ile reaktif dinleme yapıyor (V6389). Polling yöntemi kaldırıldı.

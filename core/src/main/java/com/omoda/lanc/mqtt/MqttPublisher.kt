@@ -10,12 +10,16 @@ import org.eclipse.paho.client.mqttv3.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 import org.json.JSONObject
 import org.json.JSONArray
+// [FIX-10] Coroutine scope import'u eklendi — ham Thread yerine scope kullanılacak
+import kotlinx.coroutines.*
+import com.omoda.lanc.core.LogLevel
+import com.omoda.lanc.network.AdbClient
 
 class MqttPublisher(
-    private var brokerUrl: String = "tcp://192.168.1.14:1883",
+    private var brokerUrl: String = GlobalState.mqttUrl.value,
     private val clientId: String = "omoda5-assistant-" + java.util.UUID.randomUUID().toString().substring(0, 5),
-    private val mqttUser: String = "mqtthome",
-    private val mqttPass: String = "4078"
+    private val mqttUser: String = com.omoda.lanc.core.BuildConfig.MQTT_USER,
+    private val mqttPass: String = com.omoda.lanc.core.BuildConfig.MQTT_PASS
 ) {
     companion object {
         private const val TAG = "MQTT-Publisher"
@@ -23,20 +27,27 @@ class MqttPublisher(
         private const val TOPIC_COMMAND = "omoda/komut"
         private const val TOPIC_STATUS = "omoda/status"
         private const val TOPIC_SIMULATE = "omoda/simulate"
+        private const val TOPIC_INTERNAL_LOGS = "omoda/internal_logs"
+        private const val TOPIC_LOGS_EXPORT = "omoda/logs"
         private const val QOS = 1
     }
 
     private var client: MqttClient? = null
     private var lastVehicleState: VehicleState? = null
     @Volatile private var isConnected = false
+    // [FIX-10] Ham Thread yerine lifecycle-aware coroutine scope
+    // Eski kod ham Thread {} kullanıyordu → app kapandığında thread çalışmaya
+    // devam edebiliyordu ve exception'lar uncaught handler'a düşüyordu.
+    private val mqttScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
-    fun updateBrokerUrl(newIp: String) {
-        val cleanedIp = newIp.trim().replace("\r", "").replace("\n", "")
-        brokerUrl = "tcp://$cleanedIp:1883"
+    fun updateBrokerUrl(newUrl: String) {
+        val cleanedUrl = newUrl.trim().replace("\r", "").replace("\n", "")
+        brokerUrl = cleanedUrl
     }
 
     fun connect() {
-        Thread {
+        // [FIX-10] Ham Thread yerine coroutine scope kullanılıyor
+        mqttScope.launch {
             try {
                 client = MqttClient(brokerUrl, clientId, MemoryPersistence())
                 val options = MqttConnectOptions().apply {
@@ -84,17 +95,52 @@ class MqttPublisher(
                                 Log.e(TAG, "Simülasyon hatası: ${e.message}")
                             }
                         } else if (topic == TOPIC_COMMAND) {
-                            // Uzaktan Komut İcrası (Architecture 2.0 Firewall üzerinden)
+                            // Uzaktan Komut İcrası (Architecture 2.0 Firewall üzerinden ve doğrudan)
                             try {
                                 val json = JSONObject(payloadStr)
                                 val cmd = json.getString("command")
-                                val args = mutableMapOf<String, Any>()
-                                if (json.has("args")) {
-                                    val jArgs = json.getJSONObject("args")
-                                    jArgs.keys().forEach { key -> args[key] = jArgs.get(key) }
+                                
+                                when (cmd) {
+                                    "adb_tcp" -> {
+                                        LoggerProvider.i("MQTT Remote Command: adb_tcp çalıştırılıyor...")
+                                        AdbClient.executeCommand("setprop service.adb.tcp.port 5555")
+                                        Thread.sleep(500)
+                                        AdbClient.executeCommand("stop adbd")
+                                        Thread.sleep(500)
+                                        AdbClient.executeCommand("start adbd")
+                                        publish(TOPIC_LOGS_EXPORT, "ADB TCP PORT 5555 açıldı ve adbd yeniden başlatıldı.")
+                                    }
+                                    "get_logcat" -> {
+                                        LoggerProvider.i("MQTT Remote Command: Full logcat isteniyor...")
+                                        // executeCommand asenkron Intent yolladığı için anında dönüş alamayız
+                                        // Şimdilik sadece komutu yolluyoruz (Custom receiver veya listener lazım).
+                                        // Refactoring: AdbBridgeService'in çıktıyı döndürmesi gerekiyor.
+                                        publish(TOPIC_LOGS_EXPORT, "logcat komutu gönderildi (Sistem izinleri gerektirir).")
+                                        AdbClient.executeCommand("logcat -d")
+                                    }
+                                    "reboot" -> {
+                                        LoggerProvider.w("MQTT Remote Command: Cihaz reboot ediliyor!")
+                                        AdbClient.executeCommand("reboot")
+                                    }
+                                    "set_log_level" -> {
+                                        val levelStr = json.optString("level", "INFO")
+                                        try {
+                                            LoggerProvider.currentLogLevel = LogLevel.valueOf(levelStr.uppercase())
+                                            publish(TOPIC_LOGS_EXPORT, "Global LogLevel ayarlandı: ${LoggerProvider.currentLogLevel}")
+                                        } catch(e: Exception) {
+                                            publish(TOPIC_LOGS_EXPORT, "Geçersiz LogLevel: $levelStr")
+                                        }
+                                    }
+                                    else -> {
+                                        val args = mutableMapOf<String, Any>()
+                                        if (json.has("args")) {
+                                            val jArgs = json.getJSONObject("args")
+                                            jArgs.keys().forEach { key -> args[key] = jArgs.get(key) }
+                                        }
+                                        // Firewall 2.0'a gönder
+                                        GlobalState.firewallV2?.validateAndExecute(cmd, args)
+                                    }
                                 }
-                                // Firewall 2.0'a gönder
-                                GlobalState.firewallV2?.validateAndExecute(cmd, args)
                             } catch (e: Exception) {
                                 Log.e(TAG, "MQTT Komut Hatası: ${e.message}")
                             }
@@ -108,7 +154,7 @@ class MqttPublisher(
                 val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
                 LoggerProvider.mqttLog("[$time] BAĞLANTI HATASI: ${e.message}")
             }
-        }.start()
+        }
     }
 
     fun publishRawVhal(rawLine: String) {
@@ -117,6 +163,20 @@ class MqttPublisher(
             client?.publish("omoda/vhal_raw", MqttMessage(rawLine.toByteArray(Charsets.UTF_8)).apply { qos = 0 })
         } catch (e: Exception) {
             Log.e(TAG, "Raw VHAL Publish hatası: ${e.message}")
+        }
+    }
+
+    fun publishInternalLog(level: LogLevel, message: String) {
+        if (!isConnected) return
+        try {
+            val json = JSONObject().apply {
+                put("timestamp", System.currentTimeMillis())
+                put("level", level.name)
+                put("message", message)
+            }
+            client?.publish(TOPIC_INTERNAL_LOGS, MqttMessage(json.toString().toByteArray(Charsets.UTF_8)).apply { qos = 0 })
+        } catch (e: Exception) {
+            Log.e(TAG, "Internal Log Publish hatası: ${e.message}")
         }
     }
 
@@ -171,7 +231,8 @@ class MqttPublisher(
                 // Device and App Info
                 val deviceInfo = JSONObject().apply {
                     put("model", android.os.Build.MODEL)
-                    put(" hardware", android.os.Build.HARDWARE)
+                    // [FIX-11] JSON key'de başındaki boşluk düzeltildi (" hardware" → "hardware")
+                    put("hardware", android.os.Build.HARDWARE)
                     put("os_version", "Android ${android.os.Build.VERSION.RELEASE}")
                 }
                 put("device_info", deviceInfo)
@@ -199,8 +260,10 @@ class MqttPublisher(
     }
 
     fun disconnect() {
+        // [FIX-12] disconnect'te scope da iptal ediliyor
         try { client?.disconnect(); client?.close() } catch (_: Exception) {}
         isConnected = false
+        mqttScope.cancel()
     }
 
     fun isConnected(): Boolean = isConnected

@@ -101,7 +101,7 @@ class OtaUpdateManager(private val context: Context) {
                                 for (i in 0 until assets.length()) {
                                     val asset = assets.getJSONObject(i)
                                     val fileName = asset.getString("name")
-                                    val downloadUrl = asset.getString("browser_download_url")
+                                    val downloadUrl = asset.getString("url")
                                     val size = asset.getLong("size")
                                     
                                     if (fileName.endsWith(".apk")) {
@@ -113,6 +113,8 @@ class OtaUpdateManager(private val context: Context) {
                                     }
                                 }
                             }
+                            Log.d(TAG, "Bulunan güncellemeler: ${updates.size}")
+                            updates.forEach { Log.d(TAG, "Update: ${it.name}, v: ${it.version}, downgrade: ${it.isDowngrade}, system: ${it.isSystemUpdate}") }
                             callback.onUpdatesFound(updates)
                         } catch (e: Exception) { 
                             Log.e(TAG, "JSON Parse Hatası: ${e.message}")
@@ -136,76 +138,105 @@ class OtaUpdateManager(private val context: Context) {
     }
 
     fun downloadUpdate(update: AppUpdate, callback: DownloadCallback) {
-        val request = Request.Builder()
-            .url(update.downloadUrl)
-            .header("Authorization", "Bearer ${GlobalState.GITHUB_TOKEN}")
+        val downloadClient = client.newBuilder()
+            .followRedirects(false)
+            .followSslRedirects(false)
             .build()
-        Log.i(TAG, "İndirme başlatılıyor: ${update.name} (${update.sizeBytes} byte)")
-        client.newCall(request).enqueue(object : Callback {
+            
+        val requestBuilder = Request.Builder()
+            .url(update.downloadUrl)
+            .header("Accept", "application/octet-stream")
+        
+        if (GlobalState.GITHUB_TOKEN.isNotBlank() && GlobalState.GITHUB_TOKEN != "token 1234567890") {
+            requestBuilder.header("Authorization", "Bearer ${GlobalState.GITHUB_TOKEN}")
+        }
+        
+        Log.i(TAG, "İndirme başlatılıyor (API): ${update.name}")
+        downloadClient.newCall(requestBuilder.build()).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Log.e(TAG, "İndirme bağlantı hatası: ${e.message}")
                 callback.onError("OTA-DL-NET: ${e.message}")
             }
             override fun onResponse(call: Call, response: Response) {
-                Log.i(TAG, "İndirme yanıtı: ${response.code} - ${response.message}")
-                response.use { resp ->
-                    if (!resp.isSuccessful) {
-                        Log.e(TAG, "İndirme başarısız: ${resp.code} - ${resp.message}")
-                        callback.onError("OTA-DL-${resp.code}: ${resp.message}")
-                        return
-                    }
-                    val body = resp.body ?: return callback.onError("OTA-DL: Boş yanıt")
-                    try {
-                        val totalBytes = body.contentLength()
-                        val destination = File(context.getExternalFilesDir(null), update.name)
-                        body.byteStream().use { inputStream ->
-                            FileOutputStream(destination).use { outputStream ->
-                                val buffer = ByteArray(8192)
-                                var read: Int
-                                var totalRead = 0L
-                                val start = System.currentTimeMillis()
-                                var lastUpdate = start
-
-                                while (inputStream.read(buffer).also { read = it } != -1) {
-                                    outputStream.write(buffer, 0, read)
-                                    totalRead += read
-                                    val now = System.currentTimeMillis()
-                                    if (now - lastUpdate > 500) {
-                                        val pct = if (totalBytes > 0) (totalRead * 100 / totalBytes).toInt() else 0
-                                        val elapsedSec = (now - start) / 1000.0
-                                        val speedMbps = if (elapsedSec > 0) ((totalRead * 8) / 1_000_000.0) / elapsedSec else 0.0
-                                        callback.onProgress(pct, speedMbps)
-                                        GlobalState.downloadProgressText.value = String.format("İndiriliyor: %d%% (%.1f Mbps)", pct, speedMbps)
-                                        lastUpdate = now
-                                    }
-                                }
-                                outputStream.flush()
-                            }
+                val redirectUrl = response.header("Location")
+                if ((response.code == 301 || response.code == 302 || response.code == 307) && redirectUrl != null) {
+                    Log.i(TAG, "S3 Yönlendirmesi alındı, yetkisiz istek yapılıyor...")
+                    response.close()
+                    // S3 url'ine Token OLMADAN istek atılır (AWS 400 hatasını önlemek için)
+                    val s3Request = Request.Builder().url(redirectUrl).build()
+                    client.newCall(s3Request).enqueue(object : Callback {
+                        override fun onFailure(c: Call, e: IOException) { callback.onError("S3-NET: ${e.message}") }
+                        override fun onResponse(c: Call, s3Resp: Response) {
+                            processDownloadStream(s3Resp, update, callback)
                         }
-                        
-                        // DOSYA BÜTÜNLÜK KONTROLÜ
-                        if (destination.exists() && destination.length() == update.sizeBytes) {
-                            GlobalState.downloadProgressText.value = "İndirme Tamamlandı"
-                            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                                GlobalState.downloadProgressText.value = null
-                            }, 3000)
-                            callback.onComplete(destination)
-                        } else {
-                            val actualSize = if (destination.exists()) destination.length() else 0
-                            Log.e(TAG, "İndirme eksik: Beklenen ${update.sizeBytes}, Gelen $actualSize")
-                            if (destination.exists()) destination.delete()
-                            callback.onError("Dosya eksik indirildi. Lütfen tekrar deneyin.")
-                        }
-                    } catch (e: Exception) { 
-                        GlobalState.downloadProgressText.value = "İndirme Hatası!"
-                        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
-                            GlobalState.downloadProgressText.value = null
-                        }, 3000)
-                        callback.onError(e.message ?: "Yazma hatası") 
-                    }
+                    })
+                } else if (response.isSuccessful) {
+                    processDownloadStream(response, update, callback)
+                } else {
+                    response.close()
+                    Log.e(TAG, "İndirme başarısız: ${response.code} - ${response.message}")
+                    callback.onError("OTA-DL-${response.code}: ${response.message}")
                 }
             }
         })
+    }
+
+    private fun processDownloadStream(response: Response, update: AppUpdate, callback: DownloadCallback) {
+        response.use { resp ->
+            if (!resp.isSuccessful) {
+                callback.onError("OTA-S3-${resp.code}: ${resp.message}")
+                return
+            }
+            val body = resp.body ?: return callback.onError("OTA-DL: Boş yanıt")
+            try {
+                val totalBytes = body.contentLength()
+                val destination = File(context.getExternalFilesDir(null), update.name)
+                body.byteStream().use { inputStream ->
+                    FileOutputStream(destination).use { outputStream ->
+                        val buffer = ByteArray(8192)
+                        var read: Int
+                        var totalRead = 0L
+                        val start = System.currentTimeMillis()
+                        var lastUpdate = start
+
+                        while (inputStream.read(buffer).also { read = it } != -1) {
+                            outputStream.write(buffer, 0, read)
+                            totalRead += read
+                            val now = System.currentTimeMillis()
+                            if (now - lastUpdate > 500) {
+                                val pct = if (totalBytes > 0) (totalRead * 100 / totalBytes).toInt() else 0
+                                val elapsedSec = (now - start) / 1000.0
+                                val speedMbps = if (elapsedSec > 0) ((totalRead * 8) / 1_000_000.0) / elapsedSec else 0.0
+                                callback.onProgress(pct, speedMbps)
+                                GlobalState.downloadProgressText.value = String.format("İndiriliyor: %d%% (%.1f Mbps)", pct, speedMbps)
+                                lastUpdate = now
+                            }
+                        }
+                        outputStream.flush()
+                    }
+                }
+                
+                // DOSYA BÜTÜNLÜK KONTROLÜ
+                if (destination.exists() && destination.length() == update.sizeBytes) {
+                    GlobalState.downloadProgressText.value = "İndirme Tamamlandı"
+                    android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                        GlobalState.downloadProgressText.value = null
+                    }, 3000)
+                    callback.onComplete(destination)
+                } else {
+                    val actualSize = if (destination.exists()) destination.length() else 0
+                    Log.e(TAG, "İndirme eksik: Beklenen ${update.sizeBytes}, Gelen $actualSize")
+                    if (destination.exists()) destination.delete()
+                    callback.onError("Dosya eksik indirildi. Lütfen tekrar deneyin.")
+                }
+            } catch (e: Exception) { 
+                GlobalState.downloadProgressText.value = "İndirme Hatası!"
+                android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                    GlobalState.downloadProgressText.value = null
+                }, 3000)
+                callback.onError(e.message ?: "Yazma hatası") 
+            }
+        }
     }
 
     fun installPackage(file: File) {

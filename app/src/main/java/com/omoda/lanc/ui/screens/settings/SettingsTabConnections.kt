@@ -62,6 +62,10 @@ fun TabBaglantilarEnhanced(
     onIsBridgeModeChange: (Boolean) -> Unit,
     serverIp: String,
     onServerIpChange: (String) -> Unit,
+    mqttUrl: String,
+    onMqttUrlChange: (String) -> Unit,
+    mqttPort: String,
+    onMqttPortChange: (String) -> Unit,
     bridgeIp: String,
     onBridgeIpChange: (String) -> Unit,
     githubToken: String,
@@ -87,6 +91,20 @@ fun TabBaglantilarEnhanced(
                         OutlinedTextField(
                             value = serverIp, onValueChange = onServerIpChange, 
                             label = { Text("Sunucu IP", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(),
+                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                            textStyle = androidx.compose.ui.text.TextStyle(fontSize = 11.sp),
+                            singleLine = true
+                        )
+                        OutlinedTextField(
+                            value = mqttUrl, onValueChange = onMqttUrlChange, 
+                            label = { Text("MQTT Adresi", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(),
+                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                            textStyle = androidx.compose.ui.text.TextStyle(fontSize = 11.sp),
+                            singleLine = true
+                        )
+                        OutlinedTextField(
+                            value = mqttPort, onValueChange = onMqttPortChange, 
+                            label = { Text("MQTT Port", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(),
                             colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
                             textStyle = androidx.compose.ui.text.TextStyle(fontSize = 11.sp),
                             singleLine = true
@@ -128,6 +146,18 @@ fun TabBaglantilarEnhanced(
                     OutlinedTextField(
                         value = serverIp, onValueChange = onServerIpChange, 
                         label = { Text("Ana Sunucu IP") }, modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                        textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 13.sp else 16.sp)
+                    )
+                    OutlinedTextField(
+                        value = mqttUrl, onValueChange = onMqttUrlChange, 
+                        label = { Text("MQTT Adresi") }, modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                        textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 13.sp else 16.sp)
+                    )
+                    OutlinedTextField(
+                        value = mqttPort, onValueChange = onMqttPortChange, 
+                        label = { Text("MQTT Port") }, modifier = Modifier.fillMaxWidth(),
                         colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
                         textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 13.sp else 16.sp)
                     )
@@ -189,7 +219,7 @@ fun TabBaglantilarEnhanced(
                         )
                     }
                     
-                    Button(
+                    com.omoda.lanc.ui.components.CarButton(
                         onClick = {
                             try {
                                 val intent = Intent(context, com.hermesandroid.bridge.BridgeActivity::class.java)
@@ -199,12 +229,10 @@ fun TabBaglantilarEnhanced(
                                 android.widget.Toast.makeText(context, "Bridge Paneli Bulunamadı", android.widget.Toast.LENGTH_SHORT).show()
                             }
                         },
-                        modifier = Modifier.fillMaxWidth().height(if(isCompact) 32.dp else 48.dp),
+                        modifier = Modifier.fillMaxWidth().height(if(isCompact) 48.dp else 64.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF673AB7)),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text("PANELİ AÇ", color = Color.White, fontSize = if(isCompact) 10.sp else 13.sp, fontWeight = FontWeight.Bold)
-                    }
+                        text = "PANELİ AÇ"
+                    )
                 }
             }
         }

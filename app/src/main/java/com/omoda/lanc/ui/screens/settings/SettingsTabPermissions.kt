@@ -7,6 +7,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -82,9 +84,7 @@ fun TabIzinler(isCompact: Boolean) {
                         Text("Root Durumu", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
                         Text(if(rootedStatus) "Cihaz Rootlu (UID 0)" else "Root Erişimi Yok", color = if(rootedStatus) Color.Green else Color.Gray, fontSize = 11.sp)
                     }
-                    Button(onClick = { PermissionManager.requestRoot(context) }, colors = ButtonDefaults.buttonColors(containerColor = if(rootedStatus) Color.Gray else OmodaCyan)) {
-                        Text(if(rootedStatus) "AKTİF" else "ROOT DENE", color = Color.Black, fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                    }
+                    com.omoda.lanc.ui.components.CarButton(onClick = { PermissionManager.requestRoot(context) }, colors = ButtonDefaults.buttonColors(containerColor = if(rootedStatus) Color.Gray else OmodaCyan), text = if(rootedStatus) "AKTİF" else "ROOT DENE")
                 }
                 
                 HorizontalDivider(color = Color.White.copy(alpha = 0.05f))
@@ -97,7 +97,7 @@ fun TabIzinler(isCompact: Boolean) {
                         "LOG TEMİZLE" to "logcat -c"
                     )
                     adbCmds.forEach { (label, cmd) ->
-                        Button(
+                        com.omoda.lanc.ui.components.CarButton(
                             onClick = { 
                                 val intent = Intent("com.omoda.lanc.ACTION_EXECUTE_SHELL").apply { 
                                     setPackage(context.packageName)
@@ -105,12 +105,10 @@ fun TabIzinler(isCompact: Boolean) {
                                 }
                                 context.startForegroundService(intent)
                             },
-                            modifier = Modifier.weight(1f),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
-                            contentPadding = PaddingValues(0.dp)
-                        ) {
-                            Text(label, fontSize = 9.sp, fontWeight = FontWeight.Bold)
-                        }
+                            text = label,
+                            modifier = Modifier.weight(1f).height(64.dp), // Minimum touch target
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+                        )
                     }
                 }
             }
@@ -128,16 +126,38 @@ fun StatusIndicator(label: String, active: Boolean, isHandheld: Boolean) {
 
 @Composable
 fun LargeTabButton(label: String, icon: androidx.compose.ui.graphics.vector.ImageVector, selected: Boolean, isCompact: Boolean = false, onClick: () -> Unit) {
-    val bgColor by animateColorAsState(if (selected) Color(0xFF69E2D3).copy(alpha = 0.25f) else Color.White.copy(alpha = 0.05f))
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
+
+    val bgColor by animateColorAsState(
+        if (isFocused) Color.White.copy(alpha = 0.2f)
+        else if (selected) Color(0xFF69E2D3).copy(alpha = 0.25f) 
+        else Color.White.copy(alpha = 0.05f)
+    )
     val contentColor by animateColorAsState(if (selected) Color(0xFF69E2D3) else Color.White.copy(alpha = 0.6f))
+    val borderColor by animateColorAsState(
+        if (isFocused) Color.White 
+        else if (selected) Color(0xFF69E2D3).copy(alpha = 0.6f) 
+        else Color.Transparent
+    )
+
     Surface(
-        onClick = onClick,
         color = bgColor,
         shape = RoundedCornerShape(if(isCompact) 10.dp else 16.dp),
-        border = BorderStroke(1.dp, if (selected) Color(0xFF69E2D3).copy(alpha = 0.6f) else Color.Transparent),
-        modifier = Modifier.fillMaxWidth().height(if(isCompact) 44.dp else 64.dp)
+        border = BorderStroke(if (isFocused) 4.dp else 1.dp, borderColor),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(if(isCompact) 48.dp else 64.dp)
+            .clickable(
+                interactionSource = interactionSource, 
+                indication = androidx.compose.material.ripple.rememberRipple()
+            ) { onClick() }
     ) {
-        Row(modifier = Modifier.padding(horizontal = if(isCompact) 8.dp else 16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(if(isCompact) 8.dp else 12.dp)) {
+        Row(
+            modifier = Modifier.padding(horizontal = if(isCompact) 8.dp else 16.dp), 
+            verticalAlignment = Alignment.CenterVertically, 
+            horizontalArrangement = Arrangement.spacedBy(if(isCompact) 8.dp else 12.dp)
+        ) {
             Icon(icon, contentDescription = null, tint = contentColor, modifier = Modifier.size(if(isCompact) 20.dp else 28.dp))
             Text(label, color = contentColor, fontSize = if(isCompact) 13.sp else 16.sp, fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.Bold, maxLines = 1)
         }

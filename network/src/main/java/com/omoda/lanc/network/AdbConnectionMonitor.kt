@@ -1,6 +1,10 @@
 package com.omoda.lanc.network
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.util.Log
 import com.omoda.lanc.core.GlobalState
 import kotlinx.coroutines.*
@@ -10,29 +14,71 @@ import java.net.Inet4Address
 class AdbConnectionMonitor(private val context: Context) {
     private val TAG = "AdbConnectionMonitor"
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-    private var monitorJob: Job? = null
+    private var isMonitoring = false
 
+    private val connectivityManager by lazy {
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
+
+    private val networkCallback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            checkAndUpdate()
+        }
+        override fun onLost(network: Network) {
+            checkAndUpdate()
+        }
+        override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            checkAndUpdate()
+        }
+    }
+
+    @android.annotation.SuppressLint("MissingPermission")
     fun start() {
-        monitorJob?.cancel()
-        monitorJob = scope.launch {
-            while (isActive) {
-                try {
-                    val hasRemoteAdb = checkNetworkInterfaces()
-                    if (GlobalState.isRemoteAdbConnected.value != hasRemoteAdb) {
-                        Log.w(TAG, "Uzak Bağlantı Durumu Değişti: $hasRemoteAdb")
-                        GlobalState.isRemoteAdbConnected.value = hasRemoteAdb
-                        GlobalState.isAdbConnected.value = hasRemoteAdb
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Monitor hatası: ${e.message}")
-                }
-                delay(5000)
+        if (isMonitoring) return
+        isMonitoring = true
+
+        try {
+            val request = NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build()
+            connectivityManager.registerNetworkCallback(request, networkCallback)
+        } catch (e: Exception) {
+            Log.e(TAG, "NetworkCallback kayıt hatası: ${e.message}")
+        }
+
+        checkAndUpdate()
+
+        scope.launch {
+            while (isMonitoring && isActive) {
+                delay(30000)
+                checkAndUpdate()
             }
         }
     }
 
     fun stop() {
-        monitorJob?.cancel()
+        isMonitoring = false
+        try {
+            connectivityManager.unregisterNetworkCallback(networkCallback)
+        } catch (e: Exception) {
+            Log.e(TAG, "NetworkCallback iptal hatası: ${e.message}")
+        }
+        scope.cancel()
+    }
+
+    private fun checkAndUpdate() {
+        scope.launch {
+            try {
+                val hasRemoteAdb = checkNetworkInterfaces()
+                if (GlobalState.isRemoteAdbConnected.value != hasRemoteAdb) {
+                    Log.w(TAG, "Uzak Bağlantı Durumu Değişti: $hasRemoteAdb")
+                    GlobalState.isRemoteAdbConnected.value = hasRemoteAdb
+                    GlobalState.isAdbConnected.value = hasRemoteAdb
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Monitor hatası: ${e.message}")
+            }
+        }
     }
 
     private fun checkNetworkInterfaces(): Boolean {

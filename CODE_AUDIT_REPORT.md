@@ -39,7 +39,7 @@ Bu rapor, Omoda Launcher V2 projesinin tüm Kotlin kaynak kodunun kapsamlı bir 
 
 ## 2. Güvenlik
 
-### BULGU G-001 | Kritik 🔴 | Hardcoded MQTT Kullanıcı Adı ve Şifresi
+### BULGU G-001 | Kritik 🔴 | [DÜZELTİLDİ] Hardcoded MQTT Kullanıcı Adı ve Şifresi
 **Dosya:** `core/src/main/java/com/omoda/lanc/mqtt/MqttPublisher.kt:32-33`
 
 ```kotlin
@@ -53,7 +53,7 @@ private const val DEFAULT_MQTT_PASS = "4078"
 
 ---
 
-### BULGU G-002 | Kritik 🔴 | Hardcoded MQTT Broker Adresi (TLS Yoksun)
+### BULGU G-002 | Kritik 🔴 | [DÜZELTİLDİ] Hardcoded MQTT Broker Adresi (TLS Yoksun)
 **Dosya:** `core/src/main/java/com/omoda/lanc/mqtt/MqttPublisher.kt:30`
 
 ```kotlin
@@ -201,7 +201,7 @@ private const val SD_CARD_PATH = "/sdcard/Omoda/Models"
 
 ## 3. Ağ / Bağlantı
 
-### BULGU A-001 | Yüksek 🟠 | AdbConnectionMonitor 5 Saniyelik Polling
+### BULGU A-001 | Yüksek 🟠 | [DÜZELTİLDİ] AdbConnectionMonitor 5 Saniyelik Polling
 **Dosya:** `network/src/main/java/com/omoda/lanc/network/AdbConnectionMonitor.kt:20-45`
 
 **Sorun:** ADB bağlantı durumu her 5 saniyede bir kontrol edilir (polling).  
@@ -326,7 +326,7 @@ private var offlineTts: OfflineTts? = null
 
 ## 5. Durum Yönetimi
 
-### BULGU D-001 | Yüksek 🟠 | OverlayManager Lifecycle STARTED'da Sıkışmış
+### BULGU D-001 | Yüksek 🟠 | [DÜZELTİLDİ] OverlayManager Lifecycle STARTED'da Sıkışmış
 **Dosya:** `app/src/main/java/com/omoda/lanc/overlay/OverlayManager.kt:25-48`
 
 **Sorun:** Overlay lifecycle durumu `STARTED`'da kalır; `serviceScope` hiç iptal edilmez.  
@@ -387,7 +387,7 @@ Divider(color = Color.Gray)
 
 ## 6. Kaynak Yönetimi
 
-### BULGU K-001 | Yüksek 🟠 | OverlayManager serviceScope Hiç İptal Edilmiyor
+### BULGU K-001 | Yüksek 🟠 | [DÜZELTİLDİ] OverlayManager serviceScope Hiç İptal Edilmiyor
 **Dosya:** `app/src/main/java/com/omoda/lanc/overlay/OverlayManager.kt:20`
 
 ```kotlin

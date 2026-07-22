@@ -118,6 +118,16 @@ class MainActivity : ComponentActivity() {
                 "sensors" -> com.omoda.lanc.ui.screens.SensorMonitorScreen(onBack = { currentScreenState.value = "home" })
                 else -> currentScreen = "home"
             }
+
+            // Sürüm Numarası Overlay (Sağ Alt)
+            Text(
+                text = "v${BuildConfig.VERSION_NAME}",
+                color = Color.White.copy(alpha = 0.5f),
+                fontSize = 12.sp,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+            )
         }
     }
 
@@ -214,7 +224,7 @@ class MainActivity : ComponentActivity() {
                 VoiceTriggerButton(if (isSimMode) "VHAL(A)" else "VHAL(K)", if (isSimMode) Color(0xFFE91E63) else Color.DarkGray) {
                     val newVal = !isSimMode
                     GlobalState.isSimulationMode.value = newVal
-                    com.omoda.lanc.core.GlobalState.addLog(if (newVal) "VHAL SİMÜLATÖR AKTİF" else "VHAL SİMÜLATÖR KAPALI")
+                    com.omoda.lanc.core.LoggerProvider.i(if (newVal) "VHAL SİMÜLATÖR AKTİF" else "VHAL SİMÜLATÖR KAPALI")
                     com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
 
@@ -222,7 +232,7 @@ class MainActivity : ComponentActivity() {
                 VoiceTriggerButton(if (isBridgeMode) "KÖPRÜ(A)" else "KÖPRÜ(K)", if (isBridgeMode) Color(0xFFF3B14B) else Color.DarkGray) {
                     val newVal = !isBridgeMode
                     GlobalState.isBridgeMode.value = newVal
-                    com.omoda.lanc.core.GlobalState.addLog(if (newVal) "MQTT KÖPRÜ AKTİF" else "MQTT KÖPRÜ KAPALI")
+                    com.omoda.lanc.core.LoggerProvider.i(if (newVal) "MQTT KÖPRÜ AKTİF" else "MQTT KÖPRÜ KAPALI")
                     com.omoda.lanc.AssistantApplication.configManager.saveConfigAndSync()
                 }
 
@@ -238,7 +248,7 @@ class MainActivity : ComponentActivity() {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         context.startActivity(intent)
                     } catch (e: Exception) {
-                        com.omoda.lanc.core.GlobalState.addLog("HATA: Bridge Paneli Açılamadı")
+                        com.omoda.lanc.core.LoggerProvider.i("HATA: Bridge Paneli Açılamadı")
                     }
                 }
             }
@@ -279,6 +289,7 @@ class MainActivity : ComponentActivity() {
             LauncherItem("cs","Araç",R.mipmap.home_app_carinfo_n,"com.chery.carsettings"),
             LauncherItem("hvac","Klima",R.mipmap.home_app_carinfo_n,"com.chery.hvac"),
             LauncherItem("sensors", "Veri", R.mipmap.home_app_carinfo_n, "internal.sensors"),
+            LauncherItem("lanc_settings", "Lanc Ayarlar", R.mipmap.home_app_setup_n, "internal.settings"),
             LauncherItem("wp", "Tema", R.mipmap.home_app_mengjia_n, "internal.wallpaper"),
             LauncherItem("store", "Omoda Store", R.mipmap.home_app_update_n, "internal.appstore"),
             LauncherItem("v","Video",R.mipmap.home_app_video_n,"com.chery.video"),

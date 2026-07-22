@@ -16,7 +16,7 @@ Bu belge, uygulamanın görsel ve işitsel tutarlılığını korumak için uyul
 - **Muafiyet (KRİTİK):** Ana ekran (DashboardScreen), Google AAOS UI Refactoring (Touch Target vb.) kurallarından tamamen muaftır. Klasik Omoda tasarımı korunacaktır.
 
 ## 2. Automotive OS (AAOS) Tasarım Standartları
-- **Touch Target (Tıklama Hedefleri):** Sürücü dikkat dağınıklığını önlemek (Driver Distraction Guidelines) amacıyla tüm butonlar ve ikonlar (Ana ekran hariç) en az `64.dp` boyutunda (`MinCarTouchTarget`) olmalıdır.
+- **Touch Target (Tıklama Hedefleri):** Sürücü dikkat dağınıklığını önlemek (Driver Distraction Guidelines) amacıyla tüm butonlar ve ikonlar (Ana ekran hariç) en az `64.dp` boyutunda (`MinCarTouchTarget`) olmalıdır. Standart Compose `Button` veya `FilterChip` kullanımı yasaktır, yerine `CarButton` vb. sarmalayıcılar kullanılmalıdır.
 - **Odak (Focus):** Rotary controller (D-pad) desteği için tüm tıklanabilir bileşenlerde özel focus state (örn. beyaz kalın kenarlık) bulundurulmalıdır. Bunun için `CarButton` ve `CarIconButton` (AutomotiveComponents.kt) kullanılmalıdır.
 - **Renk ve Kontrast:** Tüm alt ekranlar AAA kontrast kurallarına uymalıdır, metin boyutları sürüş anında okunabilmesi için büyük (genellikle >= 16.sp) tutulmalıdır.
 

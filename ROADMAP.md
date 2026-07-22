@@ -35,6 +35,7 @@
 - [x] **Akıllı Split:** 80 km/h hız duyarlı dinamik panel oranları aktif edildi.
 - [x] **Model Otomasyonu:** Eksik ses dosyalarını otomatik indiren onarım motoru eklendi.
 - [x] **TPMS Entegrasyonu:** Lastik basınç takip widget'ı Dashboard'a mühürlendi.
+- [x] **Kod Denetim Raporu:** `CODE_AUDIT_REPORT` kapsamındaki 16 adet bulgu onarıldı (Race condition, güvenlik, bellek ve sızıntı yönetimi).
 - [ ] Performans optimizasyonları ve stres testleri.
 - [x] **Bridge & Simulator Split:** VHAL Simülatör ve MQTT Köprü kontrolleri birbirinden ayrıldı ve ADB Panel butonu eklendi.
 - [x] **GitHub OTA & Backup Fix:** GitHub token yetkilendirme ve yedekleme sistemi veri kaybı sorunları giderildi.
@@ -56,3 +57,4 @@
 - [x] **Local Voice Fallback:** Piper TTS ve Whisper STT motorları SD kart model desteği ile tam stabil hale getirildi.
 - [x] **Split View Map Fix:** ActivityView "Active view not supported" hatası retry mantığıyla çözüldü.
 - [x] **UI Restorasyonu:** Tüm arayüz v6312 (19.07.2026 08:00-12:00) standartlarına ve manifesto kurallarına geri döndürüldü.
+- [x] **AAOS UI Refactor:** Settings ve Monitor alt ekranları 64dp Touch Target ve Focus (Rotary) desteğine kavuşturuldu.

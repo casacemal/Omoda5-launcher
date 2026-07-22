@@ -18,6 +18,9 @@ import java.io.File
 
 /**
  * AssistantController - Architecture 2.0 Standartlarına Uygun Full Versiyon
+ * [FIX-05] Çift AudioRecord sorunu giderildi
+ * [FIX-06] updateConfig() eski instance'ları kapatıyor
+ * [FIX-07] TTS kuyruğuna boyut sınırı eklendi
  */
 class AssistantController(
     private val context: Context,
@@ -32,7 +35,10 @@ class AssistantController(
     private val alertEngine = AlertEngine(scope)
     private val drivingAnalysisEngine = DrivingAnalysisEngine(scope)
 
-
+    // [FIX-07] TTS kuyruğu boyut sınırı — araç donanımında bellek koruması
+    companion object {
+        private const val MAX_TTS_QUEUE_SIZE = 10
+    }
     
     private val sttManager = SttManager(context) { audioPath -> handleRecordingFinished(audioPath) }
     private val systemSttManager = com.omoda.lanc.voice.AndroidSystemSttManager(context) { text ->
@@ -68,6 +74,8 @@ class AssistantController(
     private var isListening = false
     private var amplitudeJob: Job? = null
     private var timeoutJob: Job? = null
+    // [FIX-08] Bağlantı kontrol job'ı referansı — destroy'da iptal etmek için
+    private var connectionCheckJob: Job? = null
     private val ttsQueue = ArrayDeque<Pair<String, (() -> Unit)?>>()
     private var isTtsBusy = false
 
@@ -82,7 +90,8 @@ class AssistantController(
             }
         }
         
-        scope.launch {
+        // [FIX-08] Bağlantı kontrol job'ı referans olarak tutuluyor
+        connectionCheckJob = scope.launch {
             while (true) {
                 hermesClient.checkConnection { hermesOk ->
                     GlobalState.hermesConnectionStatus.value = if (hermesOk) "CONNECTED" else "DISCONNECTED"
@@ -124,19 +133,24 @@ class AssistantController(
     )
 
     private fun handleEvent(event: Event) {
-        when (event) {
-            is Event.SystemEvent.HardKeyPressed -> {
-                if (event.keyCode == 290) toggleListening()
+        // [FIX-09] Beklenmedik Event tipi için catch-all eklendi
+        try {
+            when (event) {
+                is Event.SystemEvent.HardKeyPressed -> {
+                    if (event.keyCode == 290) toggleListening()
+                }
+                is Event.VehicleEvent.StateUpdated -> {
+                    policyEngine.updateState(event.state)
+                    agentManager.updateVehicleContext(event.state)
+                    mqttTelemetryBridge?.publishTelemetry(event.state)
+                }
+                is Event.AlertEvent.Triggered -> {
+                    handleAlert(event.alert)
+                }
+                else -> {}
             }
-            is Event.VehicleEvent.StateUpdated -> {
-                policyEngine.updateState(event.state)
-                agentManager.updateVehicleContext(event.state)
-                mqttTelemetryBridge?.publishTelemetry(event.state)
-            }
-            is Event.AlertEvent.Triggered -> {
-                handleAlert(event.alert)
-            }
-            else -> {}
+        } catch (e: Exception) {
+            Log.e("AssistantCtrl", "handleEvent hatası: ${e.message}", e)
         }
     }
 
@@ -216,6 +230,12 @@ class AssistantController(
 
     fun speak(text: String, onComplete: (() -> Unit)? = null) {
         if (text.isBlank()) { onComplete?.invoke(); return }
+        // [FIX-07] TTS kuyruğu boyut sınırı — araç donanımında bellek koruması
+        // Hızlı gelen LLM yanıtlarında kuyruk sınırsız büyüyebiliyordu
+        if (ttsQueue.size >= MAX_TTS_QUEUE_SIZE) {
+            Log.w("AssistantCtrl", "TTS kuyruğu dolu ($MAX_TTS_QUEUE_SIZE), eski öğe çıkarılıyor")
+            ttsQueue.removeFirst()
+        }
         ttsQueue.addLast(Pair(text, onComplete))
         if (!isTtsBusy) playNextInQueue()
     }
@@ -246,70 +266,34 @@ class AssistantController(
         ttsManager.stop()
     }
 
+    /**
+     * [FIX-05] İKİNCİ AudioRecord OLUŞTURMA SORUNU DÜZELTİLDİ
+     * 
+     * Eski kod: SttManager zaten mikrofonu kullanırken AYRI bir AudioRecord açıyordu.
+     * Android'de aynı anda sadece 1 AudioRecord aktif olabilir → kayıt çakışması.
+     * 
+     * Yeni kod: SttManager'ın getLastAmplitude() metodunu kullanıyor. İkinci AudioRecord
+     * oluşturulmuyor, böylece mikrofon çakışması ve gereksiz bellek kullanımı önleniyor.
+     */
     private fun startAmplitudePolling() {
         amplitudeJob?.cancel()
-        // Gerçek mikrofon RMS amplitüdünü SttManager üzerinden al.
-        // SttManager zaten kaydı yönetiyor; amplitüd verisini 100ms'de bir sorguluyoruz.
         amplitudeJob = scope.launch(Dispatchers.IO) {
-            val bufferSize = android.media.AudioRecord.getMinBufferSize(
-                16000,
-                android.media.AudioFormat.CHANNEL_IN_MONO,
-                android.media.AudioFormat.ENCODING_PCM_16BIT
-            ).coerceAtLeast(1024)
-            val buffer = ShortArray(bufferSize / 2)
-
-            // SttManager kendi AudioRecord oturumunu yönettiği için burada
-            // yalnızca okuma denemesi yapıyoruz; izin yoksa SttManager'dan tahmin al.
-            var amplitudeRecorder: android.media.AudioRecord? = null
-            try {
-                amplitudeRecorder = android.media.AudioRecord(
-                    android.media.MediaRecorder.AudioSource.MIC,
-                    16000,
-                    android.media.AudioFormat.CHANNEL_IN_MONO,
-                    android.media.AudioFormat.ENCODING_PCM_16BIT,
-                    bufferSize
-                )
-                if (amplitudeRecorder.state == android.media.AudioRecord.STATE_INITIALIZED) {
-                    amplitudeRecorder.startRecording()
-                    while (isListening && isActive) {
-                        val read = amplitudeRecorder.read(buffer, 0, buffer.size)
-                        if (read > 0) {
-                            // RMS hesapla → 0..32767 aralığını 100..700 aralığına ölçekle
-                            var sum = 0.0
-                            for (i in 0 until read) sum += buffer[i].toLong() * buffer[i].toLong()
-                            val rms = Math.sqrt(sum / read)
-                            val amp = (rms / 32767.0 * 600).toInt().coerceIn(30, 700)
-                            withContext(Dispatchers.Main) {
-                                GlobalState.currentAmplitude.value = amp
-                            }
-                        }
-                        delay(80)
+            // [FIX-05] SttManager'dan amplitüd verisini al — ikinci AudioRecord oluşturma
+            // SttManager zaten kaydı yönetiyor, amplitüd değerini oradan okuyoruz
+            while (isListening && isActive) {
+                try {
+                    val amp = sttManager.getLastAmplitude().takeIf { it > 0 } ?: run {
+                        // SttManager henüz veri üretmemişse küçük dalgalanma simüle et
+                        (80..180).random()
                     }
-                } else {
-                    // AudioRecord başlatılamadı — SttManager zaten kaydediyor olabilir.
-                    // Sabit bir orta değer koy, sıfır yerine canlı gibi görünsün.
-                    fallbackAmplitude()
+                    withContext(Dispatchers.Main) {
+                        GlobalState.currentAmplitude.value = amp
+                    }
+                } catch (e: Exception) {
+                    Log.w("AssistantCtrl", "Amplitüd okuma hatası: ${e.message}")
                 }
-            } catch (e: Exception) {
-                android.util.Log.w("AssistantCtrl", "Amplitüd okuma hatası (SttManager ile çakışma): ${e.message}")
-                fallbackAmplitude()
-            } finally {
-                try { amplitudeRecorder?.stop() } catch (_: Exception) {}
-                try { amplitudeRecorder?.release() } catch (_: Exception) {}
+                delay(80)
             }
-        }
-    }
-
-    /** SttManager zaten mikrofonu kullanıyorsa statik olmayan ama gerçekçi fallback. */
-    private suspend fun fallbackAmplitude() {
-        // SttManager.getLastAmplitude() varsa kullan, yoksa hafif salınım yap
-        while (isListening) {
-            val amp = sttManager.getLastAmplitude().takeIf { it > 0 } ?: run {
-                // Mikrofon meşgul: küçük dalgalanma simüle et (görsel amaçlı değil, bilgi yokluğu)
-                (80..180).random()
-            }
-            GlobalState.currentAmplitude.value = amp
-            delay(100)
         }
     }
 
@@ -332,6 +316,10 @@ class AssistantController(
     }
 
     fun destroy() {
+        // [FIX-08] Bağlantı kontrol job'ını da iptal et
+        connectionCheckJob?.cancel()
+        amplitudeJob?.cancel()
+        timeoutJob?.cancel()
         scope.cancel()
         vehicleController.destroy()
         audioEngine.releaseFocus()
@@ -342,9 +330,35 @@ class AssistantController(
         sttManager.stopRecording()
     }
 
+    /**
+     * [FIX-06] Konfigürasyon değiştiğinde eski instance'ları kapatma
+     * 
+     * Eski kod: Her updateConfig çağrısında yeni HermesClient, SttClient ve AgentManager
+     * oluşturuluyordu ama eski instance'lar kapatılmıyordu → aktif SSE stream devam eder,
+     * eski AgentManager'ın yanıtları gelmeye devam eder → çift yanıt sorunu.
+     * 
+     * Yeni kod: Eski AgentManager'ı cancel ediyor, eski bağlantı kontrol job'ını durduruyor.
+     */
     fun updateConfig() {
+        // Eski AgentManager'ı iptal et — aktif SSE stream'leri temizleniyor
+        try { agentManager.cancel() } catch (_: Exception) {}
+        
+        // Eski bağlantı kontrol döngüsünü durdur
+        connectionCheckJob?.cancel()
+        
         hermesClient = HermesClient(GlobalState.HERMES_BASE_URL, GlobalState.HERMES_API_KEY)
         sttClient = SttClient(GlobalState.STT_BASE_URL, GlobalState.NINEROUTER_API_KEY)
         agentManager = createAgentManager()
+        
+        // Yeni bağlantı kontrol döngüsünü başlat
+        connectionCheckJob = scope.launch {
+            while (true) {
+                hermesClient.checkConnection { hermesOk ->
+                    GlobalState.hermesConnectionStatus.value = if (hermesOk) "CONNECTED" else "DISCONNECTED"
+                    sttClient.checkConnection()
+                }
+                delay(30000)
+            }
+        }
     }
 }

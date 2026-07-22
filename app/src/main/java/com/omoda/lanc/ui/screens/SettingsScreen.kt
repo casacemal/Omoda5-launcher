@@ -7,6 +7,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -73,7 +75,9 @@ fun SettingsScreen(onBack: () -> Unit) {
     
     // Global States
     val gServerIp by GlobalState.serverIp.collectAsState()
-    val gBridgeServerIp by GlobalState.bridgeServerIp.collectAsState()
+    val mqttUrl by GlobalState.mqttUrl.collectAsState()
+    val mqttPort by GlobalState.mqttPort.collectAsState()
+    val bridgeIp by GlobalState.bridgeServerIp.collectAsState()
     val gGithubToken by GlobalState.githubToken.collectAsState()
     val gHermesApiKey by GlobalState.hermesApiKey.collectAsState()
     val gNinerouterApiKey by GlobalState.ninerouterApiKey.collectAsState()
@@ -111,7 +115,9 @@ fun SettingsScreen(onBack: () -> Unit) {
     var ttsPitch by remember(gTtsPitch) { mutableStateOf(gTtsPitch) }
 
     var serverIp by remember(gServerIp) { mutableStateOf(gServerIp) }
-    var bridgeServerIp by remember(gBridgeServerIp) { mutableStateOf(gBridgeServerIp) }
+    var mqttUrlState by remember(mqttUrl) { mutableStateOf(mqttUrl) }
+    var mqttPortState by remember(mqttPort) { mutableStateOf(mqttPort) }
+    var bridgeServerIp by remember(bridgeIp) { mutableStateOf(bridgeIp) }
     var githubToken by remember(gGithubToken) { mutableStateOf(gGithubToken) }
     var hermesApiKey by remember(gHermesApiKey) { mutableStateOf(gHermesApiKey) }
     var ninerouterApiKey by remember(gNinerouterApiKey) { mutableStateOf(gNinerouterApiKey) }
@@ -150,6 +156,8 @@ fun SettingsScreen(onBack: () -> Unit) {
         GlobalState.ttsPitch.value = ttsPitch
         
         GlobalState.serverIp.value = serverIp
+        GlobalState.mqttUrl.value = mqttUrlState
+        GlobalState.mqttPort.value = mqttPortState
         GlobalState.bridgeServerIp.value = bridgeServerIp
         GlobalState.githubToken.value = githubToken
         GlobalState.hermesApiKey.value = hermesApiKey
@@ -274,17 +282,29 @@ fun SettingsScreen(onBack: () -> Unit) {
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         items(tabs) { (name, icon) ->
-                            FilterChip(
-                                selected = selectedTab == name,
+                            val isSelected = selectedTab == name
+                            val interactionSource = remember { MutableInteractionSource() }
+                            val isFocused by interactionSource.collectIsFocusedAsState()
+                            
+                            Surface(
                                 onClick = { selectedTab = name },
-                                label = { Text(name) },
-                                leadingIcon = { Icon(icon, null, modifier = Modifier.size(18.dp)) },
-                                colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = Color(0xFF69E2D3).copy(alpha = 0.2f),
-                                    selectedLabelColor = Color(0xFF69E2D3),
-                                    labelColor = Color.Gray
-                                )
-                            )
+                                modifier = Modifier
+                                    .height(if(isHandheld) 48.dp else MinCarTouchTarget)
+                                    .padding(if (isFocused) 2.dp else 0.dp),
+                                shape = RoundedCornerShape(16.dp),
+                                color = if (isSelected) Color(0xFF69E2D3).copy(alpha = 0.2f) else Color.White.copy(alpha = 0.05f),
+                                border = BorderStroke(if (isFocused) 4.dp else 1.dp, if (isFocused) Color.White else if (isSelected) Color(0xFF69E2D3) else Color.Transparent),
+                                interactionSource = interactionSource
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Icon(icon, null, modifier = Modifier.size(if(isHandheld) 18.dp else 24.dp), tint = if (isSelected) Color(0xFF69E2D3) else Color.Gray)
+                                    Text(name, color = if (isSelected) Color(0xFF69E2D3) else Color.Gray, fontSize = if(isHandheld) 14.sp else 18.sp, fontWeight = if(isSelected) FontWeight.Bold else FontWeight.Normal)
+                                }
+                            }
                         }
                     }
                     Box(modifier = Modifier.weight(1f).padding(8.dp)) {
@@ -318,6 +338,10 @@ fun SettingsScreen(onBack: () -> Unit) {
                             vehicleId = vehicleId,
                             serverIp = serverIp,
                             onServerIpChange = { serverIp = it },
+                            mqttUrl = mqttUrlState,
+                            onMqttUrlChange = { mqttUrlState = it },
+                            mqttPort = mqttPortState,
+                            onMqttPortChange = { mqttPortState = it },
                             bridgeIp = bridgeServerIp,
                             onBridgeIpChange = { bridgeServerIp = it },
                             githubToken = githubToken,
@@ -391,6 +415,10 @@ fun SettingsScreen(onBack: () -> Unit) {
                             vehicleId = vehicleId,
                             serverIp = serverIp,
                             onServerIpChange = { serverIp = it },
+                            mqttUrl = mqttUrlState,
+                            onMqttUrlChange = { mqttUrlState = it },
+                            mqttPort = mqttPortState,
+                            onMqttPortChange = { mqttPortState = it },
                             bridgeIp = bridgeServerIp,
                             onBridgeIpChange = { bridgeServerIp = it },
                             githubToken = githubToken,
@@ -443,6 +471,10 @@ fun SettingsContent(
     vehicleId: String,
     serverIp: String,
     onServerIpChange: (String) -> Unit,
+    mqttUrl: String,
+    onMqttUrlChange: (String) -> Unit,
+    mqttPort: String,
+    onMqttPortChange: (String) -> Unit,
     bridgeIp: String,
     onBridgeIpChange: (String) -> Unit,
     githubToken: String,
@@ -495,6 +527,10 @@ fun SettingsContent(
                 onIsBridgeModeChange = onIsBridgeModeChange,
                 serverIp = serverIp,
                 onServerIpChange = onServerIpChange,
+                mqttUrl = mqttUrl,
+                onMqttUrlChange = onMqttUrlChange,
+                mqttPort = mqttPort,
+                onMqttPortChange = onMqttPortChange,
                 bridgeIp = bridgeIp,
                 onBridgeIpChange = onBridgeIpChange,
                 githubToken = githubToken,
@@ -506,10 +542,10 @@ fun SettingsContent(
             )
             "Sensörler" -> TabSensorler(isHandheld, pollingConfig)
             "Sistem" -> TabSistemEnhanced(isHandheld, isKlimaAuto)
-            "Loglar" -> TabMqttLoglari(isHandheld)
+            "Loglar" -> TabGeneralLogs(isHandheld)
             "İzinler" -> TabIzinler(isHandheld)
             "Market" -> AppStoreSection()
-            "Hakkında" -> TabHakkinda(isHandheld, vehicleId, serverIp, "8642")
+            "Hakkında" -> TabHakkinda(isHandheld, vehicleId, serverIp)
         }
     }
 }

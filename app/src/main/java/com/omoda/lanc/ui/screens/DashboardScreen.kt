@@ -31,6 +31,7 @@ import com.omoda.lanc.ui.theme.*
 import com.omoda.lanc.ui.components.BottomNavBar
 import com.omoda.lanc.ui.components.GlassCard
 import com.omoda.lanc.ui.widgets.vehicle.PremiumCarWidget
+import com.omoda.lanc.ui.components.CompactClockWidget
 
 @Composable
 fun DashboardScreen(
@@ -72,6 +73,7 @@ fun DashboardScreen(
                     }
                     
                     // Cards stacked vertically
+                    CompactClockWidget(modifier = Modifier.fillMaxWidth().height(100.dp))
                     DashboardInfoCard()
                     DashboardBatteryCard(vehicleState)
                     DashboardMapCard(context)
@@ -100,7 +102,10 @@ fun DashboardScreen(
                             modifier = Modifier.weight(1f),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            DashboardInfoCard(modifier = Modifier.weight(1f))
+                            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                                CompactClockWidget(modifier = Modifier.fillMaxWidth().height(100.dp))
+                                DashboardInfoCard(modifier = Modifier.weight(1f).fillMaxWidth())
+                            }
                             DashboardMapCard(context, modifier = Modifier.weight(1f))
                         }
 

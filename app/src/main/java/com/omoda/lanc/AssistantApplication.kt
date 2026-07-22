@@ -33,8 +33,13 @@ class AssistantApplication : Application(), AppLogger {
         
     }
 
-    override fun addLog(log: String) = com.omoda.lanc.core.GlobalState.addLog(log)
-    override fun addMqttLog(log: String) = com.omoda.lanc.core.GlobalState.addMqttLog(log)
+    override fun addGeneralLog(level: LogLevel, message: String) {
+        com.omoda.lanc.core.GlobalState.addGeneralLog(level, message)
+        // Eğer MQTT Publish devredeyse, logları anında yolla
+        if (com.omoda.lanc.core.GlobalState.mqttEnabled.value) {
+            com.omoda.lanc.core.GlobalState.mqttPublisher?.publishInternalLog(level, message)
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -54,7 +59,7 @@ class AssistantApplication : Application(), AppLogger {
         // Model Check
         CoroutineScope(Dispatchers.IO).launch {
             ModelRepairManager.checkAndRepair(this@AssistantApplication) { 
-                com.omoda.lanc.core.GlobalState.addLog("MODEL: $it")
+                LoggerProvider.i("MODEL: $it")
             }
         }
         
@@ -63,7 +68,7 @@ class AssistantApplication : Application(), AppLogger {
         }
         
         SystemLogger.setListener { log ->
-            com.omoda.lanc.core.GlobalState.addLog(log)
+            LoggerProvider.i(log)
         }
         
         com.omoda.lanc.network.NetworkMonitor(this)
@@ -71,7 +76,10 @@ class AssistantApplication : Application(), AppLogger {
         com.omoda.lanc.core.CompassManager.init(this)
         
         if (GlobalState.mqttEnabled.value) {
-            GlobalState.mqttPublisher?.updateBrokerUrl(GlobalState.serverIp.value)
+            if (GlobalState.mqttPublisher == null) {
+                GlobalState.mqttPublisher = MqttPublisher()
+            }
+            GlobalState.mqttPublisher?.updateBrokerUrl(GlobalState.mqttUrl.value)
             GlobalState.mqttPublisher?.connect()
         }
 
@@ -99,6 +107,8 @@ class AssistantApplication : Application(), AppLogger {
         GlobalState.isContinuousConversation.value = config.isContinuousConversation
         GlobalState.useHermesDecision.value = config.useHermesDecision
         GlobalState.isWakeWordEnabled.value = config.isWakeWordEnabled
+        GlobalState.mqttUrl.value = config.mqttUrl ?: "192.168.1.14"
+        GlobalState.mqttPort.value = config.mqttPort ?: "1883"
         GlobalState.micSource.value = config.micSource
         GlobalState.isBridgeMode.value = config.isBridgeMode
         GlobalState.isSimulationMode.value = config.isSimulationMode

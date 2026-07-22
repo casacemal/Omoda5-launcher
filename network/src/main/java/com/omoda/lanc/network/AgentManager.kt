@@ -38,6 +38,11 @@ class AgentManager(
         vehicleContext = "Hız: ${state.speed}km/h, Vites: ${state.gearString}, Klima: ${if(state.isHvacOn) "Açık" else "Kapalı"}, Temp: ${state.acTemperatureDriver}C, MQTT: $mqttStatus, $mediaInfo"
     }
 
+    fun cancel() {
+        currentEventSource?.cancel()
+        thinkingTimeoutJob?.cancel()
+    }
+
     fun processVoiceInput(audioFile: File) {
         onFeedback("Ses çözümleniyor...")
         
@@ -169,7 +174,7 @@ KOMUT KURALLARI:
             .newEventSource(request, object : EventSourceListener() {
                 private var currentEventType: String? = null
 
-                override fun onEvent(source: EventSource, id: String?, type: String?, data: String) {
+                override fun onEvent(eventSource: EventSource, id: String?, type: String?, data: String) {
                     Log.d(TAG, "SSE Event - Type: $type, Data: $data")
                     
                     // Veri gelmeye başladığı anda zaman aşımını iptal et
@@ -237,7 +242,7 @@ KOMUT KURALLARI:
                     }
                 }
 
-                override fun onFailure(source: EventSource, t: Throwable?, response: okhttp3.Response?) {
+                override fun onFailure(eventSource: EventSource, t: Throwable?, response: okhttp3.Response?) {
                     thinkingTimeoutJob?.cancel()
 
                     val code = response?.code

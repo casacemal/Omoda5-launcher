@@ -61,6 +61,16 @@ def create_release(tag_name):
         print(f"Error creating release: {response.text}")
         return None
 
+def publish_release(release_id):
+    url = f"https://api.github.com/repos/{OWNER}/{REPO}/releases/{release_id}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    data = {"draft": False}
+    requests.patch(url, headers=headers, json=data)
+    print(f"Published release {release_id}")
+
 def upload_asset(release_id, file_path, asset_name):
     url = f"https://uploads.github.com/repos/{OWNER}/{REPO}/releases/{release_id}/assets?name={asset_name}"
     headers = {
@@ -91,7 +101,8 @@ if __name__ == "__main__":
     print(f"Creating release {tag}...")
     release_id = create_release(tag)
     if release_id:
-        upload_asset(release_id, apk_path, f"app-debug-v{v_code}.apk")
+        if upload_asset(release_id, apk_path, f"app-debug-v{v_code}.apk"):
+            publish_release(release_id)
     else:
         # Try to find existing release if it failed because it exists
         sys.exit(1)

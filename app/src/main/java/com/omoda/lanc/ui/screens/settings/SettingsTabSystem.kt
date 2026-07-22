@@ -65,12 +65,10 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
         if (isLandscape && isCompact) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 EnhancedSettingCard(title = "VARSAYILAN LAUNCHER", modifier = Modifier.weight(1f), isCompact = isCompact) {
-                    Button(onClick = { 
+                    com.omoda.lanc.ui.components.CarButton(onClick = { 
                         val cmds = listOf("pm disable-user --user 0 com.yfve.launcher", "cmd package set-home-activity com.omoda.lanc/.MainActivity", "am start -n com.chery.hvac/.view.activity.MainActivity")
                         cmds.forEach { exec(context, it) }
-                    }, modifier = Modifier.fillMaxWidth().height(32.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF3B14B))) {
-                        Text("VARSAYILAN YAP", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 9.sp)
-                    }
+                    }, modifier = Modifier.fillMaxWidth().height(48.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF3B14B)), text = "VARSAYILAN YAP")
                 }
             }
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -93,20 +91,18 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
                 }
                 EnhancedSettingCard(title = "ARAÇ ARAÇLARI", modifier = Modifier.weight(1f), isCompact = isCompact) {
                     Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Button(onClick = { exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity") }, modifier = Modifier.weight(1f).height(32.dp)) { Text("KLİMA", fontSize = 9.sp) }
-                        Button(onClick = { exec(context, "svc wifi disable; sleep 2; svc wifi enable") }, modifier = Modifier.weight(1f).height(32.dp)) { Text("WIFI", fontSize = 9.sp) }
+                        com.omoda.lanc.ui.components.CarButton(onClick = { exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity") }, modifier = Modifier.weight(1f).height(48.dp), text = "KLİMA")
+                        com.omoda.lanc.ui.components.CarButton(onClick = { exec(context, "svc wifi disable; sleep 2; svc wifi enable") }, modifier = Modifier.weight(1f).height(48.dp), text = "WIFI")
                     }
                 }
             }
         } else {
             EnhancedSettingCard(title = "VARSAYILAN LAUNCHER", isCompact = isCompact) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = { 
+                    com.omoda.lanc.ui.components.CarButton(onClick = { 
                         val cmds = listOf("pm disable-user --user 0 com.yfve.launcher", "cmd package set-home-activity com.omoda.lanc/.MainActivity", "am start -n com.chery.hvac/.view.activity.MainActivity")
                         cmds.forEach { exec(context, it) }
-                    }, modifier = Modifier.fillMaxWidth().height(if(isCompact) 44.dp else 60.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF3B14B))) {
-                        Text("VARSAYILAN YAP (ZORLA)", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = if(isCompact) 11.sp else 14.sp)
-                    }
+                    }, modifier = Modifier.fillMaxWidth().height(if(isCompact) 48.dp else 64.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF3B14B)), text = "VARSAYILAN YAP (ZORLA)")
                 }
             }
             EnhancedSettingCard(title = "PREMIUM ÖZELLİKLER", isCompact = isCompact) {
@@ -126,7 +122,7 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
             }
             EnhancedSettingCard(title = "ARAÇ ARAÇLARI", isCompact = isCompact) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(
+                    com.omoda.lanc.ui.components.CarButton(
                         onClick = { 
                             val cmds = listOf(
                                 "pm enable com.chery.hvac", 
@@ -135,28 +131,28 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
                             )
                             cmds.forEach { exec(context, it) }
                         }, 
-                        modifier = Modifier.weight(1f).height(if(isCompact) 36.dp else 48.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE91E63))
-                    ) { 
-                        Text("KLİMA ONAR", fontSize = if(isCompact) 10.sp else 13.sp, fontWeight = FontWeight.Bold) 
-                    }
-                    Button(onClick = { exec(context, "svc wifi disable; sleep 2; svc wifi enable") }, modifier = Modifier.weight(1f).height(if(isCompact) 36.dp else 48.dp)) { Text("WIFI ONAR", fontSize = if(isCompact) 10.sp else 13.sp) }
+                        modifier = Modifier.weight(1f).height(if(isCompact) 48.dp else 64.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE91E63)),
+                        text = "KLİMA ONAR"
+                    )
+                    com.omoda.lanc.ui.components.CarButton(onClick = { exec(context, "svc wifi disable; sleep 2; svc wifi enable") }, modifier = Modifier.weight(1f).height(if(isCompact) 48.dp else 64.dp), text = "WIFI ONAR")
                 }
             }
         }
 
         EnhancedSettingCard(title = "YEDEKLEME VE GERİ YÜKLEME", isCompact = isCompact) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Button(
+                com.omoda.lanc.ui.components.CarButton(
                     onClick = { 
                         val success = AssistantApplication.configManager.backupConfig()
                         android.widget.Toast.makeText(context, if(success) "Ayarlar Yedeklendi (SDCard/Omoda)" else "Yedekleme Başarısız", android.widget.Toast.LENGTH_SHORT).show()
                     }, 
-                    modifier = Modifier.weight(1f).height(if(isCompact) 36.dp else 48.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3))
-                ) { Text("YEDEKLE", fontSize = if(isCompact) 10.sp else 13.sp) }
+                    modifier = Modifier.weight(1f).height(if(isCompact) 48.dp else 64.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3)),
+                    text = "YEDEKLE"
+                )
                 
-                Button(
+                com.omoda.lanc.ui.components.CarButton(
                     onClick = { 
                         val success = AssistantApplication.configManager.restoreConfig()
                         if (success) {
@@ -167,15 +163,16 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
                             android.widget.Toast.makeText(context, "Yedek Dosyası Bulunamadı", android.widget.Toast.LENGTH_SHORT).show()
                         }
                     }, 
-                    modifier = Modifier.weight(1f).height(if(isCompact) 36.dp else 48.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9800))
-                ) { Text("GERİ YÜKLE", fontSize = if(isCompact) 10.sp else 13.sp) }
+                    modifier = Modifier.weight(1f).height(if(isCompact) 48.dp else 64.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9800)),
+                    text = "GERİ YÜKLE"
+                )
             }
         }
         EnhancedSettingCard(title = "KOMUT", isCompact = isCompact) {
             Column {
                 OutlinedTextField(value = shellCommand, onValueChange = { shellCommand = it }, label = { Text("ADB Komut", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 11.sp else 14.sp))
-                Button(onClick = { exec(context, shellCommand); shellCommand = "" }, modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(if(isCompact) 32.dp else 48.dp)) { Text("GÖNDER", fontSize = if(isCompact) 10.sp else 13.sp) }
+                com.omoda.lanc.ui.components.CarButton(onClick = { exec(context, shellCommand); shellCommand = "" }, modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(if(isCompact) 48.dp else 64.dp), text = "GÖNDER")
             }
         }
     }

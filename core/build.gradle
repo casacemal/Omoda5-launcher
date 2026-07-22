@@ -10,6 +10,12 @@ android {
     defaultConfig {
         minSdk 29
         targetSdk 33
+        buildConfigField "String", "MQTT_USER", "\"mqtthome\""
+        buildConfigField "String", "MQTT_PASS", "\"4078\""
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     compileOptions {

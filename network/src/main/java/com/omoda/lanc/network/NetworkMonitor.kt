@@ -40,7 +40,7 @@ class NetworkMonitor(private val context: Context) {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 GlobalState.hasInternetConnection.value = true
-                LoggerProvider.log("Ağ: İnternet Bağlantısı Sağlandı")
+                LoggerProvider.i("Ağ: İnternet Bağlantısı Sağlandı")
                 
                 AdvancedLogger.log(
                     "NetworkMonitor",
@@ -60,10 +60,10 @@ class NetworkMonitor(private val context: Context) {
                                 val newerUpdates = updates.filter { !it.isDowngrade }
                                 if (newerUpdates.isNotEmpty()) {
                                     val latest = newerUpdates.first()
-                                    LoggerProvider.log("GÜNCELLEME: Yeni Omoda Sürümü Mevcut: v${latest.version}!")
+                                    LoggerProvider.i("GÜNCELLEME: Yeni Omoda Sürümü Mevcut: v${latest.version}!")
                                     showUpdateNotification("Yeni Sistem Güncellemesi", "v${latest.version} indirilebilir.")
                                 } else {
-                                    LoggerProvider.log("Güncelleme Kontrolü: Uygulamanız en güncel sürümde.")
+                                    LoggerProvider.i("Güncelleme Kontrolü: Uygulamanız en güncel sürümde.")
                                 }
                             }
                             override fun onError(error: String) {
@@ -77,7 +77,7 @@ class NetworkMonitor(private val context: Context) {
             override fun onLost(network: Network) {
                 super.onLost(network)
                 GlobalState.hasInternetConnection.value = false
-                LoggerProvider.log("Ağ: İnternet Bağlantısı Koptu!")
+                LoggerProvider.w("Ağ: İnternet Bağlantısı Koptu!")
                 hasCheckedUpdatesOnConnect = false
                 stopHealthCheck()
             }
@@ -105,6 +105,8 @@ class NetworkMonitor(private val context: Context) {
         healthCheckJob?.cancel()
     }
 
+    private var lastWifiResetTime: Long = 0
+
     private suspend fun checkConnectivityHeal() {
         val gatewayIp = GlobalState.activeServerIp.value.trim()
         val gatewayPort = GlobalState.hermesPort.value.toIntOrNull() ?: 8642
@@ -128,10 +130,17 @@ class NetworkMonitor(private val context: Context) {
             Log.d("NetworkMonitor", "Gateway ($gatewayIp) erişilebilir.")
         } else {
             GlobalState.hermesConnectionStatus.value = "DISCONNECTED"
-            LoggerProvider.log("Ağ Hatası: Gateway ($gatewayIp) erişilemiyor!")
+            LoggerProvider.w("Ağ Hatası: Gateway ($gatewayIp) erişilemiyor!")
             
-            if (GlobalState.hasInternetConnection.value && GlobalState.isRadioMode.value) { // Replaced with logic check
-                 // healTailscale() logic
+            // Eğer internet tamamen yoksa ve gateway'e de erişilemiyorsa (Kopma durumu)
+            if (!GlobalState.hasInternetConnection.value) {
+                val currentTime = System.currentTimeMillis()
+                // En son Wi-Fi resetlemenin üzerinden en az 5 dakika geçmişse reset at (300000ms)
+                if (currentTime - lastWifiResetTime > 300000) {
+                    LoggerProvider.w("Ağ: Bağlantı kurulamadı. Wi-Fi otomatik onarım tetikleniyor...")
+                    AdbClient.executeCommand("svc wifi disable | sleep 2 | svc wifi enable")
+                    lastWifiResetTime = currentTime
+                }
             }
         }
     }
