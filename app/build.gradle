@@ -20,10 +20,11 @@ def newCode = currentCode + 1
 def newDate = new java.text.SimpleDateFormat("dd.MM.yyyy HH:mm").format(new Date())
 versionProps['VERSION_CODE'] = newCode.toString()
 versionProps['BUILD_DATE'] = newDate
+versionProps['VERSION_NAME'] = newCode.toString()
 versionProps.store(new FileOutputStream(versionPropsFile), null)
 
 def vCode = newCode
-def vName = versionProps['VERSION_NAME']
+def vName = newCode.toString()
 
 // UPDATE MODU: Büyük modelleri APK dışına çıkar (Boyut küçültme)
 def isUpdateOnly = true

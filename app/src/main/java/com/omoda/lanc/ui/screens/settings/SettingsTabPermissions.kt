@@ -99,6 +99,7 @@ fun TabIzinler(isCompact: Boolean) {
                     adbCmds.forEach { (label, cmd) ->
                         com.omoda.lanc.ui.components.CarButton(
                             onClick = { 
+                                android.widget.Toast.makeText(context, "$label komutu gönderildi", android.widget.Toast.LENGTH_SHORT).show()
                                 val intent = Intent("com.omoda.lanc.ACTION_EXECUTE_SHELL").apply { 
                                     setPackage(context.packageName)
                                     putExtra("command", cmd) 

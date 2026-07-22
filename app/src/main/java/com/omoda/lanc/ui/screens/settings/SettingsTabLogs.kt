@@ -29,7 +29,7 @@ import com.omoda.lanc.ui.screens.EnhancedSettingCard
 fun TabGeneralLogs(isCompact: Boolean) {
     val logs by GlobalState.generalLogs.collectAsState()
     var selectedLevel by remember { mutableStateOf<LogLevel?>(null) }
-    val context = LocalContext.current
+
     val coroutineScope = rememberCoroutineScope()
 
     val filteredLogs = if (selectedLevel == null) logs else logs.filter { it.level == selectedLevel }

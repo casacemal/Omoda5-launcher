@@ -42,7 +42,7 @@ class VoicePanelWidget : DashboardWidget {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 VoiceTriggerButton("MIC", Color(0xFF00FF41)) { 
-                    context.sendBroadcast(Intent("com.omoda.assistant.START_LISTENING"))
+                    context.sendBroadcast(Intent("com.omoda.assistant.START_LISTENING").setPackage(context.packageName))
                 }
                 
                 VoiceTriggerButton("CHAT", OmodaCyan) { 

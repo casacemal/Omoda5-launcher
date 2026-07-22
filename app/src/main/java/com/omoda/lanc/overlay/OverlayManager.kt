@@ -105,7 +105,7 @@ class OverlayManager(private val context: Context) : LifecycleOwner, ViewModelSt
                             AssistantOverlayUI(
                                 onClose = { hide() },
                                 onStop = { 
-                                    context.sendBroadcast(Intent("com.omoda.assistant.STOP_LISTENING"))
+                                    context.sendBroadcast(Intent("com.omoda.assistant.STOP_LISTENING").setPackage(context.packageName))
                                 }
                             )
                         }

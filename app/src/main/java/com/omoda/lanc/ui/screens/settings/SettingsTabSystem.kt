@@ -53,7 +53,7 @@ import java.util.*
 import com.omoda.lanc.ui.screens.*
 
 @Composable
-fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
+fun TabSistemEnhanced(isCompact: Boolean) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
     val config = LocalConfiguration.current

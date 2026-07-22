@@ -125,9 +125,9 @@ fun AppStoreSection() {
                     } else {
                         downloadingApp = app.name
                         updateManager.downloadUpdate(app, object : OtaUpdateManager.DownloadCallback {
-                            override fun onProgress(p: Int, s: Double) { downloadProgress = p; downloadSpeed = s }
-                            override fun onComplete(f: java.io.File?) { downloadingApp = null; f?.let { updateManager.installPackage(it) } }
-                            override fun onError(e: String) { downloadingApp = null; Toast.makeText(context, e, Toast.LENGTH_LONG).show() }
+                            override fun onProgress(percentage: Int, speedMbps: Double) { downloadProgress = percentage; downloadSpeed = speedMbps }
+                            override fun onComplete(file: java.io.File?) { downloadingApp = null; file?.let { updateManager.installPackage(it) } }
+                            override fun onError(error: String) { downloadingApp = null; Toast.makeText(context, error, Toast.LENGTH_LONG).show() }
                         })
                     }
                 }
@@ -143,9 +143,9 @@ fun AppStoreSection() {
                         } else {
                             downloadingApp = app.name
                             updateManager.downloadUpdate(app, object : OtaUpdateManager.DownloadCallback {
-                                override fun onProgress(p: Int, s: Double) { downloadProgress = p; downloadSpeed = s }
-                                override fun onComplete(f: java.io.File?) { downloadingApp = null; f?.let { updateManager.installPackage(it) } }
-                                override fun onError(e: String) { downloadingApp = null; Toast.makeText(context, e, Toast.LENGTH_LONG).show() }
+                                override fun onProgress(percentage: Int, speedMbps: Double) { downloadProgress = percentage; downloadSpeed = speedMbps }
+                                override fun onComplete(file: java.io.File?) { downloadingApp = null; file?.let { updateManager.installPackage(it) } }
+                                override fun onError(error: String) { downloadingApp = null; Toast.makeText(context, error, Toast.LENGTH_LONG).show() }
                             })
                         }
                     }

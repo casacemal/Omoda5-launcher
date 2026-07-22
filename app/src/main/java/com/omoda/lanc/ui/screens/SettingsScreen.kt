@@ -136,9 +136,6 @@ fun SettingsScreen(onBack: () -> Unit) {
     val speed = speedStr.replace(" km/h", "").replace(",", ".").toFloatOrNull() ?: 0f
     val isMoving = speed > 5f
 
-    val context = LocalContext.current
-    val isKlimaAutoEnable by GlobalState.isKlimaAutoEnable.collectAsState()
-
     fun performSave() {
         GlobalState.sttMode.value = sttMode
         GlobalState.ttsEngine.value = ttsEngine
@@ -334,7 +331,6 @@ fun SettingsScreen(onBack: () -> Unit) {
                             onTtsRateChange = { ttsRate = it },
                             ttsPitch = ttsPitch,
                             onTtsPitchChange = { ttsPitch = it },
-                            isKlimaAuto = isKlimaAutoEnable,
                             vehicleId = vehicleId,
                             serverIp = serverIp,
                             onServerIpChange = { serverIp = it },
@@ -411,7 +407,6 @@ fun SettingsScreen(onBack: () -> Unit) {
                             onTtsRateChange = { ttsRate = it },
                             ttsPitch = ttsPitch,
                             onTtsPitchChange = { ttsPitch = it },
-                            isKlimaAuto = isKlimaAutoEnable,
                             vehicleId = vehicleId,
                             serverIp = serverIp,
                             onServerIpChange = { serverIp = it },
@@ -467,7 +462,6 @@ fun SettingsContent(
     onTtsRateChange: (Float) -> Unit,
     ttsPitch: Float,
     onTtsPitchChange: (Float) -> Unit,
-    isKlimaAuto: Boolean,
     vehicleId: String,
     serverIp: String,
     onServerIpChange: (String) -> Unit,
@@ -541,7 +535,7 @@ fun SettingsContent(
                 onNinerouterApiKeyChange = onNinerouterApiKeyChange
             )
             "Sensörler" -> TabSensorler(isHandheld, pollingConfig)
-            "Sistem" -> TabSistemEnhanced(isHandheld, isKlimaAuto)
+            "Sistem" -> TabSistemEnhanced(isHandheld)
             "Loglar" -> TabGeneralLogs(isHandheld)
             "İzinler" -> TabIzinler(isHandheld)
             "Market" -> AppStoreSection()

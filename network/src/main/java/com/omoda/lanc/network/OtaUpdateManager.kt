@@ -45,12 +45,11 @@ class OtaUpdateManager(private val context: Context) {
     }
 
     fun checkForUpdates(callback: UpdateCheckCallback) {
-        val token = GlobalState.GITHUB_TOKEN
         Log.i(TAG, "GitHub güncelleme kontrolü başlatılıyor...")
         val request = Request.Builder()
             .url(API_URL)
             .header("User-Agent", "Omoda5-Updater")
-            .header("Authorization", "Bearer ${GlobalState.GITHUB_TOKEN}")
+            .header("Authorization", "Bearer ${GlobalState.githubToken.value}")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -158,8 +157,8 @@ class OtaUpdateManager(private val context: Context) {
             .url(update.downloadUrl)
             .header("Accept", "application/octet-stream")
         
-        if (GlobalState.GITHUB_TOKEN.isNotBlank() && GlobalState.GITHUB_TOKEN != "token 1234567890") {
-            requestBuilder.header("Authorization", "Bearer ${GlobalState.GITHUB_TOKEN}")
+        if (GlobalState.githubToken.value.isNotBlank() && GlobalState.githubToken.value != "token 1234567890") {
+            requestBuilder.header("Authorization", "Bearer ${GlobalState.githubToken.value}")
         }
         
         Log.i(TAG, "İndirme başlatılıyor (API): ${update.name}")
@@ -176,9 +175,9 @@ class OtaUpdateManager(private val context: Context) {
                     // S3 url'ine Token OLMADAN istek atılır (AWS 400 hatasını önlemek için)
                     val s3Request = Request.Builder().url(redirectUrl).build()
                     client.newCall(s3Request).enqueue(object : Callback {
-                        override fun onFailure(c: Call, e: IOException) { callback.onError("S3-NET: ${e.message}") }
-                        override fun onResponse(c: Call, s3Resp: Response) {
-                            processDownloadStream(s3Resp, update, callback)
+                        override fun onFailure(call: Call, e: IOException) { callback.onError("S3-NET: ${e.message}") }
+                        override fun onResponse(call: Call, response: Response) {
+                            processDownloadStream(response, update, callback)
                         }
                     })
                 } else if (response.isSuccessful) {
@@ -277,7 +276,7 @@ class OtaUpdateManager(private val context: Context) {
         val request = Request.Builder()
             .url(STORE_URL)
             .header("User-Agent", "Omoda5-Updater")
-            .header("Authorization", "Bearer ${GlobalState.GITHUB_TOKEN}")
+            .header("Authorization", "Bearer ${GlobalState.githubToken.value}")
             .build()
 
         client.newCall(request).enqueue(object : Callback {

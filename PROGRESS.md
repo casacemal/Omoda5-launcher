@@ -1,5 +1,11 @@
 # PROGRESS.md
 
+## İzin Geri Bildirimi ve Sürüm Senkronizasyonu (22.07.2026)
+*   **Aksiyon:** İzin onarma tuşlarına Toast mesajı eklendi ve sürüm numarası eşitsizliği giderildi.
+*   **Detay:**
+    *   **İzin UI Geribildirimi:** `SettingsTabPermissions.kt` içerisindeki ADB komut butonlarına ve `PermissionManager.kt` içerisindeki onar tuşlarına anlık Toast bildirim eklendi.
+    *   **Versiyon Numarası Eşitlemesi:** `app/build.gradle` içindeki versiyon mantığı değiştirildi, `VERSION_NAME` değerinin doğrudan `VERSION_CODE` ile aynı olması sağlandı (Örn: v6417).
+
 ## OTA ve UI İyileştirmeleri & Mağaza Modu Onarımı (22.07.2026)
 *   **Aksiyon:** Omoda Store (Mağaza) modu onarıldı, UI ekranlarında versiyon ve tarih gösterimleri düzeltildi, ADB komut paneli mantıksal yerine taşındı.
 *   **Detay:** 
@@ -59,7 +65,7 @@
 *   **Odaklanma Desteği:** D-pad ve Rotary Controller cihazları için özel focus state (Border) UI'a dahil edildi. Metin boyutları araç kullanımına uygun olarak büyütüldü.
 
 ## Son Durum (UI Restoration: v6312 Standards)
-*   Sürüm 6413 (6.3.921) - 22.07.2026 14:49
+*   Sürüm 6417 (6417) - 22.07.2026 15:12
 *   **Restorasyon:** Tüm UI bileşenleri 19.07.2026 08:00-12:00 (v6312) aralığındaki altın oranlara ve `UI_MANIFESTO.md` standartlarına geri döndürüldü.
 *   **HomeScreen:** Grid padding değerleri manifesto ile eşitlendi (end=80dp, bottom=80dp).
 *   **Dashboard:** Sidebar genişliği 235dp'ye sabitlendi ve akıllı split oranı (high speed) 0.65f olarak güncellendi.

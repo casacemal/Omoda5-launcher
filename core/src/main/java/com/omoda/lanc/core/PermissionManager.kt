@@ -115,6 +115,7 @@ object PermissionManager {
 
     fun fixPermission(context: Context, status: PermissionStatus) {
         status.adbCommand?.let { cmd ->
+            android.widget.Toast.makeText(context, "${status.label} onarılıyor...", android.widget.Toast.LENGTH_SHORT).show()
             val intent = Intent("com.omoda.lanc.ACTION_EXECUTE_SHELL").apply {
                 setPackage(context.packageName)
                 putExtra("command", cmd)
@@ -124,6 +125,7 @@ object PermissionManager {
     }
 
     fun requestRoot(context: Context) {
+        android.widget.Toast.makeText(context, "Root denemesi başlatıldı...", android.widget.Toast.LENGTH_SHORT).show()
         val intent = Intent("com.omoda.lanc.ACTION_EXECUTE_SHELL").apply {
             setPackage(context.packageName)
             putExtra("command", "setprop service.adb.tcp.port 5555; stop adbd; start adbd")
