@@ -77,6 +77,8 @@ fun SettingsScreen(onBack: () -> Unit) {
     val gServerIp by GlobalState.serverIp.collectAsState()
     val mqttUrl by GlobalState.mqttUrl.collectAsState()
     val mqttPort by GlobalState.mqttPort.collectAsState()
+    val gMqttUser by GlobalState.mqttUser.collectAsState()
+    val gMqttPassword by GlobalState.mqttPassword.collectAsState()
     val bridgeIp by GlobalState.bridgeServerIp.collectAsState()
     val gGithubToken by GlobalState.githubToken.collectAsState()
     val gHermesApiKey by GlobalState.hermesApiKey.collectAsState()
@@ -117,6 +119,8 @@ fun SettingsScreen(onBack: () -> Unit) {
     var serverIp by remember(gServerIp) { mutableStateOf(gServerIp) }
     var mqttUrlState by remember(mqttUrl) { mutableStateOf(mqttUrl) }
     var mqttPortState by remember(mqttPort) { mutableStateOf(mqttPort) }
+    var mqttUser by remember(gMqttUser) { mutableStateOf(gMqttUser) }
+    var mqttPassword by remember(gMqttPassword) { mutableStateOf(gMqttPassword) }
     var bridgeServerIp by remember(bridgeIp) { mutableStateOf(bridgeIp) }
     var githubToken by remember(gGithubToken) { mutableStateOf(gGithubToken) }
     var hermesApiKey by remember(gHermesApiKey) { mutableStateOf(gHermesApiKey) }
@@ -155,6 +159,8 @@ fun SettingsScreen(onBack: () -> Unit) {
         GlobalState.serverIp.value = serverIp
         GlobalState.mqttUrl.value = mqttUrlState
         GlobalState.mqttPort.value = mqttPortState
+        GlobalState.mqttUser.value = mqttUser
+        GlobalState.mqttPassword.value = mqttPassword
         GlobalState.bridgeServerIp.value = bridgeServerIp
         GlobalState.githubToken.value = githubToken
         GlobalState.hermesApiKey.value = hermesApiKey
@@ -338,6 +344,10 @@ fun SettingsScreen(onBack: () -> Unit) {
                             onMqttUrlChange = { mqttUrlState = it },
                             mqttPort = mqttPortState,
                             onMqttPortChange = { mqttPortState = it },
+                            mqttUser = mqttUser,
+                            onMqttUserChange = { mqttUser = it },
+                            mqttPassword = mqttPassword,
+                            onMqttPasswordChange = { mqttPassword = it },
                             bridgeIp = bridgeServerIp,
                             onBridgeIpChange = { bridgeServerIp = it },
                             githubToken = githubToken,
@@ -414,6 +424,10 @@ fun SettingsScreen(onBack: () -> Unit) {
                             onMqttUrlChange = { mqttUrlState = it },
                             mqttPort = mqttPortState,
                             onMqttPortChange = { mqttPortState = it },
+                            mqttUser = mqttUser,
+                            onMqttUserChange = { mqttUser = it },
+                            mqttPassword = mqttPassword,
+                            onMqttPasswordChange = { mqttPassword = it },
                             bridgeIp = bridgeServerIp,
                             onBridgeIpChange = { bridgeServerIp = it },
                             githubToken = githubToken,
@@ -469,6 +483,10 @@ fun SettingsContent(
     onMqttUrlChange: (String) -> Unit,
     mqttPort: String,
     onMqttPortChange: (String) -> Unit,
+    mqttUser: String,
+    onMqttUserChange: (String) -> Unit,
+    mqttPassword: String,
+    onMqttPasswordChange: (String) -> Unit,
     bridgeIp: String,
     onBridgeIpChange: (String) -> Unit,
     githubToken: String,
@@ -525,6 +543,10 @@ fun SettingsContent(
                 onMqttUrlChange = onMqttUrlChange,
                 mqttPort = mqttPort,
                 onMqttPortChange = onMqttPortChange,
+                mqttUser = mqttUser,
+                onMqttUserChange = onMqttUserChange,
+                mqttPassword = mqttPassword,
+                onMqttPasswordChange = onMqttPasswordChange,
                 bridgeIp = bridgeIp,
                 onBridgeIpChange = onBridgeIpChange,
                 githubToken = githubToken,

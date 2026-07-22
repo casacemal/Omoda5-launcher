@@ -66,6 +66,10 @@ fun TabBaglantilarEnhanced(
     onMqttUrlChange: (String) -> Unit,
     mqttPort: String,
     onMqttPortChange: (String) -> Unit,
+    mqttUser: String,
+    onMqttUserChange: (String) -> Unit,
+    mqttPassword: String,
+    onMqttPasswordChange: (String) -> Unit,
     bridgeIp: String,
     onBridgeIpChange: (String) -> Unit,
     githubToken: String,
@@ -137,6 +141,21 @@ fun TabBaglantilarEnhanced(
                             visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
                             singleLine = true
                         )
+                        OutlinedTextField(
+                            value = mqttUser, onValueChange = onMqttUserChange, 
+                            label = { Text("MQTT Kullanıcı", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(),
+                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                            textStyle = androidx.compose.ui.text.TextStyle(fontSize = 11.sp),
+                            singleLine = true
+                        )
+                        OutlinedTextField(
+                            value = mqttPassword, onValueChange = onMqttPasswordChange, 
+                            label = { Text("MQTT Şifre", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(),
+                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                            textStyle = androidx.compose.ui.text.TextStyle(fontSize = 11.sp),
+                            visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                            singleLine = true
+                        )
                     }
                 }
             }
@@ -166,6 +185,24 @@ fun TabBaglantilarEnhanced(
                         label = { Text("Köprü IP") }, modifier = Modifier.fillMaxWidth(),
                         colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
                         textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 13.sp else 16.sp)
+                    )
+                }
+            }
+            
+            EnhancedSettingCard(title = "MQTT KİMLİK", isCompact = isCompact) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(
+                        value = mqttUser, onValueChange = onMqttUserChange, 
+                        label = { Text("Kullanıcı Adı") }, modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                        textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 13.sp else 16.sp)
+                    )
+                    OutlinedTextField(
+                        value = mqttPassword, onValueChange = onMqttPasswordChange, 
+                        label = { Text("Şifre") }, modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF69E2D3)),
+                        textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 13.sp else 16.sp),
+                        visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation()
                     )
                 }
             }
@@ -199,9 +236,15 @@ fun TabBaglantilarEnhanced(
         
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             EnhancedSettingCard(title = "BAĞLANTI DURUMU", modifier = Modifier.weight(1f), isCompact = isCompact) {
-                Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    Text("MQTT Durumu:", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = if(isCompact) 12.sp else 14.sp)
-                    Text(if (isMqtt) "AKTİF" else "KOPUK", color = if (isMqtt) Color.Green else Color.Red, fontWeight = FontWeight.Bold, fontSize = if(isCompact) 12.sp else 14.sp)
+                val connectionError by GlobalState.mqttConnectionError.collectAsState()
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Text("MQTT Durumu:", color = Color.Gray, modifier = Modifier.weight(1f), fontSize = if(isCompact) 12.sp else 14.sp)
+                        Text(if (isMqtt) "AKTİF" else "KOPUK", color = if (isMqtt) Color.Green else Color.Red, fontWeight = FontWeight.Bold, fontSize = if(isCompact) 12.sp else 14.sp)
+                    }
+                    if (!isMqtt && connectionError != null) {
+                        Text("Hata: $connectionError", color = Color.Red, fontSize = if(isCompact) 10.sp else 12.sp)
+                    }
                 }
             }
 

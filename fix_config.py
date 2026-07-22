@@ -10,6 +10,9 @@ for i in range(len(decoded)):
 
 config = json.loads(output)
 config["hermesPort"] = "8642"
+config["serverIp"] = "192.168.1.14"
+config["mqttUrl"] = "192.168.1.14"
+config["bridgeServerIp"] = "192.168.1.14"
 
 new_output = json.dumps(config)
 new_encoded = ""

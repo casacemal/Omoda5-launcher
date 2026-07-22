@@ -10,7 +10,7 @@ args = parser.parse_args()
 
 config_data = {
     "serverIp": "192.168.1.14",
-    "mqttUrl": "100.95.239.119",
+    "mqttUrl": "192.168.1.14",
     "mqttPort": "1883",
     "bridgeServerIp": "192.168.1.14",
     "hermesPort": "8642",

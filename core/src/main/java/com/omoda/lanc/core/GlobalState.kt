@@ -16,6 +16,9 @@ object GlobalState {
     val activeServerIp = MutableStateFlow("192.168.1.14")
     val mqttUrl = MutableStateFlow("192.168.1.14")
     val mqttPort = MutableStateFlow("1883")
+    val mqttUser = MutableStateFlow("")
+    val mqttPassword = MutableStateFlow("")
+    val mqttConnectionError = MutableStateFlow<String?>(null)
     
     val hermesPort = MutableStateFlow("8642")
     val sttPort = MutableStateFlow("20128")

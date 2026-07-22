@@ -31,6 +31,8 @@ data class AppConfig(
     val edgeTtsToken: String? = "",
     val mqttUrl: String? = "192.168.1.14",
     val mqttPort: String? = "1883",
+    val mqttUser: String? = "",
+    val mqttPassword: String? = "",
     
     // Kişiselleştirme (SettingsManager'dan taşındı)
     val wallpaperIdx: Int = 0,

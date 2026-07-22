@@ -17,9 +17,7 @@ import com.omoda.lanc.network.AdbClient
 
 class MqttPublisher(
     private var brokerUrl: String = GlobalState.mqttUrl.value,
-    private val clientId: String = "omoda5-assistant-" + java.util.UUID.randomUUID().toString().substring(0, 5),
-    private val mqttUser: String = com.omoda.lanc.core.BuildConfig.MQTT_USER,
-    private val mqttPass: String = com.omoda.lanc.core.BuildConfig.MQTT_PASS
+    private val clientId: String = "omoda5-assistant-" + java.util.UUID.randomUUID().toString().substring(0, 5)
 ) {
     companion object {
         private const val TAG = "MQTT-Publisher"
@@ -55,14 +53,15 @@ class MqttPublisher(
                     connectionTimeout = 10
                     keepAliveInterval = 30
                     isAutomaticReconnect = true
-                    userName = mqttUser
-                    password = mqttPass.toCharArray()
+                    userName = GlobalState.mqttUser.value.ifBlank { com.omoda.lanc.core.BuildConfig.MQTT_USER }
+                    password = GlobalState.mqttPassword.value.ifBlank { com.omoda.lanc.core.BuildConfig.MQTT_PASS }.toCharArray()
                 }
                 client?.setCallback(object : MqttCallbackExtended {
                     override fun connectComplete(reconnect: Boolean, serverURI: String?) {
                         Log.i(TAG, "MQTT bağlandı: $serverURI")
                         isConnected = true
                         GlobalState.isMqttConnected.value = true
+                        GlobalState.mqttConnectionError.value = null
                         
                         // Subscribe to simulation and command topics
                         client?.subscribe(TOPIC_SIMULATE, QOS)
@@ -77,6 +76,7 @@ class MqttPublisher(
                         Log.w(TAG, "MQTT koptu: ${cause?.message}")
                         isConnected = false
                         GlobalState.isMqttConnected.value = false
+                        GlobalState.mqttConnectionError.value = cause?.message ?: "Bağlantı koptu"
                         
                         val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
                         LoggerProvider.mqttLog("[$time] MQTT KOPTU: ${cause?.message}")
@@ -151,6 +151,7 @@ class MqttPublisher(
                 client?.connect(options)
             } catch (e: Exception) {
                 Log.e(TAG, "MQTT bağlantı hatası: ${e.message}")
+                GlobalState.mqttConnectionError.value = e.message ?: "Bağlantı hatası"
                 val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
                 LoggerProvider.mqttLog("[$time] BAĞLANTI HATASI: ${e.message}")
             }

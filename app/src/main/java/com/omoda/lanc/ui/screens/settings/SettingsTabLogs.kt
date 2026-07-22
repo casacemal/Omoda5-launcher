@@ -33,6 +33,7 @@ fun TabGeneralLogs(isCompact: Boolean) {
     val coroutineScope = rememberCoroutineScope()
 
     val filteredLogs = if (selectedLevel == null) logs else logs.filter { it.level == selectedLevel }
+    val context = LocalContext.current
 
     EnhancedSettingCard(title = "GENEL LOGLAR", modifier = Modifier.fillMaxSize(), isCompact = isCompact) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -61,7 +62,7 @@ fun TabGeneralLogs(isCompact: Boolean) {
             }
 
             // Log Listesi
-            Box(modifier = Modifier.weight(1f).fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(Color.Black.copy(0.3f)).padding(8.dp)) {
+            Box(modifier = Modifier.weight(1f, fill = false).heightIn(min = 250.dp).fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(Color.Black.copy(0.3f)).padding(8.dp)) {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(filteredLogs) { log -> 
                         val color = when (log.level) {
@@ -88,6 +89,7 @@ fun TabGeneralLogs(isCompact: Boolean) {
             ) {
                 item {
                     Button(onClick = {
+                        android.widget.Toast.makeText(context, "Root isteği gönderildi", android.widget.Toast.LENGTH_SHORT).show()
                         coroutineScope.launch {
                             AdbClient.executeCommand("su 0 id")
                             LoggerProvider.i("ADB: Root denemesi yapıldı (Sonuç arka planda dönecek)")
@@ -96,6 +98,7 @@ fun TabGeneralLogs(isCompact: Boolean) {
                 }
                 item {
                     Button(onClick = {
+                        android.widget.Toast.makeText(context, "Wi-Fi onarım komutu gönderildi", android.widget.Toast.LENGTH_SHORT).show()
                         coroutineScope.launch {
                             AdbClient.executeCommand("svc wifi disable | sleep 2 | svc wifi enable")
                             LoggerProvider.w("ADB: Wi-Fi onarma komutu gönderildi.")
@@ -104,6 +107,7 @@ fun TabGeneralLogs(isCompact: Boolean) {
                 }
                 item {
                     Button(onClick = {
+                        android.widget.Toast.makeText(context, "ADB 5555 komutu gönderildi", android.widget.Toast.LENGTH_SHORT).show()
                         coroutineScope.launch {
                             AdbClient.executeCommand("setprop service.adb.tcp.port 5555 | stop adbd | start adbd")
                             LoggerProvider.i("ADB: Wi-Fi üzerinden ADB (Port 5555) aktif edildi.")
@@ -112,6 +116,7 @@ fun TabGeneralLogs(isCompact: Boolean) {
                 }
                 item {
                     Button(onClick = {
+                        android.widget.Toast.makeText(context, "Logcat isteği gönderildi", android.widget.Toast.LENGTH_SHORT).show()
                         coroutineScope.launch {
                             AdbClient.executeCommand("logcat -d")
                             LoggerProvider.i("ADB: Logcat talep edildi (Cihaz dökümü MQTT'den gönderilecek)")
@@ -126,10 +131,13 @@ fun TabGeneralLogs(isCompact: Boolean) {
                 OutlinedTextField(value = shellCommand, onValueChange = { shellCommand = it }, label = { Text("ADB Komut", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 11.sp else 14.sp))
                 com.omoda.lanc.ui.components.CarButton(
                     onClick = { 
-                        coroutineScope.launch {
-                            AdbClient.executeCommand(shellCommand)
-                            LoggerProvider.i("ADB Komutu gönderildi: $shellCommand")
-                            shellCommand = ""
+                        if (shellCommand.isNotBlank()) {
+                            android.widget.Toast.makeText(context, "Komut gönderildi: $shellCommand", android.widget.Toast.LENGTH_SHORT).show()
+                            coroutineScope.launch {
+                                AdbClient.executeCommand(shellCommand)
+                                LoggerProvider.i("ADB Komutu gönderildi: $shellCommand")
+                                shellCommand = ""
+                            }
                         }
                     }, 
                     modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(if(isCompact) 48.dp else 64.dp), 

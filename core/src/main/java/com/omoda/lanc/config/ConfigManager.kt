@@ -68,6 +68,8 @@ class ConfigManager(val context: Context) {
             edgeTtsToken = com.omoda.lanc.core.GlobalState.edgeTtsToken.value,
             mqttUrl = com.omoda.lanc.core.GlobalState.mqttUrl.value,
             mqttPort = com.omoda.lanc.core.GlobalState.mqttPort.value,
+            mqttUser = com.omoda.lanc.core.GlobalState.mqttUser.value,
+            mqttPassword = com.omoda.lanc.core.GlobalState.mqttPassword.value,
             vadSnrRatio = com.omoda.lanc.core.GlobalState.vadSnrRatio.value,
             vadSilenceDuration = com.omoda.lanc.core.GlobalState.vadSilenceDuration.value,
             vadGainFactor = com.omoda.lanc.core.GlobalState.vadGainFactor.value,
@@ -193,7 +195,9 @@ class ConfigManager(val context: Context) {
             ninerouterApiKey = ninerouterApiKey?.cleanOr(defaults.ninerouterApiKey ?: "") ?: defaults.ninerouterApiKey,
             edgeTtsToken = edgeTtsToken?.cleanOr(defaults.edgeTtsToken ?: "") ?: defaults.edgeTtsToken,
             mqttUrl = mqttUrl?.cleanOr(defaults.mqttUrl ?: "") ?: defaults.mqttUrl,
-            mqttPort = mqttPort?.cleanOr(defaults.mqttPort ?: "") ?: defaults.mqttPort
+            mqttPort = mqttPort?.cleanOr(defaults.mqttPort ?: "") ?: defaults.mqttPort,
+            mqttUser = mqttUser?.cleanOr(defaults.mqttUser ?: "") ?: defaults.mqttUser,
+            mqttPassword = mqttPassword?.cleanOr(defaults.mqttPassword ?: "") ?: defaults.mqttPassword
         )
     }
 }
