@@ -55,7 +55,6 @@ import com.omoda.lanc.ui.screens.*
 @Composable
 fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
     val context = LocalContext.current
-    var shellCommand by remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
     val config = LocalConfiguration.current
     val isLandscape = config.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
@@ -167,12 +166,6 @@ fun TabSistemEnhanced(isCompact: Boolean, isKlimaAuto: Boolean) {
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF9800)),
                     text = "GERİ YÜKLE"
                 )
-            }
-        }
-        EnhancedSettingCard(title = "KOMUT", isCompact = isCompact) {
-            Column {
-                OutlinedTextField(value = shellCommand, onValueChange = { shellCommand = it }, label = { Text("ADB Komut", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 11.sp else 14.sp))
-                com.omoda.lanc.ui.components.CarButton(onClick = { exec(context, shellCommand); shellCommand = "" }, modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(if(isCompact) 48.dp else 64.dp), text = "GÖNDER")
             }
         }
     }

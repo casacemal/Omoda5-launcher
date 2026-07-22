@@ -132,6 +132,25 @@ fun AppStoreSection() {
                     }
                 }
             }
+
+            if (storeAppsList.isNotEmpty()) {
+                Spacer(Modifier.height(8.dp))
+                Text("Mağaza Uygulamaları", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
+                storeAppsList.forEach { app ->
+                    UpdateItem(app, downloadingApp != null, updateManager) {
+                        if (updateManager.isUpdateDownloaded(app)) {
+                            updateManager.installPackage(java.io.File(context.getExternalFilesDir(null), app.name))
+                        } else {
+                            downloadingApp = app.name
+                            updateManager.downloadUpdate(app, object : OtaUpdateManager.DownloadCallback {
+                                override fun onProgress(p: Int, s: Double) { downloadProgress = p; downloadSpeed = s }
+                                override fun onComplete(f: java.io.File?) { downloadingApp = null; f?.let { updateManager.installPackage(it) } }
+                                override fun onError(e: String) { downloadingApp = null; Toast.makeText(context, e, Toast.LENGTH_LONG).show() }
+                            })
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -147,7 +166,8 @@ fun UpdateItem(app: AppUpdate, isDownloading: Boolean, manager: OtaUpdateManager
             Column(modifier = Modifier.weight(1f)) {
                 Text(app.name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
                 Spacer(Modifier.height(4.dp))
-                Text("v${app.version} • ${app.sizeBytes / 1024 / 1024} MB", color = Color.Gray, fontSize = 18.sp)
+                val dateStr = if (app.releaseDate != null) " • ${app.releaseDate}" else ""
+                Text("v${app.version} • ${app.sizeBytes / 1024 / 1024} MB$dateStr", color = Color.Gray, fontSize = 18.sp)
             }
             CarButton(
                 onClick = onClick, 

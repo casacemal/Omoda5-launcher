@@ -119,6 +119,23 @@ fun TabGeneralLogs(isCompact: Boolean) {
                     }, colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)) { Text("Dump Logcat") }
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            var shellCommand by remember { mutableStateOf("") }
+            Column {
+                OutlinedTextField(value = shellCommand, onValueChange = { shellCommand = it }, label = { Text("ADB Komut", fontSize = 10.sp) }, modifier = Modifier.fillMaxWidth(), textStyle = androidx.compose.ui.text.TextStyle(fontSize = if(isCompact) 11.sp else 14.sp))
+                com.omoda.lanc.ui.components.CarButton(
+                    onClick = { 
+                        coroutineScope.launch {
+                            AdbClient.executeCommand(shellCommand)
+                            LoggerProvider.i("ADB Komutu gönderildi: $shellCommand")
+                            shellCommand = ""
+                        }
+                    }, 
+                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(if(isCompact) 48.dp else 64.dp), 
+                    text = "GÖNDER"
+                )
+            }
         }
     }
 }

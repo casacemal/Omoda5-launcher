@@ -56,7 +56,10 @@ import com.omoda.lanc.ui.screens.*
 fun TabHakkinda(isCompact: Boolean, vehicleId: String, serverIp: String) {
     EnhancedSettingCard(title = "SİSTEM BİLGİSİ", isCompact = isCompact) {
         Column(verticalArrangement = Arrangement.spacedBy(if(isCompact) 4.dp else 8.dp)) {
-            InfoRow("Versiyon", "${com.omoda.lanc.BuildConfig.VERSION_NAME} (v${com.omoda.lanc.BuildConfig.VERSION_CODE})")
+            InfoRow("Uygulama Adı", "Omoda5 Akıllı Asistan")
+            InfoRow("Geliştirici", "CasaCemal (Cemal Colak)")
+            InfoRow("Versiyon", "${com.omoda.lanc.BuildConfig.VERSION_NAME} (Build ${com.omoda.lanc.BuildConfig.VERSION_NAME})")
+            InfoRow("Sistem Yapısı", "Reactive EventBus & Architecture 2.0")
             InfoRow("Build Tarihi", com.omoda.lanc.BuildConfig.BUILD_DATE)
             InfoRow("ID", vehicleId)
             InfoRow("Server", serverIp)

@@ -19,7 +19,8 @@ data class AppUpdate(
     val sizeBytes: Long,
     val version: String,
     val isSystemUpdate: Boolean,
-    val isDowngrade: Boolean = false
+    val isDowngrade: Boolean = false,
+    val releaseDate: String? = null
 )
 
 class OtaUpdateManager(private val context: Context) {
@@ -30,7 +31,7 @@ class OtaUpdateManager(private val context: Context) {
     private val GITHUB_OWNER = "casacemal" 
     private val GITHUB_REPO = "Omoda5-launcher"
     private val API_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases"
-    private val STORE_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/contents/apps?ref=jetpack_componse"
+    private val STORE_URL = "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/contents/magaza?ref=feature/architecture-2-0"
 
     interface UpdateCheckCallback {
         fun onUpdatesFound(updates: List<AppUpdate>)
@@ -98,6 +99,16 @@ class OtaUpdateManager(private val context: Context) {
 
                                 val isDowngrade = githubVersionCode > 0 && githubVersionCode < localVersionCode
 
+                                val publishedAtRaw = json.optString("published_at", "")
+                                val parsedDate = if (publishedAtRaw.isNotEmpty()) {
+                                    try {
+                                        val parser = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US)
+                                        val formatter = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.US)
+                                        val dateObj = parser.parse(publishedAtRaw)
+                                        if (dateObj != null) formatter.format(dateObj) else null
+                                    } catch(e: Exception) { null }
+                                } else null
+
                                 for (i in 0 until assets.length()) {
                                     val asset = assets.getJSONObject(i)
                                     val fileName = asset.getString("name")
@@ -109,7 +120,7 @@ class OtaUpdateManager(private val context: Context) {
                                                            fileName.startsWith("app-release") ||
                                                            fileName.startsWith("app-update") ||
                                                            fileName.startsWith("app-full")
-                                        updates.add(AppUpdate(fileName, downloadUrl, size, latestVersion, isSystemUpdate, isDowngrade))
+                                        updates.add(AppUpdate(fileName, downloadUrl, size, latestVersion, isSystemUpdate, isDowngrade, parsedDate))
                                     }
                                 }
                             }
