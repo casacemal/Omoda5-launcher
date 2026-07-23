@@ -162,11 +162,10 @@ class VehicleController(private val context: Context) {
         }
         
         val value = extractValue(line)
-        if (value.isNotBlank()) {
-            // [FIX-03] Coroutine scope içinde Mutex ile state güncelleme
-            scope.launch {
-                applyValueSafe(propId, value)
-            }
+        
+        // [FIX-05] Sensör verisi gelmezse veya hata varsa "Bulunamadı" (fallback) uygula
+        scope.launch {
+            applyValueSafe(propId, value)
         }
     }
 
@@ -184,7 +183,12 @@ class VehicleController(private val context: Context) {
         val current = vehicleState
         var next = current
 
-        when (propId) {
+        if (value.isBlank() || value.contains("error", ignoreCase = true) || value.contains("null", ignoreCase = true)) {
+            displayValue = "Bulunamadı"
+            // Sensör verisi okunamadı, mevcut durumu koru ve display'e Bulunamadı yaz
+        } else {
+            try {
+                when (propId) {
             "11600207" -> {
                 val speed = value.toFloatOrNull() ?: 0f
                 displayValue = String.format("%.1f km/h", speed)
@@ -279,6 +283,11 @@ class VehicleController(private val context: Context) {
             "11400b02" -> { val abs = (value.toIntOrNull() ?: 0) > 0; displayValue = if (abs) "AKTİF" else "PASİF"; next = next.copy(absActive = abs) }
             "11400b03" -> { val tcs = (value.toIntOrNull() ?: 0) > 0; displayValue = if (tcs) "AKTİF" else "PASİF"; next = next.copy(tractionControlActive = tcs) }
             "11400b00" -> { val sig = value.toIntOrNull() ?: 0; displayValue = when(sig) { 1 -> "SAĞ"; 2 -> "SOL"; 4 -> "DÖORTLÜ"; else -> "KAPALI" }; next = next.copy(turnSignalState = sig) }
+        }
+            } catch (e: Exception) {
+                Log.e(TAG, "Değer dönüştürme hatası: ${e.message}")
+                displayValue = "Bulunamadı"
+            }
         }
 
         val label = PROPERTY_DEFINITIONS[propId]?.label ?: propId

@@ -12,6 +12,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -58,6 +59,7 @@ import com.omoda.lanc.ui.theme.OmodaCyan
 import kotlinx.coroutines.*
 import java.io.File
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.ui.platform.LocalConfiguration
 
 /**
  * v6345 RESTORATION - Stabil, Dokunulabilir ve Temiz.
@@ -65,6 +67,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
     private val mediaVM: com.omoda.lanc.media.MediaControllerViewModel by viewModels()
     private val currentScreenState = mutableStateOf("home")
+    private var permissionQueue = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,13 +86,24 @@ class MainActivity : ComponentActivity() {
         AssistantApplication.configManager.saveConfigAndSync()
 
         // Kademeli Başlatma & İzin Kontrolü (FM Radyo & Performans Koruması)
-        Handler(Looper.getMainLooper()).postDelayed({ injectPermissions() }, 6000)
-        startPeriodicPermissionCheck()
+        lifecycleScope.launch {
+            // 1. Önce UI'nin oturması için biraz bekle
+            delay(1500)
+            
+            // 2. Kritik İzinleri Sırayla İste
+            checkAndQueuePermissions()
+            requestNextPermission()
 
-        checkAndRequestPermissions()
+            // 3. Ağır Servisleri Biraz Daha Gecikmeli Başlat
+            delay(3000)
+            val serviceIntent = Intent(this@MainActivity, com.omoda.lanc.service.VoiceAssistantService::class.java)
+            ContextCompat.startForegroundService(this@MainActivity, serviceIntent)
 
-        val serviceIntent = Intent(this, com.omoda.lanc.service.VoiceAssistantService::class.java)
-        ContextCompat.startForegroundService(this, serviceIntent)
+            // 4. Son Olarak ADB İzin Enjeksiyonlarını Başlat
+            delay(2000)
+            injectPermissions()
+            startPeriodicPermissionCheck()
+        }
 
         setContent {
             Omoda5NextGenTheme {
@@ -104,12 +118,22 @@ class MainActivity : ComponentActivity() {
         currentScreenState.value = "home"
     }
 
-    override fun onKeyDown(keyCode: Int, event: android.view.KeyEvent?): Boolean {
-        if (keyCode == android.view.KeyEvent.KEYCODE_HOME) {
-            currentScreenState.value = "home"
-            return true
+    override fun dispatchKeyEvent(event: android.view.KeyEvent?): Boolean {
+        if (event?.action == android.view.KeyEvent.ACTION_DOWN) {
+            when (event.keyCode) {
+                android.view.KeyEvent.KEYCODE_HOME -> {
+                    currentScreenState.value = "home"
+                    return true
+                }
+                android.view.KeyEvent.KEYCODE_BACK -> {
+                    if (currentScreenState.value != "home") {
+                        currentScreenState.value = "home"
+                        return true
+                    }
+                }
+            }
         }
-        return super.onKeyDown(keyCode, event)
+        return super.dispatchKeyEvent(event)
     }
 
     @Composable
@@ -209,12 +233,20 @@ class MainActivity : ComponentActivity() {
         } else painterResource(internalWps[0])
 
         val isHandheld = !GlobalState.isCarHardware
+        val config = LocalConfiguration.current
+        val screenWidth = config.screenWidthDp.dp
 
+        // Xiaomi Mi 13 (2400x1080 -> Genişlik ~1080dp/2.75 -> 390dp x ~870dp landscape)
+        // Ekran genişliğine göre dinamik hesaplama: Orijinal sidebar her zaman 235dp (Omoda) veya 90dp (Telefon)
         val startPad = if (isHandheld) 20.dp else 235.dp
         val topPad = if (isHandheld) 20.dp else 60.dp
         val bottomPad = if (isHandheld) 40.dp else 80.dp
         val endPad = if (isHandheld) 90.dp else 80.dp // To avoid the right side buttons
         val indicatorBottomPad = if (isHandheld) 10.dp else 30.dp
+        
+        // Cihazın genişliğine göre grid kolon sayısını hesapla (minimum 5 kolon)
+        val availableWidth = screenWidth - startPad - endPad
+        val columnsCount = if (availableWidth > 800.dp) 6 else 5
 
         Box(Modifier.fillMaxSize()) {
             Image(painter = painter, contentDescription = null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
@@ -247,7 +279,7 @@ class MainActivity : ComponentActivity() {
                 HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { pIdx ->
                     if (pIdx < launcherPages.size) {
                         LazyVerticalGrid(
-                            columns = GridCells.Fixed(5), 
+                            columns = GridCells.Fixed(columnsCount), 
                             modifier = Modifier.fillMaxSize().padding(start = startPad, end = endPad, top = topPad, bottom = bottomPad),
                             verticalArrangement = Arrangement.Center,
                             horizontalArrangement = Arrangement.spacedBy(15.dp)
@@ -376,7 +408,14 @@ class MainActivity : ComponentActivity() {
             "internal.sylvie" -> currentScreenState.value = "sylvie"
             "internal.coolwalk" -> currentScreenState.value = "coolwalk"
             "internal.sensors" -> currentScreenState.value = "sensors"
-            "internal.settings" -> currentScreenState.value = "settings"
+            "internal.settings" -> {
+                GlobalState.settingsInitialTab.value = "Asistan"
+                currentScreenState.value = "settings"
+            }
+            "internal.appstore" -> {
+                GlobalState.settingsInitialTab.value = "Market"
+                currentScreenState.value = "settings"
+            }
             else -> packageManager.getLaunchIntentForPackage(item.packageName ?: "")?.let { startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
         }
     }
@@ -495,9 +534,26 @@ class MainActivity : ComponentActivity() {
         ContextCompat.startForegroundService(this, intent)
     }
 
-    private fun checkAndRequestPermissions() {
+    private fun checkAndQueuePermissions() {
         val perms = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BODY_SENSORS)
         val needed = perms.filter { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }
-        if (needed.isNotEmpty()) ActivityCompat.requestPermissions(this, needed.toTypedArray(), 1001)
+        permissionQueue.addAll(needed)
+    }
+
+    private fun requestNextPermission() {
+        if (permissionQueue.isNotEmpty()) {
+            val perm = permissionQueue.removeAt(0)
+            ActivityCompat.requestPermissions(this, arrayOf(perm), 1001)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1001) {
+            // Sonraki izni bir süre sonra iste ki dialoglar üst üste binmesin
+            Handler(Looper.getMainLooper()).postDelayed({
+                requestNextPermission()
+            }, 500)
+        }
     }
 }

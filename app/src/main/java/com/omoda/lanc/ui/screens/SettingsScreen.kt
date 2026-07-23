@@ -60,7 +60,8 @@ import com.omoda.lanc.ui.screens.settings.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(onBack: () -> Unit) {
-    var selectedTab by remember { mutableStateOf("Asistan") }
+    val initialTab by GlobalState.settingsInitialTab.collectAsState()
+    var selectedTab by remember(initialTab) { mutableStateOf(initialTab) }
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
     

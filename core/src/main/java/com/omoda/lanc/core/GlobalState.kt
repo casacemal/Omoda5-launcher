@@ -59,6 +59,7 @@ object GlobalState {
     val ninerouterApiKey = MutableStateFlow("")
     val githubToken = MutableStateFlow("")
     val edgeTtsToken = MutableStateFlow("")
+    val settingsInitialTab = MutableStateFlow("Asistan")
     
     @Deprecated("Use flow instead") var HERMES_API_KEY: String get() = hermesApiKey.value; set(v) { hermesApiKey.value = v }
     @Deprecated("Use flow instead") var NINEROUTER_API_KEY: String get() = ninerouterApiKey.value; set(v) { ninerouterApiKey.value = v }

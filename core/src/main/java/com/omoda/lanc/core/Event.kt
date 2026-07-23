@@ -58,6 +58,8 @@ sealed class Event {
         object HideOverlay : UIEvent()
         data class UpdateOverlayState(val text: String, val color: Int? = null) : UIEvent()
         data class UpdateOverlayAmplitude(val amplitude: Int) : UIEvent()
+        object CheckOtaUpdate : UIEvent()
+        object TriggerOtaUpdate : UIEvent()
     }
     // 8. Sürüş Analiz Olayları
     sealed class AnalysisEvent : Event() {

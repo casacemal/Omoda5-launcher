@@ -145,10 +145,12 @@ class MqttPublisher(
                                     "check_ota_update" -> {
                                         LoggerProvider.i("MQTT Remote Command: OTA Güncelleme Kontrolü isteniyor...")
                                         publish(TOPIC_STATUS, "OTA_CHECK_REQUESTED: GitHub sürüm kontrolü tetiklendi.")
+                                        com.omoda.lanc.core.EventBus.tryEmit(com.omoda.lanc.core.Event.UIEvent.CheckOtaUpdate)
                                     }
                                     "trigger_ota_update" -> {
                                         LoggerProvider.i("MQTT Remote Command: Otomatik OTA İndirme & Kurma Tetiklendi!")
                                         publish(TOPIC_STATUS, "OTA_TRIGGERED: Güncelleme kontrol ediliyor ve otomatik kurulacak.")
+                                        com.omoda.lanc.core.EventBus.tryEmit(com.omoda.lanc.core.Event.UIEvent.TriggerOtaUpdate)
                                     }
                                     else -> {
                                         val args = mutableMapOf<String, Any>()
@@ -237,9 +239,9 @@ class MqttPublisher(
                 put("vehicle_id", GlobalState.vehicleId.value)
                 put("ip_address", GlobalState.activeServerIp.value)
                 put("device_model", android.os.Build.MODEL)
-                put("app_version", "v6452")
-                put("version_code", 6452)
+                put("app_version", GlobalState.latestVersion.value) // Will be updated by UI layer or MainActivity
                 put("latest_version", GlobalState.latestVersion.value)
+                put("update_status", GlobalState.downloadProgressText.value ?: "Beklemede")
                 put("adb_status", JSONObject().apply {
                     put("ready", true)
                     put("port", 5555)

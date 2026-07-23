@@ -5,10 +5,14 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -97,10 +101,20 @@ fun AppStoreSection() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Mevcut Yüklü Sürüm: v6452 (Build 6452)", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Icon(Icons.Default.Build, "Build", tint = Color.LightGray, modifier = Modifier.size(20.dp))
+                            val pm = context.packageManager
+                            val pi = pm.getPackageInfo(context.packageName, 0)
+                            @Suppress("DEPRECATION")
+                            val vc = pi.versionCode
+                            val vn = pi.versionName
+                            Text("Mevcut Yüklü Sürüm: v$vn (Build $vc)", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        }
                         Spacer(Modifier.height(4.dp))
                         val latestTag = com.omoda.lanc.core.GlobalState.latestVersion.value
                         Text(if (latestTag.isNotBlank()) "En Son Çevrimiçi Sürüm: $latestTag" else "Sürüm bilgisi kontrol ediliyor...", color = Color.Gray, fontSize = 16.sp)
+                        Spacer(Modifier.height(8.dp))
+                        Text("Cihaz: ${android.os.Build.MODEL} • ${android.os.Build.VERSION.RELEASE}", color = Color.DarkGray, fontSize = 14.sp)
                     }
                     val isLatest = com.omoda.lanc.core.GlobalState.latestVersion.value == "v6452" || com.omoda.lanc.core.GlobalState.latestVersion.value == "6452"
                     Surface(
@@ -224,12 +238,15 @@ fun UpdateItem(app: AppUpdate, isDownloading: Boolean, manager: OtaUpdateManager
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(
-                        text = "Değişiklik Notları:\n${app.releaseNotes}",
-                        color = Color.LightGray,
-                        fontSize = 14.sp,
-                        modifier = Modifier.padding(12.dp)
-                    )
+                    Row(modifier = Modifier.padding(12.dp)) {
+                        Icon(Icons.Default.Info, "Release Notes", tint = Color.LightGray, modifier = Modifier.size(16.dp).padding(top = 2.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = "Değişiklik Notları:\n${app.releaseNotes}",
+                            color = Color.LightGray,
+                            fontSize = 14.sp
+                        )
+                    }
                 }
             }
         }

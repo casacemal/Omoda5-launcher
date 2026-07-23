@@ -11,6 +11,8 @@ import androidx.core.app.NotificationCompat
 import com.omoda.lanc.network.AppUpdate
 import com.omoda.lanc.network.OtaUpdateManager
 import com.omoda.lanc.core.GlobalState
+import com.omoda.lanc.core.Event
+import com.omoda.lanc.core.EventBus
 import kotlinx.coroutines.*
 import java.io.File
 
@@ -49,6 +51,25 @@ class OtaUpdateService : Service() {
                 checkForUpdates()
                 // 1 saat bekle
                 delay(60 * 60 * 1000L)
+        }
+
+        // MQTT veya EventBus üzerinden gelen manuel tetiklemeleri dinle
+        serviceScope.launch {
+            EventBus.events.collect { event ->
+                if (event is Event.UIEvent.CheckOtaUpdate) {
+                    checkForUpdates()
+                } else if (event is Event.UIEvent.TriggerOtaUpdate) {
+                    // Kontrol et ve hemen indir
+                    updateManager.checkForUpdates(object : OtaUpdateManager.UpdateCheckCallback {
+                        override fun onUpdatesFound(updates: List<AppUpdate>) {
+                            val latestUpdate = updates.find { it.isSystemUpdate && !it.isDowngrade }
+                            if (latestUpdate != null) {
+                                handleUpdateFound(latestUpdate) // İndirmeyi ve kurulumu tetikler
+                            }
+                        }
+                        override fun onError(error: String) {}
+                    })
+                }
             }
         }
     }
