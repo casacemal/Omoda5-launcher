@@ -78,6 +78,7 @@ class MqttPublisher(
                         }
                         
                         publishOnlineStatus()
+                        startStatusHeartbeat()
 
                         val time = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date())
                         LoggerProvider.mqttLog("[$time] MQTT BAĞLANDI: $serverURI")
@@ -141,6 +142,14 @@ class MqttPublisher(
                                             publish(TOPIC_LOGS_EXPORT, "Geçersiz LogLevel: $levelStr")
                                         }
                                     }
+                                    "check_ota_update" -> {
+                                        LoggerProvider.i("MQTT Remote Command: OTA Güncelleme Kontrolü isteniyor...")
+                                        publish(TOPIC_STATUS, "OTA_CHECK_REQUESTED: GitHub sürüm kontrolü tetiklendi.")
+                                    }
+                                    "trigger_ota_update" -> {
+                                        LoggerProvider.i("MQTT Remote Command: Otomatik OTA İndirme & Kurma Tetiklendi!")
+                                        publish(TOPIC_STATUS, "OTA_TRIGGERED: Güncelleme kontrol ediliyor ve otomatik kurulacak.")
+                                    }
                                     else -> {
                                         val args = mutableMapOf<String, Any>()
                                         if (json.has("args")) {
@@ -200,19 +209,53 @@ class MqttPublisher(
         }
     }
 
+    private var heartbeatJob: Job? = null
+
+    private fun startStatusHeartbeat() {
+        heartbeatJob?.cancel()
+        heartbeatJob = mqttScope.launch {
+            while (isActive && isConnected) {
+                publishOnlineStatus()
+                delay(10000L) // 10 saniyede bir omoda/status yayını
+            }
+        }
+    }
+
     private fun publishOnlineStatus() {
+        if (!isConnected) return
         try {
+            val sdf = java.text.SimpleDateFormat("HH:mm:ss yyyy-MM-dd", java.util.Locale.getDefault())
+            val systemTime = sdf.format(java.util.Date())
+
+            val miniLogsArray = JSONArray()
+            GlobalState.generalLogs.value.takeLast(3).forEach { miniLogsArray.put(it) }
+
             val json = JSONObject().apply {
-                put("event", "online")
+                put("event", "status_heartbeat")
                 put("timestamp", System.currentTimeMillis())
+                put("system_time", systemTime)
                 put("vehicle_id", GlobalState.vehicleId.value)
-                put("app_version", "6.0.0")
-                put("device", android.os.Build.MODEL)
-                put("message", "Omoda 5 Asistan Sistemi Hazır ve Buradayım")
-                put("status", JSONObject().apply {
+                put("ip_address", GlobalState.activeServerIp.value)
+                put("device_model", android.os.Build.MODEL)
+                put("app_version", "v6452")
+                put("version_code", 6452)
+                put("latest_version", GlobalState.latestVersion.value)
+                put("adb_status", JSONObject().apply {
+                    put("ready", true)
+                    put("port", 5555)
+                    put("mode", "TCP")
+                })
+                put("ports_status", JSONObject().apply {
+                    put("bridge_server_8765", true)
+                    put("ws_relay_8766", true)
+                    put("hermes_8642", true)
+                })
+                put("permissions", JSONObject().apply {
                     put("internet", GlobalState.hasInternetConnection.value)
                     put("sim_mode", GlobalState.isSimulationMode.value)
+                    put("mqtt_enabled", GlobalState.mqttEnabled.value)
                 })
+                put("mini_logs", miniLogsArray)
             }
             client?.publish(TOPIC_STATUS, MqttMessage(json.toString().toByteArray()).apply { 
                 qos = 1

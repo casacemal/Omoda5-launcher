@@ -37,12 +37,21 @@ import com.omoda.lanc.ui.components.CarIconButton
 import com.omoda.lanc.ui.components.MinCarTouchTarget
 import kotlinx.coroutines.delay
 
+import com.omoda.lanc.ui.components.SafetyConfirmationDialog
+
 @Composable
 fun SensorMonitorScreen(onBack: () -> Unit) {
+    androidx.activity.compose.BackHandler { onBack() }
     val context = androidx.compose.ui.platform.LocalContext.current
     var vehicleState by remember { mutableStateOf(VehicleController.getInstance(context).getVehicleState()) }
     var lastUpdate by remember { mutableLongStateOf(System.currentTimeMillis()) }
     val isSimMode by GlobalState.isSimulationMode.collectAsState()
+
+    // Safety Dialog State
+    var showSafetyDialog by remember { mutableStateOf(false) }
+    var pendingActionTitle by remember { mutableStateOf("") }
+    var pendingRiskDescription by remember { mutableStateOf("") }
+    var pendingAction by remember { mutableStateOf<(() -> Unit)?>(null) }
 
     LaunchedEffect(Unit) {
         EventBus.events.collect { event ->
@@ -52,6 +61,21 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
             }
         }
     }
+
+    // Risk Onay Modalı
+    SafetyConfirmationDialog(
+        showDialog = showSafetyDialog,
+        actionTitle = pendingActionTitle,
+        riskDescription = pendingRiskDescription,
+        onConfirm = {
+            pendingAction?.invoke()
+            showSafetyDialog = false
+        },
+        onDismiss = {
+            showSafetyDialog = false
+            pendingAction = null
+        }
+    )
 
     Column(
         modifier = Modifier
@@ -111,15 +135,19 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
             SensorItem("Hız", "${vehicleState.speed.toInt()} km/h", "Sürüş", Color(0xFF69E2D3)),
             SensorItem("Devir", "${vehicleState.engineRpm.toInt()} RPM", "Sürüş", Color(0xFF69E2D3)),
             SensorItem("Vites", vehicleState.gearString, "Sürüş", Color(0xFF69E2D3)),
+            SensorItem("Hararet", String.format("%.1f°C", vehicleState.engineCoolantTemp), "Motor", Color(0xFFFF5722)),
+            SensorItem("ABS Fren", if (vehicleState.absActive) "AKTİF" else "PASİF", "Güvenlik", Color(0xFF4CAF50)),
+            SensorItem("Çekiş (ESP)", if (vehicleState.tractionControlActive) "AKTİF" else "PASİF", "Güvenlik", Color(0xFF4CAF50)),
+            SensorItem("Sinyal", vehicleState.turnSignalString, "Sürüş", Color(0xFFFFC107)),
             SensorItem("Yakıt", "%${vehicleState.fuelLevel.toInt()}", "Enerji", Color(0xFFF3B14B)),
             SensorItem("Menzil", "${vehicleState.rangeKm.toInt()} km", "Enerji", Color(0xFFF3B14B)),
             SensorItem("Klima", if (vehicleState.isHvacOn) "AÇIK" else "KAPALI", "Konfor", Color(0xFF4CAF50)),
             SensorItem("Sıcaklık", "${vehicleState.acTemperatureDriver}°C", "Konfor", Color(0xFF4CAF50)),
             SensorItem("Fan", "${vehicleState.acFanSpeed}", "Konfor", Color(0xFF4CAF50)),
             SensorItem("Dış Isı", "${vehicleState.outsideTemperature}°C", "Ortam", Color(0xFF2196F3)),
-            SensorItem("El Freni", if (vehicleState.parkingBrake) "ÇEKİLİ" else "İNMİŞ", "Güvenlik", Color(0xFFE57373)),
+            SensorItem("El Freni (Read)", if (vehicleState.parkingBrake) "ÇEKİLİ" else "İNMİŞ", "Güvenlik (Read)", Color(0xFFE57373)),
             SensorItem("Kilometre", "${vehicleState.odometer.toInt()} km", "Sürüş", Color(0xFF69E2D3)),
-            SensorItem("Kapılar", if (vehicleState.anyDoorOpen) "AÇIK!" else "KAPALI", "Güvenlik", Color(0xFFE57373))
+            SensorItem("Kapılar", if (vehicleState.anyDoorOpen) "AÇIK!" else "KAPALI", "Güvenlik (Read)", Color(0xFFE57373))
         )
 
         LazyVerticalGrid(
@@ -141,13 +169,23 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CarButton(
-                onClick = { exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity") },
+                onClick = {
+                    pendingActionTitle = "Klima Kontrolü ve Testi"
+                    pendingRiskDescription = "Bu işlem araç klima servisini başlatacak/duraklatacaktır. İşlemi onaylıyor musunuz?"
+                    pendingAction = { exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity") }
+                    showSafetyDialog = true
+                },
                 text = "Klima Aç/Kapat",
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50).copy(alpha = 0.2f), contentColor = Color.White)
             )
             CarButton(
-                onClick = { exec(context, "svc wifi disable; sleep 1; svc wifi enable") },
+                onClick = {
+                    pendingActionTitle = "WIFI Servisi Onarımı"
+                    pendingRiskDescription = "Bu işlem araç WIFI bağlantısını 1 saniyeliğine yenileyecektir."
+                    pendingAction = { exec(context, "svc wifi disable; sleep 1; svc wifi enable") }
+                    showSafetyDialog = true
+                },
                 text = "WIFI Onar",
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3).copy(alpha = 0.2f), contentColor = Color.White)

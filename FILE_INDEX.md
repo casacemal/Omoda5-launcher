@@ -1,5 +1,9 @@
 # FILE_INDEX.md
 
+*   Sürüm 6447 (6447) - 23.07.2026 12:30
+    *   `PROJE_KITABI.md`: Projenin geçmiş git dalları evrim zaman çizelgesini, Architecture 2.0 7 mimari katmanını, servis port matrisini, "Don't Do" mühürlü bilgi bankasını ve otonom AI ajanlar için context optimization rehberini içeren v4.0.0 Master Ansiklopedi olarak güncellendi.
+    *   `PROGRESS.md`: Son mimari ve dokümantasyon güncelleme kayıtları kronolojik günlüğe eklendi.
+
 *   Sürüm 6434 (6434) - 22.07.2026 20:51
     *   `VehicleController.kt`: `updateDisplay` metoduna Hex Property ID, Etiket ve UI takma adları ile çoklu anahtar (multi-key) yazma desteği eklendi.
     *   `TeslaCarWidget.kt`: `PremiumCarWidget` içindeki Hız, Vites ve Kapı okumalarına esnek fallback zincirleri eklendi.
@@ -825,3 +829,15 @@
 *   Sürüm 6446 (6446) - 23.07.2026 03:07
 
 *   Sürüm 6447 (6447) - 23.07.2026 03:34
+
+*   Sürüm 6448 (6448) - 23.07.2026 12:35
+
+*   Sürüm 6449 (6449) - 23.07.2026 12:39
+
+*   Sürüm 6450 (6450) - 23.07.2026 14:05
+
+*   Sürüm 6451 (6451) - 23.07.2026 15:30
+
+*   Sürüm 6452 (6452) - 23.07.2026 15:37
+
+*   Sürüm 6453 (6453) - 23.07.2026 20:10

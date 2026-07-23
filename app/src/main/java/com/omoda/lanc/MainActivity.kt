@@ -80,8 +80,8 @@ class MainActivity : ComponentActivity() {
         // GlobalState.isSimulationMode.value = true // [FIX] Zorlama kaldırıldı
         AssistantApplication.configManager.saveConfigAndSync()
 
-        Handler(Looper.getMainLooper()).postDelayed({ injectPermissions() }, 1000)
-        Handler(Looper.getMainLooper()).postDelayed({ exec("am start -n com.chery.hvac/.view.activity.MainActivity") }, 2500)
+        // Kademeli Başlatma & İzin Kontrolü (FM Radyo & Performans Koruması)
+        Handler(Looper.getMainLooper()).postDelayed({ injectPermissions() }, 6000)
         startPeriodicPermissionCheck()
 
         checkAndRequestPermissions()
@@ -94,6 +94,20 @@ class MainActivity : ComponentActivity() {
                 MainNavigation()
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        currentScreenState.value = "home"
+    }
+
+    override fun onKeyDown(keyCode: Int, event: android.view.KeyEvent?): Boolean {
+        if (keyCode == android.view.KeyEvent.KEYCODE_HOME) {
+            currentScreenState.value = "home"
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     @Composable

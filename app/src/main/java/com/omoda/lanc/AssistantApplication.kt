@@ -49,46 +49,51 @@ class AssistantApplication : Application(), AppLogger {
         configManager = ConfigManager(this)
         loadConfig()
 
-        // Architecture 2.0 Init
+        // --- KADEMELİ (STAGGERED) AŞAMALI BAŞLATMA PIPELINE'I ---
+        // Aşama 1 (T=0s): Temel DSL & Konfigürasyon
         firewallV2 = FirewallV2(this, OmodaTools, emptyList())
         hybridRouter = HybridRouter(this, firewallV2, OmodaTools)
-        
         GlobalState.firewallV2 = firewallV2
         GlobalState.hybridRouter = hybridRouter
+        SystemLogger.setListener { log -> LoggerProvider.i(log) }
 
-        // Model Check
+        // Aşama 2 (T=3s): Ses ve Model İncelemesi (FM Radyo'ya zaman tanıma)
         CoroutineScope(Dispatchers.IO).launch {
+            delay(3000L)
             ModelRepairManager.checkAndRepair(this@AssistantApplication) { 
                 LoggerProvider.i("MODEL: $it")
             }
         }
-        
-        VehicleController.getInstance(this)
-        
-        // [FIX] Zorla simülasyon moduna geçiş kaldırıldı. Artık config ne derse o.
-        // if (!GlobalState.isCarHardware) { GlobalState.isSimulationMode.value = true }
-        
-        SystemLogger.setListener { log ->
-            LoggerProvider.i(log)
-        }
-        
-        com.omoda.lanc.network.NetworkMonitor(this)
-        com.omoda.lanc.network.WeatherManager.startPolling()
-        com.omoda.lanc.core.CompassManager.init(this)
-        
-        if (GlobalState.mqttEnabled.value) {
-            if (GlobalState.mqttPublisher == null) {
-                GlobalState.mqttPublisher = MqttPublisher()
+
+        // Aşama 3 (T=6s): VHAL & Araç Denetleyicisi Entegrasyonu
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(6000L)
+            withContext(Dispatchers.Main) {
+                VehicleController.getInstance(this@AssistantApplication)
+                com.omoda.lanc.core.CompassManager.init(this@AssistantApplication)
             }
-            GlobalState.mqttPublisher?.updateBrokerUrl(GlobalState.mqttUrl.value)
-            GlobalState.mqttPublisher?.connect()
         }
 
-        PairingManager.init(applicationContext)
-        DeviceCapabilities.init(applicationContext)
-        WakeLockManager.init(applicationContext)
-        RelayClient.init(applicationContext)
-        RelayClient.autoConnect()
+        // Aşama 4 (T=10s): MQTT, Hava Durumu ve Ağ Servisleri
+        CoroutineScope(Dispatchers.IO).launch {
+            delay(10000L)
+            com.omoda.lanc.network.NetworkMonitor(this@AssistantApplication)
+            com.omoda.lanc.network.WeatherManager.startPolling()
+
+            if (GlobalState.mqttEnabled.value) {
+                if (GlobalState.mqttPublisher == null) {
+                    GlobalState.mqttPublisher = MqttPublisher()
+                }
+                GlobalState.mqttPublisher?.updateBrokerUrl(GlobalState.mqttUrl.value)
+                GlobalState.mqttPublisher?.connect()
+            }
+
+            PairingManager.init(applicationContext)
+            DeviceCapabilities.init(applicationContext)
+            WakeLockManager.init(applicationContext)
+            RelayClient.init(applicationContext)
+            RelayClient.autoConnect()
+        }
     }
 
     fun loadConfig() {

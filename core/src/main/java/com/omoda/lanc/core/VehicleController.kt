@@ -77,7 +77,12 @@ class VehicleController(private val context: Context) {
             "11600304" to PropertyDef("Motor Yağ Sıc.", 2),
             "1540050b" to PropertyDef("Koltuk Isıtma", 5),
             "15400513" to PropertyDef("Koltuk Soğutma", 5),
-            "13400bc0" to PropertyDef("Cam / Sunroof", 5)
+            "13400bc0" to PropertyDef("Cam / Sunroof", 5),
+            // Yeni Güvenli Read-Only Sensörler
+            "11200305" to PropertyDef("Motor Soğutma Suyu (Hararet)", 5),
+            "11400b02" to PropertyDef("ABS Durumu", 2),
+            "11400b03" to PropertyDef("Çekiş Kontrolü (ESP/TCS)", 2),
+            "11400b00" to PropertyDef("Sinyal Kolu Durumu", 2)
         )
     }
 
@@ -270,6 +275,10 @@ class VehicleController(private val context: Context) {
             "11600309" -> { val bat = value.toFloatOrNull() ?: 0f; displayValue = "${bat.toInt()}%"; next = next.copy(evBatteryLevel = bat) }
             "11600104" -> { val raw = value.toFloatOrNull() ?: 0f; val liters = raw / 1000f; displayValue = String.format("%.1f L", liters); next = next.copy(fuelCapacity = liters) }
             "13400bc0" -> { val wp = value.toIntOrNull() ?: 0; displayValue = "Pozisyon: $wp"; next = next.copy(windowPosition = wp) }
+            "11200305" -> { val temp = value.toFloatOrNull() ?: 0f; displayValue = String.format("%.1f°C", temp); next = next.copy(engineCoolantTemp = temp) }
+            "11400b02" -> { val abs = (value.toIntOrNull() ?: 0) > 0; displayValue = if (abs) "AKTİF" else "PASİF"; next = next.copy(absActive = abs) }
+            "11400b03" -> { val tcs = (value.toIntOrNull() ?: 0) > 0; displayValue = if (tcs) "AKTİF" else "PASİF"; next = next.copy(tractionControlActive = tcs) }
+            "11400b00" -> { val sig = value.toIntOrNull() ?: 0; displayValue = when(sig) { 1 -> "SAĞ"; 2 -> "SOL"; 4 -> "DÖORTLÜ"; else -> "KAPALI" }; next = next.copy(turnSignalState = sig) }
         }
 
         val label = PROPERTY_DEFINITIONS[propId]?.label ?: propId

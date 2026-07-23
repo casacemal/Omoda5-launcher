@@ -45,7 +45,13 @@ data class VehicleState(
     val seatBeltBuckled: Int = 0,
     val seatOccupancy: Int = 0,
     val windowPosition: Int = 0,
-    val doorLocks: Int = 0
+    val doorLocks: Int = 0,
+    // Yeni Eklenen Güvenli Read-Only Sensörler
+    val engineCoolantTemp: Float = 0f,
+    val engineOilTemp: Float = 0f,
+    val absActive: Boolean = false,
+    val tractionControlActive: Boolean = false,
+    val turnSignalState: Int = 0
 ) {
     val doorOpenString: String get() {
         if (!anyDoorOpen) return "Tümü Kapalı"

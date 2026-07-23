@@ -107,14 +107,22 @@ object AdbClient {
         }
     }
 
+    @Volatile private var isSuAvailable: Boolean? = null
+
     private fun runtimeFallback(cmd: String, onLine: (String) -> Unit) {
         try {
             var proc: Process? = null
-            try {
-                // Telefonlarda Magisk vb. üzerinden root yetkisi iste
-                proc = Runtime.getRuntime().exec(arrayOf("su", "-c", cmd))
-            } catch (e: Exception) {
-                Log.w(TAG, "su bulunamadı, sh ile deneniyor: ${e.message}")
+            if (isSuAvailable != false) {
+                try {
+                    // Telefonlarda Magisk vb. üzerinden root yetkisi iste
+                    proc = Runtime.getRuntime().exec(arrayOf("su", "-c", cmd))
+                    isSuAvailable = true
+                } catch (e: Exception) {
+                    isSuAvailable = false
+                    Log.w(TAG, "su bulunamadı, sh ile deneniyor: ${e.message}")
+                    proc = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
+                }
+            } else {
                 proc = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
             }
             val reader = BufferedReader(InputStreamReader(proc!!.inputStream))

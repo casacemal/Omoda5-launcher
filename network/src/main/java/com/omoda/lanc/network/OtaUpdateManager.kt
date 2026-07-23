@@ -20,7 +20,8 @@ data class AppUpdate(
     val version: String,
     val isSystemUpdate: Boolean,
     val isDowngrade: Boolean = false,
-    val releaseDate: String? = null
+    val releaseDate: String? = null,
+    val releaseNotes: String? = null
 )
 
 class OtaUpdateManager(private val context: Context) {
@@ -109,6 +110,8 @@ class OtaUpdateManager(private val context: Context) {
                                     } catch(e: Exception) { null }
                                 } else null
 
+                                val bodyNotes = json.optString("body", null)
+
                                 for (i in 0 until assets.length()) {
                                     val asset = assets.getJSONObject(i)
                                     val fileName = asset.getString("name")
@@ -120,7 +123,7 @@ class OtaUpdateManager(private val context: Context) {
                                                            fileName.startsWith("app-release") ||
                                                            fileName.startsWith("app-update") ||
                                                            fileName.startsWith("app-full")
-                                        updates.add(AppUpdate(fileName, downloadUrl, size, latestVersion, isSystemUpdate, isDowngrade, parsedDate))
+                                        updates.add(AppUpdate(fileName, downloadUrl, size, latestVersion, isSystemUpdate, isDowngrade, parsedDate, bodyNotes))
                                     }
                                 }
                             }

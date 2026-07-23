@@ -85,8 +85,42 @@ fun AppStoreSection() {
             modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Sürüm Durumu Header Card
+            Surface(
+                color = Color.White.copy(alpha = 0.04f),
+                shape = RoundedCornerShape(16.dp),
+                border = BorderStroke(1.dp, Color(0xFF69E2D3).copy(alpha = 0.3f)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.padding(20.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text("Mevcut Yüklü Sürüm: v6452 (Build 6452)", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        Spacer(Modifier.height(4.dp))
+                        val latestTag = com.omoda.lanc.core.GlobalState.latestVersion.value
+                        Text(if (latestTag.isNotBlank()) "En Son Çevrimiçi Sürüm: $latestTag" else "Sürüm bilgisi kontrol ediliyor...", color = Color.Gray, fontSize = 16.sp)
+                    }
+                    val isLatest = com.omoda.lanc.core.GlobalState.latestVersion.value == "v6452" || com.omoda.lanc.core.GlobalState.latestVersion.value == "6452"
+                    Surface(
+                        color = if (isLatest) Color(0xFF4CAF50).copy(alpha = 0.2f) else Color(0xFFFF9800).copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(12.dp),
+                        border = BorderStroke(1.dp, if (isLatest) Color(0xFF4CAF50) else Color(0xFFFF9800))
+                    ) {
+                        Text(
+                            text = if (isLatest) "SİSTEM GÜNCEL ✅" else "YENİ SÜRÜM VAR 🚀",
+                            color = if (isLatest) Color(0xFF4CAF50) else Color(0xFFFF9800),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                        )
+                    }
+                }
+            }
+
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-                Text("GitHub Sürümleri", color = Color.White, modifier = Modifier.weight(1f), fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                Text("GitHub Sürümleri & Güncellemeler", color = Color.White, modifier = Modifier.weight(1f), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                 CarIconButton(onClick = { loadUpdates() }, enabled = !isChecking) {
                     if (isChecking) CircularProgressIndicator(modifier = Modifier.size(32.dp), color = Color(0xFF69E2D3))
                     else Icon(Icons.Default.Refresh, "Yenile", tint = Color(0xFF69E2D3), modifier = Modifier.size(32.dp))
@@ -119,7 +153,7 @@ fun AppStoreSection() {
                 }
             }
 
-            updatesList.firstOrNull()?.let { app ->
+            updatesList.forEach { app ->
                 UpdateItem(app, downloadingApp != null, updateManager) {
                     if (updateManager.isUpdateDownloaded(app)) {
                         updateManager.installPackage(java.io.File(context.getExternalFilesDir(null), app.name))
@@ -136,7 +170,7 @@ fun AppStoreSection() {
 
             if (storeAppsList.isNotEmpty()) {
                 Spacer(Modifier.height(8.dp))
-                Text("Mağaza Uygulamaları", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
+                Text("Omoda Store (3. Parti Uygulamalar)", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
                 storeAppsList.forEach { app ->
                     UpdateItem(app, downloadingApp != null, updateManager) {
                         if (updateManager.isUpdateDownloaded(app)) {
@@ -163,19 +197,41 @@ fun UpdateItem(app: AppUpdate, isDownloading: Boolean, manager: OtaUpdateManager
         colors = CardDefaults.cardColors(containerColor = Color.White.copy(0.05f)), 
         modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = MinCarTouchTarget)
     ) {
-        Row(modifier = Modifier.padding(24.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(app.name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
-                Spacer(Modifier.height(4.dp))
-                val dateStr = if (app.releaseDate != null) " • ${app.releaseDate}" else ""
-                Text("v${app.version} • ${app.sizeBytes / 1024 / 1024} MB$dateStr", color = Color.Gray, fontSize = 18.sp)
+        Column(modifier = Modifier.padding(20.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(app.name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        if (isDownloaded) {
+                            Text("✅ YÜKLEMEYE HAZIR", color = Color(0xFF4CAF50), fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                    Spacer(Modifier.height(4.dp))
+                    val dateStr = if (app.releaseDate != null) " • ${app.releaseDate}" else ""
+                    Text("v${app.version} • ${app.sizeBytes / 1024 / 1024} MB$dateStr", color = Color.Gray, fontSize = 16.sp)
+                }
+                CarButton(
+                    onClick = onClick, 
+                    enabled = !isDownloading,
+                    text = if(isDownloaded) "KUR (INSTALL)" else "İNDİR",
+                    colors = ButtonDefaults.buttonColors(containerColor = if(isDownloaded) Color(0xFF4CAF50) else Color(0xFF69E2D3), contentColor = Color.Black)
+                )
             }
-            CarButton(
-                onClick = onClick, 
-                enabled = !isDownloading,
-                text = if(isDownloaded) "YÜKLE" else "İNDİR",
-                colors = ButtonDefaults.buttonColors(containerColor = if(isDownloaded) Color(0xFF4CAF50) else Color(0xFF69E2D3), contentColor = Color.Black)
-            )
+            if (!app.releaseNotes.isNullOrBlank()) {
+                Spacer(Modifier.height(10.dp))
+                Surface(
+                    color = Color.Black.copy(alpha = 0.2f),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Değişiklik Notları:\n${app.releaseNotes}",
+                        color = Color.LightGray,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(12.dp)
+                    )
+                }
+            }
         }
     }
 }

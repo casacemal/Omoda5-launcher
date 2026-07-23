@@ -43,6 +43,7 @@ ANDROID_MQTT_PORT = 1883
 ANDROID_MQTT_USER = "mqtthome"
 ANDROID_MQTT_PASS = "4078"
 ANDROID_TOPICS = [
+    "omoda/status",
     "omoda/telemetri",
     "omoda/komut",
     "omoda/vhal_raw",
@@ -1034,6 +1035,25 @@ class VhalAesApp(ctk.CTk):
 
     def _process_android_message(self, topic: str, payload: str) -> None:
         """Android topic'ine gelen mesajı ayrıştırıp tabloya ve Dashboard'a yazar."""
+        # ── omoda/status : Otomatik ADB Bağlantısı ve Heartbeat ──
+        if topic == "omoda/status":
+            try:
+                data = json.loads(payload)
+                adb_status = data.get("adb_status", {})
+                ip_addr = data.get("ip_address", "")
+                if adb_status.get("ready") and ip_addr:
+                    target_str = f"{ip_addr}:5555"
+                    if getattr(self, "_last_auto_adb_target", None) != target_str:
+                        self._last_auto_adb_target = target_str
+                        log.info("🚀 ADB Hazır bildirimi alındı (%s)! Otomatik bağlanılıyor...", target_str)
+                        self.entry_adb_target.delete(0, tk.END)
+                        self.entry_adb_target.insert(0, target_str)
+                        import threading
+                        threading.Thread(target=self.connect_adb, daemon=True).start()
+            except Exception as e:
+                log.warning("Status heartbeat okuma hatası: %s", e)
+            return
+
         # ── omoda/telemetri : JSON telemetri ──
         if topic == "omoda/telemetri":
             try:
