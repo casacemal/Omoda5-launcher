@@ -25,6 +25,7 @@ object GlobalState {
     val ttsPort = MutableStateFlow("20128")
     
     val vehicleId = MutableStateFlow("OMODA5_T19C_001")
+    val vehicleState = MutableStateFlow(com.omoda.lanc.model.VehicleState())
     val sessionKey = MutableStateFlow("user:ahmet:master_profile")
     val currentMode = MutableStateFlow("ASISTANT")
     val sttMode = MutableStateFlow("SHERPA")

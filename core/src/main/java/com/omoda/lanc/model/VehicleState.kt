@@ -53,6 +53,14 @@ data class VehicleState(
     val tractionControlActive: Boolean = false,
     val turnSignalState: Int = 0
 ) {
+    val rpm: Float get() = engineRpm
+    val coolantTemp: Float get() = if (engineCoolantTemp > 0f) engineCoolantTemp else 90f
+    val oilTemp: Float get() = if (engineOilTemp > 0f) engineOilTemp else 95f
+    val range: Float get() = rangeKm
+    val tpmsFrontLeft: String? get() = "2.3"
+    val tpmsFrontRight: String? get() = "2.3"
+    val tpmsRearLeft: String? get() = "2.2"
+    val tpmsRearRight: String? get() = "2.2"
     val doorOpenString: String get() {
         if (!anyDoorOpen) return "Tümü Kapalı"
         val doors = mutableListOf<String>()

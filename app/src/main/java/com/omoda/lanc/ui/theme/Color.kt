@@ -23,3 +23,17 @@ val AccentPurple = Color(0xFF7B2CBF)
 val DarkPurpleBg = Color(0xFF0F0B1A)
 val GlowGreen = Color(0xFF38B000)
 val GlowYellow = Color(0xFFFFB703)
+
+// Omoda5-ui-desing Specific Theme Tokens
+val OmodaSlateBg = Color(0xFF020617)       // Slate 950
+val OmodaCyanNeon = Color(0xFF69E2D3)      // Cyan Neon
+val OmodaGlassCardBg = Color.White.copy(alpha = 0.05f)
+val OmodaGlassCardBorder = Color.White.copy(alpha = 0.12f)
+val OmodaCardSurface = Color(0xFF0B132B).copy(alpha = 0.6f)
+
+// Ambiyans Aydınlatma Renk Skalası
+val AmbientCyan = Color(0xFF00F0FF)
+val AmbientPurple = Color(0xFF9D00FF)
+val AmbientRed = Color(0xFFFF0055)
+val AmbientGold = Color(0xFFFFB700)
+val AmbientGreen = Color(0xFF00FF66)

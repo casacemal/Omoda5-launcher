@@ -29,6 +29,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -114,36 +116,61 @@ class MainActivity : ComponentActivity() {
     fun MainNavigation() {
         var currentScreen by currentScreenState
         BackHandler(enabled = currentScreen != "home") { currentScreen = "home" }
+        val currentVehicleState by com.omoda.lanc.core.GlobalState.vehicleState.collectAsState()
+        var driverTemp by remember { mutableStateOf(21.5f) }
+        var isLocked by remember { mutableStateOf(false) }
 
-        Box(Modifier.fillMaxSize()) {
-            when (currentScreen) {
-                "home" -> HomeScreen(
-                    onOpenSettings = { currentScreenState.value = "settings" },
-                    onOpenSensors = { currentScreenState.value = "sensors" }
+        Column(Modifier.fillMaxSize().background(com.omoda.lanc.ui.theme.OmodaSlateBg)) {
+            // Omoda Top Status Bar
+            com.omoda.lanc.ui.components.OmodaTopStatusBar(
+                onOpenVoiceAssistant = {
+                    sendBroadcast(Intent("com.omoda.assistant.START_LISTENING"))
+                },
+                onToggleLock = { isLocked = !isLocked },
+                isLocked = isLocked,
+                outsideTemp = "${currentVehicleState.outsideTemperature.toInt()}°C"
+            )
+
+            Box(Modifier.weight(1f).fillMaxWidth()) {
+                when (currentScreen) {
+                    "home" -> HomeScreen(
+                        onOpenSettings = { currentScreenState.value = "settings" },
+                        onOpenSensors = { currentScreenState.value = "sensors" }
+                    )
+                    "settings" -> SettingsScreen(onBack = { currentScreenState.value = "home" })
+                    "dashboard" -> com.omoda.lanc.ui.screens.OmodaDashboardScreen(vehicleState = currentVehicleState)
+                    "sylvie" -> com.omoda.lanc.ui.screens.SylvieScreen(
+                        viewModel = mediaVM,
+                        onBack = { currentScreenState.value = "home" }
+                    )
+                    "coolwalk" -> com.omoda.lanc.ui.screens.CoolwalkScreen(
+                        viewModel = mediaVM,
+                        onOpenApps = { currentScreenState.value = "home" },
+                        onBack = { currentScreenState.value = "home" }
+                    )
+                    "sensors" -> com.omoda.lanc.ui.screens.SensorMonitorScreen(onBack = { currentScreenState.value = "home" })
+                    else -> currentScreen = "home"
+                }
+
+                // Sürüm Numarası Overlay (Sağ Alt)
+                Text(
+                    text = "v${BuildConfig.VERSION_NAME}",
+                    color = Color.White.copy(alpha = 0.5f),
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(16.dp)
                 )
-                "settings" -> SettingsScreen(onBack = { currentScreenState.value = "home" })
-                "dashboard" -> com.omoda.lanc.ui.screens.DashboardScreen(viewModel = mediaVM, onBack = { currentScreenState.value = "home" })
-                "sylvie" -> com.omoda.lanc.ui.screens.SylvieScreen(
-                    viewModel = mediaVM,
-                    onBack = { currentScreenState.value = "home" }
-                )
-                "coolwalk" -> com.omoda.lanc.ui.screens.CoolwalkScreen(
-                    viewModel = mediaVM,
-                    onOpenApps = { currentScreenState.value = "home" },
-                    onBack = { currentScreenState.value = "home" }
-                )
-                "sensors" -> com.omoda.lanc.ui.screens.SensorMonitorScreen(onBack = { currentScreenState.value = "home" })
-                else -> currentScreen = "home"
             }
 
-            // Sürüm Numarası Overlay (Sağ Alt)
-            Text(
-                text = "v${BuildConfig.VERSION_NAME}",
-                color = Color.White.copy(alpha = 0.5f),
-                fontSize = 12.sp,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp)
+            // Omoda Bottom Dock
+            com.omoda.lanc.ui.components.OmodaBottomDock(
+                currentTab = currentScreen,
+                onTabSelected = { selected ->
+                    currentScreenState.value = selected
+                },
+                driverTemp = driverTemp,
+                onTempChange = { newTemp -> driverTemp = newTemp }
             )
         }
     }

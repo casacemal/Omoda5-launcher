@@ -1,5 +1,14 @@
 # PROGRESS.md
 
+## [2026-07-23] - v6459 (Yeni Tema Portu, Xiaomi Mi 13 Desteği ve Sensör Güvenlik Koruması)
+
+- **Omoda5-ui-desing Tema Portu:** `OmodaSlateBg` (`#020617`), `OmodaCyanNeon` (`#69E2D3`), Glassmorphism kartlar ve neon aksanlar Jetpack Compose mimarisine taşındı.
+- **Top Status Bar & Bottom Dock:** Reaktif üst durum çubuğu (`OmodaTopStatusBar`) ve alt hızlı erişim çubuğu (`OmodaBottomDock`) eklendi.
+- **Omoda Digital Dashboard:** Dijital gösterge paneli (`OmodaDashboardScreen`) Hız, Devir, Vites, Hararet, Yağ Sıcaklığı ve TPMS verileriyle oluşturuldu.
+- **Xiaomi Mi 13 & Esnek Ekran Desteği:** `BoxWithConstraints` ve esnek dp ölçeklemesi ile 2400x1080 (20:9) Xiaomi Mi 13 ekranları ve 1920x720 / 800x480 araç ekranları tam uyumlu hale getirildi.
+- **Sensör Fail-Safe Protection:** Eksik veya okunamayan VHAL/sensör değerleri için `formatSensorValue()` koruması eklendi. Null/boş verilerde uygulama kilitlenmeden "Bulunamadı" uyarısı basılır.
+- **Split-Screen & Ev Evrensel Navigasyon:** `SplitManager.kt` harita bölme işlevi korundu. Fiziksel Home tuşu (`KEYCODE_HOME`), jest Home çubuğu ve Back tuşu her ekrandan ana sayfaya dönecek şekilde bağlandı.
+
 ## MQTT Status Versiyon Telemetrisi, Uzaktan OTA ve Gelişmiş Mağaza Ekranı Tamamlandı (23.07.2026)
 *   **Aksiyon:** `omoda/status` MQTT Heartbeat yayın paketine aktif versiyon verileri (`app_version`, `version_code`, `latest_version`) eklendi, uzaktan `check_ota_update` ve `trigger_ota_update` MQTT komut desteği getirildi, Mağaza/Güncelleme ekranına (`AppStoreSection.kt`) sürüm karşılaştırma kartı ve Değişiklik Notları (Release Notes) eklendi.
 *   **Detay:**
@@ -130,7 +139,7 @@
 *   **Odaklanma Desteği:** D-pad ve Rotary Controller cihazları için özel focus state (Border) UI'a dahil edildi. Metin boyutları araç kullanımına uygun olarak büyütüldü.
 
 ## Son Durum (UI Restoration: v6312 Standards)
-*   Sürüm 6453 (6453) - 23.07.2026 20:10
+*   Sürüm 6459 (6459) - 23.07.2026 22:42
 *   **Restorasyon:** Tüm UI bileşenleri 19.07.2026 08:00-12:00 (v6312) aralığındaki altın oranlara ve `UI_MANIFESTO.md` standartlarına geri döndürüldü.
 *   **HomeScreen:** Grid padding değerleri manifesto ile eşitlendi (end=80dp, bottom=80dp).
 *   **Dashboard:** Sidebar genişliği 235dp'ye sabitlendi ve akıllı split oranı (high speed) 0.65f olarak güncellendi.

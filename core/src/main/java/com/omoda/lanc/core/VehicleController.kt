@@ -286,6 +286,7 @@ class VehicleController(private val context: Context) {
 
         if (next != current) {
             vehicleState = next
+            GlobalState.vehicleState.value = next
             EventBus.tryEmit(Event.VehicleEvent.StateUpdated(next))
             checkProactiveWarnings(next)
         }
