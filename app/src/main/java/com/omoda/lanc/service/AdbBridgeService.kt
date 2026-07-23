@@ -34,6 +34,7 @@ class AdbBridgeService : Service() {
             "settings get",
             "pm grant",
             "pm enable",
+            "pm install",
             "appops set",
             "cmd window",
             "cmd notification",

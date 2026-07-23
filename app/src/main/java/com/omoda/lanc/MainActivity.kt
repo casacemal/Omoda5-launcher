@@ -77,6 +77,9 @@ class MainActivity : ComponentActivity() {
             org.lsposed.hiddenapibypass.HiddenApiBypass.addHiddenApiExemptions("")
         }
 
+        // GlobalState.isSimulationMode.value = true // [FIX] Zorlama kaldırıldı
+        AssistantApplication.configManager.saveConfigAndSync()
+
         Handler(Looper.getMainLooper()).postDelayed({ injectPermissions() }, 1000)
         Handler(Looper.getMainLooper()).postDelayed({ exec("am start -n com.chery.hvac/.view.activity.MainActivity") }, 2500)
         startPeriodicPermissionCheck()
@@ -175,6 +178,27 @@ class MainActivity : ComponentActivity() {
         Box(Modifier.fillMaxSize()) {
             Image(painter = painter, contentDescription = null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
             Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.45f)))
+
+            // --- SİMÜLASYON MODU GÖSTERGESİ (En Üst Orta) ---
+            val isSimMode by GlobalState.isSimulationMode.collectAsState()
+            if (isSimMode) {
+                Surface(
+                    color = Color(0xFFE91E63).copy(alpha = 0.8f),
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = 10.dp)
+                        .clip(RoundedCornerShape(12.dp)),
+                    border = BorderStroke(1.dp, Color.White.copy(alpha = 0.5f))
+                ) {
+                    Text(
+                        "SİMÜLASYON AKTİF",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Black,
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp)
+                    )
+                }
+            }
 
             // --- 1. İKONLAR (Merkez) ---
             Column(Modifier.fillMaxSize()) {

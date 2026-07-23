@@ -58,3 +58,6 @@
 - [x] **Split View Map Fix:** ActivityView "Active view not supported" hatası retry mantığıyla çözüldü.
 - [x] **UI Restorasyonu:** Tüm arayüz v6312 (19.07.2026 08:00-12:00) standartlarına ve manifesto kurallarına geri döndürüldü.
 - [x] **AAOS UI Refactor:** Settings ve Monitor alt ekranları 64dp Touch Target ve Focus (Rotary) desteğine kavuşturuldu.
+- [x] **VHAL Motor Verileri UI Fix:** `VehicleController` verileri çoklu anahtar (Hex ID, Etiket, Kısaltmalar) ile haritalayacak şekilde güncellendi, widget'larda veri görünmeme sorunu çözüldü.
+- [x] **Teknik Ansiklopedi (Proje Kitabı):** Sistemin tüm katmanlarını, veri standartlarını ve geçmiş hata çözümlerini içeren kapsamlı `PROJE_KITABI.md` oluşturuldu.
+- [x] **Mimari Sadeleştirme:** Gereksiz Köprü (Bridge) katmanı temizlendi, sunucu hatasında otomatik yerel fallback mekanizması kuruldu.

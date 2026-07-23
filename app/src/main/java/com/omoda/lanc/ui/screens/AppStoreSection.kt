@@ -64,18 +64,19 @@ fun AppStoreSection() {
                 errorMessage = error
             }
         })
-    }
-
-    LaunchedEffect(Unit) {
-        loadUpdates()
+        
         updateManager.getStoreApps(object : OtaUpdateManager.UpdateCheckCallback {
             override fun onUpdatesFound(updates: List<AppUpdate>) {
                 storeAppsList = updates
             }
             override fun onError(error: String) {
-                // Silently ignore store error for now
+                // Hata yoksayılıyor
             }
         })
+    }
+
+    LaunchedEffect(Unit) {
+        loadUpdates()
     }
 
     EnhancedSettingCard(title = "GÜNCELLEMELER VE MAĞAZA", modifier = Modifier.fillMaxSize()) {
@@ -118,7 +119,7 @@ fun AppStoreSection() {
                 }
             }
 
-            updatesList.forEach { app ->
+            updatesList.firstOrNull()?.let { app ->
                 UpdateItem(app, downloadingApp != null, updateManager) {
                     if (updateManager.isUpdateDownloaded(app)) {
                         updateManager.installPackage(java.io.File(context.getExternalFilesDir(null), app.name))

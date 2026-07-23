@@ -1,5 +1,36 @@
 # PROGRESS.md
 
+## Teknik Ansiklopedi ve Proje Kitabı Oluşturuldu (23.07.2026)
+*   **Aksiyon:** Projenin tüm teknik detaylarını, mimarisini ve kullanım kılavuzunu içeren `PROJE_KITABI.md` (v3.0.0) ve `SENSÖR_STANDARTLARI.md` dosyaları oluşturuldu.
+*   **Detay:**
+    - **7 Katmanlı Mimari:** VHAL, ADB, Reactive, Telemetry, AI, UI ve Bridge katmanları dokümante edildi.
+    - **Bilgi Bankası (Knowledge Base):** Geçmişte çözülen kritik hatalar ve "Don't Do" listesi eklendi.
+    - **Geliştirici Rehberi:** Yeni sensör veya komut ekleme standartları tanımlandı.
+    - **Görsel Standartlar:** AAOS 10 uyumlu 64dp buton ve 235dp sidebar kuralları mühürlendi.
+
+## Köprü (Bridge) ve IP Karmaşası Giderildi (23.07.2026)
+*   **Aksiyon:** Tailscale ve Yerel IP arasındaki çelişki giderildi, "KÖPRÜ" butonu kaldırılarak otomatik fallback mekanizması kuruldu.
+*   **Detay:**
+    - **UI Sadeleştirme:** MainActivity üzerinden kafa karıştırıcı Köprü butonu kaldırıldı.
+    - **Akıllı Fallback:** Sunucuya erişilemediğinde sistem otomatik olarak yerel STT (Sherpa) ve TTS (Piper) moduna geçecek şekilde güncellendi.
+    - **Kod Temizliği:** GlobalState ve AppConfig üzerinden gereksiz mükerrer IP değişkenleri temizlendi.
+
+## Motor ve Araç Verileri UI Uyumsuzluğu Tamamen Çözüldü (22.07.2026)
+*   **Aksiyon:** `VehicleController.kt` veri indeksleme mantığı plana göre %100 uyumlu hale getirildi, bileşik (composite) veri çözme hatası giderildi.
+*   **Detay:**
+    *   **Bileşik Veri Senkronizasyonu:** `11e00d00` (Hız/Devir/Vites) mülkü her çözüldüğünde artık sadece tek bir anahtar değil; "HIZ", "VİTES", "DEVİR" gibi bireysel anahtarlar da eşzamanlı olarak güncelleniyor.
+    *   **Genişletilmiş Alias Sistemi:** `updateDisplay` metoduna "Sıcaklık", "RPM", "GEAR", "KAPI_FL/FR/RL/RR" gibi çok sayıda yeni takma ad eklenerek tüm UI bileşenleriyle tam uyum sağlandı.
+    *   **Widget Güçlendirmesi:** `TeslaCarWidget.kt`, `VehicleWidget.kt` ve `ClimateWidget.kt` dosyalarındaki fallback (yedek) anahtar zincirleri genişletildi.
+    *   **UI Görselleştirme:** `TeslaCarWidget` üzerindeki araç simülasyonuna arka kapı açık ikazları (Red Door Alerts) eklendi.
+
+## OTA Yükleyici ve Root Yetki İyileştirmeleri (22.07.2026)
+*   **Aksiyon:** OTA indirme hataları ve root yetkilendirme sorunları çözüldü, Mağaza Yenile butonu onarıldı.
+*   **Detay:**
+    *   **OTA Installer Bug:** `OtaUpdateManager` üzerinden indirilen uygulamaların otomatik yüklenmemesi sorunu çözüldü. Sorunun `AdbBridgeService` güvenlik duvarı (whitelist) nedeniyle `pm install` komutunu reddetmesinden kaynaklandığı tespit edildi. İlgili komuta izin verildi ve Intent doğru servise yönlendirildi.
+    *   **Root Yetkilendirme:** ADB fallback sistemine `su -c` komutu eklendi. Root'lu telefon kullananlarda uygulamanın doğrudan Magisk/SuperSU izni istemesi sağlandı.
+    *   **OTA Cache Bypass:** GitHub API'sinden sürümler sorgulanırken `Cache-Control: no-cache` header'ı eklenerek sürümlerin anında (gecikmesiz) görünmesi sağlandı.
+    *   **Mağaza Yenileme:** "Yenile" butonunun mağaza uygulamalarını (Aptoide vb.) çekmeme sorunu düzeltildi.
+
 ## İzin Geri Bildirimi ve Sürüm Senkronizasyonu (22.07.2026)
 *   **Aksiyon:** İzin onarma tuşlarına Toast mesajı eklendi ve sürüm numarası eşitsizliği giderildi.
 *   **Detay:**
@@ -65,7 +96,7 @@
 *   **Odaklanma Desteği:** D-pad ve Rotary Controller cihazları için özel focus state (Border) UI'a dahil edildi. Metin boyutları araç kullanımına uygun olarak büyütüldü.
 
 ## Son Durum (UI Restoration: v6312 Standards)
-*   Sürüm 6418 (6418) - 22.07.2026 15:40
+*   Sürüm 6447 (6447) - 23.07.2026 03:34
 *   **Restorasyon:** Tüm UI bileşenleri 19.07.2026 08:00-12:00 (v6312) aralığındaki altın oranlara ve `UI_MANIFESTO.md` standartlarına geri döndürüldü.
 *   **HomeScreen:** Grid padding değerleri manifesto ile eşitlendi (end=80dp, bottom=80dp).
 *   **Dashboard:** Sidebar genişliği 235dp'ye sabitlendi ve akıllı split oranı (high speed) 0.65f olarak güncellendi.
@@ -78,4 +109,6 @@
     *   `PreviewDashboardScreen()` fonksiyonu yeni bir `DashboardScreenPreview()` composable'ına yönlendirdi.
     *   `DashboardScreenPreview()` fonksiyonu, ViewModel yerine sabit bir medya durumu (fake state) kullandı.
     *   Gerçek `DashboardScreen()` fonksiyonu hala ViewModel'i kullanıyor, ancak preview için ayrı bir implementasyon sağlandı.
-    *   `DashboardMediaWidgetSmallPreview()` composable'ı, preview için özel bir implementasyon sağladı.
+    *   `DashboardMediaWidgetSmallPreview()` composable'ı, preview için özel bir implementasyon sağladı.## MQTT Fix & AES App Enhancement (22.07.2026)
+*   **Fix:** `MqttPublisher.kt` içerisinde sessizce çöken MQTT Paho kütüphanesi abonelik (`subscribe`) yapısı `try-catch` blokları ve logcat çıktılarıyla güçlendirildi.
+*   **Enhancement:** VHAL AES masaüstü aracı (`aes_app/main.py`), terminal scriptleri yerine birincil simülasyon test aracı olarak zorunlu kılındı. Hız ve RPM testleri için interaktif kaydırma çubukları (sliders) arayüze eklendi. `AGENTS.md` içerisindeki kurallar bu yönde katılaştırıldı.

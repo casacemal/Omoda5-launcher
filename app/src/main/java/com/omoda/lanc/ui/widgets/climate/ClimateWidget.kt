@@ -31,7 +31,7 @@ class ClimateWidget : DashboardWidget {
     @Composable
     override fun Content() {
         val vehicleData by GlobalState.vehicleDataValues.collectAsState()
-        val temp = vehicleData["21401008"] ?: "22.0°C"
+        val temp = vehicleData["21401008"] ?: vehicleData["Sıcaklık"] ?: vehicleData["SICAKLIK"] ?: vehicleData["AC_TEMP_DRIVER"] ?: vehicleData["AC Sıcaklık (Sürücü)"] ?: "22.0°C"
 
         Row(
             modifier = Modifier

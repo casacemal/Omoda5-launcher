@@ -73,3 +73,4 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 ## Hermes Entegrasyon Kuralları
 *   **Sabit Pairing Code (Eşleştirme Kodu):** Hermes Agent (DietPi) ile Android arasındaki entegrasyonda kullanılacak "Pairing Kodu" kesinlikle **OMODA5** olarak sabitlenmiştir. Rastgele eşleştirme kodu üretilmeyecektir.
 *   **Genişletilmiş Telemetri Aktarımı:** Araç ile Hermes Python Agent arasındaki CommandDispatcher `state` uç noktasından sadece kısıtlı veriler değil; doğrudan `VehicleController` telemetrisi, `MediaBridge` bilgileri ve `DeviceCapabilities` (isCarHardware, hasTelephony vb.) gibi donanım yetenekleri, tam hakimiyet amacıyla Python tarafına JSON formatında iletilecektir.
+Local baglanti hatasi not alindi.

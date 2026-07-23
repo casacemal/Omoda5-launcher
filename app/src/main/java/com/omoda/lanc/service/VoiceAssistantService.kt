@@ -140,8 +140,6 @@ class VoiceAssistantService : Service() {
                         GlobalState.hermesPort,
                         GlobalState.sttPort,
                         GlobalState.ttsPort,
-                        GlobalState.isBridgeMode,
-                        GlobalState.bridgeServerIp,
                         GlobalState.bridgeType,
                         GlobalState.isRadioMode
                     )

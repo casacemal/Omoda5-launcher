@@ -63,9 +63,10 @@ class AssistantApplication : Application(), AppLogger {
             }
         }
         
-        if (!GlobalState.isCarHardware) {
-            GlobalState.isSimulationMode.value = true
-        }
+        VehicleController.getInstance(this)
+        
+        // [FIX] Zorla simülasyon moduna geçiş kaldırıldı. Artık config ne derse o.
+        // if (!GlobalState.isCarHardware) { GlobalState.isSimulationMode.value = true }
         
         SystemLogger.setListener { log ->
             LoggerProvider.i(log)
@@ -112,7 +113,6 @@ class AssistantApplication : Application(), AppLogger {
         GlobalState.mqttUser.value = (if (config.mqttUser.isNullOrBlank()) com.omoda.lanc.core.BuildConfig.MQTT_USER else config.mqttUser) ?: ""
         GlobalState.mqttPassword.value = (if (config.mqttPassword.isNullOrBlank()) com.omoda.lanc.core.BuildConfig.MQTT_PASS else config.mqttPassword) ?: ""
         GlobalState.micSource.value = config.micSource
-        GlobalState.isBridgeMode.value = config.isBridgeMode
         GlobalState.isSimulationMode.value = config.isSimulationMode
         GlobalState.mqttEnabled.value = config.mqttEnabled
         GlobalState.vehicleId.value = config.vehicleId

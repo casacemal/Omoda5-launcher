@@ -42,6 +42,8 @@ config = {
     "isBridgeMode": False,
     "isSimulationMode": False,
     "mqttEnabled": True,
+    "mqttUrl": "192.168.1.14",
+    "mqttPort": "1883",
     "vehiclePollingConfig": {},
     "vehicleId": "OMODA5_T19C_001",
     "sessionKey": "user:ahmet:master_profile",

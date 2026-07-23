@@ -18,8 +18,10 @@ config_data = {
     "ttsPort": "10201",
     "hermesApiKey": "cdc682fdab57893c833680246ca0b95635c2c479e612218918d5e4bdbddc8e34",
     "ninerouterApiKey": "sk-b6f4d3879cc4a442-vwd4xl-8ad79a58",
-    "githubToken": "",
-    "edgeTtsToken": ""
+    "githubToken": "PLACEHOLDER_TOKEN",
+    "edgeTtsToken": "",
+    "mqttEnabled": True,
+    "isSimulationMode": True
 }
 
 plain_text = json.dumps(config_data).encode('utf-8')

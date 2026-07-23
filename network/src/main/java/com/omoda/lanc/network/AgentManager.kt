@@ -46,16 +46,19 @@ class AgentManager(
     fun processVoiceInput(audioFile: File) {
         onFeedback("Ses çözümleniyor...")
         
-        val sttTimeoutJob = networkScope.launch {
-            delay(10000) // STT için 10 saniye limit
-            Log.w(TAG, "STT zaman aşımı!")
-            onSystemResponse("Hata: Ses çözümleme hizmetinden yanıt alınamadı.", true)
-        }
-
         sttClient.transcribe(audioFile) { text, error ->
-            sttTimeoutJob.cancel()
-            if (text != null) processTextInput(text)
-            else onSystemResponse(error ?: "Ses anlaşılamadı.", true)
+            if (text != null) {
+                processTextInput(text)
+            } else if (error == "FALLBACK_TO_LOCAL") {
+                Log.w(TAG, "Sunucuya ulaşılamıyor, yerel mod tetikleniyor.")
+                onSystemResponse("Sunucu bağlantısı kurulamadı. Çevrimdışı modda devam ediyorum.", false)
+                // Gelecek istekler için modu yerel yap
+                GlobalState.sttMode.value = "LOCAL"
+                GlobalState.ttsEngine.value = "SHERPA"
+                onSystemResponse("Lütfen tekrar söyleyin (Yerel mod aktif).", true)
+            } else {
+                onSystemResponse(error ?: "Ses anlaşılamadı.", true)
+            }
         }
     }
 

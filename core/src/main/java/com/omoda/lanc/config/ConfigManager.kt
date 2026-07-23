@@ -54,7 +54,6 @@ class ConfigManager(val context: Context) {
             useHermesDecision = com.omoda.lanc.core.GlobalState.useHermesDecision.value,
             isWakeWordEnabled = com.omoda.lanc.core.GlobalState.isWakeWordEnabled.value,
             micSource = com.omoda.lanc.core.GlobalState.micSource.value,
-            isBridgeMode = com.omoda.lanc.core.GlobalState.isBridgeMode.value,
             isSimulationMode = com.omoda.lanc.core.GlobalState.isSimulationMode.value,
             mqttEnabled = com.omoda.lanc.core.GlobalState.mqttEnabled.value,
             vehicleId = com.omoda.lanc.core.GlobalState.vehicleId.value,
@@ -181,7 +180,6 @@ class ConfigManager(val context: Context) {
 
         return copy(
             serverIp = serverIp.cleanOr(defaults.serverIp),
-            bridgeServerIp = bridgeServerIp.cleanOr(defaults.bridgeServerIp),
             bridgeType = bridgeType.cleanOr(defaults.bridgeType),
             hermesPort = hermesPort.cleanOr(defaults.hermesPort),
             sttPort = sttPort.cleanOr(defaults.sttPort),

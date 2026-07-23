@@ -306,6 +306,7 @@ class VhalAesApp(ctk.CTk):
         self.entry_pass = ctk.CTkEntry(
             manual_frame, placeholder_text="Gönderim Şifresi", show="*"
         )
+        self.entry_pass.insert(0, self.cfg.get("mqtt_pass", "4078"))
         self.entry_pass.pack(pady=5, fill="x", padx=5)
 
         ctk.CTkButton(
@@ -334,6 +335,27 @@ class VhalAesApp(ctk.CTk):
             width=80,
             command=lambda: self.quick_send("0x11600305", 2000.0),
         ).pack(side="left", padx=2)
+
+        # ── İnteraktif Sürüş Simülatörü ──
+        drive_frame = ctk.CTkFrame(self.left_frame)
+        drive_frame.pack(pady=10, fill="x", padx=10)
+        ctk.CTkLabel(
+            drive_frame,
+            text="🕹️ İnteraktif Sürüş",
+            font=ctk.CTkFont(size=14, weight="bold"),
+        ).pack(pady=5)
+        
+        self.lbl_speed_slider = ctk.CTkLabel(drive_frame, text="Hız: 0 km/h")
+        self.lbl_speed_slider.pack(pady=(5,0))
+        self.slider_speed = ctk.CTkSlider(drive_frame, from_=0, to=220, command=self._on_speed_slide)
+        self.slider_speed.set(0)
+        self.slider_speed.pack(pady=(0,5), fill="x", padx=10)
+        
+        self.lbl_rpm_slider = ctk.CTkLabel(drive_frame, text="RPM: 0")
+        self.lbl_rpm_slider.pack(pady=(5,0))
+        self.slider_rpm = ctk.CTkSlider(drive_frame, from_=0, to=8000, command=self._on_rpm_slide)
+        self.slider_rpm.set(0)
+        self.slider_rpm.pack(pady=(0,5), fill="x", padx=10)
 
         # ── Hermes ──
         ctk.CTkLabel(
@@ -786,6 +808,18 @@ class VhalAesApp(ctk.CTk):
         self.lbl_status.configure(
             text=f"✅ Kısayol: {prop_id} → {val}", text_color="blue"
         )
+
+    def _on_speed_slide(self, val) -> None:
+        """Sürüş simülatörü (Hız)"""
+        val_int = int(val)
+        self.lbl_speed_slider.configure(text=f"Hız: {val_int} km/h")
+        self.quick_send("0x11600207", float(val_int))
+
+    def _on_rpm_slide(self, val) -> None:
+        """Sürüş simülatörü (RPM)"""
+        val_int = int(val)
+        self.lbl_rpm_slider.configure(text=f"RPM: {val_int}")
+        self.quick_send("0x11600305", float(val_int))
 
     # ─── Log Kaydetme ──────────────────────────────────────────────────────────
     def save_logs(self) -> None:

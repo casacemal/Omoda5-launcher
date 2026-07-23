@@ -38,6 +38,9 @@ class VehicleController(private val context: Context) {
         // Hermes-bridge'den alınan kanıtlanmış property haritası
         val PROPERTY_DEFINITIONS = linkedMapOf(
             "11e00d00" to PropertyDef("Hız, Devir, Vites", 2),
+            "11600207" to PropertyDef("Araç Hızı", 2),
+            "11600305" to PropertyDef("Motor Devri", 2),
+            "21402006" to PropertyDef("Vites", 2),
             "11400301" to PropertyDef("Motor Durumu", 2),
             "11600204" to PropertyDef("Toplam KM", 5),
             "11600307" to PropertyDef("Kalan Yakıt", 2),
@@ -92,15 +95,20 @@ class VehicleController(private val context: Context) {
 
     private fun startTier(tierSeconds: Int) {
         scope.launch {
+            Log.d(TAG, "Tier $tierSeconds başlatıldı. SimMod: ${GlobalState.isSimulationMode.value}")
             while (isActive) {
                 try {
+                    // SİMÜLASYON KONTROLÜNÜ LOGLA VE İLERLE
                     if (!GlobalState.isSimulationMode.value) {
                         val propsForTier = PROPERTY_DEFINITIONS.filter { (_, def) ->
                             def.defaultTier == tierSeconds
                         }.keys.toList()
                         if (propsForTier.isNotEmpty()) {
+                            Log.v(TAG, "Tier $tierSeconds batch okunuyor: ${propsForTier.size} mülk")
                             readBatch(propsForTier)
                         }
+                    } else {
+                        Log.v(TAG, "Tier $tierSeconds atlanıyor (Simülasyon Aktif)")
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "Tier $tierSeconds error: ${e.message}")
@@ -172,6 +180,22 @@ class VehicleController(private val context: Context) {
         var next = current
 
         when (propId) {
+            "11600207" -> {
+                val speed = value.toFloatOrNull() ?: 0f
+                displayValue = String.format("%.1f km/h", speed)
+                next = next.copy(speed = speed, isMoving = speed > 0f)
+            }
+            "11600305" -> {
+                val rpm = value.toFloatOrNull() ?: 0f
+                displayValue = "${rpm.toInt()} RPM"
+                next = next.copy(engineRpm = rpm, isEngineRunning = rpm > 0f)
+            }
+            "21402006" -> {
+                val gearRaw = value.toIntOrNull() ?: 0
+                val gearStr = mapGear(gearRaw)
+                displayValue = gearStr
+                next = next.copy(gear = gearRaw, gearString = gearStr)
+            }
             "11e00d00" -> {
                 val floats = value.split(",").map { it.trim().toFloatOrNull() ?: 0f }
                 if (floats.size >= 10) {
@@ -179,6 +203,12 @@ class VehicleController(private val context: Context) {
                     val rpm = floats[8]
                     val gearRaw = floats[9].toInt()
                     val gearStr = mapGear(gearRaw)
+                    
+                    // [PLAN-UPDATE] Bireysel özellikleri de güncelle ki ilgili widgetlar tetiklensin
+                    updateDisplay("11600207", "Araç Hızı", String.format("%.1f km/h", speed))
+                    updateDisplay("11600305", "Motor Devri", "${rpm.toInt()} RPM")
+                    updateDisplay("21402006", "Vites", gearStr)
+
                     displayValue = String.format("%.1f km/h | %d RPM | %s", speed, rpm.toInt(), gearStr)
                     next = next.copy(
                         speed = speed,
@@ -243,7 +273,7 @@ class VehicleController(private val context: Context) {
         }
 
         val label = PROPERTY_DEFINITIONS[propId]?.label ?: propId
-        updateDisplay(label, displayValue)
+        updateDisplay(propId, label, displayValue)
 
         if (next != current) {
             vehicleState = next
@@ -261,12 +291,44 @@ class VehicleController(private val context: Context) {
         1 -> "P"; 2 -> "R"; 3 -> "N"; 5 -> "D1"; 6 -> "D2"; 7 -> "D3"; else -> "D"
     }
 
-    private fun updateDisplay(key: String, value: String) {
+    private fun updateDisplay(propId: String, label: String, value: String) {
         val m = GlobalState.vehicleDataValues.value.toMutableMap()
-        if (m[key] != value) {
-            m[key] = value
+        var changed = false
+
+        fun putIfNew(k: String, v: String) {
+            if (k.isNotBlank() && m[k] != v) {
+                m[k] = v
+                changed = true
+            }
+        }
+
+        // 1. Hex Property ID (ör: "11600207", "21402006")
+        putIfNew(propId, value)
+
+        // 2. İnsan okunabilir etiket (ör: "Araç Hızı", "Vites")
+        putIfNew(label, value)
+
+        // 3. UI Kısaltma ve Takma Adlar (UI Widget'larının aradığı spesifik key'ler)
+        when (propId) {
+            "11600207" -> { putIfNew("HIZ", value); putIfNew("SPEED", value) }
+            "11600305" -> { putIfNew("DEVİR", value); putIfNew("RPM", value) }
+            "21402006" -> { putIfNew("VİTES", value); putIfNew("GEAR", value) }
+            "21402012" -> { putIfNew("KAPI (SOL ÖN)", value); putIfNew("ÖN SOL KAPI", value); putIfNew("KAPI_FL", value) }
+            "21402013" -> { putIfNew("KAPI (SAĞ ÖN)", value); putIfNew("ÖN SAĞ KAPI", value); putIfNew("KAPI_FR", value) }
+            "21402014" -> { putIfNew("KAPI (SOL ARKA)", value); putIfNew("ARKA SOL KAPI", value); putIfNew("KAPI_RL", value) }
+            "21402016" -> { putIfNew("KAPI (SAĞ ARKA)", value); putIfNew("ARKA SAĞ KAPI", value); putIfNew("KAPI_RR", value) }
+            "21402015" -> { putIfNew("BAGAJ", value); putIfNew("BAGAJ KAPAĞI", value) }
+            "21401008" -> { putIfNew("AC_TEMP_DRIVER", value); putIfNew("KLİMA_SÜRÜCÜ", value); putIfNew("Sıcaklık", value); putIfNew("SICAKLIK", value) }
+            "21401009" -> { putIfNew("AC_TEMP_PASSENGER", value); putIfNew("KLİMA_YOLCU", value) }
+            "11600703" -> { putIfNew("DIŞ_ISILIK", value); putIfNew("OUTSIDE_TEMP", value); putIfNew("Dış Sıcaklık", value) }
+            "11600307" -> { putIfNew("YAKIT", value); putIfNew("FUEL", value) }
+            "11600308" -> { putIfNew("MENZİL", value); putIfNew("RANGE", value) }
+            "11600309" -> { putIfNew("BATARYA", value); putIfNew("BATTERY", value) }
+        }
+
+        if (changed) {
             GlobalState.vehicleDataValues.value = m
-            Log.d(TAG, "[VHAL] $key -> $value")
+            Log.d(TAG, "[VHAL] $propId / $label -> $value")
         }
     }
 
@@ -286,10 +348,10 @@ class VehicleController(private val context: Context) {
     fun getVehicleState(): VehicleState = vehicleState
 
     fun injectSimulatedData(json: org.json.JSONObject) {
-        if (!GlobalState.isSimulationMode.value) return
         try {
             val propId = json.getString("propertyId").replace("0x", "").lowercase()
             val value = json.optString("float", json.optString("int", "0"))
+            Log.e(TAG, "INJECTING SIMULATED DATA: propId=$propId, value=$value")
             // [FIX-03] Simülasyon verisi de Mutex ile korunuyor
             scope.launch {
                 stateMutex.withLock {

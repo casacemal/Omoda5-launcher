@@ -144,14 +144,12 @@ class WakeWordManager(
     private fun transcribe(audioData: ByteArray): String? {
         val wavData = addWavHeader(audioData)
         
-        // 1. Try Primary (9Router / Hermes)
+        // Sunucu üzerinden hızlı doğrulama dene
         val primaryResult = tryTranscribe(wavData, "${GlobalState.STT_BASE_URL}/audio/transcriptions", GlobalState.NINEROUTER_API_KEY)
         if (!primaryResult.isNullOrBlank()) return primaryResult
 
-        // 2. Try Fallback (Wyoming Bridge Port 5000)
-        Log.w(TAG, "Primary STT failed, trying Wyoming Bridge fallback...")
-        val fallbackResult = tryTranscribe(wavData, GlobalState.BRIDGE_STT_URL, "")
-        return fallbackResult
+        Log.w(TAG, "Sunucu STT doğrulama başarısız.")
+        return null
     }
 
     private fun tryTranscribe(wavData: ByteArray, targetUrl: String, apiKey: String): String? {

@@ -7,6 +7,7 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
 0.  **Dil Kuralı:** Kod yazımı haricindeki tüm iletişim, raporlama ve dokümantasyon güncellemeleri KESİNLİKLE Türkçe yapılacaktır.
 1.  **Bağlantı Sorunları Protokolü:** Hermes veya MQTT bağlantı sorunu yaşandığında:
     *   **Önce Sunucu Kontrolü:** Sunucunun (192.168.1.14) erişilebilirliği ve servislerin (8642, 1883 vb.) durumu kontrol edilmeden KESİNLİKLE kod değişikliği yapılmaz.
+    *   **Zorla Konfigürasyon Yükleme:** Bağlantı veya yetkilendirme sorunları devam ediyorsa, teyit amaçlı `scripts/push_config.py --ip <cihaz_ip>` betiği kullanılarak güncel IP'ler ve GitHub API anahtarları cihaza doğrudan (ADB üzerinden) itilmeli ve uygulamanın yeniden başlatılması sağlanmalıdır.
     *   **Kod Kontrolü:** Sunucu normalse, uygulamadaki **3 kırmızı LED** (Bağlantı durum göstergeleri) üzerinden hata analizi yapılır.
 2.  **Sürüm/Versiyon Doğrulama Kuralı:** Ajanlar, cihaza her bağlandığında (ADB veya diğer yollarla) ve test/analiz aşamasına geçmeden ÖNCE mutlaka cihazdaki aktif uygulamanın versiyonunu (`dumpsys package` veya loglar aracılığıyla) kontrol edecektir. Eski sürüm çalışıyorken kod değişikliği yapmak veya hata aramak KESİNLİKLE YASAKTIR.
 3.  **Gözlem:** Her kullanıcı isteğinde ve kod incelemesinde yeni bilgiler (teknik kısıtlar, tercihler, kararlar) aranır.
@@ -21,6 +22,10 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
     *   `FILE_INDEX.md`: Değişen veya yeni eklenen dosyaların amacına dair endeks kaydı.
     *   `UI_MANIFESTO.md`: Yeni alınan veya değişen tasarımsal kısıtlar (Padding, ekran oranları vb.).
     *   `PROJECT_BRIEF.md` & `SISTEM_CALISMA_MANTIGI.md`: Yeni bir port, dış servis, veya veri akışı (Event) kurgulandığında, bu mimari tasarım dosyaları derhal revize edilmelidir. Sistemdeki "Proje Mimari Haritası" terimi bu iki dosyayı ifade eder.
+9.  **Fiziksel Onay Bekleme ve Anti-Spam (Sabır) Kuralı (MUTLAK KURAL):** Ajanlar; `adb install` veya cihazda kullanıcının fiziksel olarak "İzin Ver/Yükle" butonuna basmasını gerektiren herhangi bir komut tetiklediğinde, işlemi **KESİNLİKLE** kendi inisiyatifleriyle iptal edemezler (kill task yapılamaz). Komut tetiklendikten sonra ajan hiçbir zamanlayıcı (timer) kurmayacak ve kullanıcıdan "Onayladım" veya "Tamamlandı" yanıtı gelene kadar arka plandaki komuta asla müdahale etmeyecektir.
+10. **Öncelikli Dağıtım (Deployment) Yolu OTA'dır (MUTLAK KURAL):** Fiziksel cihaza bir uygulama veya güncelleme gönderilmesi gerektiğinde, eğer projede `OtaUpdateManager` (GitHub Releases) mevcutsa, ajanlar KESİNLİKLE önce `build_and_upload_apk` aracı ile GitHub üzerinden OTA sürümü yayınlayacaktır. Kullanıcı aksini açıkça emretmedikçe, ADB üzerinden zorla (push/install) APK yüklemeye çalışmak YASAKTIR.
+11. **Hedef Cihaz Farkındalığı:** Ağda birden fazla cihaz (örn. IP .20 olan cihaz ve Xiaomi Mi 13) bulunuyorsa, kullanıcı cihaz değişimi talep ettiğinde ajan eski cihazdaki logları okuma inadından derhal vazgeçecektir. Komutlar her zaman kullanıcının belirttiği aktif cihaza (`-s <ip/serial>`) yönlendirilecektir.
+12. **Şeffaflık ve Yanıltma Yasağı (Gaslighting Yasağı):** Ajanlar, hata veren, "waiting for device" durumunda takılan veya zaman aşımına uğrayan bir görevi kendi inisiyatifleriyle sonlandırdıklarında, bunu kullanıcıya **açıkça itiraf etmek** zorundadır. Kullanıcıya "Ben kapatmadım, sistem kapattı" gibi yanıltıcı veya bahane üretici beyanlarda bulunmak MUTLAK ŞEKİLDE YASAKTIR.
 
 ## Mimari Kısıtlar (ÖNEMLİ)
 
@@ -119,7 +124,7 @@ Tüm proje kaynak kodunun profesyonel gözle taramasının sonucu [CODE_AUDIT_RE
 1. **Ping:** `ping -c 2 -W 3 <ip>`
 2. **Ses Sistemi Testi:** `python3 scripts/test_voice_system.py --ip <ip>` (Wyoming/9Router/EdgeTTS/Hermes test eder)
 3. **Servis Kontrolü:** `python3 scripts/check_services.py` (9Router API port 20128 test eder)
-4. **Simülasyon Verisi Gönderimi:** `python3 scripts/send_sim_data.py` (MQTT üzerinden sahte telemetri basar)
+4. **Simülasyon Verisi Gönderimi (KRİTİK):** Terminal betikleri yerine KESİNLİKLE `aes_app/main.py` masaüstü arayüzü kullanılacak ve geliştirilecektir. Ajanlar simülasyon testi yapacaksa bu arayüzü veya bu arayüzün özelliklerini baz almalıdır.
 
 ## Test Araçları Kataloğu
 
@@ -128,7 +133,7 @@ Emin olunmayan durumlarda aşağıdaki script'ler doğrulama için KESİNLİKLE 
 | Araç | Konum | Açıklama |
 | :--- | :--- | :--- |
 | **Ses Sistemi Testi** | `scripts/test_voice_system.py` | STT, TTS ve LLM servislerini uçtan uca test eder. En kapsamlı test aracıdır. |
-| **Simülasyon Veri Basıcı** | `scripts/send_sim_data.py` | MQTT `omoda/simulate` kanalına sahte Hız, RPM, Vites verisi gönderir. |
+| **Simülasyon & UI Test Aracı (KRİTİK)** | `aes_app/main.py` | Tüm MQTT simülasyonları, Hız/RPM testleri ve arayüz kontrolleri için **öncelikli masaüstü arayüzüdür**. Ajanların terminal betikleriyle zaman kaybetmesi yasaktır, bu uygulama kullanılmalı ve geliştirilmelidir. |
 | **API Servis Kontrolü** | `scripts/check_services.py` | 9Router (Port 20128) üzerinden STT, Chat ve TTS fonksiyonlarını test eder. |
 | **Oturum Yönetimi Testi** | `scripts/test_sessions.py` | Hermes API (Port 8642) oturum oluşturma ve SSE stream chat testlerini yapar. |
 | **Edge TTS WS Test** | `aes_app/test_edge_ws.py` | Microsoft Edge TTS WebSocket bağlantısını ve token üretimini doğrular. |

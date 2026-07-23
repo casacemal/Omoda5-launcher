@@ -50,6 +50,7 @@ class OtaUpdateManager(private val context: Context) {
             .url(API_URL)
             .header("User-Agent", "Omoda5-Updater")
             .header("Authorization", "Bearer ${GlobalState.githubToken.value}")
+            .header("Cache-Control", "no-cache")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -261,9 +262,11 @@ class OtaUpdateManager(private val context: Context) {
         } catch (e: Exception) {
             Log.e(TAG, "Standard install failed, trying shell: ${e.message}")
             val cmd = "pm install -r -d -g ${file.absolutePath}"
-            context.sendBroadcast(Intent("com.omoda.assistant.EXECUTE_SHELL").apply {
+            val intent = Intent(context, Class.forName("com.omoda.lanc.service.AdbBridgeService")).apply {
+                action = "ACTION_EXECUTE_SHELL"
                 putExtra("command", cmd)
-            })
+            }
+            androidx.core.content.ContextCompat.startForegroundService(context, intent)
         }
     }
 
@@ -277,6 +280,7 @@ class OtaUpdateManager(private val context: Context) {
             .url(STORE_URL)
             .header("User-Agent", "Omoda5-Updater")
             .header("Authorization", "Bearer ${GlobalState.githubToken.value}")
+            .header("Cache-Control", "no-cache")
             .build()
 
         client.newCall(request).enqueue(object : Callback {

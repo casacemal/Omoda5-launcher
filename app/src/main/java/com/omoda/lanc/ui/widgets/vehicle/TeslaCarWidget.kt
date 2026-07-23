@@ -36,8 +36,8 @@ class PremiumCarWidget : DashboardWidget {
     @Composable
     override fun Content() {
         val vehicleData by GlobalState.vehicleDataValues.collectAsState()
-        val speed = vehicleData["HIZ"] ?: "0 km/h"
-        val gear = vehicleData["VİTES"] ?: "P"
+        val speed = vehicleData["HIZ"] ?: vehicleData["Araç Hızı"] ?: vehicleData["11600207"] ?: "0 km/h"
+        val gear = vehicleData["VİTES"] ?: vehicleData["Vites"] ?: vehicleData["21402006"] ?: "P"
 
         GlassCard(
             modifier = Modifier.fillMaxSize()
@@ -192,8 +192,11 @@ class PremiumCarWidget : DashboardWidget {
             )
 
             // Red Door Alerts
-            val flOpen = data["KAPI (SOL ÖN)"] == "AÇIK"
-            val frOpen = data["KAPI (SAĞ ÖN)"] == "AÇIK"
+            val flOpen = data["KAPI (SOL ÖN)"] == "AÇIK" || data["Ön Sol Kapı"] == "AÇIK" || data["21402012"] == "AÇIK" || data["KAPI_FL"] == "AÇIK"
+            val frOpen = data["KAPI (SAĞ ÖN)"] == "AÇIK" || data["Ön Sağ Kapı"] == "AÇIK" || data["21402013"] == "AÇIK" || data["KAPI_FR"] == "AÇIK"
+            val rlOpen = data["KAPI (SOL ARKA)"] == "AÇIK" || data["ARKA SOL KAPI"] == "AÇIK" || data["21402014"] == "AÇIK" || data["KAPI_RL"] == "AÇIK"
+            val rrOpen = data["KAPI (SAĞ ARKA)"] == "AÇIK" || data["ARKA SAĞ KAPI"] == "AÇIK" || data["21402016"] == "AÇIK" || data["KAPI_RR"] == "AÇIK"
+
             if (flOpen) {
                 drawArc(
                     color = OmodaRed,
@@ -212,6 +215,28 @@ class PremiumCarWidget : DashboardWidget {
                     sweepAngle = 45f,
                     useCenter = false,
                     topLeft = Offset(center.x, center.y - carH/4),
+                    size = Size(carW, carH/2),
+                    style = Stroke(width = 6f)
+                )
+            }
+            if (rlOpen) {
+                drawArc(
+                    color = OmodaRed,
+                    startAngle = 135f,
+                    sweepAngle = 45f,
+                    useCenter = false,
+                    topLeft = Offset(center.x - carW, center.y),
+                    size = Size(carW, carH/2),
+                    style = Stroke(width = 6f)
+                )
+            }
+            if (rrOpen) {
+                drawArc(
+                    color = OmodaRed,
+                    startAngle = 0f,
+                    sweepAngle = 45f,
+                    useCenter = false,
+                    topLeft = Offset(center.x, center.y),
                     size = Size(carW, carH/2),
                     style = Stroke(width = 6f)
                 )

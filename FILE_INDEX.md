@@ -1,5 +1,11 @@
 # FILE_INDEX.md
 
+*   Sürüm 6434 (6434) - 22.07.2026 20:51
+    *   `VehicleController.kt`: `updateDisplay` metoduna Hex Property ID, Etiket ve UI takma adları ile çoklu anahtar (multi-key) yazma desteği eklendi.
+    *   `TeslaCarWidget.kt`: `PremiumCarWidget` içindeki Hız, Vites ve Kapı okumalarına esnek fallback zincirleri eklendi.
+    *   `VehicleWidget.kt`: Hız ve Vites okumalarında ID/Etiket/Kısaltma fallback arama zinciri eklendi.
+    *   `ClimateWidget.kt`: Sürücü klima sıcaklık değerine fallback arama zinciri eklendi.
+
 *   Sürüm 6413 (6.3.921) - 22.07.2026 12:00
     *   `OtaUpdateManager.kt`: Mağaza kaynağı (STORE_URL) `magaza` dizini olarak güncellendi. Ayrıca release_date parsing yeteneği eklendi.
     *   `AppStoreSection.kt`: Arayüze yayınlanma tarihi eklendi ve liste tasarımı modernize edildi.
@@ -763,3 +769,59 @@
 *   Sürüm 6417 (6417) - 22.07.2026 15:12
 
 *   Sürüm 6418 (6418) - 22.07.2026 15:40
+
+*   Sürüm 6420 (6420) - 22.07.2026 15:56
+
+*   Sürüm 6422 (6422) - 22.07.2026 16:04
+
+*   Sürüm 6424 (6424) - 22.07.2026 16:22
+
+*   Sürüm 6426 (6426) - 22.07.2026 16:39
+
+*   Sürüm 6427 (6427) - 22.07.2026 18:00
+
+*   Sürüm 6428 (6428) - 22.07.2026 18:21
+
+*   Sürüm 6429 (6429) - 22.07.2026 18:29
+
+*   Sürüm 6430 (6430) - 22.07.2026 18:46
+
+*   Sürüm 6431 (6431) - 22.07.2026 19:40
+
+*   Sürüm 6432 (6432) - 22.07.2026 20:06
+
+*   Sürüm 6433 (6433) - 22.07.2026 20:50
+
+*   Sürüm 6434 (6434) - 22.07.2026 23:42
+
+*   Sürüm 6435 (6435) - 22.07.2026 23:46
+
+*   Sürüm 6437 (6437) - 22.07.2026 23:59
+    *   `VehicleController.kt`: Bileşik (11e00d00) veri çözümlemesinde alt özelliklerin (Hız, Devir, Vites) bireysel olarak güncellenmesi sağlandı. Takma ad (alias) listesi genişletildi.
+    *   `TeslaCarWidget.kt`: Arka kapı açık ikazları (Canvas) eklendi ve yeni takma adlar desteklendi.
+    *   `ClimateWidget.kt`: "Sıcaklık" ve "SICAKLIK" anahtarları ile esnek okuma desteği eklendi.
+    *   `VehicleWidget.kt`: "SPEED" ve "GEAR" anahtarları için destek eklendi.
+
+*   Sürüm 6436 (6436) - 22.07.2026 23:55
+
+*   Sürüm 6437 (6437) - 23.07.2026 00:18
+
+*   Sürüm 6438 (6438) - 23.07.2026 00:20
+
+*   Sürüm 6439 (6439) - 23.07.2026 00:20
+
+*   Sürüm 6440 (6440) - 23.07.2026 00:31
+
+*   Sürüm 6441 (6441) - 23.07.2026 02:13
+
+*   Sürüm 6442 (6442) - 23.07.2026 02:47
+
+*   Sürüm 6443 (6443) - 23.07.2026 02:48
+
+*   Sürüm 6444 (6444) - 23.07.2026 02:50
+
+*   Sürüm 6445 (6445) - 23.07.2026 03:04
+
+*   Sürüm 6446 (6446) - 23.07.2026 03:07
+
+*   Sürüm 6447 (6447) - 23.07.2026 03:34

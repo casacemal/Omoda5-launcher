@@ -25,8 +25,8 @@ class VehicleWidget : DashboardWidget {
     @Composable
     override fun Content() {
         val vehicleData by GlobalState.vehicleDataValues.collectAsState()
-        val speed = vehicleData["11600207"] ?: "0.0 km/h"
-        val gear = vehicleData["21402006"] ?: "P"
+        val speed = vehicleData["11600207"] ?: vehicleData["HIZ"] ?: vehicleData["SPEED"] ?: vehicleData["Araç Hızı"] ?: "0.0 km/h"
+        val gear = vehicleData["21402006"] ?: vehicleData["VİTES"] ?: vehicleData["GEAR"] ?: vehicleData["Vites"] ?: "P"
 
         Box(
             modifier = Modifier

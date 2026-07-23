@@ -86,6 +86,26 @@ def upload_asset(release_id, file_path, asset_name):
         print(f"Error uploading asset: {response.text}")
         return False
 
+def cleanup_old_releases():
+    url = f"https://api.github.com/repos/{OWNER}/{REPO}/releases"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    resp = requests.get(url, headers=headers)
+    if resp.status_code == 200:
+        releases = resp.json()
+        if len(releases) > 10:
+            print(f"Found {len(releases)} releases. Cleaning up older than top 10...")
+            for r in releases[10:]:
+                # Delete release
+                requests.delete(f"https://api.github.com/repos/{OWNER}/{REPO}/releases/{r['id']}", headers=headers)
+                # Delete tag
+                requests.delete(f"https://api.github.com/repos/{OWNER}/{REPO}/git/refs/tags/{r['tag_name']}", headers=headers)
+                print(f"Deleted old release and tag: {r['tag_name']}")
+    else:
+        print("Failed to fetch releases for cleanup.")
+
 if __name__ == "__main__":
     v_code = get_version_code()
     if not v_code:
@@ -103,6 +123,7 @@ if __name__ == "__main__":
     if release_id:
         if upload_asset(release_id, apk_path, f"app-debug-v{v_code}.apk"):
             publish_release(release_id)
+            cleanup_old_releases()
     else:
         # Try to find existing release if it failed because it exists
         sys.exit(1)

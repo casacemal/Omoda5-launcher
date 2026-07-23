@@ -47,7 +47,12 @@ class MqttPublisher(
         // [FIX-10] Ham Thread yerine coroutine scope kullanılıyor
         mqttScope.launch {
             try {
-                client = MqttClient(brokerUrl, clientId, MemoryPersistence())
+                var finalUrl = brokerUrl
+                if (!finalUrl.startsWith("tcp://") && !finalUrl.startsWith("ssl://") && !finalUrl.startsWith("ws://")) {
+                    val port = GlobalState.mqttPort.value.ifBlank { "1883" }
+                    finalUrl = "tcp://$finalUrl:$port"
+                }
+                client = MqttClient(finalUrl, clientId, MemoryPersistence())
                 val options = MqttConnectOptions().apply {
                     isCleanSession = true
                     connectionTimeout = 10
@@ -64,8 +69,13 @@ class MqttPublisher(
                         GlobalState.mqttConnectionError.value = null
                         
                         // Subscribe to simulation and command topics
-                        client?.subscribe(TOPIC_SIMULATE, QOS)
-                        client?.subscribe(TOPIC_COMMAND, QOS)
+                        try {
+                            client?.subscribe(TOPIC_SIMULATE, QOS)
+                            client?.subscribe(TOPIC_COMMAND, QOS)
+                            Log.i(TAG, "MQTT Subscribe başarılı: $TOPIC_SIMULATE, $TOPIC_COMMAND")
+                        } catch (e: Exception) {
+                            Log.e(TAG, "MQTT Subscribe hatası: ${e.message}")
+                        }
                         
                         publishOnlineStatus()
 
@@ -87,9 +97,9 @@ class MqttPublisher(
                         LoggerProvider.mqttLog("[$time] Gelen ($topic): $payloadStr")
                         
                         if (topic == TOPIC_SIMULATE) {
-                            if (!GlobalState.isSimulationMode.value) return
                             try {
                                 val json = JSONObject(payloadStr)
+                                Log.e(TAG, "TOPIC_SIMULATE received! VehicleController.instance = ${VehicleController.instance}")
                                 VehicleController.instance?.injectSimulatedData(json)
                             } catch (e: Exception) {
                                 Log.e(TAG, "Simülasyon hatası: ${e.message}")
@@ -201,7 +211,6 @@ class MqttPublisher(
                 put("message", "Omoda 5 Asistan Sistemi Hazır ve Buradayım")
                 put("status", JSONObject().apply {
                     put("internet", GlobalState.hasInternetConnection.value)
-                    put("bridge_mode", GlobalState.isBridgeMode.value)
                     put("sim_mode", GlobalState.isSimulationMode.value)
                 })
             }
