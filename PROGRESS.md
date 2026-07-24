@@ -1,5 +1,13 @@
 # PROGRESS.md
 
+## [2026-07-24] - v6490 (Premium Bento Dashboard ve AAOS Tasarım Entegrasyonu)
+
+- **Premium Bento Dashboard Uygulandı:** `OmodaDashboardScreen.kt` tamamen yenilenerek Tesla ve Cyber-HUD esintili modüler "Bento-Box" tasarımına geçildi.
+- **Dinamik Güç Grafiği:** Motor devrine (RPM) duyarlı, Canvas ile çizilen gerçek zamanlı dalga formu grafiği eklendi.
+- **AAOS Standart Renk Paleti:** `omoda5-ui-comp` içerisindeki Cyber ve Aaos renk paletleri projeye dahil edildi.
+- **Modüler Kart Sistemi:** Hız göstergesi, araç 3D görselleştirme, navigasyon özeti ve klima kontrolleri bağımsız Bento kartlarına dönüştürüldü.
+- **Hata Onarımları:** Eksik ikon referansları ve bağlam (context) hataları giderildi.
+
 ## [2026-07-24] - v6482 (VHAL ID Kararlılığı ve RPM Göstergesi)
 
 - **VHAL ID Yolsuzluğu Onarıldı:** `VehicleController` içerisinde `get-property-value` komutuna gönderilen ID'lerin AAOS standardına uygun olarak **Decimal** formatına çevrilmesi zorunlu kılındı. Ayrıca gelen yanıtların işlenmesinde Hex-Decimal karmaşasından kaynaklanan etiket (label) eşleşmeme sorunu giderildi.

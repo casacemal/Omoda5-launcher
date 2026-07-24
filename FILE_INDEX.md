@@ -1,5 +1,9 @@
 # FILE_INDEX.md
 
+*   **Sürüm 6490 (6490) - 24.07.2026 19:30**
+    *   `OmodaDashboardScreen.kt`: Premium Bento-box tasarımına geçildi, Tesla style hız göstergesi ve canlı RPM grafiği eklendi.
+    *   `Color.kt`: Cyber ve AAOS temalı yeni renk paleti (NeonCyan, CyberDarkBg vb.) eklendi.
+
 *   **Sürüm 6480 (6480) - 24.07.2026 18:30**
     *   `Omoda5Platform.kt` & `ActionExecutor.kt` & `SettingsTabSystem.kt`: VHAL `set-property-value` komutlarındaki hatalı hex ID'ler ve yanlış decimal ID'ler, gerçek AAOS decimal değerleriyle (Örn: 557846536) değiştirildi.
     *   `AssistantController.kt`: MQTT telemetri köprüsünün (`mqttTelemetryBridge`) uygulama açılışındaki 10s gecikme nedeniyle null kalması ve veri göndermemesi sorunu, `updateConfig` sırasında dinamik yenileme ile çözüldü.

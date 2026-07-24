@@ -31,6 +31,24 @@ val OmodaGlassCardBg = Color.White.copy(alpha = 0.05f)
 val OmodaGlassCardBorder = Color.White.copy(alpha = 0.12f)
 val OmodaCardSurface = Color(0xFF0B132B).copy(alpha = 0.6f)
 
+// AAOS 10 / Omoda 5 Premium Palette (from omoda5-ui-comp)
+val AaosSurface = Color(0xFF030712)
+val AaosSurfaceContainer = Color(0xFF0F172A)
+val AaosSurfaceContainerHigh = Color(0xFF1E293B)
+val AaosPrimaryCyan = Color(0xFF06B6D4)
+val AaosOnSurfaceVariant = Color(0xFF94A3B8)
+val TeslaCardBackground = Color(0xFF111827)
+
+// Cyber Palette
+val CyberDarkBg = Color(0xFF030712)
+val CyberPanelBg = Color(0xFF0F172A)
+val CyberPanelBorder = Color(0xFF1E293B)
+val NeonCyan = Color(0xFF06B6D4)
+val NeonEmerald = Color(0xFF10B981)
+val NeonPurple = Color(0xFFA855F7)
+val NeonAmber = Color(0xFFF59E0B)
+val NeonOrange = Color(0xFFF97316)
+
 // Ambiyans Aydınlatma Renk Skalası
 val AmbientCyan = Color(0xFF00F0FF)
 val AmbientPurple = Color(0xFF9D00FF)

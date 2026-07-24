@@ -53,6 +53,7 @@
 - [x] **Voice Visualization:** Overlay'e gerçek zamanlı ses genliği (amplitude) duyarlılığı eklendi.
 - [x] **Sensor Monitor Screen:** Omoda 5 VHAL verilerinin (Hız, RPM, Yakıt vb.) 2sn periyotla izlendiği özel ekran eklendi.
 - [x] **Premium Dashboard:** 80 km/h akıllı split ekran (20 km/h reset state), glassmorphism medya widget'ı ve tam ekran Dashboard (235dp kuralıyla) entegre edildi.
+- [x] **Premium Bento Dashboard:** Tesla ve Cyber-HUD tarzı modüler Bento-box tasarımı ve dinamik RPM grafiği uygulandı.
 - [x] **Health Watchdog:** Sunucu yanıt vermediğinde (Thinking/STT) kullanıcıyı uyaran zaman aşımı mekanizması eklendi.
 - [x] **Local Voice Fallback:** Piper TTS ve Whisper STT motorları SD kart model desteği ile tam stabil hale getirildi.
 - [x] **Split View Map Fix:** ActivityView "Active view not supported" hatası retry mantığıyla çözüldü.
