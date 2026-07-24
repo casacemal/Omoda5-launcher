@@ -1,0 +1,6 @@
+{
+  "name": "Omoda 5 Launcher & Digital Cockpit",
+  "description": "Interactive Omoda 5 vehicle infotainment launcher, digital gauge cluster, climate control, 360° vehicle settings, 64-color ambient lighting, and multimedia dashboard.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
