@@ -14,7 +14,7 @@ context: |
   TTS: Edge TTS (Hermes API)
   Geliştirme: WiFi ADB (100.121.172.79:5555)
   Debug: Lenovo PC (192.168.1.29)
-  Network: LAN + Tailscale (100.95.239.119)
+  Network: LAN (192.168.1.14)
 
 rules:
   proposal:

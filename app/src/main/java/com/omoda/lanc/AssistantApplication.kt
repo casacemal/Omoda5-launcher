@@ -118,7 +118,7 @@ class AssistantApplication : Application(), AppLogger {
         GlobalState.mqttUser.value = (if (config.mqttUser.isNullOrBlank()) com.omoda.lanc.core.BuildConfig.MQTT_USER else config.mqttUser) ?: ""
         GlobalState.mqttPassword.value = (if (config.mqttPassword.isNullOrBlank()) com.omoda.lanc.core.BuildConfig.MQTT_PASS else config.mqttPassword) ?: ""
         GlobalState.micSource.value = config.micSource
-        GlobalState.isSimulationMode.value = config.isSimulationMode
+        GlobalState.isSimulationMode.value = false // Simülasyon modu varsayılan olarak KAPALI (Araç VHAL aktif)
         GlobalState.mqttEnabled.value = config.mqttEnabled
         GlobalState.vehicleId.value = config.vehicleId
         GlobalState.sessionKey.value = config.sessionKey

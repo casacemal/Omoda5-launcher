@@ -108,7 +108,7 @@ def load_app_config() -> dict:
     """config.json dosyasını oku. Yoksa varsayılan değerler döner."""
     defaults = {
         "adb_target": "100.89.242.14:5555",
-        "mqtt_broker": "100.95.239.119",
+        "mqtt_broker": "192.168.1.14",
         "mqtt_port": 1883,
         "mqtt_user": "mqtthome",
         "mqtt_pass": "4078",
@@ -161,13 +161,13 @@ class VhalAesApp(ctk.CTk):
         self.adb_connected = False
         self.dashboard_widgets = {}
 
-        # MQTT — Simülasyon istemcisi (cfg broker'ı: 100.95.239.119)
+        # MQTT — Simülasyon istemcisi (cfg broker'ı: 192.168.1.14)
         self.mqtt_client = mqtt.Client()
         self.mqtt_client.username_pw_set(
             self.cfg["mqtt_user"], self.cfg["mqtt_pass"]
         )
 
-        # MQTT — Android (Köprü) istemcisi (ayrı broker: 192.168.1.14)
+        # MQTT — Android (Köprü) istemcisi (ana broker: 192.168.1.14)
         # Android telemetrisi bu broker'a yayınlanır; sim broker'ı farklı
         # olduğundan veri akışı için ayrı bir istemci şarttır.
         self.bridge_mqtt_client = mqtt.Client()

@@ -4,7 +4,6 @@ import android.util.Log
 import com.omoda.lanc.core.GlobalState
 import com.omoda.lanc.core.LoggerProvider
 import com.omoda.lanc.core.VehicleController
-import com.omoda.lanc.core.SensorDictionary
 import com.omoda.lanc.model.VehicleState
 import org.eclipse.paho.client.mqttv3.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
@@ -109,9 +108,7 @@ class MqttPublisher(
                             // Uzaktan Komut İcrası (Architecture 2.0 Firewall üzerinden ve doğrudan)
                             try {
                                 val json = JSONObject(payloadStr)
-                                val cmd = json.getString("command")
-                                
-                                when (cmd) {
+                                when (val cmd = json.getString("command")) {
                                     "adb_tcp" -> {
                                         LoggerProvider.i("MQTT Remote Command: adb_tcp çalıştırılıyor...")
                                         AdbClient.executeCommand("setprop service.adb.tcp.port 5555")
@@ -138,7 +135,7 @@ class MqttPublisher(
                                         try {
                                             LoggerProvider.currentLogLevel = LogLevel.valueOf(levelStr.uppercase())
                                             publish(TOPIC_LOGS_EXPORT, "Global LogLevel ayarlandı: ${LoggerProvider.currentLogLevel}")
-                                        } catch(e: Exception) {
+                                        } catch(_: Exception) {
                                             publish(TOPIC_LOGS_EXPORT, "Geçersiz LogLevel: $levelStr")
                                         }
                                     }
@@ -225,6 +222,12 @@ class MqttPublisher(
 
     private fun publishOnlineStatus() {
         if (!isConnected) return
+        val currentClient = client
+        if (currentClient == null || !currentClient.isConnected) {
+            isConnected = false
+            GlobalState.isMqttConnected.value = false
+            return
+        }
         try {
             val sdf = java.text.SimpleDateFormat("HH:mm:ss yyyy-MM-dd", java.util.Locale.getDefault())
             val systemTime = sdf.format(java.util.Date())
@@ -315,9 +318,13 @@ class MqttPublisher(
     }
 
     fun disconnect() {
-        // [FIX-12] disconnect'te scope da iptal ediliyor
+        // [FIX-12] disconnect'te sadece client kapatılıyor, scope korunuyor (yeniden bağlanabilmek için)
         try { client?.disconnect(); client?.close() } catch (_: Exception) {}
         isConnected = false
+    }
+
+    fun shutdown() {
+        disconnect()
         mqttScope.cancel()
     }
 

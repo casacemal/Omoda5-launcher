@@ -51,6 +51,7 @@ class OtaUpdateService : Service() {
                 checkForUpdates()
                 // 1 saat bekle
                 delay(60 * 60 * 1000L)
+            }
         }
 
         // MQTT veya EventBus üzerinden gelen manuel tetiklemeleri dinle

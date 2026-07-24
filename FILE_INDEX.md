@@ -1,6 +1,16 @@
 # FILE_INDEX.md
 
-*   Sürüm 6447 (6447) - 23.07.2026 12:30
+*   **Sürüm 6480 (6480) - 24.07.2026 18:30**
+    *   `Omoda5Platform.kt` & `ActionExecutor.kt` & `SettingsTabSystem.kt`: VHAL `set-property-value` komutlarındaki hatalı hex ID'ler ve yanlış decimal ID'ler, gerçek AAOS decimal değerleriyle (Örn: 557846536) değiştirildi.
+    *   `AssistantController.kt`: MQTT telemetri köprüsünün (`mqttTelemetryBridge`) uygulama açılışındaki 10s gecikme nedeniyle null kalması ve veri göndermemesi sorunu, `updateConfig` sırasında dinamik yenileme ile çözüldü.
+    *   `VoiceAssistantService.kt`: MQTT bağlantı durumu reaktif olarak izlenmeye başlandı, bağlantı sağlandığında asistan konfigürasyonunu otomatik yeniliyor.
+    *   `PairingManager.kt`: Güvenlik açığı olan hardcoded "OMODA5" kodu yerine, rastgele üretilen ve SharedPreferences'da saklanan dinamik eşleşme kodu sistemine geçildi.
+    *   `SISTEM_CALISMA_MANTIGI.md`: VHAL combo property ayrıştırma ve decimal ID kullanım standartları güncel kod durumuyla senkronize edildi.
+
+*   Sürüm 6460 (6460) - 24.07.2026 07:20
+    *   `OmodaDashboardScreen.kt`: `Omoda5-ui-desing` tasarımı Jetpack Compose ile yeniden yazıldı (Dijital Hız Arc Kadranı, Vites Seçici P/R/N/D, Sürüş Modları ECO/NORMAL/SPORT, Quick Actions, Navigasyon ve Medya kartları).
+    *   `plugin.json` / `ponytail`: Ponytail skill eklentisi kuruldu ve uygulandı.
+
     *   `PROJE_KITABI.md`: Projenin geçmiş git dalları evrim zaman çizelgesini, Architecture 2.0 7 mimari katmanını, servis port matrisini, "Don't Do" mühürlü bilgi bankasını ve otonom AI ajanlar için context optimization rehberini içeren v4.0.0 Master Ansiklopedi olarak güncellendi.
     *   `PROGRESS.md`: Son mimari ve dokümantasyon güncelleme kayıtları kronolojik günlüğe eklendi.
 
@@ -863,3 +873,31 @@
 *   Sürüm 6463 (6463) - 23.07.2026 23:12
 
 *   Sürüm 6464 (6464) - 23.07.2026 23:26
+
+*   Sürüm 6465 (6465) - 23.07.2026 23:29
+
+*   Sürüm 6466 (6466) - 24.07.2026 07:23
+
+*   Sürüm 6467 (6467) - 24.07.2026 07:23
+
+*   Sürüm 6468 (6468) - 24.07.2026 07:24
+
+*   Sürüm 6469 (6469) - 24.07.2026 07:27
+
+*   Sürüm 6470 (6470) - 24.07.2026 07:29
+
+*   Sürüm 6471 (6471) - 24.07.2026 08:13
+
+*   Sürüm 6472 (6472) - 24.07.2026 08:20
+
+*   Sürüm 6473 (6473) - 24.07.2026 08:25
+
+*   Sürüm 6474 (6474) - 24.07.2026 09:03
+
+*   Sürüm 6475 (6475) - 24.07.2026 09:08
+
+*   Sürüm 6476 (6476) - 24.07.2026 14:39
+
+*   Sürüm 6477 (6477) - 24.07.2026 14:41
+
+*   Sürüm 6478 (6478) - 24.07.2026 15:11

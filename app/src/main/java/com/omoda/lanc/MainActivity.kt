@@ -66,7 +66,7 @@ import androidx.compose.ui.platform.LocalConfiguration
  */
 class MainActivity : ComponentActivity() {
     private val mediaVM: com.omoda.lanc.media.MediaControllerViewModel by viewModels()
-    private val currentScreenState = mutableStateOf("home")
+    private val currentScreenState = mutableStateOf("dashboard")
     private var permissionQueue = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,8 +118,8 @@ class MainActivity : ComponentActivity() {
         currentScreenState.value = "home"
     }
 
-    override fun dispatchKeyEvent(event: android.view.KeyEvent?): Boolean {
-        if (event?.action == android.view.KeyEvent.ACTION_DOWN) {
+    override fun dispatchKeyEvent(event: android.view.KeyEvent): Boolean {
+        if (event.action == android.view.KeyEvent.ACTION_DOWN) {
             when (event.keyCode) {
                 android.view.KeyEvent.KEYCODE_HOME -> {
                     currentScreenState.value = "home"
@@ -547,7 +547,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1001) {
             // Sonraki izni bir süre sonra iste ki dialoglar üst üste binmesin

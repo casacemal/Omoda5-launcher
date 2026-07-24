@@ -23,7 +23,7 @@ AssistantController.startListening()           [AssistantController.kt:175]
                                           (16kHz, 16-bit, mono)
                                                 │
                                                 ▼
-          timeout (8sn) veya kullanıcı durdurur
+          timeout (8sn) veya kullanici durdurur
                                                 │
                                                 ▼
           handleRecordingFinished(audioPath)    [AssistantController.kt:267]
@@ -41,7 +41,7 @@ AssistantController.startListening()           [AssistantController.kt:175]
           sttClient.transcribe(audioFile)
           POST /v1/audio/transcriptions    [HermesClient.kt:76]
           Authorization: Bearer NINEROUTER_API_KEY
-          100.95.239.119:20128
+          192.168.1.14:20128
                               │
                     ┌─────────┴─────────┐
                     ▼                   ▼
@@ -93,7 +93,7 @@ AssistantController.startListening()           [AssistantController.kt:175]
 ### Neden Hermes'e Ulaşılamıyor?
 
 ```
-İstemci (Uygulama)                     Sunucu (100.95.239.119)
+İstemci (Uygulama)                     Sunucu (192.168.1.14)
        │                                        │
        │  PORT 8642 (Hermes)                    │
        ├─────────────────────────────► CLOSED ──┤  ← ❌ Bağlantı reddedildi
@@ -117,8 +117,8 @@ AssistantController.startListening()           [AssistantController.kt:175]
 
 | Öğe | Değer | Durum |
 |-----|-------|-------|
-| **Hermes Sunucu** | `100.95.239.119:8642` | **PORT KAPALI** — Servis çalışmıyor |
-| **9Router Gateway** | `100.95.239.119:20128` | **PORT AÇIK** — Çalışıyor |
+| **Hermes Sunucu** | `192.168.1.14:8642` | **PORT KAPALI** — Servis çalışmıyor |
+| **9Router Gateway** | `192.168.1.14:20128` | **PORT AÇIK** — Çalışıyor |
 | **HERMES_API_KEY** | `cdc682fdab...` | **Geçersiz** (8642 kapalı, 20128 kabul etmiyor) |
 | **NINEROUTER_API_KEY** | `sk-b6f4d3879...` | **Geçerli** (20128'de çalışıyor) |
 | **Session API** | `/api/sessions` | **401** (9Router desteklemiyor) |
@@ -134,7 +134,7 @@ AssistantController.startListening()           [AssistantController.kt:175]
 
 ### Yapılması Gereken
 
-Hermes sunucusu (`100.95.239.119:8642`) ayağa kalkana kadar:
+Hermes sunucusu (`192.168.1.14:8642`) ayağa kalkana kadar:
 - `checkConnection()` → NINEROUTER_API_KEY ile çalışır (✅ halihazırda yapıldı)
 - Session API → atlanır, direkt OpenAI chat completions kullanılır (✅ yapıldı)
 - Session-based kalıcı hafıza → kullanılamaz (her chat stateless)

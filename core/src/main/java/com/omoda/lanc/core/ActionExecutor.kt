@@ -51,16 +51,16 @@ class ActionExecutor(
             when (functionName) {
                 // KLİMA KONTROLÜ (Dumpsys + OEM Bridge)
                 "hvac_on" -> {
-                    // Omoda 5 VHAL Property: 0x15200505 (AC_ON), 0x15400500 (FAN_SPEED)
-                    executeShellCommand("dumpsys car_service set-property-value 0x15200505 0 1") 
-                    executeShellCommand("dumpsys car_service set-property-value 0x15400500 0 3")
+                    // Omoda 5 VHAL Property: 354419973 (AC_ON), 356517120 (FAN_SPEED)
+                    executeShellCommand("dumpsys car_service set-property-value 354419973 0 1") 
+                    executeShellCommand("dumpsys car_service set-property-value 356517120 0 3")
                     // OEM Klima Uygulamasını tetikle (Görsel Aktivasyon)
                     executeShellCommand("am start -n com.chery.hvac/.view.activity.MainActivity")
                     "Success: HVAC turned ON via VHAL & OEM Bridge"
                 }
                 "hvac_off" -> {
-                    executeShellCommand("dumpsys car_service set-property-value 0x15200505 0 0")
-                    executeShellCommand("dumpsys car_service set-property-value 0x15400500 0 0")
+                    executeShellCommand("dumpsys car_service set-property-value 354419973 0 0")
+                    executeShellCommand("dumpsys car_service set-property-value 356517120 0 0")
                     "Success: HVAC turned OFF via VHAL"
                 }
                 "simulate_hvac_touch" -> {
@@ -74,7 +74,7 @@ class ActionExecutor(
                 // KLİMA AC GÜCÜ (VHAL)
                 "set_hvac_ac" -> {
                     val value = args.optInt("value", 1) // 1 = Açık, 0 = Kapalı
-                    executeShellCommand("dumpsys car_service set-property-value 0x15600502 0 $value")
+                    executeShellCommand("dumpsys car_service set-property-value 358614274 0 $value")
                     val state = VehicleController.getInstance(context).getVehicleState()
                     mqttTelemetryBridge?.publishClimateState(
                         isOn = state.isHvacOn,
@@ -88,7 +88,7 @@ class ActionExecutor(
                 // KLİMA FAN HIZI (VHAL)
                 "set_hvac_fan" -> {
                     val value = args.optInt("value", 3).coerceIn(1, 7)
-                    executeShellCommand("dumpsys car_service set-property-value 0x1560050a 0 $value")
+                    executeShellCommand("dumpsys car_service set-property-value 358614282 0 $value")
                     val state = VehicleController.getInstance(context).getVehicleState()
                     mqttTelemetryBridge?.publishClimateState(
                         isOn = state.isHvacOn,
@@ -183,8 +183,8 @@ class ActionExecutor(
                 "set_hvac_temp" -> {
                     val temp = args.optDouble("temperature", 22.0).toFloat()
                     // Dumpsys ile doğrudan set etmeyi dene (Area 1: Sürücü, Area 16: Yolcu)
-                    executeShellCommand("dumpsys car_service set-property-value 0x15600503 1 $temp")
-                    executeShellCommand("dumpsys car_service set-property-value 0x15600503 16 $temp")
+                    executeShellCommand("dumpsys car_service set-property-value 358614275 1 $temp")
+                    executeShellCommand("dumpsys car_service set-property-value 358614275 16 $temp")
                     
                     // Görsel tetikleyici (HMI güncellemesi için)
                     if (temp > 22.0) {
@@ -210,10 +210,10 @@ class ActionExecutor(
                     
                     if (target == "sunroof") {
                         // Sunroof Zone Genelde 65536 veya 16'dır
-                        executeShellCommand("dumpsys car_service set-property-value 0x13400bc0 65536 $position")
+                        executeShellCommand("dumpsys car_service set-property-value 322964416 65536 $position")
                     } else {
                         // Tüm camları aynı seviyeye getir (Zone: 15)
-                        executeShellCommand("dumpsys car_service set-property-value 0x13400bc0 15 $position")
+                        executeShellCommand("dumpsys car_service set-property-value 322964416 15 $position")
                     }
                     "Success: $target position set to $position"
                 }

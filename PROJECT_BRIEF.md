@@ -34,15 +34,16 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
 
 ## Kısıtlar ve Kurallar
 *   API 29 (AAOS 10) uyumluluğu kesin kuraldır.
-*   **Bağlantı Ayarları (SABİT / TEK ENDPOINT MİMARİSİ):**
-    *   **Main Server IP:** `192.168.1.14` (Local) / `100.95.239.119` (Tailscale)
+*   **Bağlantı Ayarları (SABİT / KARMA IP MİMARİSİ):**
+    *   **Ana Sunucu IP (MQTT, Bridge, Hermes):** `192.168.1.14` (Local)
+    *   **Özel IP'li Servisler:** Edge TTS ve Groq servisleri kendi bağımsız sunucu IP adreslerini kullanır.
     *   **Hermes API Port:** `8642` (Chat & Logic)
     *   **WebSocket Relay:** `8766` (Android Bridge WS bağlantısı)
     *   **BridgeServer:** `8765` (Yerel Ktor HTTP sunucusu)
     *   **9Router Port:** `20128` (STT & TTS - `/v1`)
     *   **Wyoming/Bridge Port:** `5000` (STT → 9Router proxy, TTS → edge-tts)
-    *   **Edge TTS:** `10201` (Doğrudan edge-tts `/v1/audio/speech`)
-    *   **MQTT Broker:** `100.95.239.119:1883`
+    *   **Edge TTS:** `10201` (Kendi Özel IP'si üzerinden)
+    *   **MQTT Broker:** `192.168.1.14:1883` (Ana IP)
 *   **Referans Mimarisi:** [Hermes-Android](https://github.com/rusty4444/hermes-android) uygulamasının asistan yöntemi baz alınmıştır. 
 *   **Geliştirme Hızı:** Büyük değişiklikler hariç, sadece metod/kod güncellemelerinde "Apply Changes" (CTRL+F10) mekanizması kullanılacak.
 *   **Command Firewall (Merkezi Karar Birimi) & Tasarım İlkesi:** 
@@ -54,7 +55,7 @@ Android Automotive OS üzerinde çalışan; telemetri, AI sesli asistan, adaptif
     *   **ASISTANT (Asistan) Modu:** Kısa yanıtlar, araç bağlamlı, yerel Regex motoru (`CommandRouter`) öncelikli. Sadece talep edilen eylemi gerçekleştirir.
     *   **CHAT (Sohbet) Modu:** Kesintisiz, derin ve samimi diyalog. Sürüş arkadaşı kişiliği.
 *   **Donanım Farkındalığı (Hardware Awareness):** AI motoru (`AgentManager`), her diyalogda aracın güncel telemetri verilerini (Hız, Vites, Klima, Sıcaklık vb.) sistem promptu olarak alır ve yanıtlarını buna göre şekillendirir.
-*   **MQTT Telemetri (Yegane Veri Akışı):** Araç verileri `100.95.239.119:1883` broker'ına `omoda/telemetri` konusuyla periyodik olarak aktarılır. REST tabanlı telemetri gönderimi tamamen kaldırılmıştır. Tüm anomali takip ve izleme işini MQTT üstlenir.
+*   **MQTT Telemetri (Yegane Veri Akışı):** Araç verileri `192.168.1.14:1883` broker'ına `omoda/telemetri` konusuyla periyodik olarak aktarılır. REST tabanlı telemetri gönderimi tamamen kaldırılmıştır. Tüm anomali takip ve izleme işini MQTT üstlenir.
 *   **OTA Güncelleme & Sürüm Düşürme:**
     *   Derlenen her yeni asistan sürümü kesinlikle GitHub releases (`casacemal/Omoda5-launcher`) alanına yüklenecektir, atlanmayacaktır.
     *   Uygulama içi App Store ekranında en güncel **4 sürüm** her zaman listelenecektir.

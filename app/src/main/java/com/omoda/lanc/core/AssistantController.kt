@@ -28,8 +28,8 @@ class AssistantController(
 ) {
     private val audioEngine = AudioEngine(context)
     private val overlayManager = OverlayManager(context)
-    private val mqttTelemetryBridge = GlobalState.mqttPublisher?.let { MqttTelemetryBridge(it) }
-    private val actionExecutor = ActionExecutor(context, mqttTelemetryBridge)
+    private var mqttTelemetryBridge: MqttTelemetryBridge? = GlobalState.mqttPublisher?.let { MqttTelemetryBridge(it) }
+    private var actionExecutor = ActionExecutor(context, mqttTelemetryBridge)
     private val vehicleController = VehicleController.getInstance(context)
     private val policyEngine = PolicyEngine()
     private val alertEngine = AlertEngine(scope)
@@ -345,6 +345,10 @@ class AssistantController(
         
         // Eski bağlantı kontrol döngüsünü durdur
         connectionCheckJob?.cancel()
+
+        // MQTT Bridge'i yenile (eğer yeni publisher geldiyse)
+        mqttTelemetryBridge = GlobalState.mqttPublisher?.let { MqttTelemetryBridge(it) }
+        actionExecutor = ActionExecutor(context, mqttTelemetryBridge)
         
         hermesClient = HermesClient(GlobalState.HERMES_BASE_URL, GlobalState.HERMES_API_KEY)
         sttClient = SttClient(GlobalState.STT_BASE_URL, GlobalState.NINEROUTER_API_KEY)

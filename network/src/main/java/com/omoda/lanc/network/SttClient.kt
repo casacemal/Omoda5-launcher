@@ -16,7 +16,7 @@ import java.io.IOException
 
 /**
  * SttClient - Ses-metin dönüşümü ve sunucu bağlantı kontrolü.
- * Merkezi sunucu (100.95.239.119:8642/20128) ile iletişim kurar.
+ * Merkezi sunucu (192.168.1.14:8642/20128) ile iletişim kurar.
  */
 class SttClient(private val baseUrl: String, private val apiKey: String) {
     private val TAG = "SttClient"

@@ -1,6 +1,41 @@
 # PROGRESS.md
 
-## [2026-07-23] - v6459 (Yeni Tema Portu, Xiaomi Mi 13 Desteği ve Sensör Güvenlik Koruması)
+## [2026-07-24] - v6482 (VHAL ID Kararlılığı ve RPM Göstergesi)
+
+- **VHAL ID Yolsuzluğu Onarıldı:** `VehicleController` içerisinde `get-property-value` komutuna gönderilen ID'lerin AAOS standardına uygun olarak **Decimal** formatına çevrilmesi zorunlu kılındı. Ayrıca gelen yanıtların işlenmesinde Hex-Decimal karmaşasından kaynaklanan etiket (label) eşleşmeme sorunu giderildi.
+- **RPM Göstergesi Eklendi:** `OmodaDashboardScreen` üzerindeki hız kadranının altına anlık Motor Devri (RPM) verisi eklendi.
+- **TPMS Veri Akışı Restore Edildi:** `VehicleState` içerisindeki hardcoded (sabit) TPMS değerleri kaldırılarak, gerçek VHAL verilerine bağlandı ve `VehicleController` içerisinde TPMS mülklerinin işlenmesi sağlandı.
+- **Hatalı ID Dönüşüm Mantığı Düzeltildi:** Omoda'nın hex ID'lerinin (örn: 11600207) yanlışlıkla tekrar hex'e çevrilerek (`b10137`) bozulması engellendi.
+
+## [2026-07-24] - v6480 (Kritik VHAL ID Onarımları ve Sunucu IP Senkronizasyonu)
+
+- **Kritik VHAL ID Onarımı:** `ActionExecutor.kt` ve `OmodaTools.kt` içerisindeki `set-property-value` komutlarının hex ID (`0x...`) kullanması nedeniyle çalışmama sorunu giderildi. Tüm ID'ler AAOS standardı olan decimal formatına çevrildi. (Örn: 0x21401008 -> 557846536).
+- **Sunucu IP Senkronizasyonu:** Cihaz konfigürasyonundaki hatalı `serverIp` (`.3.14`) değeri, dokümantasyonla uyumlu olan `.1.14` ile güncellendi.
+- **MQTT Telemetri Yarış Durumu (Race Condition) Çözümü:** Uygulama açılışındaki 10 saniyelik kademeli başlatma nedeniyle `AssistantController`'ın MQTT publisher'ı kaçırması ve telemetri göndermemesi sorunu `updateConfig` mekanizmasına MQTT bridge yenileme eklenerek çözüldü. `VoiceAssistantService` artık MQTT bağlantı durumunu da dinliyor.
+- **Dokümantasyon Güncellemesi:** `SISTEM_CALISMA_MANTIGI.md` dosyasındaki VHAL combo property (`0x11e00d00`) ve decimal ID kullanımıyla ilgili bölümler güncel kod durumuyla senkronize edildi.
+
+## [2026-07-24] - v6478 (Live Edit Desteği ve Performans Optimizasyonları)
+
+- **Live Edit Aktivasyonu:** `gradle.properties` dosyasına Jetpack Compose için Live Edit (`android.live_edit.enabled=true`) ve incremental derleme (`kotlin.incremental=true`) bayrakları eklendi.
+- **Hızlı Geliştirme Katmanı:** `android.injected.testOnly=false` ayarı ile `Apply Changes` (CTRL+F10) mekanizmasının API 29 cihazlarda daha stabil çalışması sağlandı.
+
+## [2026-07-24] - v6474 (Simülasyon Modu Başlangıç Kilidi Kaldırıldı & GitHub Release)
+
+- **Simülasyon Modu Zorlaması Sıfırlandı:** `AssistantApplication.kt` içerisinde uygulama açılırken kaydedilmiş konfigürasyondan bağımsız olarak `GlobalState.isSimulationMode.value = false` olacak şekilde kilitlendi. Cihaz açıldığı anda araç VHAL okuması koşulsuz devreye girmektedir.
+- **GitHub OTA Yayınlandı:** `v6474` sürümü GitHub Releases ortamında yayınlandı (`Release ID: 359106747`).
+
+## [2026-07-24] - v6473 (ADB Akış Arabelleği Onarımı ve Reaktif Sensör İzleme Ekranı)
+
+- **ADB Socket Akış Arabelleği (Line Buffer Accumulator):** Cihazdaki VHAL `dumpsys` komutunun tek pakette gönderdiği çoklu satır çıktılarının ayrıştırılamaması sorunu `AdbClient.kt` dosyasına eklenen tampon işleyici (Line Buffer) ile çözüldü.
+- **Reaktif Sensör Ekranı Entegrasyonu:** `SensorMonitorScreen.kt` doğrudan `GlobalState.vehicleState` akışına bağlandı. Cihaz açıldığı anda gerçek VHAL sensör verileri ekranda otomatik olarak akmaktadır.
+- **Simülasyon Modu Temizliği:** `push_config.py` betiğindeki varsayılan `isSimulationMode: True` zorlaması `False` yapılarak cihazın simülasyon modunda takılı kalması engellendi.
+
+## [2026-07-24] - v6460 (Omoda5-ui-desing Jetpack Compose Port Entegrasyonu ve Ponytail Kuralları)
+
+- **Omoda5-ui-desing Jetpack Compose Portu:** `Omoda5-ui-desing` web tasarımındaki Dijital Hız Kadranı (Circular Speedometer Arc), Vites Seçim Düğmeleri (P, R, N, D), Sürüş Modları (ECO, NORMAL, SPORT), Hızlı Araç Kısayolları (360° Cam, Ambiyans, Hava Temizleyici), GPS Navigasyon ve Medya kartları `OmodaDashboardScreen.kt` bileşenine Jetpack Compose ile taşındı.
+- **Ponytail Prensipleri Uygulandı:** En yalın, doğrudan standart Jetpack Compose bileşenleri kullanılarak ekstra gereksiz abstraction'lar elendi, kod miktarı ve diff boyutu minimumda tutuldu.
+- **Ponytail Eklentisi Yüklendi:** `/home/cemal/.gemini/config/plugins/ponytail/` altına `ponytail` skill ve eklenti paketleri yerleştirildi.
+
 
 - **Omoda5-ui-desing Tema Portu:** `OmodaSlateBg` (`#020617`), `OmodaCyanNeon` (`#69E2D3`), Glassmorphism kartlar ve neon aksanlar Jetpack Compose mimarisine taşındı.
 - **Top Status Bar & Bottom Dock:** Reaktif üst durum çubuğu (`OmodaTopStatusBar`) ve alt hızlı erişim çubuğu (`OmodaBottomDock`) eklendi.
@@ -139,7 +174,7 @@
 *   **Odaklanma Desteği:** D-pad ve Rotary Controller cihazları için özel focus state (Border) UI'a dahil edildi. Metin boyutları araç kullanımına uygun olarak büyütüldü.
 
 ## Son Durum (UI Restoration: v6312 Standards)
-*   Sürüm 6464 (6464) - 23.07.2026 23:26
+*   Sürüm 6478 (6478) - 24.07.2026 15:11
 *   **Restorasyon:** Tüm UI bileşenleri 19.07.2026 08:00-12:00 (v6312) aralığındaki altın oranlara ve `UI_MANIFESTO.md` standartlarına geri döndürüldü.
 *   **HomeScreen:** Grid padding değerleri manifesto ile eşitlendi (end=80dp, bottom=80dp).
 *   **Dashboard:** Sidebar genişliği 235dp'ye sabitlendi ve akıllı split oranı (high speed) 0.65f olarak güncellendi.

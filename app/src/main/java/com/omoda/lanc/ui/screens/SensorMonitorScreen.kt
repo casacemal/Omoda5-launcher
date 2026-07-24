@@ -43,7 +43,8 @@ import com.omoda.lanc.ui.components.SafetyConfirmationDialog
 fun SensorMonitorScreen(onBack: () -> Unit) {
     androidx.activity.compose.BackHandler { onBack() }
     val context = androidx.compose.ui.platform.LocalContext.current
-    var vehicleState by remember { mutableStateOf(VehicleController.getInstance(context).getVehicleState()) }
+    val gVehicleState by GlobalState.vehicleState.collectAsState()
+    var vehicleState by remember(gVehicleState) { mutableStateOf(gVehicleState) }
     var lastUpdate by remember { mutableLongStateOf(System.currentTimeMillis()) }
     val isSimMode by GlobalState.isSimulationMode.collectAsState()
 

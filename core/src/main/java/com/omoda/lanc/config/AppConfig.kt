@@ -5,7 +5,7 @@ data class AppConfig(
     val hermesPort: String = "8642",
     val sttPort: String = "20128",
     val ttsPort: String = "20128",
-    val bridgeServerIp: String = "100.95.239.119",
+    val bridgeServerIp: String = "192.168.1.14",
     val bridgeType: String = "WYOMING", // WYOMING veya WHISPER
     val sttMode: String = "SHERPA",
     val ttsEngine: String = "SHERPA",

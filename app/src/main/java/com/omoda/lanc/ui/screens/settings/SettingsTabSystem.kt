@@ -126,7 +126,7 @@ fun TabSistemEnhanced(isCompact: Boolean) {
                             val cmds = listOf(
                                 "pm enable com.chery.hvac", 
                                 "am start -n com.chery.hvac/.view.activity.MainActivity",
-                                "dumpsys car_service set-property-value 0x15200505 0 1"
+                                "dumpsys car_service set-property-value 354419973 0 1"
                             )
                             cmds.forEach { exec(context, it) }
                         }, 

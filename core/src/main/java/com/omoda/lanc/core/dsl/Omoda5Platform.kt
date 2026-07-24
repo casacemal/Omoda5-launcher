@@ -124,19 +124,19 @@ val OmodaTools = toolRegistry {
         description = "Klima sıcaklığını ayarlar"
         parameter("temperature", ParamType.NUMBER, "Sıcaklık", true, 16.0, 28.0)
         offlinePhrases("dereceyi {temperature} yap")
-        onExecute { args -> "dumpsys car_service set-property-value 21401008 1 ${args["temperature"]}" }
+        onExecute { args -> "dumpsys car_service set-property-value 557846536 1 ${args["temperature"]}" }
     }
 
     tool("hvac_on") {
         description = "Klimayı açar"
         offlinePhrases("klimayı aç", "soğutmayı başlat")
-        onExecute { "dumpsys car_service set-property-value 21401002 0 1 ; am start -n com.chery.hvac/.view.activity.MainActivity" }
+        onExecute { "dumpsys car_service set-property-value 557846530 0 1 ; am start -n com.chery.hvac/.view.activity.MainActivity" }
     }
 
     tool("hvac_off") {
         description = "Klimayı kapatır"
         offlinePhrases("klimayı kapat", "soğutmayı durdur")
-        onExecute { "dumpsys car_service set-property-value 21401002 0 0" }
+        onExecute { "dumpsys car_service set-property-value 557846530 0 0" }
     }
 
     tool("media_control") {
@@ -154,12 +154,12 @@ val OmodaTools = toolRegistry {
     tool("open_windows") {
         description = "Camları açar"
         offlinePhrases("camları aç", "camı aç")
-        onExecute { "dumpsys car_service set-property-value 0x13400bc0 15 100" }
+        onExecute { "dumpsys car_service set-property-value 322964416 15 100" }
     }
 
     tool("close_windows") {
         description = "Camları kapatır"
         offlinePhrases("camları kapat", "camı kapat")
-        onExecute { "dumpsys car_service set-property-value 0x13400bc0 15 0" }
+        onExecute { "dumpsys car_service set-property-value 322964416 15 0" }
     }
 }

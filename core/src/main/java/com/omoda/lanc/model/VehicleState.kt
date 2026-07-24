@@ -46,6 +46,11 @@ data class VehicleState(
     val seatOccupancy: Int = 0,
     val windowPosition: Int = 0,
     val doorLocks: Int = 0,
+    // TPMS
+    val tpmsFL: Float = 0f,
+    val tpmsFR: Float = 0f,
+    val tpmsRL: Float = 0f,
+    val tpmsRR: Float = 0f,
     // Yeni Eklenen Güvenli Read-Only Sensörler
     val engineCoolantTemp: Float = 0f,
     val engineOilTemp: Float = 0f,
@@ -57,10 +62,10 @@ data class VehicleState(
     val coolantTemp: Float get() = if (engineCoolantTemp > 0f) engineCoolantTemp else 90f
     val oilTemp: Float get() = if (engineOilTemp > 0f) engineOilTemp else 95f
     val range: Float get() = rangeKm
-    val tpmsFrontLeft: String? get() = "2.3"
-    val tpmsFrontRight: String? get() = "2.3"
-    val tpmsRearLeft: String? get() = "2.2"
-    val tpmsRearRight: String? get() = "2.2"
+    val tpmsFrontLeft: String get() = if (tpmsFL > 0) "%.1f".format(tpmsFL) else "2.3"
+    val tpmsFrontRight: String get() = if (tpmsFR > 0) "%.1f".format(tpmsFR) else "2.3"
+    val tpmsRearLeft: String get() = if (tpmsRL > 0) "%.1f".format(tpmsRL) else "2.2"
+    val tpmsRearRight: String get() = if (tpmsRR > 0) "%.1f".format(tpmsRR) else "2.2"
     val doorOpenString: String get() {
         if (!anyDoorOpen) return "Tümü Kapalı"
         val doors = mutableListOf<String>()

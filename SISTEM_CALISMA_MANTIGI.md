@@ -6,7 +6,7 @@ Bu dosya, projenin teknik mimarisini, veri akışlarını ve karar mekanizmalar�
 Sistem, Android Automotive OS (AAOS 10) üzerinde **Event-Driven (Olay Güdümlü)** ve **Merkezi Kontrol** prensipleriyle çalışır.
 
 *   **Merkezi Event Bus:** Tüm modüller (Ses, Araç, UI) birbiriyle `EventBus.kt` üzerinden haberleşir.
-*   **Tek IP Mimarisi:** Tüm dış servisler (AI, STT, TTS, MQTT) `100.95.239.119` adresi üzerinden farklı portlarla sunulur.
+*   **Karma IP Mimarisi:** MQTT, Bridge ve Hermes servisleri `192.168.1.14` adresi üzerinden farklı portlarla sunulur. Diğer servisler kendi IP'lerini kullanır.
 *   **Güvenlik Duvarı (Command Firewall):** AI'dan gelen tüm araç komutları fiziksel eyleme dönüşmeden önce güvenlik ve hız sınırlarından geçer.
 
 ## 2. Sesli Asistan İş Akışı (Voice Pipeline)
@@ -25,7 +25,7 @@ Bir sesli komut şu aşamalardan geçer:
 ## 3. Araç Veri Akışı (Telemetri)
 1.  **Veri Toplama (`VehicleController`):** `dumpsys car_service get-property-value <decimalId> <zone>` komutu AdbClient üzerinden çalıştırılır. **KRİTİK KURAL:** `car_service` hex string (`0x...`) kabul ETMEZ, ID'ler `.toLong(16)` ile decimal'e çevrilmelidir.
 2.  **Dağıtım (`EventBus`):** Okunan her veri `VehicleEvent.StateUpdated` olarak tüm sisteme yayılır.
-3.  **Dışa Aktarım (`MqttPublisher`):** `MqttTelemetryBridge` bu eventleri yakalayarak `100.95.239.119:1883` broker'ına `omoda/telemetri` konusuyla iletir.
+3.  **Dışa Aktarım (`MqttPublisher`):** `MqttTelemetryBridge` bu eventleri yakalayarak `192.168.1.14:1883` broker'ına `omoda/telemetri` konusuyla iletir.
 4.  **AI Bağlamı:** `AgentManager` bu verileri kullanarak LLM'e aracın anlık durumunu (Hız, konum, klima) "Context" olarak fısıldar.
 
 ### 3a. Doğrulanmış VHAL Property Haritası (21.07.2026 Cihaz Testi)
@@ -66,20 +66,17 @@ Sistemde ses önceliği hiyerarşisi vardır:
 Cihazda hız ve devir ayrı property'lerde değil, tek bir büyük `floatValues[]` dizisinde geliyor:
 - `floatValues[0]` = Hız (m/s) → km/h için × 3.6
 - `floatValues[8]` = Motor devri (RPM)
-- `floatValues[9]` = Direksiyon açısı
-- `floatValues[12]` = Dış hava sıcaklığı
-- `floatValues[43]` = Şarj akımı (EV)
-- `floatValues[44]` = Menzil km
+- `floatValues[9]` = Vites (PRND)
 
-> **NOT:** `VehicleController.parseLine()` bu combo property'yi henüz ayrıştırmıyor. Hız ve devir için ayrı parser eklenmeli.
+> **NOT:** `VehicleController.applyValue()` bu combo property'yi başarıyla ayrıştırıyor ve "HIZ", "DEVİR", "VİTES" anahtarlarını toplu olarak güncelliyor.
 
 ### 6c. `open_windows` / `close_windows` Araç Komutları
-`OmadaTools`'da cam komutları hâlâ hex format kullanıyor (`0x13400bc0`). Bu komutlar çalışmaz, decimal'e çevrilmeli:
+`OmadaTools` ve `ActionExecutor` artık doğru decimal ID'leri kullanıyor. AAOS `set-property-value` komutu kesinlikle decimal ID gerektirir:
 ```
 # Yanlış:
 dumpsys car_service set-property-value 0x13400bc0 15 100
-# Doğru:
-dumpsys car_service set-property-value 324536256 15 100
+# Doğru (0x13400bc0 -> 322964416):
+dumpsys car_service set-property-value 322964416 15 100
 ```
 
 ### 6d. SensorMonitorScreen EventBus Bağlantısı

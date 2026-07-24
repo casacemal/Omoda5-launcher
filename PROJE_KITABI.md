@@ -14,7 +14,7 @@ Bu doküman; Omoda 5 Android Automotive OS (AAOS 10) ve Mobil Çift Platformlu A
 | **Mevcut Sürüm** | `v6447` (Sürüm Kodu: `6447`) |
 | **Doküman Sürümü** | `4.0.0` (Master Ansiklopedi & AI Context Rehberi) |
 | **Son Güncelleme** | 23.07.2026 |
-| **Ana Sunucu IP** | `192.168.1.14` (Yerel Ağ) / `100.95.239.119` (Tailscale VPN) |
+| **Ana Sunucu IP** | `192.168.1.14` (Yerel Ağ) |
 | **Mimarisi** | Architecture 2.0 (7-Katmanlı Event-Driven Reaktif Yapı) |
 
 ---
@@ -93,7 +93,7 @@ Proje, modülerliği ve ölçeklenebilirliği korumak adına 7 katmana ayrılmı
 
 ### 2.4. Telemetri Katmanı (MQTT & Context Engine)
 - **Ana Dosyalar:** `core/.../MqttPublisher.kt`, `core/.../MqttTelemetryBridge.kt`
-- **Broker Adresi:** `100.95.239.119:1883` (Konu: `omoda/telemetri`)
+- **Broker Adresi:** `192.168.1.14:1883` (Konu: `omoda/telemetri`)
 - **Çalışma Prensibi:** `EventBus` üzerindeki `VehicleEvent` olaylarını dinler ve veriyi Asenkron `CoroutineScope(Dispatchers.IO)` içinde JSON formatında broker'a basar. REST tabanlı telemetri tamamen kaldırılmıştır.
 
 ### 2.5. Yapay Zeka ve Ses Katmanı (AI Pipeline & Audio Engine)
@@ -119,9 +119,10 @@ Proje, modülerliği ve ölçeklenebilirliği korumak adına 7 katmana ayrılmı
 
 ## 3. AĞ DOKUSU VE SERVİS PORT MATRİSİ 🌐
 
-Sistem **"Tek IP / Çoklu Port Mimarisi"** ile çalışır. Tüm dış servisler sunucu IP'si üzerinden hizmet verir:
+Sistem **"Karma IP / Çoklu Port Mimarisi"** ile çalışır. MQTT, Bridge ve Hermes servisleri ana sunucu IP'si üzerinden hizmet verirken; Edge TTS ve Groq gibi servisler kendi özel IP adreslerini kullanır:
 
-- **Sunucu IP:** `192.168.1.14` (Yerel Ağ) / `100.95.239.119` (Tailscale)
+- **Ana Sunucu IP (MQTT, Bridge, Hermes):** `192.168.1.14` (Yerel Ağ)
+- **Özel Servis IP'leri:** Edge TTS ve Groq servisleri kendi bağımsız IP adresleri üzerinden erişilmektedir.
 
 | Servis Adı | Port | Protokol | Görevi / Açıklama |
 | :--- | :---: | :---: | :--- |
@@ -147,7 +148,7 @@ Aşağıdaki maddeler projede geçmişte yaşanmış, kök nedeni tespit edilmi�
 
 | No | Alan | Hatalı Davranış (YASAK ❌) | Doğru Çözüm & Standart (KURAL ✅) |
 | :-: | :--- | :--- | :--- |
-| **1** | **VHAL Dumpsys** | Hex ID (`0x11600207`) ile `dumpsys car_service` komutu atmak. | ID'yi `.toLong(16)` ile **Decimal**'e çevirip (`291504647`) göndermek. |
+| **1** | **VHAL Dumpsys** | Prefix'li Hex (`0x11600207`) veya Decimal (`291504647`) kullanmak. | `dumpsys car_service get-property-value` komutuna `0x`'siz temiz Hex ID (`11600207`) vermek. |
 | **2** | **ActivityView UI** | Harita/SurfaceView pencerelerini `Modifier.offset(10000.dp)` ile gizlemek. | `Modifier.alpha(0f)` ve `graphicsLayer(scaleX=0.001f, scaleY=0.001f)` kullanmak. |
 | **3** | **Python Tkinter** | `aes_app/main.py` içinde font weight için `weight="black"` kullanmak. | Linux X11 çökmesini önlemek için yalnızca `weight="bold"` veya `"normal"` kullanmak. |
 | **4** | **Bulut API** | Groq, OpenAI Cloud veya harici bulut API'lerine doğrudan bağlanmaya çalışmak. | Tüm AI ve ses işlemlerini `192.168.1.14` yerel portları üzerinden yürütmek. |
@@ -156,7 +157,7 @@ Aşağıdaki maddeler projede geçmişte yaşanmış, kök nedeni tespit edilmi�
 | **7** | **Audio Focus** | Araçta müzik çalarken asistan sesini doğrudan oynatmak. | Chery teybini ducking yapmak için Android `AudioFocusRequest` mimarisini kullanmak. |
 | **8** | **UI Polling** | UI ekranlarında saniyede bir timer kurup veri sorgulamak. | Verileri `GlobalState` veya `EventBus` üzerinden `collectAsState()` ile reaktif dinlemek. |
 | **9** | **Firewall Log** | Engellenen komutu sessizce yutmak. | Logcat'e detay yazmak ve `UIEvent.UpdateOverlayState` ile ekrana şeffaf uyarı yansıtmak. |
-| **10** | **Simülasyon** | Simülasyon modunu kapatmayı zorlaştırıcı `if` blokları eklemek. | `AssistantApplication` içindeki zorlayıcı blokları kaldırıp tek kilit kullanmak. |
+| **10** | **Simülasyon Modu Kalıcılığı** | `app_config.json` veya konfigürasyondaki `isSimulationMode` değerine güvenip `AssistantApplication` içinde `GlobalState.isSimulationMode.value = config.isSimulationMode` ataması yapmak (Eski JSON dosyasında `true` kaldığı için cihaz simülasyonda kilitlenir). | `AssistantApplication` açılışında `GlobalState.isSimulationMode.value = false` olarak **koşulsuz kapalı** başlatmak. Simülasyon modunu yalnızca yerel UI ayarlarından manuel açık yapılır. |
 
 ---
 
@@ -283,6 +284,18 @@ Projedeki 530+ VHAL araç sensörü risk seviyelerine göre gruplandırılmış 
 3. **Gelişmiş Mağaza & Güncelleme Arayüzü (`AppStoreSection.kt`):**
    - Ekranın en üstünde "Mevcut Yüklü Sürüm" ile "En Son Çevrimiçi Sürüm" durumu karşılaştırılır.
    - Sürüm kartlarında GitHub Release açıklama metinleri ("Değişiklik Notları") ve indirilmiş APK'lar için "KUR (INSTALL)" hazır rozetleri gösterilir.
+
+---
+
+## 7.7. APP_CONFIG.JSON VE SİMÜLASYON MODU KALICILIK PROTOKOLÜ 🔒
+
+1. **Sorun / Kök Neden:**
+   Android cihazlarda konfigürasyon verileri `/data/data/com.omoda.lanc/files/app_config.json` dosyasına yazılır. Eğer cihaz üzerindeki dosyaya önceden `"isSimulationMode": true` yazılmışsa, `push_config.py` betiğinde veya varsayılan Kotlin sınıflarında `false` yapılsa dahi uygulama başlatılırken diskteki JSON okunarak simülasyon modu tekrar `true` olarak ezilir.
+
+2. **Kesin Mühürlü Çözüm:**
+   - `AssistantApplication.kt` sınıfının `onCreate()` yaşam döngüsünde, JSON dosyası ne okursa okusun `GlobalState.isSimulationMode.value = false` olarak **koşulsuz kapalı** başlatılır.
+   - `push_config.py` betiğinde `"isSimulationMode": False` alanı sabittir.
+   - Simülasyon modu yalnızca kullanıcı yerel UI ayarlarından manuel olarak değiştirdiğinde geçici olarak aktif hale gelebilir.
 
 ---
 

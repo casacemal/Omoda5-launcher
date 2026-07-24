@@ -141,7 +141,8 @@ class VoiceAssistantService : Service() {
                         GlobalState.sttPort,
                         GlobalState.ttsPort,
                         GlobalState.bridgeType,
-                        GlobalState.isRadioMode
+                        GlobalState.isRadioMode,
+                        GlobalState.isMqttConnected
                     )
                 ) { _ -> Unit }
                     .distinctUntilChanged()

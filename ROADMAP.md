@@ -8,7 +8,7 @@
 - [x] OTA Güncelleme Sistemi
 
 ## Faz 13: Ağ ve Servis Konsolidasyonu (GÜNCELLENDİ)
-- [x] **Tek IP Mimarisi:** Tüm servisler `100.95.239.119` adresine taşındı.
+- [x] **Karma IP Mimarisi:** MQTT, Bridge ve Hermes servisleri `192.168.1.14` adresine konsolide edildi; Edge TTS ve Groq bağımsız IP'lerde bırakıldı.
 - [x] **Bulut Bağımlılığı Temizliği:** Groq sistemden kaldırıldı. Edge TTS yerel sunucuya (10201) taşındı.
 - [x] **Port Yönetimi:** 20128 (API) ve 1883 (MQTT) portları standartlaştırıldı.
 - [x] **Kalıcı Ayarlar:** Sunucu IP adresinin kaydedilmesi ve yüklenmesi stabil hale getirildi.
@@ -59,5 +59,7 @@
 - [x] **UI Restorasyonu:** Tüm arayüz v6312 (19.07.2026 08:00-12:00) standartlarına ve manifesto kurallarına geri döndürüldü.
 - [x] **AAOS UI Refactor:** Settings ve Monitor alt ekranları 64dp Touch Target ve Focus (Rotary) desteğine kavuşturuldu.
 - [x] **VHAL Motor Verileri UI Fix:** `VehicleController` verileri çoklu anahtar (Hex ID, Etiket, Kısaltmalar) ile haritalayacak şekilde güncellendi, widget'larda veri görünmeme sorunu çözüldü.
+- [x] **VHAL Get/Set-Property Fix:** Tüm araç sorgulama ve komut ID'leri AAOS uyumlu decimal formatına taşındı.
+- [x] **Dashboard Motor Verileri:** Ana ekrana RPM verisi eklendi ve TPMS veri akışı gerçek sensörlere bağlandı.
 - [x] **Teknik Ansiklopedi (Proje Kitabı):** Sistemin tüm katmanlarını, veri standartlarını ve geçmiş hata çözümlerini içeren kapsamlı `PROJE_KITABI.md` oluşturuldu.
 - [x] **Mimari Sadeleştirme:** Gereksiz Köprü (Bridge) katmanı temizlendi, sunucu hatasında otomatik yerel fallback mekanizması kuruldu.

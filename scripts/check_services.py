@@ -3,7 +3,7 @@ import json
 import os
 import time
 
-SERVER_IP = "100.95.239.119"
+SERVER_IP = "192.168.1.14"
 PORT = "20128"
 BASE_URL = f"http://{SERVER_IP}:{PORT}/v1"
 NINEROUTER_API_KEY = "sk-b6f4d3879cc4a442-vwd4xl-8ad79a58"

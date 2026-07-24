@@ -67,13 +67,12 @@ Omoda5 aracinda ana launcher olarak calisir. Kullaniciya media kontrol, AI asist
 ### RQ-006: Gateway Baglantisi
 - **Priority:** critical
 - **Status:** approved
-- 9Router (192.168.1.14:20128) veya Tailscale (100.95.239.119)
+- 9Router (192.168.1.14:20128)
 
 #### Scenario: Gateway erisimi
 - **GIVEN** uygulama aga bagli
 - **WHEN** AI istegi yapilir
-- **THEN** once LAN IP'ye (192.168.1.14:20128) baglanilir
-- **AND** failover olarak Tailscale (100.95.239.119:20128) kullanilir
+- **THEN** LAN IP'ye (192.168.1.14:20128) baglanilir
 
 ### RQ-007: Multi-Modul Mimari
 - **Priority:** high

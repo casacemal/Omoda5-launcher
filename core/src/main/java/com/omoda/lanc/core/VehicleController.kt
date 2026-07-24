@@ -82,7 +82,12 @@ class VehicleController(private val context: Context) {
             "11200305" to PropertyDef("Motor Soğutma Suyu (Hararet)", 5),
             "11400b02" to PropertyDef("ABS Durumu", 2),
             "11400b03" to PropertyDef("Çekiş Kontrolü (ESP/TCS)", 2),
-            "11400b00" to PropertyDef("Sinyal Kolu Durumu", 2)
+            "11400b00" to PropertyDef("Sinyal Kolu Durumu", 2),
+            // TPMS
+            "21403042" to PropertyDef("FL Lastik", 10),
+            "21403043" to PropertyDef("FR Lastik", 10),
+            "21403044" to PropertyDef("RL Lastik", 10),
+            "21403045" to PropertyDef("RR Lastik", 10)
         )
     }
 
@@ -135,14 +140,14 @@ class VehicleController(private val context: Context) {
             if (validProps.isEmpty()) return
             
             val command = validProps.joinToString(" ; ") { id ->
-                // KRİTİK: "0x" prefix'siz hex string → "11600207"  (decimal değil, 0x prefix'i de yok)
+                // KRİTİK: AAOS get-property-value komutu kesinlikle DECIMAL ID ister.
                 val cleanId = id.replace("0x", "")
+                val decimalId = cleanId.toLongOrNull(16) ?: 0L
                 val zone = when (cleanId) {
                     "16200b02", "1540050b", "15400513" -> "1"
                     "13400bc0" -> "65536"
                     else -> "0"
                 }
-                val decimalId = cleanId.toLong(16)
                 "dumpsys car_service get-property-value $decimalId $zone"
             }
             AdbClient.executeCommand(command) { line -> parseAndApplyLine(line) }
@@ -156,9 +161,15 @@ class VehicleController(private val context: Context) {
         val idMatch = Regex("(?i)Property:(?:0x)?([0-9a-fA-F]+)").find(line)
         var propId = idMatch?.groupValues?.get(1)?.lowercase() ?: return
         
-        // AAOS dumpsys sometimes returns decimal property IDs. Convert back to hex string.
-        if (propId.all { it.isDigit() }) {
-            propId = propId.toLongOrNull()?.toString(16) ?: propId
+        // Eğer propId decimal gelmişse (nadir), hex'e çevir ki PROPERTY_DEFINITIONS ile eşleşsin.
+        if (!PROPERTY_DEFINITIONS.containsKey(propId) && propId.all { it.isDigit() }) {
+            val decimalVal = propId.toLongOrNull()
+            if (decimalVal != null) {
+                val hexVal = decimalVal.toString(16).lowercase()
+                if (PROPERTY_DEFINITIONS.containsKey(hexVal)) {
+                    propId = hexVal
+                }
+            }
         }
         
         val value = extractValue(line)
@@ -283,6 +294,10 @@ class VehicleController(private val context: Context) {
             "11400b02" -> { val abs = (value.toIntOrNull() ?: 0) > 0; displayValue = if (abs) "AKTİF" else "PASİF"; next = next.copy(absActive = abs) }
             "11400b03" -> { val tcs = (value.toIntOrNull() ?: 0) > 0; displayValue = if (tcs) "AKTİF" else "PASİF"; next = next.copy(tractionControlActive = tcs) }
             "11400b00" -> { val sig = value.toIntOrNull() ?: 0; displayValue = when(sig) { 1 -> "SAĞ"; 2 -> "SOL"; 4 -> "DÖORTLÜ"; else -> "KAPALI" }; next = next.copy(turnSignalState = sig) }
+            "21403042" -> { val p = (value.toFloatOrNull() ?: 0f) / 100f; displayValue = "%.1f bar".format(p); next = next.copy(tpmsFL = p) }
+            "21403043" -> { val p = (value.toFloatOrNull() ?: 0f) / 100f; displayValue = "%.1f bar".format(p); next = next.copy(tpmsFR = p) }
+            "21403044" -> { val p = (value.toFloatOrNull() ?: 0f) / 100f; displayValue = "%.1f bar".format(p); next = next.copy(tpmsRL = p) }
+            "21403045" -> { val p = (value.toFloatOrNull() ?: 0f) / 100f; displayValue = "%.1f bar".format(p); next = next.copy(tpmsRR = p) }
         }
             } catch (e: Exception) {
                 Log.e(TAG, "Değer dönüştürme hatası: ${e.message}")

@@ -32,18 +32,26 @@ object PairingManager {
 
     fun init(context: Context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        // Generate code on first launch - Default to OMODA5 for Auto-Pairing
+        // Generate code on first launch - Default to OMODA5 for Auto-Pairing, but allow persistence
         if (prefs?.getString(KEY_PAIRING_CODE, "")?.isBlank() == true) {
             prefs?.edit()?.putString(KEY_PAIRING_CODE, "OMODA5")?.apply()
         }
+        cachedCode = prefs?.getString(KEY_PAIRING_CODE, "OMODA5")
     }
 
     fun getCode(): String {
-        return "OMODA5"
+        return cachedCode ?: prefs?.getString(KEY_PAIRING_CODE, "OMODA5") ?: "OMODA5"
     }
 
     fun regenerateCode(): String {
-        return "OMODA5"
+        val chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // O, I, 0, 1 removed for clarity
+        val newCode = (1..CODE_LENGTH)
+            .map { chars[secureRandom.nextInt(chars.length)] }
+            .joinToString("")
+        
+        prefs?.edit()?.putString(KEY_PAIRING_CODE, newCode)?.apply()
+        cachedCode = newCode
+        return newCode
     }
 
     /**

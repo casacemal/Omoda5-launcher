@@ -37,8 +37,8 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
 *   **Sabit Katman Mimarisi Kuralı:** Sistem; Hardware/VHAL, Yürütme/ADB, Reaktif Merkez/EventBus, Telemetri/MQTT, Yapay Zeka/Hermes, UI/Overlay ve PC Simülasyon olmak üzere 7 sabit katmandan oluşur. Tüm yeni revizyonlar ve özellikler KESİNLİKLE bu katmanlardan birine entegre edilecektir. Sisteme yeni bir mimari katman eklenmesi YASAKTIR. (Architecture 2.0 ile bu katmanlar DSL üzerinden yönetilmektedir).
 
 *   **UI & SES Koruma:** Ana ekran 5x2 grid yapısı, 235dp sidebar boşluğu ve 16kHz Mono ses kayıt standartları `UI_MANIFESTO.md` kurallarına göre korunmalıdır. Değiştirilemez.
-*   **Tek IP / Çoklu Port Mimarisi:** Projede tüm dış servisler TEK BİR IP adresi üzerinden sunulur. Farklı hizmetler sadece port numaraları ile ayırt edilir.
-*   **Sabit Sunucu Adresi:** `100.95.239.119` (Tailscale) / `192.168.1.14` (Yerel Ağ)
+*   **Karma IP / Çoklu Port Mimarisi:** Projede MQTT, Bridge ve Hermes servisleri tek bir ana IP adresi (192.168.1.14) üzerinden sunulur. Edge TTS ve Groq gibi servisler ise kendi bağımsız sunucu IP'lerine sahiptir. Her servis port numaraları ile ayrıştırılmaya devam edilir.
+*   **Sabit Sunucu Adresi:** `192.168.1.14` (Yerel Ağ)
 *   **Doğrulanmış Servis ve Yetki Haritası (04.07.2026 Test Sonucu):**
     *   **Hermes API (8642):** 
         *   Görev: Chat Completions (SSE), Session yönetimi.
@@ -83,7 +83,7 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
     *   Host: `192.168.1.14`
     *   User: `dietpi` (40781)
     *   Password: `40781`
-*   **Servis Kısıtlamaları:** Groq veya diğer harici doğrudan bulut API'leri KESİNLİKLE kullanılmayacaktır. Tüm yapay zeka ve ses işlemleri `100.95.239.119:8642` ve diğer yerel portlar üzerinden yürütülecektir. TTS olarak yalnızca yerel Edge TTS sunucusu (Port `10201`) kullanılacaktır.
+*   **Servis Kısıtlamaları:** Groq veya diğer harici doğrudan bulut API'leri KESİNLİKLE kullanılmayacaktır. Tüm yapay zeka ve ses işlemleri `192.168.1.14:8642` ve diğer yerel portlar üzerinden yürütülecektir. TTS olarak yalnızca yerel Edge TTS sunucusu (Port `10201`) kullanılacaktır.
 *   **Linux/Tkinter UI Kısıtlamaları (VHAL AES):** Python CustomTkinter kütüphanesinde (main.py vb.) font ağırlığı olarak KESİNLİKLE `weight="black"` KULLANILMAMALIDIR. Linux X11 ortamı bunu desteklemediğinden `_tkinter.TclError` ile uygulamanın çökmesine neden olur. Yalnızca `weight="bold"` veya `weight="normal"` kullanılacaktır.
 
 ## Kod İnceleme Protokolü

@@ -81,14 +81,28 @@ object AdbClient {
 
             if (openResp.cmd == A_OKAY) {
                 val remoteId = openResp.arg0
+                val sb = StringBuilder()
                 while (true) {
                     val pkt = readAdbPacket(ins)
                     if (pkt.cmd == A_WRTE) {
                         sendAdbPacket(out, A_OKAY, localId, remoteId, null)
-                        pkt.data?.let { onLine(String(it).trim()) }
+                        pkt.data?.let {
+                            sb.append(String(it))
+                            var lineEnd: Int
+                            while (sb.indexOf("\n").also { lineEnd = it } >= 0) {
+                                val singleLine = sb.substring(0, lineEnd).trim()
+                                sb.delete(0, lineEnd + 1)
+                                if (singleLine.isNotBlank()) {
+                                    onLine(singleLine)
+                                }
+                            }
+                        }
                     } else if (pkt.cmd == A_CLSE) {
                         break
                     }
+                }
+                if (sb.isNotBlank()) {
+                    onLine(sb.toString().trim())
                 }
                 return true
             }
@@ -110,8 +124,8 @@ object AdbClient {
     @Volatile private var isSuAvailable: Boolean? = null
 
     private fun runtimeFallback(cmd: String, onLine: (String) -> Unit) {
+        var proc: Process? = null
         try {
-            var proc: Process? = null
             if (isSuAvailable != false) {
                 try {
                     // Telefonlarda Magisk vb. üzerinden root yetkisi iste
@@ -125,14 +139,18 @@ object AdbClient {
             } else {
                 proc = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
             }
-            val reader = BufferedReader(InputStreamReader(proc!!.inputStream))
-            var line: String?
-            while (reader.readLine().also { line = it } != null) {
-                line?.let { onLine(it) }
+            
+            proc?.inputStream?.bufferedReader()?.use { reader ->
+                var line: String?
+                while (reader.readLine().also { line = it } != null) {
+                    line?.let { onLine(it) }
+                }
             }
-            proc.waitFor()
+            proc?.waitFor()
         } catch (e: Exception) {
             Log.e(TAG, "Runtime Fallback Hatası: ${e.message}")
+        } finally {
+            proc?.destroy()
         }
     }
 
