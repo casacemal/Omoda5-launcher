@@ -51,6 +51,13 @@ data class VehicleState(
     val tpmsFR: Float = 0f,
     val tpmsRL: Float = 0f,
     val tpmsRR: Float = 0f,
+    // Trip Info
+    val tripDistance: Float = 0f, // km
+    val tripDuration: Long = 0,   // seconds
+    // Radio & RDS
+    val radioFrequency: Float = 0f,
+    val radioStationName: String = "",
+    val radioText: String = "",
     // Yeni Eklenen Güvenli Read-Only Sensörler
     val engineCoolantTemp: Float = 0f,
     val engineOilTemp: Float = 0f,

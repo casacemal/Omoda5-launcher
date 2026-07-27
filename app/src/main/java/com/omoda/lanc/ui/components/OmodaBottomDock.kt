@@ -29,7 +29,7 @@ fun OmodaBottomDock(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        color = OmodaSlateBg.copy(alpha = 0.95f),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
         border = BorderStroke(1.dp, OmodaGlassCardBorder),
         modifier = modifier
             .fillMaxWidth()
@@ -54,7 +54,7 @@ fun OmodaBottomDock(
                     onClick = { onTempChange((driverTemp - 0.5f).coerceAtLeast(16f)) },
                     modifier = Modifier.size(32.dp)
                 ) {
-                    Text("-", color = OmodaCyanNeon, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    Text("-", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 }
 
                 Row(
@@ -64,7 +64,7 @@ fun OmodaBottomDock(
                     Icon(
                         imageVector = Icons.Default.Refresh,
                         contentDescription = "Klima",
-                        tint = OmodaCyanNeon,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(Modifier.width(6.dp))
@@ -80,13 +80,13 @@ fun OmodaBottomDock(
                     onClick = { onTempChange((driverTemp + 0.5f).coerceAtMost(30f)) },
                     modifier = Modifier.size(32.dp)
                 ) {
-                    Text("+", color = OmodaCyanNeon, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                    Text("+", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 }
             }
 
             // Orta: Ana Dokunmatik Navigasyon Butonları
             Row(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(24.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 DockNavItem(
@@ -138,12 +138,12 @@ fun OmodaBottomDock(
                 modifier = Modifier
                     .size(44.dp)
                     .clip(CircleShape)
-                    .background(if (currentTab == "settings") OmodaCyanNeon.copy(0.2f) else Color.White.copy(0.06f))
+                    .background(if (currentTab == "settings") MaterialTheme.colorScheme.primary.copy(0.2f) else Color.White.copy(0.06f))
             ) {
                 Icon(
                     imageVector = Icons.Default.Settings,
                     contentDescription = "Ayarlar",
-                    tint = if (currentTab == "settings") OmodaCyanNeon else Color.White,
+                    tint = if (currentTab == "settings") MaterialTheme.colorScheme.primary else Color.White,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -161,9 +161,9 @@ private fun DockNavItem(
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(if (isSelected) OmodaCyanNeon.copy(alpha = 0.2f) else Color.Transparent)
+            .background(if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f) else Color.Transparent)
             .clickable { onClick() }
-            .padding(horizontal = 14.dp, vertical = 8.dp),
+            .padding(horizontal = 22.dp, vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -173,8 +173,8 @@ private fun DockNavItem(
             Icon(
                 imageVector = icon,
                 contentDescription = label,
-                tint = if (isSelected) OmodaCyanNeon else Color.White.copy(0.7f),
-                modifier = Modifier.size(24.dp)
+                tint = if (isSelected) MaterialTheme.colorScheme.primary else Color.White.copy(0.7f),
+                modifier = Modifier.size(32.dp)
             )
         }
     }

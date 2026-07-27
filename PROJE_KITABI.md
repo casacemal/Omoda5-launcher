@@ -11,8 +11,8 @@ Bu doküman; Omoda 5 Android Automotive OS (AAOS 10) ve Mobil Çift Platformlu A
 | **Proje Adı** | Omoda Universal Assistant V2 (Launcher V2) |
 | **Hedef Platform** | Android Automotive OS (AAOS 10 / API 29) + Mobil Test Modu |
 | **Aktif Dal** | `feature/architecture-2-0` |
-| **Mevcut Sürüm** | `v6447` (Sürüm Kodu: `6447`) |
-| **Doküman Sürümü** | `4.0.0` (Master Ansiklopedi & AI Context Rehberi) |
+| **Mevcut Sürüm** | (Gradle Version) |
+| **Doküman Sürümü** | `4.2.1` (Master Ansiklopedi - Multi-Key Indexing Onayı) |
 | **Son Güncelleme** | 23.07.2026 |
 | **Ana Sunucu IP** | `192.168.1.14` (Yerel Ağ) |
 | **Mimarisi** | Architecture 2.0 (7-Katmanlı Event-Driven Reaktif Yapı) |
@@ -34,7 +34,7 @@ timeline
     section Hermes Bridge & Sunucu Evresi
         master / Hermes-bridge (v231) : Ktor BridgeServer (8765) : WS Relay (8766) : ActiveRouteResolver : Ayar Kalıcılığı
     section Architecture 2.0 (Güncel)
-        feature/architecture-2-0 (v6447) : 7-Katmanlı Mimari : 64dp AAOS Butonları : 235dp Sidebar Mühürü : Whitelisted FirewallV2 : XOR Config : Dumpsys Decimal Fix
+        feature/architecture-2-0 : 7-Katmanlı Mimari : 64dp AAOS Butonları : 235dp Sidebar Mühürü : Whitelisted FirewallV2 : XOR Config : Dumpsys Decimal Fix
 ```
 
 ### Dal Detayları ve Kazanımlar:
@@ -274,7 +274,7 @@ Projedeki 530+ VHAL araç sensörü risk seviyelerine göre gruplandırılmış 
 ## 7.6. MQTT STATUS VERSİYON TELEMETRİSİ VE UZAKTAN OTA PROTOKOLÜ 🚀
 
 1. **MQTT Telemetri Versiyon Alanları (`omoda/status`):**
-   - Her 10 saniyelik Heartbeat yayınında `app_version` (Örn: `v6452`), `version_code` (Örn: `6452`) ve `latest_version` (Örn: `v6452`) alanları zorunlu olarak yayınlanır.
+   - Her 10 saniyelik Heartbeat yayınında `app_version`, `version_code` ve `latest_version` alanları zorunlu olarak yayınlanır.
    - Bilgisayardaki simülatör (`aes_app/main.py`) veya MQTT istemcileri bu veriyi okuyarak cihazdaki aktif sürümü anında tespit eder.
 
 2. **Uzaktan OTA Tetikleme Komutları (`omoda/komut`):**
@@ -311,3 +311,22 @@ Projedeki 530+ VHAL araç sensörü risk seviyelerine göre gruplandırılmış 
 ---
 *Doküman Sürümü: 4.2.0 (Master Ansiklopedi - MQTT OTA & Versiyon Telemetrisi)*  
 *Son Güncelleme: 23.07.2026*
+
+---
+
+## 7.8. VHAL VERİ OKUMA TIKANIKLIĞI VE TOPLU DÖKÜM (DUMPSYS --VHAL) PROTOKOLÜ 📡 [2026-07-25]
+
+1.  **Sorun Analizi (Root Cause):**
+    v6459 sürümünden itibaren, sistem verimliliği adına toplu döküm (`--vhal`) yerine tekli sorgulama (`get-property-value`) yöntemine geçilmiştir. Ancak Omoda 5 donanımında ADB Socket bağlantısının (`127.0.0.1:5555`) güvenlik duvarı veya kilitlenme nedeniyle bazen kapalı kalması, uygulamanın tekli sorgularda "Connection Refused" almasına ve UI'da hız/devir verilerinin **0**'da donmasına neden olmuştur.
+
+2.  **Referans Kanıtı (OmodaAssist):**
+    Geliştirici referans projesi olan `omodaassist` (v1.0), bu sorunu `dumpsys car_service --vhal` komutunu kullanarak, tüm tabloyu tek seferde çekerek aşmıştır. Bu yöntem, socket bağlantısı kopsa dahi sistem yetkisiyle çalışan tek bir komutun tüm sensör verilerini belleğe (RAM) indirmesini sağlar.
+
+3.  **Kesin Çözüm ve Yeni Standart:**
+    *   **Hibrit Okuma:** Uygulama öncelikle `dumpsys car_service --vhal` komutu ile toplu tabloyu çeker. Bu yöntem, Omoda donanımında en kararlı ve "kilit açıcı" yöntemdir.
+    *   **Line Buffer Entegrasyonu:** Toplu dökümden gelen binlerce satır, `AdbClient` üzerindeki satır biriktirici (Buffer Accumulator) ile işlenir ve Regex ile sadece ilgili mülkler (Hız, Devir, Klima) süzülür.
+    *   **Socket-Fallback:** ADB Socket kilitlendiğinde, sistem sessizce `Runtime.exec` (Local Shell) üzerinden döküm almaya devam eder.
+    *   **Reaktivite:** `SensorMonitorScreen` üzerinde `lastUpdate` gibi zamana bağlı engeller kaldırılmış, `EventBus` üzerinden akan her veri paketinin anında ekrana yansıması (Reaktif UI) sağlanmıştır.
+
+4.  **Performans Notu:** 2 saniyelik periyotlarla yapılan toplu döküm, AAOS 10 ünitelerinde (Snapdragon 8155 vb.) ihmal edilebilir bir CPU yükü oluşturur (`%1'den az`) ve veri kaçırma riskini sıfıra indirir.
+

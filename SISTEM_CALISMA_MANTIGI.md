@@ -24,7 +24,8 @@ Bir sesli komut şu aşamalardan geçer:
 
 ## 3. Araç Veri Akışı (Telemetri)
 1.  **Veri Toplama (`VehicleController`):** `dumpsys car_service get-property-value <decimalId> <zone>` komutu AdbClient üzerinden çalıştırılır. **KRİTİK KURAL:** `car_service` hex string (`0x...`) kabul ETMEZ, ID'ler `.toLong(16)` ile decimal'e çevrilmelidir.
-2.  **Dağıtım (`EventBus`):** Okunan her veri `VehicleEvent.StateUpdated` olarak tüm sisteme yayılır.
+2.  **Dağıtım ve İndeksleme:** Okunan veriler `GlobalState.vehicleDataValues` haritasına HEM Hex ID, HEM Türkçe Etiket, HEM DE UI Kısaltmaları (Alias: `HIZ`, `VİTES`, `RPM`, `KAPI_FL` vb.) olarak çoklu anahtarlarla (Multi-Key Indexing) yazılır. Bu, tüm UI widget'larının (TeslaCarWidget, ClimateWidget vb.) veriye kendi bildiği anahtarla erişmesini sağlar.
+3.  **Yayın (`EventBus`):** Okunan her veri `VehicleEvent.StateUpdated` olarak tüm sisteme yayılır.
 3.  **Dışa Aktarım (`MqttPublisher`):** `MqttTelemetryBridge` bu eventleri yakalayarak `192.168.1.14:1883` broker'ına `omoda/telemetri` konusuyla iletir.
 4.  **AI Bağlamı:** `AgentManager` bu verileri kullanarak LLM'e aracın anlık durumunu (Hız, konum, klima) "Context" olarak fısıldar.
 

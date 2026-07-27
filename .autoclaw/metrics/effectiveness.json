@@ -1,21 +1,34 @@
 {
   "version": 1,
   "matrix": {
-    "generatedAt": "2026-07-02T22:05:05.816Z",
-    "totalSessions": 1495,
+    "generatedAt": "2026-07-26T20:01:14.767Z",
+    "totalSessions": 2152,
     "byTool": [
       {
         "tool": "Gemini CLI",
         "project": "(all)",
         "projectLabel": "(all)",
-        "sessions": 1490,
-        "shipped": 6,
+        "sessions": 2140,
+        "shipped": 12,
         "discarded": 0,
-        "keptSignals": 6,
-        "estTokens": 10573966,
-        "shipRate": 0.004026845637583893,
-        "keptPerSession": 0.004026845637583893,
-        "tokensPerKept": 1762327.6666666667
+        "keptSignals": 12,
+        "estTokens": 15576864,
+        "shipRate": 0.005607476635514018,
+        "keptPerSession": 0.005607476635514018,
+        "tokensPerKept": 1298072
+      },
+      {
+        "tool": "AutoClaw Orchestrator",
+        "project": "(all)",
+        "projectLabel": "(all)",
+        "sessions": 6,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 1698,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 1698
       },
       {
         "tool": "Continue",
@@ -31,17 +44,30 @@
         "tokensPerKept": 14536
       },
       {
-        "tool": "AutoClaw Orchestrator",
+        "tool": "Claude Code",
         "project": "(all)",
         "projectLabel": "(all)",
         "sessions": 1,
         "shipped": 0,
         "discarded": 0,
         "keptSignals": 0,
-        "estTokens": 80,
+        "estTokens": 29,
         "shipRate": 0,
         "keptPerSession": 0,
-        "tokensPerKept": 80
+        "tokensPerKept": 29
+      },
+      {
+        "tool": "KDream Memory",
+        "project": "(all)",
+        "projectLabel": "(all)",
+        "sessions": 1,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 150,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 150
       },
       {
         "tool": "Cline / Roo",
@@ -62,14 +88,27 @@
         "tool": "Gemini CLI",
         "project": "/mnt/depo/launcher_v2",
         "projectLabel": "launcher_v2",
-        "sessions": 1490,
-        "shipped": 6,
+        "sessions": 2140,
+        "shipped": 12,
         "discarded": 0,
-        "keptSignals": 6,
-        "estTokens": 10573966,
-        "shipRate": 0.004026845637583893,
-        "keptPerSession": 0.004026845637583893,
-        "tokensPerKept": 1762327.6666666667
+        "keptSignals": 12,
+        "estTokens": 15576864,
+        "shipRate": 0.005607476635514018,
+        "keptPerSession": 0.005607476635514018,
+        "tokensPerKept": 1298072
+      },
+      {
+        "tool": "AutoClaw Orchestrator",
+        "project": "/mnt/depo/launcher_v2",
+        "projectLabel": "launcher_v2",
+        "sessions": 6,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 1698,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 1698
       },
       {
         "tool": "Continue",
@@ -85,17 +124,30 @@
         "tokensPerKept": 14536
       },
       {
-        "tool": "AutoClaw Orchestrator",
+        "tool": "Claude Code",
         "project": "/mnt/depo/launcher_v2",
         "projectLabel": "launcher_v2",
         "sessions": 1,
         "shipped": 0,
         "discarded": 0,
         "keptSignals": 0,
-        "estTokens": 80,
+        "estTokens": 29,
         "shipRate": 0,
         "keptPerSession": 0,
-        "tokensPerKept": 80
+        "tokensPerKept": 29
+      },
+      {
+        "tool": "KDream Memory",
+        "project": "/mnt/depo/launcher_v2",
+        "projectLabel": "launcher_v2",
+        "sessions": 1,
+        "shipped": 0,
+        "discarded": 0,
+        "keptSignals": 0,
+        "estTokens": 150,
+        "shipRate": 0,
+        "keptPerSession": 0,
+        "tokensPerKept": 150
       },
       {
         "tool": "Cline / Roo",

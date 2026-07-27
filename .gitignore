@@ -35,3 +35,6 @@ __pycache__/
 graphify-out/
 screenshot*.png
 test_audio.wav
+
+# AutoClaw KDream data
+.autoclaw/

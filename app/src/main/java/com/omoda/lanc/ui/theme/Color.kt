@@ -55,3 +55,12 @@ val AmbientPurple = Color(0xFF9D00FF)
 val AmbientRed = Color(0xFFFF0055)
 val AmbientGold = Color(0xFFFFB700)
 val AmbientGreen = Color(0xFF00FF66)
+
+// Warmer Theme Palette
+val WarmPrimary = Color(0xFFFFB700)
+val WarmOnPrimary = Color(0xFF241A00)
+val WarmBackground = Color(0xFF0F0E0D)
+val WarmSurface = Color(0xFF1A1816)
+val WarmSurfaceVariant = Color(0xFF26221F)
+val WarmOnSurface = Color(0xFFF5F2EE)
+val WarmOnSurfaceVariant = Color(0xFFD1C7BC)

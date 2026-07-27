@@ -17,6 +17,14 @@
     },
     "continue": {
       "enabled": true
+    },
+    "kiro": {
+      "enabled": true
     }
+  },
+  "embedding": {
+    "provider": "transformers",
+    "model": "Xenova/nomic-embed-text-v1.5",
+    "dimension": 768
   }
 }

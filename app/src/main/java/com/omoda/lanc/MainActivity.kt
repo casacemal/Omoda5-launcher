@@ -61,9 +61,6 @@ import java.io.File
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.ui.platform.LocalConfiguration
 
-/**
- * v6345 RESTORATION - Stabil, Dokunulabilir ve Temiz.
- */
 class MainActivity : ComponentActivity() {
     private val mediaVM: com.omoda.lanc.media.MediaControllerViewModel by viewModels()
     private val currentScreenState = mutableStateOf("dashboard")
@@ -82,24 +79,15 @@ class MainActivity : ComponentActivity() {
             org.lsposed.hiddenapibypass.HiddenApiBypass.addHiddenApiExemptions("")
         }
 
-        // GlobalState.isSimulationMode.value = true // [FIX] Zorlama kaldırıldı
         AssistantApplication.configManager.saveConfigAndSync()
 
-        // Kademeli Başlatma & İzin Kontrolü (FM Radyo & Performans Koruması)
         lifecycleScope.launch {
-            // 1. Önce UI'nin oturması için biraz bekle
             delay(1500)
-            
-            // 2. Kritik İzinleri Sırayla İste
             checkAndQueuePermissions()
             requestNextPermission()
-
-            // 3. Ağır Servisleri Biraz Daha Gecikmeli Başlat
             delay(3000)
             val serviceIntent = Intent(this@MainActivity, com.omoda.lanc.service.VoiceAssistantService::class.java)
             ContextCompat.startForegroundService(this@MainActivity, serviceIntent)
-
-            // 4. Son Olarak ADB İzin Enjeksiyonlarını Başlat
             delay(2000)
             injectPermissions()
             startPeriodicPermissionCheck()
@@ -118,6 +106,7 @@ class MainActivity : ComponentActivity() {
         currentScreenState.value = "home"
     }
 
+    @Suppress("RestrictedApi")
     override fun dispatchKeyEvent(event: android.view.KeyEvent): Boolean {
         if (event.action == android.view.KeyEvent.ACTION_DOWN) {
             when (event.keyCode) {
@@ -148,7 +137,7 @@ class MainActivity : ComponentActivity() {
             // Omoda Top Status Bar
             com.omoda.lanc.ui.components.OmodaTopStatusBar(
                 onOpenVoiceAssistant = {
-                    sendBroadcast(Intent("com.omoda.assistant.START_LISTENING"))
+                    sendBroadcast(Intent("com.omoda.assistant.START_LISTENING").setPackage(packageName))
                 },
                 onToggleLock = { isLocked = !isLocked },
                 isLocked = isLocked,
@@ -162,21 +151,20 @@ class MainActivity : ComponentActivity() {
                         onOpenSensors = { currentScreenState.value = "sensors" }
                     )
                     "settings" -> SettingsScreen(onBack = { currentScreenState.value = "home" })
-                    "dashboard" -> com.omoda.lanc.ui.screens.OmodaDashboardScreen(vehicleState = currentVehicleState)
-                    "sylvie" -> com.omoda.lanc.ui.screens.SylvieScreen(
-                        viewModel = mediaVM,
-                        onBack = { currentScreenState.value = "home" }
-                    )
-                    "coolwalk" -> com.omoda.lanc.ui.screens.CoolwalkScreen(
+                    "dashboard" -> com.omoda.lanc.ui.screens.OmodaDashboardScreen(
+                        vehicleState = currentVehicleState,
                         viewModel = mediaVM,
                         onOpenApps = { currentScreenState.value = "home" },
+                        onBack = { currentScreenState.value = "home" }
+                    )
+                    "sylvie" -> com.omoda.lanc.ui.screens.SylvieScreen(
+                        viewModel = mediaVM,
                         onBack = { currentScreenState.value = "home" }
                     )
                     "sensors" -> com.omoda.lanc.ui.screens.SensorMonitorScreen(onBack = { currentScreenState.value = "home" })
                     else -> currentScreen = "home"
                 }
 
-                // Sürüm Numarası Overlay (Sağ Alt)
                 Text(
                     text = "v${BuildConfig.VERSION_NAME}",
                     color = Color.White.copy(alpha = 0.5f),
@@ -236,15 +224,12 @@ class MainActivity : ComponentActivity() {
         val config = LocalConfiguration.current
         val screenWidth = config.screenWidthDp.dp
 
-        // Xiaomi Mi 13 (2400x1080 -> Genişlik ~1080dp/2.75 -> 390dp x ~870dp landscape)
-        // Ekran genişliğine göre dinamik hesaplama: Orijinal sidebar her zaman 235dp (Omoda) veya 90dp (Telefon)
         val startPad = if (isHandheld) 20.dp else 235.dp
         val topPad = if (isHandheld) 20.dp else 60.dp
         val bottomPad = if (isHandheld) 40.dp else 80.dp
-        val endPad = if (isHandheld) 90.dp else 80.dp // To avoid the right side buttons
+        val endPad = if (isHandheld) 90.dp else 80.dp
         val indicatorBottomPad = if (isHandheld) 10.dp else 30.dp
         
-        // Cihazın genişliğine göre grid kolon sayısını hesapla (minimum 5 kolon)
         val availableWidth = screenWidth - startPad - endPad
         val columnsCount = if (availableWidth > 800.dp) 6 else 5
 
@@ -252,7 +237,6 @@ class MainActivity : ComponentActivity() {
             Image(painter = painter, contentDescription = null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
             Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.45f)))
 
-            // --- SİMÜLASYON MODU GÖSTERGESİ (En Üst Orta) ---
             val isSimMode by GlobalState.isSimulationMode.collectAsState()
             if (isSimMode) {
                 Surface(
@@ -273,7 +257,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            // --- 1. İKONLAR (Merkez) ---
             Column(Modifier.fillMaxSize()) {
                 com.omoda.lanc.ui.components.MediaControlWidget(mediaVM)
                 HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { pIdx ->
@@ -296,7 +279,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            // --- 2. SAĞ PANEL (Butonlar) ---
             Column(
                 Modifier.align(Alignment.CenterEnd).padding(end = 25.dp).width(70.dp).zIndex(50f),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -350,13 +332,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            // --- 3. ALT NAV ÇİZGİLERİ ---
             Row(Modifier.align(Alignment.BottomCenter).padding(bottom = indicatorBottomPad).width(180.dp).zIndex(40f), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Box(Modifier.weight(1f).height(5.dp).clip(CircleShape).background(if(pagerState.currentPage == 0) OmodaCyan else Color.White.copy(0.2f)))
                 Box(Modifier.weight(1f).height(5.dp).clip(CircleShape).background(if(pagerState.currentPage > 0) OmodaCyan else Color.White.copy(0.2f)))
             }
 
-            // HUD (Sağ Alt)
             Box(Modifier.fillMaxSize().zIndex(45f)) {
                 HudWidget().Content()
             }
@@ -379,7 +359,6 @@ class MainActivity : ComponentActivity() {
         val fixedApps = listOf(
             LauncherItem("map", "Navigasyon", R.mipmap.home_app_navi_n, "internal.dashboard"),
             LauncherItem("sylvie", "Sylvie", R.mipmap.home_app_carinfo_n, "internal.sylvie"),
-            LauncherItem("coolwalk", "Coolwalk", R.mipmap.home_app_navi_n, "internal.coolwalk"),
             LauncherItem("m","Medya",R.mipmap.home_app_media_n,"com.chery.media"), 
             LauncherItem("p","Telefon",R.mipmap.home_app_phone_n,"com.chery.dialer"), 
             LauncherItem("s","Ayarlar",R.mipmap.home_app_setup_n,"com.chery.settings"),
@@ -406,7 +385,6 @@ class MainActivity : ComponentActivity() {
         when (item.packageName) {
             "internal.dashboard" -> currentScreenState.value = "dashboard"
             "internal.sylvie" -> currentScreenState.value = "sylvie"
-            "internal.coolwalk" -> currentScreenState.value = "coolwalk"
             "internal.sensors" -> currentScreenState.value = "sensors"
             "internal.settings" -> {
                 GlobalState.settingsInitialTab.value = "Asistan"
@@ -420,14 +398,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // ─── Akıllı İzin Sistemi ─────────────────────────────────────────────────
-    // Başarılı olan izinleri tekrar deneme. Sistem iptal ederse bir sonraki
-    // periyodik kontrolde sadece o eksik izinler yeniden çalıştırılır.
     private val successfulPermissions = mutableSetOf<String>()
 
-    /** Tüm izinleri grup grup uygular — açılışta tam kontrol için kullanılır. */
     private fun injectPermissions() {
-        // GRUP 1: Sistem Ayarları — değişmeyen sabit değerler, tek seferlik
         val systemSettings = listOf(
             "settings put global enable_freeform_support 1",
             "settings put global force_resizable_activities 1",
@@ -438,13 +411,11 @@ class MainActivity : ComponentActivity() {
             "dumpsys deviceidle whitelist +$packageName",
             "cmd package set-home-activity $packageName/.MainActivity"
         )
-        // Sistem ayarları başarılıysa tekrar deneme
         systemSettings.filter { it !in successfulPermissions }.forEach { cmd ->
             exec(cmd)
             successfulPermissions.add(cmd)
         }
 
-        // GRUP 2: AppOps izinleri — sistem iptal edebilir, periyodik kontrol edilir
         val appOps = listOf(
             "appops set $packageName SYSTEM_ALERT_WINDOW allow",
             "appops set $packageName PROJECT_MEDIA allow",
@@ -455,14 +426,9 @@ class MainActivity : ComponentActivity() {
         )
         appOps.forEach { exec(it) }
 
-        // GRUP 3: Runtime PM izinleri — Android iptal edebilir, takipli
         injectRuntimePermissions()
     }
 
-    /**
-     * Periyodik kontrol: sadece başarısız veya henüz test edilmemiş çalışma zamanı
-     * izinlerini yeniden dener. 5dk'da bir parçalı olarak çalışır.
-     */
     private fun injectRuntimePermissions() {
         val runtimePerms = listOf(
             "pm grant $packageName android.permission.RECORD_AUDIO",
@@ -492,38 +458,30 @@ class MainActivity : ComponentActivity() {
             "pm grant $packageName android.car.permission.READ_CAR_DISPLAY_UNITS",
             "pm grant $packageName android.car.permission.CAR_DRIVING_STATE"
         )
-        // Sadece henüz başarılı sayılmayan izinleri çalıştır
         (runtimePerms + aaosPerms).filter { it !in successfulPermissions }.forEach { cmd ->
             exec(cmd)
-            // İzni başarılı sayıyoruz (gerçek pm grant çıktısı kontrol edilemiyor,
-            // ama sistem iptal ederse bir sonraki periyodik kontrolde listeden çıkar)
             successfulPermissions.add(cmd)
         }
     }
 
     private fun startPeriodicPermissionCheck() {
         val h = Handler(Looper.getMainLooper())
-        // İlk çalışma: 5sn sonra tam enjeksiyon
         h.postDelayed({ if (!GlobalState.isSimulationMode.value) injectPermissions() }, 5000L)
 
-        // Sonraki çalışmalar: 5dk'da bir sadece eksik/başarısız izinleri kontrol et
         val periodicChecker = object : Runnable {
             override fun run() {
                 if (!GlobalState.isSimulationMode.value) {
-                    // Başarılıları sıfırla — sistem arada iptal etmiş olabilir
-                    // AppOps her zaman yeniden set edilsin (bunlar değişebilir)
                     listOf(
                         "appops set $packageName SYSTEM_ALERT_WINDOW allow",
                         "appops set $packageName PROJECT_MEDIA allow",
                         "appops set $packageName GET_USAGE_STATS allow"
                     ).forEach { exec(it) }
-                    // Runtime izinleri: sadece henüz başarısız olanları
                     injectRuntimePermissions()
                 }
-                h.postDelayed(this, 300_000L) // 5 dakika
+                h.postDelayed(this, 300_000L)
             }
         }
-        h.postDelayed(periodicChecker, 60_000L) // İlk periyodik kontrol: 1dk sonra
+        h.postDelayed(periodicChecker, 60_000L)
     }
 
     private fun exec(c: String) {
@@ -550,7 +508,6 @@ class MainActivity : ComponentActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1001) {
-            // Sonraki izni bir süre sonra iste ki dialoglar üst üste binmesin
             Handler(Looper.getMainLooper()).postDelayed({
                 requestNextPermission()
             }, 500)

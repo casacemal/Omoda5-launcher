@@ -108,17 +108,23 @@ class VehicleController(private val context: Context) {
             Log.d(TAG, "Tier $tierSeconds başlatıldı. SimMod: ${GlobalState.isSimulationMode.value}")
             while (isActive) {
                 try {
-                    // SİMÜLASYON KONTROLÜNÜ LOGLA VE İLERLE
                     if (!GlobalState.isSimulationMode.value) {
-                        val propsForTier = PROPERTY_DEFINITIONS.filter { (_, def) ->
-                            def.defaultTier == tierSeconds
-                        }.keys.toList()
-                        if (propsForTier.isNotEmpty()) {
-                            Log.v(TAG, "Tier $tierSeconds batch okunuyor: ${propsForTier.size} mülk")
-                            readBatch(propsForTier)
+                        // [RESTORE-vHAL] Toplu döküm yöntemi geri getirildi. 
+                        // Tier 2 periyodunda tüm VHAL tablosu tek seferde çekilir.
+                        // OMODA 5 KRİTİK: Sadece bu komut tabloyu döker, argüman eklemeyin.
+                        if (tierSeconds == 2) {
+                            AdbClient.executeCommand("dumpsys car_service get-property-value") { line ->
+                                parseAndApplyLine(line) 
+                            }
+                        } else {
+                            // Diğer tierlar için sadece ilgili mülkleri oku (Opsiyonel/Yedek)
+                            val propsForTier = PROPERTY_DEFINITIONS.filter { (_, def) ->
+                                def.defaultTier == tierSeconds
+                            }.keys.toList()
+                            if (propsForTier.isNotEmpty()) {
+                                readBatch(propsForTier)
+                            }
                         }
-                    } else {
-                        Log.v(TAG, "Tier $tierSeconds atlanıyor (Simülasyon Aktif)")
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "Tier $tierSeconds error: ${e.message}")
@@ -174,19 +180,9 @@ class VehicleController(private val context: Context) {
         
         val value = extractValue(line)
         
-        // [FIX-05] Sensör verisi gelmezse veya hata varsa "Bulunamadı" (fallback) uygula
-        scope.launch {
-            applyValueSafe(propId, value)
-        }
-    }
-
-    // [FIX-03] Thread-safe state güncelleme metodu
-    // Birden fazla tier'ın aynı anda applyValue çağırıp birbirinin
-    // güncellemesini ezmesini (Lost Update) Mutex ile engelliyor.
-    private suspend fun applyValueSafe(propId: String, value: String) {
-        stateMutex.withLock {
-            applyValue(propId, value)
-        }
+        // [FIX-ANR] Her satır için yeni coroutine açmak sistemi kilitliyor.
+        // Doğrudan applyValue çağır (zaten arka plan thread'indeyiz)
+        applyValue(propId, value)
     }
 
     private fun applyValue(propId: String, value: String) {
@@ -217,6 +213,7 @@ class VehicleController(private val context: Context) {
                 next = next.copy(gear = gearRaw, gearString = gearStr)
             }
             "11e00d00" -> {
+                // Omoda 5 Composite Property (Hız, Devir, Vites bir arada gelir)
                 val floats = value.split(",").map { it.trim().toFloatOrNull() ?: 0f }
                 if (floats.size >= 10) {
                     val speed = floats[0] * 3.6f // m/s to km/h
@@ -224,20 +221,22 @@ class VehicleController(private val context: Context) {
                     val gearRaw = floats[9].toInt()
                     val gearStr = mapGear(gearRaw)
                     
-                    // [PLAN-UPDATE] Bireysel özellikleri de güncelle ki ilgili widgetlar tetiklensin
-                    updateDisplay("11600207", "Araç Hızı", String.format("%.1f km/h", speed))
-                    updateDisplay("11600305", "Motor Devri", "${rpm.toInt()} RPM")
-                    updateDisplay("21402006", "Vites", gearStr)
-
-                    displayValue = String.format("%.1f km/h | %d RPM | %s", speed, rpm.toInt(), gearStr)
+                    // Bireysel state güncellemeleri
                     next = next.copy(
                         speed = speed,
                         engineRpm = rpm,
                         gear = gearRaw,
                         gearString = gearStr,
-                        isMoving = speed > 0f,
-                        isEngineRunning = rpm > 0f
+                        isMoving = speed > 0.5f,
+                        isEngineRunning = rpm > 500f
                     )
+                    
+                    // UI Alias güncellemeleri
+                    updateDisplay("11600207", "Araç Hızı", String.format("%.1f km/h", speed))
+                    updateDisplay("11600305", "Motor Devri", "${rpm.toInt()} RPM")
+                    updateDisplay("21402006", "Vites", gearStr)
+                    
+                    displayValue = String.format("%.1f km/h | %d RPM | %s", speed, rpm.toInt(), gearStr)
                 }
             }
             "11400301" -> {
@@ -326,7 +325,11 @@ class VehicleController(private val context: Context) {
     }
 
     private fun updateDisplay(propId: String, label: String, value: String) {
-        val m = GlobalState.vehicleDataValues.value.toMutableMap()
+        // [FIX-PERF] Sık güncellemelerde map kopyalamayı azalt
+        val currentMap = GlobalState.vehicleDataValues.value
+        if (currentMap[propId] == value && currentMap[label] == value) return
+
+        val m = currentMap.toMutableMap()
         var changed = false
 
         fun putIfNew(k: String, v: String) {

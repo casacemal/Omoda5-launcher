@@ -64,11 +64,20 @@ class VoiceAssistantService : Service() {
             val action = intent?.action ?: return
             when (action) {
                 "com.saic.keyevent.hardkey.report" -> {
-                    val keyCode = intent.getIntExtra("android.intent.extra.hardkey.keycode", -1)
-                    val isDown = intent.getBooleanExtra("android.intent.extra.hardkey.down", false)
-                    if (isDown) {
-                        serviceScope.launch {
-                            EventBus.emit(Event.SystemEvent.HardKeyPressed(keyCode))
+                    // [DOC-FIX] VHAL_Book_RX_TX.md: KeyCode 'keyCode' veya 'key_code' olarak gelebilir.
+                    val keyCode = intent.getIntExtra("keyCode", -1).takeIf { it != -1 } 
+                        ?: intent.getIntExtra("key_code", -1)
+                        ?: intent.getIntExtra("android.intent.extra.hardkey.keycode", -1)
+                    
+                    val isDown = intent.getBooleanExtra("android.intent.extra.hardkey.down", true)
+                    
+                    if (keyCode != -1 && isDown) {
+                        // [CEMAL-FIX] SIGSEGV koruması: Binder thread'inden Main Thread'e güvenli havale.
+                        android.os.Handler(android.os.Looper.getMainLooper()).post {
+                            serviceScope.launch {
+                                EventBus.emit(Event.SystemEvent.HardKeyPressed(keyCode))
+                                Log.d("Omoda-HardKey", "Tuş OEM Tetiklendi: $keyCode (Main Thread)")
+                            }
                         }
                     }
                 }

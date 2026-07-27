@@ -6,18 +6,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
 
 private val AssistantDarkColors = darkColorScheme(
-    primary = Color(0xFF69E2D3),
-    onPrimary = Color(0xFF04110F),
+    primary = WarmPrimary,
+    onPrimary = WarmOnPrimary,
     secondary = Color(0xFFF3B14B),
     onSecondary = Color(0xFF1A1204),
     tertiary = Color(0xFFFF6B6B),
     onTertiary = Color(0xFF210808),
-    background = Color(0xFF081012),
-    onBackground = Color(0xFFF1F5F4),
-    surface = Color(0xFF111A1D),
-    onSurface = Color(0xFFF1F5F4),
-    surfaceVariant = Color(0xFF1A2529),
-    onSurfaceVariant = Color(0xFFC5D0D0)
+    background = WarmBackground,
+    onBackground = WarmOnSurface,
+    surface = WarmSurface,
+    onSurface = WarmOnSurface,
+    surfaceVariant = WarmSurfaceVariant,
+    onSurfaceVariant = WarmOnSurfaceVariant
 )
 
 @Composable

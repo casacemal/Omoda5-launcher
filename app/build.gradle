@@ -29,34 +29,6 @@ def vName = newCode.toString()
 // UPDATE MODU: Büyük modelleri APK dışına çıkar (Boyut küçültme)
 def isUpdateOnly = true
 
-// Versiyonu .md dosyalarına yaz
-def mdFiles = [
-    file("${project.rootDir}/PROGRESS.md"),
-    file("${project.rootDir}/FILE_INDEX.md")
-]
-def versionLine = "Sürüm $vCode ($vName) - $newDate"
-mdFiles.each { f ->
-    if (f.exists()) {
-        def content = f.text
-        if (content.contains("## Son Durum")) {
-            def lines = content.split("\n")
-            def idx = -1
-            for (int i = 0; i < lines.size(); i++) {
-                if (lines[i].contains("## Son Durum")) {
-                    idx = i
-                    break
-                }
-            }
-            if (idx >= 0 && idx + 1 < lines.size()) {
-                lines[idx + 1] = "*   $versionLine"
-            }
-            f.text = lines.join("\n")
-        } else {
-            f.append("\n*   $versionLine\n")
-        }
-    }
-}
-
 println "Versiyon $vCode için build başlıyor... (UpdateOnly: $isUpdateOnly)"
 
 android {

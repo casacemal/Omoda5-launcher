@@ -27,7 +27,8 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
         val progress: Float = 0f,
         val duration: Long = 0L,
         val source: String = "Sistem",
-        val albumArt: android.graphics.Bitmap? = null
+        val albumArt: android.graphics.Bitmap? = null,
+        val pkg: String = ""
     )
 
 
@@ -90,7 +91,8 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
                             artist = info.artist.ifBlank { "Bilinmeyen Sanatçı" },
                             source = info.pkg,
                             isPlaying = info.isPlaying,
-                            albumArt = info.albumArt
+                            albumArt = info.albumArt,
+                            pkg = info.pkg
                         )
                         // If we don't have an active controller, try to find one for this package
                         if (activeController == null || activeController?.packageName != info.pkg) {
@@ -129,7 +131,10 @@ class MediaControllerViewModel(application: Application) : AndroidViewModel(appl
         controller.registerCallback(mediaCallback)
         updateMetadata(controller.metadata)
         updatePlaybackState(controller.playbackState)
-        _mediaState.value = _mediaState.value.copy(source = "Session: ${controller.packageName}")
+        _mediaState.value = _mediaState.value.copy(
+            source = "Session: ${controller.packageName}",
+            pkg = controller.packageName
+        )
     }
 
     private fun updateMetadata(metadata: MediaMetadata?) {

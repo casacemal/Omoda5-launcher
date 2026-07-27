@@ -54,6 +54,8 @@ fun AppStoreSection() {
     var downloadProgress by remember { mutableStateOf(0) }
     var downloadSpeed by remember { mutableStateOf(0.0) }
 
+    val latestVersion by com.omoda.lanc.core.GlobalState.latestVersion.collectAsState()
+    
     fun loadUpdates() {
         isChecking = true
         errorMessage = null
@@ -111,12 +113,11 @@ fun AppStoreSection() {
                             Text("Mevcut Yüklü Sürüm: v$vn (Build $vc)", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                         }
                         Spacer(Modifier.height(4.dp))
-                        val latestTag = com.omoda.lanc.core.GlobalState.latestVersion.value
-                        Text(if (latestTag.isNotBlank()) "En Son Çevrimiçi Sürüm: $latestTag" else "Sürüm bilgisi kontrol ediliyor...", color = Color.Gray, fontSize = 16.sp)
+                        Text(if (latestVersion.isNotBlank()) "En Son Çevrimiçi Sürüm: $latestVersion" else "Sürüm bilgisi kontrol ediliyor...", color = Color.Gray, fontSize = 16.sp)
                         Spacer(Modifier.height(8.dp))
                         Text("Cihaz: ${android.os.Build.MODEL} • ${android.os.Build.VERSION.RELEASE}", color = Color.DarkGray, fontSize = 14.sp)
                     }
-                    val isLatest = com.omoda.lanc.core.GlobalState.latestVersion.value == "v6452" || com.omoda.lanc.core.GlobalState.latestVersion.value == "6452"
+                    val isLatest = latestVersion == "v6452" || latestVersion == "6452"
                     Surface(
                         color = if (isLatest) Color(0xFF4CAF50).copy(alpha = 0.2f) else Color(0xFFFF9800).copy(alpha = 0.2f),
                         shape = RoundedCornerShape(12.dp),

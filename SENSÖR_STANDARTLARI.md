@@ -31,15 +31,22 @@ Eğer bir sensör `VehicleController` içinde özel bir `alias` grubuna dahil ed
 
 ## 4. Standart Alias Tablosu (Master List)
 
-| Kategori | Standart Alias | Hex ID | Açıklama |
+| Kategori | Standart Alias (Kısaltmalar) | Hex ID | Açıklama |
 | :--- | :--- | :--- | :--- |
 | Hareket | `HIZ`, `SPEED` | `11600207` | Araç hızı (km/h) |
-| Motor | `RPM`, `DEVİR` | `11600305` | Motor devri |
-| Şanzıman | `GEAR`, `VİTES` | `21402006` | Mevcut vites (P, R, N, D...) |
-| Kapılar | `KAPI_FL`, `KAPI_FR`, `KAPI_RL`, `KAPI_RR`, `BAGAJ` | `214020*` | Kapı açık/kapalı durumları |
-| Klima | `AC_TEMP_D`, `AC_TEMP_P`, `SICAKLIK` | `21401008` | Klima sıcaklık ayarları |
-| Enerji | `YAKIT`, `FUEL`, `BATARYA`, `BATTERY` | `1160030*` | Enerji seviyeleri |
-| Çevre | `DIŞ_ISI`, `OUTSIDE_TEMP` | `11600703` | Dış ortam sıcaklığı |
+| Motor | `DEVİR`, `RPM` | `11600305` | Motor devri |
+| Şanzıman | `VİTES`, `GEAR` | `21402006` | Mevcut vites (P, R, N, D...) |
+| Kapı FL | `KAPI (SOL ÖN)`, `ÖN SOL KAPI`, `KAPI_FL` | `21402012` | Ön Sol Kapı |
+| Kapı FR | `KAPI (SAĞ ÖN)`, `ÖN SAĞ KAPI`, `KAPI_FR` | `21402013` | Ön Sağ Kapı |
+| Kapı RL | `KAPI (SOL ARKA)`, `ARKA SOL KAPI`, `KAPI_RL` | `21402014` | Arka Sol Kapı |
+| Kapı RR | `KAPI (SAĞ ARKA)`, `ARKA SAĞ KAPI`, `KAPI_RR` | `21402016` | Arka Sağ Kapı |
+| Bagaj | `BAGAJ`, `BAGAJ KAPAĞI` | `21402015` | Bagaj |
+| Klima S. | `AC_TEMP_DRIVER`, `KLİMA_SÜRÜCÜ`, `Sıcaklık`, `SICAKLIK` | `21401008` | Klima Sürücü Isısı |
+| Klima Y. | `AC_TEMP_PASSENGER`, `KLİMA_YOLCU` | `21401009` | Klima Yolcu Isısı |
+| Çevre | `DIŞ_ISILIK`, `OUTSIDE_TEMP`, `Dış Sıcaklık` | `11600703` | Dış ortam sıcaklığı |
+| Yakıt | `YAKIT`, `FUEL` | `11600307` | Kalan Yakıt (Litre) |
+| Menzil | `MENZİL`, `RANGE` | `11600308` | Kalan Menzil (km) |
+| Enerji | `BATARYA`, `BATTERY` | `11600309` | EV Batarya Seviyesi (%) |
 
 ## 5. UI Geliştirme Kuralı
 UI geliştiricileri veri okurken her zaman şu sırayı (Fallback Chain) izlemelidir:

@@ -1,195 +1,63 @@
 package com.omoda.lanc.network
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import com.omoda.lanc.core.GlobalState
-import com.omoda.lanc.core.EventBus
-import com.omoda.lanc.core.Event
-import java.io.*
-import java.net.InetSocketAddress
-import java.net.Socket
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 /**
- * AdbClient - Gelişmiş ADB Socket İstemcisi (Zorlayıcı Mod)
- * AAOS 10 ve Semidrive donanımlarında shell yetkisi ile komut çalıştırmayı sağlar.
- * Bağlantı koparsa onarmaya çalışır ve kullanıcıyı uyarır.
+ * AdbClient - MASTER ROOT MODE
+ * [MUTLAK KURAL]: Omoda 5 donanımında 5555 portu ve localhost socketleri KİLİTLİDİR.
+ * Bu dosya sadece ve sadece root yetkisiyle doğrudan shell üzerinden çalışır.
+ *
+ * [FIX]: su binary tam path ile denenir, sh -c üzerinden komut gönderilir.
+ * ponytail: su0 fallback eklenebilir, Magisk/SuperSU path'leri için.
  */
 object AdbClient {
     private const val TAG = "AdbClient"
-    private const val A_CNXN = 0x4e584e43
-    private const val A_OPEN = 0x4e45504f
-    private const val A_OKAY = 0x59414b4f
-    private const val A_CLSE = 0x45534c43
-    private const val A_WRTE = 0x45545257
-    private const val A_AUTH = 0x48545541
 
-    private val mainHandler = Handler(Looper.getMainLooper())
+    // ponytail: su binary path'leri — cihaza göre sıralı
+    private val SU_PATHS = arrayOf("/system/bin/su", "/system/xbin/su", "/sbin/su", "su")
 
     fun executeCommand(cmd: String, onLine: (String) -> Unit = {}) {
-        // GÜVENLİK KATMANI ESNETİLDİ: Geliştirme sürecinde her cihazda dumpsys çalışabilmesi için.
-        // Orijinal kısıt: if (!GlobalState.isSimulationMode.value && !GlobalState.isCarHardware)
-        
         Thread {
-            var success = false
-            var retryCount = 0
-            val maxRetries = 3
+            var proc: Process? = null
+            try {
+                // ponytail: su 0 + sh -c ile tam komut çalıştır
+                // su root -> su 0 düzelt (root syntax bu cihazda çalışmaz)
+                // tek string -> sh -c ile split edilir
+                var lastError: Exception? = null
+                for (suPath in SU_PATHS) {
+                    try {
+                        proc = Runtime.getRuntime().exec(
+                            arrayOf(suPath, "0", "sh", "-c", cmd)
+                        )
+                        val reader = BufferedReader(InputStreamReader(proc.inputStream))
+                        var line: String?
+                        while (reader.readLine().also { line = it } != null) {
+                            line?.let { onLine(it) }
+                        }
 
-            while (!success && retryCount < maxRetries) {
-                try {
-                    success = performAdbSocketCommand(cmd, onLine)
-                    if (success) break
-                } catch (e: Exception) {
-                    retryCount++
-                    Log.w(TAG, "ADB Denemesi $retryCount başarısız: ${e.message}")
-                    if (retryCount < maxRetries) Thread.sleep(800)
+                        // stderr'den de oku (hata mesajları için)
+                        val errReader = BufferedReader(InputStreamReader(proc.errorStream))
+                        while (errReader.readLine() != null) { /* consume */ }
+
+                        val exitCode = proc.waitFor()
+                        if (exitCode == 0) return@Thread // başarılı
+                        Log.w(TAG, "Komut hatası (Exit: $exitCode, su: $suPath): $cmd")
+                    } catch (e: Exception) {
+                        lastError = e
+                        proc?.destroy()
+                        proc = null
+                        Log.d(TAG, "su denemesi başarısız ($suPath): ${e.message}")
+                    }
                 }
-            }
-
-            if (!success) {
-                Log.e(TAG, "Tüm ADB socket denemeleri başarısız. Onarım deneniyor...")
-                attemptAdbRepair()
-                
-                // Local ADB cannot be restarted without root, ignore silently.
-                Log.w(TAG, "ADB Port 5555 kapalı ve açılamıyor (Root yok).")
-                runtimeFallback(cmd, onLine)
+                // Hiçbir su path çalışmadı
+                Log.e(TAG, "Tüm su path'leri başarısız: ${lastError?.message}")
+            } catch (e: Exception) {
+                Log.e(TAG, "ROOT EXEC HATASI: ${e.message}")
+            } finally {
+                proc?.destroy()
             }
         }.start()
     }
-
-    private fun performAdbSocketCommand(cmd: String, onLine: (String) -> Unit): Boolean {
-        var socket: Socket? = null
-        try {
-            socket = Socket()
-            socket.connect(InetSocketAddress("127.0.0.1", 5555), 1000)
-            
-            val out = socket.getOutputStream()
-            val ins = socket.getInputStream()
-
-            // 1. Handshake
-            sendAdbPacket(out, A_CNXN, 0x01000000, 4096, "host::\u0000")
-            val resp = readAdbPacket(ins)
-            
-            if (resp.cmd != A_CNXN) return false
-
-            // 2. Shell aç
-            val localId = 1
-            sendAdbPacket(out, A_OPEN, localId, 0, "shell:$cmd\u0000")
-            val openResp = readAdbPacket(ins)
-
-            if (openResp.cmd == A_OKAY) {
-                val remoteId = openResp.arg0
-                val sb = StringBuilder()
-                while (true) {
-                    val pkt = readAdbPacket(ins)
-                    if (pkt.cmd == A_WRTE) {
-                        sendAdbPacket(out, A_OKAY, localId, remoteId, null)
-                        pkt.data?.let {
-                            sb.append(String(it))
-                            var lineEnd: Int
-                            while (sb.indexOf("\n").also { lineEnd = it } >= 0) {
-                                val singleLine = sb.substring(0, lineEnd).trim()
-                                sb.delete(0, lineEnd + 1)
-                                if (singleLine.isNotBlank()) {
-                                    onLine(singleLine)
-                                }
-                            }
-                        }
-                    } else if (pkt.cmd == A_CLSE) {
-                        break
-                    }
-                }
-                if (sb.isNotBlank()) {
-                    onLine(sb.toString().trim())
-                }
-                return true
-            }
-            return false
-        } finally {
-            try { socket?.close() } catch (_: Exception) {}
-        }
-    }
-
-    private fun attemptAdbRepair() {
-        try {
-            // Portu zorla açmaya çalış (Eğer sistem izin verirse)
-            Runtime.getRuntime().exec(arrayOf("sh", "-c", "setprop service.adb.tcp.port 5555; stop adbd; start adbd"))
-        } catch (e: Exception) {
-            Log.e(TAG, "Otomatik onarım başarısız: ${e.message}")
-        }
-    }
-
-    @Volatile private var isSuAvailable: Boolean? = null
-
-    private fun runtimeFallback(cmd: String, onLine: (String) -> Unit) {
-        var proc: Process? = null
-        try {
-            if (isSuAvailable != false) {
-                try {
-                    // Telefonlarda Magisk vb. üzerinden root yetkisi iste
-                    proc = Runtime.getRuntime().exec(arrayOf("su", "-c", cmd))
-                    isSuAvailable = true
-                } catch (e: Exception) {
-                    isSuAvailable = false
-                    Log.w(TAG, "su bulunamadı, sh ile deneniyor: ${e.message}")
-                    proc = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
-                }
-            } else {
-                proc = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
-            }
-            
-            proc?.inputStream?.bufferedReader()?.use { reader ->
-                var line: String?
-                while (reader.readLine().also { line = it } != null) {
-                    line?.let { onLine(it) }
-                }
-            }
-            proc?.waitFor()
-        } catch (e: Exception) {
-            Log.e(TAG, "Runtime Fallback Hatası: ${e.message}")
-        } finally {
-            proc?.destroy()
-        }
-    }
-
-    private fun sendAdbPacket(out: OutputStream, cmd: Int, arg0: Int, arg1: Int, data: String?) {
-        val payload = data?.toByteArray() ?: byteArrayOf()
-        val length = payload.size
-        val check = payload.fold(0) { acc, byte -> acc + (byte.toInt() and 0xFF) }
-        val header = ByteBuffer.allocate(24).order(ByteOrder.LITTLE_ENDIAN)
-        header.putInt(cmd).putInt(arg0).putInt(arg1).putInt(length).putInt(check).putInt(cmd xor -0x1)
-        out.write(header.array())
-        if (payload.isNotEmpty()) out.write(payload)
-        out.flush()
-    }
-
-    private fun readAdbPacket(ins: InputStream): AdbPacket {
-        val headerBuf = ByteArray(24)
-        var total = 0
-        while (total < 24) {
-            val count = ins.read(headerBuf, total, 24 - total)
-            if (count < 0) throw IOException("EOF")
-            total += count
-        }
-        val buffer = ByteBuffer.wrap(headerBuf).order(ByteOrder.LITTLE_ENDIAN)
-        val cmd = buffer.getInt()
-        val arg0 = buffer.getInt()
-        val arg1 = buffer.getInt()
-        val length = buffer.getInt()
-        var data: ByteArray? = null
-        if (length > 0) {
-            data = ByteArray(length)
-            var dTotal = 0
-            while (dTotal < length) {
-                val dCount = ins.read(data, dTotal, length - dTotal)
-                if (dCount < 0) break
-                dTotal += dCount
-            }
-        }
-        return AdbPacket(cmd, arg0, arg1, data)
-    }
-
-    private data class AdbPacket(val cmd: Int, val arg0: Int, val arg1: Int, val data: ByteArray?)
 }

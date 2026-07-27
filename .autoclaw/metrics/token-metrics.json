@@ -15,33 +15,50 @@
       ],
       "estTokens": 10588756,
       "gitEnriched": true
+    },
+    {
+      "ts": "2026-07-26T20:01:14.767Z",
+      "sessionsAnalyzed": 2152,
+      "kept": 12,
+      "keptRate": 0.0055762081784386614,
+      "patternsLearned": 12,
+      "sources": [
+        "autoclaw-native",
+        "claude-code",
+        "cline-roo",
+        "continue",
+        "gemini"
+      ],
+      "estTokens": 15593451,
+      "gitEnriched": true
     }
   ],
   "summary": {
-    "totalRuns": 1,
-    "totalSessions": 1495,
-    "totalKept": 6,
-    "avgKeptRate": 0.004013377926421404,
-    "totalPatterns": 7,
+    "totalRuns": 2,
+    "totalSessions": 3647,
+    "totalKept": 18,
+    "avgKeptRate": 0.004794793052430033,
+    "totalPatterns": 19,
     "tokens": {
-      "estimated": 10588756,
+      "estimated": 26182207,
       "real": 0,
       "hasReal": false
     },
     "totalCostUsd": 0,
     "lastRun": {
-      "ts": "2026-07-02T22:05:05.816Z",
-      "sessionsAnalyzed": 1495,
-      "kept": 6,
-      "keptRate": 0.004013377926421404,
-      "patternsLearned": 7,
+      "ts": "2026-07-26T20:01:14.767Z",
+      "sessionsAnalyzed": 2152,
+      "kept": 12,
+      "keptRate": 0.0055762081784386614,
+      "patternsLearned": 12,
       "sources": [
         "autoclaw-native",
+        "claude-code",
         "cline-roo",
         "continue",
         "gemini"
       ],
-      "estTokens": 10588756,
+      "estTokens": 15593451,
       "gitEnriched": true
     }
   },
@@ -50,23 +67,39 @@
       {
         "ts": "2026-07-02T22:05:05.816Z",
         "value": 0.004013377926421404
+      },
+      {
+        "ts": "2026-07-26T20:01:14.767Z",
+        "value": 0.0055762081784386614
       }
     ],
     "patterns": [
       {
         "ts": "2026-07-02T22:05:05.816Z",
         "value": 7
+      },
+      {
+        "ts": "2026-07-26T20:01:14.767Z",
+        "value": 12
       }
     ],
     "estTokens": [
       {
         "ts": "2026-07-02T22:05:05.816Z",
         "value": 10588756
+      },
+      {
+        "ts": "2026-07-26T20:01:14.767Z",
+        "value": 15593451
       }
     ],
     "realTokens": [
       {
         "ts": "2026-07-02T22:05:05.816Z",
+        "value": 0
+      },
+      {
+        "ts": "2026-07-26T20:01:14.767Z",
         "value": 0
       }
     ]

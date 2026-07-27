@@ -77,6 +77,7 @@ class AssistantApplication : Application(), AppLogger {
         // Aşama 4 (T=10s): MQTT, Hava Durumu ve Ağ Servisleri
         CoroutineScope(Dispatchers.IO).launch {
             delay(10000L)
+            com.omoda.lanc.network.NetworkAutoManager.start(this@AssistantApplication)
             com.omoda.lanc.network.NetworkMonitor(this@AssistantApplication)
             com.omoda.lanc.network.WeatherManager.startPolling()
 

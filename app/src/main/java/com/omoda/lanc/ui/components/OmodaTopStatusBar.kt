@@ -45,7 +45,7 @@ fun OmodaTopStatusBar(
     }
 
     Surface(
-        color = OmodaSlateBg.copy(alpha = 0.9f),
+        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
         border = BorderStroke(1.dp, OmodaGlassCardBorder),
         modifier = modifier
             .fillMaxWidth()
@@ -83,9 +83,9 @@ fun OmodaTopStatusBar(
 
             // Orta Kısım: Omoda 5 Logo / Asistan Tetikleyici
             Surface(
-                color = OmodaCyanNeon.copy(alpha = 0.15f),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
                 shape = RoundedCornerShape(20.dp),
-                border = BorderStroke(1.dp, OmodaCyanNeon.copy(alpha = 0.5f)),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)),
                 modifier = Modifier
                     .clip(RoundedCornerShape(20.dp))
                     .clickable { onOpenVoiceAssistant() }
@@ -98,12 +98,12 @@ fun OmodaTopStatusBar(
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = "Hermes Sesli Asistan",
-                        tint = OmodaCyanNeon,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
                         text = "HERMES AI",
-                        color = OmodaCyanNeon,
+                        color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp
                     )

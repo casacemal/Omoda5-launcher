@@ -37,6 +37,8 @@ import com.omoda.lanc.ui.components.CarIconButton
 import com.omoda.lanc.ui.components.MinCarTouchTarget
 import kotlinx.coroutines.delay
 
+import androidx.compose.ui.tooling.preview.Preview
+import com.omoda.lanc.ui.theme.AppTheme
 import com.omoda.lanc.ui.components.SafetyConfirmationDialog
 
 @Composable
@@ -45,23 +47,36 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
     val context = androidx.compose.ui.platform.LocalContext.current
     val gVehicleState by GlobalState.vehicleState.collectAsState()
     var vehicleState by remember(gVehicleState) { mutableStateOf(gVehicleState) }
-    var lastUpdate by remember { mutableLongStateOf(System.currentTimeMillis()) }
     val isSimMode by GlobalState.isSimulationMode.collectAsState()
-
-    // Safety Dialog State
-    var showSafetyDialog by remember { mutableStateOf(false) }
-    var pendingActionTitle by remember { mutableStateOf("") }
-    var pendingRiskDescription by remember { mutableStateOf("") }
-    var pendingAction by remember { mutableStateOf<(() -> Unit)?>(null) }
 
     LaunchedEffect(Unit) {
         EventBus.events.collect { event ->
             if (event is Event.VehicleEvent.StateUpdated) {
                 vehicleState = event.state
-                lastUpdate = System.currentTimeMillis()
             }
         }
     }
+
+    SensorMonitorContent(
+        vehicleState = vehicleState,
+        isSimMode = isSimMode,
+        onBack = onBack,
+        onExec = { command -> exec(context, command) }
+    )
+}
+
+@Composable
+fun SensorMonitorContent(
+    vehicleState: VehicleState,
+    isSimMode: Boolean,
+    onBack: () -> Unit,
+    onExec: (String) -> Unit
+) {
+    // Safety Dialog State
+    var showSafetyDialog by remember { mutableStateOf(false) }
+    var pendingActionTitle by remember { mutableStateOf("") }
+    var pendingRiskDescription by remember { mutableStateOf("") }
+    var pendingAction by remember { mutableStateOf<(() -> Unit)?>(null) }
 
     // Risk Onay Modalı
     SafetyConfirmationDialog(
@@ -173,7 +188,7 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
                 onClick = {
                     pendingActionTitle = "Klima Kontrolü ve Testi"
                     pendingRiskDescription = "Bu işlem araç klima servisini başlatacak/duraklatacaktır. İşlemi onaylıyor musunuz?"
-                    pendingAction = { exec(context, "am start -n com.chery.hvac/.view.activity.MainActivity") }
+                    pendingAction = { onExec("am start -n com.chery.hvac/.view.activity.MainActivity") }
                     showSafetyDialog = true
                 },
                 text = "Klima Aç/Kapat",
@@ -184,7 +199,7 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
                 onClick = {
                     pendingActionTitle = "WIFI Servisi Onarımı"
                     pendingRiskDescription = "Bu işlem araç WIFI bağlantısını 1 saniyeliğine yenileyecektir."
-                    pendingAction = { exec(context, "svc wifi disable; sleep 1; svc wifi enable") }
+                    pendingAction = { onExec("svc wifi disable; sleep 1; svc wifi enable") }
                     showSafetyDialog = true
                 },
                 text = "WIFI Onar",
@@ -192,7 +207,7 @@ fun SensorMonitorScreen(onBack: () -> Unit) {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3).copy(alpha = 0.2f), contentColor = Color.White)
             )
             CarButton(
-                onClick = { exec(context, "logcat -c") },
+                onClick = { onExec("logcat -c") },
                 text = "Logları Temizle",
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Gray.copy(alpha = 0.2f), contentColor = Color.White)
@@ -236,5 +251,35 @@ fun SensorCard(item: SensorItem) {
             Spacer(Modifier.height(4.dp))
             Text(item.value, color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.ExtraBold)
         }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 1280, heightDp = 720)
+@Composable
+fun SensorMonitorPreview() {
+    AppTheme {
+        SensorMonitorContent(
+            vehicleState = com.omoda.lanc.model.VehicleState(
+                speed = 85f,
+                engineRpm = 2200f,
+                gearString = "D3",
+                engineCoolantTemp = 90f,
+                absActive = false,
+                tractionControlActive = false,
+                turnSignalLeft = true,
+                fuelLevel = 45f,
+                rangeKm = 310f,
+                isHvacOn = true,
+                acTemperatureDriver = 21,
+                acFanSpeed = 2,
+                outsideTemperature = 22f,
+                parkingBrake = false,
+                odometer = 54321f,
+                anyDoorOpen = false
+            ),
+            isSimMode = false,
+            onBack = {},
+            onExec = {}
+        )
     }
 }

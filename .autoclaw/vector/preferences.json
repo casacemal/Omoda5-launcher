@@ -4,7 +4,14 @@
     "Kept (git commit): private fun checkProactiveWarnings() {",
     "Kept (git commit): class CommandRouter(",
     "Kept (git commit): data class AppConfig(",
-    "Kept (git commit): val reader = proc.inputStream.bufferedReader()"
+    "Kept (git commit): val reader = proc.inputStream.bufferedReader()",
+    "Kept (git commit): import Supermemory from \"supermemory\";",
+    "Kept (git commit): package com.omoda.lanc.ui.screens",
+    "Kept (git commit): package com.omoda.lanc.service",
+    "Kept (git commit): package com.omoda.lanc.mqtt",
+    "Kept (git commit): package com.omoda.lanc.config",
+    "Kept (git commit): data class AppUpdate(",
+    "Kept (git commit): fun parseAndApplyLine(line: String) {"
   ],
   "avoided": [
     "Avoid large speculative rewrites that are not backed by tests.",
@@ -13,5 +20,5 @@
   "tools": [
     "Gemini CLI"
   ],
-  "updatedAt": "2026-07-02T22:05:05.816Z"
+  "updatedAt": "2026-07-26T20:01:14.767Z"
 }

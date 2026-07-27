@@ -5,12 +5,12 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
 ## Bilgi Çıkarma Protokolü
 
 0.  **Dil Kuralı:** Kod yazımı haricindeki tüm iletişim, raporlama ve dokümantasyon güncellemeleri KESİNLİKLE Türkçe yapılacaktır.
-1.  **Proje Kitabı (Master Ansiklopedi) Zorunluluğu (MUTLAK KURAL):** Ajanlar, herhangi bir göreve, koda müdahaleye veya test aşamasına başlamadan ÖNCE KESİNLİKLE `PROJE_KITABI.md` dosyasını baştan sona okumakla yükümlüdür. Bu kural atlanarak ezbere iş yapılamaz.
+1.  **Proje Kitabı ve Kullanıcı Belleği Zorunluluğu (MUTLAK KURAL):** Ajanlar, herhangi bir göreve başlamadan ÖNCE KESİNLİKLE `PROJE_KITABI.md` (Teknik Hafıza) ve `USER_CONTEXT.md` (Kullanıcı Süper Belleği) dosyalarını baştan sona okumakla yükümlüdür. Bu kural atlanarak ezbere iş yapılamaz.
 2.  **Bağlantı Sorunları Protokolü:** Hermes veya MQTT bağlantı sorunu yaşandığında:
     *   **Önce Sunucu Kontrolü:** Sunucunun (192.168.1.14) erişilebilirliği ve servislerin (8642, 1883 vb.) durumu kontrol edilmeden KESİNLİKLE kod değişikliği yapılmaz.
     *   **Zorla Konfigürasyon Yükleme:** Bağlantı veya yetkilendirme sorunları devam ediyorsa, teyit amaçlı `scripts/push_config.py --ip <cihaz_ip>` betiği kullanılarak güncel IP'ler ve GitHub API anahtarları cihaza doğrudan (ADB üzerinden) itilmeli ve uygulamanın yeniden başlatılması sağlanmalıdır.
-    *   **Kod Kontrolü:** Sunucu normalse, uygulamadaki **3 kırmızı LED** (Bağlantı durum göstergeleri) üzerinden hata analizi yapılır.
-3.  **Sürüm/Versiyon Doğrulama Kuralı:** Ajanlar, cihaza her bağlandığında (ADB veya diğer yollarla) ve test/analiz aşamasına geçmeden ÖNCE mutlaka cihazdaki aktif uygulamanın versiyonunu (`dumpsys package` veya loglar aracılığıyla) kontrol edecektir. Eski sürüm çalışıyorken kod değişikliği yapmak veya hata aramak KESİNLİKLE YASAKTIR.
+    *   **Kod Kontrolü:** Sunucu normalse, uygulamadaki bağlantı durum göstergeleri üzerinden hata analizi yapılır.
+3.  **Sürüm/Versiyon Doğrulama Kuralı:** Ajanlar, cihaza her bağlandığında (ADB veya diğer yollarla) ve test/analiz aşamasına geçmeden ÖNCE mutlaka cihazdaki aktif uygulamanın versiyonunu kontrol edecektir. Eski sürüm çalışıyorken kod değişikliği yapmak veya hata aramak KESİNLİKLE YASAKTIR.
 4.  **Gözlem:** Her kullanıcı isteğinde ve kod incelemesinde yeni bilgiler (teknik kısıtlar, tercihler, kararlar) aranır.
 5.  **Kayıt:** Yeni bir teknik karar, kısıt veya bilgi tespit edildiğinde, kullanıcıya sormadan direkt olarak sistemin yapı taşı olan ilgili dokümana (örneğin tasarım için `UI_MANIFESTO.md`, genel kurallar için `PROJECT_BRIEF.md`) eklenir.
 6.  **Otonom İş Akışı (Auto-Fix & Deploy):** SADECE ufak syntax veya derleme hataları için "EVET" onayı bekleme kuralı kaldırılmıştır. Ajan, ufak hataları tespit ettiğinde otomatik düzeltir, derler, yükler. ANCAK BÜYÜK MİMARİ DEĞİŞİKLİKLER İÇİN BU KURAL GEÇERLİ DEĞİLDİR.
@@ -39,7 +39,7 @@ Bu dosya, projedeki otonom ajanların çalışma prensiplerini ve bilgi yönetim
 *   **UI & SES Koruma:** Ana ekran 5x2 grid yapısı, 235dp sidebar boşluğu ve 16kHz Mono ses kayıt standartları `UI_MANIFESTO.md` kurallarına göre korunmalıdır. Değiştirilemez.
 *   **Karma IP / Çoklu Port Mimarisi:** Projede MQTT, Bridge ve Hermes servisleri tek bir ana IP adresi (192.168.1.14) üzerinden sunulur. Edge TTS ve Groq gibi servisler ise kendi bağımsız sunucu IP'lerine sahiptir. Her servis port numaraları ile ayrıştırılmaya devam edilir.
 *   **Sabit Sunucu Adresi:** `192.168.1.14` (Yerel Ağ)
-*   **Doğrulanmış Servis ve Yetki Haritası (04.07.2026 Test Sonucu):**
+*   **Doğrulanmış Servis ve Yetki Haritası:**
     *   **Hermes API (8642):** 
         *   Görev: Chat Completions (SSE), Session yönetimi.
         *   Durum: **AKTİF** (200 OK)

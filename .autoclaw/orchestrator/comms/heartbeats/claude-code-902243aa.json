@@ -1,9 +1,0 @@
-{
-  "agent_id": "claude-code",
-  "session_id": "902243aa-7a2b-4c5a-b750-a40d523c3e9e",
-  "timestamp": "2026-07-09T19:28:58.366Z",
-  "status": "active",
-  "current_task": null,
-  "branch": "Hermes-bridge",
-  "file_scope": []
-}
