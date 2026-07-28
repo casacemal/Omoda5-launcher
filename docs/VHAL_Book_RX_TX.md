@@ -355,3 +355,10 @@ val reader = proc.inputStream.bufferedReader()
 // Property:0x11600207,status: 0,timestamp:0,zone:0x0,floatValues: [0.0],int32Values: [],int64Values: [],bytes: [],string:
 ```
 *Görsel Kanıt: `docs/vhal_raw_logs.png` dosyasında cihaz kapanmadan saniyeler önce elde edilen ham okuma ispatı bulunmaktadır.*
+
+### 4.6. "isApiConnected" Tuzağı ve UI Standartları (KRİTİK)
+- **Tuzak:** `CarPropertyManager` yalnızca hız verisine (0x11600207) erişebildiği için, API bağlandığında (`isApiConnected = true`) uygulama başarılı olduğunu sanıp `dumpsys` okumasını kesiyordu. Bu sebeple RPM ve Vites verileri akmıyordu.
+- **Çözüm:** Dumpsys döngüsü, API durumundan tamamen bağımsızlaştırılarak kaba kuvvetle (brute-force polling) sonsuza dek arka planda çalıştırıldı.
+- **UI Standartları:** Gelen verilerin UI katmanında nasıl okunacağı (`HIZ`, `RPM`, `VİTES` keyleri) ve bu mimarinin daha derin bir analizi için lütfen aşağıdaki ana belgelere başvurunuz:
+  - `../DUMPSYS_MIMARISI_VE_TARIHCESI.md` (Tarihçe ve Kurallar)
+  - `VHAL_VERI_STANDARDI.md` (Arayüz Kodlama Sözlüğü)
