@@ -63,19 +63,30 @@ class PremiumCarWidget : DashboardWidget {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.Top
                     ) {
-                        Row(verticalAlignment = Alignment.Bottom) {
+                        Column {
+                            Row(verticalAlignment = Alignment.Bottom) {
+                                Text(
+                                    text = speed.substringBefore(" "),
+                                    color = Color.White,
+                                    fontSize = 48.sp,
+                                    fontWeight = FontWeight.Black
+                                )
+                                Spacer(Modifier.width(8.dp))
+                                Text(
+                                    text = "km/h",
+                                    color = TextMuted,
+                                    fontSize = 16.sp,
+                                    modifier = Modifier.padding(bottom = 8.dp)
+                                )
+                            }
+                            
+                            // RPM GÖSTERGESİ
+                            val rpm = vehicleData["DEVİR"] ?: vehicleData["RPM"] ?: vehicleData["11600305"] ?: "0 RPM"
                             Text(
-                                text = speed.substringBefore(" "),
-                                color = Color.White,
-                                fontSize = 48.sp,
-                                fontWeight = FontWeight.Black
-                            )
-                            Spacer(Modifier.width(8.dp))
-                            Text(
-                                text = "km/h",
-                                color = TextMuted,
-                                fontSize = 16.sp,
-                                modifier = Modifier.padding(bottom = 8.dp)
+                                text = rpm,
+                                color = Color(0xFF69E2D3), // Hafif turkuaz parlaklık
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold
                             )
                         }
 

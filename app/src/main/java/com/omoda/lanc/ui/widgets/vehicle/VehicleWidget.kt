@@ -51,6 +51,14 @@ class VehicleWidget : DashboardWidget {
                     fontWeight = FontWeight.Bold
                 )
                 
+                val rpm = vehicleData["11600305"] ?: vehicleData["DEVİR"] ?: vehicleData["RPM"] ?: "0 RPM"
+                Text(
+                    text = rpm,
+                    color = Color.White.copy(alpha = 0.8f),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                
                 Text(
                     text = "Vites: $gear",
                     color = Color.White,

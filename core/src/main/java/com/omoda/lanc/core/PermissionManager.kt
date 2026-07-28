@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import com.omoda.lanc.network.AdbClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 /**
  * PermissionManager - Merkezi İzin ve Yetki Yöneticisi
@@ -44,7 +46,8 @@ object PermissionManager {
             Manifest.permission.RECORD_AUDIO to "Mikrofon Erişimi",
             Manifest.permission.ACCESS_FINE_LOCATION to "Hassas Konum (GPS)",
             Manifest.permission.WRITE_EXTERNAL_STORAGE to "Dosya Yazma Yetkisi",
-            "android.car.permission.CAR_SPEED" to "Araç Hız Verisi"
+            "android.car.permission.CAR_SPEED" to "Araç Hız Verisi",
+            Manifest.permission.DUMP to "Dumpsys Sistem Okuma (VHAL)"
         )
         androidPerms.forEach { (perm, label) ->
             list.add(PermissionStatus(perm, label, isGranted(context, perm), PermissionType.ANDROID, "pm grant $packageName $perm"))
@@ -106,10 +109,24 @@ object PermissionManager {
         val enabledListeners = Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners") ?: ""
         return enabledListeners.contains(context.packageName)
     }
-
+    
     private fun checkRootStatus() {
-        AdbClient.executeCommand("id") { line ->
-            if (line.contains("uid=0(root)")) _isRooted.value = true
+        _isRooted.value = false // Default to false
+        try {
+            val suPaths = arrayOf("/system/bin/su", "/system/xbin/su", "/sbin/su")
+            for (suPath in suPaths) {
+                if (java.io.File(suPath).exists()) {
+                    val process = Runtime.getRuntime().exec(arrayOf(suPath, "-c", "id"))
+                    val reader = BufferedReader(InputStreamReader(process.inputStream))
+                    val output = reader.readLine()
+                    if (output != null && output.contains("uid=0")) {
+                        _isRooted.value = true
+                        return
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "Root check failed", e)
         }
     }
 
@@ -131,5 +148,10 @@ object PermissionManager {
             putExtra("command", "setprop service.adb.tcp.port 5555; stop adbd; start adbd")
         }
         context.startForegroundService(intent)
+
+        AdbClient.executeCommand("id") { line ->
+             _isRooted.value = line.contains("uid=0")
+             android.widget.Toast.makeText(context, "Root sonucu: $line", android.widget.Toast.LENGTH_LONG).show()
+        }
     }
 }
